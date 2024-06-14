@@ -1,0 +1,12 @@
+.linkMenu{
+    color: white;
+    margin: 0 !important;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 10px 8px;
+    transition: all 0.3s ease-in-out;
+}
+.linkMenu:hover{
+    background-color: #0057a3;
+    color: white;
+}

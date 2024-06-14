@@ -1,0 +1,14 @@
+{
+  "name": "klwb_app",
+  "description": "klwb app",
+  "version": "1.0.0",
+  "scripts": {
+    "docker:up": "cd docker && docker-compose up -d",
+    "docker:down": "cd docker && docker-compose down",
+    "backend": "cd backend && php artisan serve --host=0.0.0.0 --port=8000",
+    "client": "cd frontend && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
