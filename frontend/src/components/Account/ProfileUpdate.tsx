@@ -90,6 +90,7 @@ export default function ProfileUpdate({display}: {display: boolean}) {
                         <>
                             <Form.ControlLabel>Email</Form.ControlLabel>
                             <Form.Control name={field.name} type="email" value={field.value} onChange={field.onChange} />
+                            <Form.HelpText><b>Note:</b> <i>Changing email will lead to re-verification process of your account</i></Form.HelpText>
                             <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
                                 {errors[field.name]?.message}
                             </Form.ErrorMessage>
@@ -105,6 +106,7 @@ export default function ProfileUpdate({display}: {display: boolean}) {
                         <>
                             <Form.ControlLabel>Phone</Form.ControlLabel>
                             <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
+                            <Form.HelpText><b>Note:</b> <i>Changing phone will lead to re-verification process of your account</i></Form.HelpText>
                             <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
                                 {errors[field.name]?.message}
                             </Form.ErrorMessage>

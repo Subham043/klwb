@@ -3,6 +3,7 @@
 use App\Modules\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\Accounts\Controllers\ProfileController;
 use App\Modules\Accounts\Controllers\ProfileUpdateController;
+use App\Modules\Accounts\Controllers\ProfileVerifyController;
 use App\Modules\Authentication\Controllers\ForgotPasswordViaEmailController;
 use App\Modules\Authentication\Controllers\EmailLoginController;
 use App\Modules\Authentication\Controllers\ForgotPasswordViaPhoneController;
@@ -33,6 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('account')->group(function () {
             Route::get('/', [ProfileController::class, 'index']);
             Route::post('/update', [ProfileUpdateController::class, 'index']);
+            Route::post('/verify', [ProfileVerifyController::class, 'index']);
             Route::post('/update-password', [PasswordUpdateController::class, 'index']);
         });
     });

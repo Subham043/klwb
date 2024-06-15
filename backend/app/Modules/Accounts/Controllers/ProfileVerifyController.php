@@ -4,12 +4,12 @@ namespace App\Modules\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
-use App\Modules\Accounts\Requests\ProfilePostRequest;
+use App\Modules\Accounts\Requests\ProfileVerifyPostRequest;
 use App\Modules\Accounts\Resources\ProfileCollection;
 use App\Modules\Accounts\Services\ProfileService;
 use App\Modules\Users\Services\UserService;
 
-class ProfileUpdateController extends Controller
+class ProfileVerifyController extends Controller
 {
     private $profileService;
     private $userService;
@@ -20,33 +20,23 @@ class ProfileUpdateController extends Controller
         $this->userService = $userService;
     }
 
-    public function index(ProfilePostRequest $request){
+    public function index(ProfileVerifyPostRequest $request){
 
-        $email_status = false;
-        $phone_status = false;
         try {
             //code...
             $user = $this->profileService->profile();
-            if($user->email != $request->email) {
-                $email_status = true;
-            }
-            if($user->phone != $request->phone) {
-                $phone_status = true;
-            }
-            $updated_user = $this->userService->update(
-                $request->validated(),
+            $this->userService->update(
+                [
+                    'verified_at' => now(),
+                    'otp' => rand(1111, 9999),
+                ],
                 $user
             );
-            if ($email_status || $phone_status) {
-                $updated_user->verified_at = null;
-                $updated_user->save();
-                // $updated_user->sendEmailVerificationNotification();
-            }
 
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 'profile' => ProfileCollection::make(auth()->user()),
-                'message' => "Profile Updated successfully.",
+                'message' => "Profile Verified successfully.",
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

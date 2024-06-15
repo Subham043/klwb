@@ -7,6 +7,7 @@ import AccountProvider from "./contexts/accountProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryClientOptions } from "./utils/constants";
 const AuthLayout = lazy(()=>import("./layouts/Auth"));
+const VerifiedLayout = lazy(()=>import("./layouts/Verified"));
 const ProtectedLayout = lazy(()=>import("./layouts/Protected"));
 const GuestLayout = lazy(()=>import("./layouts/Guest"));
 const DashboardLayout = lazy(()=>import("./layouts/Dashboard"));
@@ -28,8 +29,10 @@ function App() {
               <Routes>
                 <Route element={<PersistLayout />}>
                   <Route element={<ProtectedLayout />}>
-                    <Route element={<DashboardLayout />}>
-                      <Route path={page_routes.dashboard} element={<DashboardPage />} />
+                    <Route element={<VerifiedLayout />}>
+                      <Route element={<DashboardLayout />}>
+                        <Route path={page_routes.dashboard} element={<DashboardPage />} />
+                      </Route>
                     </Route>
                   </Route>
                   <Route element={<GuestLayout />}>
