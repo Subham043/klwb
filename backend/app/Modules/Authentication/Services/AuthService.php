@@ -25,8 +25,8 @@ class AuthService
 
     public function logout(Request $request): void
     {
-        auth()->guard('web')->logout();
         $request->user()->tokens()->delete();
+        auth()->guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
     }
