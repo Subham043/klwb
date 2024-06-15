@@ -1,5 +1,5 @@
 import ReCAPTCHA from "react-google-recaptcha";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, ButtonToolbar, Form, Input, InputGroup } from 'rsuite'
 import { useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -11,6 +11,8 @@ import UnvisibleIcon from '@rsuite/icons/Unvisible';
 import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
+import { AuthType } from "../../utils/types";
+import { useUser } from "../../hooks/useUser";
 
 const schema = yup
   .object({
@@ -24,6 +26,10 @@ export default function LoginWithEmail() {
     const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
+    const {setUser} = useUser();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || page_routes.dashboard;
     const captchaRef = useRef<ReCAPTCHA>(null);
 
     const handleChange = () => {
@@ -42,13 +48,15 @@ export default function LoginWithEmail() {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(api_routes.auth.login.email, getValues());
+            const response = await api.post<{user:AuthType}>(api_routes.auth.login.email, getValues());
+            setUser(response.data.user);
             toastSuccess("Login Successful");
             reset({
                 email: "",
                 password: "",
                 captcha: "",
             });
+            navigate(from, {replace: true});
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error?.response?.data?.message) {

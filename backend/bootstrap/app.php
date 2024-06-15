@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Middleware\ApiResponse;
-use App\Http\Middleware\CustomCors;
 use App\Http\Middleware\HttpHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -25,10 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
         $middleware->append(HttpHeaders::class);
-        $middleware->appendToGroup('api', [
-            ApiResponse::class,
-            CustomCors::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
 

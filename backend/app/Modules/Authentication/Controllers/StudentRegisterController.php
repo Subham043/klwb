@@ -19,7 +19,8 @@ class StudentRegisterController extends Controller
 
     public function index(StudentRegisterPostRequest $request){
 
-        $user = $this->userService->create($request->safe()->except(['captcha']));
+        $user = $this->userService->create([...$request->safe()->except(['captcha'])]);
+        $this->userService->syncRoles(["Student"], $user);
 
         (new RateLimitService($request))->clearRateLimit();
         return response()->json([

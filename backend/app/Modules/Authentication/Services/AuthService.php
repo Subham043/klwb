@@ -23,9 +23,12 @@ class AuthService
         return Auth::user();
     }
 
-    public function logout(User $user): void
+    public function logout(Request $request): void
     {
-        $user->tokens()->delete();
+        auth()->guard('web')->logout();
+        $request->user()->tokens()->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
     }
 
 }
