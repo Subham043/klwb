@@ -21,7 +21,7 @@ export const api_routes = {
   },
   account: {
     profile: "/api/v1/account",
-    profile_update: "/api/v1/account/profile",
-    password_update: "/api/v1/account/password",
+    profile_update: "/api/v1/account/update",
+    password_update: "/api/v1/account/update-password",
   },
 } as const;

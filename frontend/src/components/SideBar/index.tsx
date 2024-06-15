@@ -7,9 +7,12 @@ import ListIcon from '@rsuite/icons/List';
 import DocPassIcon from '@rsuite/icons/DocPass';
 import DetailIcon from '@rsuite/icons/Detail';
 import MemberIcon from '@rsuite/icons/Member';
+import { useAccountModal } from '../../hooks/useAccountModal';
 
 
 const SideBar:FC<{expand: boolean}> = ({expand}) => {
+    const {toggleAccountModal} = useAccountModal();
+
     return (
         <Sidebar
             className={classes.sidebar}
@@ -31,7 +34,7 @@ const SideBar:FC<{expand: boolean}> = ({expand}) => {
                         <Nav.Item eventKey="4" icon={<DetailIcon />}>
                             Application Detail
                         </Nav.Item>
-                        <Nav.Item eventKey="5" icon={<MemberIcon />}>
+                        <Nav.Item eventKey="5" icon={<MemberIcon />} onClick={() => toggleAccountModal(true)}>
                             Account Settings
                         </Nav.Item>
                         {/* <Nav.Item eventKey="2" icon={<ArrowRightLineIcon />}>

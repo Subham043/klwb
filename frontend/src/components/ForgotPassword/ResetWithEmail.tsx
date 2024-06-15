@@ -9,8 +9,15 @@ import { useRef, useState } from "react";
 import { useToast } from "../../hooks/useToast";
 import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
+import { isAxiosError } from "axios";
+import { AxiosErrorResponseType } from "../../utils/types";
 
-const schema = yup
+type SchemaType = {
+  email: string;
+  captcha: string;
+};
+
+const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     email: yup.string().typeError("Email must contain characters only").email().required("Email is required"),
     captcha: yup.string().typeError("Captcha must contain characters only").required("Captcha is required"),
@@ -29,7 +36,7 @@ export default function ResetWithEmail() {
         setError,
         reset,
         formState: { errors }
-    } = useForm({ 
+    } = useForm<SchemaType>({ 
         defaultValues: { email: '' },
         resolver: yupResolver(schema) 
     });
@@ -43,22 +50,18 @@ export default function ResetWithEmail() {
                 email: "",
                 captcha: "",
             });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            if (error?.response?.data?.message) {
-                toastError(error?.response?.data?.message);
-            }
-            if (error?.response?.data?.errors?.email) {
-                setError("email", {
-                type: "server",
-                message: error?.response?.data?.errors?.email[0],
-                });
-            }
-            if (error?.response?.data?.errors?.captcha) {
-                setError("captcha", {
-                type: "server",
-                message: error?.response?.data?.errors?.captcha[0],
-                });
+        } catch (error) {
+            if(isAxiosError<AxiosErrorResponseType>(error)){
+                if(error?.response?.data?.errors){
+                    for (const [key, value] of Object.entries(error?.response?.data?.errors)) {
+                        setError(key as keyof SchemaType, {
+                            type: "server",
+                            message: value[0],
+                        });
+                    }
+                }else if(error?.response?.data?.message){
+                    toastError(error.response.data.message);
+                }
             }
         }finally {
             setLoading(false);

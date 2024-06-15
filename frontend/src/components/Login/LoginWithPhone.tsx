@@ -12,9 +12,16 @@ import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { useUser } from "../../hooks/useUser";
-import { AuthType } from "../../utils/types";
+import { AuthType, AxiosErrorResponseType } from "../../utils/types";
+import { isAxiosError } from "axios";
 
-const schema = yup
+type SchemaType = {
+  phone: number;
+  password: string;
+  captcha: string;
+};
+
+const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     phone: yup.number().typeError("Phone must contain numbers only").positive().required("Phone is required"),
     password: yup.string().typeError("Password must contain characters only").required("Password is required"),
@@ -43,7 +50,7 @@ export default function LoginWithPhone() {
         reset,
         setError,
         formState: { errors }
-    } = useForm({ resolver: yupResolver(schema) });
+    } = useForm<SchemaType>({ resolver: yupResolver(schema) });
 
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
@@ -57,28 +64,18 @@ export default function LoginWithPhone() {
                 captcha: "",
             });
             navigate(from, {replace: true});
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error:any) {
-            if (error?.response?.data?.message) {
-                toastError(error?.response?.data?.message);
-            }
-            if (error?.response?.data?.errors?.phone) {
-                setError("phone", {
-                type: "server",
-                message: error?.response?.data?.errors?.phone[0],
-                });
-            }
-            if (error?.response?.data?.errors?.password) {
-                setError("password", {
-                type: "server",
-                message: error?.response?.data?.errors?.password[0],
-                });
-            }
-            if (error?.response?.data?.errors?.captcha) {
-                setError("captcha", {
-                type: "server",
-                message: error?.response?.data?.errors?.captcha[0],
-                });
+        } catch (error) {
+            if(isAxiosError<AxiosErrorResponseType>(error)){
+                if(error?.response?.data?.errors){
+                    for (const [key, value] of Object.entries(error?.response?.data?.errors)) {
+                        setError(key as keyof SchemaType, {
+                            type: "server",
+                            message: value[0],
+                        });
+                    }
+                }else if(error?.response?.data?.message){
+                    toastError(error.response.data.message);
+                }
             }
         }finally {
             setLoading(false);

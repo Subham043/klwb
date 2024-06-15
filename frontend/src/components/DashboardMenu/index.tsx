@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { page_routes } from '../../utils/page_routes';
 import api from '../../utils/axios';
 import { api_routes } from '../../utils/api_routes';
+import { useAccountModal } from '../../hooks/useAccountModal';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderToggle = (props: any) => (
@@ -18,6 +19,7 @@ export default function DashboardMenu({expand, setExpand}:{expand: boolean, setE
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {removeUser} = useUser();
+    const {toggleAccountModal} = useAccountModal();
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
@@ -44,8 +46,7 @@ export default function DashboardMenu({expand, setExpand}:{expand: boolean, setE
             </div>
             <div className="col-auto">
                 <Dropdown renderToggle={renderToggle}>
-                    <Dropdown.Item>Account Settings</Dropdown.Item>
-                    <Dropdown.Item>Change Password</Dropdown.Item>
+                    <Dropdown.Item onClick={()=>toggleAccountModal(true)}>Account Settings</Dropdown.Item>
                     <Dropdown.Item disabled={loading} onClick={logoutHandler}>Logout</Dropdown.Item>
                 </Dropdown>
             </div>

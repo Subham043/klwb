@@ -16,3 +16,8 @@ export type AuthType = {
   verified: "VERIFICATION PENDING" | "VERIFIED";
   verified_at: string | null;
 };
+
+export type AxiosErrorResponseType = {
+  message: string;
+  errors?: Record<string, string[]>;
+};
