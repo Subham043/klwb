@@ -2,11 +2,12 @@
 
 namespace App\Modules\Authentication\Requests;
 
+use App\Http\Services\RateLimitService;
 use Illuminate\Foundation\Http\FormRequest;
 use Stevebauman\Purify\Facades\Purify;
-use App\Http\Services\RateLimitService;
 
-class ForgotPasswordPostRequest extends FormRequest
+
+class PhoneLoginPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +28,21 @@ class ForgotPasswordPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required','string','email:rfc,dns','max:255','exists:App\Modules\Authentication\Models\User,email'],
+            'phone' => 'required|numeric|digits:10',
+            'password' => 'required|string',
+            'captcha' => 'required|captcha'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'captcha.captcha' => 'Invalid Captcha. Please try again.',
         ];
     }
 
@@ -41,4 +56,5 @@ class ForgotPasswordPostRequest extends FormRequest
         $request = Purify::clean($this->all());
         $this->replace([...$request]);
     }
+
 }

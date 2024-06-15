@@ -4,11 +4,11 @@ namespace App\Modules\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
-use App\Modules\Authentication\Requests\LoginPostRequest;
+use App\Modules\Authentication\Requests\PhoneLoginPostRequest;
 use App\Modules\Authentication\Resources\AuthCollection;
 use App\Modules\Authentication\Services\AuthService;
 
-class LoginController extends Controller
+class PhoneLoginController extends Controller
 {
     private $authService;
 
@@ -17,18 +17,19 @@ class LoginController extends Controller
         $this->authService = $authService;
     }
 
-    public function index(LoginPostRequest $request){
+    public function index(PhoneLoginPostRequest $request){
 
-        $is_authenticated = $this->authService->login($request->validated());
+        $is_authenticated = $this->authService->login([...$request->safe()->except(['captcha']), 'is_blocked' => 0]);
 
         if ($is_authenticated) {
             (new RateLimitService($request))->clearRateLimit();
-            $token = $this->authService->generate_token(auth()->user());
+            $user = auth()->user();
+            $token = $this->authService->generate_token($user);
             return response()->json([
                 'message' => 'Logged in successfully.',
                 'token_type' => 'Bearer',
                 'token' => $token,
-                'user' => AuthCollection::make(auth()->user()),
+                'user' => AuthCollection::make($user),
             ], 200);
         }
         return response()->json([

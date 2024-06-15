@@ -39,6 +39,11 @@ class UserService
         return User::where('email', $email)->firstOrFail();
     }
 
+    public function getByPhone(String $phone): User
+    {
+        return User::where('phone', $phone)->firstOrFail();
+    }
+
     public function create(array $data): User
     {
         $user = User::create([...$data, 'otp' => rand (1111, 9999)]);

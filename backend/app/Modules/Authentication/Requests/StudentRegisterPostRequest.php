@@ -8,7 +8,7 @@ use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Validation\Rules\Password as PasswordValidation;
 
 
-class RegisterPostRequest extends FormRequest
+class StudentRegisterPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -42,6 +42,19 @@ class RegisterPostRequest extends FormRequest
                         ->uncompromised()
             ],
             'confirm_password' => ['required_with:password','same:password'],
+            'captcha' => 'required|captcha'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'captcha.captcha' => 'Invalid Captcha. Please try again.',
         ];
     }
 

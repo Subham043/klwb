@@ -4,6 +4,7 @@ namespace App\Modules\Authentication\Services;
 
 use Illuminate\Support\Facades\Auth;
 use App\Modules\Users\Models\User;
+use Illuminate\Http\Request;
 
 class AuthService
 {
@@ -22,9 +23,9 @@ class AuthService
         return Auth::user();
     }
 
-    public function logout(): void
+    public function logout(User $user): void
     {
-        auth()->user()->currentAccessToken()->delete();
+        $user->tokens()->delete();
     }
 
 }

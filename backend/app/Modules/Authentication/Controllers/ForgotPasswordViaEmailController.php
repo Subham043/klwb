@@ -4,13 +4,13 @@ namespace App\Modules\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
-use App\Modules\Authentication\Requests\ForgotPasswordPostRequest;
+use App\Modules\Authentication\Requests\ForgotPasswordViaEmailPostRequest;
 use Illuminate\Support\Facades\Password;
 
-class ForgotPasswordController extends Controller
+class ForgotPasswordViaEmailController extends Controller
 {
 
-    public function index(ForgotPasswordPostRequest $request){
+    public function index(ForgotPasswordViaEmailPostRequest $request){
 
         $status = Password::sendResetLink(
             $request->safe()->only('email')

@@ -3,19 +3,25 @@
 use App\Modules\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\Accounts\Controllers\ProfileController;
 use App\Modules\Accounts\Controllers\ProfileUpdateController;
-use App\Modules\Authentication\Controllers\ForgotPasswordController;
-use App\Modules\Authentication\Controllers\LoginController;
+use App\Modules\Authentication\Controllers\ForgotPasswordViaEmailController;
+use App\Modules\Authentication\Controllers\EmailLoginController;
+use App\Modules\Authentication\Controllers\ForgotPasswordViaPhoneController;
 use App\Modules\Authentication\Controllers\LogoutController;
-use App\Modules\Authentication\Controllers\RegisterController;
+use App\Modules\Authentication\Controllers\PhoneLoginController;
+use App\Modules\Authentication\Controllers\StudentRegisterController;
 use App\Modules\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
-        Route::post('/login', [LoginController::class, 'index']);
-        Route::post('/register', [RegisterController::class, 'index']);
-        Route::post('/forgot-password', [ForgotPasswordController::class, 'index']);
+        Route::post('/login-via-email', [EmailLoginController::class, 'index']);
+        Route::post('/login-via-phone', [PhoneLoginController::class, 'index']);
+        Route::prefix('register')->group(function () {
+            Route::post('/student', [StudentRegisterController::class, 'index']);
+        });
+        Route::post('/forgot-password-via-email', [ForgotPasswordViaEmailController::class, 'index']);
+        Route::post('/forgot-password-via-phone', [ForgotPasswordViaPhoneController::class, 'index']);
         Route::post('/reset-password/{token}', [ResetPasswordController::class, 'index']);
     });
 
