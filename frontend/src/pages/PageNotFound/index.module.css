@@ -1,0 +1,64 @@
+.content{
+    min-height: 80vh;
+    padding: 20px 0;
+    background-image: url(/rg-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.info_col{
+    background-color: #00437d;
+    width: 450px;
+    max-width: 450px;
+    padding: 15px 20px;
+    color: #fff;
+}
+
+
+.info_col h2{
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.info_col h1{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.info_col p{
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.info_col p a{
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+.info_col p a:hover{
+    opacity: 0.8;
+}
+
+.logo{
+    object-fit: contain;
+    height: 100px;
+}
+
+.link{
+    color: #00437d;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.link:hover, .link:visited, .link:active, .link:focus, .link:focus-visible, .link:focus-within{
+    opacity: 0.8;
+    text-decoration: none;
+}

@@ -1,11 +1,13 @@
-import { lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Suspense, lazy } from "react";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom"
 import { page_routes } from "./utils/page_routes"
 import UserProvider from "./contexts/userProvider"
 import PersistLayout from "./layouts/Persist"
 import AccountProvider from "./contexts/accountProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryClientOptions } from "./utils/constants";
+import PageLoader from "./components/PageLoader";
+import PageNotFound from "./pages/PageNotFound";
 const AuthLayout = lazy(()=>import("./layouts/Auth"));
 const VerifiedLayout = lazy(()=>import("./layouts/Verified"));
 const ProtectedLayout = lazy(()=>import("./layouts/Protected"));
@@ -42,6 +44,11 @@ function App() {
                       <Route path={page_routes.auth.forgot_password} element={<ForgotPasswordPage />} />
                     </Route>
                   </Route>
+                </Route>
+                <Route element={<Suspense fallback={<PageLoader display />}>
+                    <Outlet />  
+                  </Suspense>}>
+                  <Route path="*" element={<PageNotFound />} /> {/* 👈 Renders Page Not Found Screen */}
                 </Route>
               </Routes>
             </BrowserRouter>

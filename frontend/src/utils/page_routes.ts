@@ -1,6 +1,6 @@
 export const page_routes = {
   main: "/",
-  dashboard: "/",
+  dashboard: "/dashboard",
   auth: {
     login: "/auth/login",
     forgot_password: "/auth/forgot-password",
