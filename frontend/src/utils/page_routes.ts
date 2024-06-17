@@ -4,6 +4,9 @@ export const page_routes = {
   graduation: "/graduation",
   class: "/class",
   employee: "/employee",
+  state: "/state",
+  city: "/city",
+  taluq: "/taluq",
   course: "/course",
   auth: {
     login: "/auth/login",

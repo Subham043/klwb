@@ -22,6 +22,9 @@ const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
 const ClassPage = lazy(()=>import("./pages/Class"));
 const EmployeePage = lazy(()=>import("./pages/Employee"));
+const StatePage = lazy(()=>import("./pages/State"));
+const CityPage = lazy(()=>import("./pages/City"));
+const TaluqPage = lazy(()=>import("./pages/Taluq"));
 
 const queryClient = new QueryClient(QueryClientOptions);
 
@@ -44,6 +47,9 @@ function App() {
                           <Route path={page_routes.course} element={<CoursePage />} />
                           <Route path={page_routes.class} element={<ClassPage />} />
                           <Route path={page_routes.employee} element={<EmployeePage />} />
+                          <Route path={page_routes.state} element={<StatePage />} />
+                          <Route path={page_routes.city} element={<CityPage />} />
+                          <Route path={page_routes.taluq} element={<TaluqPage />} />
                         </Route>
                     </Route>
                     </Route>

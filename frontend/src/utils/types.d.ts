@@ -65,6 +65,35 @@ export type ClassType = {
   updated_at: string;
 };
 
+export type StateType = {
+  id: number;
+  name: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CityType = {
+  id: number;
+  name: string;
+  state_id: number;
+  state: StateType;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type TaluqType = {
+  id: number;
+  name: string;
+  city_id: number;
+  city: CityType;
+  state: StateType;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Cities\Resources;
 
+use App\Modules\States\Resources\StateCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CityCollection extends JsonResource
@@ -18,6 +19,7 @@ class CityCollection extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'state_id' => $this->state_id,
+            'state' => StateCollection::make($this->whenLoaded('state')),
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

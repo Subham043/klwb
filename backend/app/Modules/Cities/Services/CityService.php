@@ -15,12 +15,12 @@ class CityService
 
     public function all(): Collection
     {
-        return City::all();
+        return City::with('state')->get();
     }
 
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
-        $query = City::where('is_active', true);
+        $query = City::with('state')->where('is_active', true);
         return QueryBuilder::for($query)
                 ->defaultSort('id')
                 ->allowedSorts('id', 'name')
@@ -33,7 +33,7 @@ class CityService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = City::latest();
+        $query = City::with('state')->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -44,7 +44,7 @@ class CityService
 
     public function getById(Int $id): City|null
     {
-        return City::findOrFail($id);
+        return City::with('state')->findOrFail($id);
     }
 
     public function create(array $data): City

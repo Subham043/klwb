@@ -15,12 +15,20 @@ class TaluqService
 
     public function all(): Collection
     {
-        return Taluq::all();
+        return Taluq::with([
+            'city' => function ($query) {
+                $query->with('state');
+            }
+        ])->get();
     }
 
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
-        $query = Taluq::where('is_active', true);
+        $query = Taluq::with([
+            'city' => function ($query) {
+                $query->with('state');
+            }
+        ])->where('is_active', true);
         return QueryBuilder::for($query)
                 ->defaultSort('id')
                 ->allowedSorts('id', 'name')
@@ -33,7 +41,11 @@ class TaluqService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Taluq::latest();
+        $query = Taluq::with([
+            'city' => function ($query) {
+                $query->with('state');
+            }
+        ])->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -44,7 +56,11 @@ class TaluqService
 
     public function getById(Int $id): Taluq|null
     {
-        return Taluq::findOrFail($id);
+        return Taluq::with([
+            'city' => function ($query) {
+                $query->with('state');
+            }
+        ])->findOrFail($id);
     }
 
     public function create(array $data): Taluq

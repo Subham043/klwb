@@ -9,6 +9,7 @@ use App\Modules\ApplicationDates\Controllers\ApplicationDateViewController;
 use App\Modules\Cities\Controllers\CityAllController;
 use App\Modules\Cities\Controllers\CityCreateController;
 use App\Modules\Cities\Controllers\CityDeleteController;
+use App\Modules\Cities\Controllers\CityExportController;
 use App\Modules\Cities\Controllers\CityPaginateController;
 use App\Modules\Cities\Controllers\CityUpdateController;
 use App\Modules\Cities\Controllers\CityViewController;
@@ -58,9 +59,11 @@ use App\Modules\SecurityQuestions\Controllers\SecurityQuestionDeleteController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionPaginateController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionUpdateController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionViewController;
+use App\Modules\States\Controllers\StateExportController;
 use App\Modules\Taluqs\Controllers\TaluqAllController;
 use App\Modules\Taluqs\Controllers\TaluqCreateController;
 use App\Modules\Taluqs\Controllers\TaluqDeleteController;
+use App\Modules\Taluqs\Controllers\TaluqExportController;
 use App\Modules\Taluqs\Controllers\TaluqPaginateController;
 use App\Modules\Taluqs\Controllers\TaluqUpdateController;
 use App\Modules\Taluqs\Controllers\TaluqViewController;
@@ -80,6 +83,7 @@ Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->
             Route::get('/view/{id}', [EmployeeViewController::class, 'index']);
         });
         Route::prefix('states')->group(function () {
+            Route::get('/excel', [StateExportController::class, 'index']);
             Route::get('/all', [StateAllController::class, 'index']);
             Route::get('/paginate', [StatePaginateController::class, 'index']);
             Route::post('/create', [StateCreateController::class, 'index']);
@@ -88,6 +92,7 @@ Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->
             Route::get('/view/{id}', [StateViewController::class, 'index']);
         });
         Route::prefix('cities')->group(function () {
+            Route::get('/excel', [CityExportController::class, 'index']);
             Route::get('/all', [CityAllController::class, 'index']);
             Route::get('/paginate', [CityPaginateController::class, 'index']);
             Route::post('/create', [CityCreateController::class, 'index']);
@@ -96,6 +101,7 @@ Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->
             Route::get('/view/{id}', [CityViewController::class, 'index']);
         });
         Route::prefix('taluqs')->group(function () {
+            Route::get('/excel', [TaluqExportController::class, 'index']);
             Route::get('/all', [TaluqAllController::class, 'index']);
             Route::get('/paginate', [TaluqPaginateController::class, 'index']);
             Route::post('/create', [TaluqCreateController::class, 'index']);
