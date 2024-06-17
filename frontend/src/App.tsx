@@ -10,6 +10,7 @@ import PageLoader from "./components/PageLoader";
 import PageNotFound from "./pages/PageNotFound";
 const AuthLayout = lazy(()=>import("./layouts/Auth"));
 const VerifiedLayout = lazy(()=>import("./layouts/Verified"));
+const AuthorisedLayout = lazy(()=>import("./layouts/Authorised"));
 const ProtectedLayout = lazy(()=>import("./layouts/Protected"));
 const GuestLayout = lazy(()=>import("./layouts/Guest"));
 const DashboardLayout = lazy(()=>import("./layouts/Dashboard"));
@@ -35,12 +36,14 @@ function App() {
                 <Route element={<PersistLayout />}>
                   <Route element={<ProtectedLayout />}>
                     <Route element={<VerifiedLayout />}>
-                      <Route element={<DashboardLayout />}>
-                        <Route path={page_routes.dashboard} element={<DashboardPage />} />
-                        <Route path={page_routes.graduation} element={<GraduationPage />} />
-                        <Route path={page_routes.course} element={<CoursePage />} />
-                        <Route path={page_routes.class} element={<ClassPage />} />
-                      </Route>
+                    <Route element={<AuthorisedLayout roles={["Super-Admin", "Admin"]} />}>
+                        <Route element={<DashboardLayout />}>
+                          <Route path={page_routes.dashboard} element={<DashboardPage />} />
+                          <Route path={page_routes.graduation} element={<GraduationPage />} />
+                          <Route path={page_routes.course} element={<CoursePage />} />
+                          <Route path={page_routes.class} element={<ClassPage />} />
+                        </Route>
+                    </Route>
                     </Route>
                   </Route>
                   <Route element={<GuestLayout />}>

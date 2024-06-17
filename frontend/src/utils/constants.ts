@@ -19,3 +19,14 @@ export const QueryClientOptions: QueryClientConfig = {
 export const QueryInitialPageParam = 1;
 
 export const QueryTotalCount = 10;
+
+export const Roles = [
+  "Super-Admin",
+  "Admin",
+  "Verification-Officer",
+  "Financial-Officer",
+  "Payment-Officer",
+  "Industry",
+  "Institute",
+  "Student",
+];

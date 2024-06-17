@@ -4,13 +4,23 @@ export type ChildrenType = {
   children: ReactNode;
 };
 
+export type Role =
+  | "Super-Admin"
+  | "Admin"
+  | "Verification-Officer"
+  | "Financial-Officer"
+  | "Payment-Officer"
+  | "Industry"
+  | "Institute"
+  | "Student";
+
 export type AuthType = {
   id: number;
   name: string;
   phone: string;
   email: string;
   is_blocked: boolean | null;
-  role: string | null;
+  role: Role | null;
   created_at: string;
   updated_at: string;
   verified: "VERIFICATION PENDING" | "VERIFIED";

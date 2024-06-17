@@ -25,6 +25,23 @@ a, a:hover {
     width: 100%;
 }
 
+.h-100{
+    height: 100%;
+}
+
+.d-inline-block{
+    display: inline-block;
+}
+
+.sidebar-navlink, .sidebar-navlink:hover, .sidebar-navlink:focus, .sidebar-navlink:active, .sidebar-navlink:visited {
+    color: var(--rs-sidenav-subtle-text);
+    text-decoration: none;
+}
+
+.sidebar-navlink.active{
+    color: #00437d;
+}
+
 .container{
     max-width: 1200px;
     width: 100%;
