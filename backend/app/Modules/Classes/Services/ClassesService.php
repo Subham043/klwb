@@ -15,12 +15,20 @@ class ClassesService
 
     public function all(): Collection
     {
-        return Classes::all();
+        return Classes::with([
+            'course' => function ($query) {
+                $query->with('graduation');
+            }
+        ])->get();
     }
 
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
-        $query = Classes::where('is_active', true);
+        $query = Classes::with([
+            'course' => function ($query) {
+                $query->with('graduation');
+            }
+        ])->where('is_active', true);
         return QueryBuilder::for($query)
                 ->defaultSort('id')
                 ->allowedSorts('id', 'name')
@@ -33,7 +41,11 @@ class ClassesService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Classes::latest();
+        $query = Classes::with([
+            'course' => function ($query) {
+                $query->with('graduation');
+            }
+        ])->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -44,7 +56,11 @@ class ClassesService
 
     public function getById(Int $id): Classes|null
     {
-        return Classes::findOrFail($id);
+        return Classes::with([
+            'course' => function ($query) {
+                $query->with('graduation');
+            }
+        ])->findOrFail($id);
     }
 
     public function create(array $data): Classes

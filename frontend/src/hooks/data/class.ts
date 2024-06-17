@@ -3,14 +3,14 @@ import { api_routes } from "../../utils/api_routes";
 import { useSearchParams } from "react-router-dom";
 import { QueryInitialPageParam, QueryTotalCount } from "../../utils/constants";
 import api from "../../utils/axios";
-import { CourseType, PaginationType } from "../../utils/types";
+import { ClassType, PaginationType } from "../../utils/types";
 
-export const CourseQueryKey = "course";
-export const CoursesQueryKey = "courses";
-export const CourseSelectQueryKey = "course_select";
+export const ClassQueryKey = "class";
+export const ClassesQueryKey = "classes";
+export const ClassSelectQueryKey = "class_select";
 
-export const useCoursesQuery: () => UseQueryResult<
-  PaginationType<CourseType>,
+export const useClassesQuery: () => UseQueryResult<
+  PaginationType<ClassType>,
   unknown
 > = () => {
   const [searchParams] = useSearchParams();
@@ -18,10 +18,10 @@ export const useCoursesQuery: () => UseQueryResult<
   const limit = searchParams.get("limit") || QueryTotalCount.toString();
   const search = searchParams.get("search") || "";
   return useQuery({
-    queryKey: [CoursesQueryKey, page, limit, search],
+    queryKey: [ClassesQueryKey, page, limit, search],
     queryFn: async () => {
-      const response = await api.get<PaginationType<CourseType>>(
-        api_routes.admin.course.paginate +
+      const response = await api.get<PaginationType<ClassType>>(
+        api_routes.admin.class.paginate +
           `?page=${page}&total=${limit}&filter[search]=${search}`
       );
       return response.data;
@@ -29,14 +29,14 @@ export const useCoursesQuery: () => UseQueryResult<
   });
 };
 
-export const useCourseSelectQuery: (
+export const useClassSelectQuery: (
   enabled: boolean
-) => UseQueryResult<CourseType[], unknown> = (enabled) => {
+) => UseQueryResult<ClassType[], unknown> = (enabled) => {
   return useQuery({
-    queryKey: [CourseSelectQueryKey],
+    queryKey: [ClassSelectQueryKey],
     queryFn: async () => {
-      const response = await api.get<{ data: CourseType[] }>(
-        api_routes.admin.course.all
+      const response = await api.get<{ data: ClassType[] }>(
+        api_routes.admin.class.all
       );
       return response.data.data;
     },
@@ -44,15 +44,15 @@ export const useCourseSelectQuery: (
   });
 };
 
-export const useCourseQuery: (
+export const useClassQuery: (
   id: number,
   enabled: boolean
-) => UseQueryResult<CourseType, unknown> = (id, enabled) => {
+) => UseQueryResult<ClassType, unknown> = (id, enabled) => {
   return useQuery({
-    queryKey: [CourseQueryKey, id],
+    queryKey: [ClassQueryKey, id],
     queryFn: async () => {
-      const response = await api.get<{ data: CourseType }>(
-        api_routes.admin.course.view(id)
+      const response = await api.get<{ data: ClassType }>(
+        api_routes.admin.class.view(id)
       );
       return response.data.data;
     },

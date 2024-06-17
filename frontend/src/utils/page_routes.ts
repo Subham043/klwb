@@ -2,6 +2,7 @@ export const page_routes = {
   main: "/",
   dashboard: "/dashboard",
   graduation: "/graduation",
+  class: "/class",
   course: "/course",
   auth: {
     login: "/auth/login",

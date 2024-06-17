@@ -15,6 +15,7 @@ use App\Modules\Cities\Controllers\CityViewController;
 use App\Modules\Classes\Controllers\ClassesAllController;
 use App\Modules\Classes\Controllers\ClassesCreateController;
 use App\Modules\Classes\Controllers\ClassesDeleteController;
+use App\Modules\Classes\Controllers\ClassesExportController;
 use App\Modules\Classes\Controllers\ClassesPaginateController;
 use App\Modules\Classes\Controllers\ClassesUpdateController;
 use App\Modules\Classes\Controllers\ClassesViewController;
@@ -115,6 +116,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/view/{id}', [CourseViewController::class, 'index']);
         });
         Route::prefix('classes')->group(function () {
+            Route::get('/excel', [ClassesExportController::class, 'index']);
             Route::get('/all', [ClassesAllController::class, 'index']);
             Route::get('/paginate', [ClassesPaginateController::class, 'index']);
             Route::post('/create', [ClassesCreateController::class, 'index']);

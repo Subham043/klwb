@@ -35,6 +35,17 @@ export type CourseType = {
   updated_at: string;
 };
 
+export type ClassType = {
+  id: number;
+  name: string;
+  course_id: number;
+  course: CourseType;
+  graduation: GraduationType;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

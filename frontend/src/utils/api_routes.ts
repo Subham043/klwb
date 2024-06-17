@@ -44,5 +44,14 @@ export const api_routes = {
       delete: (id: string | number) => `/api/admin/v1/courses/delete/${id}`,
       view: (id: string | number) => `/api/admin/v1/courses/view/${id}`,
     },
+    class: {
+      excel: "/api/admin/v1/classes/excel",
+      all: "/api/admin/v1/classes/all",
+      paginate: "/api/admin/v1/classes/paginate",
+      create: "/api/admin/v1/classes/create",
+      update: (id: string | number) => `/api/admin/v1/classes/update/${id}`,
+      delete: (id: string | number) => `/api/admin/v1/classes/delete/${id}`,
+      view: (id: string | number) => `/api/admin/v1/classes/view/${id}`,
+    },
   },
 } as const;
