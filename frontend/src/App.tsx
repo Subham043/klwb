@@ -25,6 +25,7 @@ const EmployeePage = lazy(()=>import("./pages/Employee"));
 const StatePage = lazy(()=>import("./pages/State"));
 const CityPage = lazy(()=>import("./pages/City"));
 const TaluqPage = lazy(()=>import("./pages/Taluq"));
+const SecurityQuestionPage = lazy(()=>import("./pages/SecurityQuestion"));
 
 const queryClient = new QueryClient(QueryClientOptions);
 
@@ -50,6 +51,7 @@ function App() {
                           <Route path={page_routes.state} element={<StatePage />} />
                           <Route path={page_routes.city} element={<CityPage />} />
                           <Route path={page_routes.taluq} element={<TaluqPage />} />
+                          <Route path={page_routes.security_question} element={<SecurityQuestionPage />} />
                         </Route>
                     </Route>
                     </Route>

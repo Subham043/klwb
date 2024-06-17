@@ -94,6 +94,14 @@ export type TaluqType = {
   updated_at: string;
 };
 
+export type SecurityQuestionType = {
+  id: number;
+  question: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

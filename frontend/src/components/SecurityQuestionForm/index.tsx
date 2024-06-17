@@ -1,0 +1,124 @@
+import { Button, ButtonToolbar, Form, Input, Loader, Toggle } from 'rsuite'
+import { forwardRef, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import api from "../../utils/axios";
+import { api_routes } from "../../utils/api_routes";
+import { useToast } from "../../hooks/useToast";
+import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
+import { isAxiosError } from "axios";
+import Drawer from "../Drawer";
+import { useSecurityQuestionQuery } from '../../hooks/data/security_question';
+
+const Textarea = forwardRef<HTMLTextAreaElement>((props, ref) => <Input {...props} as="textarea" ref={ref} />);
+
+type SchemaType = {
+  question: string;
+  is_active: number;
+};
+
+
+const schema: yup.ObjectSchema<SchemaType> = yup
+  .object({
+    question: yup.string().typeError("Question must contain characters only").required("Question is required"),
+    is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
+  })
+  .required();
+
+export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
+    const [loading, setLoading] = useState<boolean>(false);
+    const {toastError, toastSuccess} = useToast();
+    const {data, isFetching, isLoading } = useSecurityQuestionQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+
+
+    const {
+        control,
+        handleSubmit,
+        getValues,
+        reset,
+        setError,
+        formState: { errors }
+    } = useForm<SchemaType>({ 
+        resolver: yupResolver(schema),
+        values: drawer.type==="Edit" ? {
+            question: data? data.question : "",
+            is_active: data? (data.is_active ? 1: 0) : 0
+        } : {
+            question: "",
+            is_active: 1
+        }
+     });
+
+    const onSubmit = handleSubmit(async () => {
+        setLoading(true);
+        try {
+            await api.post(drawer.type === "Edit" ? api_routes.admin.security_question.update(drawer.id) : api_routes.admin.security_question.create, getValues());
+            toastSuccess("Saved Successfully");
+            if(drawer.type==="Create"){
+                reset({
+                    question: "",
+                });
+            }
+            drawerHandler({status:false, type:'Create'});
+            refetch();
+        } catch (error) {
+            if(isAxiosError<AxiosErrorResponseType>(error)){
+                if(error?.response?.data?.errors){
+                    for (const [key, value] of Object.entries(error?.response?.data?.errors)) {
+                        setError(key as keyof SchemaType, {
+                            type: "server",
+                            message: value[0],
+                        });
+                    }
+                }else if(error?.response?.data?.message){
+                    toastError(error.response.data.message);
+                }
+            }
+        }finally {
+            setLoading(false);
+        }
+    });
+
+    return (
+        <Drawer title="Security Question" drawer={drawer} drawerHandler={drawerHandler}>
+            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
+            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                <Form.Group>
+                    <Controller
+                        name="question"
+                        control={control}
+                        render={({ field }) => (
+                            <>
+                                <Form.ControlLabel>Question</Form.ControlLabel>
+                                <Form.Control name={field.name} accepter={Textarea} value={field.value} onChange={field.onChange} />
+                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
+                                    {errors[field.name]?.message}
+                                </Form.ErrorMessage>
+                            </>
+                        )}
+                    />
+                </Form.Group>
+                <Form.Group>
+                <Controller
+                    name="is_active"
+                    control={control}
+                    render={({ field }) => (
+                        <>
+                            <Toggle size="lg" checkedChildren="Active" unCheckedChildren="Inactive" checked={field.value === 1} onChange={(checked) => field.onChange(checked ? 1 : 0)} />
+                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
+                                {errors[field.name]?.message}
+                            </Form.ErrorMessage>
+                        </>
+                    )}
+                />
+            </Form.Group>
+                <Form.Group>
+                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                    </ButtonToolbar>
+                </Form.Group>
+            </Form>
+        </Drawer>
+    )
+}

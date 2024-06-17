@@ -8,6 +8,7 @@ export const page_routes = {
   city: "/city",
   taluq: "/taluq",
   course: "/course",
+  security_question: "/security-question",
   auth: {
     login: "/auth/login",
     forgot_password: "/auth/forgot-password",

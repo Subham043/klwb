@@ -56,6 +56,7 @@ use App\Modules\Roles\Controllers\RoleAllController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionAllController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionCreateController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionDeleteController;
+use App\Modules\SecurityQuestions\Controllers\SecurityQuestionExportController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionPaginateController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionUpdateController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionViewController;
@@ -137,6 +138,7 @@ Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->
             Route::get('/view/{id}', [ClassesViewController::class, 'index']);
         });
         Route::prefix('security-questions')->group(function () {
+            Route::get('/excel', [SecurityQuestionExportController::class, 'index']);
             Route::get('/all', [SecurityQuestionAllController::class, 'index']);
             Route::get('/paginate', [SecurityQuestionPaginateController::class, 'index']);
             Route::post('/create', [SecurityQuestionCreateController::class, 'index']);

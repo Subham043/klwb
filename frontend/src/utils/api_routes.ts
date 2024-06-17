@@ -90,5 +90,17 @@ export const api_routes = {
       delete: (id: string | number) => `/api/admin/v1/taluqs/delete/${id}`,
       view: (id: string | number) => `/api/admin/v1/taluqs/view/${id}`,
     },
+    security_question: {
+      excel: "/api/admin/v1/security-questions/excel",
+      all: "/api/admin/v1/security-questions/all",
+      paginate: "/api/admin/v1/security-questions/paginate",
+      create: "/api/admin/v1/security-questions/create",
+      update: (id: string | number) =>
+        `/api/admin/v1/security-questions/update/${id}`,
+      delete: (id: string | number) =>
+        `/api/admin/v1/security-questions/delete/${id}`,
+      view: (id: string | number) =>
+        `/api/admin/v1/security-questions/view/${id}`,
+    },
   },
 } as const;

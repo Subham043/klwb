@@ -5,10 +5,11 @@ import ChangeListIcon from '@rsuite/icons/ChangeList';
 import ListIcon from '@rsuite/icons/List';
 import DocPassIcon from '@rsuite/icons/DocPass';
 import DetailIcon from '@rsuite/icons/Detail';
-import MemberIcon from '@rsuite/icons/Member';
 import TextImageIcon from '@rsuite/icons/TextImage';
-import OperatePeopleIcon from '@rsuite/icons/OperatePeople';
 import LocationIcon from '@rsuite/icons/Location';
+import PeoplesIcon from '@rsuite/icons/Peoples';
+import GearIcon from '@rsuite/icons/Gear';
+import SettingHorizontalIcon from '@rsuite/icons/SettingHorizontal';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import { useUser } from '../../hooks/useUser';
 import { NavLink } from 'react-router-dom';
@@ -35,8 +36,11 @@ const NavMenu = () => {
             }
             {
                 ["Super-Admin", "Admin"].includes((user && user.role) ? user.role : "Student") && <>
-                    <Nav.Item eventKey="8" icon={<MemberIcon />}>
+                    <Nav.Item eventKey="8" icon={<PeoplesIcon />}>
                         <NavLink to={page_routes.employee} className='w-100 h-100 d-inline-block sidebar-navlink'>Employee Management</NavLink>
+                    </Nav.Item>
+                    <Nav.Item eventKey="9" icon={<SettingHorizontalIcon />}>
+                        <NavLink to={page_routes.security_question} className='w-100 h-100 d-inline-block sidebar-navlink'>Security Questions</NavLink>
                     </Nav.Item>
                     <Nav.Menu
                         eventKey="6"
@@ -79,7 +83,7 @@ const SideBar:FC<{expand: boolean}> = ({expand}) => {
                 <Sidenav.Body>
                     <Nav>
                         <NavMenu />
-                        <Nav.Item eventKey="5" icon={<OperatePeopleIcon />} onClick={() => toggleAccountModal(true)}>
+                        <Nav.Item eventKey="5" icon={<GearIcon />} onClick={() => toggleAccountModal(true)}>
                             Account Settings
                         </Nav.Item>
                     </Nav>

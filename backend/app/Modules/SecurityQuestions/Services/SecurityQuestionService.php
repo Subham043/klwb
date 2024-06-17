@@ -70,7 +70,7 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where(function($q) use($value){
-            $q->where('name', 'LIKE', '%' . $value . '%');
+            $q->where('question', 'LIKE', '%' . $value . '%');
         });
     }
 }
