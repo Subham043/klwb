@@ -7,6 +7,7 @@ import { GraduationType, PaginationType } from "../../utils/types";
 
 export const GradutaionQueryKey = "graduation";
 export const GradutaionsQueryKey = "graduations";
+export const GradutaionSelectQueryKey = "graduation_select";
 
 export const useGradutaionsQuery: () => UseQueryResult<
   PaginationType<GraduationType>,
@@ -25,6 +26,21 @@ export const useGradutaionsQuery: () => UseQueryResult<
       );
       return response.data;
     },
+  });
+};
+
+export const useGradutaionSelectQuery: (
+  enabled: boolean
+) => UseQueryResult<GraduationType[], unknown> = (enabled) => {
+  return useQuery({
+    queryKey: [GradutaionSelectQueryKey],
+    queryFn: async () => {
+      const response = await api.get<{ data: GraduationType[] }>(
+        api_routes.admin.graduation.all
+      );
+      return response.data.data;
+    },
+    enabled,
   });
 };
 

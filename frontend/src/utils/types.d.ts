@@ -5,7 +5,7 @@ export type ChildrenType = {
 };
 
 export type AuthType = {
-  id: string;
+  id: number;
   name: string;
   phone: string;
   email: string;
@@ -18,8 +18,18 @@ export type AuthType = {
 };
 
 export type GraduationType = {
-  id: string;
+  id: number;
   name: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CourseType = {
+  id: number;
+  name: string;
+  graduation_id: number;
+  graduation: GraduationType;
   is_active: boolean;
   created_at: string;
   updated_at: string;

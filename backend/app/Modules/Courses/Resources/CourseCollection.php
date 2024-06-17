@@ -2,6 +2,7 @@
 
 namespace App\Modules\Courses\Resources;
 
+use App\Modules\Graduations\Resources\GraduationCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseCollection extends JsonResource
@@ -18,6 +19,7 @@ class CourseCollection extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'graduation_id' => $this->graduation_id,
+            'graduation' => GraduationCollection::make($this->whenLoaded('graduation')),
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

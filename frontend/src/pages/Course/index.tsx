@@ -1,9 +1,9 @@
 import { FC, useState } from "react"
 import { Badge, ButtonToolbar, IconButton, Table } from "rsuite"
-import { useGradutaionsQuery } from "../../hooks/data/graduation";
+import { useCoursesQuery } from "../../hooks/data/course";
 import PaginatedTableLayout from "../../layouts/PaginatedTable";
 import { DrawerProps } from "../../utils/types";
-import GraduationForm from "../../components/GraduationForm";
+import CourseForm from "../../components/CourseForm";
 import EditIcon from '@rsuite/icons/Edit';
 import TrashIcon from '@rsuite/icons/Trash';
 import { useDeleteQuery } from "../../hooks/useDeleteQuery";
@@ -12,22 +12,22 @@ import moment from "moment";
 import { useExcelExport } from "../../hooks/useExcelExport";
 
 
-const Graduation:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch} = useGradutaionsQuery();
+const Course:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch} = useCoursesQuery();
     const {deleteHandler, deleteLoading} = useDeleteQuery();
     const {excelLoading, exportExcel} = useExcelExport();
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     const excelHandler = async () => {
-        await exportExcel(api_routes.admin.graduation.excel, 'graduation.xlsx');
+        await exportExcel(api_routes.admin.course.excel, 'course.xlsx');
     }
 
     const onDeleteHandler = async (id:number) => {
-        await deleteHandler(api_routes.admin.graduation.delete(id));
+        await deleteHandler(api_routes.admin.course.delete(id));
         refetch();
     }
 
-    return <PaginatedTableLayout title="Graduations" addHandler={() => setOpenDrawer({status:true, type:'Create'})} total={(data?.meta.total ?? 0)} excelHandler={excelHandler} excelLoading={excelLoading}>
+    return <PaginatedTableLayout title="Courses" addHandler={() => setOpenDrawer({status:true, type:'Create'})} total={(data?.meta.total ?? 0)} excelHandler={excelHandler} excelLoading={excelLoading}>
         <Table
             loading={isLoading||isFetching||isRefetching}
             bordered={true}
@@ -44,6 +44,11 @@ const Graduation:FC = () => {
             <Table.Column flexGrow={1}>
                 <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.Cell dataKey="name" />
+            </Table.Column>
+
+            <Table.Column flexGrow={1}>
+                <Table.HeaderCell>Graduation</Table.HeaderCell>
+                <Table.Cell dataKey="graduation.name" />
             </Table.Column>
 
             <Table.Column width={60} align="center" verticalAlign="middle">
@@ -79,8 +84,8 @@ const Graduation:FC = () => {
                 </Table.Cell>
             </Table.Column>
         </Table>
-        <GraduationForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
+        <CourseForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
     </PaginatedTableLayout>
 }
 
-export default Graduation
+export default Course

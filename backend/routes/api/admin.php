@@ -21,6 +21,7 @@ use App\Modules\Classes\Controllers\ClassesViewController;
 use App\Modules\Courses\Controllers\CourseAllController;
 use App\Modules\Courses\Controllers\CourseCreateController;
 use App\Modules\Courses\Controllers\CourseDeleteController;
+use App\Modules\Courses\Controllers\CourseExportController;
 use App\Modules\Courses\Controllers\CoursePaginateController;
 use App\Modules\Courses\Controllers\CourseUpdateController;
 use App\Modules\Courses\Controllers\CourseViewController;
@@ -105,6 +106,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/view/{id}', [GraduationViewController::class, 'index']);
         });
         Route::prefix('courses')->group(function () {
+            Route::get('/excel', [CourseExportController::class, 'index']);
             Route::get('/all', [CourseAllController::class, 'index']);
             Route::get('/paginate', [CoursePaginateController::class, 'index']);
             Route::post('/create', [CourseCreateController::class, 'index']);
