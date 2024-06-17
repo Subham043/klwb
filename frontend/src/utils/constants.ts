@@ -18,4 +18,4 @@ export const QueryClientOptions: QueryClientConfig = {
 
 export const QueryInitialPageParam = 1;
 
-export const QueryTotalCount = 20;
+export const QueryTotalCount = 10;

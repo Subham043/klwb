@@ -29,7 +29,7 @@ class EmailLoginController extends Controller
                 'message' => 'Logged in successfully.',
                 'token_type' => 'Bearer',
                 'token' => $token,
-                'user' => AuthCollection::make($user),
+                'user' => AuthCollection::make($user)
             ], 200);
         }
         return response()->json([

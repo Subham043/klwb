@@ -44,6 +44,7 @@ use App\Modules\States\Controllers\StateViewController;
 use App\Modules\Graduations\Controllers\GraduationAllController;
 use App\Modules\Graduations\Controllers\GraduationCreateController;
 use App\Modules\Graduations\Controllers\GraduationDeleteController;
+use App\Modules\Graduations\Controllers\GraduationExportController;
 use App\Modules\Graduations\Controllers\GraduationPaginateController;
 use App\Modules\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\Graduations\Controllers\GraduationViewController;
@@ -95,6 +96,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/view/{id}', [TaluqViewController::class, 'index']);
         });
         Route::prefix('graduations')->group(function () {
+            Route::get('/excel', [GraduationExportController::class, 'index']);
             Route::get('/all', [GraduationAllController::class, 'index']);
             Route::get('/paginate', [GraduationPaginateController::class, 'index']);
             Route::post('/create', [GraduationCreateController::class, 'index']);

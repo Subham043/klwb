@@ -25,4 +25,15 @@ export const api_routes = {
     profile_verify: "/api/v1/account/verify",
     password_update: "/api/v1/account/update-password",
   },
+  admin: {
+    graduation: {
+      excel: "/api/admin/v1/graduations/excel",
+      all: "/api/admin/v1/graduations/all",
+      paginate: "/api/admin/v1/graduations/paginate",
+      create: "/api/admin/v1/graduations/create",
+      update: (id: string | number) => `/api/admin/v1/graduations/update/${id}`,
+      delete: (id: string | number) => `/api/admin/v1/graduations/delete/${id}`,
+      view: (id: string | number) => `/api/admin/v1/graduations/view/${id}`,
+    },
+  },
 } as const;

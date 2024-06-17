@@ -1,3 +1,13 @@
+:root{
+    --rs-btn-primary-active-bg: #00437d;
+    --rs-btn-link-text: #00437d;
+    --rs-iconbtn-primary-pressed-addon: #00437d;
+    --rs-btn-ghost-border: #00437d;
+    --rs-btn-ghost-text: #00437d;
+    --rs-picker-value: #00437d;
+    --rs-border-secondary: #ccc;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -69,6 +79,10 @@ a, a:hover {
     gap: 5rem;
 }
 
+.mt-1{
+    margin-top: 1rem;
+}
+
 .mb-1{
     margin-bottom: 1rem;
 }
@@ -76,6 +90,16 @@ a, a:hover {
 .py-1{
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+
+.px-1{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.px-2{
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 h1,h2,h3,h4,h5,h6,p{
@@ -103,4 +127,21 @@ h2{
 
 .rs-modal-content .rs-tabs{
     gap: 0;
+}
+
+.data-table-container .rs-panel-header {
+    padding-bottom: 0px;
+}
+.brand-text-color{
+    color: #00437d;
+}
+
+.data-table-container .rs-table-cell{
+    border-color: #ccc;
+}
+
+.data-table-container .rs-table-row-header .rs-table-cell-header .rs-table-cell, .data-table-container .rs-table-row-header:hover .rs-table-cell-header .rs-table-cell{
+    background-color: #00437d;
+    color: #fff;
+    font-weight: 700;
 }
