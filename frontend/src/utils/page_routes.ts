@@ -3,6 +3,7 @@ export const page_routes = {
   dashboard: "/dashboard",
   graduation: "/graduation",
   class: "/class",
+  employee: "/employee",
   course: "/course",
   auth: {
     login: "/auth/login",

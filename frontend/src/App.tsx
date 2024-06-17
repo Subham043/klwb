@@ -21,6 +21,7 @@ const DashboardPage = lazy(()=>import("./pages/Dashboard"));
 const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
 const ClassPage = lazy(()=>import("./pages/Class"));
+const EmployeePage = lazy(()=>import("./pages/Employee"));
 
 const queryClient = new QueryClient(QueryClientOptions);
 
@@ -42,6 +43,7 @@ function App() {
                           <Route path={page_routes.graduation} element={<GraduationPage />} />
                           <Route path={page_routes.course} element={<CoursePage />} />
                           <Route path={page_routes.class} element={<ClassPage />} />
+                          <Route path={page_routes.employee} element={<EmployeePage />} />
                         </Route>
                     </Route>
                     </Route>

@@ -26,6 +26,7 @@ export const api_routes = {
     password_update: "/api/v1/account/update-password",
   },
   admin: {
+    role: "/api/admin/v1/roles/all",
     graduation: {
       excel: "/api/admin/v1/graduations/excel",
       all: "/api/admin/v1/graduations/all",
@@ -52,6 +53,15 @@ export const api_routes = {
       update: (id: string | number) => `/api/admin/v1/classes/update/${id}`,
       delete: (id: string | number) => `/api/admin/v1/classes/delete/${id}`,
       view: (id: string | number) => `/api/admin/v1/classes/view/${id}`,
+    },
+    employee: {
+      excel: "/api/admin/v1/employees/excel",
+      all: "/api/admin/v1/employees/all",
+      paginate: "/api/admin/v1/employees/paginate",
+      create: "/api/admin/v1/employees/create",
+      update: (id: string | number) => `/api/admin/v1/employees/update/${id}`,
+      delete: (id: string | number) => `/api/admin/v1/employees/delete/${id}`,
+      view: (id: string | number) => `/api/admin/v1/employees/view/${id}`,
     },
   },
 } as const;

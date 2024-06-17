@@ -15,12 +15,12 @@ class RoleService
 
     public function all(): Collection
     {
-        return Role::whereNot('name', 'Super-Admin')->get();
+        return Role::whereNot('name', 'Super-Admin')->whereNot('name', 'Student')->whereNot('name', 'Institute')->whereNot('name', 'Industry')->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Role::whereNot('name', 'Super-Admin')->latest();
+        $query = Role::whereNot('name', 'Super-Admin')->whereNot('name', 'Student')->whereNot('name', 'Institute')->whereNot('name', 'Industry')->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),

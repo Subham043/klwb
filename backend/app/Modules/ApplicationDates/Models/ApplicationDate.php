@@ -26,6 +26,10 @@ class ApplicationDate extends Model
         'is_active',
     ];
 
+    protected $attributes = [
+        'is_active' => true,
+    ];
+
     protected $casts = [
         'from_date' => 'datetime',
         'to_date' => 'datetime',

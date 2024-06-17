@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Roles\Resources\RoleCollection;
 use App\Modules\Roles\Services\RoleService;
 
-class RolePaginateController extends Controller
+class RoleAllController extends Controller
 {
     private $roleService;
 
@@ -15,7 +15,7 @@ class RolePaginateController extends Controller
         $this->roleService = $roleService;
     }
 
-    public function get(){
+    public function index(){
         $data = $this->roleService->all();
         return response()->json(["message" => "Roles fetched successfully.", "data" => RoleCollection::collection($data)], 200);
     }

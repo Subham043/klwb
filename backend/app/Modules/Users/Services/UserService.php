@@ -46,7 +46,7 @@ class UserService
 
     public function create(array $data): User
     {
-        $user = User::create([...$data, 'otp' => rand (1111, 9999), 'is_blocked' => 0]);
+        $user = User::create([...$data, 'otp' => rand (1111, 9999)]);
         return $user;
     }
 

@@ -27,6 +27,15 @@ export type AuthType = {
   verified_at: string | null;
 };
 
+export type EmployeeType = AuthType;
+
+export type RoleType = {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export type GraduationType = {
   id: number;
   name: string;

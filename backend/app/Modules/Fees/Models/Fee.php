@@ -26,6 +26,10 @@ class Fee extends Model
         'is_active',
     ];
 
+    protected $attributes = [
+        'is_active' => true,
+    ];
+
     protected $casts = [
         'amount' => 'int',
         'year' => 'int',

@@ -44,6 +44,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $attributes = [
+        'is_blocked' => false,
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

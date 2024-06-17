@@ -28,6 +28,7 @@ use App\Modules\Courses\Controllers\CourseUpdateController;
 use App\Modules\Courses\Controllers\CourseViewController;
 use App\Modules\Employees\Controllers\EmployeeCreateController;
 use App\Modules\Employees\Controllers\EmployeeDeleteController;
+use App\Modules\Employees\Controllers\EmployeeExportController;
 use App\Modules\Employees\Controllers\EmployeePaginateController;
 use App\Modules\Employees\Controllers\EmployeeUpdateController;
 use App\Modules\Employees\Controllers\EmployeeViewController;
@@ -50,6 +51,7 @@ use App\Modules\Graduations\Controllers\GraduationExportController;
 use App\Modules\Graduations\Controllers\GraduationPaginateController;
 use App\Modules\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\Graduations\Controllers\GraduationViewController;
+use App\Modules\Roles\Controllers\RoleAllController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionAllController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionCreateController;
 use App\Modules\SecurityQuestions\Controllers\SecurityQuestionDeleteController;
@@ -66,7 +68,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->group(function () {
     Route::prefix('v1')->group(function () {
+        Route::prefix('roles')->group(function () {
+            Route::get('/all', [RoleAllController::class, 'index']);
+        });
         Route::prefix('employees')->group(function () {
+            Route::get('/excel', [EmployeeExportController::class, 'index']);
             Route::get('/paginate', [EmployeePaginateController::class, 'index']);
             Route::post('/create', [EmployeeCreateController::class, 'index']);
             Route::post('/update/{id}', [EmployeeUpdateController::class, 'index']);
