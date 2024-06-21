@@ -15,12 +15,12 @@ class FeeService
 
     public function all(): Collection
     {
-        return Fee::all();
+        return Fee::with('classes')->get();
     }
 
     public function paginateMain(Int $total = 10): LengthAwarePaginator
     {
-        $query = Fee::where('is_active', true);
+        $query = Fee::with('classes')->where('is_active', true);
         return QueryBuilder::for($query)
                 ->defaultSort('id')
                 ->allowedSorts('id', 'name')
@@ -33,7 +33,7 @@ class FeeService
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Fee::latest();
+        $query = Fee::with('classes')->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -44,7 +44,7 @@ class FeeService
 
     public function getById(Int $id): Fee|null
     {
-        return Fee::findOrFail($id);
+        return Fee::with('classes')->findOrFail($id);
     }
 
     public function create(array $data): Fee

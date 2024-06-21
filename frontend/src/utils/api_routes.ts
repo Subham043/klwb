@@ -114,5 +114,14 @@ export const api_routes = {
       view: (id: string | number) =>
         `/api/admin/v1/application-dates/view/${id}`,
     },
+    application_fee: {
+      excel: "/api/admin/v1/fees/excel",
+      all: "/api/admin/v1/fees/all",
+      paginate: "/api/admin/v1/fees/paginate",
+      create: "/api/admin/v1/fees/create",
+      update: (id: string | number) => `/api/admin/v1/fees/update/${id}`,
+      delete: (id: string | number) => `/api/admin/v1/fees/delete/${id}`,
+      view: (id: string | number) => `/api/admin/v1/fees/view/${id}`,
+    },
   },
 } as const;

@@ -3,11 +3,12 @@
 namespace App\Modules\Fees\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 // use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
 
 
-class FeeRequest extends FormRequest
+class FeeCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,8 +30,7 @@ class FeeRequest extends FormRequest
     {
         return [
             'amount' => 'required|numeric|gt:0',
-            'year' => 'required|numeric|gt:0',
-            'class_id' => 'required|numeric|exists:classes,id',
+            'class_id' => ['required','numeric','exists:classes,id', Rule::unique('fees', 'class_id', 'year')],
             'is_active' => 'required|boolean',
         ];
     }
@@ -45,6 +45,18 @@ class FeeRequest extends FormRequest
         return [
             'is_active' => 'Active',
             'class_id' => 'Class',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'class_id.unique' => 'Fee for this class for the year '.date('Y').' already exists.',
         ];
     }
 

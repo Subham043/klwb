@@ -3,7 +3,7 @@
 namespace App\Modules\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Fees\Requests\FeeRequest;
+use App\Modules\Fees\Requests\FeeUpdateRequest;
 use App\Modules\Fees\Resources\FeeCollection;
 use App\Modules\Fees\Services\FeeService;
 
@@ -16,7 +16,7 @@ class FeeUpdateController extends Controller
         $this->feeService = $feeService;
     }
 
-    public function index(FeeRequest $request, $id){
+    public function index(FeeUpdateRequest $request, $id){
         $fee = $this->feeService->getById($id);
         try {
             //code...

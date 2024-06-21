@@ -27,6 +27,7 @@ const CityPage = lazy(()=>import("./pages/City"));
 const TaluqPage = lazy(()=>import("./pages/Taluq"));
 const SecurityQuestionPage = lazy(()=>import("./pages/SecurityQuestion"));
 const ApplicationDatePage = lazy(()=>import("./pages/ApplicationDate"));
+const ApplicationFeePage = lazy(()=>import("./pages/ApplicationFee"));
 
 const queryClient = new QueryClient(QueryClientOptions);
 
@@ -54,6 +55,7 @@ function App() {
                           <Route path={page_routes.taluq} element={<TaluqPage />} />
                           <Route path={page_routes.security_question} element={<SecurityQuestionPage />} />
                           <Route path={page_routes.application_date} element={<ApplicationDatePage />} />
+                          <Route path={page_routes.application_fee} element={<ApplicationFeePage />} />
                         </Route>
                     </Route>
                     </Route>

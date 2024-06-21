@@ -36,6 +36,7 @@ use App\Modules\Employees\Controllers\EmployeeViewController;
 use App\Modules\Fees\Controllers\FeeAllController;
 use App\Modules\Fees\Controllers\FeeCreateController;
 use App\Modules\Fees\Controllers\FeeDeleteController;
+use App\Modules\Fees\Controllers\FeeExportController;
 use App\Modules\Fees\Controllers\FeePaginateController;
 use App\Modules\Fees\Controllers\FeeUpdateController;
 use App\Modules\Fees\Controllers\FeeViewController;
@@ -147,6 +148,7 @@ Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->
             Route::get('/view/{id}', [SecurityQuestionViewController::class, 'index']);
         });
         Route::prefix('fees')->group(function () {
+            Route::get('/excel', [FeeExportController::class, 'index']);
             Route::get('/all', [FeeAllController::class, 'index']);
             Route::get('/paginate', [FeePaginateController::class, 'index']);
             Route::post('/create', [FeeCreateController::class, 'index']);

@@ -4,7 +4,7 @@ namespace App\Modules\Fees\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FeeCollection extends JsonResource
+class ClassesCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -16,11 +16,8 @@ class FeeCollection extends JsonResource
     {
         return [
             'id' => $this->id,
-            'amount' => $this->amount,
-            'year' => $this->year,
-            'class_id' => $this->class_id,
-            'classes' => ClassesCollection::make($this->classes),
-            'user_id' => $this->user_id,
+            'name' => $this->name,
+            'course_id' => $this->course_id,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

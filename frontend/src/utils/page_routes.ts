@@ -10,6 +10,7 @@ export const page_routes = {
   course: "/course",
   security_question: "/security-question",
   application_date: "/application-date",
+  application_fee: "/scholarship-fee",
   auth: {
     login: "/auth/login",
     forgot_password: "/auth/forgot-password",

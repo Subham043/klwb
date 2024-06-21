@@ -3,7 +3,7 @@
 namespace App\Modules\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Fees\Requests\FeeRequest;
+use App\Modules\Fees\Requests\FeeCreateRequest;
 use App\Modules\Fees\Resources\FeeCollection;
 use App\Modules\Fees\Services\FeeService;
 
@@ -16,11 +16,11 @@ class FeeCreateController extends Controller
         $this->feeService = $feeService;
     }
 
-    public function index(FeeRequest $request){
+    public function index(FeeCreateRequest $request){
         try {
             //code...
             $fee = $this->feeService->create(
-                [...$request->validated(), 'user_id' => auth()->user()->id]
+                [...$request->validated(), 'year'=>date('Y'), 'user_id' => auth()->user()->id]
             );
             return response()->json(["message" => "Fee created successfully.", "data" => FeeCollection::make($fee)], 201);
         } catch (\Throwable $th) {

@@ -114,6 +114,18 @@ export type ApplicationDateType = {
   updated_at: string;
 };
 
+export type ApplicationFeeType = {
+  id: number;
+  amount: number;
+  year: number;
+  user_id: number;
+  class_id: number;
+  classes: Omit<ClassType, "graduation" | "course">;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

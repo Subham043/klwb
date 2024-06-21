@@ -15,6 +15,7 @@ import { useUser } from '../../hooks/useUser';
 import { NavLink } from 'react-router-dom';
 import { page_routes } from '../../utils/page_routes';
 import CalendarIcon from '@rsuite/icons/Calendar';
+import TagNumberIcon from '@rsuite/icons/TagNumber';
 
 const NavMenu = () => {
     const  {user} = useUser();
@@ -42,6 +43,9 @@ const NavMenu = () => {
                     </Nav.Item>
                     <Nav.Item eventKey="10" icon={<CalendarIcon />}>
                         <NavLink to={page_routes.application_date} className='w-100 h-100 d-inline-block sidebar-navlink'>Application Dates</NavLink>
+                    </Nav.Item>
+                    <Nav.Item eventKey="11" icon={<TagNumberIcon />}>
+                        <NavLink to={page_routes.application_fee} className='w-100 h-100 d-inline-block sidebar-navlink'>Scholarship Fees</NavLink>
                     </Nav.Item>
                     <Nav.Item eventKey="9" icon={<SettingHorizontalIcon />}>
                         <NavLink to={page_routes.security_question} className='w-100 h-100 d-inline-block sidebar-navlink'>Security Questions</NavLink>
