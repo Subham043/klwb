@@ -1,5 +1,5 @@
 import ReCAPTCHA from "react-google-recaptcha";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,6 +27,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 export default function ResetWithPhone() {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
+    const navigate = useNavigate();
     const captchaRef = useRef<ReCAPTCHA>(null);
 
     const {
@@ -44,12 +45,13 @@ export default function ResetWithPhone() {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(api_routes.auth.forgot_password.phone, getValues());
-            toastSuccess("Forgot Password Successful");
+            const response = await api.post<{ token: string }>(api_routes.auth.forgot_password.phone, getValues());
+            toastSuccess("Please check your email or phone to reset your password.");
             reset({
                 phone: undefined,
                 captcha: "",
             });
+            navigate(page_routes.auth.reset_password.replace(":token", response.data.token), {replace: true});
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){

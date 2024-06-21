@@ -14,6 +14,7 @@ export const page_routes = {
   auth: {
     login: "/auth/login",
     forgot_password: "/auth/forgot-password",
+    reset_password: "/auth/reset-password/:token",
     register: {
       student: "/auth/student/register",
     },

@@ -17,6 +17,7 @@ const DashboardLayout = lazy(()=>import("./layouts/Dashboard"));
 const LoginPage = lazy(()=>import("./pages/Auth/LoginPage"));
 const RegisterPage = lazy(()=>import("./pages/Auth/Register"));
 const ForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPassword"));
+const ResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword"));
 const DashboardPage = lazy(()=>import("./pages/Dashboard"));
 const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
@@ -65,6 +66,7 @@ function App() {
                       <Route path={page_routes.auth.login} element={<LoginPage />} />
                       <Route path={page_routes.auth.register.student} element={<RegisterPage />} />
                       <Route path={page_routes.auth.forgot_password} element={<ForgotPasswordPage />} />
+                      <Route path={page_routes.auth.reset_password} element={<ResetPasswordPage />} />
                     </Route>
                   </Route>
                 </Route>

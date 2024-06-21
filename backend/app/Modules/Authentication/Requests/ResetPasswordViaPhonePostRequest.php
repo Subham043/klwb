@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 use App\Http\Services\RateLimitService;
 
-class ResetPasswordPostRequest extends FormRequest
+class ResetPasswordViaPhonePostRequest  extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,9 @@ class ResetPasswordPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required','string','email','max:255','exists:App\Modules\Authentication\Models\User,email'],
+            'captcha' => 'required|captcha',
+            'phone' => ['required','numeric', 'digits:10','exists:users,phone'],
+            'otp' => ['required','numeric', 'digits:4'],
             'password_confirmation' => 'string|min:8|required_with:password|same:password',
             'password' => ['required',
                 'string',
@@ -39,6 +41,18 @@ class ResetPasswordPostRequest extends FormRequest
                         ->symbols()
                         ->uncompromised()
             ],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'captcha.captcha' => 'Invalid Captcha. Please try again.',
         ];
     }
 

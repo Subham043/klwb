@@ -10,7 +10,8 @@ use App\Modules\Authentication\Controllers\ForgotPasswordViaPhoneController;
 use App\Modules\Authentication\Controllers\LogoutController;
 use App\Modules\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Authentication\Controllers\StudentRegisterController;
-use App\Modules\Authentication\Controllers\ResetPasswordController;
+use App\Modules\Authentication\Controllers\ResetPasswordViaEmailController;
+use App\Modules\Authentication\Controllers\ResetPasswordViaPhoneController;
 use App\Modules\Authentication\Controllers\VerifyRegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,8 @@ Route::prefix('v1')->group(function () {
         });
         Route::post('/forgot-password-via-email', [ForgotPasswordViaEmailController::class, 'index']);
         Route::post('/forgot-password-via-phone', [ForgotPasswordViaPhoneController::class, 'index']);
-        Route::post('/reset-password/{token}', [ResetPasswordController::class, 'index']);
+        Route::post('/reset-password-via-email/{token}', [ResetPasswordViaEmailController::class, 'index']);
+        Route::post('/reset-password-via-phone/{token}', [ResetPasswordViaPhoneController::class, 'index']);
     });
 
     Route::middleware(['auth:sanctum'])->group(function () {

@@ -13,10 +13,13 @@ export const api_routes = {
       email: "/api/v1/auth/forgot-password-via-email",
       phone: "/api/v1/auth/forgot-password-via-phone",
     },
+    reset_password: {
+      email: "/api/v1/auth/reset-password-via-email",
+      phone: "/api/v1/auth/reset-password-via-phone",
+    },
     register: {
       student: "/api/v1/auth/register/student",
     },
-    reset_password: "/api/v1/auth/reset-password",
     logout: "/api/v1/auth/logout",
   },
   account: {
