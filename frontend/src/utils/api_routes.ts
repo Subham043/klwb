@@ -25,8 +25,9 @@ export const api_routes = {
   account: {
     profile: "/api/v1/account",
     profile_update: "/api/v1/account/update",
-    profile_verify: "/api/v1/account/verify",
     password_update: "/api/v1/account/update-password",
+    profile_verify: "/api/v1/account/verify",
+    resend_otp: "/api/v1/account/resend-otp",
   },
   admin: {
     role: "/api/admin/v1/roles/all",

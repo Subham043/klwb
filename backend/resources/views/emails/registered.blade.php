@@ -28,8 +28,8 @@
 																																																style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
 																																																<p style="font-size: 14px; line-height: 140%; text-align: center;">
 																																																				<span
-																																																								style="font-size: 28px; line-height: 39.2px; color: #ffffff; font-family: Lato, sans-serif;">New
-																																																								OTP </span>
+																																																								style="font-size: 28px; line-height: 39.2px; color: #ffffff; font-family: Lato, sans-serif;">Welcome
+																																																								to {{ config("app.name") }} </span>
 																																																</p>
 																																												</div>
 
@@ -80,15 +80,16 @@
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				&nbsp;</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
-																																																				<span style="font-size: 18px; line-height: 25.2px; color: #666666;">We
-																																																								have sent you this email in response to your
-																																																								request to new OTP.</span>
+																																																				<span
+																																																								style="font-size: 18px; line-height: 25.2px; color: #666666;">Thank
+																																																								you for registering with {{ config("app.name") }}. You are just one
+																																																								step away from verifying your account.</span>
 																																																</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				&nbsp;</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				<span style="font-size: 18px; line-height: 25.2px; color: #666666;">To
-																																																								verify your account, please use the OTP given above:
+																																																								verify your account, please login and use the OTP given above:
 																																																				</span>
 																																																</p>
 																																												</div>
@@ -135,7 +136,7 @@
 																																																								style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span
 																																																																style="font-size: 16px; line-height: 22.4px;">Please
 																																																																ignore this email if you did not
-																																																																request for a new otp.</span></em></span><br /><span
+																																																																register.</span></em></span><br /><span
 																																																								style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span
 																																																																style="font-size: 16px; line-height: 22.4px;">&nbsp;</span></em></span>
 																																																</p>

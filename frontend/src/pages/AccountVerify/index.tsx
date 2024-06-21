@@ -33,6 +33,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 const AccountVerify:FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [logoutLoading, setLogoutLoading] = useState<boolean>(false);
+    const [otpLoading, setOtpLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {removeUser, setUser} = useUser();
     const captchaRef = useRef<ReCAPTCHA>(null);
@@ -99,6 +100,21 @@ const AccountVerify:FC = () => {
         }
     };
 
+    const otpHandler = async () => {
+        setOtpLoading(true);
+        try {
+            await api.get(api_routes.account.resend_otp);
+            toastSuccess("OTP Sent Successfully");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error?.response?.data?.message) {
+                toastError(error?.response?.data?.message);
+            }
+        }finally {
+            setOtpLoading(false);
+        }
+    };
+
     return (
         <Container>
             <Header>
@@ -160,7 +176,7 @@ const AccountVerify:FC = () => {
                                         <Form.Group>
                                             <ButtonToolbar style={{ width: '100%' }}>
                                                 <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Verify</Button>
-                                                <Button appearance="primary" color='orange' size='lg' type="button" loading={loading} disabled={loading}>Resend OTP</Button>
+                                                <Button appearance="primary" color='orange' size='lg' type="button" loading={otpLoading} disabled={otpLoading} onClick={otpHandler}>Resend OTP</Button>
                                                 <Button appearance="primary" color='red' size='lg' type="button" loading={logoutLoading} disabled={logoutLoading} onClick={logoutHandler}>Logout</Button>
                                             </ButtonToolbar>
                                         </Form.Group>

@@ -24,7 +24,7 @@ const PageNotFound:FC = () => {
                                 <h1>Karnataka Labour Welfare Board</h1>
                                 <Divider><h1>404</h1></Divider>
                                 <p><b>Oops! Page Not Found</b></p>
-                                <Link to={page_routes.main} className={classes.link}>Back to Home</Link>
+                                <Link to={page_routes.dashboard} className={classes.link}>Back to Home</Link>
                             </div>
                         </div>
                     </div>

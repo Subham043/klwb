@@ -2,7 +2,7 @@
 
 namespace App\Modules\Authentication\Jobs;
 
-use App\Modules\Authentication\Mails\SendOtpMail;
+use App\Modules\Authentication\Mails\SendRegisteredMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Modules\Users\Models\User;
 use Illuminate\Support\Facades\Mail;
 
-class OtpMailJob implements ShouldQueue
+class RegisteredMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected User $data;
@@ -32,6 +32,6 @@ class OtpMailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->data->email)->send(new SendOtpMail($this->data));
+        Mail::to($this->data->email)->send(new SendRegisteredMail($this->data));
     }
 }

@@ -97,6 +97,7 @@ export default function ResetWithEmail(props: {token: string}) {
                         <>
                             <Form.ControlLabel>Email</Form.ControlLabel>
                             <Form.Control name={field.name} type="email" value={field.value} onChange={field.onChange} />
+                            <Form.HelpText><i>Please Enter your registered email</i></Form.HelpText>
                             <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
                                 {errors[field.name]?.message}
                             </Form.ErrorMessage>

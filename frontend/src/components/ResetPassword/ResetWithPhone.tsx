@@ -97,6 +97,7 @@ export default function ResetWithPhone(props: {token: string}) {
                         <>
                             <Form.ControlLabel>Phone</Form.ControlLabel>
                             <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
+                            <Form.HelpText><i>Please Enter your registered phone</i></Form.HelpText>
                             <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
                                 {errors[field.name]?.message}
                             </Form.ErrorMessage>

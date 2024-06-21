@@ -71,7 +71,7 @@ use App\Modules\Taluqs\Controllers\TaluqUpdateController;
 use App\Modules\Taluqs\Controllers\TaluqViewController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'role:Super-Admin|Admin'])->prefix('admin')->group(function () {
     Route::prefix('v1')->group(function () {
         Route::prefix('roles')->group(function () {
             Route::get('/all', [RoleAllController::class, 'index']);

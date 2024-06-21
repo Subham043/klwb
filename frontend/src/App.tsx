@@ -39,26 +39,26 @@ function App() {
       <UserProvider>
         <QueryClientProvider client={queryClient}>
           <AccountProvider>
-            <BrowserRouter basename={page_routes.main}>
+            <BrowserRouter>
               <Routes>
                 <Route element={<PersistLayout />}>
                   <Route element={<ProtectedLayout />}>
                     <Route element={<VerifiedLayout />}>
-                    <Route element={<AuthorisedLayout roles={["Super-Admin", "Admin"]} />}>
-                        <Route element={<DashboardLayout />}>
-                          <Route path={page_routes.dashboard} element={<DashboardPage />} />
-                          <Route path={page_routes.graduation} element={<GraduationPage />} />
-                          <Route path={page_routes.course} element={<CoursePage />} />
-                          <Route path={page_routes.class} element={<ClassPage />} />
-                          <Route path={page_routes.employee} element={<EmployeePage />} />
-                          <Route path={page_routes.state} element={<StatePage />} />
-                          <Route path={page_routes.city} element={<CityPage />} />
-                          <Route path={page_routes.taluq} element={<TaluqPage />} />
-                          <Route path={page_routes.security_question} element={<SecurityQuestionPage />} />
-                          <Route path={page_routes.application_date} element={<ApplicationDatePage />} />
-                          <Route path={page_routes.application_fee} element={<ApplicationFeePage />} />
-                        </Route>
-                    </Route>
+                      <Route element={<AuthorisedLayout roles={["Super-Admin", "Admin"]} />}>
+                          <Route element={<DashboardLayout />}>
+                            <Route path={page_routes.dashboard} element={<DashboardPage />} />
+                            <Route path={page_routes.graduation} element={<GraduationPage />} />
+                            <Route path={page_routes.course} element={<CoursePage />} />
+                            <Route path={page_routes.class} element={<ClassPage />} />
+                            <Route path={page_routes.employee} element={<EmployeePage />} />
+                            <Route path={page_routes.state} element={<StatePage />} />
+                            <Route path={page_routes.city} element={<CityPage />} />
+                            <Route path={page_routes.taluq} element={<TaluqPage />} />
+                            <Route path={page_routes.security_question} element={<SecurityQuestionPage />} />
+                            <Route path={page_routes.application_date} element={<ApplicationDatePage />} />
+                            <Route path={page_routes.application_fee} element={<ApplicationFeePage />} />
+                          </Route>
+                      </Route>
                     </Route>
                   </Route>
                   <Route element={<GuestLayout />}>
