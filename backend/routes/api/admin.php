@@ -2,7 +2,7 @@
 
 use App\Modules\ApplicationDates\Controllers\ApplicationDateAllController;
 use App\Modules\ApplicationDates\Controllers\ApplicationDateCreateController;
-use App\Modules\ApplicationDates\Controllers\ApplicationDateDeleteController;
+use App\Modules\ApplicationDates\Controllers\ApplicationDateExportController;
 use App\Modules\ApplicationDates\Controllers\ApplicationDatePaginateController;
 use App\Modules\ApplicationDates\Controllers\ApplicationDateUpdateController;
 use App\Modules\ApplicationDates\Controllers\ApplicationDateViewController;
@@ -155,11 +155,12 @@ Route::middleware(['auth:sanctum', 'role:Super-Admin|Admin'])->prefix('admin')->
             Route::get('/view/{id}', [FeeViewController::class, 'index']);
         });
         Route::prefix('application-dates')->group(function () {
+            Route::get('/excel', [ApplicationDateExportController::class, 'index']);
             Route::get('/all', [ApplicationDateAllController::class, 'index']);
             Route::get('/paginate', [ApplicationDatePaginateController::class, 'index']);
             Route::post('/create', [ApplicationDateCreateController::class, 'index']);
             Route::post('/update/{id}', [ApplicationDateUpdateController::class, 'index']);
-            Route::delete('/delete/{id}', [ApplicationDateDeleteController::class, 'index']);
+            // Route::delete('/delete/{id}', [ApplicationDateDeleteController::class, 'index']);
             Route::get('/view/{id}', [ApplicationDateViewController::class, 'index']);
         });
     });

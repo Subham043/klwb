@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamp('from_date', 0)->nullable();
             $table->timestamp('to_date', 0)->nullable();
+            $table->timestamp('approval_end_date', 0)->nullable();
             $table->timestamp('verification_end_date', 0)->nullable();
             $table->string('application_year')->nullable();
             $table->foreignId('user_id')->nullable()->index();

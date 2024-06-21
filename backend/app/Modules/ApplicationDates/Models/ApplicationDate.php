@@ -21,6 +21,7 @@ class ApplicationDate extends Model
         'from_date',
         'to_date',
         'verification_end_date',
+        'approval_end_date',
         'application_year',
         'user_id',
         'is_active',
@@ -33,6 +34,7 @@ class ApplicationDate extends Model
     protected $casts = [
         'from_date' => 'datetime',
         'to_date' => 'datetime',
+        'approval_end_date' => 'datetime',
         'verification_end_date' => 'datetime',
         'application_year' => 'int',
         'is_active' => 'boolean',

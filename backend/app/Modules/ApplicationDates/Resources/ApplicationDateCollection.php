@@ -18,6 +18,7 @@ class ApplicationDateCollection extends JsonResource
             'id' => $this->id,
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
+            'approval_end_date' => $this->approval_end_date,
             'verification_end_date' => $this->verification_end_date,
             'application_year' => $this->application_year,
             'user_id' => $this->user_id,

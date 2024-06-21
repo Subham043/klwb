@@ -3,7 +3,7 @@
 namespace App\Modules\ApplicationDates\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\ApplicationDates\Requests\ApplicationDateRequest;
+use App\Modules\ApplicationDates\Requests\ApplicationDateCreateRequest;
 use App\Modules\ApplicationDates\Resources\ApplicationDateCollection;
 use App\Modules\ApplicationDates\Services\ApplicationDateService;
 
@@ -16,7 +16,7 @@ class ApplicationDateCreateController extends Controller
         $this->applicationDateService = $applicationDateService;
     }
 
-    public function index(ApplicationDateRequest $request){
+    public function index(ApplicationDateCreateRequest $request){
         try {
             //code...
             $applicationDate = $this->applicationDateService->create(

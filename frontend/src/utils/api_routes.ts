@@ -102,5 +102,17 @@ export const api_routes = {
       view: (id: string | number) =>
         `/api/admin/v1/security-questions/view/${id}`,
     },
+    application_date: {
+      excel: "/api/admin/v1/application-dates/excel",
+      all: "/api/admin/v1/application-dates/all",
+      paginate: "/api/admin/v1/application-dates/paginate",
+      create: "/api/admin/v1/application-dates/create",
+      update: (id: string | number) =>
+        `/api/admin/v1/application-dates/update/${id}`,
+      delete: (id: string | number) =>
+        `/api/admin/v1/application-dates/delete/${id}`,
+      view: (id: string | number) =>
+        `/api/admin/v1/application-dates/view/${id}`,
+    },
   },
 } as const;

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Stevebauman\Purify\Facades\Purify;
 
 
-class ApplicationDateRequest extends FormRequest
+class ApplicationDateCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,11 @@ class ApplicationDateRequest extends FormRequest
     public function rules()
     {
         return [
-            'application_year' => 'required|numeric|gt:0',
+            'application_year' => 'required|numeric|gt:0|gte:'.date("Y").'|unique:application_dates,application_year',
             'from_date' => ['required', 'date', 'after_or_equal:today'],
-            'to_date' => ['required', 'date', 'after_or_equal:from_date'],
-            'verification_end_date' => ['required', 'date', 'after_or_equal:to_date'],
+            'to_date' => ['required', 'date', 'after:from_date'],
+            'approval_end_date' => ['required', 'date', 'after:from_date', 'after:to_date'],
+            'verification_end_date' => ['required', 'date', 'after:from_date', 'after:to_date', 'after:approval_end_date'],
             'is_active' => 'required|boolean',
         ];
     }

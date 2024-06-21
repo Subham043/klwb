@@ -14,6 +14,7 @@ import { useAccountModal } from '../../hooks/useAccountModal';
 import { useUser } from '../../hooks/useUser';
 import { NavLink } from 'react-router-dom';
 import { page_routes } from '../../utils/page_routes';
+import CalendarIcon from '@rsuite/icons/Calendar';
 
 const NavMenu = () => {
     const  {user} = useUser();
@@ -38,6 +39,9 @@ const NavMenu = () => {
                 ["Super-Admin", "Admin"].includes((user && user.role) ? user.role : "Student") && <>
                     <Nav.Item eventKey="8" icon={<PeoplesIcon />}>
                         <NavLink to={page_routes.employee} className='w-100 h-100 d-inline-block sidebar-navlink'>Employee Management</NavLink>
+                    </Nav.Item>
+                    <Nav.Item eventKey="10" icon={<CalendarIcon />}>
+                        <NavLink to={page_routes.application_date} className='w-100 h-100 d-inline-block sidebar-navlink'>Application Dates</NavLink>
                     </Nav.Item>
                     <Nav.Item eventKey="9" icon={<SettingHorizontalIcon />}>
                         <NavLink to={page_routes.security_question} className='w-100 h-100 d-inline-block sidebar-navlink'>Security Questions</NavLink>

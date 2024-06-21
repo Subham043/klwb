@@ -102,6 +102,18 @@ export type SecurityQuestionType = {
   updated_at: string;
 };
 
+export type ApplicationDateType = {
+  id: number;
+  application_year: number;
+  from_date: string;
+  to_date: string;
+  approval_end_date: string;
+  verification_end_date: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;
