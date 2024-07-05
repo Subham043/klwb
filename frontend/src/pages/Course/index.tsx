@@ -10,6 +10,7 @@ import { useDeleteQuery } from "../../hooks/useDeleteQuery";
 import { api_routes } from "../../utils/api_routes";
 import moment from "moment";
 import { useExcelExport } from "../../hooks/useExcelExport";
+import ConfirmAlert from "../../components/ConfirmAlert";
 
 
 const Course:FC = () => {
@@ -78,7 +79,9 @@ const Course:FC = () => {
                     {rowData => (
                         <ButtonToolbar>
                             <IconButton appearance="primary" color="orange" icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
-                            <IconButton appearance="primary" color="red" icon={<TrashIcon />} loading={deleteLoading} onClick={() => onDeleteHandler(rowData.id)} />
+                            <ConfirmAlert confirmHandler={() => onDeleteHandler(rowData.id)}>
+                                <IconButton appearance="primary" color="red" icon={<TrashIcon />} loading={deleteLoading} />
+                            </ConfirmAlert>
                         </ButtonToolbar>
                     )}
                 </Table.Cell>
