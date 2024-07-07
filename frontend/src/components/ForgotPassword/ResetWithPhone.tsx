@@ -24,7 +24,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function ResetWithPhone() {
+export default function ResetWithPhone({title, login_link}:{title:string; login_link:string}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const navigate = useNavigate();
@@ -51,7 +51,29 @@ export default function ResetWithPhone() {
                 phone: undefined,
                 captcha: "",
             });
-            navigate(page_routes.auth.reset_password.replace(":token", response.data.token), {replace: true});
+            switch (title.toLowerCase()) {
+                case 'student':
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=student', {replace: true});
+                    break;
+                case 'institute':
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=institute', {replace: true});
+                    break;
+                case 'industry':
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=industry', {replace: true});
+                    break;
+                case 'contribution':
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=contribution', {replace: true});
+                    break;
+                case 'govt':
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=govt', {replace: true});
+                    break;
+                case 'admin':
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=admin', {replace: true});
+                    break;
+                default:
+                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=student', {replace: true});
+                    break;
+            }
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){
@@ -109,7 +131,7 @@ export default function ResetWithPhone() {
             <Form.Group>
                 <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Reset</Button>
-                    <Link to={page_routes.auth.login} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Remember Your Password?</Button></Link>
+                    <Link to={login_link} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Remember Your Password?</Button></Link>
                 </ButtonToolbar>
             </Form.Group>
         </Form>

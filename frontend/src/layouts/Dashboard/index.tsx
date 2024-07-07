@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { Container, Content } from 'rsuite';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import classes from './index.module.css'
 import SideBar from '../../components/SideBar';
 import DashboardMenu from '../../components/DashboardMenu';
+import SuspenseOutlet from '../../components/SuspenseOutlet';
 
 const DashboardLayout:FC = () => {
     const [expand, setExpand] = useState(false);
@@ -19,7 +19,7 @@ const DashboardLayout:FC = () => {
                 <Container>
                     <Content className={classes.content}>
                         <div className={classes.container}>
-                            <Outlet />
+                            <SuspenseOutlet />
                         </div>
                     </Content>
                 </Container>

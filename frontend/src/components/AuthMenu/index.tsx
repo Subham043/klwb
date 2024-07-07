@@ -2,18 +2,31 @@ import { Link } from 'react-router-dom'
 import classes from './index.module.css'
 import { page_routes } from '../../utils/page_routes'
 
-export default function AuthMenu() {
+export type AuthMenuProps = {
+    noMenu: true
+} | {
+    noMenu: false;
+    loginLink: string;
+    hasRegister: false;
+} | {
+    noMenu: false;
+    loginLink: string;
+    hasRegister: true;
+    registerLink: string;
+}
+
+export default function AuthMenu(props:AuthMenuProps) {
     return <div className="container">
-        <div className="row justify-between align-center">
+        {props.noMenu ? <div className='py-2'></div> : <div className="row justify-between align-center">
             <div className="col-auto">
                 <Link to={page_routes.main} className={classes.linkMenu}>Home</Link>
             </div>
             <div className="col-auto">
                 <div className="row justify-between align-center gap-1">
-                    <Link to={page_routes.auth.login} className={classes.linkMenu}>Login</Link>
-                    <Link to={page_routes.auth.register.student} className={classes.linkMenu}>Registration</Link>
+                    <Link to={props.loginLink} className={classes.linkMenu}>Login</Link>
+                    {props.hasRegister && <Link to={props.registerLink} className={classes.linkMenu}>Registration</Link>}
                 </div>
             </div>
-        </div>
+        </div>}
     </div>
 }

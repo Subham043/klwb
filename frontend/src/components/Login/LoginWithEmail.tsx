@@ -30,7 +30,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function LoginWithEmail() {
+export default function LoginWithEmail({forgot_password_link}: {forgot_password_link:string}) {
     const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
@@ -142,7 +142,7 @@ export default function LoginWithEmail() {
             <Form.Group>
                 <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Login</Button>
-                    <Link to={page_routes.auth.forgot_password} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Forgot Password?</Button></Link>
+                    <Link to={forgot_password_link} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Forgot Password?</Button></Link>
                 </ButtonToolbar>
             </Form.Group>
         </Form>

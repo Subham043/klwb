@@ -1,7 +1,7 @@
 import { Header as MainHeader } from "rsuite"
 import classes from './index.module.css'
-import logo from '../../assets/images/logo.png'
 import { ChildrenType } from "../../utils/types"
+import Logo from "../Logo"
 
 function Header({children}:ChildrenType) {
 
@@ -15,7 +15,7 @@ function Header({children}:ChildrenType) {
                         <h1 className={classes.heading}>ಕರ್ನಾಟಕ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ಮಂಡಳಿ</h1>
                     </div>
                     <div className="col-auto">
-                        <img src={logo} alt="" className={classes.logo} />
+                        <Logo className={classes.logo} />
                     </div>
                     <div className="col-auto text-center">
                         <h2 className={classes.subHeading}>Government of Karnataka</h2>

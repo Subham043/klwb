@@ -15,6 +15,7 @@ body{
     color: #000;
     background-color: #fff;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 a, a:hover {
@@ -33,13 +34,20 @@ a, a:hover {
     display: inline-block;
 }
 
-.sidebar-navlink, .sidebar-navlink:hover, .sidebar-navlink:focus, .sidebar-navlink:active, .sidebar-navlink:visited {
-    color: var(--rs-sidenav-subtle-text);
-    text-decoration: none;
+.sidebar-navlink.active{
+    color: #00437d !important;
 }
 
-.sidebar-navlink.active{
-    color: #00437d;
+.sidebar-navmenu:has(.active) .rs-sidenav-item-icon, .sidebar-navmenu:has(.active) .rs-dropdown-toggle{
+    color: #00437d !important;
+}
+
+.sidebar-navmenu:has(.active) .rs-dropdown-menu:not([hidden]){
+    display: block !important;
+}
+
+.banner-slider{
+    height: fit-content;
 }
 
 .container{
@@ -104,6 +112,10 @@ a, a:hover {
     margin-top: 1rem;
 }
 
+.mt-2{
+    margin-top: 2rem;
+}
+
 .mb-1{
     margin-bottom: 1rem;
 }
@@ -118,9 +130,18 @@ a, a:hover {
     padding-right: 0.5rem;
 }
 
+.py-2{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
 .px-2{
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.min-h-dvh{
+    min-height: 100dvh;
 }
 
 h1,h2,h3,h4,h5,h6,p{
@@ -150,6 +171,10 @@ h2{
     gap: 0;
 }
 
+.data-table-container .rs-panel{
+    background-color: #fff;
+}
+
 .data-table-container .rs-panel-header {
     padding-bottom: 0px;
 }
@@ -169,4 +194,21 @@ h2{
 
 .rs-drawer-body{
     max-height: 100vh !important;
+}
+
+.rs-dropdown-header{
+    color: #000
+}
+
+@media screen and (max-width: 600px) {
+    .container{
+        padding: 0;
+        width: 95%;
+    }
+    .mobile-justify-between{
+        justify-content: space-between;
+    }
+    .col-order-3{
+        order:3;
+    }
 }

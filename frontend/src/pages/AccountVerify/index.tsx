@@ -4,7 +4,6 @@ import { Button, ButtonToolbar, Container, Content, Divider, Form } from 'rsuite
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import classes from './index.module.css'
-import logo from '../../assets/images/logo.png'
 import ReCAPTCHA from "react-google-recaptcha";
 import { page_routes } from '../../utils/page_routes';
 import { useForm, Controller } from 'react-hook-form';
@@ -17,6 +16,7 @@ import { isAxiosError } from 'axios';
 import { AuthType, AxiosErrorResponseType } from '../../utils/types';
 import { useUser } from '../../hooks/useUser';
 import { useAccountModal } from '../../hooks/useAccountModal';
+import IntroScreen from '../../components/IntroScreen';
 
 type SchemaType = {
   otp: number;
@@ -35,7 +35,7 @@ const AccountVerify:FC = () => {
     const [logoutLoading, setLogoutLoading] = useState<boolean>(false);
     const [otpLoading, setOtpLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {removeUser, setUser} = useUser();
+    const {user, removeUser, setUser} = useUser();
     const captchaRef = useRef<ReCAPTCHA>(null);
     const navigate = useNavigate();
     const {toggleAccountModal} = useAccountModal();
@@ -89,7 +89,29 @@ const AccountVerify:FC = () => {
             await api.get(api_routes.auth.logout);
             removeUser();
             toastSuccess("Logged Out Successful");
-            navigate(page_routes.auth.login, {replace: true});
+            switch ((user && user.role) ? user.role.toLowerCase() : 'student') {
+                case 'student':
+                    navigate(page_routes.auth.student.login, {replace: true});
+                    break;
+                case 'institute':
+                    navigate(page_routes.auth.institute.login, {replace: true});
+                    break;
+                case 'industry':
+                    navigate(page_routes.auth.industry.login, {replace: true});
+                    break;
+                case 'contribution':
+                    navigate(page_routes.auth.contribution.login, {replace: true});
+                    break;
+                case 'govt':
+                    navigate(page_routes.auth.govt.login, {replace: true});
+                    break;
+                case 'admin':
+                    navigate(page_routes.auth.admin.login, {replace: true});
+                    break;
+                default:
+                    navigate(page_routes.auth.student.login, {replace: true});
+                    break;
+            }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error?.response?.data?.message) {
@@ -124,18 +146,14 @@ const AccountVerify:FC = () => {
                 <div className="container grid-center">
                     <div className="row justify-center">
                         <div className={classes.info_col}>
-                            <div className="text-center">
-                                <img src={logo} alt="" className={classes.logo} />
-                                <h2>Welcome To</h2>
-                                <h1>Karnataka Labour Welfare Board</h1>
-                            </div>
+                            <IntroScreen />
                             <Divider>Note</Divider>
                             <p><b>OTP will be shared with your registered mobile number and email</b></p>
                         </div>
                         <div className={classes.form_col}>
                             <div className={classes.formContainer}>
                                 <div className={classes.formTitle}>
-                                    Student Account Verification
+                                    Account Verification
                                 </div>
                                 <div className={classes.formFields}>
                                     <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Nav, Sidebar, Sidenav, Text } from 'rsuite';
+import { Nav, Sidebar, Sidenav } from 'rsuite';
 import classes from './index.module.css'
 import ChangeListIcon from '@rsuite/icons/ChangeList';
 import ListIcon from '@rsuite/icons/List';
@@ -38,17 +38,17 @@ const NavMenu = () => {
             }
             {
                 ["Super-Admin", "Admin"].includes((user && user.role) ? user.role : "Student") && <>
-                    <Nav.Item eventKey="8" icon={<PeoplesIcon />}>
-                        <NavLink to={page_routes.employee} className='w-100 h-100 d-inline-block sidebar-navlink'>Employee Management</NavLink>
+                    <Nav.Item eventKey="8" as={NavLink} to={page_routes.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
+                        Employee Management
                     </Nav.Item>
-                    <Nav.Item eventKey="10" icon={<CalendarIcon />}>
-                        <NavLink to={page_routes.application_date} className='w-100 h-100 d-inline-block sidebar-navlink'>Application Dates</NavLink>
+                    <Nav.Item eventKey="10" as={NavLink} to={page_routes.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
+                        Application Dates
                     </Nav.Item>
-                    <Nav.Item eventKey="11" icon={<TagNumberIcon />}>
-                        <NavLink to={page_routes.application_fee} className='w-100 h-100 d-inline-block sidebar-navlink'>Scholarship Fees</NavLink>
+                    <Nav.Item eventKey="11" as={NavLink} to={page_routes.application_fee} className='sidebar-navlink' icon={<TagNumberIcon />}>
+                        Scholarship Fees
                     </Nav.Item>
-                    <Nav.Item eventKey="9" icon={<SettingHorizontalIcon />}>
-                        <NavLink to={page_routes.security_question} className='w-100 h-100 d-inline-block sidebar-navlink'>Security Questions</NavLink>
+                    <Nav.Item eventKey="9" as={NavLink} to={page_routes.security_question} className='sidebar-navlink' icon={<SettingHorizontalIcon />}>
+                        Security Questions
                     </Nav.Item>
                     <Nav.Menu
                         eventKey="6"
@@ -56,10 +56,11 @@ const NavMenu = () => {
                         title="Location Management"
                         icon={<LocationIcon />}
                         placement="rightStart"
+                        className='sidebar-navmenu'
                     >
-                        <Nav.Item as={Text} eventKey="6-1"><NavLink to={page_routes.state} className='w-100 h-100 d-inline-block sidebar-navlink'>State</NavLink></Nav.Item>
-                        <Nav.Item as={Text} eventKey="6-2"><NavLink to={page_routes.city} className='w-100 h-100 d-inline-block sidebar-navlink'>City</NavLink></Nav.Item>
-                        <Nav.Item as={Text} eventKey="6-3"><NavLink to={page_routes.taluq} className='w-100 h-100 d-inline-block sidebar-navlink'>Taluq</NavLink></Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.state} className='sidebar-navlink' eventKey="6-1">State</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.city} className='sidebar-navlink' eventKey="6-2">City</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.taluq} className='sidebar-navlink' eventKey="6-3">Taluq</Nav.Item>
                     </Nav.Menu>
                     <Nav.Menu
                         eventKey="7"
@@ -67,10 +68,11 @@ const NavMenu = () => {
                         title="Course Management"
                         icon={<TextImageIcon />}
                         placement="rightStart"
+                        className='sidebar-navmenu'
                     >
-                        <Nav.Item as={Text} eventKey="7-1"><NavLink to={page_routes.graduation} className='w-100 h-100 d-inline-block sidebar-navlink'>Graduation</NavLink></Nav.Item>
-                        <Nav.Item as={Text} eventKey="7-2"><NavLink to={page_routes.course} className='w-100 h-100 d-inline-block sidebar-navlink'>Course</NavLink></Nav.Item>
-                        <Nav.Item as={Text} eventKey="7-3"><NavLink to={page_routes.class} className='w-100 h-100 d-inline-block sidebar-navlink'>Class</NavLink></Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.graduation} className='sidebar-navlink' eventKey="7-1">Graduation</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.course} className='sidebar-navlink' eventKey="7-2">Course</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.class} className='sidebar-navlink' eventKey="7-3">Class</Nav.Item>
                     </Nav.Menu>
                 </>
             }

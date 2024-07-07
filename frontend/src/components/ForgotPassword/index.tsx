@@ -1,24 +1,24 @@
 import { Tabs } from 'rsuite'
 import classes from './index.module.css'
-import LoginWithPhone from '../../../components/Login/LoginWithPhone';
-import LoginWithEmail from '../../../components/Login/LoginWithEmail';
+import ResetWithPhone from './ResetWithPhone';
+import ResetWithEmail from './ResetWithEmail';
 
-function LoginPage() {
+function ForgotPassword({title, login_link}:{title:string; login_link:string}) {
   return (
     <div className={classes.formContainer}>
         <div className={classes.formTitle}>
-          Student Login
+          {title} Forgot Password
         </div>
         <div className="auth-form">
           <Tabs defaultActiveKey="1" appearance="subtle">
-            <Tabs.Tab eventKey="1" title="Login With Email">
+            <Tabs.Tab eventKey="1" title="Reset With Email">
               <div className={classes.formFields}>
-                <LoginWithEmail />
+                <ResetWithEmail title={title} login_link={login_link} />
               </div>
             </Tabs.Tab>
-            <Tabs.Tab eventKey="2" title="Login With Mobile No.">
+            <Tabs.Tab eventKey="2" title="Reset With Mobile No.">
               <div className={classes.formFields}>
-                <LoginWithPhone />
+                <ResetWithPhone title={title} login_link={login_link} />
               </div>
             </Tabs.Tab>
           </Tabs>
@@ -27,4 +27,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+export default ForgotPassword

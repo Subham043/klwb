@@ -3,9 +3,9 @@ import { Container, Content, Divider } from 'rsuite';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import classes from './index.module.css'
-import logo from '../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import { page_routes } from '../../utils/page_routes';
+import IntroScreen from '../../components/IntroScreen';
 
 const PageNotFound:FC = () => {
 
@@ -18,14 +18,11 @@ const PageNotFound:FC = () => {
                 <div className="container grid-center">
                     <div className="row justify-center">
                         <div className={classes.info_col}>
-                            <div className="text-center">
-                                <img src={logo} alt="" className={classes.logo} />
-                                <h2>Welcome To</h2>
-                                <h1>Karnataka Labour Welfare Board</h1>
+                            <IntroScreen>
                                 <Divider><h1>404</h1></Divider>
                                 <p><b>Oops! Page Not Found</b></p>
                                 <Link to={page_routes.dashboard} className={classes.link}>Back to Home</Link>
-                            </div>
+                            </IntroScreen>
                         </div>
                     </div>
                 </div>

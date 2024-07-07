@@ -32,7 +32,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function ResetWithPhone(props: {token: string}) {
+export default function ResetWithPhone(props: {token: string; type: string}) {
     const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
@@ -67,7 +67,29 @@ export default function ResetWithPhone(props: {token: string}) {
                 otp: 0,
                 captcha: "",
             });
-            navigate(page_routes.auth.login);
+            switch (props.type.toLowerCase()) {
+                case 'student':
+                    navigate(page_routes.auth.student.login, {replace: true});
+                    break;
+                case 'institute':
+                    navigate(page_routes.auth.institute.login, {replace: true});
+                    break;
+                case 'industry':
+                    navigate(page_routes.auth.industry.login, {replace: true});
+                    break;
+                case 'contribution':
+                    navigate(page_routes.auth.contribution.login, {replace: true});
+                    break;
+                case 'govt':
+                    navigate(page_routes.auth.govt.login, {replace: true});
+                    break;
+                case 'admin':
+                    navigate(page_routes.auth.admin.login, {replace: true});
+                    break;
+                default:
+                    navigate(page_routes.auth.student.login, {replace: true});
+                    break;
+            }
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){

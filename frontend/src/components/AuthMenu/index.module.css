@@ -9,4 +9,5 @@
 .linkMenu:hover, .linkMenu:visited, .linkMenu:active, .linkMenu:focus, .linkMenu:focus-visible, .linkMenu:focus-within{
     background-color: #0057a3;
     color: white;
+    text-decoration: none;
 }
