@@ -40,7 +40,6 @@ class PasswordPostRequest extends FormRequest
                         ->mixedCase()
                         ->numbers()
                         ->symbols()
-                        ->uncompromised()
             ],
             'confirm_password' => 'string|min:6|required_with:password|same:password',
         ];

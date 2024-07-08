@@ -3,7 +3,7 @@
 namespace App\Modules\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Authentication\Jobs\OtpMailJob;
+use App\Modules\Authentication\Events\ResendOtp;
 use Illuminate\Http\Request;
 
 class ResendRegisteredUserOtpController extends Controller
@@ -17,7 +17,7 @@ class ResendRegisteredUserOtpController extends Controller
         $request->user()->update([
             'otp' => rand (1111, 9999)
         ]);
-        dispatch(new OtpMailJob($request->user()));
+        ResendOtp::dispatch($request->user());
         return response()->json([
             'message' => 'Otp sent successfully.',
         ], 200);

@@ -1,5 +1,5 @@
 import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useToast } from "../../hooks/useToast";
@@ -7,6 +7,7 @@ import { AuthType, AxiosErrorResponseType } from "../../utils/types";
 import { useProfileQuery, useUpdateProfileMutation } from '../../hooks/data/profile';
 import { MutateOptions } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
+import TextInput from '../FormInput/TextInput';
 
 type SchemaType = {
   email: string;
@@ -67,53 +68,9 @@ export default function ProfileUpdate({display}: {display: boolean}) {
     return (
         <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
             {(isProfileFetching || isProfileLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form.Group>
-                <Controller
-                    name="name"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>Name</Form.ControlLabel>
-                            <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="email"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>Email</Form.ControlLabel>
-                            <Form.Control name={field.name} type="email" value={field.value} onChange={field.onChange} />
-                            <Form.HelpText><b>Note:</b> <i>Changing email will lead to re-verification process of your account</i></Form.HelpText>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="phone"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>Phone</Form.ControlLabel>
-                            <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                            <Form.HelpText><b>Note:</b> <i>Changing phone will lead to re-verification process of your account</i></Form.HelpText>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
+            <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
+            <TextInput type="email" name="email" label="Email" helpText='Changing email will lead to re-verification process of your account' control={control} error={errors.email?.message} />
+            <TextInput name="phone" label="Phone" helpText='Changing phone will lead to re-verification process of your account' control={control} error={errors.phone?.message} />
             <Form.Group>
                 <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={updateProfile.isPending} disabled={updateProfile.isPending}>Update</Button>

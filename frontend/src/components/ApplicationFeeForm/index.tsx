@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader, SelectPicker, Toggle } from 'rsuite'
+import { Button, ButtonToolbar, Form, Loader, SelectPicker } from 'rsuite'
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
@@ -11,6 +10,9 @@ import { isAxiosError } from "axios";
 import Drawer from "../Drawer";
 import { useApplicationFeeQuery } from '../../hooks/data/application_fee';
 import { useClassSelectQuery } from '../../hooks/data/class';
+import { useAxios } from '../../hooks/useAxios';
+import TextInput from '../FormInput/TextInput';
+import ToggleInput from '../FormInput/ToggleInput';
 
 type SchemaType = {
   amount: number;
@@ -32,7 +34,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
     const {toastError, toastSuccess} = useToast();
     const {data, isFetching, isLoading } = useApplicationFeeQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const {data:classes, isFetching:isClassFetching, isLoading:isClassLoading } = useClassSelectQuery(drawer.status);
-
+    const axios = useAxios();
 
     const {
         control,
@@ -57,7 +59,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(drawer.type === "Edit" ? api_routes.admin.application_fee.update(drawer.id) : api_routes.admin.application_fee.create, getValues());
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.application_fee.update(drawer.id) : api_routes.admin.application_fee.create, getValues());
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -90,21 +92,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
         <Drawer title="Scholarship Fee" drawer={drawer} drawerHandler={drawerHandler}>
             {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
             <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <Form.Group>
-                    <Controller
-                        name="amount"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Amount</Form.ControlLabel>
-                                <Form.Control name={field.name} type="number" value={field.value} onChange={field.onChange} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <TextInput name="amount" label="Amount" type="number" focus={true} control={control} error={errors.amount?.message} />
                 <Form.Group>
                     <Controller
                         name="class_id"
@@ -120,20 +108,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
                         )}
                     />
                 </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="is_active"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Toggle size="lg" checkedChildren="Active" unCheckedChildren="Inactive" checked={field.value === 1} onChange={(checked) => field.onChange(checked ? 1 : 0)} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                 <Form.Group>
                     <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                         <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

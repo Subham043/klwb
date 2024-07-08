@@ -1,19 +1,20 @@
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, ButtonToolbar, Form, Input, InputGroup } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useRef, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { page_routes } from "../../utils/page_routes";
-import VisibleIcon from '@rsuite/icons/Visible';
-import UnvisibleIcon from '@rsuite/icons/Unvisible';
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { useUser } from "../../hooks/useUser";
 import { AuthType, AxiosErrorResponseType } from "../../utils/types";
 import { isAxiosError } from "axios";
+import { useAxios } from "../../hooks/useAxios";
+import CaptchaInput from "../FormInput/CaptchaInput";
+import PasswordInput from "../FormInput/PasswordInput";
+import TextInput from "../FormInput/TextInput";
 
 type SchemaType = {
   phone: number;
@@ -30,7 +31,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .required();
 
 export default function LoginWithPhone({forgot_password_link}: {forgot_password_link:string}) {
-    const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {setUser} = useUser();
@@ -38,10 +38,7 @@ export default function LoginWithPhone({forgot_password_link}: {forgot_password_
     const location = useLocation();
     const from = location?.state?.from?.pathname || page_routes.dashboard;
     const captchaRef = useRef<ReCAPTCHA>(null);
-
-    const handleChange = () => {
-        setVisible(!visible);
-    };
+    const axios = useAxios();
 
     const {
         control,
@@ -55,7 +52,7 @@ export default function LoginWithPhone({forgot_password_link}: {forgot_password_
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const response = await api.post<{user:AuthType}>(api_routes.auth.login.phone, getValues());
+            const response = await axios.post<{user:AuthType}>(api_routes.auth.login.phone, getValues());
             setUser(response.data.user);
             toastSuccess("Login Successful");
             reset({
@@ -85,59 +82,9 @@ export default function LoginWithPhone({forgot_password_link}: {forgot_password_
 
     return (
         <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-            <Form.Group>
-                <Controller
-                    name="phone"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>Phone</Form.ControlLabel>
-                            <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                        <div>
-                            <Form.ControlLabel>Password</Form.ControlLabel>
-                            <InputGroup inside>
-                                <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                <InputGroup.Button onClick={handleChange}>
-                                    {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                </InputGroup.Button>
-                            </InputGroup>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </div>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="captcha"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <ReCAPTCHA
-                                sitekey={import.meta.env.VITE_USER_GOOGLE_CAPTCHA_SITE_KEY}
-                                onChange={field.onChange}
-                                ref={captchaRef}
-                            />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
+            <TextInput name="phone" label="Phone" focus={true} control={control} error={errors.phone?.message} />
+            <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />
+            <CaptchaInput control={control} error={errors.captcha?.message} ref={captchaRef} />
             <Form.Group>
                 <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Login</Button>

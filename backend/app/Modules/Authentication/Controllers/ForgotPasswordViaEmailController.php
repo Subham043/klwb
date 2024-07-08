@@ -4,7 +4,7 @@ namespace App\Modules\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
-use App\Modules\Authentication\Jobs\ResetPasswordMailJob;
+use App\Modules\Authentication\Events\ForgotPassword;
 use App\Modules\Authentication\Requests\ForgotPasswordViaEmailPostRequest;
 use Illuminate\Support\Facades\Password;
 
@@ -18,7 +18,7 @@ class ForgotPasswordViaEmailController extends Controller
             function ($user, $token) {
                 $user->update(['otp' => rand (1111, 9999)]);
                 $this->token = $token;
-                dispatch(new ResetPasswordMailJob($user, $token));
+                ForgotPassword::dispatch($user, $token);
             }
         );
         if($status === Password::RESET_LINK_SENT){

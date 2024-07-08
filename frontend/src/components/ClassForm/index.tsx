@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader, SelectPicker, Toggle } from 'rsuite'
+import { Button, ButtonToolbar, Form, Loader, SelectPicker } from 'rsuite'
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
@@ -11,6 +10,9 @@ import { isAxiosError } from "axios";
 import Drawer from "../Drawer";
 import { useClassQuery } from '../../hooks/data/class';
 import { useCourseSelectQuery } from '../../hooks/data/course';
+import { useAxios } from '../../hooks/useAxios';
+import TextInput from '../FormInput/TextInput';
+import ToggleInput from '../FormInput/ToggleInput';
 
 type SchemaType = {
   name: string;
@@ -32,7 +34,7 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
     const {toastError, toastSuccess} = useToast();
     const {data, isFetching, isLoading } = useClassQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const {data:courses, isFetching:isCourseFetching, isLoading:isCourseLoading } = useCourseSelectQuery(drawer.status);
-
+    const axios = useAxios();
 
     const {
         control,
@@ -57,7 +59,7 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(drawer.type === "Edit" ? api_routes.admin.class.update(drawer.id) : api_routes.admin.class.create, getValues());
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.class.update(drawer.id) : api_routes.admin.class.create, getValues());
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -88,21 +90,7 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
         <Drawer title="Class" drawer={drawer} drawerHandler={drawerHandler}>
             {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
             <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <Form.Group>
-                    <Controller
-                        name="name"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Name</Form.ControlLabel>
-                                <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
                 <Form.Group>
                     <Controller
                         name="course_id"
@@ -118,20 +106,7 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
                         )}
                     />
                 </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="is_active"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Toggle size="lg" checkedChildren="Active" unCheckedChildren="Inactive" checked={field.value === 1} onChange={(checked) => field.onChange(checked ? 1 : 0)} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                 <Form.Group>
                     <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                         <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

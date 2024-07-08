@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useToast } from './useToast';
-import api from '../utils/axios';
+import { useAxios } from './useAxios';
 
 /*
   * Toast Hook Type
@@ -18,10 +18,11 @@ export const useDeleteQuery:DeleteQueryHookType = () => {
 
     const {toastError, toastSuccess} = useToast();
     const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+    const axios = useAxios();
     const deleteHandler = async (delete_url: string) => {
         setDeleteLoading(true)
         try {
-            await api.delete(`${delete_url}`);
+            await axios.delete(`${delete_url}`);
             toastSuccess('Deleted Successfully');
         } catch (error) {
             toastError('Something went wrong. Please try again later.');

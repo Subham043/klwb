@@ -1,17 +1,18 @@
-import { Button, ButtonToolbar, Form, Input, Loader, Toggle } from 'rsuite'
-import { forwardRef, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
 import Drawer from "../Drawer";
 import { useSecurityQuestionQuery } from '../../hooks/data/security_question';
+import { useAxios } from '../../hooks/useAxios';
+import TextInput from '../FormInput/TextInput';
+import ToggleInput from '../FormInput/ToggleInput';
 
-const Textarea = forwardRef<HTMLTextAreaElement>((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
 type SchemaType = {
   question: string;
@@ -30,7 +31,7 @@ export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{d
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {data, isFetching, isLoading } = useSecurityQuestionQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
-
+    const axios = useAxios();
 
     const {
         control,
@@ -53,7 +54,7 @@ export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{d
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(drawer.type === "Edit" ? api_routes.admin.security_question.update(drawer.id) : api_routes.admin.security_question.create, getValues());
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.security_question.update(drawer.id) : api_routes.admin.security_question.create, getValues());
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -84,35 +85,8 @@ export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{d
         <Drawer title="Security Question" drawer={drawer} drawerHandler={drawerHandler}>
             {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
             <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <Form.Group>
-                    <Controller
-                        name="question"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Question</Form.ControlLabel>
-                                <Form.Control name={field.name} accepter={Textarea} value={field.value} onChange={field.onChange} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
-                <Form.Group>
-                <Controller
-                    name="is_active"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Toggle size="lg" checkedChildren="Active" unCheckedChildren="Inactive" checked={field.value === 1} onChange={(checked) => field.onChange(checked ? 1 : 0)} />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
+                <TextInput name="question" label="Question" textarea={true} focus={true} control={control} error={errors.question?.message} />
+                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                 <Form.Group>
                     <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                         <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

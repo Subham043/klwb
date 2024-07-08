@@ -15,7 +15,6 @@ const PersistLayout:FC = () => {
 
     
     useEffect(() => {
-        
         let isMounted = true;
         const checkUserAuthenticated = async () => {
             try {

@@ -39,7 +39,6 @@ class ResetPasswordViaPhonePostRequest  extends FormRequest
                         ->mixedCase()
                         ->numbers()
                         ->symbols()
-                        ->uncompromised()
             ],
         ];
     }

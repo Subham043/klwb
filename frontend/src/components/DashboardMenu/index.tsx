@@ -6,10 +6,10 @@ import { useState } from 'react';
 import { useToast } from '../../hooks/useToast';
 import { useUser } from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
-import { page_routes } from '../../utils/page_routes';
-import api from '../../utils/axios';
 import { api_routes } from '../../utils/api_routes';
 import { useAccountModal } from '../../hooks/useAccountModal';
+import { useAxios } from '../../hooks/useAxios';
+import { getLoginPath } from '../../utils/helper';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderToggle = (props: any) => (
@@ -21,36 +21,15 @@ export default function DashboardMenu({expand, setExpand}:{expand: boolean, setE
     const {user, removeUser} = useUser();
     const {toggleAccountModal} = useAccountModal();
     const navigate = useNavigate();
+    const axios = useAxios();
 
     const logoutHandler = async () => {
         setLoading(true);
         try {
-            await api.get(api_routes.auth.logout);
+            await axios.get(api_routes.auth.logout);
             removeUser();
             toastSuccess("Logged Out Successful");
-            switch ((user && user.role) ? user.role.toLowerCase() : 'student') {
-                case 'student':
-                    navigate(page_routes.auth.student.login, {replace: true});
-                    break;
-                case 'institute':
-                    navigate(page_routes.auth.institute.login, {replace: true});
-                    break;
-                case 'industry':
-                    navigate(page_routes.auth.industry.login, {replace: true});
-                    break;
-                case 'contribution':
-                    navigate(page_routes.auth.contribution.login, {replace: true});
-                    break;
-                case 'govt':
-                    navigate(page_routes.auth.govt.login, {replace: true});
-                    break;
-                case 'admin':
-                    navigate(page_routes.auth.admin.login, {replace: true});
-                    break;
-                default:
-                    navigate(page_routes.auth.student.login, {replace: true});
-                    break;
-            }
+            navigate(getLoginPath((user && user.role) ? user.role.toLowerCase() : 'student'), {replace: true});
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error?.response?.data?.message) {

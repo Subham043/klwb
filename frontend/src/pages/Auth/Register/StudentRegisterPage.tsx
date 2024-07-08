@@ -1,21 +1,22 @@
 import classes from './index.module.css'
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from 'react-router-dom';
-import { Button, ButtonToolbar, Divider, Form, Input, InputGroup } from 'rsuite'
+import { Button, ButtonToolbar, Divider, Form } from 'rsuite'
 import { useRef, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { page_routes } from '../../../utils/page_routes';
-import VisibleIcon from '@rsuite/icons/Visible';
-import UnvisibleIcon from '@rsuite/icons/Unvisible';
 import { useToast } from '../../../hooks/useToast';
-import api from '../../../utils/axios';
 import { api_routes } from '../../../utils/api_routes';
 import { isAxiosError } from 'axios';
 import { AxiosErrorResponseType } from '../../../utils/types';
 import IntroScreen from '../../../components/IntroScreen';
 import DetailIcon from '@rsuite/icons/Detail';
+import { useAxios } from '../../../hooks/useAxios';
+import CaptchaInput from '../../../components/FormInput/CaptchaInput';
+import PasswordInput from '../../../components/FormInput/PasswordInput';
+import TextInput from '../../../components/FormInput/TextInput';
 
 type SchemaType = {
   email: string;
@@ -39,14 +40,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 
 function StudentRegisterPage() {
 
-    const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const captchaRef = useRef<ReCAPTCHA>(null);
-
-    const handleChange = () => {
-        setVisible(!visible);
-    };
+    const axios = useAxios();
 
     const {
         control,
@@ -60,7 +57,7 @@ function StudentRegisterPage() {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(api_routes.auth.register.student, getValues());
+            await axios.post(api_routes.auth.register.student, getValues());
             toastSuccess("Registration Successful");
             reset({
                 name: "",
@@ -114,109 +111,12 @@ function StudentRegisterPage() {
                 </div>
                 <div className={classes.formFields}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                    <Form.Group>
-                        <Controller
-                            name="name"
-                            control={control}
-                            render={({ field }) => (
-                                <>
-                                    <Form.ControlLabel>Name</Form.ControlLabel>
-                                    <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                                    <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                        {errors[field.name]?.message}
-                                    </Form.ErrorMessage>
-                                </>
-                            )}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Controller
-                            name="email"
-                            control={control}
-                            render={({ field }) => (
-                                <>
-                                    <Form.ControlLabel>Email</Form.ControlLabel>
-                                    <Form.Control name={field.name} type="email" value={field.value} onChange={field.onChange} />
-                                    <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                        {errors[field.name]?.message}
-                                    </Form.ErrorMessage>
-                                </>
-                            )}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Controller
-                            name="phone"
-                            control={control}
-                            render={({ field }) => (
-                                <>
-                                    <Form.ControlLabel>Phone</Form.ControlLabel>
-                                    <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                                    <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                        {errors[field.name]?.message}
-                                    </Form.ErrorMessage>
-                                </>
-                            )}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Controller
-                            name="password"
-                            control={control}
-                            render={({ field }) => (
-                                <div>
-                                    <Form.ControlLabel>Password</Form.ControlLabel>
-                                    <InputGroup inside>
-                                        <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                        <InputGroup.Button onClick={handleChange}>
-                                            {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                        </InputGroup.Button>
-                                    </InputGroup>
-                                    <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                        {errors[field.name]?.message}
-                                    </Form.ErrorMessage>
-                                </div>
-                            )}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Controller
-                            name="confirm_password"
-                            control={control}
-                            render={({ field }) => (
-                                <div>
-                                    <Form.ControlLabel>Confirm Password</Form.ControlLabel>
-                                    <InputGroup inside>
-                                        <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                        <InputGroup.Button onClick={handleChange}>
-                                            {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                        </InputGroup.Button>
-                                    </InputGroup>
-                                    <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                        {errors[field.name]?.message}
-                                    </Form.ErrorMessage>
-                                </div>
-                            )}
-                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Controller
-                            name="captcha"
-                            control={control}
-                            render={({ field }) => (
-                                <>
-                                    <ReCAPTCHA
-                                        sitekey={import.meta.env.VITE_USER_GOOGLE_CAPTCHA_SITE_KEY}
-                                        onChange={field.onChange}
-                                        ref={captchaRef}
-                                    />
-                                    <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                        {errors[field.name]?.message}
-                                    </Form.ErrorMessage>
-                                </>
-                            )}
-                        />
-                    </Form.Group>
+                    <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
+                    <TextInput name="email" type='email' label="Email" control={control} error={errors.email?.message} />
+                    <TextInput name="phone" label="Phone" control={control} error={errors.phone?.message} />
+                    <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />
+                    <PasswordInput name="confirm_password" label="Confirm Password" control={control} error={errors.confirm_password?.message} />
+                    <CaptchaInput control={control} error={errors.captcha?.message} ref={captchaRef} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Register</Button>

@@ -5,18 +5,20 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import classes from './index.module.css'
 import ReCAPTCHA from "react-google-recaptcha";
-import { page_routes } from '../../utils/page_routes';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useToast } from '../../hooks/useToast';
-import api from '../../utils/axios';
 import { api_routes } from '../../utils/api_routes';
 import { isAxiosError } from 'axios';
 import { AuthType, AxiosErrorResponseType } from '../../utils/types';
 import { useUser } from '../../hooks/useUser';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import IntroScreen from '../../components/IntroScreen';
+import { useAxios } from '../../hooks/useAxios';
+import { getLoginPath } from '../../utils/helper';
+import CaptchaInput from '../../components/FormInput/CaptchaInput';
+import TextInput from '../../components/FormInput/TextInput';
 
 type SchemaType = {
   otp: number;
@@ -39,6 +41,7 @@ const AccountVerify:FC = () => {
     const captchaRef = useRef<ReCAPTCHA>(null);
     const navigate = useNavigate();
     const {toggleAccountModal} = useAccountModal();
+    const axios = useAxios();
 
     useEffect(() => {
         toggleAccountModal(false);
@@ -57,7 +60,7 @@ const AccountVerify:FC = () => {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const response = await api.post<{ profile: AuthType }>(api_routes.account.profile_verify, getValues());
+            const response = await axios.post<{ profile: AuthType }>(api_routes.account.profile_verify, getValues());
             toastSuccess("Verification Successful");
             reset({
                 otp: undefined,
@@ -86,32 +89,10 @@ const AccountVerify:FC = () => {
     const logoutHandler = async () => {
         setLogoutLoading(true);
         try {
-            await api.get(api_routes.auth.logout);
+            await axios.get(api_routes.auth.logout);
             removeUser();
             toastSuccess("Logged Out Successful");
-            switch ((user && user.role) ? user.role.toLowerCase() : 'student') {
-                case 'student':
-                    navigate(page_routes.auth.student.login, {replace: true});
-                    break;
-                case 'institute':
-                    navigate(page_routes.auth.institute.login, {replace: true});
-                    break;
-                case 'industry':
-                    navigate(page_routes.auth.industry.login, {replace: true});
-                    break;
-                case 'contribution':
-                    navigate(page_routes.auth.contribution.login, {replace: true});
-                    break;
-                case 'govt':
-                    navigate(page_routes.auth.govt.login, {replace: true});
-                    break;
-                case 'admin':
-                    navigate(page_routes.auth.admin.login, {replace: true});
-                    break;
-                default:
-                    navigate(page_routes.auth.student.login, {replace: true});
-                    break;
-            }
+            navigate(getLoginPath((user && user.role) ? user.role.toLowerCase() : 'student'), {replace: true});
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error?.response?.data?.message) {
@@ -125,7 +106,7 @@ const AccountVerify:FC = () => {
     const otpHandler = async () => {
         setOtpLoading(true);
         try {
-            await api.get(api_routes.account.resend_otp);
+            await axios.get(api_routes.account.resend_otp);
             toastSuccess("OTP Sent Successfully");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -157,40 +138,8 @@ const AccountVerify:FC = () => {
                                 </div>
                                 <div className={classes.formFields}>
                                     <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                                        <Form.Group>
-                                            <Controller
-                                                name="otp"
-                                                control={control}
-                                                render={({ field }) => (
-                                                    <>
-                                                        <Form.ControlLabel>OTP</Form.ControlLabel>
-                                                        <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                                                        <Form.HelpText><i>Please Enter the OTP sent to your mobile number and email</i></Form.HelpText>
-                                                        <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                                            {errors[field.name]?.message}
-                                                        </Form.ErrorMessage>
-                                                    </>
-                                                )}
-                                            />
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Controller
-                                                name="captcha"
-                                                control={control}
-                                                render={({ field }) => (
-                                                    <>
-                                                        <ReCAPTCHA
-                                                            sitekey={import.meta.env.VITE_USER_GOOGLE_CAPTCHA_SITE_KEY}
-                                                            onChange={field.onChange}
-                                                            ref={captchaRef}
-                                                        />
-                                                        <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                                            {errors[field.name]?.message}
-                                                        </Form.ErrorMessage>
-                                                    </>
-                                                )}
-                                            />
-                                        </Form.Group>
+                                        <TextInput name="otp" label="OTP" helpText='Please Enter the OTP sent to your mobile number and email' focus={true} control={control} error={errors.otp?.message} />
+                                        <CaptchaInput control={control} error={errors.captcha?.message} ref={captchaRef} />
                                         <Form.Group>
                                             <ButtonToolbar style={{ width: '100%' }}>
                                                 <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Verify</Button>

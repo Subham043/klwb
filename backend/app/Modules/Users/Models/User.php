@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Database\Factories\UserFactory;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -82,6 +83,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasVerifiedEmail() {
         return !is_null($this->verified_at);
+    }
+
+    public function scopeIsRole(Builder $query, string $role): Builder
+    {
+        return $query->with('roles')
+        ->whereHas('roles', function($q) use($role){
+            $q->where('name', $role);
+        });
     }
 
 }

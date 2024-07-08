@@ -1,15 +1,18 @@
-import { Button, ButtonToolbar, DatePicker, Form, Loader, Toggle } from 'rsuite'
+import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
 import Drawer from "../Drawer";
 import { useApplicationDateQuery } from '../../hooks/data/application_date';
+import { useAxios } from '../../hooks/useAxios';
+import TextInput from '../FormInput/TextInput';
+import ToggleInput from '../FormInput/ToggleInput';
+import DateInput from '../FormInput/DateInput';
 
 const date = new Date()
 
@@ -38,6 +41,7 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {data, isFetching, isLoading } = useApplicationDateQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const axios = useAxios();
 
     const {
         control,
@@ -66,10 +70,9 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
      });
 
     const onSubmit = handleSubmit(async () => {
-        console.log(getValues())
         setLoading(true);
         try {
-            await api.post(drawer.type === "Edit" ? api_routes.admin.application_date.update(drawer.id) : api_routes.admin.application_date.create, getValues());
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.application_date.update(drawer.id) : api_routes.admin.application_date.create, getValues());
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -105,95 +108,12 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
         <Drawer title="Application Date" drawer={drawer} drawerHandler={drawerHandler}>
             {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
             <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <Form.Group>
-                    <Controller
-                        name="from_date"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>From Date</Form.ControlLabel>
-                                <DatePicker name={field.name} value={new Date(field.value)} onChange={field.onChange} format='dd-MM-yyyy' className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="to_date"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>To Date</Form.ControlLabel>
-                                <DatePicker name={field.name} value={new Date(field.value)} onChange={field.onChange} format='dd-MM-yyyy' className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="approval_end_date"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Approval End Date</Form.ControlLabel>
-                                <DatePicker name={field.name} value={new Date(field.value)} onChange={field.onChange} format='dd-MM-yyyy' className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="verification_end_date"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Verification End Date</Form.ControlLabel>
-                                <DatePicker name={field.name} value={new Date(field.value)} onChange={field.onChange} format='dd-MM-yyyy' className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="application_year"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Application Year</Form.ControlLabel>
-                                <Form.Control name={field.name} type="number" value={field.value} onChange={field.onChange} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Controller
-                        name="is_active"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Toggle size="lg" checkedChildren="Active" unCheckedChildren="Inactive" checked={field.value === 1} onChange={(checked) => field.onChange(checked ? 1 : 0)} />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <DateInput name="from_date" label="From Date" control={control} error={errors.from_date?.message} />
+                <DateInput name="to_date" label="To Date" control={control} error={errors.to_date?.message} />
+                <DateInput name="approval_end_date" label="Approval End Date" control={control} error={errors.approval_end_date?.message} />
+                <DateInput name="verification_end_date" label="Verification End Date" control={control} error={errors.approval_end_date?.message} />
+                <TextInput name="application_year" label="Application Year" type="number" focus={true} control={control} error={errors.application_year?.message} />
+                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                 <Form.Group>
                     <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                         <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

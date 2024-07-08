@@ -1,15 +1,14 @@
-import { Button, ButtonToolbar, Form, Input, InputGroup } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import VisibleIcon from '@rsuite/icons/Visible';
-import UnvisibleIcon from '@rsuite/icons/Unvisible';
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { isAxiosError } from 'axios';
 import { AxiosErrorResponseType } from '../../utils/types';
+import { useAxios } from '../../hooks/useAxios';
+import PasswordInput from '../FormInput/PasswordInput';
 
 type SchemaType = {
   old_password: string;
@@ -26,13 +25,9 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .required();
 
 export default function PasswordUpdate() {
-    const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-
-    const handleChange = () => {
-        setVisible(!visible);
-    };
+    const axios = useAxios();
 
     const {
         control,
@@ -46,7 +41,7 @@ export default function PasswordUpdate() {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(api_routes.account.password_update, getValues());
+            await axios.post(api_routes.account.password_update, getValues());
             toastSuccess("Password Update Successful");
             reset({
                 old_password: "",
@@ -73,66 +68,9 @@ export default function PasswordUpdate() {
 
     return (
         <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-            <Form.Group>
-                <Controller
-                    name="old_password"
-                    control={control}
-                    render={({ field }) => (
-                        <div>
-                            <Form.ControlLabel>Old Password</Form.ControlLabel>
-                            <InputGroup inside>
-                                <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                <InputGroup.Button onClick={handleChange}>
-                                    {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                </InputGroup.Button>
-                            </InputGroup>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </div>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                        <div>
-                            <Form.ControlLabel>Password</Form.ControlLabel>
-                            <InputGroup inside>
-                                <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                <InputGroup.Button onClick={handleChange}>
-                                    {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                </InputGroup.Button>
-                            </InputGroup>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </div>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="confirm_password"
-                    control={control}
-                    render={({ field }) => (
-                        <div>
-                            <Form.ControlLabel>Confirm Password</Form.ControlLabel>
-                            <InputGroup inside>
-                                <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                <InputGroup.Button onClick={handleChange}>
-                                    {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                </InputGroup.Button>
-                            </InputGroup>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </div>
-                    )}
-                />
-            </Form.Group>
+            <PasswordInput name="old_password" label="Old Password" control={control} error={errors.old_password?.message} />
+            <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />
+            <PasswordInput name="confirm_password" label="Confirm Password" control={control} error={errors.confirm_password?.message} />
             <Form.Group>
                 <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Update</Button>

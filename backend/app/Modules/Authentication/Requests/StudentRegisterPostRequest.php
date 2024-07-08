@@ -39,7 +39,6 @@ class StudentRegisterPostRequest extends FormRequest
                         ->mixedCase()
                         ->numbers()
                         ->symbols()
-                        ->uncompromised()
             ],
             'confirm_password' => ['required_with:password','same:password'],
             'captcha' => 'required|captcha'

@@ -3,7 +3,7 @@
 namespace App\Modules\Courses\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
 
 
@@ -16,8 +16,7 @@ class CourseRequest extends FormRequest
      */
     public function authorize()
     {
-        // return Auth::check();
-        return TRUE;
+        return Auth::check();
     }
 
     /**

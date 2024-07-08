@@ -1,18 +1,19 @@
 import ReCAPTCHA from "react-google-recaptcha";
-import { useNavigate } from 'react-router-dom';
-import { Button, ButtonToolbar, Form, Input, InputGroup } from 'rsuite'
-import { useForm, Controller } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, ButtonToolbar, Form } from 'rsuite'
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { page_routes } from "../../utils/page_routes";
 import { useRef, useState } from "react";
 import { useToast } from "../../hooks/useToast";
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType } from "../../utils/types";
-import VisibleIcon from '@rsuite/icons/Visible';
-import UnvisibleIcon from '@rsuite/icons/Unvisible';
+import { useAxios } from "../../hooks/useAxios";
+import { getLoginPath } from "../../utils/helper";
+import CaptchaInput from "../FormInput/CaptchaInput";
+import PasswordInput from "../FormInput/PasswordInput";
+import TextInput from "../FormInput/TextInput";
 
 type SchemaType = {
     otp: number;
@@ -33,15 +34,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .required();
 
 export default function ResetWithEmail(props: {token: string; type: string}) {
-    const [visible, setVisible] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const navigate = useNavigate();
     const captchaRef = useRef<ReCAPTCHA>(null);
-
-    const handleChange = () => {
-        setVisible(!visible);
-    };
+    const axios = useAxios();
 
     const {
         control,
@@ -58,7 +55,7 @@ export default function ResetWithEmail(props: {token: string; type: string}) {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await api.post(api_routes.auth.reset_password.email + `/${props.token}`, getValues());
+            await axios.post(api_routes.auth.reset_password.email + `/${props.token}`, getValues());
             toastSuccess("Password reset successfully. Please login with new password.");
             reset({
                 email: "",
@@ -67,29 +64,7 @@ export default function ResetWithEmail(props: {token: string; type: string}) {
                 otp: 0,
                 captcha: "",
             });
-            switch (props.type.toLowerCase()) {
-                case 'student':
-                    navigate(page_routes.auth.student.login, {replace: true});
-                    break;
-                case 'institute':
-                    navigate(page_routes.auth.institute.login, {replace: true});
-                    break;
-                case 'industry':
-                    navigate(page_routes.auth.industry.login, {replace: true});
-                    break;
-                case 'contribution':
-                    navigate(page_routes.auth.contribution.login, {replace: true});
-                    break;
-                case 'govt':
-                    navigate(page_routes.auth.govt.login, {replace: true});
-                    break;
-                case 'admin':
-                    navigate(page_routes.auth.admin.login, {replace: true});
-                    break;
-                default:
-                    navigate(page_routes.auth.student.login, {replace: true});
-                    break;
-            }
+            navigate(getLoginPath(props.type), {replace: true});
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){
@@ -111,100 +86,15 @@ export default function ResetWithEmail(props: {token: string; type: string}) {
 
     return (
         <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+            <TextInput name="email" label="Email" helpText="Enter your registered email" focus={true} control={control} error={errors.email?.message} />
+            <TextInput name="otp" label="OTP" helpText="Please Enter the OTP sent to your email and mobile" focus={true} control={control} error={errors.otp?.message} />
+            <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />
+            <PasswordInput name="password_confirmation" label="Confirm Password" control={control} error={errors.password_confirmation?.message} />
+            <CaptchaInput control={control} error={errors.captcha?.message} ref={captchaRef} />
             <Form.Group>
-                <Controller
-                    name="email"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>Email</Form.ControlLabel>
-                            <Form.Control name={field.name} type="email" value={field.value} onChange={field.onChange} />
-                            <Form.HelpText><i>Please Enter your registered email</i></Form.HelpText>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="otp"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>OTP</Form.ControlLabel>
-                            <Form.Control name={field.name} type="text" value={field.value} onChange={field.onChange} />
-                            <Form.HelpText><i>Please Enter the OTP sent to your mobile number and email</i></Form.HelpText>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                        <div>
-                            <Form.ControlLabel>Password</Form.ControlLabel>
-                            <InputGroup inside>
-                                <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                <InputGroup.Button onClick={handleChange}>
-                                    {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                </InputGroup.Button>
-                            </InputGroup>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </div>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="password_confirmation"
-                    control={control}
-                    render={({ field }) => (
-                        <div>
-                            <Form.ControlLabel>Confirm Password</Form.ControlLabel>
-                            <InputGroup inside>
-                                <Input type={visible ? 'text' : 'password'} name={field.name} value={field.value} onChange={field.onChange} />
-                                <InputGroup.Button onClick={handleChange}>
-                                    {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                                </InputGroup.Button>
-                            </InputGroup>
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </div>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="captcha"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <ReCAPTCHA
-                                sitekey={import.meta.env.VITE_USER_GOOGLE_CAPTCHA_SITE_KEY}
-                                onChange={field.onChange}
-                                ref={captchaRef}
-                            />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <ButtonToolbar style={{ width: '100%' }}>
+                <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Reset</Button>
-                    <Button appearance="primary" color='orange' size='lg' type="button" loading={loading} disabled={loading}>Resend OTP</Button>
+                    <Link to={getLoginPath(props.type)} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Remember Your Password?</Button></Link>
                 </ButtonToolbar>
             </Form.Group>
         </Form>

@@ -9,19 +9,11 @@ import LoginPanel from './LoginPanel';
 import { AboutSection, ReportSection } from './Sections';
 import { ContactUs, HelpDesk, Notification } from './Infos';
 import { useSearchParams } from 'react-router-dom';
+import { getLanguage } from '../../utils/helper';
 
 const HomePage:FC = () => {
 				const [searchParams] = useSearchParams();
-				const language = useMemo(() => {
-					switch (searchParams.get('lang')?.toLowerCase() || 'english') {
-						case 'kannada':
-							return 'kannada';
-						case 'english':
-							return 'english';
-							default:
-							return 'english';
-					}
-				}, [searchParams]);
+				const language = useMemo(() => getLanguage(searchParams.get('lang')?.toLowerCase() || 'english'), [searchParams]);
     return (
       <Container>
         <Navbar language={language} />

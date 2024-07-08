@@ -34,7 +34,7 @@ class SendResetPasswordMail extends Mailable
     {
         return $this->subject(config('app.name').' - Reset Password')->view('emails.reset_password')->with([
             'data' => $this->data,
-            'link' => config('app.client_url').'/auth/reset-password/'.$this->token
+            'link' => config('app.client_url').'/auth/reset-password/'.$this->token.'?type='.str()->lower($this->data->currentRole)
         ]);
     }
 }

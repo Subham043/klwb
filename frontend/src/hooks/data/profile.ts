@@ -8,18 +8,19 @@ import { useToast } from "../useToast";
 import { isAxiosError } from "axios";
 import { api_routes } from "../../utils/api_routes";
 import { AuthType } from "../../utils/types";
-import api from "../../utils/axios";
 import { useUser } from "../useUser";
+import { useAxios } from "../useAxios";
 
 export const ProfileQueryKey = "profile";
 
 export const useProfileQuery: (
   enabled: boolean
 ) => UseQueryResult<AuthType, unknown> = (enabled) => {
+  const axios = useAxios();
   return useQuery({
     queryKey: [ProfileQueryKey],
     queryFn: async () => {
-      const response = await api.get<{ profile: AuthType }>(
+      const response = await axios.get<{ profile: AuthType }>(
         api_routes.account.profile
       );
       return response.data.profile;
@@ -44,6 +45,7 @@ export const useUpdateProfileMutation = () => {
   const { updateProfile } = useProfileQuerySetData();
   const { toastSuccess, toastError } = useToast();
   const { setUser } = useUser();
+  const axios = useAxios();
 
   return useMutation({
     mutationFn: async (updateProfileVal: {
@@ -51,7 +53,7 @@ export const useUpdateProfileMutation = () => {
       email: string;
       phone: number;
     }) => {
-      const response = await api.post<{ profile: AuthType }>(
+      const response = await axios.post<{ profile: AuthType }>(
         api_routes.account.profile_update,
         updateProfileVal
       );

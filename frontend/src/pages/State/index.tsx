@@ -27,7 +27,7 @@ const State:FC = () => {
         await deleteHandler(api_routes.admin.state.delete(id));
         refetch();
     }
-
+    
     return <PaginatedTableLayout title="States" addHandler={() => setOpenDrawer({status:true, type:'Create'})} total={(data?.meta.total ?? 0)} excelHandler={excelHandler} excelLoading={excelLoading}>
         <Table
             loading={isLoading||isFetching||isRefetching}

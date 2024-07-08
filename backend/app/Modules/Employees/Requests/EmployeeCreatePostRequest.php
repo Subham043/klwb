@@ -17,7 +17,7 @@ class EmployeeCreatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return TRUE;
+        return Auth::check();
     }
 
     /**

@@ -2,8 +2,8 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { api_routes } from "../../utils/api_routes";
 import { useSearchParams } from "react-router-dom";
 import { QueryInitialPageParam, QueryTotalCount } from "../../utils/constants";
-import api from "../../utils/axios";
 import { GraduationType, PaginationType } from "../../utils/types";
+import { useAxios } from "../useAxios";
 
 export const GradutaionQueryKey = "graduation";
 export const GradutaionsQueryKey = "graduations";
@@ -13,6 +13,7 @@ export const useGradutaionsQuery: () => UseQueryResult<
   PaginationType<GraduationType>,
   unknown
 > = () => {
+  const axios = useAxios();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || QueryInitialPageParam.toString();
   const limit = searchParams.get("limit") || QueryTotalCount.toString();
@@ -20,7 +21,7 @@ export const useGradutaionsQuery: () => UseQueryResult<
   return useQuery({
     queryKey: [GradutaionsQueryKey, page, limit, search],
     queryFn: async () => {
-      const response = await api.get<PaginationType<GraduationType>>(
+      const response = await axios.get<PaginationType<GraduationType>>(
         api_routes.admin.graduation.paginate +
           `?page=${page}&total=${limit}&filter[search]=${search}`
       );
@@ -32,10 +33,11 @@ export const useGradutaionsQuery: () => UseQueryResult<
 export const useGradutaionSelectQuery: (
   enabled: boolean
 ) => UseQueryResult<GraduationType[], unknown> = (enabled) => {
+  const axios = useAxios();
   return useQuery({
     queryKey: [GradutaionSelectQueryKey],
     queryFn: async () => {
-      const response = await api.get<{ data: GraduationType[] }>(
+      const response = await axios.get<{ data: GraduationType[] }>(
         api_routes.admin.graduation.all
       );
       return response.data.data;
@@ -48,10 +50,11 @@ export const useGradutaionQuery: (
   id: number,
   enabled: boolean
 ) => UseQueryResult<GraduationType, unknown> = (id, enabled) => {
+  const axios = useAxios();
   return useQuery({
     queryKey: [GradutaionQueryKey, id],
     queryFn: async () => {
-      const response = await api.get<{ data: GraduationType }>(
+      const response = await axios.get<{ data: GraduationType }>(
         api_routes.admin.graduation.view(id)
       );
       return response.data.data;

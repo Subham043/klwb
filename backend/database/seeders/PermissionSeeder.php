@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Modules\Users\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Seed the application's database.

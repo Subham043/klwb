@@ -1,16 +1,18 @@
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, ButtonToolbar, Form } from 'rsuite'
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { page_routes } from "../../utils/page_routes";
 import { useRef, useState } from "react";
 import { useToast } from "../../hooks/useToast";
-import api from "../../utils/axios";
 import { api_routes } from "../../utils/api_routes";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType } from "../../utils/types";
+import { useAxios } from "../../hooks/useAxios";
+import { getResetPasswordPath } from "../../utils/helper";
+import CaptchaInput from "../FormInput/CaptchaInput";
+import TextInput from "../FormInput/TextInput";
 
 type SchemaType = {
   email: string;
@@ -28,6 +30,7 @@ export default function ResetWithEmail({title, login_link}:{title:string; login_
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const navigate = useNavigate();
+    const axios = useAxios();
     const captchaRef = useRef<ReCAPTCHA>(null);
 
     const {
@@ -45,35 +48,13 @@ export default function ResetWithEmail({title, login_link}:{title:string; login_
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const response = await api.post<{ token: string }>(api_routes.auth.forgot_password.email, getValues());
+            const response = await axios.post<{ token: string }>(api_routes.auth.forgot_password.email, getValues());
             toastSuccess("Please check your email or phone to reset your password.");
             reset({
                 email: "",
                 captcha: "",
             });
-            switch (title.toLowerCase()) {
-                case 'student':
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=student', {replace: true});
-                    break;
-                case 'institute':
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=institute', {replace: true});
-                    break;
-                case 'industry':
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=industry', {replace: true});
-                    break;
-                case 'contribution':
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=contribution', {replace: true});
-                    break;
-                case 'govt':
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=govt', {replace: true});
-                    break;
-                case 'admin':
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=admin', {replace: true});
-                    break;
-                default:
-                    navigate(page_routes.auth.reset_password.replace(":token", response.data.token) + '?type=student', {replace: true});
-                    break;
-            }
+            navigate(getResetPasswordPath(title, response.data.token), {replace: true});
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){
@@ -95,39 +76,8 @@ export default function ResetWithEmail({title, login_link}:{title:string; login_
 
     return (
         <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-            <Form.Group>
-                <Controller
-                    name="email"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <Form.ControlLabel>Email</Form.ControlLabel>
-                            <Form.Control name={field.name} type="email" value={field.value} onChange={field.onChange} />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Controller
-                    name="captcha"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <ReCAPTCHA
-                                sitekey={import.meta.env.VITE_USER_GOOGLE_CAPTCHA_SITE_KEY}
-                                onChange={field.onChange}
-                                ref={captchaRef}
-                            />
-                            <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                {errors[field.name]?.message}
-                            </Form.ErrorMessage>
-                        </>
-                    )}
-                />
-            </Form.Group>
+            <TextInput name="email" type="email" label="Email" focus={true} control={control} error={errors.email?.message} />
+            <CaptchaInput control={control} error={errors.captcha?.message} ref={captchaRef} />
             <Form.Group>
                 <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Reset</Button>

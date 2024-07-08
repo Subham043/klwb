@@ -31,7 +31,7 @@ class SendRegisteredMail extends Mailable
     public function build()
     {
         return $this->subject(config('app.name').' - Registration Successful')->view('emails.registered')->with([
-            'data' => $this->data
+            'data' => $this->data,
         ]);
     }
 }

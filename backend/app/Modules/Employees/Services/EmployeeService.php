@@ -3,6 +3,7 @@
 namespace App\Modules\Employees\Services;
 
 use App\Modules\Users\Models\User as Employee;
+
 use App\Modules\Users\Services\UserService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;

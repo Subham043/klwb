@@ -200,6 +200,10 @@ h2{
     color: #000
 }
 
+.rs-nav-subtle.rs-nav-horizontal .rs-nav-bar{
+    border-top: 1px solid #ccc;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;
