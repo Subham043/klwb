@@ -1,6 +1,6 @@
-import { Button, ButtonToolbar, Form, Loader, SelectPicker } from 'rsuite'
+import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { api_routes } from "../../utils/api_routes";
@@ -14,6 +14,7 @@ import { useAxios } from '../../hooks/useAxios';
 import PasswordInput from '../FormInput/PasswordInput';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
+import SelectInput from '../FormInput/SelectInput';
 
 type UpdateSchemaType = {
   name: string;
@@ -116,21 +117,7 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
                 <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
                 <TextInput name="email" label="Email" type='email' control={control} error={errors.email?.message} />
                 <TextInput name="phone" label="Phone" control={control} error={errors.phone?.message} />
-                <Form.Group>
-                    <Controller
-                        name="role"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Role</Form.ControlLabel>
-                                <SelectPicker data={roles ? roles.map(item => ({ label: item.name, value: item.name })) : []} name={field.name} value={field.value} onChange={field.onChange} loading={isGraduationFetching || isGraduationLoading} className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <SelectInput name="role" label="Role" data={roles ? roles.map(item => ({ label: item.name, value: item.name })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.role?.message} />
                 {
                     drawer.type==="Create" && <>
                         <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />

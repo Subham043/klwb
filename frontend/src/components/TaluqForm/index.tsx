@@ -1,6 +1,6 @@
-import { Button, ButtonToolbar, Form, Loader, SelectPicker } from 'rsuite'
+import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { api_routes } from "../../utils/api_routes";
@@ -13,6 +13,7 @@ import { useCitySelectQuery } from '../../hooks/data/city';
 import { useAxios } from '../../hooks/useAxios';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
+import SelectInput from '../FormInput/SelectInput';
 
 type SchemaType = {
   name: string;
@@ -91,21 +92,7 @@ export default function TaluqForm({drawer, drawerHandler, refetch}:{drawer: Draw
             {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
             <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                 <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
-                <Form.Group>
-                    <Controller
-                        name="city_id"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>City</Form.ControlLabel>
-                                <SelectPicker data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} name={field.name} value={field.value} onChange={field.onChange} loading={isCityFetching || isCityLoading} className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <SelectInput name="city_id" label="City" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
                 <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                 <Form.Group>
                     <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>

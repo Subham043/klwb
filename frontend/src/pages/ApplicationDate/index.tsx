@@ -38,7 +38,7 @@ const ApplicationDate:FC = () => {
                 <Table.Cell dataKey="application_year" />
             </Table.Column>
 
-            <Table.Column flexGrow={1}>
+            <Table.Column flexGrow={1} align="center">
                 <Table.HeaderCell>From Date</Table.HeaderCell>
                 <Table.Cell style={{ padding: '6px' }}>
                     {rowData => (
@@ -47,7 +47,7 @@ const ApplicationDate:FC = () => {
                 </Table.Cell>
             </Table.Column>
 
-            <Table.Column flexGrow={1}>
+            <Table.Column flexGrow={1} align="center">
                 <Table.HeaderCell>To Date</Table.HeaderCell>
                 <Table.Cell style={{ padding: '6px' }}>
                     {rowData => (
@@ -56,7 +56,7 @@ const ApplicationDate:FC = () => {
                 </Table.Cell>
             </Table.Column>
 
-            <Table.Column flexGrow={1}>
+            <Table.Column flexGrow={1} align="center">
                 <Table.HeaderCell>Approval End Date</Table.HeaderCell>
                 <Table.Cell style={{ padding: '6px' }}>
                     {rowData => (
@@ -65,7 +65,7 @@ const ApplicationDate:FC = () => {
                 </Table.Cell>
             </Table.Column>
 
-            <Table.Column flexGrow={1}>
+            <Table.Column flexGrow={1} align="center">
                 <Table.HeaderCell>Verification End Date</Table.HeaderCell>
                 <Table.Cell style={{ padding: '6px' }}>
                     {rowData => (

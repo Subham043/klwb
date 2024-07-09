@@ -1,6 +1,6 @@
-import { Button, ButtonToolbar, Form, Loader, SelectPicker } from 'rsuite'
+import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { api_routes } from "../../utils/api_routes";
@@ -13,6 +13,7 @@ import { useClassSelectQuery } from '../../hooks/data/class';
 import { useAxios } from '../../hooks/useAxios';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
+import SelectInput from '../FormInput/SelectInput';
 
 type SchemaType = {
   amount: number;
@@ -93,21 +94,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
             {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
             <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                 <TextInput name="amount" label="Amount" type="number" focus={true} control={control} error={errors.amount?.message} />
-                <Form.Group>
-                    <Controller
-                        name="class_id"
-                        control={control}
-                        render={({ field }) => (
-                            <>
-                                <Form.ControlLabel>Class</Form.ControlLabel>
-                                <SelectPicker data={classes ? classes.map(item => ({ label: item.name, value: item.id })) : []} name={field.name} value={field.value} onChange={field.onChange} loading={isClassFetching || isClassLoading} className='w-100' />
-                                <Form.ErrorMessage show={!!errors[field.name]?.message} placement="bottomStart">
-                                    {errors[field.name]?.message}
-                                </Form.ErrorMessage>
-                            </>
-                        )}
-                    />
-                </Form.Group>
+                <SelectInput name="class_id" label="Class" data={classes ? classes.map(item => ({ label: item.name, value: item.id })) : []} loading={isClassFetching || isClassLoading} control={control} error={errors.class_id?.message} />
                 <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                 <Form.Group>
                     <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
