@@ -122,7 +122,7 @@ function App() {
                 {/* Student Routes Starts */}
                 <Route element={<PersistLayout profile_api_link={api_routes.user.account.profile} />}>
                   <Route element={<ProtectedLayout navigation_link={page_routes.auth.student.login} />}>
-                    <Route element={<VerifiedLayout profile_verify_api_link={api_routes.user.account.profile_verify} logout_api_link={api_routes.admin.auth.logout} resend_otp_api_link={api_routes.admin.account.resend_otp} />} >
+                    <Route element={<VerifiedLayout profile_verify_api_link={api_routes.user.account.profile_verify} logout_api_link={api_routes.user.auth.logout} resend_otp_api_link={api_routes.user.account.resend_otp} />} >
                       <Route element={<AuthorisedLayout roles={["Student"]} />}>
                           <Route element={<DashboardLayout />}>
                           </Route>
