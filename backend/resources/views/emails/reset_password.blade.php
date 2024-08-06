@@ -136,7 +136,10 @@
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				<span
 																																																								style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span
-																																																																style="font-size: 16px; line-height: 22.4px;">Please
+																																																																style="font-size: 16px; line-height: 22.4px;">The above
+																																																																link is valid for the next
+																																																																{{ config("auth.reset_password_link_timeout") }} minutes.
+																																																																Please
 																																																																ignore this email if you did not
 																																																																request a password
 																																																																change.</span></em></span><br /><span

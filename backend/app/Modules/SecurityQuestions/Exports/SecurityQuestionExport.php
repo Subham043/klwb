@@ -32,6 +32,6 @@ class SecurityQuestionExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return SecurityQuestion::all();
+        return SecurityQuestion::checkAuth()->get();
     }
 }

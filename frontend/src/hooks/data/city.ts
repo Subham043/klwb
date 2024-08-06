@@ -8,6 +8,7 @@ import { useAxios } from "../useAxios";
 export const CityQueryKey = "city";
 export const CitiesQueryKey = "cities";
 export const CitySelectQueryKey = "city_select";
+export const CityCommonSelectQueryKey = "city_common_select";
 
 export const useCitiesQuery: () => UseQueryResult<
   PaginationType<CityType>,
@@ -39,6 +40,22 @@ export const useCitySelectQuery: (
     queryFn: async () => {
       const response = await axios.get<{ data: CityType[] }>(
         api_routes.admin.city.all
+      );
+      return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useCityCommonSelectQuery: (
+  enabled: boolean
+) => UseQueryResult<CityType[], unknown> = (enabled) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [CityCommonSelectQueryKey],
+    queryFn: async () => {
+      const response = await axios.get<{ data: CityType[] }>(
+        api_routes.user.city.all
       );
       return response.data.data;
     },

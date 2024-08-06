@@ -8,6 +8,7 @@ import { useAxios } from "../useAxios";
 export const TaluqQueryKey = "taluq";
 export const TaluqsQueryKey = "taluqs";
 export const TaluqSelectQueryKey = "taluq_select";
+export const TaluqCommonSelectQueryKey = "taluq_common_select";
 
 export const useTaluqsQuery: () => UseQueryResult<
   PaginationType<TaluqType>,
@@ -31,14 +32,32 @@ export const useTaluqsQuery: () => UseQueryResult<
 };
 
 export const useTaluqSelectQuery: (
-  enabled: boolean
-) => UseQueryResult<TaluqType[], unknown> = (enabled) => {
+  enabled: boolean,
+  city_id?: number
+) => UseQueryResult<TaluqType[], unknown> = (enabled, city_id) => {
   const axios = useAxios();
   return useQuery({
-    queryKey: [TaluqSelectQueryKey],
+    queryKey: [TaluqSelectQueryKey, city_id],
     queryFn: async () => {
       const response = await axios.get<{ data: TaluqType[] }>(
-        api_routes.admin.taluq.all
+        api_routes.admin.taluq.all + (city_id ? `?city_id=${city_id}` : "")
+      );
+      return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useTaluqCommonSelectQuery: (
+  enabled: boolean,
+  city_id?: number
+) => UseQueryResult<TaluqType[], unknown> = (enabled, city_id) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [TaluqCommonSelectQueryKey, city_id],
+    queryFn: async () => {
+      const response = await axios.get<{ data: TaluqType[] }>(
+        api_routes.user.taluq.all + (city_id ? `?city_id=${city_id}` : "")
       );
       return response.data.data;
     },

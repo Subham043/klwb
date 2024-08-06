@@ -15,25 +15,12 @@ class SecurityQuestionService
 
     public function all(): Collection
     {
-        return SecurityQuestion::all();
-    }
-
-    public function paginateMain(Int $total = 10): LengthAwarePaginator
-    {
-        $query = SecurityQuestion::where('is_active', true);
-        return QueryBuilder::for($query)
-                ->defaultSort('id')
-                ->allowedSorts('id', 'name')
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
-                ->appends(request()->query());
+        return SecurityQuestion::checkAuth()->get();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = SecurityQuestion::latest();
+        $query = SecurityQuestion::checkAuth()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -44,7 +31,7 @@ class SecurityQuestionService
 
     public function getById(Int $id): SecurityQuestion|null
     {
-        return SecurityQuestion::findOrFail($id);
+        return SecurityQuestion::checkAuth()->findOrFail($id);
     }
 
     public function create(array $data): SecurityQuestion

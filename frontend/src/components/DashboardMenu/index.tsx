@@ -6,10 +6,8 @@ import { useState } from 'react';
 import { useToast } from '../../hooks/useToast';
 import { useUser } from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
-import { api_routes } from '../../utils/api_routes';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import { useAxios } from '../../hooks/useAxios';
-import { getLoginPath } from '../../utils/helper';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderToggle = (props: any) => (
@@ -18,18 +16,18 @@ const renderToggle = (props: any) => (
 export default function DashboardMenu({expand, setExpand}:{expand: boolean, setExpand: React.Dispatch<React.SetStateAction<boolean>>}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {user, removeUser} = useUser();
+    const {logoutApiLink, logoutRedirect, removeUser} = useUser();
     const {toggleAccountModal} = useAccountModal();
     const navigate = useNavigate();
     const axios = useAxios();
-
     const logoutHandler = async () => {
         setLoading(true);
         try {
-            await axios.get(api_routes.auth.logout);
+            await axios.get(logoutApiLink);
+            const redirect = logoutRedirect;
             removeUser();
             toastSuccess("Logged Out Successful");
-            navigate(getLoginPath((user && user.role) ? user.role.toLowerCase() : 'student'), {replace: true});
+            navigate(redirect, {replace: true});
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error?.response?.data?.message) {

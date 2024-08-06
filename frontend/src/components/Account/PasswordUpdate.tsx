@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { isAxiosError } from 'axios';
 import { AxiosErrorResponseType } from '../../utils/types';
 import { useAxios } from '../../hooks/useAxios';
 import PasswordInput from '../FormInput/PasswordInput';
+import { useUser } from '../../hooks/useUser';
 
 type SchemaType = {
   old_password: string;
@@ -28,6 +28,7 @@ export default function PasswordUpdate() {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const axios = useAxios();
+    const {passwordUpdateApiLink} = useUser();
 
     const {
         control,
@@ -41,7 +42,7 @@ export default function PasswordUpdate() {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(api_routes.account.password_update, getValues());
+            await axios.post(passwordUpdateApiLink, getValues());
             toastSuccess("Password Update Successful");
             reset({
                 old_password: "",

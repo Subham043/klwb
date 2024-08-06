@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-query";
 import { useToast } from "../useToast";
 import { isAxiosError } from "axios";
-import { api_routes } from "../../utils/api_routes";
 import { AuthType } from "../../utils/types";
 import { useUser } from "../useUser";
 import { useAxios } from "../useAxios";
@@ -17,11 +16,12 @@ export const useProfileQuery: (
   enabled: boolean
 ) => UseQueryResult<AuthType, unknown> = (enabled) => {
   const axios = useAxios();
+  const {profileViewApiLink} = useUser();
   return useQuery({
     queryKey: [ProfileQueryKey],
     queryFn: async () => {
       const response = await axios.get<{ profile: AuthType }>(
-        api_routes.account.profile
+        profileViewApiLink
       );
       return response.data.profile;
     },
@@ -44,7 +44,7 @@ export const useProfileQuerySetData = () => {
 export const useUpdateProfileMutation = () => {
   const { updateProfile } = useProfileQuerySetData();
   const { toastSuccess, toastError } = useToast();
-  const { setUser } = useUser();
+  const { setUser, profileUpdateApiLink } = useUser();
   const axios = useAxios();
 
   return useMutation({
@@ -54,7 +54,7 @@ export const useUpdateProfileMutation = () => {
       phone: number;
     }) => {
       const response = await axios.post<{ profile: AuthType }>(
-        api_routes.account.profile_update,
+        profileUpdateApiLink,
         updateProfileVal
       );
       return response.data.profile;

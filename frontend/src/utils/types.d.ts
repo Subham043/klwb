@@ -11,7 +11,9 @@ export type Role =
   | "Financial-Officer"
   | "Payment-Officer"
   | "Industry"
+  | "Industry-Staff"
   | "Institute"
+  | "Institute-Staff"
   | "Student";
 
 export type AuthType = {
@@ -59,7 +61,6 @@ export type ClassType = {
   name: string;
   course_id: number;
   course: CourseType;
-  graduation: GraduationType;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -88,7 +89,6 @@ export type TaluqType = {
   name: string;
   city_id: number;
   city: CityType;
-  state: StateType;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -121,6 +121,36 @@ export type ApplicationFeeType = {
   user_id: number;
   class_id: number;
   classes: Omit<ClassType, "graduation" | "course">;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type RegisteredInstituteType = {
+  id: number;
+  reg_no: string;
+  name: string;
+  management_type: string;
+  category: string;
+  type: string;
+  urban_rural: string;
+  taluq_id: number;
+  taluq: TaluqType;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type RequestInstituteType = {
+  id: number;
+  name: string;
+  email: string;
+  mobile: string;
+  pincode: string;
+  address: string;
+  register_doc: string;
+  taluq_id: number;
+  taluq: TaluqType;
   is_active: boolean;
   created_at: string;
   updated_at: string;

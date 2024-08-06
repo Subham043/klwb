@@ -15,13 +15,15 @@ class RoleSeeder extends Seeder
     {
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
-        Role::create(['name' => 'Admin']);
-        Role::create(['name' => 'Verification-Officer']);
-        Role::create(['name' => 'Financial-Officer']);
-        Role::create(['name' => 'Payment-Officer']);
-        Role::create(['name' => 'Industry']);
-        Role::create(['name' => 'Institute']);
-        Role::create(['name' => 'Student']);
+        Role::create(['name' => 'Admin', 'guard_name' => 'admin']);
+        Role::create(['name' => 'Verification-Officer', 'guard_name' => 'admin']);
+        Role::create(['name' => 'Financial-Officer', 'guard_name' => 'admin']);
+        Role::create(['name' => 'Payment-Officer', 'guard_name' => 'admin']);
+        Role::create(['name' => 'Industry', 'guard_name' => 'industry']);
+        Role::create(['name' => 'Industry-Staff', 'guard_name' => 'industry']);
+        Role::create(['name' => 'Institute', 'guard_name' => 'institute']);
+        Role::create(['name' => 'Institute-Staff', 'guard_name' => 'institute']);
+        Role::create(['name' => 'Student', 'guard_name' => 'web']);
 
     }
 }

@@ -204,6 +204,31 @@ h2{
     border-top: 1px solid #ccc;
 }
 
+.info-heading{
+    color: #00437d;
+    font-size: 14px;
+}
+
+.info-modal .rs-modal-content{
+    padding: 0;
+}
+
+.info-modal-stack .rs-stack-item{
+    width: 50%;
+}
+
+.info-modal-panel .rs-panel-header{
+    background-color: #00437d;
+    color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.info-modal-footer{
+    padding: 10px;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;

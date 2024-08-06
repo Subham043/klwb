@@ -8,6 +8,7 @@ import { useAxios } from "../useAxios";
 export const ClassQueryKey = "class";
 export const ClassesQueryKey = "classes";
 export const ClassSelectQueryKey = "class_select";
+export const ClassCommonSelectQueryKey = "class_common_select";
 
 export const useClassesQuery: () => UseQueryResult<
   PaginationType<ClassType>,
@@ -31,14 +32,33 @@ export const useClassesQuery: () => UseQueryResult<
 };
 
 export const useClassSelectQuery: (
-  enabled: boolean
-) => UseQueryResult<ClassType[], unknown> = (enabled) => {
+  enabled: boolean,
+  course_id?: number
+) => UseQueryResult<ClassType[], unknown> = (enabled, course_id) => {
   const axios = useAxios();
   return useQuery({
-    queryKey: [ClassSelectQueryKey],
+    queryKey: [ClassSelectQueryKey, course_id],
     queryFn: async () => {
       const response = await axios.get<{ data: ClassType[] }>(
-        api_routes.admin.class.all
+        api_routes.admin.class.all +
+          (course_id ? `?course_id=${course_id}` : "")
+      );
+      return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useClassCommonSelectQuery: (
+  enabled: boolean,
+  course_id?: number
+) => UseQueryResult<ClassType[], unknown> = (enabled, course_id) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [ClassCommonSelectQueryKey, course_id],
+    queryFn: async () => {
+      const response = await axios.get<{ data: ClassType[] }>(
+        api_routes.user.class.all + (course_id ? `?course_id=${course_id}` : "")
       );
       return response.data.data;
     },

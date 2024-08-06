@@ -3,6 +3,7 @@ import IntroScreen from "../../../components/IntroScreen"
 import { Divider } from 'rsuite'
 import Login from '../../../components/Login'
 import { page_routes } from '../../../utils/page_routes'
+import { api_routes } from '../../../utils/api_routes'
 
 function AdminLoginPage() {
   return (
@@ -18,7 +19,7 @@ function AdminLoginPage() {
             </ol>
         </div>
         <div className={classes.form_col}>
-            <Login title='Admin' forgot_password_link={page_routes.auth.admin.forgot_password} />
+            <Login title='Admin' forgot_password_link={page_routes.auth.admin.forgot_password} authenticated_redirect_link={page_routes.dashboard} login_email_api_link={api_routes.admin.auth.login.email} login_phone_api_link={api_routes.admin.auth.login.phone} />
         </div>
     </div>
   )

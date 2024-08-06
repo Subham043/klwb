@@ -16,6 +16,7 @@ import { NavLink } from 'react-router-dom';
 import { page_routes } from '../../utils/page_routes';
 import CalendarIcon from '@rsuite/icons/Calendar';
 import TagNumberIcon from '@rsuite/icons/TagNumber';
+import ReviewIcon from '@rsuite/icons/Review';
 
 const NavMenu = () => {
     const  {user} = useUser();
@@ -38,16 +39,16 @@ const NavMenu = () => {
             }
             {
                 ["Super-Admin", "Admin"].includes((user && user.role) ? user.role : "Student") && <>
-                    <Nav.Item eventKey="8" as={NavLink} to={page_routes.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
+                    <Nav.Item eventKey="8" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Employee Management
                     </Nav.Item>
-                    <Nav.Item eventKey="10" as={NavLink} to={page_routes.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
+                    <Nav.Item eventKey="10" as={NavLink} to={page_routes.admin.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
                         Application Dates
                     </Nav.Item>
-                    <Nav.Item eventKey="11" as={NavLink} to={page_routes.application_fee} className='sidebar-navlink' icon={<TagNumberIcon />}>
+                    <Nav.Item eventKey="11" as={NavLink} to={page_routes.admin.application_fee} className='sidebar-navlink' icon={<TagNumberIcon />}>
                         Scholarship Fees
                     </Nav.Item>
-                    <Nav.Item eventKey="9" as={NavLink} to={page_routes.security_question} className='sidebar-navlink' icon={<SettingHorizontalIcon />}>
+                    <Nav.Item eventKey="9" as={NavLink} to={page_routes.admin.security_question} className='sidebar-navlink' icon={<SettingHorizontalIcon />}>
                         Security Questions
                     </Nav.Item>
                     <Nav.Menu
@@ -58,9 +59,9 @@ const NavMenu = () => {
                         placement="rightStart"
                         className='sidebar-navmenu'
                     >
-                        <Nav.Item as={NavLink} to={page_routes.state} className='sidebar-navlink' eventKey="6-1">State</Nav.Item>
-                        <Nav.Item as={NavLink} to={page_routes.city} className='sidebar-navlink' eventKey="6-2">City</Nav.Item>
-                        <Nav.Item as={NavLink} to={page_routes.taluq} className='sidebar-navlink' eventKey="6-3">Taluq</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.state} className='sidebar-navlink' eventKey="6-1">State</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.city} className='sidebar-navlink' eventKey="6-2">City</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.taluq} className='sidebar-navlink' eventKey="6-3">Taluq</Nav.Item>
                     </Nav.Menu>
                     <Nav.Menu
                         eventKey="7"
@@ -70,9 +71,20 @@ const NavMenu = () => {
                         placement="rightStart"
                         className='sidebar-navmenu'
                     >
-                        <Nav.Item as={NavLink} to={page_routes.graduation} className='sidebar-navlink' eventKey="7-1">Graduation</Nav.Item>
-                        <Nav.Item as={NavLink} to={page_routes.course} className='sidebar-navlink' eventKey="7-2">Course</Nav.Item>
-                        <Nav.Item as={NavLink} to={page_routes.class} className='sidebar-navlink' eventKey="7-3">Class</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.graduation} className='sidebar-navlink' eventKey="7-1">Graduation</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.course} className='sidebar-navlink' eventKey="7-2">Course</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.class} className='sidebar-navlink' eventKey="7-3">Class</Nav.Item>
+                    </Nav.Menu>
+                    <Nav.Menu
+                        eventKey="8"
+                        trigger="hover"
+                        title="Institute Management"
+                        icon={<ReviewIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.admin.institute.all} className='sidebar-navlink' eventKey="8-1">All Institutes</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.institute.request} className='sidebar-navlink' eventKey="8-2">Institute Request</Nav.Item>
                     </Nav.Menu>
                 </>
             }

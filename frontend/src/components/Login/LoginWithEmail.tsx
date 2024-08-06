@@ -16,6 +16,12 @@ import CaptchaInput from "../FormInput/CaptchaInput";
 import PasswordInput from "../FormInput/PasswordInput";
 import TextInput from "../FormInput/TextInput";
 
+type Props = {
+    forgot_password_link: string;
+    login_email_api_link?: string;
+    authenticated_redirect_link?: string;
+};
+
 type SchemaType = {
   email: string;
   password: string;
@@ -31,13 +37,13 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function LoginWithEmail({forgot_password_link}: {forgot_password_link:string}) {
+export default function LoginWithEmail({forgot_password_link, login_email_api_link = api_routes.user.auth.login.email, authenticated_redirect_link = page_routes.dashboard}: Props) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {setUser} = useUser();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location?.state?.from?.pathname || page_routes.dashboard;
+    const from = location?.state?.from?.pathname || authenticated_redirect_link;
     const captchaRef = useRef<ReCAPTCHA>(null);
     const axios = useAxios();
 
@@ -53,7 +59,7 @@ export default function LoginWithEmail({forgot_password_link}: {forgot_password_
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const response = await axios.post<{user:AuthType}>(api_routes.auth.login.email, getValues());
+            const response = await axios.post<{user:AuthType}>(login_email_api_link, getValues());
             setUser(response.data.user);
             toastSuccess("Login Successful");
             reset({

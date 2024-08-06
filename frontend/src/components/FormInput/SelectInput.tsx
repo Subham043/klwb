@@ -10,12 +10,13 @@ type PropType = {
 		label: string
 		name: string
 		loading?: boolean
+		disabled?: boolean
 		error: string | undefined
 };
 
 
 const SelectInput = (props: PropType) => {
-	const { control, error, label, name, data, loading} = props;
+	const { control, error, label, name, data, loading, disabled} = props;
 	return (
 					<Form.Group>
 									<Controller
@@ -24,7 +25,7 @@ const SelectInput = (props: PropType) => {
 													render={({ field }) => (
 																	<>
 																					<Form.ControlLabel>{label}</Form.ControlLabel>
-																					<SelectPicker data={data} name={field.name} value={field.value} onChange={field.onChange} loading={loading} className='w-100' />
+																					<SelectPicker data={data} name={field.name} value={field.value} onChange={field.onChange} loading={loading} disabled={disabled} className='w-100' />
 																					<Form.ErrorMessage show={!!error} placement="bottomStart">
 																									{error}
 																					</Form.ErrorMessage>

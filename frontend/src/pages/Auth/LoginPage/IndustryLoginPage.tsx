@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { page_routes } from '../../../utils/page_routes'
 import DetailIcon from '@rsuite/icons/Detail';
 import Login from '../../../components/Login'
+import { api_routes } from '../../../utils/api_routes'
 
 function IndustryLoginPage() {
   return (
@@ -26,7 +27,7 @@ function IndustryLoginPage() {
             </ol>
         </div>
         <div className={classes.form_col}>
-            <Login title='Industry' forgot_password_link={page_routes.auth.industry.forgot_password} />
+            <Login title='Industry' forgot_password_link={page_routes.auth.industry.forgot_password} authenticated_redirect_link={page_routes.dashboard} login_email_api_link={api_routes.user.auth.login.email} login_phone_api_link={api_routes.user.auth.login.phone} />
         </div>
     </div>
   )

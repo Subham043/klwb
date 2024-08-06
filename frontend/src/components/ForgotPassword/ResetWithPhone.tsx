@@ -10,9 +10,15 @@ import { api_routes } from "../../utils/api_routes";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType } from "../../utils/types";
 import { useAxios } from "../../hooks/useAxios";
-import { getResetPasswordPath } from "../../utils/helper";
 import CaptchaInput from "../FormInput/CaptchaInput";
 import TextInput from "../FormInput/TextInput";
+import { page_routes } from "../../utils/page_routes";
+
+type Props = {
+    login_link: string;
+    reset_password_redirect?:string;
+    forgot_password_phone_api_link?:string;
+};
 
 type SchemaType = {
   phone: number;
@@ -26,7 +32,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function ResetWithPhone({title, login_link}:{title:string; login_link:string}) {
+export default function ResetWithPhone({login_link, reset_password_redirect=page_routes.auth.student.reset_password, forgot_password_phone_api_link=api_routes.user.auth.forgot_password.phone}: Props) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const navigate = useNavigate();
@@ -48,13 +54,13 @@ export default function ResetWithPhone({title, login_link}:{title:string; login_
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const response = await axios.post<{ token: string }>(api_routes.auth.forgot_password.phone, getValues());
-            toastSuccess("Please check your email or phone to reset your password.");
+            const response = await axios.post<{ param: string }>(forgot_password_phone_api_link, getValues());
+            toastSuccess("This page is valid for next 5 minutes. Please check your email or phone to reset your password.");
             reset({
                 phone: undefined,
                 captcha: "",
             });
-            navigate(getResetPasswordPath(title, response.data.token), {replace: true});
+            navigate(reset_password_redirect.replace(":token", response.data.param), {replace: true});
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'sms' => [
+        'url' => env('SMS_URL'),
+        'sender' => env('SMS_SENDER'),
+        'token' => env('SMS_TOKEN'),
+    ],
+
 ];

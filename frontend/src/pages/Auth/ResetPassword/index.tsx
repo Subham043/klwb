@@ -1,10 +1,15 @@
-import { Tabs } from 'rsuite'
 import classes from './index.module.css'
-import ResetWithPhone from '../../../components/ResetPassword/ResetWithPhone';
-import ResetWithEmail from '../../../components/ResetPassword/ResetWithEmail';
+import ResetPassword from '../../../components/ResetPassword';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-function ResetPasswordPage() {
+type Props = {
+    title: string;
+    login_link?: string;
+    reset_password_api_link?:string;
+    reset_password_resend_otp_api_link?:string;
+};
+
+function ResetPasswordPage({title, login_link, reset_password_api_link, reset_password_resend_otp_api_link} :Props) {
   const params = useParams<{ token: string }>();
   const [searchParams] = useSearchParams();
   return (
@@ -12,21 +17,12 @@ function ResetPasswordPage() {
       <div className={classes.form_col}>
         <div className={classes.formContainer}>
             <div className={classes.formTitle}>
-              Reset Password
+              {title} Reset Password
             </div>
             <div className="auth-form">
-              <Tabs defaultActiveKey="1" appearance="subtle">
-                <Tabs.Tab eventKey="1" title="Reset With Email">
-                  <div className={classes.formFields}>
-                    <ResetWithEmail token={params.token ?? ''} type={searchParams.get('type') || 'student'} />
-                  </div>
-                </Tabs.Tab>
-                <Tabs.Tab eventKey="2" title="Reset With Mobile No.">
-                  <div className={classes.formFields}>
-                    <ResetWithPhone token={params.token ?? ''} type={searchParams.get('type') || 'student'} />
-                  </div>
-                </Tabs.Tab>
-              </Tabs>
+              <div className={classes.formFields}>
+                <ResetPassword token={params.token ?? ''} login_link={login_link} reset_password_api_link={reset_password_api_link} reset_password_resend_otp_api_link={reset_password_resend_otp_api_link} expires={searchParams.get('expires') || ''} signature={searchParams.get('signature') || ''} />
+              </div>
             </div>
         </div>
       </div>

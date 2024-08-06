@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'industry' => [
+            'driver' => 'session',
+            'provider' => 'industries',
+        ],
+        'institute' => [
+            'driver' => 'session',
+            'provider' => 'institutes',
+        ],
     ],
 
     /*
@@ -62,7 +74,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Modules\Users\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Modules\Students\Users\Models\User::class),
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_ADMIN_MODEL', App\Modules\Admins\Employees\Models\Employee::class),
+        ],
+        'industries' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_INDUSTRY_MODEL', App\Modules\Students\Users\Models\User::class),
+        ],
+        'institutes' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_INSTITUTE_MODEL', App\Modules\Students\Users\Models\User::class),
         ],
 
         // 'users' => [
@@ -97,6 +121,24 @@ return [
             'expire' => 20,
             'throttle' => 60,
         ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 20,
+            'throttle' => 60,
+        ],
+        'industries' => [
+            'provider' => 'industries',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 20,
+            'throttle' => 60,
+        ],
+        'institutes' => [
+            'provider' => 'institutes',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 20,
+            'throttle' => 60,
+        ],
     ],
 
     /*
@@ -111,5 +153,6 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+    'reset_password_link_timeout' => env('AUTH_RESET_PASSWORD_TIMEOUT', 10),
 
 ];

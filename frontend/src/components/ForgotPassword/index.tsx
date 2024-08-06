@@ -3,7 +3,15 @@ import classes from './index.module.css'
 import ResetWithPhone from './ResetWithPhone';
 import ResetWithEmail from './ResetWithEmail';
 
-function ForgotPassword({title, login_link}:{title:string; login_link:string}) {
+type Props = {
+    title: string;
+    login_link: string;
+    reset_password_redirect?:string;
+    forgot_password_phone_api_link?:string;
+    forgot_password_email_api_link?:string;
+};
+
+function ForgotPassword({title, login_link, reset_password_redirect, forgot_password_phone_api_link, forgot_password_email_api_link}:Props) {
   return (
     <div className={classes.formContainer}>
         <div className={classes.formTitle}>
@@ -13,12 +21,12 @@ function ForgotPassword({title, login_link}:{title:string; login_link:string}) {
           <Tabs defaultActiveKey="1" appearance="subtle">
             <Tabs.Tab eventKey="1" title="Reset With Email">
               <div className={classes.formFields}>
-                <ResetWithEmail title={title} login_link={login_link} />
+                <ResetWithEmail login_link={login_link} reset_password_redirect={reset_password_redirect} forgot_password_email_api_link={forgot_password_email_api_link} />
               </div>
             </Tabs.Tab>
             <Tabs.Tab eventKey="2" title="Reset With Mobile No.">
               <div className={classes.formFields}>
-                <ResetWithPhone title={title} login_link={login_link} />
+                <ResetWithPhone login_link={login_link} reset_password_redirect={reset_password_redirect} forgot_password_phone_api_link={forgot_password_phone_api_link} />
               </div>
             </Tabs.Tab>
           </Tabs>

@@ -6,7 +6,7 @@ import { useSearchQueryParam } from "../../hooks/useSearchQueryParam";
 import { usePaginationQueryParam } from "../../hooks/usePaginationQueryParam";
 
 
-const PaginatedTableLayout:FC<ChildrenType & {title: string; total: number; excelLoading: boolean, excelHandler: () => void; addHandler: () => void;}> = ({children, title, total, excelLoading, excelHandler, addHandler}) => {
+const PaginatedTableLayout:FC<ChildrenType & {title: string; addBtn?:boolean; buttonName?: string; total: number; excelLoading: boolean, excelHandler: () => void; addHandler?: () => void;}> = ({children, title, buttonName = title, total, excelLoading, addBtn=true, excelHandler, addHandler}) => {
     const {search, searchHandler} = useSearchQueryParam();
     const {page, pageHandler, limit, limitHandler} = usePaginationQueryParam();
 
@@ -26,9 +26,9 @@ const PaginatedTableLayout:FC<ChildrenType & {title: string; total: number; exce
             <div className="mb-1">
                 <Stack justifyContent="space-between">
                     <ButtonToolbar>
-                        <Button appearance="primary" active onClick={addHandler}>
-                            Add {title}
-                        </Button>
+                        {addBtn && <Button appearance="primary" active onClick={addHandler ? addHandler : undefined}>
+                            Add {buttonName}
+                        </Button>}
                         <Button appearance="default" active loading={excelLoading} onClick={excelHandler}>
                             Export Excel
                         </Button>

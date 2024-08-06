@@ -8,6 +8,7 @@ import { useAxios } from "../useAxios";
 export const CourseQueryKey = "course";
 export const CoursesQueryKey = "courses";
 export const CourseSelectQueryKey = "course_select";
+export const CourseCommonSelectQueryKey = "course_common_select";
 
 export const useCoursesQuery: () => UseQueryResult<
   PaginationType<CourseType>,
@@ -39,6 +40,22 @@ export const useCourseSelectQuery: (
     queryFn: async () => {
       const response = await axios.get<{ data: CourseType[] }>(
         api_routes.admin.course.all
+      );
+      return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useCourseCommonSelectQuery: (
+  enabled: boolean
+) => UseQueryResult<CourseType[], unknown> = (enabled) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [CourseCommonSelectQueryKey],
+    queryFn: async () => {
+      const response = await axios.get<{ data: CourseType[] }>(
+        api_routes.user.course.all
       );
       return response.data.data;
     },

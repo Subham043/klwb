@@ -20,6 +20,11 @@ import { getLoginPath } from '../../utils/helper';
 import CaptchaInput from '../../components/FormInput/CaptchaInput';
 import TextInput from '../../components/FormInput/TextInput';
 
+type AccountVerifyProps = {
+    profile_verify_api_link?: string;
+    logout_api_link?: string;
+    resend_otp_api_link?: string;
+}
 type SchemaType = {
   otp: number;
   captcha: string;
@@ -32,7 +37,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-const AccountVerify:FC = () => {
+const AccountVerify:FC<AccountVerifyProps> = ({profile_verify_api_link = api_routes.user.account.profile_verify, logout_api_link = api_routes.user.auth.logout, resend_otp_api_link = api_routes.user.account.resend_otp}) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [logoutLoading, setLogoutLoading] = useState<boolean>(false);
     const [otpLoading, setOtpLoading] = useState<boolean>(false);
@@ -60,7 +65,7 @@ const AccountVerify:FC = () => {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const response = await axios.post<{ profile: AuthType }>(api_routes.account.profile_verify, getValues());
+            const response = await axios.post<{ profile: AuthType }>(profile_verify_api_link, getValues());
             toastSuccess("Verification Successful");
             reset({
                 otp: undefined,
@@ -89,7 +94,7 @@ const AccountVerify:FC = () => {
     const logoutHandler = async () => {
         setLogoutLoading(true);
         try {
-            await axios.get(api_routes.auth.logout);
+            await axios.get(logout_api_link);
             removeUser();
             toastSuccess("Logged Out Successful");
             navigate(getLoginPath((user && user.role) ? user.role.toLowerCase() : 'student'), {replace: true});
@@ -106,7 +111,7 @@ const AccountVerify:FC = () => {
     const otpHandler = async () => {
         setOtpLoading(true);
         try {
-            await axios.get(api_routes.account.resend_otp);
+            await axios.get(resend_otp_api_link);
             toastSuccess("OTP Sent Successfully");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

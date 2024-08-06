@@ -2,17 +2,28 @@
 
 namespace App\Providers;
 
-use App\Modules\Authentication\Events\ForgotPassword;
-use App\Modules\Authentication\Events\ResendOtp;
-use App\Modules\Authentication\Events\UserRegistered;
-use App\Modules\Authentication\Listeners\SendForgotPasswordNotification;
-use App\Modules\Authentication\Listeners\SendOtpNotification;
-use App\Modules\Authentication\Listeners\SendRegistrartionNotification;
-use App\Modules\Employees\Events\EmployeeCreated;
-use App\Modules\Employees\Listeners\SendEmployeeInviteNotification;
+use App\Modules\Admins\Authentication\Events\ForgotPassword as AdminsForgotPassword;
+use App\Modules\Admins\Authentication\Events\ResendOtp as AdminsResendOtp;
+use App\Modules\Admins\Authentication\Events\ResetPasswordResendOtp as AdminsResetPasswordResendOtp;
+use App\Modules\Admins\Authentication\Listeners\SendForgotPasswordNotification as AdminsSendForgotPasswordNotification;
+use App\Modules\Admins\Authentication\Listeners\SendOtpNotification as AdminsSendOtpNotification;
+use App\Modules\Admins\Authentication\Listeners\SendResetPasswordResendOtpNotification as AdminsSendResetPasswordResendOtpNotification;
+use App\Modules\Admins\Employees\Events\EmployeeCreated;
+use App\Modules\Admins\Employees\Listeners\SendEmployeeInviteNotification;
+use App\Modules\Students\Authentication\Events\ForgotPassword as StudentsForgotPassword;
+use App\Modules\Students\Authentication\Events\ResendOtp as StudentsResendOtp;
+use App\Modules\Students\Authentication\Events\ResetPasswordResendOtp as StudentsResetPasswordResendOtp;
+use App\Modules\Students\Authentication\Listeners\SendForgotPasswordNotification as StudentsSendForgotPasswordNotification;
+use App\Modules\Students\Authentication\Listeners\SendOtpNotification as StudentsSendOtpNotification;
+use App\Modules\Students\Authentication\Listeners\SendResetPasswordResendOtpNotification as StudentsSendResetPasswordResendOtpNotification;
+use App\Modules\Students\Authentication\Events\UserRegistered as StudentsUserRegistered;
+use App\Modules\Students\Authentication\Listeners\SendRegistrartionNotification as StudentsSendRegistrartionNotification;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Event;
+use DateTime;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,23 +41,48 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::listen(
-            ForgotPassword::class,
-            SendForgotPasswordNotification::class,
+            AdminsForgotPassword::class,
+            AdminsSendForgotPasswordNotification::class,
         );
         Event::listen(
-            ResendOtp::class,
-            SendOtpNotification::class,
+            AdminsResendOtp::class,
+            AdminsSendOtpNotification::class,
         );
         Event::listen(
-            UserRegistered::class,
-            SendRegistrartionNotification::class,
+            AdminsResetPasswordResendOtp::class,
+            AdminsSendResetPasswordResendOtpNotification::class,
         );
         Event::listen(
             EmployeeCreated::class,
             SendEmployeeInviteNotification::class,
         );
+        Event::listen(
+            StudentsForgotPassword::class,
+            StudentsSendForgotPasswordNotification::class,
+        );
+        Event::listen(
+            StudentsResendOtp::class,
+            StudentsSendOtpNotification::class,
+        );
+        Event::listen(
+            StudentsResetPasswordResendOtp::class,
+            StudentsSendResetPasswordResendOtpNotification::class,
+        );
+        Event::listen(
+            StudentsUserRegistered::class,
+            StudentsSendRegistrartionNotification::class,
+        );
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super-Admin') ? true : null;
         });
+        Storage::buildTemporaryUrlsUsing(
+            function (string $path, DateTime $expiration, array $options) {
+                return URL::temporarySignedRoute(
+                    'storage.files',
+                    $expiration,
+                    array_merge($options, ['path' => $path])
+                );
+            }
+        );
     }
 }
