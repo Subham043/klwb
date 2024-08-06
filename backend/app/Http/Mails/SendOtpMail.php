@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Modules\Students\Authentication\Mails;
+namespace App\Http\Mails;
 
+use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendRegisteredMail extends Mailable
+class SendOtpMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private User $data;
+    private Employee|User $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $data)
+    public function __construct(Employee|User $data)
     {
         $this->data = $data;
     }
@@ -30,8 +31,8 @@ class SendRegisteredMail extends Mailable
      */
     public function build()
     {
-        return $this->subject(config('app.name').' - Registration Successful')->view('emails.registered')->with([
-            'data' => $this->data,
+        return $this->subject(config('app.name').' - OTP')->view('emails.otp')->with([
+            'data' => $this->data
         ]);
     }
 }

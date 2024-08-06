@@ -2,13 +2,19 @@
 
 namespace App\Modules\Admins\Employees\Exports;
 
-use App\Modules\Admins\Employees\Models\Employee;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class EmployeeExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $employees;
+
+    public function __construct(Collection $employees)
+    {
+        $this->employees = $employees;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -38,11 +44,6 @@ class EmployeeExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return Employee::with('roles')
-        ->whereHas('roles', fn($q) => $q->whereNot('name', 'Super-Admin')
-        ->whereNot('name', 'Student')
-        ->whereNot('name', 'Institute')
-        ->whereNot('name', 'Industry'))
-        ->get();
+        return $this->employees;
     }
 }

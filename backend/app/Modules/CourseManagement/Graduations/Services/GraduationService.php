@@ -3,7 +3,7 @@
 namespace App\Modules\CourseManagement\Graduations\Services;
 
 use App\Modules\CourseManagement\Graduations\Models\Graduation;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,17 @@ class GraduationService
 
     public function all(): Collection
     {
-        return Graduation::checkAuth()->get();
+        $query = Graduation::whenNotAdmin()->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Graduation::checkAuth()->latest();
+        $query = Graduation::whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -31,7 +36,7 @@ class GraduationService
 
     public function getById(Int $id): Graduation|null
     {
-        return Graduation::checkAuth()->findOrFail($id);
+        return Graduation::whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): Graduation

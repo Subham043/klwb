@@ -3,7 +3,7 @@
 namespace App\Modules\Students\Users\Services;
 
 use App\Modules\Students\Users\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +15,7 @@ class UserService
 
     public function all(): Collection
     {
-        return User::all();
+        return User::lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Modules\Students\Authentication\Events;
+namespace App\Http\Events;
 
+use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ForgotPassword
+class ResendOtp
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -15,7 +16,6 @@ class ForgotPassword
      * Create a new event instance.
      */
     public function __construct(
-        public User $user,
-        public string $param
+        public Employee|User $user
     ) {}
 }

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Students\Authentication\Services;
 
+use App\Http\Enums\Guards;
 use App\Modules\Students\Users\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use App\Modules\Students\Users\Models\User;
@@ -27,7 +28,7 @@ class AuthService
     public function logout(Request $request): void
     {
         $request->user()->tokens()->delete();
-        auth()->guard('web')->logout();
+        auth()->guard(Guards::Web->value())->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
     }

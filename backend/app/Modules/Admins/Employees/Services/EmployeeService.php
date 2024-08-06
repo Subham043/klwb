@@ -3,31 +3,31 @@
 namespace App\Modules\Admins\Employees\Services;
 
 use App\Modules\Admins\Employees\Models\Employee;
-use Illuminate\Database\Eloquent\Collection;
+use App\Modules\Roles\Enums\Roles;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class EmployeeService{
+
+    protected $employee_roles = [Roles::SuperAdmin, Roles::Institute, Roles::InstituteStaff, Roles::Industry, Roles::IndustryStaff, Roles::Student];
+
     public function all(): Collection
     {
-        return Employee::with('roles')
-        ->whereHas('roles', fn($q) => $q->whereNot('name', 'Super-Admin')
-        ->whereNot('name', 'Student')
-        ->whereNot('name', 'Institute')
-        ->whereNot('name', 'Industry'))
-        ->get();
+        $query = Employee::doesNotHaveRoles($this->employee_roles)->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Employee::with('roles')
-        ->whereHas('roles', fn($q) => $q->whereNot('name', 'Super-Admin')
-        ->whereNot('name', 'Student')
-        ->whereNot('name', 'Institute')
-        ->whereNot('name', 'Industry'))
+        $query = Employee::doesNotHaveRoles($this->employee_roles)
         ->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
@@ -39,30 +39,17 @@ class EmployeeService{
 
     public function getById(Int $id)
     {
-        return Employee::with('roles')
-        ->whereHas('roles', fn($q) => $q->whereNot('name', 'Super-Admin')
-        ->whereNot('name', 'Student')
-        ->whereNot('name', 'Institute')
-        ->whereNot('name', 'Industry'))
-        ->findOrFail($id);
+        return Employee::doesNotHaveRoles($this->employee_roles)->findOrFail($id);
     }
 
     public function getByEmail(String $email): Employee
     {
-        return Employee::with('roles')
-        ->whereHas('roles', fn($q) => $q->whereNot('name', 'Super-Admin')
-        ->whereNot('name', 'Student')
-        ->whereNot('name', 'Institute')
-        ->whereNot('name', 'Industry'))->where('email', $email)->firstOrFail();
+        return Employee::doesNotHaveRoles($this->employee_roles)->where('email', $email)->firstOrFail();
     }
 
     public function getByPhone(String $phone): Employee
     {
-        return Employee::with('roles')
-        ->whereHas('roles', fn($q) => $q->whereNot('name', 'Super-Admin')
-        ->whereNot('name', 'Student')
-        ->whereNot('name', 'Institute')
-        ->whereNot('name', 'Industry'))->where('phone', $phone)->firstOrFail();
+        return Employee::doesNotHaveRoles($this->employee_roles)->where('phone', $phone)->firstOrFail();
     }
 
     public function create(array $data): Employee
@@ -79,7 +66,7 @@ class EmployeeService{
 
     public function syncRoles(array $roles = [], Employee $employee): void
     {
-        $employee->roles()->syncWithPivotValues($roles, ['guard' => 'admin']);
+        $employee->syncRoles($roles);
     }
 
     public function delete(Employee $employee): bool|null

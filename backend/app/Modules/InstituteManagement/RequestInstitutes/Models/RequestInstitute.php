@@ -2,8 +2,8 @@
 
 namespace App\Modules\InstituteManagement\RequestInstitutes\Models;
 
+use App\Http\Traits\AuthTrait;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class RequestInstitute extends Model
 {
-    use HasFactory;
+    use HasFactory, AuthTrait;
 
     protected $table = 'request_institutes';
 
@@ -50,14 +50,6 @@ class RequestInstitute extends Model
     public $register_doc_path = 'register_doc';
 
     protected $appends = ['register_doc_link'];
-
-    public function scopeCheckAuth(Builder $query): Builder
-    {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Institute|Student')) {
-            return $query->where('is_active', true);
-        }
-        return $query;
-    }
 
     protected function registerDoc(): Attribute
     {

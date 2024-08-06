@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Enums\Guards;
 use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateAllController;
 use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateCreateController;
 use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateExportController;
@@ -106,7 +107,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/reset-password/{token}', [ResetPasswordController::class, 'index'])->name('admin-reset-password');
             Route::get('/reset-password-resend-otp/{token}', [ResetPasswordResendOtpController::class, 'index'])->middleware(['throttle:3,1']);
         });
-        Route::middleware(['auth:admin', 'role:Super-Admin|Admin'])->group(function () {
+        Route::middleware([Guards::Admin->middleware(), 'role:Super-Admin|Admin'])->group(function () {
             Route::get('/auth/logout', [LogoutController::class, 'index']);
             Route::prefix('account')->group(function () {
                 Route::get('/', [ProfileController::class, 'index']);
@@ -116,7 +117,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/resend-otp', [ResendRegisteredUserOtpController::class, 'index'])->middleware(['throttle:3,1']);
             });
         });
-        Route::middleware(['auth:admin', 'verified', 'role:Super-Admin|Admin'])->group(function () {
+        Route::middleware([Guards::Admin->middleware(), 'verified', 'role:Super-Admin|Admin'])->group(function () {
             Route::prefix('roles')->group(function () {
                 Route::get('/all', [RoleAllController::class, 'index']);
             });

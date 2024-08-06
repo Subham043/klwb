@@ -89,7 +89,7 @@
 																																																				&nbsp;</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				<span style="font-size: 18px; line-height: 25.2px; color: #666666;">To
-																																																								verify your account, please login and use the OTP given below:
+																																																								verify your account, please login <a href="{{ $link }}" target="_blank">here</a> and use the OTP given below:
 																																																				</span>
 																																																</p>
 																																												</div>

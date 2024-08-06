@@ -3,8 +3,8 @@
 namespace App\Modules\Students\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Events\UserRegistered;
 use App\Http\Services\RateLimitService;
-use App\Modules\Students\Authentication\Events\UserRegistered;
 use App\Modules\Students\Authentication\Requests\StudentRegisterPostRequest;
 use App\Modules\Students\Authentication\Resources\AuthCollection;
 use App\Modules\Students\Users\Services\UserService;

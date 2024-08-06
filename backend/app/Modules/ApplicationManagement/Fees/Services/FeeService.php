@@ -3,7 +3,7 @@
 namespace App\Modules\ApplicationManagement\Fees\Services;
 
 use App\Modules\ApplicationManagement\Fees\Models\Fee;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,17 @@ class FeeService
 
     public function all(): Collection
     {
-        return Fee::with('classes')->checkAuth()->get();
+        $query = Fee::with('classes')->whenNotAdmin()->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Fee::with('classes')->checkAuth()->latest();
+        $query = Fee::with('classes')->whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -31,7 +36,7 @@ class FeeService
 
     public function getById(Int $id): Fee|null
     {
-        return Fee::with('classes')->checkAuth()->findOrFail($id);
+        return Fee::with('classes')->whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): Fee

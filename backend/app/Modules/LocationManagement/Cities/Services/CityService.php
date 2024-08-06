@@ -3,7 +3,7 @@
 namespace App\Modules\LocationManagement\Cities\Services;
 
 use App\Modules\LocationManagement\Cities\Models\City;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,16 +15,20 @@ class CityService
 
     public function all($state_id = null): Collection
     {
-        $cities =  City::with('state')->checkAuth();
+        $query = City::with('state')->whenNotAdmin()->latest();
         if ($state_id) {
-            $cities = $cities->where('state_id', $state_id);
+            $query->where('state_id', $state_id);
         }
-        return $cities->get();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = City::with('state')->checkAuth()->latest();
+        $query = City::with('state')->whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -35,7 +39,7 @@ class CityService
 
     public function getById(Int $id): City|null
     {
-        return City::with('state')->checkAuth()->findOrFail($id);
+        return City::with('state')->whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): City

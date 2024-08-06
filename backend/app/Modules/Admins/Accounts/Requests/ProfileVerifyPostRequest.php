@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Accounts\Requests;
 
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class ProfileVerifyPostRequest extends FormRequest
     public function authorize()
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::guard('admin')->check();
+        return Auth::guard(Guards::Admin->value())->check();
     }
 
     /**

@@ -2,13 +2,19 @@
 
 namespace App\Modules\ApplicationManagement\ApplicationDates\Exports;
 
-use App\Modules\ApplicationManagement\ApplicationDates\Models\ApplicationDate;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class ApplicationDateExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $applicationDates;
+
+    public function __construct(Collection $applicationDates)
+    {
+        $this->applicationDates = $applicationDates;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -40,6 +46,6 @@ class ApplicationDateExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return ApplicationDate::checkAuth()->get();
+        return $this->applicationDates;
     }
 }

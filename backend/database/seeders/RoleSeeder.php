@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-
+use App\Http\Enums\Guards;
+use App\Modules\Roles\Enums\Roles;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -15,15 +16,15 @@ class RoleSeeder extends Seeder
     {
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
-        Role::create(['name' => 'Admin', 'guard_name' => 'admin']);
-        Role::create(['name' => 'Verification-Officer', 'guard_name' => 'admin']);
-        Role::create(['name' => 'Financial-Officer', 'guard_name' => 'admin']);
-        Role::create(['name' => 'Payment-Officer', 'guard_name' => 'admin']);
-        Role::create(['name' => 'Industry', 'guard_name' => 'industry']);
-        Role::create(['name' => 'Industry-Staff', 'guard_name' => 'industry']);
-        Role::create(['name' => 'Institute', 'guard_name' => 'institute']);
-        Role::create(['name' => 'Institute-Staff', 'guard_name' => 'institute']);
-        Role::create(['name' => 'Student', 'guard_name' => 'web']);
+        Role::create(['name' => Roles::Admin->value(), 'guard_name' => Guards::Admin->value()]);
+        Role::create(['name' => Roles::VerificationOfficer->value(), 'guard_name' => Guards::Admin->value()]);
+        Role::create(['name' => Roles::FinancialOfficer->value(), 'guard_name' => Guards::Admin->value()]);
+        Role::create(['name' => Roles::PaymentOfficer->value(), 'guard_name' => Guards::Admin->value()]);
+        Role::create(['name' => Roles::Industry->value(), 'guard_name' => Guards::Industry->value()]);
+        Role::create(['name' => Roles::IndustryStaff->value(), 'guard_name' => Guards::Industry->value()]);
+        Role::create(['name' => Roles::Institute->value(), 'guard_name' => Guards::Institute->value()]);
+        Role::create(['name' => Roles::InstituteStaff->value(), 'guard_name' => Guards::Institute->value()]);
+        Role::create(['name' => Roles::Student->value(), 'guard_name' => Guards::Web->value()]);
 
     }
 }

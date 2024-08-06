@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Authentication\Services;
 
+use App\Http\Enums\Guards;
 use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Admins\Employees\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ class AuthService
 {
     public function login(array $credentials): bool
     {
-        return Auth::guard('admin')->attempt($credentials);
+        return Auth::guard(Guards::Admin->value())->attempt($credentials);
     }
 
     public function generate_token(Employee $employee): string
@@ -21,13 +22,13 @@ class AuthService
 
     public function profile(): Employee
     {
-        return Auth::guard('admin')->user();
+        return Auth::guard(Guards::Admin->value())->user();
     }
 
     public function logout(Request $request): void
     {
         $request->user()->tokens()->delete();
-        auth()->guard('admin')->logout();
+        auth()->guard(Guards::Admin->value())->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
     }

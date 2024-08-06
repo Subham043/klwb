@@ -3,7 +3,7 @@
 namespace App\Modules\LocationManagement\States\Services;
 
 use App\Modules\LocationManagement\States\Models\State;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,17 @@ class StateService
 
     public function all(): Collection
     {
-        return State::checkAuth()->get();
+        $query = State::whenNotAdmin()->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = State::checkAuth()->latest();
+        $query = State::whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -31,7 +36,7 @@ class StateService
 
     public function getById(Int $id): State|null
     {
-        return State::checkAuth()->findOrFail($id);
+        return State::whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): State

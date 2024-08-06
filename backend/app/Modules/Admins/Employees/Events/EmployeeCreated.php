@@ -15,7 +15,8 @@ class EmployeeCreated
      * Create a new event instance.
      */
     public function __construct(
-        public Employee $employee
+        public Employee $employee,
+        public string $password
     ) {
     }
 }

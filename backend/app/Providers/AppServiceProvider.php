@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
-use App\Modules\Admins\Authentication\Events\ForgotPassword as AdminsForgotPassword;
-use App\Modules\Admins\Authentication\Events\ResendOtp as AdminsResendOtp;
-use App\Modules\Admins\Authentication\Events\ResetPasswordResendOtp as AdminsResetPasswordResendOtp;
-use App\Modules\Admins\Authentication\Listeners\SendForgotPasswordNotification as AdminsSendForgotPasswordNotification;
-use App\Modules\Admins\Authentication\Listeners\SendOtpNotification as AdminsSendOtpNotification;
-use App\Modules\Admins\Authentication\Listeners\SendResetPasswordResendOtpNotification as AdminsSendResetPasswordResendOtpNotification;
+use App\Http\Events\ForgotPassword as AdminsForgotPassword;
+use App\Http\Events\ResendOtp as AdminsResendOtp;
+use App\Http\Events\ResetPasswordResendOtp as AdminsResetPasswordResendOtp;
+use App\Http\Listeners\SendForgotPasswordNotification as AdminsSendForgotPasswordNotification;
+use App\Http\Listeners\SendOtpNotification as AdminsSendOtpNotification;
+use App\Http\Listeners\SendResetPasswordResendOtpNotification as AdminsSendResetPasswordResendOtpNotification;
 use App\Modules\Admins\Employees\Events\EmployeeCreated;
 use App\Modules\Admins\Employees\Listeners\SendEmployeeInviteNotification;
-use App\Modules\Students\Authentication\Events\ForgotPassword as StudentsForgotPassword;
-use App\Modules\Students\Authentication\Events\ResendOtp as StudentsResendOtp;
-use App\Modules\Students\Authentication\Events\ResetPasswordResendOtp as StudentsResetPasswordResendOtp;
-use App\Modules\Students\Authentication\Listeners\SendForgotPasswordNotification as StudentsSendForgotPasswordNotification;
-use App\Modules\Students\Authentication\Listeners\SendOtpNotification as StudentsSendOtpNotification;
-use App\Modules\Students\Authentication\Listeners\SendResetPasswordResendOtpNotification as StudentsSendResetPasswordResendOtpNotification;
-use App\Modules\Students\Authentication\Events\UserRegistered as StudentsUserRegistered;
-use App\Modules\Students\Authentication\Listeners\SendRegistrartionNotification as StudentsSendRegistrartionNotification;
+use App\Http\Events\ForgotPassword as StudentsForgotPassword;
+use App\Http\Events\ResendOtp as StudentsResendOtp;
+use App\Http\Events\ResetPasswordResendOtp as StudentsResetPasswordResendOtp;
+use App\Http\Listeners\SendForgotPasswordNotification as StudentsSendForgotPasswordNotification;
+use App\Http\Listeners\SendOtpNotification as StudentsSendOtpNotification;
+use App\Http\Listeners\SendResetPasswordResendOtpNotification as StudentsSendResetPasswordResendOtpNotification;
+use App\Http\Events\UserRegistered as StudentsUserRegistered;
+use App\Http\Listeners\SendRegistrartionNotification as StudentsSendRegistrartionNotification;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Event;

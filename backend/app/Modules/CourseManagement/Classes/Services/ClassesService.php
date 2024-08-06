@@ -3,7 +3,7 @@
 namespace App\Modules\CourseManagement\Classes\Services;
 
 use App\Modules\CourseManagement\Classes\Models\Classes;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,17 +15,19 @@ class ClassesService
 
     public function all($course_id = null): Collection
     {
-        $classes = Classes::with([
+        $query = Classes::with([
             'course' => function ($query) {
                 $query->with('graduation');
             }
-        ])->checkAuth();
-
+        ])->whenNotAdmin()->latest();
         if ($course_id) {
-            $classes = $classes->where('course_id', $course_id);
+            $query->where('course_id', $course_id);
         }
-
-        return $classes->get();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
@@ -34,7 +36,7 @@ class ClassesService
             'course' => function ($query) {
                 $query->with('graduation');
             }
-        ])->checkAuth()->latest();
+        ])->whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -49,7 +51,7 @@ class ClassesService
             'course' => function ($query) {
                 $query->with('graduation');
             }
-        ])->checkAuth()->findOrFail($id);
+        ])->whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): Classes

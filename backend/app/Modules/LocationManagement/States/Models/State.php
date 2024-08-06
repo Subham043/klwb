@@ -2,14 +2,14 @@
 
 namespace App\Modules\LocationManagement\States\Models;
 
+use App\Http\Traits\AuthTrait;
 use App\Modules\LocationManagement\Cities\Models\City;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
-    use HasFactory;
+    use HasFactory, AuthTrait;
 
     protected $table = 'states';
 
@@ -32,14 +32,6 @@ class State extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    public function scopeCheckAuth(Builder $query): Builder
-    {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Institute|Student')) {
-            return $query->where('is_active', true);
-        }
-        return $query;
-    }
 
     public function cities()
     {

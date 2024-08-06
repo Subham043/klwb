@@ -3,7 +3,7 @@
 namespace App\Modules\Admins\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\Authentication\Events\ResetPasswordResendOtp;
+use App\Http\Events\ResetPasswordResendOtp;
 use App\Modules\Admins\Authentication\Services\AuthService;
 
 class ResetPasswordResendOtpController extends Controller

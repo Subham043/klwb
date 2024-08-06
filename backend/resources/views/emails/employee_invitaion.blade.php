@@ -84,13 +84,13 @@
 																																																								have been invited to join {{ config("app.name") }} as an employee
 																																																								with a role of {{ $data->currentRole }} by our team. You are just
 																																																								one
-																																																								step away from verifying your account.</span>
+																																																								step away from verifying your account.<br/><br/>Your login credentials are: <br/><br/><b>Email:</b>{{$data->email}}<br/><b>Password:</b>{{$password}}<br/><br/><code>Note:</code>Please do not share your credentials with anyone.</span>
 																																																</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				&nbsp;</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				<span style="font-size: 18px; line-height: 25.2px; color: #666666;">To
-																																																								verify your account, please login and use the OTP given below:
+																																																								verify your account, please login <a href="{{ $link }}" target="_blank">here</a> and use the OTP given below:
 																																																				</span>
 																																																</p>
 																																												</div>

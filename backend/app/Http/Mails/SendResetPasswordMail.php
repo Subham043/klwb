@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Modules\Admins\Authentication\Mails;
+namespace App\Http\Mails;
 
 use App\Modules\Admins\Employees\Models\Employee;
+use App\Modules\Students\Users\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,7 +12,7 @@ class SendResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private Employee $data;
+    private Employee|User $data;
     private string $param;
 
     /**
@@ -19,7 +20,7 @@ class SendResetPasswordMail extends Mailable
      *
      * @return void
      */
-    public function __construct(Employee $data, string $param)
+    public function __construct(Employee|User $data, string $param)
     {
         $this->data = $data;
         $this->param = $param;

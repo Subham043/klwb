@@ -2,24 +2,24 @@
 
 namespace App\Modules\Admins\Employees\Models;
 
+use App\Http\Enums\Guards;
+use App\Modules\Students\Users\Traits\RoleTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Database\Factories\EmployeeFactory;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Builder;
 
 class Employee extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
 
     protected $table = 'admins';
 
-    protected $guard = 'admin';
+    protected $guard = Guards::Admin;
 
     /**
      * The attributes that are mass assignable.
@@ -51,6 +51,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
         'is_blocked' => false,
     ];
 
+    protected $appends = ['current_role'];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -65,21 +67,16 @@ class Employee extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    protected function currentRole(): Attribute
-    {
-        $roles_array = $this->getRoleNames();
-        $currentRole = count($roles_array) > 0 ? $roles_array[0] : null;
-        return Attribute::make(
-            get: fn () => $currentRole,
-        );
-    }
-
     public function getResetPasswordClientLink() {
         return (config('app.client_url').'/auth/admin/reset-password/');
     }
 
+    public function getLoginClientLink() {
+        return (config('app.client_url').'/auth/admin/login');
+    }
+
     /**
-     * User Factory.
+     * Employee Factory.
      *
      */
     protected static function newFactory(): Factory
@@ -89,14 +86,6 @@ class Employee extends Authenticatable implements MustVerifyEmail
 
     public function hasVerifiedEmail() {
         return !is_null($this->verified_at);
-    }
-
-    public function scopeIsRole(Builder $query, string $role): Builder
-    {
-        return $query->with('roles')
-        ->whereHas('roles', function($q) use($role){
-            $q->where('name', $role);
-        });
     }
 
 }

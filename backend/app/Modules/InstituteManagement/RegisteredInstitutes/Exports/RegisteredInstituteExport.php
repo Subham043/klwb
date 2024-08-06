@@ -2,13 +2,19 @@
 
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Exports;
 
-use App\Modules\InstituteManagement\RegisteredInstitutes\Models\RegisteredInstitute;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class RegisteredInstituteExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $institutes;
+
+    public function __construct(Collection $institutes)
+    {
+        $this->institutes = $institutes;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -50,14 +56,6 @@ class RegisteredInstituteExport implements FromCollection,WithHeadings,WithMappi
     }
     public function collection()
     {
-        return RegisteredInstitute::with([
-            'taluq' => function ($query) {
-                $query->with([
-                    'city' => function ($qry) {
-                        $qry->with('state');
-                    }
-                ]);
-            }
-        ])->checkAuth()->get();
+        return $this->institutes;
     }
 }

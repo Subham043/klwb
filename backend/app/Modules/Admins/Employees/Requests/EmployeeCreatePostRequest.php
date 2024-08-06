@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Employees\Requests;
 
+use App\Http\Enums\Guards;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
@@ -17,7 +18,7 @@ class EmployeeCreatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return Auth::guard(Guards::Admin->value())->check();
     }
 
     /**
@@ -29,8 +30,8 @@ class EmployeeCreatePostRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|numeric|digits:10|unique:users',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'phone' => 'required|numeric|digits:10|unique:admins',
             'role' => 'required|string|exists:Spatie\Permission\Models\Role,name',
             'is_blocked' => 'required|boolean',
             'password_confirmation' => 'string|min:8|required_with:password|same:password',

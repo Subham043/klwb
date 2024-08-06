@@ -30,7 +30,7 @@ class SendEmployeeInviteNotification implements ShouldQueue
     {
         // Access the order using $event->order...
         if($event->employee->email){
-            Mail::to($event->employee->email)->send(new SendEmployeeInvitationMail($event->employee));
+            Mail::to($event->employee->email)->send(new SendEmployeeInvitationMail($event->employee, $event->password));
         }
 
         if($event->employee->phone){

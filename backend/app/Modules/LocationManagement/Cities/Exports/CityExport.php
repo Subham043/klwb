@@ -2,13 +2,19 @@
 
 namespace App\Modules\LocationManagement\Cities\Exports;
 
-use App\Modules\LocationManagement\Cities\Models\City;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class CityExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $cities;
+
+    public function __construct(Collection $cities)
+    {
+        $this->cities = $cities;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -36,6 +42,6 @@ class CityExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return City::with('state')->checkAuth()->get();
+        return $this->cities;
     }
 }

@@ -57,7 +57,7 @@ function StudentRegisterPage() {
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(api_routes.auth.register.student, getValues());
+            await axios.post(api_routes.user.auth.register.student, getValues());
             toastSuccess("Registration Successful");
             reset({
                 name: "",

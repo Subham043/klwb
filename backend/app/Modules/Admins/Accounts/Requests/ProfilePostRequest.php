@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Accounts\Requests;
 
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class ProfilePostRequest extends FormRequest
     public function authorize()
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::guard('admin')->check();
+        return Auth::guard(Guards::Admin->value())->check();
     }
 
     /**
@@ -30,8 +31,8 @@ class ProfilePostRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email:rfc,dns|max:255|unique:admins,email,'.Auth::guard('admin')->user()->id,
-            'phone' => ['required','numeric', 'digits:10', 'unique:admins,phone,'.Auth::guard('admin')->user()->id],
+            'email' => 'required|string|email:rfc,dns|max:255|unique:admins,email,'.Auth::guard(Guards::Admin->value())->user()->id,
+            'phone' => ['required','numeric', 'digits:10', 'unique:admins,phone,'.Auth::guard(Guards::Admin->value())->user()->id],
         ];
     }
 

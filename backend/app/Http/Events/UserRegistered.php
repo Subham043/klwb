@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Students\Authentication\Events;
+namespace App\Http\Events;
 
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ResendOtp
+class UserRegistered
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -16,5 +16,6 @@ class ResendOtp
      */
     public function __construct(
         public User $user
-    ) {}
+    ) {
+    }
 }

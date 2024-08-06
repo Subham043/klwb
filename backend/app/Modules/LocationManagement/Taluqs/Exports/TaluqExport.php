@@ -2,13 +2,19 @@
 
 namespace App\Modules\LocationManagement\Taluqs\Exports;
 
-use App\Modules\LocationManagement\Taluqs\Models\Taluq;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class TaluqExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $taluqs;
+
+    public function __construct(Collection $taluqs)
+    {
+        $this->taluqs = $taluqs;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -40,10 +46,6 @@ class TaluqExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return Taluq::with([
-            'city' => function ($query) {
-                $query->with('state');
-            }
-        ])->checkAuth()->get();
+        return $this->taluqs;
     }
 }

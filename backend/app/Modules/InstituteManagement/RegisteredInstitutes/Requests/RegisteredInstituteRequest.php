@@ -2,6 +2,7 @@
 
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Requests;
 
+use App\Http\Enums\Guards;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Enums\UrbanRural;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class RegisteredInstituteRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::guard('admin')->check();
+        return Auth::guard(Guards::Admin->value())->check();
     }
 
     /**

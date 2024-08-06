@@ -12,15 +12,17 @@ class SendEmployeeInvitationMail extends Mailable
     use Queueable, SerializesModels;
 
     private Employee $data;
+    private string $password;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Employee $data)
+    public function __construct(Employee $data, string $password)
     {
         $this->data = $data;
+        $this->password = $password;
     }
 
     /**
@@ -32,6 +34,8 @@ class SendEmployeeInvitationMail extends Mailable
     {
         return $this->subject(config('app.name').' - Employee Invitation')->view('emails.employee_invitaion')->with([
             'data' => $this->data,
+            'password' => $this->password,
+            'link' => $this->data->getLoginClientLink(),
         ]);
     }
 }

@@ -2,13 +2,20 @@
 
 namespace App\Modules\ApplicationManagement\Fees\Exports;
 
-use App\Modules\ApplicationManagement\Fees\Models\Fee;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class FeeExport implements FromCollection,WithHeadings,WithMapping
 {
+
+    protected $fees;
+
+    public function __construct(Collection $fees)
+    {
+        $this->fees = $fees;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -38,6 +45,6 @@ class FeeExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return Fee::with(['classes'])->checkAuth()->get();
+        return $this->fees;
     }
 }

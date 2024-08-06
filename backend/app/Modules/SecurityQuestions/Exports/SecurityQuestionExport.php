@@ -2,13 +2,20 @@
 
 namespace App\Modules\SecurityQuestions\Exports;
 
-use App\Modules\SecurityQuestions\Models\SecurityQuestion;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class SecurityQuestionExport implements FromCollection,WithHeadings,WithMapping
 {
+
+    protected $securityQuestions;
+
+    public function __construct(Collection $securityQuestions)
+    {
+        $this->securityQuestions = $securityQuestions;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -32,6 +39,6 @@ class SecurityQuestionExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return SecurityQuestion::checkAuth()->get();
+        return $this->securityQuestions;
     }
 }

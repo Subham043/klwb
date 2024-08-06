@@ -3,7 +3,7 @@
 namespace App\Modules\Students\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Students\Authentication\Events\ResendOtp;
+use App\Http\Events\ResendOtp;
 use Illuminate\Http\Request;
 
 class ResendRegisteredUserOtpController extends Controller

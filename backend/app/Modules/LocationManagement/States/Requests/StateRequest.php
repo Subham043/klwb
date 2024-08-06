@@ -2,6 +2,7 @@
 
 namespace App\Modules\LocationManagement\States\Requests;
 
+use App\Http\Enums\Guards;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
@@ -16,7 +17,7 @@ class StateRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::guard('admin')->check();
+        return Auth::guard(Guards::Admin->value())->check();
     }
 
     /**

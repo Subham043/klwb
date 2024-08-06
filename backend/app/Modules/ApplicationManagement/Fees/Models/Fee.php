@@ -2,15 +2,15 @@
 
 namespace App\Modules\ApplicationManagement\Fees\Models;
 
+use App\Http\Traits\AuthTrait;
 use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\CourseManagement\Classes\Models\Classes;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Fee extends Model
 {
-    use HasFactory;
+    use HasFactory, AuthTrait;
 
     protected $table = 'fees';
 
@@ -38,14 +38,6 @@ class Fee extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    public function scopeCheckAuth(Builder $query): Builder
-    {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Institute|Student')) {
-            return $query->where('is_active', true);
-        }
-        return $query;
-    }
 
     public function classes()
     {

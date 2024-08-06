@@ -2,13 +2,19 @@
 
 namespace App\Modules\LocationManagement\States\Exports;
 
-use App\Modules\LocationManagement\States\Models\State;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class StateExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $states;
+
+    public function __construct(Collection $states)
+    {
+        $this->states = $states;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -32,6 +38,6 @@ class StateExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return State::checkAuth()->get();
+        return $this->states;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Enums\Guards;
 use App\Modules\Students\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\Students\Accounts\Controllers\ProfileController;
 use App\Modules\Students\Accounts\Controllers\ProfileUpdateController;
@@ -53,7 +54,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/all', [ClassesAllController::class, 'index']);
     });
 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware([Guards::Web->middleware()])->group(function () {
         Route::get('/auth/logout', [LogoutController::class, 'index']);
         Route::prefix('account')->group(function () {
             Route::get('/', [ProfileController::class, 'index']);

@@ -3,7 +3,7 @@
 namespace App\Modules\SecurityQuestions\Services;
 
 use App\Modules\SecurityQuestions\Models\SecurityQuestion;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,17 @@ class SecurityQuestionService
 
     public function all(): Collection
     {
-        return SecurityQuestion::checkAuth()->get();
+        $query = SecurityQuestion::whenNotAdmin()->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = SecurityQuestion::checkAuth()->latest();
+        $query = SecurityQuestion::whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -31,7 +36,7 @@ class SecurityQuestionService
 
     public function getById(Int $id): SecurityQuestion|null
     {
-        return SecurityQuestion::checkAuth()->findOrFail($id);
+        return SecurityQuestion::whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): SecurityQuestion

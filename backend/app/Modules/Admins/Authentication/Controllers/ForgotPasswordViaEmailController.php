@@ -3,8 +3,8 @@
 namespace App\Modules\Admins\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Events\ForgotPassword;
 use App\Http\Services\RateLimitService;
-use App\Modules\Admins\Authentication\Events\ForgotPassword;
 use App\Modules\Admins\Authentication\Requests\ForgotPasswordViaEmailPostRequest;
 use App\Modules\Admins\Authentication\Services\AuthService;
 use Illuminate\Support\Facades\URL;

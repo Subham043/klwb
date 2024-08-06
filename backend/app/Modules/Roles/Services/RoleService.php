@@ -2,25 +2,26 @@
 
 namespace App\Modules\Roles\Services;
 
+use App\Modules\Roles\Enums\Roles;
 use Spatie\Permission\Models\Role;
-use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 
 class RoleService
 {
-
+    protected $employee_roles = [Roles::SuperAdmin, Roles::Institute, Roles::InstituteStaff, Roles::Industry, Roles::IndustryStaff, Roles::Student];
     public function all(): Collection
     {
-        return Role::whereNot('name', 'Super-Admin')->whereNot('name', 'Student')->whereNot('name', 'Institute')->whereNot('name', 'Industry')->get();
+        return Role::whereNotIn('name', $this->employee_roles)->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Role::whereNot('name', 'Super-Admin')->whereNot('name', 'Student')->whereNot('name', 'Institute')->whereNot('name', 'Industry')->latest();
+        $query = Role::whereNotIn('name', $this->employee_roles)->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),

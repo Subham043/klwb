@@ -2,14 +2,14 @@
 
 namespace App\Modules\CourseManagement\Graduations\Models;
 
+use App\Http\Traits\AuthTrait;
 use App\Modules\CourseManagement\Courses\Models\Course;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Graduation extends Model
 {
-    use HasFactory;
+    use HasFactory, AuthTrait;
 
     protected $table = 'graduations';
 
@@ -32,14 +32,6 @@ class Graduation extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    public function scopeCheckAuth(Builder $query): Builder
-    {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Institute|Student')) {
-            return $query->where('is_active', true);
-        }
-        return $query;
-    }
 
     public function courses()
     {

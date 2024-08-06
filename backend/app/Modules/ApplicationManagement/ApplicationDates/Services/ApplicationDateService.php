@@ -3,7 +3,7 @@
 namespace App\Modules\ApplicationManagement\ApplicationDates\Services;
 
 use App\Modules\ApplicationManagement\ApplicationDates\Models\ApplicationDate;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,17 @@ class ApplicationDateService
 
     public function all(): Collection
     {
-        return ApplicationDate::checkAuth()->get();
+        $query = ApplicationDate::whenNotAdmin()->latest();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = ApplicationDate::checkAuth()->latest();
+        $query = ApplicationDate::whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -31,7 +36,7 @@ class ApplicationDateService
 
     public function getById(Int $id): ApplicationDate|null
     {
-        return ApplicationDate::checkAuth()->findOrFail($id);
+        return ApplicationDate::whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): ApplicationDate

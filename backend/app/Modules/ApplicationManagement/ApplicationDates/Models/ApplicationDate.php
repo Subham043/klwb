@@ -2,14 +2,14 @@
 
 namespace App\Modules\ApplicationManagement\ApplicationDates\Models;
 
+use App\Http\Traits\AuthTrait;
 use App\Modules\Admins\Employees\Models\Employee;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ApplicationDate extends Model
 {
-    use HasFactory;
+    use HasFactory, AuthTrait;
 
     protected $table = 'application_dates';
 
@@ -42,14 +42,6 @@ class ApplicationDate extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    public function scopeCheckAuth(Builder $query): Builder
-    {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Institute|Student')) {
-            return $query->where('is_active', true);
-        }
-        return $query;
-    }
 
     public function user()
     {

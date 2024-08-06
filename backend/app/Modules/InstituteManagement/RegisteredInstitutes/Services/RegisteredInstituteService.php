@@ -3,7 +3,7 @@
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Services;
 
 use App\Modules\InstituteManagement\RegisteredInstitutes\Models\RegisteredInstitute;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +15,7 @@ class RegisteredInstituteService
 
     public function all($taluq_id = null): Collection
     {
-        $registeredInstitutes = RegisteredInstitute::with([
+        $query = RegisteredInstitute::with([
             'taluq' => function ($query) {
                 $query->with([
                     'city' => function ($qry) {
@@ -23,11 +23,15 @@ class RegisteredInstituteService
                     }
                 ]);
             }
-        ])->checkAuth();
+        ])->whenNotAdmin()->latest();
         if ($taluq_id) {
-            $registeredInstitutes->where('taluq_id', $taluq_id);
+            $query->where('taluq_id', $taluq_id);
         }
-        return $registeredInstitutes->get();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
@@ -40,7 +44,7 @@ class RegisteredInstituteService
                     }
                 ]);
             }
-        ])->checkAuth()->latest();
+        ])->whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -59,7 +63,7 @@ class RegisteredInstituteService
                     }
                 ]);
             }
-        ])->checkAuth()->findOrFail($id);
+        ])->whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): RegisteredInstitute

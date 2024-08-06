@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\Admins\Authentication\Requests\EmailLoginPostRequest;
 use App\Modules\Admins\Authentication\Resources\AuthCollection;
@@ -22,7 +23,7 @@ class EmailLoginController extends Controller
         $is_authenticated = $this->authService->login([...$request->safe()->except(['captcha']), 'is_blocked' => 0]);
         if ($is_authenticated) {
             (new RateLimitService($request))->clearRateLimit();
-            $employee = auth()->guard('admin')->user();
+            $employee = auth()->guard(Guards::Admin->value())->user();
             $token = $this->authService->generate_token($employee);
             return response()->json([
                 'message' => 'Logged in successfully.',

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Modules\Students\Authentication\Mails;
+namespace App\Http\Mails;
 
+use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -11,14 +12,14 @@ class SendResetPasswordResendOtpMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private User $data;
+    private Employee $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $data)
+    public function __construct(Employee|User $data)
     {
         $this->data = $data;
     }

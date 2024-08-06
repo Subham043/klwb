@@ -2,13 +2,19 @@
 
 namespace App\Modules\CourseManagement\Classes\Exports;
 
-use App\Modules\CourseManagement\Classes\Models\Classes;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class ClassesExport implements FromCollection,WithHeadings,WithMapping
 {
+    protected $classes;
+
+    public function __construct(Collection $classes)
+    {
+        $this->classes = $classes;
+    }
 
     /**
     * @return \Illuminate\Support\Collection
@@ -40,10 +46,6 @@ class ClassesExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        return Classes::with([
-            'course' => function ($query) {
-                $query->with('graduation');
-            }
-        ])->checkAuth()->get();
+        return $this->classes;
     }
 }

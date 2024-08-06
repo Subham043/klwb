@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Modules\Students\Authentication\Listeners;
+namespace App\Http\Listeners;
 
 use App\Http\Services\SmsService;
-use App\Modules\Students\Authentication\Events\ResetPasswordResendOtp;
-use App\Modules\Students\Authentication\Mails\SendResetPasswordResendOtpMail;
+use App\Http\Events\ForgotPassword;
+use App\Http\Mails\SendResetPasswordMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendResetPasswordResendOtpNotification implements ShouldQueue
+class SendForgotPasswordNotification implements ShouldQueue
 {
     use InteractsWithQueue;
 
@@ -26,11 +26,11 @@ class SendResetPasswordResendOtpNotification implements ShouldQueue
     /**
      * Handle the event.
      */
-    public function handle(ResetPasswordResendOtp $event): void
+    public function handle(ForgotPassword $event): void
     {
         // Access the order using $event->order...
         if($event->user->email){
-            Mail::to($event->user->email)->send(new SendResetPasswordResendOtpMail($event->user));
+            Mail::to($event->user->email)->send(new SendResetPasswordMail($event->user, $event->param));
         }
 
         if($event->user->phone){

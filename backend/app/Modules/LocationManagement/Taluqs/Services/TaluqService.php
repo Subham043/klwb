@@ -3,7 +3,7 @@
 namespace App\Modules\LocationManagement\Taluqs\Services;
 
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,15 +15,19 @@ class TaluqService
 
     public function all($city_id = null): Collection
     {
-        $taluqs = Taluq::with([
+        $query = Taluq::with([
             'city' => function ($query) {
                 $query->with('state');
             }
-        ])->checkAuth();
+        ])->whenNotAdmin()->latest();
         if ($city_id) {
-            $taluqs->where('city_id', $city_id);
+            $query->where('city_id', $city_id);
         }
-        return $taluqs->get();
+        return QueryBuilder::for($query)
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ])
+                ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
@@ -32,7 +36,7 @@ class TaluqService
             'city' => function ($query) {
                 $query->with('state');
             }
-        ])->checkAuth()->latest();
+        ])->whenNotAdmin()->latest();
         return QueryBuilder::for($query)
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
@@ -47,7 +51,7 @@ class TaluqService
             'city' => function ($query) {
                 $query->with('state');
             }
-        ])->checkAuth()->findOrFail($id);
+        ])->whenNotAdmin()->findOrFail($id);
     }
 
     public function create(array $data): Taluq

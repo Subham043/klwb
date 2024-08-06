@@ -26,7 +26,7 @@ class EmployeeCreateController extends Controller
                 [...$request->except('role'), 'created_by' => auth()->user()->id]
             );
             $this->employeeService->syncRoles([$request->role], $employee);
-            EmployeeCreated::dispatch($employee);
+            EmployeeCreated::dispatch($employee, $request->password);
             return response()->json([
                 "message" => "Employee created successfully.",
                 "data" => EmployeeCollection::make($employee),

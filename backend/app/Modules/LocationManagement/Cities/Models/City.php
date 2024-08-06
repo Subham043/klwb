@@ -2,15 +2,15 @@
 
 namespace App\Modules\LocationManagement\Cities\Models;
 
+use App\Http\Traits\AuthTrait;
 use App\Modules\LocationManagement\States\Models\State;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    use HasFactory;
+    use HasFactory, AuthTrait;
 
     protected $table = 'cities';
 
@@ -34,14 +34,6 @@ class City extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    public function scopeCheckAuth(Builder $query): Builder
-    {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Institute|Student')) {
-            return $query->where('is_active', true);
-        }
-        return $query;
-    }
 
     public function state()
     {
