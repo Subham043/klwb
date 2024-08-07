@@ -15,41 +15,44 @@ class EmployeeService{
 
     protected $employee_roles = [Roles::SuperAdmin, Roles::Institute, Roles::InstituteStaff, Roles::Industry, Roles::IndustryStaff, Roles::Student];
 
-    public function all(): Collection
+    protected function model(): Builder
     {
-        $query = Employee::doesNotHaveRoles($this->employee_roles)->latest();
-        return QueryBuilder::for($query)
+        return Employee::doesNotHaveRoles($this->employee_roles);
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Employee::doesNotHaveRoles($this->employee_roles)
-        ->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
+        return $this->query()->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id)
     {
-        return Employee::doesNotHaveRoles($this->employee_roles)->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function getByEmail(String $email): Employee
     {
-        return Employee::doesNotHaveRoles($this->employee_roles)->where('email', $email)->firstOrFail();
+        return $this->model()->where('email', $email)->firstOrFail();
     }
 
     public function getByPhone(String $phone): Employee
     {
-        return Employee::doesNotHaveRoles($this->employee_roles)->where('phone', $phone)->firstOrFail();
+        return $this->model()->where('phone', $phone)->firstOrFail();
     }
 
     public function create(array $data): Employee

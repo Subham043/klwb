@@ -41,7 +41,7 @@ export const useClassSelectQuery: (
     queryFn: async () => {
       const response = await axios.get<{ data: ClassType[] }>(
         api_routes.admin.class.all +
-          (course_id ? `?course_id=${course_id}` : "")
+          (course_id ? `?filter[has_course]=${course_id}` : "")
       );
       return response.data.data;
     },
@@ -58,7 +58,7 @@ export const useClassCommonSelectQuery: (
     queryKey: [ClassCommonSelectQueryKey, course_id],
     queryFn: async () => {
       const response = await axios.get<{ data: ClassType[] }>(
-        api_routes.user.class.all + (course_id ? `?course_id=${course_id}` : "")
+        api_routes.user.class.all + (course_id ? `?filter[has_course]=${course_id}` : "")
       );
       return response.data.data;
     },

@@ -13,35 +13,45 @@ use Spatie\QueryBuilder\AllowedFilter;
 class UserService
 {
 
+    protected function model(): Builder
+    {
+        return User::with('roles');
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ]);
+    }
+
     public function all(): Collection
     {
-        return User::lazy(100)->collect();
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = User::with('roles')->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+        return $this->query()
                 ->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): User|null
     {
-        return User::with('roles')->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function getByEmail(String $email): User
     {
-        return User::where('email', $email)->firstOrFail();
+        return $this->model()->where('email', $email)->firstOrFail();
     }
 
     public function getByPhone(String $phone): User
     {
-        return User::where('phone', $phone)->firstOrFail();
+        return $this->model()->where('phone', $phone)->firstOrFail();
     }
 
     public function create(array $data): User

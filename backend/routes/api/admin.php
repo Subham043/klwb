@@ -95,6 +95,7 @@ use App\Modules\Admins\Authentication\Controllers\LogoutController;
 use App\Modules\Admins\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Admins\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Admins\Authentication\Controllers\ResetPasswordResendOtpController;
+use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteApproveController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -224,6 +225,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/all', [RequestInstituteAllController::class, 'index']);
                 Route::get('/paginate', [RequestInstitutePaginateController::class, 'index']);
                 Route::post('/update/{id}', [RequestInstituteUpdateController::class, 'index']);
+                Route::post('/approve/{id}', [RequestInstituteApproveController::class, 'index']);
                 Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestInstituteViewController::class, 'index']);
             });

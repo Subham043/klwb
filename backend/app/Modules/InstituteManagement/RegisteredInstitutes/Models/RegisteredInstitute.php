@@ -3,6 +3,7 @@
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Models;
 
 use App\Http\Traits\AuthTrait;
+use App\Modules\InstituteManagement\Institutes\Models\Institute;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Enums\UrbanRural;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +33,10 @@ class RegisteredInstitute extends Model
 
     protected $attributes = [
         'reg_no' => null,
-        'urban_rural' => UrbanRural::RURAL,
+        'management_type' => null,
+        'category' => null,
+        'type' => null,
+        'urban_rural' => null,
         'is_active' => true,
     ];
 
@@ -46,6 +50,11 @@ class RegisteredInstitute extends Model
     public function taluq()
     {
         return $this->belongsTo(Taluq::class, 'taluq_id')->withDefault();
+    }
+
+    public function registration()
+    {
+        return $this->hasOne(Institute::class, 'reg_institute_id')->withDefault();
     }
 
 }

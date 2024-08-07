@@ -193,6 +193,8 @@ export const api_routes = {
       paginate: "/api/admin/v1/request-institutes/paginate",
       update: (id: string | number) =>
         `/api/admin/v1/request-institutes/update/${id}`,
+      approve: (id: string | number) =>
+        `/api/admin/v1/request-institutes/approve/${id}`,
       delete: (id: string | number) =>
         `/api/admin/v1/request-institutes/delete/${id}`,
       view: (id: string | number) =>

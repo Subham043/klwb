@@ -102,7 +102,7 @@ function InstituteRequestPage() {
             formData.append("taluq_id", getValues().taluq_id.toString());
             formData.append("captcha", getValues().captcha);
             formData.append("register_doc", getValues().register_doc![0].blobFile!);
-            await axios.post(api_routes.auth.institute.request, formData);
+            await axios.post(api_routes.user.auth.institute.request, formData);
             toastSuccess("Institute Request sent successfully");
             reset({
                 name: "",

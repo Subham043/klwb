@@ -7,7 +7,7 @@ Route::get('/', function () {
     return redirect(config('app.client_url'));
 });
 
-Route::get('/public/files', [FileController::class, 'index'])->name('storage.files')->middleware(['auth:sanctum']);
+Route::get('/public/files', [FileController::class, 'index'])->name('storage.files')->middleware(['auth:admin']);
 
 Route::get('/private/file', function () {
     return response()->json([

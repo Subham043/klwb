@@ -12,48 +12,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class RegisteredInstituteService
 {
-
-    public function all($taluq_id = null): Collection
-    {
-        $query = RegisteredInstitute::with([
-            'taluq' => function ($query) {
-                $query->with([
-                    'city' => function ($qry) {
-                        $qry->with('state');
-                    }
-                ]);
-            }
-        ])->whenNotAdmin()->latest();
-        if ($taluq_id) {
-            $query->where('taluq_id', $taluq_id);
-        }
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        $query = RegisteredInstitute::with([
-            'taluq' => function ($query) {
-                $query->with([
-                    'city' => function ($qry) {
-                        $qry->with('state');
-                    }
-                ]);
-            }
-        ])->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): RegisteredInstitute|null
+    protected function model(): Builder
     {
         return RegisteredInstitute::with([
             'taluq' => function ($query) {
@@ -63,7 +22,37 @@ class RegisteredInstituteService
                     }
                 ]);
             }
-        ])->whenNotAdmin()->findOrFail($id);
+        ])->whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
+                        $query->where('taluq_id', $value);
+                    })
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()
+                ->lazy(100)->collect();
+    }
+
+    public function paginate(Int $total = 10): LengthAwarePaginator
+    {
+        return $this->query()
+                ->paginate($total)
+                ->appends(request()->query());
+    }
+
+    public function getById(Int $id): RegisteredInstitute|null
+    {
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): RegisteredInstitute

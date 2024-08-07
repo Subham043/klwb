@@ -14,18 +14,29 @@ use Spatie\QueryBuilder\AllowedFilter;
 class RoleService
 {
     protected $employee_roles = [Roles::SuperAdmin, Roles::Institute, Roles::InstituteStaff, Roles::Industry, Roles::IndustryStaff, Roles::Student];
+
+    protected function model(): Builder
+    {
+        return Role::whereNotIn('name', $this->employee_roles);
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ]);
+    }
+
     public function all(): Collection
     {
-        return Role::whereNotIn('name', $this->employee_roles)->lazy(100)->collect();
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Role::whereNotIn('name', $this->employee_roles)->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+        return $this->query()
                 ->paginate($total);
     }
 

@@ -106,7 +106,7 @@ const RequestInstitute:FC = () => {
                 </Table.Cell>
             </Table.Column>
         </Table>
-        <RequestInstituteInfo modal={openModal} modalHandler={(value)=>setOpenModal(value)} />
+        <RequestInstituteInfo modal={openModal} modalHandler={(value)=>setOpenModal(value)} refetch={refetch} />
     </PaginatedTableLayout>
 }
 

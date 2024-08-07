@@ -1,9 +1,38 @@
 import { Button, Divider, Heading, HeadingGroup, Loader, Modal, Panel, Stack, Text, useMediaQuery } from 'rsuite'
 import { useRequestInstituteQuery } from '../../hooks/data/request_institute';
+import { useDeleteQuery } from '../../hooks/useDeleteQuery';
+import { api_routes } from '../../utils/api_routes';
+import { useToast } from '../../hooks/useToast';
+import { useState } from 'react';
+import { useAxios } from '../../hooks/useAxios';
 
-export default function RequestInstituteInfo({modal, modalHandler}:{modal: {status:boolean, id?:number}; modalHandler: (value:{status:boolean, id?:number})=>void}) {
+export default function RequestInstituteInfo({modal, modalHandler, refetch}:{modal: {status:boolean, id?:number}; modalHandler: (value:{status:boolean, id?:number})=>void; refetch: ()=>void}) {
     const {data, isFetching, isLoading } = useRequestInstituteQuery(modal.id ? modal.id : 0, (modal.status && modal.id!==undefined && modal.id>0));
     const [isMobile] = useMediaQuery('(max-width: 700px)');
+    const {deleteHandler, deleteLoading} = useDeleteQuery();
+    const {toastError, toastSuccess} = useToast();
+    const [approveLoading, setApproveLoading] = useState<boolean>(false);
+    const axios = useAxios();
+
+    const onRejectHandler = async (id:number) => {
+        await deleteHandler(api_routes.admin.request_institute.delete(id));
+        modalHandler({status:false})
+        refetch();
+    }
+    
+    const onApproveHandler = async (id:number) => {
+        setApproveLoading(true)
+        try {
+            await axios.post(api_routes.admin.request_institute.approve(id), {});
+            toastSuccess('Approved Successfully');
+            modalHandler({status:false})
+            refetch();
+        } catch (error) {
+            toastError('Something went wrong. Please try again later.');
+        }finally{
+            setApproveLoading(false);
+        }
+    }
 
     return (
         <Modal overflow={false} size={"sm"} open={modal.status} onClose={()=>modalHandler({status:false})} className='info-modal'>
@@ -51,14 +80,17 @@ export default function RequestInstituteInfo({modal, modalHandler}:{modal: {stat
                     </HeadingGroup>
                 </Panel>
             </>
-            <Modal.Footer className='mb-1 info-modal-footer'>
-                <Button onClick={()=>modalHandler({status:false})} appearance="primary">
-                    Ok
+            {data!==undefined && <Modal.Footer className='mb-1 info-modal-footer'>
+                <Button onClick={()=>onApproveHandler(data!.id)} loading={approveLoading} disabled={approveLoading} appearance="primary">
+                    Approve
+                </Button>
+                <Button onClick={()=>onRejectHandler(data!.id)} loading={deleteLoading} disabled={deleteLoading} appearance="primary" color='red'>
+                    Reject
                 </Button>
                 <Button onClick={()=>modalHandler({status:false})} appearance="subtle">
                     Cancel
                 </Button>
-            </Modal.Footer>
+            </Modal.Footer>}
         </Modal>
     )
 }

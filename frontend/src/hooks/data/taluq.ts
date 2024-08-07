@@ -40,7 +40,7 @@ export const useTaluqSelectQuery: (
     queryKey: [TaluqSelectQueryKey, city_id],
     queryFn: async () => {
       const response = await axios.get<{ data: TaluqType[] }>(
-        api_routes.admin.taluq.all + (city_id ? `?city_id=${city_id}` : "")
+        api_routes.admin.taluq.all + (city_id ? `?filter[has_city]=${city_id}` : "")
       );
       return response.data.data;
     },
@@ -57,7 +57,7 @@ export const useTaluqCommonSelectQuery: (
     queryKey: [TaluqCommonSelectQueryKey, city_id],
     queryFn: async () => {
       const response = await axios.get<{ data: TaluqType[] }>(
-        api_routes.user.taluq.all + (city_id ? `?city_id=${city_id}` : "")
+        api_routes.user.taluq.all + (city_id ? `?filter[has_city]=${city_id}` : "")
       );
       return response.data.data;
     },

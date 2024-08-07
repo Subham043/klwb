@@ -12,31 +12,35 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class GraduationService
 {
+    protected function model(): Builder
+    {
+        return Graduation::whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ]);
+    }
 
     public function all(): Collection
     {
-        $query = Graduation::whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Graduation::whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+        return $this->query()
                 ->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): Graduation|null
     {
-        return Graduation::whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): Graduation

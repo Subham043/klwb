@@ -12,46 +12,41 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class ClassesService
 {
-
-    public function all($course_id = null): Collection
-    {
-        $query = Classes::with([
-            'course' => function ($query) {
-                $query->with('graduation');
-            }
-        ])->whenNotAdmin()->latest();
-        if ($course_id) {
-            $query->where('course_id', $course_id);
-        }
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        $query = Classes::with([
-            'course' => function ($query) {
-                $query->with('graduation');
-            }
-        ])->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): Classes|null
+    protected function model(): Builder
     {
         return Classes::with([
             'course' => function ($query) {
                 $query->with('graduation');
             }
-        ])->whenNotAdmin()->findOrFail($id);
+        ])->whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('has_course', function (Builder $query, $value) {
+                        $query->where('course_id', $value);
+                    })
+                ]);
+    }
+
+    public function all(): Collection
+    {
+       return $this->query()->lazy(100)->collect();
+    }
+
+    public function paginate(Int $total = 10): LengthAwarePaginator
+    {
+        return $this->query()->paginate($total)
+                ->appends(request()->query());
+    }
+
+    public function getById(Int $id): Classes|null
+    {
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): Classes

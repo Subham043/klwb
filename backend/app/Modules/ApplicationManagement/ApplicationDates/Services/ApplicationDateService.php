@@ -13,30 +13,34 @@ use Spatie\QueryBuilder\AllowedFilter;
 class ApplicationDateService
 {
 
-    public function all(): Collection
+    protected function model(): Builder
     {
-        $query = ApplicationDate::whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
+        return ApplicationDate::whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'application_year')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = ApplicationDate::whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
+        return $this->query()->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): ApplicationDate|null
     {
-        return ApplicationDate::whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): ApplicationDate

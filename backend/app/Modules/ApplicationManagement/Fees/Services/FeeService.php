@@ -12,31 +12,34 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class FeeService
 {
+    protected function model(): Builder
+    {
+        return Fee::with('classes')->whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'year')
+                ->allowedFilters([
+                    AllowedFilter::custom('search', new CommonFilter, null, false),
+                ]);
+    }
 
     public function all(): Collection
     {
-        $query = Fee::with('classes')->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Fee::with('classes')->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
+        return $this->query()->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): Fee|null
     {
-        return Fee::with('classes')->whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): Fee

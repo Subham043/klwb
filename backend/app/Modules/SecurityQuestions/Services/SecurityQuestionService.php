@@ -13,30 +13,36 @@ use Spatie\QueryBuilder\AllowedFilter;
 class SecurityQuestionService
 {
 
-    public function all(): Collection
+    protected function model(): Builder
     {
-        $query = SecurityQuestion::whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
+        return SecurityQuestion::whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'question')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()
                 ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = SecurityQuestion::whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+        return $this->query()
                 ->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): SecurityQuestion|null
     {
-        return SecurityQuestion::whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): SecurityQuestion

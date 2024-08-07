@@ -12,34 +12,37 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class CourseService
 {
-
-    public function all($graduation_id = null): Collection
+    protected function model(): Builder
     {
-        $query = Course::with('graduation')->whenNotAdmin()->latest();
-        if ($graduation_id) {
-            $query->where('graduation_id', $graduation_id);
-        }
-        return QueryBuilder::for($query)
+        return Course::with('graduation')->whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
+                    AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
+                        $query->where('graduation_id', $value);
+                    })
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Course::with('graduation')->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->paginate($total)
+        return $this->query()->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): Course|null
     {
-        return Course::with('graduation')->whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): Course

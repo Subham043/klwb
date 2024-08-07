@@ -13,45 +13,42 @@ use Spatie\QueryBuilder\AllowedFilter;
 class TaluqService
 {
 
-    public function all($city_id = null): Collection
+    protected function model(): Builder
     {
-        $query = Taluq::with([
+        return Taluq::with([
             'city' => function ($query) {
                 $query->with('state');
             }
-        ])->whenNotAdmin()->latest();
-        if ($city_id) {
-            $query->where('city_id', $city_id);
-        }
-        return QueryBuilder::for($query)
+        ])->whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
-                ->lazy(100)->collect();
+                    AllowedFilter::callback('has_city', function (Builder $query, $value) {
+                        $query->where('city_id', $value);
+                    })
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = Taluq::with([
-            'city' => function ($query) {
-                $query->with('state');
-            }
-        ])->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+        return $this->query()
                 ->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): Taluq|null
     {
-        return Taluq::with([
-            'city' => function ($query) {
-                $query->with('state');
-            }
-        ])->whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): Taluq

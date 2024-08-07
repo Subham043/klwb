@@ -2,6 +2,7 @@
 
 namespace App\Http\Mails;
 
+use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -11,14 +12,14 @@ class SendRegisteredMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private User $data;
+    private User|InstituteAuth $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $data)
+    public function __construct(User|InstituteAuth $data)
     {
         $this->data = $data;
     }

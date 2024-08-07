@@ -86,7 +86,7 @@ return [
         ],
         'institutes' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_INSTITUTE_MODEL', App\Modules\Students\Users\Models\User::class),
+            'model' => env('AUTH_INSTITUTE_MODEL', App\Modules\InstituteManagement\Institutes\Models\InstituteAuth::class),
         ],
 
         // 'users' => [

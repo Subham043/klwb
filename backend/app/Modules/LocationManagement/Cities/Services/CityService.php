@@ -12,34 +12,39 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class CityService
 {
-
-    public function all($state_id = null): Collection
+    protected function model(): Builder
     {
-        $query = City::with('state')->whenNotAdmin()->latest();
-        if ($state_id) {
-            $query->where('state_id', $state_id);
-        }
-        return QueryBuilder::for($query)
+        return City::with('state')->whenNotAdmin();
+    }
+    protected function query(): QueryBuilder
+    {
+        return QueryBuilder::for($this->model())
+                ->defaultSort('-id')
+                ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+                    AllowedFilter::callback('has_state', function (Builder $query, $value) {
+                        $query->where('state_id', $value);
+                    })
+                ]);
+    }
+
+    public function all(): Collection
+    {
+        return $this->query()
                 ->lazy(100)->collect();
     }
 
     public function paginate(Int $total = 10): LengthAwarePaginator
     {
-        $query = City::with('state')->whenNotAdmin()->latest();
-        return QueryBuilder::for($query)
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                ])
+        return $this->query()
                 ->paginate($total)
                 ->appends(request()->query());
     }
 
     public function getById(Int $id): City|null
     {
-        return City::with('state')->whenNotAdmin()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     public function create(array $data): City
