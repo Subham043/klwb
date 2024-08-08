@@ -3,6 +3,7 @@
 namespace App\Http\Events;
 
 use App\Modules\Admins\Employees\Models\Employee;
+use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -16,7 +17,7 @@ class ForgotPassword
      * Create a new event instance.
      */
     public function __construct(
-        public Employee|User $user,
+        public Employee|User|InstituteAuth $user,
         public string $param
     ) {}
 }

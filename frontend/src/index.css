@@ -229,6 +229,10 @@ h2{
     padding: 10px;
 }
 
+.institute-select-register .rs-form-group{
+    margin-bottom: 5px !important;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;

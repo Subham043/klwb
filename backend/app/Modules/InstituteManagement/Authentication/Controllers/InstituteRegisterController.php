@@ -29,7 +29,7 @@ class InstituteRegisterController extends Controller
                 'principal' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'reg_institute_id' => $request->name,
+                'reg_institute_id' => $request->reg_institute_id,
             ]);
             if($request->hasFile('reg_certification')){
                 $this->instituteAuthService->saveRegCertification($institute);
@@ -64,7 +64,6 @@ class InstituteRegisterController extends Controller
                 'user' => AuthCollection::make($instituteAuth),
             ], 201);
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
         } finally {

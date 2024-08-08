@@ -22,7 +22,7 @@ class ForgotPasswordViaEmailController extends Controller
         $user = $this->authService->getByEmail($request->email);
         $this->authService->updateInstituteAuth($user, ['otp' => rand (1111, 9999)]);
         $uuid = str()->uuid();
-        $this->authService->setPasswordResetLink(['user_id' => $user->id, 'uuid' => $uuid]);
+        $this->authService->setPasswordResetLink(['school_auth_id' => $user->id, 'uuid' => $uuid]);
         $signedUrl = URL::temporarySignedRoute(
             'institute-reset-password', now()->addMinutes((int)config('auth.reset_password_link_timeout')), ['token' => $uuid], absolute: false
         );

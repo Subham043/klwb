@@ -17,8 +17,8 @@ class CourseExportController extends Controller
         $this->courseService = $courseService;
     }
 
-    public function index(Request $request){
-        $course = $this->courseService->all($request->graduation_id ?? null);
+    public function index(){
+        $course = $this->courseService->all();
         return Excel::download(new CourseExport($course), 'courses.xlsx');
     }
 }

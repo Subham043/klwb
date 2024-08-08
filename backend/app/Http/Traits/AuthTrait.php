@@ -8,9 +8,9 @@ trait AuthTrait
 {
     public function scopeWhenNotAdmin(Builder $query): Builder
     {
-        if(auth()->check() && request()->user()->hasRole('Verification-Officer|Financial-Officer|Payment-Officer|Industry|Industry-Staff|Institute|Institute-Staff|Student')) {
-            return $query->where('is_active', true);
+        if(auth()->check() && request()->user()->hasRole('Super-Admin|Admin')) {
+            return $query;
         }
-        return $query;
+        return $query->where('is_active', true);
     }
 }

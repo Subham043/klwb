@@ -5,7 +5,6 @@ namespace App\Modules\LocationManagement\Taluqs\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\LocationManagement\Taluqs\Resources\TaluqCollection;
 use App\Modules\LocationManagement\Taluqs\Services\TaluqService;
-use Illuminate\Http\Request;
 
 class TaluqAllController extends Controller
 {
@@ -16,8 +15,8 @@ class TaluqAllController extends Controller
         $this->taluqService = $taluqService;
     }
 
-    public function index(Request $request){
-        $taluq = $this->taluqService->all($request->city_id ?? null);
+    public function index(){
+        $taluq = $this->taluqService->all();
         return response()->json(["message" => "Taluq fetched successfully.", "data" => TaluqCollection::collection($taluq)], 200);
     }
 }

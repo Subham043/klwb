@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\Authentication\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\Admins\Authentication\Requests\PhoneLoginPostRequest;
 use App\Modules\Admins\Authentication\Resources\AuthCollection;
@@ -23,7 +24,7 @@ class PhoneLoginController extends Controller
 
         if ($is_authenticated) {
             (new RateLimitService($request))->clearRateLimit();
-            $employee = auth()->user();
+            $employee = auth()->guard(Guards::Admin->value())->user();
             $token = $this->authService->generate_token($employee);
             return response()->json([
                 'message' => 'Logged in successfully.',

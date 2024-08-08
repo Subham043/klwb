@@ -25,6 +25,7 @@ const GovtLoginPage = lazy(()=>import("./pages/Auth/LoginPage/GovtLoginPage"));
 const IndustryLoginPage = lazy(()=>import("./pages/Auth/LoginPage/IndustryLoginPage"));
 const InstituteLoginPage = lazy(()=>import("./pages/Auth/LoginPage/InstituteLoginPage"));
 const StudentRegisterPage = lazy(()=>import("./pages/Auth/Register/StudentRegisterPage"));
+const InstituteRegisterPage = lazy(()=>import("./pages/Auth/Register/InstituteRegisterPage"));
 const ForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword"));
 const DashboardPage = lazy(()=>import("./pages/Dashboard"));
@@ -75,15 +76,6 @@ function App() {
                             <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
                           </Route>
                       </Route>
-                    </Route>
-                  </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.institute.login} hasRegister={true} registerLink={page_routes.auth.institute.register} bgImage={instituteBg} />}>
-                        <Route path={page_routes.auth.institute.login} element={<InstituteLoginPage />} />
-                        <Route path={page_routes.auth.institute.register} element={<StudentRegisterPage />} />
-                        <Route path={page_routes.auth.institute.forgot_password} element={<ForgotPasswordPage title="Institute" login_link={page_routes.auth.institute.login} reset_password_redirect={page_routes.auth.institute.reset_password} forgot_password_email_api_link={api_routes.admin.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.admin.auth.forgot_password.phone} />} />
-                        <Route path={page_routes.auth.institute.reset_password} element={<ResetPasswordPage title="Institute" login_link={page_routes.auth.admin.login} reset_password_api_link={api_routes.admin.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.admin.auth.reset_password.resend_otp} />} />
-                        <Route path={page_routes.auth.institute.request} element={<InstituteRequestPage />} />
                     </Route>
                   </Route>
                   <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
@@ -139,6 +131,28 @@ function App() {
                   </Route>
                 </Route>
                 {/* Student Routes Ends */}
+
+                {/* Institute Routes Starts */}
+                <Route element={<PersistLayout profile_api_link={api_routes.institute.account.profile} />}>
+                  <Route element={<ProtectedLayout navigation_link={page_routes.auth.institute.login} />}>
+                    <Route element={<VerifiedLayout profile_verify_api_link={api_routes.institute.account.profile_verify} logout_api_link={api_routes.institute.auth.logout} resend_otp_api_link={api_routes.institute.account.resend_otp} />} >
+                      <Route element={<AuthorisedLayout roles={["Institute", "Institute-Staff"]} />}>
+                          <Route element={<DashboardLayout />}>
+                          </Route>
+                      </Route>
+                    </Route>
+                  </Route>
+                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
+                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.institute.login} hasRegister={true} registerLink={page_routes.auth.institute.register} bgImage={instituteBg} />}>
+                        <Route path={page_routes.auth.institute.login} element={<InstituteLoginPage />} />
+                        <Route path={page_routes.auth.institute.register} element={<InstituteRegisterPage />} />
+                        <Route path={page_routes.auth.institute.forgot_password} element={<ForgotPasswordPage title="Institute" login_link={page_routes.auth.institute.login} reset_password_redirect={page_routes.auth.institute.reset_password} forgot_password_email_api_link={api_routes.institute.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.institute.auth.forgot_password.phone}  />} />
+                        <Route path={page_routes.auth.institute.reset_password} element={<ResetPasswordPage title="Institute" login_link={page_routes.auth.institute.login} reset_password_api_link={api_routes.institute.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.institute.auth.reset_password.resend_otp} />} />
+                        <Route path={page_routes.auth.institute.request} element={<InstituteRequestPage />} />
+                    </Route>
+                  </Route>
+                </Route>
+                {/* Institute Routes Ends */}
                 <Route element={<SuspenseOutlet />}>
                   <Route path={page_routes.main} element={<HomePage />} />
                   <Route path="*" element={<PageNotFound />} /> {/* 👈 Renders Page Not Found Screen */}

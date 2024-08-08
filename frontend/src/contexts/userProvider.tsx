@@ -67,11 +67,12 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
       case "Financial-Officer":
       case "Payment-Officer":
       case "Verification-Officer":
+        return api_routes.admin.auth.logout;
       case "Industry":
       case "Industry-Staff":
       case "Institute":
       case "Institute-Staff":
-        return api_routes.admin.auth.logout;
+        return api_routes.institute.auth.logout;
       case "Student":
         return api_routes.user.auth.logout;
     
@@ -89,11 +90,12 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
       case "Financial-Officer":
       case "Payment-Officer":
       case "Verification-Officer":
+        return api_routes.admin.account.profile;
       case "Industry":
       case "Industry-Staff":
       case "Institute":
       case "Institute-Staff":
-        return api_routes.admin.account.profile;
+        return api_routes.institute.account.profile;
       case "Student":
         return api_routes.user.account.profile;
     
@@ -111,11 +113,12 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
       case "Financial-Officer":
       case "Payment-Officer":
       case "Verification-Officer":
+        return api_routes.admin.account.profile_update;
       case "Industry":
       case "Industry-Staff":
       case "Institute":
       case "Institute-Staff":
-        return api_routes.admin.account.profile_update;
+        return api_routes.institute.account.profile_update;
       case "Student":
         return api_routes.user.account.profile_update;
     
@@ -133,11 +136,12 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
       case "Financial-Officer":
       case "Payment-Officer":
       case "Verification-Officer":
+        return api_routes.admin.account.password_update;
       case "Industry":
       case "Industry-Staff":
       case "Institute":
       case "Institute-Staff":
-        return api_routes.admin.account.password_update;
+        return api_routes.institute.account.password_update;
       case "Student":
         return api_routes.user.account.password_update;
     

@@ -102,7 +102,7 @@ function InstituteRequestPage() {
             formData.append("taluq_id", getValues().taluq_id.toString());
             formData.append("captcha", getValues().captcha);
             formData.append("register_doc", getValues().register_doc![0].blobFile!);
-            await axios.post(api_routes.user.auth.institute.request, formData);
+            await axios.post(api_routes.institute.auth.register.request, formData);
             toastSuccess("Institute Request sent successfully");
             reset({
                 name: "",
@@ -156,7 +156,7 @@ function InstituteRequestPage() {
                         <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
                       </Col>
                       <Col xs={12}>
-                        <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
+                        <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0 || city_id===undefined || taluqs===undefined || taluqs.length===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
                       </Col>
                     </Row>
                     <Row className="show-grid mb-1">

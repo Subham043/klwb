@@ -5,7 +5,6 @@ namespace App\Modules\LocationManagement\Cities\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\LocationManagement\Cities\Resources\CityCollection;
 use App\Modules\LocationManagement\Cities\Services\CityService;
-use Illuminate\Http\Request;
 
 class CityAllController extends Controller
 {
@@ -16,8 +15,8 @@ class CityAllController extends Controller
         $this->cityService = $cityService;
     }
 
-    public function index(Request $request){
-        $city = $this->cityService->all($request->state_id ?? null);
+    public function index(){
+        $city = $this->cityService->all();
         return response()->json(["message" => "City fetched successfully.", "data" => CityCollection::collection($city)], 200);
     }
 }
