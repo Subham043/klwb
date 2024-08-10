@@ -50,7 +50,7 @@ class InstituteRegisterController extends Controller
             $this->instituteAuthService->syncRoles(["Institute"], $instituteAuth);
             $city = (new CityService)->getById($request->city_id);
             $this->instituteAuthService->createInstituteAddress([
-                'address' => $request->password,
+                'address' => $request->address,
                 'state_id' => $city->state_id,
                 'city_id' => $request->city_id,
                 'taluq_id' => $request->taluq_id,

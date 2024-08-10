@@ -63,6 +63,7 @@ class RegisteredInstituteService
     public function update(array $data, RegisteredInstitute $registeredInstitute): RegisteredInstitute
     {
         $registeredInstitute->update($data);
+        $registeredInstitute->refresh();
         return $registeredInstitute;
     }
 

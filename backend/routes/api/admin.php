@@ -98,8 +98,11 @@ use App\Modules\Admins\Authentication\Controllers\ResetPasswordResendOtpControll
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredExportController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredPaginateController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredViewController;
+use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredAuthController;
 use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredExportController;
 use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredPaginateController;
+use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredToggleController;
+use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredUpdateController;
 use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredViewController;
 use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteApproveController;
 use App\Modules\InstituteManagement\Staff\Controllers\StaffExportController;
@@ -242,6 +245,9 @@ Route::prefix('admin')->group(function () {
                     Route::get('/excel', [RegisteredExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredPaginateController::class, 'index']);
                     Route::get('/view/{id}', [RegisteredViewController::class, 'index']);
+                    Route::post('/update/{id}', [RegisteredUpdateController::class, 'index']);
+                    Route::post('/update-auth/{id}', [RegisteredAuthController::class, 'index']);
+                    Route::get('/toggle-status/{id}', [RegisteredToggleController::class, 'index']);
                     Route::prefix('staff/{id}')->group(function () {
                         Route::get('/excel', [StaffExportController::class, 'index']);
                         Route::get('/paginate', [StaffPaginateController::class, 'index']);

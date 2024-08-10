@@ -84,7 +84,7 @@ const InstituteRegistered:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={70} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
