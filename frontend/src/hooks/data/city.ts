@@ -1,9 +1,9 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { api_routes } from "../../utils/api_routes";
-import { useSearchParams } from "react-router-dom";
-import { QueryInitialPageParam, QueryTotalCount } from "../../utils/constants";
 import { CityType, PaginationType } from "../../utils/types";
 import { useAxios } from "../useAxios";
+import { api_routes } from "../../utils/routes/api";
+import { usePaginationQueryParam } from "../usePaginationQueryParam";
+import { useSearchQueryParam } from "../useSearchQueryParam";
 
 export const CityQueryKey = "city";
 export const CitiesQueryKey = "cities";
@@ -15,10 +15,8 @@ export const useCitiesQuery: () => UseQueryResult<
   unknown
 > = () => {
   const axios = useAxios();
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page") || QueryInitialPageParam.toString();
-  const limit = searchParams.get("limit") || QueryTotalCount.toString();
-  const search = searchParams.get("search") || "";
+  const { page, limit } = usePaginationQueryParam();
+  const { search } = useSearchQueryParam();
   return useQuery({
     queryKey: [CitiesQueryKey, page, limit, search],
     queryFn: async () => {

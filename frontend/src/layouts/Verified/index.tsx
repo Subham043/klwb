@@ -2,6 +2,8 @@ import {FC} from "react";
 import { useUser } from "../../hooks/useUser";
 import SuspenseOutlet from "../../components/SuspenseOutlet";
 import AccountVerify from "../../pages/AccountVerify";
+import { api_routes } from "../../utils/routes/api";
+import { VerificationEnum } from "../../utils/constants/verified";
 
 type VerifiedLayoutProps = {
     profile_verify_api_link?: string;
@@ -15,8 +17,10 @@ type VerifiedLayoutProps = {
 const VerifiedLayout: FC<VerifiedLayoutProps> = (props) => {
   const {isAuthenticated, user} = useUser();
 
-  return (isAuthenticated && user && user.verified==="VERIFIED") ? <SuspenseOutlet /> : 
+  return (isAuthenticated && user && user.verified===VerificationEnum.VERIFIED) ? <SuspenseOutlet /> : 
   <AccountVerify {...props} />;
 };
 
-export default VerifiedLayout;
+export const AdminVerifiedLayout = () => <VerifiedLayout profile_verify_api_link={api_routes.admin.account.profile_verify} logout_api_link={api_routes.admin.auth.logout} resend_otp_api_link={api_routes.admin.account.resend_otp} />
+export const StudentVerifiedLayout = () => <VerifiedLayout profile_verify_api_link={api_routes.user.account.profile_verify} logout_api_link={api_routes.user.auth.logout} resend_otp_api_link={api_routes.user.account.resend_otp} />
+export const InstituteVerifiedLayout = () => <VerifiedLayout profile_verify_api_link={api_routes.institute.account.profile_verify} logout_api_link={api_routes.institute.auth.logout} resend_otp_api_link={api_routes.institute.account.resend_otp} />

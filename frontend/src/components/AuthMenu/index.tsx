@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import classes from './index.module.css'
-import { page_routes } from '../../utils/page_routes'
+import { page_routes } from '../../utils/routes/pages';
 
 export type AuthMenuProps = {
     noMenu: true

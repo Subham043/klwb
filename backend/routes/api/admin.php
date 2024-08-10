@@ -95,7 +95,15 @@ use App\Modules\Admins\Authentication\Controllers\LogoutController;
 use App\Modules\Admins\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Admins\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Admins\Authentication\Controllers\ResetPasswordResendOtpController;
+use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredExportController;
+use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredPaginateController;
+use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredViewController;
+use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredExportController;
+use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredPaginateController;
+use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredViewController;
 use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteApproveController;
+use App\Modules\InstituteManagement\Staff\Controllers\StaffExportController;
+use App\Modules\InstituteManagement\Staff\Controllers\StaffPaginateController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -228,6 +236,22 @@ Route::prefix('admin')->group(function () {
                 Route::post('/approve/{id}', [RequestInstituteApproveController::class, 'index']);
                 Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestInstituteViewController::class, 'index']);
+            });
+            Route::prefix('institutes')->group(function () {
+                Route::prefix('registered')->group(function () {
+                    Route::get('/excel', [RegisteredExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredPaginateController::class, 'index']);
+                    Route::get('/view/{id}', [RegisteredViewController::class, 'index']);
+                    Route::prefix('staff/{id}')->group(function () {
+                        Route::get('/excel', [StaffExportController::class, 'index']);
+                        Route::get('/paginate', [StaffPaginateController::class, 'index']);
+                    });
+                });
+                Route::prefix('non-registered')->group(function () {
+                    Route::get('/excel', [NonRegisteredExportController::class, 'index']);
+                    Route::get('/paginate', [NonRegisteredPaginateController::class, 'index']);
+                    Route::get('/view/{id}', [NonRegisteredViewController::class, 'index']);
+                });
             });
         });
     });

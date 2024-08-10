@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { page_routes } from '../../../utils/page_routes';
 import { useToast } from '../../../hooks/useToast';
-import { api_routes } from '../../../utils/api_routes';
 import { isAxiosError } from 'axios';
 import { AxiosErrorResponseType } from '../../../utils/types';
 import { useAxios } from '../../../hooks/useAxios';
@@ -19,6 +17,8 @@ import { useTaluqCommonSelectQuery } from '../../../hooks/data/taluq';
 import SelectInput from '../../../components/FormInput/SelectInput';
 import FileInput from '../../../components/FormInput/FileInput';
 import { FileType } from 'rsuite/esm/Uploader';
+import { api_routes } from '../../../utils/routes/api';
+import { page_routes } from '../../../utils/routes/pages';
 
 type SchemaType = {
   email: string;
@@ -173,7 +173,7 @@ function InstituteRequestPage() {
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Submit</Button>
-                            <Link to={page_routes.auth.institute.register} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Institute Already Exist?</Button></Link>
+                            <Link to={page_routes.institute.auth.register} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Institute Already Exist?</Button></Link>
                         </ButtonToolbar>
                     </Form.Group>
                 </Form>

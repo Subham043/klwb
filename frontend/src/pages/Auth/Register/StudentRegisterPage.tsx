@@ -6,9 +6,7 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { page_routes } from '../../../utils/page_routes';
 import { useToast } from '../../../hooks/useToast';
-import { api_routes } from '../../../utils/api_routes';
 import { isAxiosError } from 'axios';
 import { AxiosErrorResponseType } from '../../../utils/types';
 import IntroScreen from '../../../components/IntroScreen';
@@ -17,6 +15,8 @@ import { useAxios } from '../../../hooks/useAxios';
 import CaptchaInput from '../../../components/FormInput/CaptchaInput';
 import PasswordInput from '../../../components/FormInput/PasswordInput';
 import TextInput from '../../../components/FormInput/TextInput';
+import { api_routes } from '../../../utils/routes/api';
+import { page_routes } from '../../../utils/routes/pages';
 
 type SchemaType = {
   email: string;
@@ -90,7 +90,7 @@ function StudentRegisterPage() {
     <div className="row justify-center">
         <div className={classes.info_col}>
             <IntroScreen>
-                <p><b>If You Already Have an Account? <Link to={page_routes.auth.student.login}>Login</Link></b></p>
+                <p><b>If You Already Have an Account? <Link to={page_routes.student.auth.login}>Login</Link></b></p>
                 <p>For Student Registration Manual Kindly</p>
                 <p><b><Link to='/'><DetailIcon style={{fontSize:'1.6rem'}} /></Link></b></p>
                 <p>ವಿದ್ಯಾರ್ಥಿ ನೋಂದಣಿಯ ಮಾಹಿತಿಗಾಗಿ</p>
@@ -120,7 +120,7 @@ function StudentRegisterPage() {
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Register</Button>
-                            <Link to={page_routes.auth.student.login} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Already have an account?</Button></Link>
+                            <Link to={page_routes.student.auth.login} style={{ marginLeft: '10px' }}><Button appearance="link" type='button'>Already have an account?</Button></Link>
                         </ButtonToolbar>
                     </Form.Group>
                 </Form>

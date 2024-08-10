@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import classes from './index.module.css'
-import { page_routes } from '../../utils/page_routes';
+import classes from '../index.module.css'
 import { Link } from 'react-router-dom';
 import { AboutIcon, DeathIcon, MaternityIcon, MedicalIcon, SchemeIcon } from './SvgIcon';
+import { page_routes } from '../../../utils/routes/pages';
+import { LanguagesEnum } from '../../../utils/constants/language';
 
 const aboutContent = {
 	english: (<>
@@ -22,7 +23,7 @@ const aboutContent = {
 	</>),
 }
 
-export const AboutSection: FC<{language:"kannada" | "english"}> = ({language}) => {
+export const AboutSection: FC<{language:LanguagesEnum}> = ({language}) => {
 	return (
 		<div className={classes.aboutDiv} id='about'>
 			<div className="row justify-center align-center">
@@ -62,18 +63,18 @@ const reportContent = {
 
 const applicationFormats = {
 	english: [
-		{name:'Maternity Application', Icon: MaternityIcon, link: page_routes.auth.student.login, button: 'Download'},
-		{name:'Medical Application', Icon: MedicalIcon, link: page_routes.auth.institute.login, button: 'Download'},
-		{name:'Death Application', Icon: DeathIcon, link: page_routes.auth.industry.login, button: 'Download'},
+		{name:'Maternity Application', Icon: MaternityIcon, link: page_routes.student.auth.login, button: 'Download'},
+		{name:'Medical Application', Icon: MedicalIcon, link: page_routes.institute.auth.login, button: 'Download'},
+		{name:'Death Application', Icon: DeathIcon, link: page_routes.industry.auth.login, button: 'Download'},
 	],
 	kannada: [
-		{name:'ಹೆರಿಗೆ ಅರ್ಜಿ', Icon: MaternityIcon, link: page_routes.auth.student.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
-		{name:'ವೈದ್ಯಕೀಯ ಅಪ್ಲಿಕೇಶನ್', Icon: MedicalIcon, link: page_routes.auth.institute.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
-		{name:'ಸಾವಿನ ಅಪ್ಲಿಕೇಶನ್', Icon: DeathIcon, link: page_routes.auth.industry.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
+		{name:'ಹೆರಿಗೆ ಅರ್ಜಿ', Icon: MaternityIcon, link: page_routes.student.auth.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
+		{name:'ವೈದ್ಯಕೀಯ ಅಪ್ಲಿಕೇಶನ್', Icon: MedicalIcon, link: page_routes.institute.auth.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
+		{name:'ಸಾವಿನ ಅಪ್ಲಿಕೇಶನ್', Icon: DeathIcon, link: page_routes.industry.auth.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
 	],
 }
 
-export const ReportSection: FC<{language:"kannada" | "english"}> = ({language}) => {
+export const ReportSection: FC<{language:LanguagesEnum}> = ({language}) => {
 	return (
 		<div className={`${classes.aboutDiv} ${classes.reportDiv}`} id='report'>
 			<div className="row justify-center align-center">
@@ -85,7 +86,7 @@ export const ReportSection: FC<{language:"kannada" | "english"}> = ({language}) 
 				{reportContent[language]}
 			</div>
 			<div className={classes.textContainer}>
-				<h4>{language === "kannada" ? "ಅಪ್ಲಿಕೇಶನ್ ಫಾರ್ಮ್ಯಾಟ್" : "Application Format"}:</h4>
+				<h4>{language === LanguagesEnum.KANNADA ? "ಅಪ್ಲಿಕೇಶನ್ ಫಾರ್ಮ್ಯಾಟ್" : "Application Format"}:</h4>
 				<div className="row justify-center gap-1 mt-2">
 					{
 						applicationFormats[language].map((format, index) => (

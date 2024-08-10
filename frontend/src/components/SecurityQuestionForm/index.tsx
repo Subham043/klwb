@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
@@ -12,6 +11,8 @@ import { useSecurityQuestionQuery } from '../../hooks/data/security_question';
 import { useAxios } from '../../hooks/useAxios';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
+import { api_routes } from '../../utils/routes/api';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 
 type SchemaType = {
@@ -30,7 +31,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading } = useSecurityQuestionQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useSecurityQuestionQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const axios = useAxios();
 
     const {
@@ -83,16 +84,17 @@ export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{d
 
     return (
         <Drawer title="Security Question" drawer={drawer} drawerHandler={drawerHandler}>
-            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <TextInput name="question" label="Question" textarea={true} focus={true} control={control} error={errors.question?.message} />
-                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
-                <Form.Group>
-                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                    </ButtonToolbar>
-                </Form.Group>
-            </Form>
+            <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                    <TextInput name="question" label="Question" textarea={true} focus={true} control={control} error={errors.question?.message} />
+                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
+                    <Form.Group>
+                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                        </ButtonToolbar>
+                    </Form.Group>
+                </Form>
+            </ErrorBoundaryLayout>
         </Drawer>
     )
 }

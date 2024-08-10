@@ -13,16 +13,17 @@ import SettingHorizontalIcon from '@rsuite/icons/SettingHorizontal';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import { useUser } from '../../hooks/useUser';
 import { NavLink } from 'react-router-dom';
-import { page_routes } from '../../utils/page_routes';
 import CalendarIcon from '@rsuite/icons/Calendar';
 import TagNumberIcon from '@rsuite/icons/TagNumber';
 import ReviewIcon from '@rsuite/icons/Review';
+import { page_routes } from '../../utils/routes/pages';
+import { RolesEnum } from '../../utils/constants/role';
 
 const NavMenu = () => {
     const  {user} = useUser();
     return <>
             {
-                ["Student"].includes((user && user.role) ? user.role : "Student") && <>
+                [RolesEnum.STUDENT].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="1" icon={<ChangeListIcon />}>
                         Apply Scholarship
                     </Nav.Item>
@@ -38,7 +39,7 @@ const NavMenu = () => {
                 </>
             }
             {
-                ["Super-Admin", "Admin"].includes((user && user.role) ? user.role : "Student") && <>
+                [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="8" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Employee Management
                     </Nav.Item>
@@ -60,7 +61,7 @@ const NavMenu = () => {
                         className='sidebar-navmenu'
                     >
                         <Nav.Item as={NavLink} to={page_routes.admin.state} className='sidebar-navlink' eventKey="6-1">State</Nav.Item>
-                        <Nav.Item as={NavLink} to={page_routes.admin.city} className='sidebar-navlink' eventKey="6-2">City</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.city} className='sidebar-navlink' eventKey="6-2">District</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.taluq} className='sidebar-navlink' eventKey="6-3">Taluq</Nav.Item>
                     </Nav.Menu>
                     <Nav.Menu
@@ -84,7 +85,9 @@ const NavMenu = () => {
                         className='sidebar-navmenu'
                     >
                         <Nav.Item as={NavLink} to={page_routes.admin.institute.all} className='sidebar-navlink' eventKey="8-1">All Institutes</Nav.Item>
-                        <Nav.Item as={NavLink} to={page_routes.admin.institute.request} className='sidebar-navlink' eventKey="8-2">Institute Request</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.institute.registered} className='sidebar-navlink' eventKey="8-2">Institute Registered</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.institute.non_registered} className='sidebar-navlink' eventKey="8-3">Institute Non Registered</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.institute.request} className='sidebar-navlink' eventKey="8-4">Institute Request</Nav.Item>
                     </Nav.Menu>
                 </>
             }

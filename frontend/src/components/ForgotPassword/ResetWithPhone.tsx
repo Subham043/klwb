@@ -6,13 +6,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useRef, useState } from "react";
 import { useToast } from "../../hooks/useToast";
-import { api_routes } from "../../utils/api_routes";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType } from "../../utils/types";
 import { useAxios } from "../../hooks/useAxios";
 import CaptchaInput from "../FormInput/CaptchaInput";
 import TextInput from "../FormInput/TextInput";
-import { page_routes } from "../../utils/page_routes";
+import { page_routes } from "../../utils/routes/pages";
+import { api_routes } from "../../utils/routes/api";
 
 type Props = {
     login_link: string;
@@ -32,7 +32,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function ResetWithPhone({login_link, reset_password_redirect=page_routes.auth.student.reset_password, forgot_password_phone_api_link=api_routes.user.auth.forgot_password.phone}: Props) {
+export default function ResetWithPhone({login_link, reset_password_redirect=page_routes.student.auth.reset_password, forgot_password_phone_api_link=api_routes.user.auth.forgot_password.phone}: Props) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const navigate = useNavigate();

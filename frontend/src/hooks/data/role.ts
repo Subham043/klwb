@@ -1,7 +1,7 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { api_routes } from "../../utils/api_routes";
 import { RoleType } from "../../utils/types";
 import { useAxios } from "../useAxios";
+import { api_routes } from "../../utils/routes/api";
 
 export const RoleSelectQueryKey = "role_select";
 

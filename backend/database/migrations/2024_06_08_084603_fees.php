@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('amount');
             $table->string('year');
-            $table->foreignId('class_id')->nullable()->index();
+            $table->foreignId('graduation_id')->nullable()->index();
             $table->foreignId('user_id')->nullable()->index();
             $table->boolean('is_active')->default(1);
             $table->timestamps();

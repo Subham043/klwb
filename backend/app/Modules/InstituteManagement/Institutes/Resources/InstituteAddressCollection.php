@@ -2,6 +2,9 @@
 
 namespace App\Modules\InstituteManagement\Institutes\Resources;
 
+use App\Modules\LocationManagement\Cities\Resources\SingleCityCollection;
+use App\Modules\LocationManagement\States\Resources\StateCollection;
+use App\Modules\LocationManagement\Taluqs\Resources\SingleTaluqCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InstituteAddressCollection extends JsonResource
@@ -16,15 +19,11 @@ class InstituteAddressCollection extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'verified' => $this->verified_at ? "VERIFIED": "VERIFICATION PENDING",
-            'verified_at' => $this->verified_at,
-            'is_blocked' => $this->is_blocked,
-            'role' => $this->currentRole,
-            'school_id' => $this->school_id,
-            'school' => InstituteCollection::make($this->whenLoaded('school')),
+            'address' => $this->address,
+            'pincode' => $this->pincode,
+            'state' => StateCollection::make($this->whenLoaded('state')),
+            'city' => SingleCityCollection::make($this->whenLoaded('city')),
+            'taluq' => SingleTaluqCollection::make($this->whenLoaded('taluq')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -1,5 +1,5 @@
 import { useUser } from './useUser';
-import api from '../utils/axios';
+import api from '../utils/config/axios';
 import { AxiosInstance, isAxiosError } from 'axios';
 import { useToast } from './useToast';
 import { useMemo } from 'react';

@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import { useProfileQuery, useUpdateProfileMutation } from '../../hooks/data/prof
 import { MutateOptions } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import TextInput from '../FormInput/TextInput';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 type SchemaType = {
   email: string;
@@ -26,7 +27,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .required();
 
 export default function ProfileUpdate({display}: {display: boolean}) {
-    const {data, isLoading: isProfileLoading, isFetching: isProfileFetching} = useProfileQuery(display);
+    const {data, isLoading: isProfileLoading, isFetching: isProfileFetching, isRefetching, refetch, error} = useProfileQuery(display);
     const {toastError} = useToast();
     const updateProfile = useUpdateProfileMutation()
 
@@ -66,16 +67,17 @@ export default function ProfileUpdate({display}: {display: boolean}) {
     });
 
     return (
-        <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-            {(isProfileFetching || isProfileLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
-            <TextInput type="email" name="email" label="Email" helpText='Changing email will lead to re-verification process of your account' control={control} error={errors.email?.message} />
-            <TextInput name="phone" label="Phone" helpText='Changing phone will lead to re-verification process of your account' control={control} error={errors.phone?.message} />
-            <Form.Group>
-                <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                    <Button appearance="primary" size='lg' type="submit" loading={updateProfile.isPending} disabled={updateProfile.isPending}>Update</Button>
-                </ButtonToolbar>
-            </Form.Group>
-        </Form>
+        <ErrorBoundaryLayout loading={(isProfileFetching || isProfileLoading || isRefetching)} error={error} refetch={refetch}>
+            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
+                <TextInput type="email" name="email" label="Email" helpText='Changing email will lead to re-verification process of your account' control={control} error={errors.email?.message} />
+                <TextInput name="phone" label="Phone" helpText='Changing phone will lead to re-verification process of your account' control={control} error={errors.phone?.message} />
+                <Form.Group>
+                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                        <Button appearance="primary" size='lg' type="submit" loading={updateProfile.isPending} disabled={updateProfile.isPending}>Update</Button>
+                    </ButtonToolbar>
+                </Form.Group>
+            </Form>
+        </ErrorBoundaryLayout>
     )
 }

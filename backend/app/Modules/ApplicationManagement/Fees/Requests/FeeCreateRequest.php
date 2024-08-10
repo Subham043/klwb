@@ -29,7 +29,7 @@ class FeeCreateRequest extends FormRequest
     {
         return [
             'amount' => 'required|numeric|gt:0',
-            'class_id' => ['required','numeric','exists:classes,id', Rule::unique('fees', 'class_id', 'year')],
+            'graduation_id' => ['required','numeric','exists:graduations,id', Rule::unique('fees', 'graduation_id', 'year')],
             'is_active' => 'required|boolean',
         ];
     }
@@ -43,7 +43,7 @@ class FeeCreateRequest extends FormRequest
     {
         return [
             'is_active' => 'Active',
-            'class_id' => 'Class',
+            'graduation_id' => 'Class',
         ];
     }
 
@@ -55,7 +55,7 @@ class FeeCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'class_id.unique' => 'Fee for this class for the year '.date('Y').' already exists.',
+            'graduation_id.unique' => 'Fee for this graduation for the year '.date('Y').' already exists.',
         ];
     }
 

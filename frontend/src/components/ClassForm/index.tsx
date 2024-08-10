@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
@@ -14,6 +13,8 @@ import { useAxios } from '../../hooks/useAxios';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
 import SelectInput from '../FormInput/SelectInput';
+import { api_routes } from '../../utils/routes/api';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 type SchemaType = {
   name: string;
@@ -33,7 +34,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading } = useClassQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useClassQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const {data:courses, isFetching:isCourseFetching, isLoading:isCourseLoading } = useCourseSelectQuery(drawer.status);
     const axios = useAxios();
 
@@ -89,17 +90,18 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
 
     return (
         <Drawer title="Class" drawer={drawer} drawerHandler={drawerHandler}>
-            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
-                <SelectInput name="course_id" label="Course" data={courses ? courses.map(item => ({ label: item.name, value: item.id })) : []} loading={isCourseFetching || isCourseLoading} control={control} error={errors.course_id?.message} />
-                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
-                <Form.Group>
-                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                    </ButtonToolbar>
-                </Form.Group>
-            </Form>
+            <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                    <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
+                    <SelectInput name="course_id" label="Course" data={courses ? courses.map(item => ({ label: item.name, value: item.id })) : []} loading={isCourseFetching || isCourseLoading} control={control} error={errors.course_id?.message} />
+                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
+                    <Form.Group>
+                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                        </ButtonToolbar>
+                    </Form.Group>
+                </Form>
+            </ErrorBoundaryLayout>
         </Drawer>
     )
 }

@@ -14,7 +14,7 @@ class FeeService
 {
     protected function model(): Builder
     {
-        return Fee::with('classes')->whenNotAdmin();
+        return Fee::with('graduation')->whenNotAdmin();
     }
     protected function query(): QueryBuilder
     {

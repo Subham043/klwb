@@ -5,8 +5,6 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { page_routes } from "../../utils/page_routes";
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { useUser } from "../../hooks/useUser";
 import { AuthType, AxiosErrorResponseType } from "../../utils/types";
@@ -15,6 +13,8 @@ import { useAxios } from "../../hooks/useAxios";
 import CaptchaInput from "../FormInput/CaptchaInput";
 import PasswordInput from "../FormInput/PasswordInput";
 import TextInput from "../FormInput/TextInput";
+import { api_routes } from "../../utils/routes/api";
+import { page_routes } from "../../utils/routes/pages";
 
 type Props = {
     forgot_password_link: string;
@@ -36,7 +36,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function LoginWithPhone({forgot_password_link, login_phone_api_link=api_routes.user.auth.login.phone, authenticated_redirect_link=page_routes.dashboard}: Props) {
+export default function LoginWithPhone({forgot_password_link, login_phone_api_link=api_routes.user.auth.login.phone, authenticated_redirect_link=page_routes.student.dashboard}: Props) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {setUser} = useUser();

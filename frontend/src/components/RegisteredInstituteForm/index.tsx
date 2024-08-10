@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
@@ -15,6 +14,8 @@ import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
 import SelectInput from '../FormInput/SelectInput';
 import { useCitySelectQuery } from '../../hooks/data/city';
+import { api_routes } from '../../utils/routes/api';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 type SchemaType = {
   name: string;
@@ -44,7 +45,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading } = useRegisteredInstituteQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useRegisteredInstituteQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const axios = useAxios();
 
     const {
@@ -137,22 +138,23 @@ export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}
 
     return (
         <Drawer title="Institute" drawer={drawer} drawerHandler={drawerHandler}>
-            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <TextInput name="name" label="Institute Name" control={control} error={errors.name?.message} />
-                <TextInput name="management_type" label="Management Type" control={control} error={errors.management_type?.message} />
-                <TextInput name="category" label="Institute Category" control={control} error={errors.category?.message} />
-                <TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
-                <SelectInput name="urban_rural" label="Urban/Rural" data={[{label:'Urban', value:'Urban'}, {label:'Rural', value:'Rural'}]} control={control} error={errors.urban_rural?.message} />
-                <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
-                <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
-                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
-                <Form.Group>
-                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                    </ButtonToolbar>
-                </Form.Group>
-            </Form>
+            <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                    <TextInput name="name" label="Institute Name" control={control} error={errors.name?.message} />
+                    <TextInput name="management_type" label="Management Type" control={control} error={errors.management_type?.message} />
+                    <TextInput name="category" label="Institute Category" control={control} error={errors.category?.message} />
+                    <TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
+                    <SelectInput name="urban_rural" label="Urban/Rural" data={[{label:'Urban', value:'Urban'}, {label:'Rural', value:'Rural'}]} control={control} error={errors.urban_rural?.message} />
+                    <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
+                    <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
+                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
+                    <Form.Group>
+                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                        </ButtonToolbar>
+                    </Form.Group>
+                </Form>
+            </ErrorBoundaryLayout>
         </Drawer>
     )
 }

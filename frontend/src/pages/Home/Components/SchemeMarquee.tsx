@@ -1,8 +1,9 @@
 import { FC, useState } from 'react';
-import classes from './index.module.css'
+import classes from '../index.module.css'
 import PlayOutlineIcon from '@rsuite/icons/PlayOutline';
 import PauseOutlineIcon from '@rsuite/icons/PauseOutline';
 import Marquee from "react-fast-marquee";
+import { LanguagesEnum } from '../../../utils/constants/language';
 
 const items = {
 	english: (
@@ -78,13 +79,13 @@ const items = {
 	)
 }
 
-const SchemeMarquee: FC<{ language: "kannada" | "english" }> = ({ language }) => {
+const SchemeMarquee: FC<{ language: LanguagesEnum }> = ({ language }) => {
 	const [pauseMarquee, setPauseMarquee] = useState(false);
 	return (
 		<div className={classes.welfareContainer}>
 			<div className="container">
 				<div className="row">
-					<div className={classes.welfareHeading}>{language === "kannada" ? "ಕಲ್ಯಾಣ ಯೋಜನೆಗಳು" : "Welfare Scheme"}</div>
+					<div className={classes.welfareHeading}>{language === LanguagesEnum.KANNADA ? "ಕಲ್ಯಾಣ ಯೋಜನೆಗಳು" : "Welfare Scheme"}</div>
 					<div className={classes.welfareMarquee}>
 						<Marquee play={!pauseMarquee} pauseOnHover={true} speed={120}>
 							<div className={`${classes.marqueeContent}`}>

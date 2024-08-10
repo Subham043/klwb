@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from "react"
-import { api_routes } from "../../utils/api_routes";
 import { AuthType } from "../../utils/types";
 import PageLoader from "../../components/PageLoader";
 import { useUser } from "../../hooks/useUser";
-import api from "../../utils/axios";
+import api from "../../utils/config/axios";
 import SuspenseOutlet from "../../components/SuspenseOutlet";
+import { api_routes } from "../../utils/routes/api";
 
 type PersistLayoutProps = {
   profile_api_link?:string
@@ -46,4 +46,6 @@ const PersistLayout:FC<PersistLayoutProps> = ({profile_api_link = api_routes.use
     )
 }
 
-export default PersistLayout
+export const AdminPersistLayout = () => <PersistLayout profile_api_link={api_routes.admin.account.profile} />
+export const StudentPersistLayout = () => <PersistLayout profile_api_link={api_routes.user.account.profile} />
+export const InstitutePersistLayout = () => <PersistLayout profile_api_link={api_routes.institute.account.profile} />

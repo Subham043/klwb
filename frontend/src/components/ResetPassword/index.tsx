@@ -6,14 +6,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useRef, useState } from "react";
 import { useToast } from "../../hooks/useToast";
-import { api_routes } from "../../utils/api_routes";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType } from "../../utils/types";
 import { useAxios } from "../../hooks/useAxios";
 import CaptchaInput from "../FormInput/CaptchaInput";
 import PasswordInput from "../FormInput/PasswordInput";
 import TextInput from "../FormInput/TextInput";
-import { page_routes } from "../../utils/page_routes";
+import { page_routes } from "../../utils/routes/pages";
+import { api_routes } from "../../utils/routes/api";
 
 type Props = {
     login_link?: string;
@@ -41,7 +41,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .required();
 
 export default function ResetPassword({
-    login_link = page_routes.auth.student.login,
+    login_link = page_routes.student.auth.login,
     reset_password_api_link = api_routes.user.auth.reset_password.index,
     reset_password_resend_otp_api_link = api_routes.user.auth.reset_password.resend_otp,
     token,

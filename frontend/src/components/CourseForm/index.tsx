@@ -1,19 +1,20 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
 import Drawer from "../Drawer";
 import { useCourseQuery } from '../../hooks/data/course';
-import { useGradutaionSelectQuery } from '../../hooks/data/graduation';
+import { useGraduationSelectQuery } from '../../hooks/data/graduation';
 import { useAxios } from '../../hooks/useAxios';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
 import SelectInput from '../FormInput/SelectInput';
+import { api_routes } from '../../utils/routes/api';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 type SchemaType = {
   name: string;
@@ -33,8 +34,8 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 export default function CourseForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading } = useCourseQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
-    const {data:granduations, isFetching:isGraduationFetching, isLoading:isGraduationLoading } = useGradutaionSelectQuery(drawer.status);
+    const {data, isFetching, isLoading, isRefetching, error, refetch:refetchData } = useCourseQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data:granduations, isFetching:isGraduationFetching, isLoading:isGraduationLoading } = useGraduationSelectQuery(drawer.status);
     const axios = useAxios();
 
     const {
@@ -89,17 +90,18 @@ export default function CourseForm({drawer, drawerHandler, refetch}:{drawer: Dra
 
     return (
         <Drawer title="Course" drawer={drawer} drawerHandler={drawerHandler}>
-            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
-                <SelectInput name="graduation_id" label="Graduation" data={granduations ? granduations.map(item => ({ label: item.name, value: item.id })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.graduation_id?.message} />
-                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
-                <Form.Group>
-                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                    </ButtonToolbar>
-                </Form.Group>
-            </Form>
+            <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                    <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
+                    <SelectInput name="graduation_id" label="Graduation" data={granduations ? granduations.map(item => ({ label: item.name, value: item.id })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.graduation_id?.message} />
+                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
+                    <Form.Group>
+                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                        </ButtonToolbar>
+                    </Form.Group>
+                </Form>
+            </ErrorBoundaryLayout>
         </Drawer>
     )
 }

@@ -1,20 +1,10 @@
 import { ReactNode } from "react";
+import { RolesEnum } from "./constants/role";
+import { VerificationEnum } from "./constants/verified";
 
 export type ChildrenType = {
-  children: ReactNode;
+  children?: ReactNode;
 };
-
-export type Role =
-  | "Super-Admin"
-  | "Admin"
-  | "Verification-Officer"
-  | "Financial-Officer"
-  | "Payment-Officer"
-  | "Industry"
-  | "Industry-Staff"
-  | "Institute"
-  | "Institute-Staff"
-  | "Student";
 
 export type AuthType = {
   id: number;
@@ -22,14 +12,18 @@ export type AuthType = {
   phone: string;
   email: string;
   is_blocked: boolean | null;
-  role: Role | null;
+  role: RolesEnum | null;
   created_at: string;
   updated_at: string;
-  verified: "VERIFICATION PENDING" | "VERIFIED";
+  verified: VerificationEnum;
   verified_at: string | null;
 };
 
 export type EmployeeType = AuthType;
+
+export type InstituteAuthType = AuthType & {
+  school_id: number;
+};
 
 export type RoleType = {
   id: number;
@@ -119,8 +113,8 @@ export type ApplicationFeeType = {
   amount: number;
   year: number;
   user_id: number;
-  class_id: number;
-  classes: Omit<ClassType, "graduation" | "course">;
+  graduation_id: number;
+  graduation: GraduationType;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -149,6 +143,60 @@ export type RequestInstituteType = {
   pincode: string;
   address: string;
   register_doc: string;
+  taluq_id: number;
+  taluq: TaluqType;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type InstituteRegisteredType = {
+  id: number;
+  reg_no: string;
+  principal: string;
+  email: string;
+  phone: string;
+  reg_certification: string;
+  principal_signature: string;
+  seal: string;
+  registered_institute: {
+    id: number;
+    reg_no: string;
+    name: string;
+    management_type: string;
+    category: string;
+    type: string;
+    urban_rural: string;
+  };
+  address: {
+    address: string;
+    pincode: string;
+    state: {
+      id: number;
+      name: string;
+    };
+    city: {
+      id: number;
+      name: string;
+    };
+    taluq: {
+      id: number;
+      name: string;
+    };
+  };
+  profile: InstituteAuthType;
+};
+
+export type InstituteRegisteredStaffType = InstituteAuthType;
+
+export type InstituteNonRegisteredType = {
+  id: number;
+  reg_no: string;
+  name: string;
+  management_type: string;
+  category: string;
+  type: string;
+  urban_rural: string;
   taluq_id: number;
   taluq: TaluqType;
   is_active: boolean;

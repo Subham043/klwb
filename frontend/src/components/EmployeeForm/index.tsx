@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
@@ -15,6 +14,8 @@ import PasswordInput from '../FormInput/PasswordInput';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
 import SelectInput from '../FormInput/SelectInput';
+import { api_routes } from '../../utils/routes/api';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 type UpdateSchemaType = {
   name: string;
@@ -50,7 +51,7 @@ const createSchema: yup.ObjectSchema<CreateSchemaType> = updateSchema
 export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading } = useEmployeeQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, error, refetch:refetchData } = useEmployeeQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const {data:roles, isFetching:isGraduationFetching, isLoading:isGraduationLoading } = useRoleSelectQuery(drawer.status);
     const axios = useAxios();
 
@@ -68,7 +69,7 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
             email: data? data.email : "",
             phone: data? Number(data.phone) : 0,
             role: (data && data.role)? data.role : "",
-            is_blocked: data? (data.is_blocked ? 1: 0) : 0
+            is_blocked: data? (!data.is_blocked ? 1: 0) : 0
         } : {
             name: "",
             email: "",
@@ -83,7 +84,8 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(drawer.type === "Edit" ? api_routes.admin.employee.update(drawer.id) : api_routes.admin.employee.create, getValues());
+            const {is_blocked, ...rest} = getValues();
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.employee.update(drawer.id) : api_routes.admin.employee.create, {...rest, is_blocked: is_blocked===1 ? 0: 1});
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -112,25 +114,26 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
 
     return (
         <Drawer title="Employee" drawer={drawer} drawerHandler={drawerHandler}>
-            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
-                <TextInput name="email" label="Email" type='email' control={control} error={errors.email?.message} />
-                <TextInput name="phone" label="Phone" control={control} error={errors.phone?.message} />
-                <SelectInput name="role" label="Role" data={roles ? roles.map(item => ({ label: item.name, value: item.name })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.role?.message} />
-                {
-                    drawer.type==="Create" && <>
-                        <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />
-                        <PasswordInput name="password_confirmation" label="Confirm Password" control={control} error={errors.password_confirmation?.message} />
-                    </>
-                }
-                <ToggleInput name="is_blocked" checkedLabel="Yes" uncheckedLabel="No" control={control} error={errors.is_blocked?.message} />
-                <Form.Group>
-                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                    </ButtonToolbar>
-                </Form.Group>
-            </Form>
+            <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                    <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
+                    <TextInput name="email" label="Email" type='email' control={control} error={errors.email?.message} />
+                    <TextInput name="phone" label="Phone" control={control} error={errors.phone?.message} />
+                    <SelectInput name="role" label="Role" data={roles ? roles.map(item => ({ label: item.name, value: item.name })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.role?.message} />
+                    {
+                        drawer.type==="Create" && <>
+                            <PasswordInput name="password" label="Password" control={control} error={errors.password?.message} />
+                            <PasswordInput name="password_confirmation" label="Confirm Password" control={control} error={errors.password_confirmation?.message} />
+                        </>
+                    }
+                    <ToggleInput name="is_blocked" checkedLabel="Active" uncheckedLabel="Blocked" control={control} error={errors.is_blocked?.message} />
+                    <Form.Group>
+                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                        </ButtonToolbar>
+                    </Form.Group>
+                </Form>
+            </ErrorBoundaryLayout>
         </Drawer>
     )
 }

@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import classes from './index.module.css'
+import classes from '../index.module.css'
+import { LanguagesEnum } from '../../../utils/constants/language';
 
 const notificationContent = {
 	english: (<>
@@ -69,10 +70,10 @@ const notificationContent = {
 	</>),
 }
 
-export const Notification: FC<{language:"kannada" | "english"}> = ({language}) => {
+export const Notification: FC<{language:LanguagesEnum}> = ({language}) => {
 	return (
 		<div className={classes.notificationDiv}>
-			<h4>{language === "kannada" ? "ಅರ್ಜಿದಾರರ ಗಮನಕ್ಕೆ" : "Notifications"}</h4>
+			<h4>{language === LanguagesEnum.KANNADA ? "ಅರ್ಜಿದಾರರ ಗಮನಕ್ಕೆ" : "Notifications"}</h4>
 			<div className={classes.marqueeNotificationContent}>
 				{notificationContent[language]}
 			</div>
@@ -158,10 +159,10 @@ const helpdeskContent = {
 				</div>
 	</>),
 }
-export const HelpDesk: FC<{language:"kannada" | "english"}> = ({language}) => {
+export const HelpDesk: FC<{language:LanguagesEnum}> = ({language}) => {
 	return (
 		<div className={classes.helpDeskDiv} id='contact'>
-			<h4>{language === "kannada" ? "ಸಹಾಯವಾಣಿ ಕೇಂದ್ರ" : "HELPDESK"}</h4>
+			<h4>{language === LanguagesEnum.KANNADA ? "ಸಹಾಯವಾಣಿ ಕೇಂದ್ರ" : "HELPDESK"}</h4>
 			<div className={classes.marqueeNotificationContent}>
 				{helpdeskContent[language]}
 			</div>
@@ -169,14 +170,14 @@ export const HelpDesk: FC<{language:"kannada" | "english"}> = ({language}) => {
 	);
 }
 
-export const ContactUs: FC<{language:"kannada" | "english"}> = ({language}) => {
+export const ContactUs: FC<{language:LanguagesEnum}> = ({language}) => {
 	return (
 		<div className={classes.notificationDiv}>
-			<h4>{language === "kannada" ? "ಬಗ್ಗೆ" : "Contact Us"}</h4>
+			<h4>{language === LanguagesEnum.KANNADA ? "ಬಗ್ಗೆ" : "Contact Us"}</h4>
 			<div className={classes.marqueeNotificationContent}>
 				<div className={classes.notificationItem}>
 					<p>
-						<b>Address</b>: {language==="kannada" ? `No.48, 2nd Floor,
+						<b>Address</b>: {language===LanguagesEnum.KANNADA ? `No.48, 2nd Floor,
 							ಮತ್ತೀಕೆರೆ ಮುಖ್ಯ ರಸ್ತೆ, ಆರ್‌ಟಿಒ ಕಚೇರಿ ಹತ್ತಿರ,
 							ಯಶವಂತಪುರ , ಬೆಂಗಳೂರು - 560022.`: `No.48, 2nd Floor,
 						Mathikere Main Road, Near RTO Office,
@@ -204,7 +205,7 @@ export const ContactUs: FC<{language:"kannada" | "english"}> = ({language}) => {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						<b>Website</b>: <a href="https://klwb.karnataka.gov.in/" target='_blank'>{language==="kannada" ? 'ಕರ್ನಾಟಕ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ಮಂಡಳಿ' : 'Karnataka Labour Welfare Board'}</a>
+						<b>Website</b>: <a href="https://klwb.karnataka.gov.in/" target='_blank'>{language===LanguagesEnum.KANNADA ? 'ಕರ್ನಾಟಕ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ಮಂಡಳಿ' : 'Karnataka Labour Welfare Board'}</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>

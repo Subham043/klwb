@@ -1,0 +1,4 @@
+export enum VerificationEnum {
+  VERIFICATION_PENDING = "VERIFICATION PENDING",
+  VERIFIED = "VERIFIED",
+}

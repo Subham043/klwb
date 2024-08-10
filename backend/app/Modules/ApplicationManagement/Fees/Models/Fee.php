@@ -4,7 +4,7 @@ namespace App\Modules\ApplicationManagement\Fees\Models;
 
 use App\Http\Traits\AuthTrait;
 use App\Modules\Admins\Employees\Models\Employee;
-use App\Modules\CourseManagement\Classes\Models\Classes;
+use App\Modules\CourseManagement\Graduations\Models\Graduation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +22,7 @@ class Fee extends Model
     protected $fillable = [
         'amount',
         'year',
-        'class_id',
+        'graduation_id',
         'user_id',
         'is_active',
     ];
@@ -39,9 +39,9 @@ class Fee extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function classes()
+    public function graduation()
     {
-        return $this->belongsTo(Classes::class, 'class_id')->withDefault();
+        return $this->belongsTo(Graduation::class, 'graduation_id')->withDefault();
     }
 
     public function user()

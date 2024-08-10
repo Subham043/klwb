@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Carousel } from 'rsuite';
+import { LanguagesEnum } from '../../../utils/constants/language';
 
 const images = {
     english: [
@@ -16,7 +17,7 @@ const images = {
     ],
 }
 
-const Banner:FC<{language:"kannada" | "english"}> = ({language}) => {
+const Banner:FC<{language:LanguagesEnum}> = ({language}) => {
     return (
       <Carousel autoplay className="banner-slider">
             {images[language].map((image, index) => (

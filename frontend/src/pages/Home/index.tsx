@@ -2,18 +2,19 @@ import { FC, useMemo } from 'react';
 import { Container, Content } from 'rsuite';
 import Footer from '../../components/Footer';
 import classes from './index.module.css'
-import Navbar from './Navbar';
-import Banner from './Banner';
-import SchemeMarquee from './SchemeMarquee';
-import LoginPanel from './LoginPanel';
-import { AboutSection, ReportSection } from './Sections';
-import { ContactUs, HelpDesk, Notification } from './Infos';
+import Navbar from './Components/Navbar';
+import Banner from './Components/Banner';
+import SchemeMarquee from './Components/SchemeMarquee';
+import LoginPanel from './Components/LoginPanel';
+import { AboutSection, ReportSection } from './Components/Sections';
+import { ContactUs, HelpDesk, Notification } from './Components/Infos';
 import { useSearchParams } from 'react-router-dom';
-import { getLanguage } from '../../utils/helper';
+import { getLanguage } from '../../utils/helpers/getLanguage';
+import { LanguagesEnum } from '../../utils/constants/language';
 
 const HomePage:FC = () => {
 				const [searchParams] = useSearchParams();
-				const language = useMemo(() => getLanguage(searchParams.get('lang')?.toLowerCase() || 'english'), [searchParams]);
+				const language = useMemo(() => getLanguage((searchParams.get('lang')?.toLowerCase() as LanguagesEnum || LanguagesEnum.ENGLISH)), [searchParams]);
     return (
       <Container>
         <Navbar language={language} />

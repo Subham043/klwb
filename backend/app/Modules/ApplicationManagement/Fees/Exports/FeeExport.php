@@ -25,8 +25,8 @@ class FeeExport implements FromCollection,WithHeadings,WithMapping
             'id',
             'Amount',
             'Year',
-            'Class',
-            'Class ID',
+            'Graduation',
+            'Graduation ID',
             'Active',
             'Created At',
         ];
@@ -37,8 +37,8 @@ class FeeExport implements FromCollection,WithHeadings,WithMapping
             $data->id,
             $data->amount,
             $data->year,
-            $data->classes->name,
-            $data->classes->id,
+            $data->graduation->name,
+            $data->graduation->id,
             $data->is_active ? 'Yes' : 'No',
             $data->created_at->format('Y-m-d H:i:s'),
          ];

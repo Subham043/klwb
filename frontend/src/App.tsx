@@ -1,33 +1,44 @@
 import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { page_routes } from "./utils/page_routes"
 import UserProvider from "./contexts/userProvider"
-import PersistLayout from "./layouts/Persist"
+import { AdminPersistLayout, InstitutePersistLayout, StudentPersistLayout } from "./layouts/Persist"
 import AccountProvider from "./contexts/accountProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { QueryClientOptions } from "./utils/constants";
 import PageNotFound from "./pages/PageNotFound";
-import studentBg from '../public/rg-bg.jpg';
-import instituteBg from '../public/inst-bg.jpg';
-import industryBg from '../public/ind-bg.jpg';
 import SuspenseOutlet from "./components/SuspenseOutlet";
-import { api_routes } from "./utils/api_routes";
-const AuthLayout = lazy(()=>import("./layouts/Auth"));
-const VerifiedLayout = lazy(()=>import("./layouts/Verified"));
-const AuthorisedLayout = lazy(()=>import("./layouts/Authorised"));
-const ProtectedLayout = lazy(()=>import("./layouts/Protected"));
-const GuestLayout = lazy(()=>import("./layouts/Guest"));
+import { QueryClientOptions } from "./utils/constants/query_client";
+import { page_routes } from "./utils/routes/pages";
+const AdminAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.AdminAuthLayout })));
+const IndustryAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.IndustryAuthLayout })));
+const InstituteAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.InstituteAuthLayout })));
+const StudentAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.StudentAuthLayout })));
+const AdminVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.AdminVerifiedLayout })));
+const StudentVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.StudentVerifiedLayout })));
+const InstituteVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.InstituteVerifiedLayout })));
+const AdminAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.AdminAuthorisedLayout })));
+const StudentAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.StudentAuthorisedLayout })));
+const InstituteAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.InstituteAuthorisedLayout })));
+const AdminProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.AdminProtectedLayout })));
+const StudentProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.StudentProtectedLayout })));
+const InstituteProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.InstituteProtectedLayout })));
+const AdminGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.AdminGuestLayout })));
+const StudentGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.StudentGuestLayout })));
+const InstituteGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.InstituteGuestLayout })));
 const DashboardLayout = lazy(()=>import("./layouts/Dashboard"));
 const StudentLoginPage = lazy(()=>import("./pages/Auth/LoginPage/StudentLoginPage"));
-const ContributionLoginPage = lazy(()=>import("./pages/Auth/LoginPage/ContributionLoginPage"));
 const AdminLoginPage = lazy(()=>import("./pages/Auth/LoginPage/AdminLoginPage"));
-const GovtLoginPage = lazy(()=>import("./pages/Auth/LoginPage/GovtLoginPage"));
 const IndustryLoginPage = lazy(()=>import("./pages/Auth/LoginPage/IndustryLoginPage"));
 const InstituteLoginPage = lazy(()=>import("./pages/Auth/LoginPage/InstituteLoginPage"));
 const StudentRegisterPage = lazy(()=>import("./pages/Auth/Register/StudentRegisterPage"));
 const InstituteRegisterPage = lazy(()=>import("./pages/Auth/Register/InstituteRegisterPage"));
-const ForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage"));
-const ResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword"));
+const AdminForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.AdminForgotPasswordPage })));
+const IndustryForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.IndustryForgotPasswordPage })));
+const InstituteForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.InstituteForgotPasswordPage })));
+const StudentForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.StudentForgotPasswordPage })));
+const AdminResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.AdminResetPasswordPage })));
+const StudentResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.StudentResetPasswordPage })));
+const IndustryResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.IndustryResetPasswordPage })));
+const InstituteResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.InstituteResetPasswordPage })));
 const DashboardPage = lazy(()=>import("./pages/Dashboard"));
 const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
@@ -37,6 +48,9 @@ const StatePage = lazy(()=>import("./pages/State"));
 const CityPage = lazy(()=>import("./pages/City"));
 const TaluqPage = lazy(()=>import("./pages/Taluq"));
 const RegisteredInstitutePage = lazy(()=>import("./pages/RegisteredInstitute"));
+const InstituteRegisteredPage = lazy(()=>import("./pages/InstituteRegistered"));
+const InstituteRegisteredInfoPage = lazy(()=>import("./pages/InstituteRegisteredInfo"));
+const InstituteNonRegisteredPage = lazy(()=>import("./pages/InstituteNonRegistered"));
 const RequestInstitutePage = lazy(()=>import("./pages/RequestInstitute"));
 const SecurityQuestionPage = lazy(()=>import("./pages/SecurityQuestion"));
 const ApplicationDatePage = lazy(()=>import("./pages/ApplicationDate"));
@@ -56,12 +70,12 @@ function App() {
             <BrowserRouter>
               <Routes>
                 {/* Admin Routes Starts */}
-                <Route element={<PersistLayout profile_api_link={api_routes.admin.account.profile} />}>
-                  <Route element={<ProtectedLayout navigation_link={page_routes.auth.admin.login} />}>
-                    <Route element={<VerifiedLayout profile_verify_api_link={api_routes.admin.account.profile_verify} logout_api_link={api_routes.admin.auth.logout} resend_otp_api_link={api_routes.admin.account.resend_otp} />} >
-                      <Route element={<AuthorisedLayout roles={["Super-Admin", "Admin"]} />}>
+                <Route element={<AdminPersistLayout />}>
+                  <Route element={<AdminProtectedLayout />}>
+                    <Route element={<AdminVerifiedLayout />} >
+                      <Route element={<AdminAuthorisedLayout />}>
                           <Route element={<DashboardLayout />}>
-                            <Route path={page_routes.dashboard} element={<DashboardPage />} />
+                            <Route path={page_routes.admin.dashboard} element={<DashboardPage />} />
                             <Route path={page_routes.admin.graduation} element={<GraduationPage />} />
                             <Route path={page_routes.admin.course} element={<CoursePage />} />
                             <Route path={page_routes.admin.class} element={<ClassPage />} />
@@ -71,6 +85,9 @@ function App() {
                             <Route path={page_routes.admin.taluq} element={<TaluqPage />} />
                             <Route path={page_routes.admin.institute.all} element={<RegisteredInstitutePage />} />
                             <Route path={page_routes.admin.institute.request} element={<RequestInstitutePage />} />
+                            <Route path={page_routes.admin.institute.non_registered} element={<InstituteNonRegisteredPage />} />
+                            <Route path={page_routes.admin.institute.registered} element={<InstituteRegisteredPage />} />
+                            <Route path={page_routes.admin.institute.registered_info(":id")} element={<InstituteRegisteredInfoPage />} />
                             <Route path={page_routes.admin.security_question} element={<SecurityQuestionPage />} />
                             <Route path={page_routes.admin.application_date} element={<ApplicationDatePage />} />
                             <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
@@ -78,77 +95,62 @@ function App() {
                       </Route>
                     </Route>
                   </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.industry.login} hasRegister={true} registerLink={page_routes.auth.industry.register} bgImage={industryBg} />}>
-                        <Route path={page_routes.auth.industry.login} element={<IndustryLoginPage />} />
-                        <Route path={page_routes.auth.industry.register} element={<StudentRegisterPage />} />
-                        <Route path={page_routes.auth.industry.forgot_password} element={<ForgotPasswordPage title="Industry" login_link={page_routes.auth.industry.login} reset_password_redirect={page_routes.auth.industry.reset_password} forgot_password_email_api_link={api_routes.admin.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.admin.auth.forgot_password.phone} />} />
-                        <Route path={page_routes.auth.industry.reset_password} element={<ResetPasswordPage title="Industry" login_link={page_routes.auth.admin.login} reset_password_api_link={api_routes.admin.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.admin.auth.reset_password.resend_otp} />} />
+                  <Route element={<AdminGuestLayout />}>
+                    <Route element={<IndustryAuthLayout />}>
+                        <Route path={page_routes.industry.auth.login} element={<IndustryLoginPage />} />
+                        <Route path={page_routes.industry.auth.register} element={<StudentRegisterPage />} />
+                        <Route path={page_routes.industry.auth.forgot_password} element={<IndustryForgotPasswordPage />} />
+                        <Route path={page_routes.industry.auth.reset_password} element={<IndustryResetPasswordPage />} />
                     </Route>
                   </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.contribution.login} hasRegister={true} registerLink={page_routes.auth.contribution.register} />}>
-                        <Route path={page_routes.auth.contribution.login} element={<ContributionLoginPage />} />
-                        <Route path={page_routes.auth.contribution.register} element={<StudentRegisterPage />} />
-                        <Route path={page_routes.auth.contribution.forgot_password} element={<ForgotPasswordPage title="Contribution" login_link={page_routes.auth.contribution.login} reset_password_redirect={page_routes.auth.contribution.reset_password} forgot_password_email_api_link={api_routes.admin.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.admin.auth.forgot_password.phone} />} />
-                        <Route path={page_routes.auth.contribution.reset_password} element={<ResetPasswordPage title="Contribution" login_link={page_routes.auth.admin.login} reset_password_api_link={api_routes.admin.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.admin.auth.reset_password.resend_otp} />} />
-                    </Route>
-                  </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.govt.login} hasRegister={false} />}>
-                        <Route path={page_routes.auth.govt.login} element={<GovtLoginPage />} />
-                        <Route path={page_routes.auth.govt.forgot_password} element={<ForgotPasswordPage title="Govt" login_link={page_routes.auth.govt.login} reset_password_redirect={page_routes.auth.govt.reset_password} forgot_password_email_api_link={api_routes.admin.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.admin.auth.forgot_password.phone} />} />
-                        <Route path={page_routes.auth.govt.reset_password} element={<ResetPasswordPage title="Govt" login_link={page_routes.auth.admin.login} reset_password_api_link={api_routes.admin.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.admin.auth.reset_password.resend_otp} />} />
-                    </Route>
-                  </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.admin.login} hasRegister={false} />}>
-                        <Route path={page_routes.auth.admin.login} element={<AdminLoginPage />} />
-                        <Route path={page_routes.auth.admin.forgot_password} element={<ForgotPasswordPage title="Admin" login_link={page_routes.auth.admin.login} reset_password_redirect={page_routes.auth.admin.reset_password} forgot_password_email_api_link={api_routes.admin.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.admin.auth.forgot_password.phone} />} />
-                        <Route path={page_routes.auth.admin.reset_password} element={<ResetPasswordPage title="Admin" login_link={page_routes.auth.admin.login} reset_password_api_link={api_routes.admin.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.admin.auth.reset_password.resend_otp} />} />
+                  <Route element={<AdminGuestLayout />}>
+                    <Route element={<AdminAuthLayout />}>
+                        <Route path={page_routes.admin.auth.login} element={<AdminLoginPage />} />
+                        <Route path={page_routes.admin.auth.forgot_password} element={<AdminForgotPasswordPage />} />
+                        <Route path={page_routes.admin.auth.reset_password} element={<AdminResetPasswordPage />} />
                     </Route>
                   </Route>
                 </Route>
                 {/* Admin Routes Ends */}
 
                 {/* Student Routes Starts */}
-                <Route element={<PersistLayout profile_api_link={api_routes.user.account.profile} />}>
-                  <Route element={<ProtectedLayout navigation_link={page_routes.auth.student.login} />}>
-                    <Route element={<VerifiedLayout profile_verify_api_link={api_routes.user.account.profile_verify} logout_api_link={api_routes.user.auth.logout} resend_otp_api_link={api_routes.user.account.resend_otp} />} >
-                      <Route element={<AuthorisedLayout roles={["Student"]} />}>
+                <Route element={<StudentPersistLayout />}>
+                  <Route element={<StudentProtectedLayout />}>
+                    <Route element={<StudentVerifiedLayout />} >
+                      <Route element={<StudentAuthorisedLayout />}>
                           <Route element={<DashboardLayout />}>
                           </Route>
                       </Route>
                     </Route>
                   </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.student.login} hasRegister={true} registerLink={page_routes.auth.student.register} bgImage={studentBg} />}>
-                        <Route path={page_routes.auth.student.login} element={<StudentLoginPage />} />
-                        <Route path={page_routes.auth.student.register} element={<StudentRegisterPage />} />
-                        <Route path={page_routes.auth.student.forgot_password} element={<ForgotPasswordPage title="Student" login_link={page_routes.auth.student.login} reset_password_redirect={page_routes.auth.student.reset_password} forgot_password_email_api_link={api_routes.user.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.user.auth.forgot_password.phone}  />} />
-                        <Route path={page_routes.auth.student.reset_password} element={<ResetPasswordPage title="Student" login_link={page_routes.auth.student.login} reset_password_api_link={api_routes.user.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.user.auth.reset_password.resend_otp} />} />
+                  <Route element={<StudentGuestLayout />}>
+                    <Route element={<StudentAuthLayout />}>
+                        <Route path={page_routes.student.auth.login} element={<StudentLoginPage />} />
+                        <Route path={page_routes.student.auth.register} element={<StudentRegisterPage />} />
+                        <Route path={page_routes.student.auth.forgot_password} element={<StudentForgotPasswordPage />} />
+                        <Route path={page_routes.student.auth.reset_password} element={<StudentResetPasswordPage />} />
                     </Route>
                   </Route>
                 </Route>
                 {/* Student Routes Ends */}
 
                 {/* Institute Routes Starts */}
-                <Route element={<PersistLayout profile_api_link={api_routes.institute.account.profile} />}>
-                  <Route element={<ProtectedLayout navigation_link={page_routes.auth.institute.login} />}>
-                    <Route element={<VerifiedLayout profile_verify_api_link={api_routes.institute.account.profile_verify} logout_api_link={api_routes.institute.auth.logout} resend_otp_api_link={api_routes.institute.account.resend_otp} />} >
-                      <Route element={<AuthorisedLayout roles={["Institute", "Institute-Staff"]} />}>
+                <Route element={<InstitutePersistLayout />}>
+                  <Route element={<InstituteProtectedLayout />}>
+                    <Route element={<InstituteVerifiedLayout />} >
+                      <Route element={<InstituteAuthorisedLayout />}>
                           <Route element={<DashboardLayout />}>
                           </Route>
                       </Route>
                     </Route>
                   </Route>
-                  <Route element={<GuestLayout navigation_link={page_routes.dashboard} />}>
-                    <Route element={<AuthLayout noMenu={false} loginLink={page_routes.auth.institute.login} hasRegister={true} registerLink={page_routes.auth.institute.register} bgImage={instituteBg} />}>
-                        <Route path={page_routes.auth.institute.login} element={<InstituteLoginPage />} />
-                        <Route path={page_routes.auth.institute.register} element={<InstituteRegisterPage />} />
-                        <Route path={page_routes.auth.institute.forgot_password} element={<ForgotPasswordPage title="Institute" login_link={page_routes.auth.institute.login} reset_password_redirect={page_routes.auth.institute.reset_password} forgot_password_email_api_link={api_routes.institute.auth.forgot_password.email} forgot_password_phone_api_link={api_routes.institute.auth.forgot_password.phone}  />} />
-                        <Route path={page_routes.auth.institute.reset_password} element={<ResetPasswordPage title="Institute" login_link={page_routes.auth.institute.login} reset_password_api_link={api_routes.institute.auth.reset_password.index} reset_password_resend_otp_api_link={api_routes.institute.auth.reset_password.resend_otp} />} />
-                        <Route path={page_routes.auth.institute.request} element={<InstituteRequestPage />} />
+                  <Route element={<InstituteGuestLayout />}>
+                    <Route element={<InstituteAuthLayout />}>
+                        <Route path={page_routes.institute.auth.login} element={<InstituteLoginPage />} />
+                        <Route path={page_routes.institute.auth.register} element={<InstituteRegisterPage />} />
+                        <Route path={page_routes.institute.auth.forgot_password} element={<InstituteForgotPasswordPage />} />
+                        <Route path={page_routes.institute.auth.reset_password} element={<InstituteResetPasswordPage />} />
+                        <Route path={page_routes.institute.auth.request} element={<InstituteRequestPage />} />
                     </Route>
                   </Route>
                 </Route>

@@ -9,16 +9,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useToast } from '../../hooks/useToast';
-import { api_routes } from '../../utils/api_routes';
 import { isAxiosError } from 'axios';
 import { AuthType, AxiosErrorResponseType } from '../../utils/types';
 import { useUser } from '../../hooks/useUser';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import IntroScreen from '../../components/IntroScreen';
 import { useAxios } from '../../hooks/useAxios';
-import { getLoginPath } from '../../utils/helper';
 import CaptchaInput from '../../components/FormInput/CaptchaInput';
 import TextInput from '../../components/FormInput/TextInput';
+import { api_routes } from '../../utils/routes/api';
+import { getLoginPath } from '../../utils/helpers/getLoginPath';
+import { RolesEnum } from '../../utils/constants/role';
 
 type AccountVerifyProps = {
     profile_verify_api_link?: string;
@@ -97,7 +98,7 @@ const AccountVerify:FC<AccountVerifyProps> = ({profile_verify_api_link = api_rou
             await axios.get(logout_api_link);
             removeUser();
             toastSuccess("Logged Out Successful");
-            navigate(getLoginPath((user && user.role) ? user.role.toLowerCase() : 'student'), {replace: true});
+            navigate(getLoginPath(((user && user.role) ? user.role : RolesEnum.STUDENT)), {replace: true});
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error?.response?.data?.message) {
@@ -125,9 +126,7 @@ const AccountVerify:FC<AccountVerifyProps> = ({profile_verify_api_link = api_rou
 
     return (
         <Container>
-            <Header>
-                <></>
-            </Header>
+            <Header />
             <Content className={classes.content}>
                 <div className="container grid-center">
                     <div className="row justify-center">

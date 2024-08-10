@@ -1,7 +1,8 @@
 import React, { createContext, useCallback, useMemo, useState } from "react";
 import { ChildrenType, AuthType } from "../utils/types";
-import { api_routes } from "../utils/api_routes";
-import { page_routes } from "../utils/page_routes";
+import { api_routes } from "../utils/routes/api";
+import { page_routes } from "../utils/routes/pages";
+import { RolesEnum } from "../utils/constants/role";
 
 /*
   * User Context Type
@@ -27,7 +28,7 @@ const userDefaultValues: UserContextType = {
     profileViewApiLink: api_routes.user.account.profile,
     profileUpdateApiLink: api_routes.user.account.profile_update,
     passwordUpdateApiLink: api_routes.user.account.password_update,
-    logoutRedirect: page_routes.auth.student.login,
+    logoutRedirect: page_routes.student.auth.login,
     user: null,
     setUser: () => {},
     removeUser: () => {}
@@ -62,18 +63,18 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
     if(!user) return api_routes.user.auth.logout;
     if(!user.role) return api_routes.user.auth.logout;
     switch (user.role) {
-      case "Super-Admin":
-      case "Admin":
-      case "Financial-Officer":
-      case "Payment-Officer":
-      case "Verification-Officer":
+      case RolesEnum.SUPER_ADMIN:
+      case RolesEnum.ADMIN:
+      case RolesEnum.FINANCIAL_OFFICER:
+      case RolesEnum.PAYMENT_OFFICER:
+      case RolesEnum.VERIFICATION_OFFICER:
         return api_routes.admin.auth.logout;
-      case "Industry":
-      case "Industry-Staff":
-      case "Institute":
-      case "Institute-Staff":
+      case RolesEnum.INDUSTRY:
+      case RolesEnum.INDUSTRY_STAFF:
+      case RolesEnum.INSTITUTE:
+      case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.auth.logout;
-      case "Student":
+      case RolesEnum.STUDENT:
         return api_routes.user.auth.logout;
     
       default:
@@ -85,18 +86,18 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
     if(!user) return api_routes.user.account.profile;
     if(!user.role) return api_routes.user.account.profile;
     switch (user.role) {
-      case "Super-Admin":
-      case "Admin":
-      case "Financial-Officer":
-      case "Payment-Officer":
-      case "Verification-Officer":
+      case RolesEnum.SUPER_ADMIN:
+      case RolesEnum.ADMIN:
+      case RolesEnum.FINANCIAL_OFFICER:
+      case RolesEnum.PAYMENT_OFFICER:
+      case RolesEnum.VERIFICATION_OFFICER:
         return api_routes.admin.account.profile;
-      case "Industry":
-      case "Industry-Staff":
-      case "Institute":
-      case "Institute-Staff":
+      case RolesEnum.INDUSTRY:
+      case RolesEnum.INDUSTRY_STAFF:
+      case RolesEnum.INSTITUTE:
+      case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.account.profile;
-      case "Student":
+      case RolesEnum.STUDENT:
         return api_routes.user.account.profile;
     
       default:
@@ -108,18 +109,18 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
     if(!user) return api_routes.user.account.profile_update;
     if(!user.role) return api_routes.user.account.profile_update;
     switch (user.role) {
-      case "Super-Admin":
-      case "Admin":
-      case "Financial-Officer":
-      case "Payment-Officer":
-      case "Verification-Officer":
+      case RolesEnum.SUPER_ADMIN:
+      case RolesEnum.ADMIN:
+      case RolesEnum.FINANCIAL_OFFICER:
+      case RolesEnum.PAYMENT_OFFICER:
+      case RolesEnum.VERIFICATION_OFFICER:
         return api_routes.admin.account.profile_update;
-      case "Industry":
-      case "Industry-Staff":
-      case "Institute":
-      case "Institute-Staff":
+      case RolesEnum.INDUSTRY:
+      case RolesEnum.INDUSTRY_STAFF:
+      case RolesEnum.INSTITUTE:
+      case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.account.profile_update;
-      case "Student":
+      case RolesEnum.STUDENT:
         return api_routes.user.account.profile_update;
     
       default:
@@ -131,18 +132,18 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
     if(!user) return api_routes.user.account.password_update;
     if(!user.role) return api_routes.user.account.password_update;
     switch (user.role) {
-      case "Super-Admin":
-      case "Admin":
-      case "Financial-Officer":
-      case "Payment-Officer":
-      case "Verification-Officer":
+      case RolesEnum.SUPER_ADMIN:
+      case RolesEnum.ADMIN:
+      case RolesEnum.FINANCIAL_OFFICER:
+      case RolesEnum.PAYMENT_OFFICER:
+      case RolesEnum.VERIFICATION_OFFICER:
         return api_routes.admin.account.password_update;
-      case "Industry":
-      case "Industry-Staff":
-      case "Institute":
-      case "Institute-Staff":
+      case RolesEnum.INDUSTRY:
+      case RolesEnum.INDUSTRY_STAFF:
+      case RolesEnum.INSTITUTE:
+      case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.account.password_update;
-      case "Student":
+      case RolesEnum.STUDENT:
         return api_routes.user.account.password_update;
     
       default:
@@ -151,32 +152,32 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
   }, [user]);
 
   const logoutRedirect:string = useMemo(() => {
-    if(!user) return page_routes.auth.student.login;
-    if(!user.role) return page_routes.auth.student.login;
+    if(!user) return page_routes.student.auth.login;
+    if(!user.role) return page_routes.student.auth.login;
     switch (user.role) {
-      case "Super-Admin":
-        return page_routes.auth.admin.login;
-      case "Admin":
-        return page_routes.auth.admin.login;
-      case "Financial-Officer":
-        return page_routes.auth.admin.login;
-      case "Payment-Officer":
-        return page_routes.auth.admin.login;
-      case "Verification-Officer":
-        return page_routes.auth.admin.login;
-      case "Industry":
-        return page_routes.auth.industry.login;
-      case "Industry-Staff":
-        return page_routes.auth.industry.login;
-      case "Institute":
-        return page_routes.auth.institute.login;
-      case "Institute-Staff":
-        return page_routes.auth.institute.login;
-      case "Student":
-        return page_routes.auth.student.login;
+      case RolesEnum.SUPER_ADMIN:
+        return page_routes.admin.auth.login;
+      case RolesEnum.ADMIN:
+        return page_routes.admin.auth.login;
+      case RolesEnum.FINANCIAL_OFFICER:
+        return page_routes.admin.auth.login;
+      case RolesEnum.PAYMENT_OFFICER:
+        return page_routes.admin.auth.login;
+      case RolesEnum.VERIFICATION_OFFICER:
+        return page_routes.admin.auth.login;
+      case RolesEnum.INDUSTRY:
+        return page_routes.industry.auth.login;
+      case RolesEnum.INDUSTRY_STAFF:
+        return page_routes.industry.auth.login;
+      case RolesEnum.INSTITUTE:
+        return page_routes.institute.auth.login;
+      case RolesEnum.INSTITUTE_STAFF:
+        return page_routes.institute.auth.login;
+      case RolesEnum.STUDENT:
+        return page_routes.student.auth.login;
     
       default:
-        return page_routes.auth.student.login;
+        return page_routes.student.auth.login;
     }
   }, [user]);
 

@@ -1,9 +1,8 @@
-import { Button, ButtonToolbar, Form, Loader } from 'rsuite'
+import { Button, ButtonToolbar, Form } from 'rsuite'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { api_routes } from "../../utils/api_routes";
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
@@ -13,6 +12,8 @@ import { useAxios } from '../../hooks/useAxios';
 import TextInput from '../FormInput/TextInput';
 import ToggleInput from '../FormInput/ToggleInput';
 import DateInput from '../FormInput/DateInput';
+import { api_routes } from '../../utils/routes/api';
+import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
 
 const date = new Date()
 
@@ -40,7 +41,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading } = useApplicationDateQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, error, refetch: refetchData } = useApplicationDateQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const axios = useAxios();
 
     const {
@@ -106,20 +107,21 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
 
     return (
         <Drawer title="Application Date" drawer={drawer} drawerHandler={drawerHandler}>
-            {(isFetching || isLoading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 1000 }} />}
-            <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                <DateInput name="from_date" label="From Date" control={control} error={errors.from_date?.message} />
-                <DateInput name="to_date" label="To Date" control={control} error={errors.to_date?.message} />
-                <DateInput name="approval_end_date" label="Approval End Date" control={control} error={errors.approval_end_date?.message} />
-                <DateInput name="verification_end_date" label="Verification End Date" control={control} error={errors.approval_end_date?.message} />
-                <TextInput name="application_year" label="Application Year" type="number" focus={true} control={control} error={errors.application_year?.message} />
-                <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
-                <Form.Group>
-                    <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                    </ButtonToolbar>
-                </Form.Group>
-            </Form>
+            <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                    <DateInput name="from_date" label="From Date" control={control} error={errors.from_date?.message} />
+                    <DateInput name="to_date" label="To Date" control={control} error={errors.to_date?.message} />
+                    <DateInput name="approval_end_date" label="Approval End Date" control={control} error={errors.approval_end_date?.message} />
+                    <DateInput name="verification_end_date" label="Verification End Date" control={control} error={errors.approval_end_date?.message} />
+                    <TextInput name="application_year" label="Application Year" type="number" focus={true} control={control} error={errors.application_year?.message} />
+                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
+                    <Form.Group>
+                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
+                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
+                        </ButtonToolbar>
+                    </Form.Group>
+                </Form>
+            </ErrorBoundaryLayout>
         </Drawer>
     )
 }

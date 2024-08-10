@@ -2,10 +2,10 @@
 
 namespace App\Modules\InstituteManagement\Institutes\Resources;
 
-use App\Modules\InstituteManagement\RegisteredInstitutes\Resources\RegisteredInstituteCollection;
+use App\Modules\InstituteManagement\RegisteredInstitutes\Resources\SingleRegisteredInstituteCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InstituteCollection extends JsonResource
+class InstituteRegisteredCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -24,8 +24,9 @@ class InstituteCollection extends JsonResource
             'reg_certification' => $this->reg_certification_link,
             'principal_signature' => $this->principal_signature_link,
             'seal' => $this->seal_link,
-            'registered_institute' => RegisteredInstituteCollection::make($this->whenLoaded('registered_institute')),
+            'registered_institute' => SingleRegisteredInstituteCollection::make($this->whenLoaded('registered_institute')),
             'address' => InstituteAddressCollection::make($this->whenLoaded('address')),
+            'profile' => InstituteProfileCollection::make($this->whenLoaded('profile')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

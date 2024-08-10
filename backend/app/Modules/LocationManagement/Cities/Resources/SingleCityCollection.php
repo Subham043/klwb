@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\ApplicationManagement\Fees\Resources;
+namespace App\Modules\LocationManagement\Cities\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClassesCollection extends JsonResource
+class SingleCityCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,7 +17,6 @@ class ClassesCollection extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'course_id' => $this->course_id,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

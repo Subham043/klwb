@@ -233,6 +233,10 @@ h2{
     margin-bottom: 5px !important;
 }
 
+.p-relative{
+    position: relative;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;
