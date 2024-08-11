@@ -14,7 +14,7 @@ const InstituteRegistered:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useInstitutesRegisteredQuery();
 
     return <PaginatedTableLayout title="Institutes Registered">
-        <PaginatedTableLayout.Header title="Institutes Registered" addBtn={false} excelLink={api_routes.admin.institute.registered.excel} excelName="registered_institute.xlsx" />
+        <PaginatedTableLayout.Header title="Institutes Registered" addBtn={false} excelLink={api_routes.admin.institute.registered.excel} excelName="registeredeee_institute.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Form } from 'rsuite'
+import { Button, Form, Modal, Panel, Stack } from 'rsuite'
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import { useToast } from "../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../utils/types";
 import { isAxiosError } from "axios";
-import Drawer from "../Drawer";
 import { useRegisteredInstituteQuery } from '../../hooks/data/registered_institute';
 import { useTaluqSelectQuery } from '../../hooks/data/taluq';
 import { useAxios } from '../../hooks/useAxios';
@@ -16,6 +15,7 @@ import SelectInput from '../FormInput/SelectInput';
 import { useCitySelectQuery } from '../../hooks/data/city';
 import { api_routes } from '../../utils/routes/api';
 import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
+import { useMediaQuery } from 'rsuite/esm/useMediaQuery/useMediaQuery';
 
 type SchemaType = {
   name: string;
@@ -47,6 +47,7 @@ export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}
     const {toastError, toastSuccess} = useToast();
     const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useRegisteredInstituteQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const axios = useAxios();
+    const [isMobile] = useMediaQuery('(max-width: 700px)');
 
     const {
         control,
@@ -137,24 +138,33 @@ export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}
     });
 
     return (
-        <Drawer title="Institute" drawer={drawer} drawerHandler={drawerHandler}>
+        <Modal overflow={false} size={"md"} open={drawer.status} onClose={()=>drawerHandler({status:false, type:'Create'})} className='info-modal'>
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
-                <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                    <TextInput name="name" label="Institute Name" control={control} error={errors.name?.message} />
-                    <TextInput name="management_type" label="Management Type" control={control} error={errors.management_type?.message} />
-                    <TextInput name="category" label="Institute Category" control={control} error={errors.category?.message} />
-                    <TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
-                    <SelectInput name="urban_rural" label="Urban/Rural" data={[{label:'Urban', value:'Urban'}, {label:'Rural', value:'Rural'}]} control={control} error={errors.urban_rural?.message} />
-                    <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
-                    <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
-                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
-                    <Form.Group>
-                        <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
-                            <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>
-                        </ButtonToolbar>
-                    </Form.Group>
-                </Form>
+                <Panel header={drawer.type === "Edit" ? "Update Institute" : " Add Institute"} className='info-modal-panel' bordered>
+                    <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
+                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+                            <TextInput name="name" label="Institute Name" control={control} error={errors.name?.message} />
+                            <TextInput name="management_type" label="Management Type" control={control} error={errors.management_type?.message} />
+                        </Stack>
+                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+                            <TextInput name="category" label="Institute Category" control={control} error={errors.category?.message} />
+                            <TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
+                        </Stack>
+                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+                            <SelectInput name="urban_rural" label="Urban/Rural" data={[{label:'Urban', value:'Urban'}, {label:'Rural', value:'Rural'}]} control={control} error={errors.urban_rural?.message} />
+                            <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
+                            <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
+                        </Stack>
+                        <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
+                        <Modal.Footer className='info-modal-footer'>
+                            <Button appearance="primary" type="submit" loading={loading} disabled={loading}>Save</Button>
+                            <Button type='button' onClick={()=>drawerHandler({status:false, type:'Create'})} appearance="primary" color='red'>
+                                Cancel
+                            </Button>
+                        </Modal.Footer>
+                    </Form>
+                </Panel>
             </ErrorBoundaryLayout>
-        </Drawer>
+        </Modal>
     )
 }

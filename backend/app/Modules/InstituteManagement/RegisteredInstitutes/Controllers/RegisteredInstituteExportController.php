@@ -3,9 +3,7 @@
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Exports\RegisteredInstituteExport;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Services\RegisteredInstituteService;
-use Maatwebsite\Excel\Facades\Excel;
 
 class RegisteredInstituteExportController extends Controller
 {
@@ -17,7 +15,6 @@ class RegisteredInstituteExportController extends Controller
     }
 
     public function index(){
-        $institute = $this->instituteService->all();
-        return Excel::download(new RegisteredInstituteExport($institute), 'institutes.xlsx');
+        return $this->instituteService->excel()->toBrowser();
     }
 }

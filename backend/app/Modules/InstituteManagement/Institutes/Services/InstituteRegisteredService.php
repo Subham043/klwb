@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class InstituteRegisteredService
 {
@@ -17,7 +18,7 @@ class InstituteRegisteredService
         return Institute::with([
             'registered_institute',
             'profile' => function ($query) {
-                $query->with(['roles']);
+                $query->with(['roles'])->whereNull('created_by');
             },
             'address' => function ($query) {
                 $query->with(['state', 'city', 'taluq']);
@@ -73,6 +74,33 @@ class InstituteRegisteredService
     public function getById(Int $id): Institute|null
     {
         return $this->model()->findOrFail($id);
+    }
+
+    public function excel() : SimpleExcelWriter
+    {
+        $model = $this->model();
+        $i=0;
+        $writer = SimpleExcelWriter::streamDownload('registered_institutes.xlsx');
+        foreach ($model->lazy(1000)->collect() as $data) {
+            $writer->addRow([
+                'Id' => $data->id,
+                'Name' => $data->registered_institute->name,
+                'Principal Name' => $data->principal,
+                'Mobile' => $data->phone,
+                'Email' => $data->email,
+                'Management Type' => $data->registered_institute->management_type,
+                'Taluq' => $data->address->taluq->name,
+                'Taluq ID' => $data->address->taluq->id,
+                'District' => $data->address->city->name,
+                'District ID' => $data->address->city->id,
+                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+            ]);
+            if($i==1000){
+                flush();
+            }
+            $i++;
+        }
+        return $writer;
     }
 
 }

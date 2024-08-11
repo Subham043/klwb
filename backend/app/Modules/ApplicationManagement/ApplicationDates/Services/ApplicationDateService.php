@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class ApplicationDateService
 {
@@ -57,6 +58,30 @@ class ApplicationDateService
     public function delete(ApplicationDate $applicationDate): bool|null
     {
         return $applicationDate->delete();
+    }
+
+    public function excel() : SimpleExcelWriter
+    {
+        $model = $this->model();
+        $i=0;
+        $writer = SimpleExcelWriter::streamDownload('application_dates.xlsx');
+        foreach ($model->lazy(1000)->collect() as $data) {
+            $writer->addRow([
+                'Id' => $data->id,
+                'From Date' => $data->from_date->format('Y-m-d'),
+                'To Date' => $data->to_date->format('Y-m-d'),
+                'Approval End Date' => $data->approval_end_date->format('Y-m-d'),
+                'Verification End Date' => $data->verification_end_date->format('Y-m-d'),
+                'Application Year' => $data->application_year,
+                'Active' => $data->is_active ? 'Yes' : 'No',
+                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+            ]);
+            if($i==1000){
+                flush();
+            }
+            $i++;
+        }
+        return $writer;
     }
 
 }

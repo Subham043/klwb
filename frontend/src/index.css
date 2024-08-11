@@ -237,6 +237,14 @@ h2{
     position: relative;
 }
 
+.rs-picker-select-menu-item{
+     white-space: nowrap;
+}
+
+.rs-picker-select-menu-item.rs-picker-select-menu-item-focus, .rs-picker-select-menu-item:focus, .rs-picker-select-menu-item:hover{
+    background-color: transparent;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;

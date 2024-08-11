@@ -3,9 +3,7 @@
 namespace App\Modules\ApplicationManagement\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\ApplicationManagement\Fees\Exports\FeeExport;
 use App\Modules\ApplicationManagement\Fees\Services\FeeService;
-use Maatwebsite\Excel\Facades\Excel;
 
 class FeeExportController extends Controller
 {
@@ -17,7 +15,6 @@ class FeeExportController extends Controller
     }
 
     public function index(){
-        $data = $this->feeService->all();
-        return Excel::download(new FeeExport($data), 'fees.xlsx');
+        return $this->feeService->excel()->toBrowser();
     }
 }

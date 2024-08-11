@@ -4,8 +4,6 @@ namespace App\Modules\InstituteManagement\Institutes\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\InstituteManagement\Institutes\Services\InstituteNonRegisteredService;
-use App\Modules\InstituteManagement\Institutes\Exports\NonRegisteredExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class NonRegisteredExportController extends Controller
 {
@@ -17,7 +15,6 @@ class NonRegisteredExportController extends Controller
     }
 
     public function index(){
-        $institute = $this->instituteService->all();
-        return Excel::download(new NonRegisteredExport($institute), 'non_registered_institutes.xlsx');
+        return $this->instituteService->excel()->toBrowser();
     }
 }

@@ -10,6 +10,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class InstituteStaffService
 {
@@ -48,6 +49,28 @@ class InstituteStaffService
         return $this->query($school_id, $created_by)
                 ->paginate($total)
                 ->appends(request()->query());
+    }
+
+    public function excel(string $school_id, string $created_by) : SimpleExcelWriter
+    {
+        $model = $this->model($school_id, $created_by);
+        $i=0;
+        $writer = SimpleExcelWriter::streamDownload('institute_staffs.xlsx');
+        foreach ($model->lazy(1000)->collect() as $data) {
+            $writer->addRow([
+                'Name' => $data->name,
+                'Email' => $data->email,
+                'Phone' => $data->phone,
+                'Role' => $data->currentRole,
+                'Blocked' => $data->is_blocked ? 'No' : 'Yes',
+                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+            ]);
+            if($i==1000){
+                flush();
+            }
+            $i++;
+        }
+        return $writer;
     }
 
 }

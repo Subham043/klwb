@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class StateService
 {
@@ -58,6 +59,26 @@ class StateService
     public function delete(State $state): bool|null
     {
         return $state->delete();
+    }
+
+    public function excel() : SimpleExcelWriter
+    {
+        $model = $this->model();
+        $i=0;
+        $writer = SimpleExcelWriter::streamDownload('states.xlsx');
+        foreach ($model->lazy(1000)->collect() as $data) {
+            $writer->addRow([
+                'Id' => $data->id,
+                'Name' => $data->name,
+                'Active' => $data->is_active ? 'Yes' : 'No',
+                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+            ]);
+            if($i==1000){
+                flush();
+            }
+            $i++;
+        }
+        return $writer;
     }
 
 }

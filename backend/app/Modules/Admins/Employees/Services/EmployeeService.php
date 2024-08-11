@@ -10,6 +10,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class EmployeeService{
 
@@ -75,6 +76,29 @@ class EmployeeService{
     public function delete(Employee $employee): bool|null
     {
         return $employee->delete();
+    }
+
+    public function excel() : SimpleExcelWriter
+    {
+        $model = $this->model();
+        $i=0;
+        $writer = SimpleExcelWriter::streamDownload('employees.xlsx');
+        foreach ($model->lazy(1000)->collect() as $data) {
+            $writer->addRow([
+                'Id' => $data->id,
+                'Name' => $data->name,
+                'Email' => $data->email,
+                'Phone' => $data->phone,
+                'Role' => $data->currentRole,
+                'Blocked' => $data->is_blocked ? 'No' : 'Yes',
+                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+            ]);
+            if($i==1000){
+                flush();
+            }
+            $i++;
+        }
+        return $writer;
     }
 }
 

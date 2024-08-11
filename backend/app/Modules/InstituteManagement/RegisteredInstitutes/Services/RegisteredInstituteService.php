@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class RegisteredInstituteService
 {
@@ -70,6 +71,35 @@ class RegisteredInstituteService
     public function delete(RegisteredInstitute $registeredInstitute): bool|null
     {
         return $registeredInstitute->delete();
+    }
+
+    public function excel() : SimpleExcelWriter
+    {
+        $model = $this->model();
+        $i=0;
+        $writer = SimpleExcelWriter::streamDownload('institutes.xlsx');
+        foreach ($model->lazy(1000)->collect() as $data) {
+            $writer->addRow([
+                'Id' => $data->id,
+                'Reg No.' => $data->reg_no,
+                'Name' => $data->name,
+                'Management Type' => $data->management_type,
+                'Category' => $data->category,
+                'Type' => $data->type,
+                'Urban/Rural' => $data->urban_rural,
+                'Taluq' => $data->taluq->name,
+                'Taluq ID' => $data->taluq->id,
+                'District' => $data->taluq->city->name,
+                'District ID' => $data->taluq->city->id,
+                'Active' => $data->is_active ? 'Yes' : 'No',
+                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+            ]);
+            if($i==1000){
+                flush();
+            }
+            $i++;
+        }
+        return $writer;
     }
 
 }
