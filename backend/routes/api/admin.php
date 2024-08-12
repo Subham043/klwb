@@ -107,6 +107,13 @@ use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredViewControl
 use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteApproveController;
 use App\Modules\InstituteManagement\Staff\Controllers\StaffExportController;
 use App\Modules\InstituteManagement\Staff\Controllers\StaffPaginateController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryAllController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryDeleteController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryExportController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryPaginateController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryUpdateController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryViewController;
+use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryApproveController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -258,6 +265,15 @@ Route::prefix('admin')->group(function () {
                     Route::get('/paginate', [NonRegisteredPaginateController::class, 'index']);
                     Route::get('/view/{id}', [NonRegisteredViewController::class, 'index']);
                 });
+            });
+            Route::prefix('request-industries')->group(function () {
+                Route::get('/excel', [RequestIndustryExportController::class, 'index']);
+                Route::get('/all', [RequestIndustryAllController::class, 'index']);
+                Route::get('/paginate', [RequestIndustryPaginateController::class, 'index']);
+                Route::post('/update/{id}', [RequestIndustryUpdateController::class, 'index']);
+                Route::post('/approve/{id}', [RequestIndustryApproveController::class, 'index']);
+                Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
+                Route::get('/view/{id}', [RequestIndustryViewController::class, 'index']);
             });
         });
     });

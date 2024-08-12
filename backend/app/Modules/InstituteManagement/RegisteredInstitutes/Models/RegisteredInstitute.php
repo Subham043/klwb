@@ -4,7 +4,6 @@ namespace App\Modules\InstituteManagement\RegisteredInstitutes\Models;
 
 use App\Http\Traits\AuthTrait;
 use App\Modules\InstituteManagement\Institutes\Models\Institute;
-// use App\Modules\InstituteManagement\RegisteredInstitutes\Enums\UrbanRural;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,7 +40,6 @@ class RegisteredInstitute extends Model
     ];
 
     protected $casts = [
-        // 'urban_rural' => UrbanRural::class,
         'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',

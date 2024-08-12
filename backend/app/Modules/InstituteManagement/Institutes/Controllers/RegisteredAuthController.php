@@ -22,16 +22,12 @@ class RegisteredAuthController extends Controller
         $request->validated();
         DB::beginTransaction();
         try {
-            $institute->profile->update([
+            $this->instituteService->updateAuth([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'is_blocked' => $request->is_blocked,
-            ]);
-            $institute->registered_institute->update([
-                'is_active' => !$request->is_blocked,
-            ]);
-            $institute->refresh();
+            ], $institute);
             return response()->json(["message" => "Institute Registered updated successfully.", "data" => InstituteRegisteredCollection::make($institute)], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

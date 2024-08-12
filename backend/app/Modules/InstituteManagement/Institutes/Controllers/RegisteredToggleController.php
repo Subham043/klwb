@@ -20,21 +20,11 @@ class RegisteredToggleController extends Controller
         $institute = $this->instituteService->getById($id);
         DB::beginTransaction();
         try {
+            $this->instituteService->toggleStatus($institute);
             if($institute->profile->is_blocked){
-                $institute->profile->update(['is_blocked'=>false]);
-                $institute->registered_institute->update([
-                    'is_active' => true,
-                ]);
-                $institute->refresh();
                 return response()->json(["message" => "Institute Unblocked successfully.", "data" => InstituteRegisteredCollection::make($institute)], 200);
-            }else{
-                $institute->profile->update(['is_blocked'=>true]);
-                $institute->registered_institute->update([
-                    'is_active' => false,
-                ]);
-                $institute->refresh();
-                return response()->json(["message" => "Institute Blocked successfully.", "data" => InstituteRegisteredCollection::make($institute)], 200);
             }
+            return response()->json(["message" => "Institute Blocked successfully.", "data" => InstituteRegisteredCollection::make($institute)], 200);
          } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);

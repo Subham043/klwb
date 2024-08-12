@@ -3,6 +3,8 @@
 namespace App\Modules\InstituteManagement\Institutes\Services;
 
 use App\Modules\InstituteManagement\Institutes\Models\Institute;
+use App\Modules\InstituteManagement\Institutes\Requests\RegisteredUpdateRequest;
+use App\Modules\LocationManagement\Taluqs\Services\TaluqService;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -74,6 +76,66 @@ class InstituteRegisteredService
     public function getById(Int $id): Institute|null
     {
         return $this->model()->findOrFail($id);
+    }
+
+    public function update(RegisteredUpdateRequest $request, Institute $institute): Institute
+    {
+        $institute->update([
+            'principal' => $request->principal,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+        $taluq = (new TaluqService)->getById($request->taluq_id);
+        $institute->address->update([
+            'taluq_id' => $taluq->id,
+            'city_id' => $taluq->city->id,
+            'state_id' => $taluq->city->state->id,
+            'address' => $request->address,
+            'pincode' => $request->pincode,
+        ]);
+        $institute->registered_institute->update([
+            'taluq_id' => $taluq->id,
+            'name' => $request->name,
+            'management_type' => $request->management_type,
+            'category' => $request->category,
+            'type' => $request->type,
+            'urban_rural' => $request->urban_rural,
+            'is_active' => $request->is_active,
+        ]);
+        $institute->profile->update([
+            'is_blocked' => !$request->is_active,
+        ]);
+        $institute->refresh();
+        return $institute;
+    }
+
+    public function updateAuth(array $data, Institute $institute): Institute
+    {
+        $institute->profile->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'is_blocked' => $data['is_blocked'],
+        ]);
+        $institute->registered_institute->update([
+            'is_active' => !$data['is_blocked'],
+        ]);
+        $institute->refresh();
+        return $institute;
+    }
+
+    public function toggleStatus(Institute $institute): Institute
+    {
+        $status = true;
+        if($institute->profile->is_blocked){
+            $status = false;
+        }
+        $institute->profile->update(['is_blocked'=>$status]);
+        $institute->registered_institute->update([
+            'is_active' => !$status,
+        ]);
+        $institute->refresh();
+        return $institute;
     }
 
     public function excel() : SimpleExcelWriter
