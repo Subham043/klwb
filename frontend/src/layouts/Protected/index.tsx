@@ -22,3 +22,4 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = ({navigation_link = page_route
 export const AdminProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.admin.auth.login} />
 export const StudentProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.student.auth.login} />
 export const InstituteProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.institute.auth.login} />
+export const IndustryProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.industry.auth.login} />

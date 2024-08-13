@@ -71,6 +71,7 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
         return api_routes.admin.auth.logout;
       case RolesEnum.INDUSTRY:
       case RolesEnum.INDUSTRY_STAFF:
+        return api_routes.industry.auth.logout;
       case RolesEnum.INSTITUTE:
       case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.auth.logout;
@@ -94,6 +95,7 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
         return api_routes.admin.account.profile;
       case RolesEnum.INDUSTRY:
       case RolesEnum.INDUSTRY_STAFF:
+        return api_routes.industry.account.profile;
       case RolesEnum.INSTITUTE:
       case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.account.profile;
@@ -117,6 +119,7 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
         return api_routes.admin.account.profile_update;
       case RolesEnum.INDUSTRY:
       case RolesEnum.INDUSTRY_STAFF:
+        return api_routes.industry.account.profile_update;
       case RolesEnum.INSTITUTE:
       case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.account.profile_update;
@@ -140,6 +143,7 @@ const UserProvider: React.FC<ChildrenType> = ({ children }) => {
         return api_routes.admin.account.password_update;
       case RolesEnum.INDUSTRY:
       case RolesEnum.INDUSTRY_STAFF:
+        return api_routes.industry.account.password_update;
       case RolesEnum.INSTITUTE:
       case RolesEnum.INSTITUTE_STAFF:
         return api_routes.institute.account.password_update;

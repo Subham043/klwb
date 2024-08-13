@@ -2,6 +2,7 @@
 
 namespace App\Modules\IndustryManagement\RequestIndustry\Resources;
 
+use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
 use App\Modules\LocationManagement\Cities\Resources\SingleCityCollection;
 use App\Modules\LocationManagement\Taluqs\Resources\SingleTaluqCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,7 +24,7 @@ class RequestIndustryCollection extends JsonResource
             'mobile' => $this->mobile,
             'gst_no' => $this->gst_no,
             'pan_no' => $this->pan_no,
-            'act' => $this->act,
+            'act' => Act::getValue($this->act),
             'address' => $this->address,
             'register_doc' => $this->register_doc_link,
             'taluq_id' => $this->taluq_id,

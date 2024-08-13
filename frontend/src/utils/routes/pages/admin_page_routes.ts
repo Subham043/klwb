@@ -23,4 +23,12 @@ export const admin_page_routes = {
       "/admin/institute-registered/" + id,
     non_registered: "/admin/institute-non-registered",
   },
+  industry: {
+    all: "/admin/industries",
+    request: "/admin/industry-request",
+    registered: "/admin/industry-registered",
+    registered_info: (id: number | string) =>
+      "/admin/industry-registered/" + id,
+    non_registered: "/admin/industry-non-registered",
+  },
 } as const;

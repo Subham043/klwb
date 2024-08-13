@@ -172,4 +172,17 @@ export const admin_api_routes = {
         `/api/admin/v1/institutes/non-registered/view/${id}`,
     },
   },
+  request_industry: {
+    excel: "/api/admin/v1/request-industries/excel",
+    all: "/api/admin/v1/request-industries/all",
+    paginate: "/api/admin/v1/request-industries/paginate",
+    update: (id: string | number) =>
+      `/api/admin/v1/request-industries/update/${id}`,
+    approve: (id: string | number) =>
+      `/api/admin/v1/request-industries/approve/${id}`,
+    delete: (id: string | number) =>
+      `/api/admin/v1/request-industries/delete/${id}`,
+    view: (id: string | number) =>
+      `/api/admin/v1/request-industries/view/${id}`,
+  },
 } as const;

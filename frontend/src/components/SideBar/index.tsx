@@ -9,6 +9,7 @@ import TextImageIcon from '@rsuite/icons/TextImage';
 import LocationIcon from '@rsuite/icons/Location';
 import PeoplesIcon from '@rsuite/icons/Peoples';
 import GearIcon from '@rsuite/icons/Gear';
+import PeoplesMapIcon from '@rsuite/icons/PeoplesMap';
 import SettingHorizontalIcon from '@rsuite/icons/SettingHorizontal';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import { useUser } from '../../hooks/useUser';
@@ -88,6 +89,19 @@ const NavMenu = () => {
                         <Nav.Item as={NavLink} to={page_routes.admin.institute.registered} className='sidebar-navlink' eventKey="8-2">Institute Registered</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.institute.non_registered} className='sidebar-navlink' eventKey="8-3">Institute Non Registered</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.institute.request} className='sidebar-navlink' eventKey="8-4">Institute Request</Nav.Item>
+                    </Nav.Menu>
+                    <Nav.Menu
+                        eventKey="9"
+                        trigger="hover"
+                        title="Industry Management"
+                        icon={<PeoplesMapIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.admin.industry.all} className='sidebar-navlink' eventKey="9-1">All Industries</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.industry.registered} className='sidebar-navlink' eventKey="9-2">Industry Registered</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.industry.non_registered} className='sidebar-navlink' eventKey="9-3">Industry Non Registered</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.industry.request} className='sidebar-navlink' eventKey="9-4">Industry Request</Nav.Item>
                     </Nav.Menu>
                 </>
             }

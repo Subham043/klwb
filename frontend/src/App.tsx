@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import UserProvider from "./contexts/userProvider"
-import { AdminPersistLayout, InstitutePersistLayout, StudentPersistLayout } from "./layouts/Persist"
+import { AdminPersistLayout, InstitutePersistLayout, StudentPersistLayout, IndustryPersistLayout } from "./layouts/Persist"
 import AccountProvider from "./contexts/accountProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PageNotFound from "./pages/PageNotFound";
@@ -15,15 +15,19 @@ const StudentAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ de
 const AdminVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.AdminVerifiedLayout })));
 const StudentVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.StudentVerifiedLayout })));
 const InstituteVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.InstituteVerifiedLayout })));
+const IndustryVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.IndustryVerifiedLayout })));
 const AdminAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.AdminAuthorisedLayout })));
 const StudentAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.StudentAuthorisedLayout })));
 const InstituteAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.InstituteAuthorisedLayout })));
+const IndustryAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.IndustryAuthorisedLayout })));
 const AdminProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.AdminProtectedLayout })));
 const StudentProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.StudentProtectedLayout })));
 const InstituteProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.InstituteProtectedLayout })));
+const IndustryProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.IndustryProtectedLayout })));
 const AdminGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.AdminGuestLayout })));
 const StudentGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.StudentGuestLayout })));
 const InstituteGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.InstituteGuestLayout })));
+const IndustryGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.IndustryGuestLayout })));
 const DashboardLayout = lazy(()=>import("./layouts/Dashboard"));
 const StudentLoginPage = lazy(()=>import("./pages/Auth/LoginPage/StudentLoginPage"));
 const AdminLoginPage = lazy(()=>import("./pages/Auth/LoginPage/AdminLoginPage"));
@@ -57,6 +61,8 @@ const ApplicationDatePage = lazy(()=>import("./pages/ApplicationDate"));
 const ApplicationFeePage = lazy(()=>import("./pages/ApplicationFee"));
 const HomePage = lazy(()=>import("./pages/Home"));
 const InstituteRequestPage = lazy(()=>import("./pages/Auth/InstituteRequestPage"));
+const RequestIndustryPage = lazy(()=>import("./pages/RequestIndustry"));
+const IndustryRequestPage = lazy(()=>import("./pages/Auth/IndustryRequestPage"));
 
 const queryClient = new QueryClient(QueryClientOptions);
 
@@ -88,19 +94,12 @@ function App() {
                             <Route path={page_routes.admin.institute.non_registered} element={<InstituteNonRegisteredPage />} />
                             <Route path={page_routes.admin.institute.registered} element={<InstituteRegisteredPage />} />
                             <Route path={page_routes.admin.institute.registered_info(":id")} element={<InstituteRegisteredInfoPage />} />
+                            <Route path={page_routes.admin.industry.request} element={<RequestIndustryPage />} />
                             <Route path={page_routes.admin.security_question} element={<SecurityQuestionPage />} />
                             <Route path={page_routes.admin.application_date} element={<ApplicationDatePage />} />
                             <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
                           </Route>
                       </Route>
-                    </Route>
-                  </Route>
-                  <Route element={<AdminGuestLayout />}>
-                    <Route element={<IndustryAuthLayout />}>
-                        <Route path={page_routes.industry.auth.login} element={<IndustryLoginPage />} />
-                        <Route path={page_routes.industry.auth.register} element={<StudentRegisterPage />} />
-                        <Route path={page_routes.industry.auth.forgot_password} element={<IndustryForgotPasswordPage />} />
-                        <Route path={page_routes.industry.auth.reset_password} element={<IndustryResetPasswordPage />} />
                     </Route>
                   </Route>
                   <Route element={<AdminGuestLayout />}>
@@ -151,6 +150,28 @@ function App() {
                         <Route path={page_routes.institute.auth.forgot_password} element={<InstituteForgotPasswordPage />} />
                         <Route path={page_routes.institute.auth.reset_password} element={<InstituteResetPasswordPage />} />
                         <Route path={page_routes.institute.auth.request} element={<InstituteRequestPage />} />
+                    </Route>
+                  </Route>
+                </Route>
+                {/* Institute Routes Ends */}
+
+                {/* Industry Routes Starts */}
+                <Route element={<IndustryPersistLayout />}>
+                  <Route element={<IndustryProtectedLayout />}>
+                    <Route element={<IndustryVerifiedLayout />} >
+                      <Route element={<IndustryAuthorisedLayout />}>
+                          <Route element={<DashboardLayout />}>
+                          </Route>
+                      </Route>
+                    </Route>
+                  </Route>
+                  <Route element={<IndustryGuestLayout />}>
+                    <Route element={<IndustryAuthLayout />}>
+                        <Route path={page_routes.industry.auth.login} element={<IndustryLoginPage />} />
+                        {/* <Route path={page_routes.industry.auth.register} element={<IndustryRegisterPage />} /> */}
+                        <Route path={page_routes.industry.auth.forgot_password} element={<IndustryForgotPasswordPage />} />
+                        <Route path={page_routes.industry.auth.reset_password} element={<IndustryResetPasswordPage />} />
+                        <Route path={page_routes.industry.auth.request} element={<IndustryRequestPage />} />
                     </Route>
                   </Route>
                 </Route>

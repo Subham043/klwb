@@ -23,3 +23,4 @@ const GuestLayout:FC<GuestLayoutProps> = ({navigation_link = page_routes.student
 export const AdminGuestLayout = () => <GuestLayout navigation_link={page_routes.admin.dashboard} />
 export const StudentGuestLayout = () => <GuestLayout navigation_link={page_routes.student.dashboard} />
 export const InstituteGuestLayout = () => <GuestLayout navigation_link={page_routes.institute.dashboard} />
+export const IndustryGuestLayout = () => <GuestLayout navigation_link={page_routes.industry.dashboard} />

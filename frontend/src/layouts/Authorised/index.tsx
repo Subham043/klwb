@@ -17,3 +17,4 @@ const AuthorisedLayout: FC<{roles: RolesEnum[]}> = ({roles}) => {
 export const AdminAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN]} />
 export const StudentAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.STUDENT]} />
 export const InstituteAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.INSTITUTE, RolesEnum.INSTITUTE_STAFF]} />
+export const IndustryAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.INDUSTRY, RolesEnum.INDUSTRY_STAFF]} />

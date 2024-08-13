@@ -204,6 +204,31 @@ export type InstituteNonRegisteredType = {
   updated_at: string;
 };
 
+export type RequestIndustryType = {
+  id: number;
+  company: string;
+  email: string;
+  mobile: string;
+  gst_no: string;
+  pan_no: string;
+  act: number;
+  address: string;
+  register_doc: string;
+  taluq_id: number;
+  taluq: {
+    id: number;
+    name: string;
+  };
+  city_id: number;
+  city: {
+    id: number;
+    name: string;
+  };
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;
