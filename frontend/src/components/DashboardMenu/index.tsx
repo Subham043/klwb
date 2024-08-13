@@ -8,6 +8,7 @@ import { useUser } from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 import { useAccountModal } from '../../hooks/useAccountModal';
 import { useAxios } from '../../hooks/useAxios';
+import classes from './index.module.css';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderToggle = (props: any) => (
@@ -38,13 +39,13 @@ export default function DashboardMenu({expand, setExpand}:{expand: boolean, setE
         }
     };
 
-    return <div className="container">
+    return <div className={classes.dashboard_menu_container}>
         <div className="row justify-between align-center py-1">
             <div className="col-auto">
                 <Button onClick={() => setExpand(!expand)} appearance="default">{expand ? <WarningRoundIcon /> : <MenuIcon />}</Button>
             </div>
             <div className="col-auto">
-                <Dropdown renderToggle={renderToggle}>
+                <Dropdown renderToggle={renderToggle} placement="bottomEnd">
                     <Dropdown.Item onClick={()=>toggleAccountModal(true)}>Account Settings</Dropdown.Item>
                     <Dropdown.Item disabled={loading} onClick={logoutHandler}>Logout</Dropdown.Item>
                 </Dropdown>

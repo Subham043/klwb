@@ -1,12 +1,12 @@
 .content{
     min-height: 80dvh;
-    padding: 20px 0;
+    padding: 20px 10px;
     background-color: #efefef;
 }
 .container{
     width: 100%;
-    max-width: 1200px;
+    /* max-width: 1200px;
     margin: 0 auto;
-    padding: 0;
-    margin-left: 65px;
+    padding: 0; */
+    /* margin-left: 65px; */
 }

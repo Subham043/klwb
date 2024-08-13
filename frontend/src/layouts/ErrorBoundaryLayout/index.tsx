@@ -17,7 +17,7 @@ export default function ErrorBoundaryLayout({children, loading=false, error, ref
 					{(loading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 3 }} />}
 					{
 									error ? 
-									<Message showIcon type="error" header="A problem occurred">
+									<Message showIcon type="error" header="A problem occurred" className="mb-1">
 													<p>{(error instanceof AxiosError ? error.response?.data?.message : (error instanceof Error ?  error.message : "Something went wrong! Please try again."))}</p>
 													<Button className="mt-1" type="button" color="red" appearance="primary" startIcon={<ReloadIcon />} onClick={() => refetch ? refetch() : undefined}>
 																	Try Again

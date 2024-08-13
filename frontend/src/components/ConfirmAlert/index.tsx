@@ -10,7 +10,7 @@ const ConfirmAlert:FC<{children: React.ReactElement; confirmHandler: () => void;
 				}
 				return <Whisper
 					trigger="click"
-					placement={"bottom"}
+					placement="bottomEnd"
 					open={open}
 					onClick={() => setOpen(true)}
 					speaker={

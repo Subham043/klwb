@@ -1,13 +1,5 @@
-.linkMenu{
-    color: white;
-    margin: 0 !important;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 10px 8px;
-    transition: all 0.3s ease-in-out;
-}
-.linkMenu:hover, .linkMenu:visited, .linkMenu:active, .linkMenu:focus, .linkMenu:focus-visible, .linkMenu:focus-within{
-    background-color: #0057a3;
-    color: white;
-    text-decoration: none;
+.dashboard_menu_container{
+    max-width: calc(100vw - 3%);
+    width: 100%;
+    margin: 0 auto;
 }
