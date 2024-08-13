@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\Admins\Accounts\Requests\ProfilePostRequest;
 use App\Modules\Admins\Accounts\Resources\ProfileCollection;
@@ -44,7 +45,7 @@ class ProfileUpdateController extends Controller
 
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
-                'profile' => ProfileCollection::make(auth()->user()),
+                'profile' => ProfileCollection::make(auth()->guard(Guards::Admin->value())->user()),
                 'message' => "Profile Updated successfully.",
             ], 200);
         } catch (\Throwable $th) {

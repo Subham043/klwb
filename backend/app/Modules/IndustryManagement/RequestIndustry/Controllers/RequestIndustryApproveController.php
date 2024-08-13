@@ -3,7 +3,7 @@
 namespace App\Modules\IndustryManagement\RequestIndustry\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\IndustryManagement\RegisteredIndustrys\Services\RegisteredIndustryService;
+use App\Modules\IndustryManagement\RegisteredIndustry\Services\RegisteredIndustryService;
 use App\Modules\IndustryManagement\RequestIndustry\Resources\RequestIndustryCollection;
 use App\Modules\IndustryManagement\RequestIndustry\Services\RequestIndustryService;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +25,8 @@ class RequestIndustryApproveController extends Controller
         try {
             //code...
             $this->regIndustryService->create([
-                'name' => $reqIndustry->name.', '.$reqIndustry->address.', '.$reqIndustry->pincode,
-                'taluq_id' => $reqIndustry->taluq_id,
+                'name' => $reqIndustry->company,
+                'act' => $reqIndustry->act,
             ]);
             $this->reqIndustryService->update(
                 ['is_active'=>false],

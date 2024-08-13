@@ -95,6 +95,22 @@ use App\Modules\Admins\Authentication\Controllers\LogoutController;
 use App\Modules\Admins\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Admins\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Admins\Authentication\Controllers\ResetPasswordResendOtpController;
+use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredExportController as ControllersNonRegisteredExportController;
+use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredPaginateController as ControllersNonRegisteredPaginateController;
+use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredViewController as ControllersNonRegisteredViewController;
+use App\Modules\IndustryManagement\Industry\Controllers\RegisteredAuthController as ControllersRegisteredAuthController;
+use App\Modules\IndustryManagement\Industry\Controllers\RegisteredExportController as ControllersRegisteredExportController;
+use App\Modules\IndustryManagement\Industry\Controllers\RegisteredPaginateController as ControllersRegisteredPaginateController;
+use App\Modules\IndustryManagement\Industry\Controllers\RegisteredToggleController as ControllersRegisteredToggleController;
+use App\Modules\IndustryManagement\Industry\Controllers\RegisteredUpdateController as ControllersRegisteredUpdateController;
+use App\Modules\IndustryManagement\Industry\Controllers\RegisteredViewController as ControllersRegisteredViewController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryAllController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryCreateController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryDeleteController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryExportController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryPaginateController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredExportController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredPaginateController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredViewController;
@@ -114,6 +130,8 @@ use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryPa
 use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryUpdateController;
 use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryViewController;
 use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryApproveController;
+use App\Modules\IndustryManagement\Staff\Controllers\StaffExportController as ControllersStaffExportController;
+use App\Modules\IndustryManagement\Staff\Controllers\StaffPaginateController as ControllersStaffPaginateController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -266,6 +284,15 @@ Route::prefix('admin')->group(function () {
                     Route::get('/view/{id}', [NonRegisteredViewController::class, 'index']);
                 });
             });
+            Route::prefix('registered-industries')->group(function () {
+                Route::get('/excel', [RegisteredIndustryExportController::class, 'index']);
+                Route::get('/all', [RegisteredIndustryAllController::class, 'index']);
+                Route::get('/paginate', [RegisteredIndustryPaginateController::class, 'index']);
+                Route::post('/create', [RegisteredIndustryCreateController::class, 'index']);
+                Route::post('/update/{id}', [RegisteredIndustryUpdateController::class, 'index']);
+                Route::delete('/delete/{id}', [RegisteredIndustryDeleteController::class, 'index']);
+                Route::get('/view/{id}', [RegisteredIndustryViewController::class, 'index']);
+            });
             Route::prefix('request-industries')->group(function () {
                 Route::get('/excel', [RequestIndustryExportController::class, 'index']);
                 Route::get('/all', [RequestIndustryAllController::class, 'index']);
@@ -274,6 +301,25 @@ Route::prefix('admin')->group(function () {
                 Route::post('/approve/{id}', [RequestIndustryApproveController::class, 'index']);
                 Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestIndustryViewController::class, 'index']);
+            });
+            Route::prefix('industries')->group(function () {
+                Route::prefix('registered')->group(function () {
+                    Route::get('/excel', [ControllersRegisteredExportController::class, 'index']);
+                    Route::get('/paginate', [ControllersRegisteredPaginateController::class, 'index']);
+                    Route::get('/view/{id}', [ControllersRegisteredViewController::class, 'index']);
+                    Route::post('/update/{id}', [ControllersRegisteredUpdateController::class, 'index']);
+                    Route::post('/update-auth/{id}', [ControllersRegisteredAuthController::class, 'index']);
+                    Route::get('/toggle-status/{id}', [ControllersRegisteredToggleController::class, 'index']);
+                    Route::prefix('staff/{id}')->group(function () {
+                        Route::get('/excel', [ControllersStaffExportController::class, 'index']);
+                        Route::get('/paginate', [ControllersStaffPaginateController::class, 'index']);
+                    });
+                });
+                Route::prefix('non-registered')->group(function () {
+                    Route::get('/excel', [ControllersNonRegisteredExportController::class, 'index']);
+                    Route::get('/paginate', [ControllersNonRegisteredPaginateController::class, 'index']);
+                    Route::get('/view/{id}', [ControllersNonRegisteredViewController::class, 'index']);
+                });
             });
         });
     });

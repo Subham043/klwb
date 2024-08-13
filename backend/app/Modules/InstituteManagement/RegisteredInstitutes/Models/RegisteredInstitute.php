@@ -3,7 +3,7 @@
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Models;
 
 use App\Http\Traits\AuthTrait;
-use App\Modules\InstituteManagement\Institutes\Models\Institute;
+use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,7 +52,7 @@ class RegisteredInstitute extends Model
 
     public function registration()
     {
-        return $this->hasOne(Institute::class, 'reg_institute_id')->withDefault();
+        return $this->hasOne(IndustryAuth::class, 'reg_institute_id')->withDefault();
     }
 
 }

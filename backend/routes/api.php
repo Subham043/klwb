@@ -18,6 +18,7 @@ use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
 use App\Modules\CourseManagement\Classes\Controllers\ClassesAllController;
 use App\Modules\CourseManagement\Courses\Controllers\CourseAllController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationAllController;
+use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryAllController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteAllController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,9 @@ Route::prefix('v1')->group(function () {
     });
     Route::prefix('registered-institutes')->group(function () {
         Route::get('/all', [RegisteredInstituteAllController::class, 'index']);
+    });
+    Route::prefix('registered-industries')->group(function () {
+        Route::get('/all', [RegisteredIndustryAllController::class, 'index']);
     });
 
     Route::middleware([Guards::Web->middleware()])->group(function () {

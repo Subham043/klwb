@@ -3,6 +3,7 @@
 namespace App\Modules\Students\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\Students\Accounts\Requests\ProfileVerifyPostRequest;
 use App\Modules\Students\Accounts\Resources\ProfileCollection;
@@ -35,7 +36,7 @@ class ProfileVerifyController extends Controller
 
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
-                'profile' => ProfileCollection::make(auth()->user()),
+                'profile' => ProfileCollection::make(auth()->guard(Guards::Web->value())->user()),
                 'message' => "Profile Verified successfully.",
             ], 200);
         } catch (\Throwable $th) {

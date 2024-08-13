@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\Employees\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Modules\Admins\Employees\Events\EmployeeCreated;
 use App\Modules\Admins\Employees\Requests\EmployeeCreatePostRequest;
 use App\Modules\Admins\Employees\Resources\EmployeeCollection;
@@ -23,7 +24,7 @@ class EmployeeCreateController extends Controller
         try {
             //code...
             $employee = $this->employeeService->create(
-                [...$request->except('role'), 'created_by' => auth()->user()->id]
+                [...$request->except('role'), 'created_by' => auth()->guard(Guards::Admin->value())->user()->id]
             );
             $this->employeeService->syncRoles([$request->role], $employee);
             EmployeeCreated::dispatch($employee, $request->password);

@@ -3,6 +3,7 @@
 namespace App\Modules\InstituteManagement\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\InstituteManagement\Accounts\Requests\ProfilePostRequest;
 use App\Modules\InstituteManagement\Accounts\Resources\ProfileCollection;
@@ -33,7 +34,7 @@ class ProfileUpdateController extends Controller
             if($user->phone != $request->phone) {
                 $phone_status = true;
             }
-            $updated_user = $this->instituteAuthService->update(
+            $updated_user = $this->instituteAuthService->updateInstituteAuth(
                 $request->validated(),
                 $user
             );
@@ -45,7 +46,7 @@ class ProfileUpdateController extends Controller
 
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
-                'profile' => ProfileCollection::make(auth()->user()),
+                'profile' => ProfileCollection::make(auth()->guard(Guards::Institute->value())->user()),
                 'message' => "Profile Updated successfully.",
             ], 200);
         } catch (\Throwable $th) {

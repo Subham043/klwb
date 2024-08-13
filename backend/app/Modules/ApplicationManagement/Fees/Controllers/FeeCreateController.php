@@ -3,6 +3,7 @@
 namespace App\Modules\ApplicationManagement\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Modules\ApplicationManagement\Fees\Requests\FeeCreateRequest;
 use App\Modules\ApplicationManagement\Fees\Resources\FeeCollection;
 use App\Modules\ApplicationManagement\Fees\Services\FeeService;
@@ -20,7 +21,7 @@ class FeeCreateController extends Controller
         try {
             //code...
             $fee = $this->feeService->create(
-                [...$request->validated(), 'year'=>date('Y'), 'user_id' => auth()->user()->id]
+                [...$request->validated(), 'year'=>date('Y'), 'user_id' => auth()->guard(Guards::Admin->value())->user()->id]
             );
             return response()->json(["message" => "Fee created successfully.", "data" => FeeCollection::make($fee)], 201);
         } catch (\Throwable $th) {
