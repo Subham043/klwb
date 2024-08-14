@@ -28,7 +28,7 @@ class SingleIndustryAuthCollection extends JsonResource
             'gst_no' => $this->gst_no,
             'pan_no' => $this->pan_no,
             'address' => $this->address,
-            'register_doc' => $this->register_doc_link,
+            'reg_doc' => $this->reg_doc_link,
             'sign' => $this->sign_link,
             'seal' => $this->seal_link,
             'pan' => $this->pan_link,

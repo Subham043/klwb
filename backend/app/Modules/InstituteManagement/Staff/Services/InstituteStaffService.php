@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\IndustryManagement\Staff\Services;
+namespace App\Modules\InstituteManagement\Staff\Services;
 
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
+use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
 use App\Modules\Roles\Enums\Roles;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -12,25 +12,25 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class IndustryStaffService
+class InstituteStaffService
 {
-    protected function model(string $reg_industry_id, string $created_by): Builder
+    protected function model(string $school_id, string $created_by): Builder
     {
-        return IndustryAuth::with([
+        return InstituteAuth::with([
             'roles' => function ($query) {
-                $query->where('name', Roles::IndustryStaff->value());
+                $query->where('name', Roles::InstituteStaff->value());
             }
         ])
-        ->where('reg_industry_id', $reg_industry_id)
+        ->where('school_id', $school_id)
         ->where('created_by', $created_by)
         ->whereHas('roles', function ($query) {
-            $query->where('name', Roles::IndustryStaff->value());
+            $query->where('name', Roles::InstituteStaff->value());
         })
         ->whereNotNull('created_by');
     }
-    protected function query(string $reg_industry_id, string $created_by): QueryBuilder
+    protected function query(string $school_id, string $created_by): QueryBuilder
     {
-        return QueryBuilder::for($this->model($reg_industry_id, $created_by))
+        return QueryBuilder::for($this->model($school_id, $created_by))
                 ->defaultSort('-id')
                 ->allowedSorts('id')
                 ->allowedFilters([
@@ -38,22 +38,22 @@ class IndustryStaffService
                 ]);
     }
 
-    public function all(string $reg_industry_id, string $created_by): Collection
+    public function all(string $school_id, string $created_by): Collection
     {
-        return $this->query($reg_industry_id, $created_by)
+        return $this->query($school_id, $created_by)
                 ->lazy(100)->collect();
     }
 
-    public function paginate(string $reg_industry_id, string $created_by, Int $total = 10): LengthAwarePaginator
+    public function paginate(string $school_id, string $created_by, Int $total = 10): LengthAwarePaginator
     {
-        return $this->query($reg_industry_id, $created_by)
+        return $this->query($school_id, $created_by)
                 ->paginate($total)
                 ->appends(request()->query());
     }
 
-    public function excel(string $reg_industry_id, string $created_by) : SimpleExcelWriter
+    public function excel(string $school_id, string $created_by) : SimpleExcelWriter
     {
-        $model = $this->model($reg_industry_id, $created_by);
+        $model = $this->model($school_id, $created_by);
         $i=0;
         $writer = SimpleExcelWriter::streamDownload('institute_staffs.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {

@@ -33,7 +33,6 @@ class StudentRegisterController extends Controller
                 'user' => AuthCollection::make($user),
             ], 201);
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
         } finally {

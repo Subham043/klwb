@@ -53,7 +53,7 @@ class RequestIndustry extends Model
         'updated_at' => 'datetime',
     ];
 
-    public $register_doc_path = 'reg-doc';
+    public $register_doc_path = 'reg-file';
 
     protected $appends = ['register_doc_link'];
 

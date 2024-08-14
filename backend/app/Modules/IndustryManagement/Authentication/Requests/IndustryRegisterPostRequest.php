@@ -31,6 +31,7 @@ class IndustryRegisterPostRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => ['required', 'string'],
             'email' => ['required','email:rfc,dns','unique:industry_auths'],
             'phone' => ['required','numeric', 'digits:10', 'unique:industry_auths'],
             'password' => ['required',
@@ -42,7 +43,7 @@ class IndustryRegisterPostRequest extends FormRequest
                         ->symbols()
             ],
             'confirm_password' => ['required_with:password','same:password'],
-            'register_doc' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
+            'reg_doc' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
             'sign' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
             'seal' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
             'city_id' => 'required|numeric|exists:cities,id',
@@ -59,7 +60,7 @@ class IndustryRegisterPostRequest extends FormRequest
         return [
             'city_id' => 'District',
             'reg_industry_id' => 'Industry',
-            'name' => 'Principal Name',
+            'name' => 'Director Name',
         ];
     }
 

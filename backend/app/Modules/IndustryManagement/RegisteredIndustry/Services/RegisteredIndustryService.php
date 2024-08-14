@@ -67,7 +67,7 @@ class RegisteredIndustryService
     {
         $model = $this->model();
         $i=0;
-        $writer = SimpleExcelWriter::streamDownload('institutes.xlsx');
+        $writer = SimpleExcelWriter::streamDownload('registered_industries.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {
             $writer->addRow([
                 'Id' => $data->id,

@@ -140,23 +140,23 @@ const InstituteInfoUpdate = ({ modal, setModal, data, refetch, error, loading:da
 				<ErrorBoundaryLayout loading={dataLoading} error={error} refetch={refetch}>
 								<>
 												<Panel header="Institute Information Update" className='info-modal-panel' bordered>
-																<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																				<TextInput name="name" label="Institute Name" control={control} error={errors.name?.message} />
 																				<TextInput name="principal" label="Principal Name" control={control} error={errors.principal?.message} />
 																</Stack>
-																<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																				<TextInput name="email" type='email' label="Email" control={control} error={errors.email?.message} />
 																				<TextInput name="phone" label="Phone" control={control} error={errors.phone?.message} />
 																</Stack>
-																<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																					<TextInput name="management_type" label="Management Type" control={control} error={errors.management_type?.message} />
 																					<TextInput name="category" label="Institute Category" control={control} error={errors.category?.message} />
 																</Stack>
-																<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																					<TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
 																					<TextInput name="pincode" label="Pincode" control={control} error={errors.pincode?.message} />
 																</Stack>
-																<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																					<SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
 																					<SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
 																</Stack>

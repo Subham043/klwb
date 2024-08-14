@@ -18,7 +18,7 @@ class PasswordPostRequest extends FormRequest
     public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::check();
+        return Auth::guard(Guards::Industry->value())->check();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Students\Accounts\Requests;
 
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Foundation\Http\FormRequest;
@@ -17,7 +18,7 @@ class PasswordPostRequest extends FormRequest
     public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::check();
+        return Auth::guard(Guards::Web->value())->check();
     }
 
     /**

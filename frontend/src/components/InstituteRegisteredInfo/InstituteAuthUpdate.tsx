@@ -93,7 +93,7 @@ const InstituteAuthUpdate = ({ modal, setModal, data, refetch, error, loading:da
 				<ErrorBoundaryLayout loading={dataLoading} error={error} refetch={refetch}>
 								<>
 												<Panel header="Institute Credential Update" className='info-modal-panel' bordered>
-																<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																				<TextInput name="name" label="Name" control={control} error={errors.name?.message} />
 																				<TextInput name="email" type='email' label="Email" control={control} error={errors.email?.message} />
 																				<TextInput name="phone" label="Phone" control={control} error={errors.phone?.message} />

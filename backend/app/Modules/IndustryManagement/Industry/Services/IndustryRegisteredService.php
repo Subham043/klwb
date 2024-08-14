@@ -4,6 +4,7 @@ namespace App\Modules\IndustryManagement\Industry\Services;
 
 use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
 use App\Modules\IndustryManagement\Industry\Requests\RegisteredUpdateRequest;
+use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
 use App\Modules\LocationManagement\Cities\Services\CityService;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -126,7 +127,7 @@ class IndustryRegisteredService
                 'Director Name' => $data->name,
                 'Mobile' => $data->phone,
                 'Email' => $data->email,
-                'Act' => $data->act,
+                'Act' => Act::getValue($data->registered_industry->act),
                 'Taluq' => $data->taluq->name,
                 'Taluq ID' => $data->taluq->id,
                 'District' => $data->city->name,

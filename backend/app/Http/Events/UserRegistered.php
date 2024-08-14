@@ -2,6 +2,7 @@
 
 namespace App\Http\Events;
 
+use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -16,7 +17,7 @@ class UserRegistered
      * Create a new event instance.
      */
     public function __construct(
-        public User|InstituteAuth $user
+        public User|InstituteAuth|IndustryAuth $user
     ) {
     }
 }

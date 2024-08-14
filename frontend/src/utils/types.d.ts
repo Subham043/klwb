@@ -25,6 +25,10 @@ export type InstituteAuthType = AuthType & {
   school_id: number;
 };
 
+export type InstituteAuthType = AuthType & {
+  school_id: number;
+};
+
 export type RoleType = {
   id: number;
   name: string;
@@ -204,6 +208,19 @@ export type InstituteNonRegisteredType = {
   updated_at: string;
 };
 
+
+export type RegisteredIndustryType = {
+  id: number;
+  reg_id: string;
+  name: string;
+  act: number;
+  act_label: string;
+  pincode: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type RequestIndustryType = {
   id: number;
   company: string;
@@ -212,6 +229,7 @@ export type RequestIndustryType = {
   gst_no: string;
   pan_no: string;
   act: number;
+  act_label: string;
   address: string;
   register_doc: string;
   taluq_id: number;
@@ -224,6 +242,44 @@ export type RequestIndustryType = {
     id: number;
     name: string;
   };
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type IndustryRegisteredStaffType = AuthType & {
+  reg_industry_id: number;
+  created_by: number;
+};
+
+export type IndustryRegisteredType = IndustryRegisteredStaffType & {
+  id: number;
+  gst_no: string;
+  pan_no: string;
+  reg_doc: string;
+  sign: string;
+  seal: string;
+  gst: string;
+  pan: string;
+  registered_industry: RegisteredIndustryType;
+  address: string;
+  city: {
+    id: number;
+    name: string;
+  };
+  taluq: {
+    id: number;
+    name: string;
+  };
+};
+
+export type IndustryNonRegisteredType = {
+  id: number;
+  reg_id: string;
+  name: string;
+  act: number;
+  act_label: string;
+  pincode: string;
   is_active: boolean;
   created_at: string;
   updated_at: string;

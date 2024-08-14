@@ -7,13 +7,12 @@ enum Act:int {
     case Company = 2;
     case Other = 3;
 
-    public static function getValue(string|null $value): string|null
+    public static function getValue(int|null $value): string|null
     {
         return match ($value) {
-            self::Labour->value => self::Labour->value,
-            self::Company->value => self::Company->value,
-            self::Other->value => self::Other->value,
-            null => null,
+            self::Labour->value => 'Labour',
+            self::Company->value => 'Company',
+            self::Other->value => 'Other',
             default => null,
         };
     }

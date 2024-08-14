@@ -142,15 +142,15 @@ export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Panel header={drawer.type === "Edit" ? "Update Institute" : " Add Institute"} className='info-modal-panel' bordered>
                     <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
                             <TextInput name="name" label="Institute Name" control={control} error={errors.name?.message} />
                             <TextInput name="management_type" label="Management Type" control={control} error={errors.management_type?.message} />
                         </Stack>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
                             <TextInput name="category" label="Institute Category" control={control} error={errors.category?.message} />
                             <TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
                         </Stack>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
                             <SelectInput name="urban_rural" label="Urban/Rural" data={[{label:'Urban', value:'Urban'}, {label:'Rural', value:'Rural'}]} control={control} error={errors.urban_rural?.message} />
                             <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
                             <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />

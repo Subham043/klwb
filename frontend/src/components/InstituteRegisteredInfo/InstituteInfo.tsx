@@ -52,7 +52,7 @@ export default function InstituteInfo({ id }: Props) {
 					}
 					className='info-modal-panel'
 					bordered>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Name</Heading>
 							<Text>{data?.registered_institute.name}</Text>
@@ -66,7 +66,7 @@ export default function InstituteInfo({ id }: Props) {
 							<Text>{data?.email}</Text>
 						</HeadingGroup>
 					</Stack>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Phone</Heading>
 							<Text>{data?.phone}</Text>
@@ -80,7 +80,7 @@ export default function InstituteInfo({ id }: Props) {
 							<Text>{data?.registered_institute.category}</Text>
 						</HeadingGroup>
 					</Stack>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Institute Type</Heading>
 							<Text>{data?.registered_institute.type}</Text>
@@ -94,7 +94,7 @@ export default function InstituteInfo({ id }: Props) {
 							<Text>{data?.address.pincode}</Text>
 						</HeadingGroup>
 					</Stack>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Address</Heading>
 							<Text>{data?.address.address}</Text>
@@ -108,7 +108,7 @@ export default function InstituteInfo({ id }: Props) {
 							<Text>{data?.address.taluq.name}</Text>
 						</HeadingGroup>
 					</Stack>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Institute Reg. File</Heading>
 							<img src={data?.reg_certification} alt="" style={{ objectFit: 'contain', height: '200px' }} />
@@ -134,7 +134,7 @@ export default function InstituteInfo({ id }: Props) {
 					}
 					className='info-modal-panel'
 					bordered>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Name</Heading>
 							<Text>{data?.profile.name}</Text>
@@ -148,7 +148,7 @@ export default function InstituteInfo({ id }: Props) {
 							<Text>{data?.profile.phone}</Text>
 						</HeadingGroup>
 					</Stack>
-					<Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Verification</Heading>
 							<Status status={data?.profile.verified === VerificationEnum.VERIFIED} wrongLabel={VerificationEnum.VERIFICATION_PENDING} correctLabel={VerificationEnum.VERIFIED} />

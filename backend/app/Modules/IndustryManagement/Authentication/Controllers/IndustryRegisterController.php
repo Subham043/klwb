@@ -27,6 +27,7 @@ class IndustryRegisterController extends Controller
             //code...
             $city = (new CityService)->getById($request->city_id);
             $industry = $this->industryAuthService->createIndustryAuth([
+                'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => $request->password,
@@ -35,8 +36,8 @@ class IndustryRegisterController extends Controller
                 'city_id' => $request->city_id,
                 'taluq_id' => $request->taluq_id,
             ]);
-            if($request->hasFile('register_doc')){
-                $this->industryAuthService->saveRegisterDoc($industry);
+            if($request->hasFile('reg_doc')){
+                $this->industryAuthService->saveRegDoc($industry);
             }
             if($request->hasFile('sign')){
                 $this->industryAuthService->saveSign($industry);

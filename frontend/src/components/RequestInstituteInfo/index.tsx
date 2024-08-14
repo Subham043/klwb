@@ -41,7 +41,7 @@ export default function RequestInstituteInfo({modal, modalHandler, refetch}:{mod
                 <>
                     <Panel header="Institute Request" className='info-modal-panel' bordered>
 
-                        <Stack divider={<Divider />} direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
                             <HeadingGroup className='mb-1'>
                                 <Heading level={6} className='info-heading'>Name</Heading>
                                 <Text>{data?.name}</Text>

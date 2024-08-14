@@ -44,7 +44,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail
         'gst',
         'pan',
         'address',
-        'register_doc',
+        'reg_doc',
         'sign',
         'seal',
         'city_id',
@@ -64,7 +64,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail
     protected $attributes = [
         'is_blocked' => false,
         'address' => null,
-        'register_doc' => null,
+        'reg_doc' => null,
         'sign' => null,
         'seal' => null,
         'gst' => null,
@@ -73,9 +73,9 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail
         'pan_no' => null,
     ];
 
-    protected $appends = ['current_role', 'register_doc_link', 'sign_link', 'seal_link', 'gst_link', 'pan_link'];
+    protected $appends = ['current_role', 'reg_doc_link', 'sign_link', 'seal_link', 'gst_link', 'pan_link'];
 
-    public $register_doc_path = 'reg-doc';
+    public $reg_doc_path = 'reg-doc';
     public $sign_path = 'sign-doc';
     public $seal_path = 'seal-doc';
     public $gst_path = 'gst';
@@ -95,17 +95,17 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    protected function registerDoc(): Attribute
+    protected function regDoc(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => $this->register_doc_path.'/'.$value,
+            set: fn (string $value) => $this->reg_doc_path.'/'.$value,
         );
     }
 
-    protected function registerDocLink(): Attribute
+    protected function regDocLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->register_doc ? Storage::temporaryUrl($this->register_doc, now()->addMinutes(5)) : null,
+            get: fn () => $this->reg_doc ? Storage::temporaryUrl($this->reg_doc, now()->addMinutes(5)) : null,
         );
     }
 

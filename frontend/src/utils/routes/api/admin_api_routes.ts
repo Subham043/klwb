@@ -172,6 +172,18 @@ export const admin_api_routes = {
         `/api/admin/v1/institutes/non-registered/view/${id}`,
     },
   },
+  registered_industry: {
+    excel: "/api/admin/v1/registered-industries/excel",
+    all: "/api/admin/v1/registered-industries/all",
+    paginate: "/api/admin/v1/registered-industries/paginate",
+    create: "/api/admin/v1/registered-industries/create",
+    update: (id: string | number) =>
+      `/api/admin/v1/registered-industries/update/${id}`,
+    delete: (id: string | number) =>
+      `/api/admin/v1/registered-industries/delete/${id}`,
+    view: (id: string | number) =>
+      `/api/admin/v1/registered-industries/view/${id}`,
+  },
   request_industry: {
     excel: "/api/admin/v1/request-industries/excel",
     all: "/api/admin/v1/request-industries/all",
@@ -184,5 +196,31 @@ export const admin_api_routes = {
       `/api/admin/v1/request-industries/delete/${id}`,
     view: (id: string | number) =>
       `/api/admin/v1/request-industries/view/${id}`,
+  },
+  industry: {
+    registered: {
+      excel: "/api/admin/v1/industries/registered/excel",
+      paginate: "/api/admin/v1/industries/registered/paginate",
+      view: (id: string | number) =>
+        `/api/admin/v1/industries/registered/view/${id}`,
+      update: (id: string | number) =>
+        `/api/admin/v1/industries/registered/update/${id}`,
+      update_auth: (id: string | number) =>
+        `/api/admin/v1/industries/registered/update-auth/${id}`,
+      toggle: (id: string | number) =>
+        `/api/admin/v1/industries/registered/toggle-status/${id}`,
+      staff: {
+        excel: (id: string | number) =>
+          `/api/admin/v1/industries/registered/staff/${id}/excel`,
+        paginate: (id: string | number) =>
+          `/api/admin/v1/industries/registered/staff/${id}/paginate`,
+      },
+    },
+    non_registered: {
+      excel: "/api/admin/v1/industries/non-registered/excel",
+      paginate: "/api/admin/v1/industries/non-registered/paginate",
+      view: (id: string | number) =>
+        `/api/admin/v1/industries/non-registered/view/${id}`,
+    },
   },
 } as const;

@@ -18,7 +18,6 @@ class FileController extends Controller
                 'message' => "Link has expired.",
             ], 404);
         } catch (\Throwable $th) {
-            //throw $th;
             return response()->json([
                 'message' => "Link has expired.",
             ], 404);

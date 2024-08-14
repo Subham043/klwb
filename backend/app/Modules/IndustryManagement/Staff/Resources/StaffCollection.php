@@ -23,6 +23,8 @@ class StaffCollection extends JsonResource
             'verified_at' => $this->verified_at,
             'is_blocked' => $this->is_blocked,
             'role' => $this->currentRole,
+            'reg_industry_id' => $this->reg_industry_id,
+            'created_by' => $this->created_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

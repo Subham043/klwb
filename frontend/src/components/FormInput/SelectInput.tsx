@@ -12,11 +12,13 @@ type PropType = {
 		loading?: boolean
 		disabled?: boolean
 		error: string | undefined
+		searchHandler?: (val: string) => void
+		searchPlaceholder?: string
 };
 
 
 const SelectInput = (props: PropType) => {
-	const { control, error, label, name, data, loading, disabled} = props;
+	const { control, error, label, name, data, loading, disabled, searchHandler, searchPlaceholder} = props;
 	return (
 					<Form.Group>
 									<Controller
@@ -25,7 +27,7 @@ const SelectInput = (props: PropType) => {
 													render={({ field }) => (
 																	<>
 																					<Form.ControlLabel>{label}</Form.ControlLabel>
-																					<SelectPicker data={data} name={field.name} value={field.value} onChange={field.onChange} loading={loading} disabled={disabled} virtualized className='w-100' />
+																					<SelectPicker data={data} name={field.name} value={field.value} onChange={field.onChange} loading={loading} disabled={disabled} onSearch={(val) => searchHandler && searchHandler(val)} placeholder={searchPlaceholder} virtualized className='w-100' />
 																					<Form.ErrorMessage show={!!error} placement="bottomStart">
 																									{error}
 																					</Form.ErrorMessage>

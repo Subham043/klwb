@@ -17,7 +17,6 @@ class EncryptionService
             //code...
             return Crypt::decryptString($value);
         } catch (DecryptException $e) {
-            //throw $th;
             return null;
         }
     }

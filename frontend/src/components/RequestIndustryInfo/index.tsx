@@ -41,7 +41,7 @@ export default function RequestIndustryInfo({modal, modalHandler, refetch}:{moda
                 <>
                     <Panel header="Industry Request" className='info-modal-panel' bordered>
 
-                        <Stack divider={<Divider />} direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
                             <HeadingGroup className='mb-1'>
                                 <Heading level={6} className='info-heading'>Company</Heading>
                                 <Text>{data?.company}</Text>
@@ -51,7 +51,7 @@ export default function RequestIndustryInfo({modal, modalHandler, refetch}:{moda
                                 <Text>{data?.email}</Text>
                             </HeadingGroup>
                         </Stack>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
                             <HeadingGroup className='mb-1'>
                                 <Heading level={6} className='info-heading'>Mobile</Heading>
                                 <Text>{data?.mobile}</Text>
@@ -61,7 +61,7 @@ export default function RequestIndustryInfo({modal, modalHandler, refetch}:{moda
                                 <Text>{data?.act}</Text>
                             </HeadingGroup>
                         </Stack>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
                             <HeadingGroup className='mb-1'>
                                 <Heading level={6} className='info-heading'>GST</Heading>
                                 <Text>{data?.gst_no}</Text>
@@ -71,7 +71,7 @@ export default function RequestIndustryInfo({modal, modalHandler, refetch}:{moda
                                 <Text>{data?.pan_no}</Text>
                             </HeadingGroup>
                         </Stack>
-                        <Stack direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
+                        <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
                             <HeadingGroup className='mb-1'>
                                 <Heading level={6} className='info-heading'>District</Heading>
                                 <Text>{data?.city.name}</Text>

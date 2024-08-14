@@ -35,6 +35,7 @@ const IndustryLoginPage = lazy(()=>import("./pages/Auth/LoginPage/IndustryLoginP
 const InstituteLoginPage = lazy(()=>import("./pages/Auth/LoginPage/InstituteLoginPage"));
 const StudentRegisterPage = lazy(()=>import("./pages/Auth/Register/StudentRegisterPage"));
 const InstituteRegisterPage = lazy(()=>import("./pages/Auth/Register/InstituteRegisterPage"));
+const IndustryRegisterPage = lazy(()=>import("./pages/Auth/Register/IndustryRegisterPage"));
 const AdminForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.AdminForgotPasswordPage })));
 const IndustryForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.IndustryForgotPasswordPage })));
 const InstituteForgotPasswordPage = lazy(()=>import("./pages/Auth/ForgotPasswordPage").then(module => ({ default: module.InstituteForgotPasswordPage })));
@@ -63,6 +64,10 @@ const HomePage = lazy(()=>import("./pages/Home"));
 const InstituteRequestPage = lazy(()=>import("./pages/Auth/InstituteRequestPage"));
 const RequestIndustryPage = lazy(()=>import("./pages/RequestIndustry"));
 const IndustryRequestPage = lazy(()=>import("./pages/Auth/IndustryRequestPage"));
+const RegisteredIndustryPage = lazy(()=>import("./pages/RegisteredIndustry"));
+const IndustryRegisteredPage = lazy(()=>import("./pages/IndustryRegistered"));
+const IndustryRegisteredInfoPage = lazy(()=>import("./pages/IndustryRegisteredInfo"));
+const IndustryNonRegisteredPage = lazy(()=>import("./pages/IndustryNonRegistered"));
 
 const queryClient = new QueryClient(QueryClientOptions);
 
@@ -94,7 +99,11 @@ function App() {
                             <Route path={page_routes.admin.institute.non_registered} element={<InstituteNonRegisteredPage />} />
                             <Route path={page_routes.admin.institute.registered} element={<InstituteRegisteredPage />} />
                             <Route path={page_routes.admin.institute.registered_info(":id")} element={<InstituteRegisteredInfoPage />} />
+                            <Route path={page_routes.admin.industry.all} element={<RegisteredIndustryPage />} />
                             <Route path={page_routes.admin.industry.request} element={<RequestIndustryPage />} />
+                            <Route path={page_routes.admin.industry.non_registered} element={<IndustryNonRegisteredPage />} />
+                            <Route path={page_routes.admin.industry.registered} element={<IndustryRegisteredPage />} />
+                            <Route path={page_routes.admin.industry.registered_info(":id")} element={<IndustryRegisteredInfoPage />} />
                             <Route path={page_routes.admin.security_question} element={<SecurityQuestionPage />} />
                             <Route path={page_routes.admin.application_date} element={<ApplicationDatePage />} />
                             <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
@@ -168,7 +177,7 @@ function App() {
                   <Route element={<IndustryGuestLayout />}>
                     <Route element={<IndustryAuthLayout />}>
                         <Route path={page_routes.industry.auth.login} element={<IndustryLoginPage />} />
-                        {/* <Route path={page_routes.industry.auth.register} element={<IndustryRegisterPage />} /> */}
+                        <Route path={page_routes.industry.auth.register} element={<IndustryRegisterPage />} />
                         <Route path={page_routes.industry.auth.forgot_password} element={<IndustryForgotPasswordPage />} />
                         <Route path={page_routes.industry.auth.reset_password} element={<IndustryResetPasswordPage />} />
                         <Route path={page_routes.industry.auth.request} element={<IndustryRequestPage />} />

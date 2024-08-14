@@ -19,7 +19,7 @@ class ProfilePostRequest extends FormRequest
     public function authorize()
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::check();
+        return Auth::guard(Guards::Institute->value())->check();
     }
 
     /**

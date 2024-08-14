@@ -61,11 +61,11 @@ class IndustryAuthService
         return $industryAuth;
     }
 
-    public function saveRegisterDoc(IndustryAuth $industry): IndustryAuth
+    public function saveRegDoc(IndustryAuth $industry): IndustryAuth
     {
-        $register_doc = (new FileService)->save_file('register_doc', (new IndustryAuth)->register_doc_path);
+        $reg_doc = (new FileService)->save_file('reg_doc', (new IndustryAuth)->reg_doc_path);
         return $this->updateIndustryAuth([
-            'register_doc' => $register_doc,
+            'reg_doc' => $reg_doc,
         ], $industry);
     }
 
