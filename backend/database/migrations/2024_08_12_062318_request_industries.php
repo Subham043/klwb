@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('request_industries', function (Blueprint $table) {
             $table->id();
-            $table->string('company')->nullable();
+            $table->text('company')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->string('gst_no')->nullable();

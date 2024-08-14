@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('request_institutes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->text('name')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->string('pincode')->nullable();
