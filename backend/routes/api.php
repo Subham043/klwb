@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Enums\Guards;
+use App\Modules\ApplicationManagement\Applications\Controllers\ApplyScholarshipController;
 use App\Modules\Students\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\Students\Accounts\Controllers\ProfileController;
 use App\Modules\Students\Accounts\Controllers\ProfileUpdateController;
@@ -66,6 +67,9 @@ Route::prefix('v1')->group(function () {
             Route::middleware('verified')->post('/update-password', [PasswordUpdateController::class, 'index']);
             Route::post('/verify', [ProfileVerifyController::class, 'index']);
             Route::get('/resend-otp', [ResendRegisteredUserOtpController::class, 'index'])->middleware(['throttle:3,1']);
+        });
+        Route::prefix('scholarship')->group(function () {
+            Route::post('/apply', [ApplyScholarshipController::class, 'index']);
         });
     });
 });
