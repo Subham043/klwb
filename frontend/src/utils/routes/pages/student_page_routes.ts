@@ -6,4 +6,7 @@ export const student_page_routes = {
     reset_password: "/auth/student/reset-password/:token",
   },
   dashboard: "/student/dashboard",
+  scholarship: {
+    apply: "/student/scholarship/apply",
+  }
 } as const;

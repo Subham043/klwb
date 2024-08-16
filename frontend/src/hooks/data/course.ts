@@ -46,14 +46,15 @@ export const useCourseSelectQuery: (
 };
 
 export const useCourseCommonSelectQuery: (
-  enabled: boolean
-) => UseQueryResult<CourseType[], unknown> = (enabled) => {
+  enabled: boolean,
+  graduation_id?: number
+) => UseQueryResult<CourseType[], unknown> = (enabled, graduation_id) => {
   const axios = useAxios();
   return useQuery({
-    queryKey: [CourseCommonSelectQueryKey],
+    queryKey: [CourseCommonSelectQueryKey, graduation_id],
     queryFn: async () => {
       const response = await axios.get<{ data: CourseType[] }>(
-        api_routes.user.course.all
+        api_routes.user.course.all + (graduation_id ? `?filter[has_graduation]=${graduation_id}` : "")
       );
       return response.data.data;
     },

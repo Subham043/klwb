@@ -45,6 +45,8 @@ const StudentResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").t
 const IndustryResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.IndustryResetPasswordPage })));
 const InstituteResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.InstituteResetPasswordPage })));
 const DashboardPage = lazy(()=>import("./pages/Dashboard"));
+const StudentDashboardPage = lazy(()=>import("./pages/Student/Dashboard"));
+const StudentApplyScholarshipPage = lazy(()=>import("./pages/Student/ApplyScholarship"));
 const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
 const ClassPage = lazy(()=>import("./pages/Class"));
@@ -127,6 +129,8 @@ function App() {
                     <Route element={<StudentVerifiedLayout />} >
                       <Route element={<StudentAuthorisedLayout />}>
                           <Route element={<DashboardLayout />}>
+                            <Route path={page_routes.student.dashboard} element={<StudentDashboardPage />} />
+                            <Route path={page_routes.student.scholarship.apply} element={<StudentApplyScholarshipPage />} />
                           </Route>
                       </Route>
                     </Route>

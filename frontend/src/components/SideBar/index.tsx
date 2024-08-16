@@ -25,7 +25,7 @@ const NavMenu = () => {
     return <>
             {
                 [RolesEnum.STUDENT].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
-                    <Nav.Item eventKey="1" icon={<ChangeListIcon />}>
+                    <Nav.Item eventKey="1" as={NavLink} to={page_routes.student.scholarship.apply} className='sidebar-navlink' icon={<ChangeListIcon />}>
                         Apply Scholarship
                     </Nav.Item>
                     <Nav.Item eventKey="2" icon={<DocPassIcon />}>
