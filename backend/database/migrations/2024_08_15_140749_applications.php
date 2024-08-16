@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('student_id')->nullable()->index();
             $table->foreignId('school_id')->nullable()->index();
             $table->foreignId('company_id')->nullable()->index();
+            $table->string('uniq', 250)->nullable();
             $table->tinyInteger('status')->nullable()->default(0);
             $table->tinyInteger('application_state')->nullable()->default(0);
             $table->text('reject_reason')->nullable();

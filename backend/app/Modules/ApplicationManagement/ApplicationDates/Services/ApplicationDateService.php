@@ -43,6 +43,11 @@ class ApplicationDateService
     {
         return $this->model()->findOrFail($id);
     }
+    
+    public function getLatest(): ApplicationDate|null
+    {
+        return $this->model()->latest()->firstOrFail();
+    }
 
     public function create(array $data): ApplicationDate
     {

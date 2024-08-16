@@ -26,6 +26,7 @@ class Application extends Model
 		'student_id',
 		'school_id',
 		'company_id',
+		'uniq',
 		'status',
 		'application_state',
 		'reject_reason',
