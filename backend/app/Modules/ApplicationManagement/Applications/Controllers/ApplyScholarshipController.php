@@ -30,10 +30,12 @@ class ApplyScholarshipController extends Controller
         DB::beginTransaction();
         try {
             //code...
-            $this->scholarshipService->apply($request->validated());
+            $request->validated();
+            $this->scholarshipService->apply($request);
             return response()->json(["message" => "Scholarship applied successfully."], 201);
         } catch (\Throwable $th) {
             DB::rollBack();
+            throw $th;
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
         } finally {
             DB::commit();

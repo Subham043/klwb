@@ -28,6 +28,7 @@ const FileInput = (props: PropType) => {
 																									action=''
 																									onChange={field.onChange}
 																									className='w-100'
+																									data={{ name: field.name }}
 																									accept={accept}
 																									multiple={false}
 																									maxPreviewFileSize={1}

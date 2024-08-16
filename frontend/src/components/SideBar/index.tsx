@@ -19,12 +19,16 @@ import TagNumberIcon from '@rsuite/icons/TagNumber';
 import ReviewIcon from '@rsuite/icons/Review';
 import { page_routes } from '../../utils/routes/pages';
 import { RolesEnum } from '../../utils/constants/role';
+import AppSelectIcon from '@rsuite/icons/AppSelect';
 
 const NavMenu = () => {
     const  {user} = useUser();
     return <>
             {
                 [RolesEnum.STUDENT].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="12" as={NavLink} to={page_routes.student.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Dashboard
+                    </Nav.Item>
                     <Nav.Item eventKey="1" as={NavLink} to={page_routes.student.scholarship.apply} className='sidebar-navlink' icon={<ChangeListIcon />}>
                         Apply Scholarship
                     </Nav.Item>
@@ -41,6 +45,9 @@ const NavMenu = () => {
             }
             {
                 [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="13" as={NavLink} to={page_routes.admin.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Employee Management
+                    </Nav.Item>
                     <Nav.Item eventKey="8" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Employee Management
                     </Nav.Item>

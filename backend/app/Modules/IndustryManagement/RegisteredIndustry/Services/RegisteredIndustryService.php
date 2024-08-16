@@ -25,6 +25,9 @@ class RegisteredIndustryService
                 ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
+                        $query->where('taluq_id', $value);
+                    })
                 ]);
     }
 

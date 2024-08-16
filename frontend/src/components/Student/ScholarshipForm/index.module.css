@@ -1,0 +1,20 @@
+.main_heading{
+	color: #00437d;
+	margin-bottom: 0.3rem;
+	font-weight: 800;
+}
+.main_sub_heading{
+	color: #00437d;
+	font-weight: 500;
+}
+.inner_main_heading{
+	color: white;
+	font-weight: 600;
+	margin-bottom: 0.3rem;
+	font-size: 1rem;
+}
+.inner_sub_heading{
+	color: #fff;
+	font-weight: 500;
+	font-size: 1rem;
+}

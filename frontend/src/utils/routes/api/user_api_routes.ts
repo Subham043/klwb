@@ -55,4 +55,8 @@ export const user_api_routes = {
 		profile_verify: "/api/v1/account/verify",
 		resend_otp: "/api/v1/account/resend-otp",
 	},
+	scholarship: {
+		apply: "/api/v1/scholarship/apply",
+		status: "/api/v1/scholarship/status",
+	}
 } as const;

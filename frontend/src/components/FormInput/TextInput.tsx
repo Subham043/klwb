@@ -9,6 +9,7 @@ type PropType = {
 		name: string
 		type?: string
 		focus?: boolean
+		disabled?: boolean
 		helpText?: string
 		textarea?: boolean
 		error: string | undefined
@@ -17,7 +18,7 @@ type PropType = {
 const Textarea = forwardRef<HTMLTextAreaElement>((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
 const TextInput = (props: PropType) => {
-	const { control, error, label, type, name, focus=false, helpText, textarea} = props;
+	const { control, error, label, type, name, focus=false, helpText, disabled, textarea} = props;
 
 	return (
 					<Form.Group>
@@ -29,8 +30,8 @@ const TextInput = (props: PropType) => {
 																					<Form.ControlLabel>{label}</Form.ControlLabel>
 																					{
 																						textarea ? 
-																						<Form.Control name={field.name} value={field.value} accepter={Textarea} autoFocus={focus} style={textarea ? {minHeight: '70px'} : undefined} onChange={field.onChange} />:
-																						<Form.Control name={field.name} type={type} value={field.value} autoFocus={focus} onChange={field.onChange} />
+																						<Form.Control name={field.name} value={field.value} accepter={Textarea} autoFocus={focus} disabled={disabled} style={textarea ? {minHeight: '70px'} : undefined} onChange={field.onChange} />:
+																						<Form.Control name={field.name} type={type} value={field.value} autoFocus={focus} disabled={disabled} onChange={field.onChange} />
 																					}
 																					{helpText && <Form.HelpText><b>Note:</b> <i>{helpText}</i></Form.HelpText>}
 																					<Form.ErrorMessage show={!!error} placement="bottomStart">

@@ -10,6 +10,8 @@ export const RegisteredIndustriesQueryKey = "registered_industries";
 export const RegisteredIndustrySelectQueryKey = "registered_industry_select";
 export const RegisteredIndustryCommonSelectQueryKey =
   "registered_industry_common_select";
+export const RegisteredIndustryUserCommonSelectQueryKey =
+  "registered_industry_common_select";
 
 export const useRegisteredIndustriesQuery: () => UseQueryResult<
   PaginationType<RegisteredIndustryType>,
@@ -62,6 +64,27 @@ export const useRegisteredIndustryCommonSelectQuery: (
       const response = await axios.get<{ data: RegisteredIndustryType[] }>(
         api_routes.user.registered_industry.all +
         (search ? `?filter[search]=${search}` : "")
+      );
+      return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useRegisteredIndustryUserCommonSelectQuery: (
+  enabled: boolean,
+  taluq_id?: number
+) => UseQueryResult<RegisteredIndustryType[], unknown> = (
+  enabled,
+  taluq_id
+) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [RegisteredIndustryUserCommonSelectQueryKey, taluq_id],
+    queryFn: async () => {
+      const response = await axios.get<{ data: RegisteredIndustryType[] }>(
+        api_routes.user.registered_industry.all +
+        (taluq_id ? `?filter[has_taluq]=${taluq_id}` : "")
       );
       return response.data.data;
     },

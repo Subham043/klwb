@@ -285,6 +285,73 @@ export type IndustryNonRegisteredType = {
   updated_at: string;
 };
 
+export type StudentApplicationAccountType = {
+  bank_name: string;
+  branch: string;
+  ifsc: string;
+  acc_no: number;
+  holder: string;
+  type: string;
+}
+
+export type StudentApplicationMarkType = {
+  graduation_id: number;
+  course_id?: number;
+  class_id?: number;
+  ins_pin: string;
+  ins_district_id: number;
+  ins_taluq_id: number;
+  prv_class: string;
+  prv_marks: number;
+}
+
+export type StudentApplicationCompanyType = {
+  who_working: string;
+  parent_guardian_name: string;
+  relationship: string;
+  msalary: number;
+  pincode: string;
+  district_id: number;
+  taluq_id: number;
+}
+
+export type StudentApplicationBasicDetailType = {
+  name: string;
+  father_name: string;
+  mother_name: string;
+  address: string;
+  parent_phone: number;
+  is_scst: string;
+  category: string;
+  cast_no?: string;
+  gender: string;
+  not_applicable?: string;
+  adharcard_no: number;
+  f_adhar: number;
+  m_adhar: number;
+}
+
+export type StudentApplicationType = {
+  application_year: number;
+  school_id: number;
+  company_id: number;
+  uniq?: string;
+  status: number;
+  application_state: number;
+  reject_reason?: string;
+  date: string;
+  school_approve?: string;
+  company_approve?: string;
+  govt_approve?: string;
+  admin_approve?: string;
+  account: StudentApplicationAccountType;
+  mark: StudentApplicationMarkType;
+  company: StudentApplicationCompanyType;
+  basic_detail: StudentApplicationBasicDetailType;
+  created_at: string;
+  updated_at: string;
+}
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

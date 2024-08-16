@@ -245,6 +245,10 @@ h2{
     background-color: transparent;
 }
 
+.scholarship-no-mb .rs-form-group{
+    margin-bottom: 0 !important;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;
