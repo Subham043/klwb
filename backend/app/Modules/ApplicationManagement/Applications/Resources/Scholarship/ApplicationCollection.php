@@ -15,8 +15,12 @@ class ApplicationCollection extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'application_year' => $this->application_year,
             'school_id' => $this->school_id,
+            'present_institute_name' => $this->institute->name ?? null,
+            'present_institute_address' => $this->institute->registration->address->address ?? null,
+            'industry_name' => $this->industry->name ?? null,
             'company_id' => $this->company_id,
             'uniq' => $this->uniq,
             'status' => $this->status,

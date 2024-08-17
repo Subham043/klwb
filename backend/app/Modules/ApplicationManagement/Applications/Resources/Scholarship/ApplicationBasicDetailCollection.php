@@ -28,6 +28,11 @@ class ApplicationBasicDetailCollection extends JsonResource
             'f_adhar' => $this->f_adhar,
             'm_adhar' => $this->m_adhar,
             'not_applicable' => $this->not_applicable,
+            'cast_certificate' => $this->cast_certificate_link,
+            'adharcard_file' => $this->adharcard_file_link,
+            'f_adharfile' => $this->f_adharfile_link,
+            'm_adharfile' => $this->m_adharfile_link,
+            'deathcertificate' => $this->deathcertificate_link,
         ];
     }
 }

@@ -23,6 +23,8 @@ class ApplicationMarkCollection extends JsonResource
             'ins_taluq_id' => $this->ins_taluq_id,
             'prv_class' => $this->prv_class,
             'prv_marks' => $this->prv_marks,
+            'prv_markcard' => $this->prv_markcard_link,
+            'prv_markcard2' => $this->prv_markcard2_link,
         ];
     }
 }

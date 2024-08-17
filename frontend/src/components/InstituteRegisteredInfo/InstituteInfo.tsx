@@ -111,15 +111,15 @@ export default function InstituteInfo({ id }: Props) {
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Institute Reg. File</Heading>
-							<img src={data?.reg_certification} alt="" style={{ objectFit: 'contain', height: '200px' }} />
+							<img src={data?.reg_certification} alt="" style={{ objectFit: 'contain', height: '100px' }} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Principal Signature</Heading>
-							<img src={data?.principal_signature} alt="" style={{ objectFit: 'contain', height: '200px' }} />
+							<img src={data?.principal_signature} alt="" style={{ objectFit: 'contain', height: '100px' }} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Seal</Heading>
-							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '200px' }} />
+							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '100px' }} />
 						</HeadingGroup>
 					</Stack>
 				</Panel>

@@ -2,6 +2,8 @@
 
 namespace App\Modules\ApplicationManagement\Applications\Resources\Scholarship;
 
+use App\Modules\LocationManagement\Cities\Resources\SingleCityCollection;
+use App\Modules\LocationManagement\Taluqs\Resources\SingleTaluqCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApplicationCompanyCollection extends JsonResource
@@ -21,7 +23,10 @@ class ApplicationCompanyCollection extends JsonResource
             'msalary' => $this->msalary,
             'pincode' => $this->pincode,
             'district_id' => $this->district_id,
+            'district' => SingleCityCollection::make($this->whenLoaded('district')),
             'taluq_id' => $this->taluq_id,
+            'taluq' => SingleTaluqCollection::make($this->whenLoaded('taluq')),
+            'salaryslip' => $this->salaryslip_link,
         ];
     }
 }

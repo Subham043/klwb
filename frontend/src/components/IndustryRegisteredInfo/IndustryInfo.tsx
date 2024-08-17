@@ -83,15 +83,15 @@ export default function IndustryInfo({ id }: Props) {
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Industry Reg. File</Heading>
-							<img src={data?.reg_doc} alt="" style={{ objectFit: 'contain', height: '200px' }} />
+							<img src={data?.reg_doc} alt="" style={{ objectFit: 'contain', height: '100px' }} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Director Signature</Heading>
-							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '200px' }} />
+							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '100px' }} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Industry Seal</Heading>
-							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '200px' }} />
+							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '100px' }} />
 						</HeadingGroup>
 					</Stack>
 				</Panel>

@@ -159,7 +159,14 @@ class ScholarshipService
 
 	public function getLatest(): Application|null
 	{
-		return Application::with(['basic_detail', 'mark', 'account', 'company'])
+		return Application::with([
+			'basic_detail', 
+			'mark', 
+			'account', 
+			'company' => fn($query) => $query->with(['taluq', 'district']),
+			'institute' => fn($query) => $query->with(['registration' => fn($q) => $q->with('address')]),
+			'industry'
+			])
 			->where('student_id', auth()->guard(Guards::Web->value())->user()->id)
 			->whereHas('basic_detail')
 			->whereHas('mark')

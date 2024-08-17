@@ -1,4 +1,4 @@
-import { Button, Divider, Heading, HeadingGroup, Modal, Panel, Stack, Text, useMediaQuery } from 'rsuite'
+import { Button, Heading, HeadingGroup, Modal, Panel, Stack, Text, useMediaQuery } from 'rsuite'
 import { useRequestIndustryQuery } from '../../hooks/data/request_industry';
 import { useDeleteQuery } from '../../hooks/useDeleteQuery';
 import { useToast } from '../../hooks/useToast';
@@ -87,7 +87,7 @@ export default function RequestIndustryInfo({modal, modalHandler, refetch}:{moda
                         </HeadingGroup>
                         <HeadingGroup className='mb-1'>
                             <Heading level={6} className='mb-1 info-heading'>Register Doc</Heading>
-                            <img src={data?.register_doc} alt="" style={{objectFit: 'contain', height: '200px'}} />
+                            <img src={data?.register_doc} alt="" style={{objectFit: 'contain', height: '100px'}} />
                         </HeadingGroup>
                     </Panel>
                 </>

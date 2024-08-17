@@ -292,6 +292,7 @@ export type StudentApplicationAccountType = {
   acc_no: number;
   holder: string;
   type: string;
+  passbook: string|null;
 }
 
 export type StudentApplicationMarkType = {
@@ -303,6 +304,8 @@ export type StudentApplicationMarkType = {
   ins_taluq_id: number;
   prv_class: string;
   prv_marks: number;
+  prv_markcard: string|null;
+  prv_markcard2: string|null;
 }
 
 export type StudentApplicationCompanyType = {
@@ -312,7 +315,16 @@ export type StudentApplicationCompanyType = {
   msalary: number;
   pincode: string;
   district_id: number;
+  district: {
+    id: number;
+    name: string
+  }|null;
   taluq_id: number;
+  taluq: {
+    id: number;
+    name: string
+  }|null;
+  salaryslip: string|null;
 }
 
 export type StudentApplicationBasicDetailType = {
@@ -329,12 +341,21 @@ export type StudentApplicationBasicDetailType = {
   adharcard_no: number;
   f_adhar: number;
   m_adhar: number;
+  cast_certificate: string|null;
+  adharcard_file: string|null;
+  f_adharfile: string|null;
+  m_adharfile: string|null;
+  deathcertificate: string|null;
 }
 
 export type StudentApplicationType = {
+  id: number;
   application_year: number;
   school_id: number;
+  present_institute_name: string|null;
+  present_institute_address: string|null;
   company_id: number;
+  industry_name: string|null;
   uniq?: string;
   status: number;
   application_state: number;

@@ -77,7 +77,7 @@ export default function RequestInstituteInfo({modal, modalHandler, refetch}:{mod
                         </HeadingGroup>
                         <HeadingGroup className='mb-1'>
                             <Heading level={6} className='mb-1 info-heading'>Register Doc</Heading>
-                            <img src={data?.register_doc} alt="" style={{objectFit: 'contain', height: '200px'}} />
+                            <img src={data?.register_doc} alt="" style={{objectFit: 'contain', height: '100px'}} />
                         </HeadingGroup>
                     </Panel>
                 </>

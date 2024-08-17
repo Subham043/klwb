@@ -11,16 +11,12 @@ class FileController extends Controller
     {
         try {
             //code...
-            if($request->hasValidSignature()) {
+            if($request->user() && $request->hasValidSignature()) {
                 return Storage::download($request->path);
             }
-            return response()->json([
-                'message' => "Link has expired.",
-            ], 404);
+            abort(404, "Link has expired.");
         } catch (\Throwable $th) {
-            return response()->json([
-                'message' => "Link has expired.",
-            ], 404);
+            abort(404, "Link has expired.");
         }
     }
 }
