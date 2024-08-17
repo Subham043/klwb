@@ -5,12 +5,12 @@ import { api_routes } from "../../utils/routes/api";
 
 export const ScholarshipStatusQueryKey = "scholarship_status";
 
-export const useScholarshipStatusQuery: () => UseQueryResult<{ message: string, application: StudentApplicationType|null, application_date: ApplicationDateType, can_apply: boolean }, unknown> = () => {
+export const useScholarshipStatusQuery: () => UseQueryResult<{ message: string, application: StudentApplicationType|null, application_date: ApplicationDateType, is_scholarship_open: boolean, is_eligible: boolean }, unknown> = () => {
   const axios = useAxios();
   return useQuery({
     queryKey: [ScholarshipStatusQueryKey],
     queryFn: async () => {
-      const response = await axios.get<{ message: string, application: StudentApplicationType|null, application_date: ApplicationDateType, can_apply: boolean }>(
+      const response = await axios.get<{ message: string, application: StudentApplicationType|null, application_date: ApplicationDateType, is_scholarship_open: boolean, is_eligible: boolean }>(
         api_routes.user.scholarship.status
       );
       return response.data;

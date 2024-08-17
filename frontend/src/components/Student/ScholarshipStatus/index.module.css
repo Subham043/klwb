@@ -1,0 +1,133 @@
+.navigation_menu {
+	width: 100%;
+}
+
+.navigation_tabs {
+		counter-reset: step;
+}
+
+/* one item */
+.navigation_tabs li:first-child:nth-last-child(1) {
+	width: 100%;
+}
+
+/* two items */
+.navigation_tabs li:first-child:nth-last-child(2),
+.navigation_tabs li:first-child:nth-last-child(2) ~ li {
+	width: 49%;
+}
+
+/* three items */
+.navigation_tabs li:first-child:nth-last-child(3),
+.navigation_tabs li:first-child:nth-last-child(3) ~ li {
+	width: 30.3333%;
+}
+
+/* four items */
+.navigation_tabs li:first-child:nth-last-child(4),
+.navigation_tabs li:first-child:nth-last-child(4) ~ li {
+	width: 24%;
+}
+
+/* five items */
+.navigation_tabs li:first-child:nth-last-child(5),
+.navigation_tabs li:first-child:nth-last-child(5) ~ li {
+	width: 19%;
+}
+
+/* six items */
+.navigation_tabs li:first-child:nth-last-child(6),
+.navigation_tabs li:first-child:nth-last-child(6) ~ li {
+	width: 16%;
+}
+
+.navigation_tabs li {
+	list-style: none;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	cursor: pointer;
+	z-index: 1;
+}
+
+div {
+	color: #000;
+}
+
+.navigation_tabs li div {
+	text-decoration: none;  
+}
+
+.navigation_tabs li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 30px;
+	height: 30px;
+	line-height : 30px;
+	border: 1px solid #ddd;
+	border-radius: 100%;
+	display: block;
+	text-align: center;
+	margin: 0 auto 10px auto;
+	background-color: #fff;
+}
+.navigation_tabs li:after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	background-color: #ddd;
+	top: 13px;
+	left: -50%;
+	z-index : -1;
+	margin-left: 16px;
+}
+
+.navigation_tabs li:first-child:after {
+	content: none;
+}
+
+.navigation_tabs li.tab_active,
+.navigation_tabs li.tab_inactive,
+.navigation_tabs li.tab_active div,
+.navigation_tabs li.tab_inactive div{
+	color: #00437d;
+}
+
+.navigation_tabs li.tab_rejected,
+.navigation_tabs li.tab_rejected div{
+	color: #ff0000;
+}
+
+/* .navigation_tabs li.tab_active div:hover,
+.navigation_tabs li.tab_inactive div:hover {
+	font-weight: bold;
+} */
+
+
+.navigation_tabs li.tab_active:before {
+	border-color: #00437d;
+}
+
+.navigation_tabs li.tab_rejected:before {
+	border-color: #ff0000;
+}
+
+.navigation_tabs li.tab_inactive:before {
+	border-color: #00437d;
+	background-color: #00437d;
+	color: #fff;
+	content: "\2713";
+} 
+
+.navigation_tabs li.tab_rejected:before {
+	border-color: #ff0000;
+	background-color: #ff0000;
+	color: #fff;
+	content: "\1F5D9";
+} 
+
+
+.navigation_tabs li.tab_inactive + li:after {
+	background-color: #00437d;
+}

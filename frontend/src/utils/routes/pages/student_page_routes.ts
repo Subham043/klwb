@@ -8,5 +8,6 @@ export const student_page_routes = {
   dashboard: "/student/dashboard",
   scholarship: {
     apply: "/student/scholarship/apply",
+    status: "/student/scholarship/status",
   }
 } as const;

@@ -1,5 +1,5 @@
 import { Button, Form, Modal, Panel, Stack } from "rsuite"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -51,8 +51,8 @@ const schema: yup.ObjectSchema<SchemaType> = yup
 		category: yup.string().typeError("Institute Category must contain characters only").required("Category is required"),
 		type: yup.string().typeError("Institute Type must contain characters only").required("Type is required"),
 		urban_rural: yup.string().typeError("Urban/Rural must contain characters only").required("Urban/Rural is required"),
-		city_id: yup.number().typeError("District must contain numbers only").required("District is required"),
-		taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required"),
+		city_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
+		taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required").test("notZero", "Taluq is required", (value) => !(value === 0)),
 		pincode: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
   address: yup.string().typeError("Address must contain characters only").required("Address is required"),
 		is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
@@ -97,17 +97,6 @@ const InstituteInfoUpdate = ({ modal, setModal, data, refetch, error, loading:da
 
 	const { data: cities, isFetching: isCityFetching, isLoading: isCityLoading } = useCitySelectQuery(modal);
 	const { data: taluqs, isFetching: isTaluqFetching, isLoading: isTaluqLoading } = useTaluqSelectQuery((modal && city_id !== 0), (city_id === 0 ? undefined : city_id));
-
-	useEffect(() => {
-						if(modal){
-										if(data && city_id===data.address.city.id){
-														setValue("taluq_id", data.address.taluq.id)
-										}else{
-														setValue("taluq_id", 0)
-										}
-						}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [city_id, data, modal]);
 
 		const onSubmit = handleSubmit(async () => {
         setLoading(true);
@@ -157,7 +146,7 @@ const InstituteInfoUpdate = ({ modal, setModal, data, refetch, error, loading:da
 																					<TextInput name="pincode" label="Pincode" control={control} error={errors.pincode?.message} />
 																</Stack>
 																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
-																					<SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
+																					<SelectInput name="city_id" label="District" resetHandler={() => {setValue("taluq_id", 0)}} data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
 																					<SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
 																</Stack>
 																<TextInput name="address" label="Address" helpText="Do not use any special characters" textarea={true} control={control} error={errors.address?.message} />

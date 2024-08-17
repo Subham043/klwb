@@ -4,7 +4,6 @@ import classes from './index.module.css'
 import ChangeListIcon from '@rsuite/icons/ChangeList';
 import ListIcon from '@rsuite/icons/List';
 import DocPassIcon from '@rsuite/icons/DocPass';
-import DetailIcon from '@rsuite/icons/Detail';
 import TextImageIcon from '@rsuite/icons/TextImage';
 import LocationIcon from '@rsuite/icons/Location';
 import PeoplesIcon from '@rsuite/icons/Peoples';
@@ -26,20 +25,17 @@ const NavMenu = () => {
     return <>
             {
                 [RolesEnum.STUDENT].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
-                    <Nav.Item eventKey="12" as={NavLink} to={page_routes.student.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                    <Nav.Item eventKey="1" as={NavLink} to={page_routes.student.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
                         Dashboard
                     </Nav.Item>
-                    <Nav.Item eventKey="1" as={NavLink} to={page_routes.student.scholarship.apply} className='sidebar-navlink' icon={<ChangeListIcon />}>
+                    <Nav.Item eventKey="2" as={NavLink} to={page_routes.student.scholarship.apply} className='sidebar-navlink' icon={<ChangeListIcon />}>
                         Apply Scholarship
                     </Nav.Item>
-                    <Nav.Item eventKey="2" icon={<DocPassIcon />}>
+                    <Nav.Item eventKey="3" as={NavLink} to={page_routes.student.scholarship.status} className='sidebar-navlink' icon={<DocPassIcon />}>
                         Scholarship Status
                     </Nav.Item>
-                    <Nav.Item eventKey="3" icon={<ListIcon />}>
+                    <Nav.Item eventKey="4" icon={<ListIcon />}>
                         Scholarship List
-                    </Nav.Item>
-                    <Nav.Item eventKey="4" icon={<DetailIcon />}>
-                        Application Detail
                     </Nav.Item>
                 </>
             }

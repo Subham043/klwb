@@ -1,6 +1,6 @@
 import classes from './index.module.css'
 import ReCAPTCHA from "react-google-recaptcha";
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -37,8 +37,8 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     email: yup.string().typeError("Email must contain characters only").email().required("Email is required"),
     mobile: yup.number().typeError("Mobile must contain numbers only").positive().required("Mobile is required"),
     address: yup.string().typeError("Address must contain characters only").required("Address is required"),
-    city_id: yup.number().typeError("District must contain numbers only").required("District is required"),
-    taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required"),
+    city_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
+    taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required").test("notZero", "Taluq is required", (value) => !(value === 0)),
     captcha: yup.string().typeError("Captcha must contain characters only").required("Captcha is required"),
     register_doc: yup
     .mixed<FileType[]>()
@@ -82,11 +82,6 @@ function IndustryRequestPage() {
 
     const {data:cities, isFetching:isCityFetching, isLoading:isCityLoading } = useCityCommonSelectQuery(true);
     const {data:taluqs, isFetching:isTaluqFetching, isLoading:isTaluqLoading } = useTaluqCommonSelectQuery((city_id!==0 && city_id!==undefined), (city_id===0 ? undefined : city_id));
-
-    useEffect(() => {
-        setValue("taluq_id", 0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [city_id]);
 
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
@@ -150,7 +145,7 @@ function IndustryRequestPage() {
                     </Row>
                     <Row className="show-grid mb-1">
                       <Col xs={12}>
-                        <SelectInput name="city_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
+                        <SelectInput name="city_id" label="District" resetHandler={() => {setValue("taluq_id", 0)}} data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
                       </Col>
                       <Col xs={12}>
                         <SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0 || city_id===undefined || taluqs===undefined || taluqs.length===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />

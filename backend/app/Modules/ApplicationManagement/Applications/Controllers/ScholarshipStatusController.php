@@ -25,10 +25,21 @@ class ScholarshipStatusController extends Controller
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? ApplicationCollection::make($application) : null,
+            'is_eligible' => false,
+            'is_scholarship_open' => false,
+            'message' => "You can apply for scholarship"
         ];
-        if(!$this->scholarshipService->isEligibleForScholarship()){
-            return response()->json(["message" => "You have already applied scholarship for this year", ...$response, "can_apply" => false], 200);
+        $areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
+		if (!$areScholarshipApplicationOpen) {
+            $response['message'] = "Scholarship applications are closed as of now for the current year. Please check back later.";
+        }else{
+            $response['is_scholarship_open'] = true;
         }
-        return response()->json(["message" => "You can apply for scholarship", ...$response, "can_apply" => true], 200);
+        if(!$this->scholarshipService->isEligibleForScholarship()){
+            $response['message'] = "You have already applied scholarship for the year ".$applicationDate->application_year;
+        }else{
+            $response['is_eligible'] = true;
+        }
+        return response()->json($response, 200);
     }
 }

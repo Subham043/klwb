@@ -47,6 +47,7 @@ const InstituteResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword")
 const DashboardPage = lazy(()=>import("./pages/Dashboard"));
 const StudentDashboardPage = lazy(()=>import("./pages/Student/Dashboard"));
 const StudentApplyScholarshipPage = lazy(()=>import("./pages/Student/ApplyScholarship"));
+const StudentScholarshipStatusPage = lazy(()=>import("./pages/Student/ScholarshipStatus"));
 const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
 const ClassPage = lazy(()=>import("./pages/Class"));
@@ -131,6 +132,7 @@ function App() {
                           <Route element={<DashboardLayout />}>
                             <Route path={page_routes.student.dashboard} element={<StudentDashboardPage />} />
                             <Route path={page_routes.student.scholarship.apply} element={<StudentApplyScholarshipPage />} />
+                            <Route path={page_routes.student.scholarship.status} element={<StudentScholarshipStatusPage />} />
                           </Route>
                       </Route>
                     </Route>

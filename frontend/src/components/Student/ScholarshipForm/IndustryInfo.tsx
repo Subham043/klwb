@@ -4,7 +4,6 @@ import SelectInput from "../../FormInput/SelectInput";
 import classes from "./index.module.css";
 import { Control, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
-import { useEffect } from "react";
 import { useCityCommonSelectQuery } from "../../../hooks/data/city";
 import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
 import FileInput from "../../FormInput/FileInput";
@@ -23,20 +22,9 @@ export default function IndustryInfo({ control, errors, watch, setValue }: PropT
 	const district_id = watch("district_id");
 	const taluq_id = watch("taluq_id");
 
-	const { data: cities2, isFetching: isCity2Fetching, isLoading: isCity2Loading } = useCityCommonSelectQuery(true);
-	const { data: taluqs2, isFetching: isTaluq2Fetching, isLoading: isTaluq2Loading } = useTaluqCommonSelectQuery((district_id !== 0 && district_id !== undefined), (district_id === 0 ? undefined : district_id));
+	const { data: cities, isFetching: isCityFetching, isLoading: isCityLoading } = useCityCommonSelectQuery(true);
+	const { data: taluqs, isFetching: isTaluqFetching, isLoading: isTaluqLoading } = useTaluqCommonSelectQuery((district_id !== 0 && district_id !== undefined), (district_id === 0 ? undefined : district_id));
 	const { data: industries, isFetching: isIndustryFetching, isLoading: isIndustryLoading } = useRegisteredIndustryUserCommonSelectQuery((taluq_id !== 0 && taluq_id !== undefined), (taluq_id === 0 ? undefined : taluq_id));
-
-	useEffect(() => {
-		setValue("taluq_id", 0)
-		setValue("company_id", 0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [district_id]);
-
-	useEffect(() => {
-		setValue("company_id", 0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [taluq_id]);
 
 	return (
 		<div className="mb-1">
@@ -55,8 +43,8 @@ export default function IndustryInfo({ control, errors, watch, setValue }: PropT
 					<TextInput name="msalary" label="Monthly Salary" control={control} error={errors.msalary?.message} />
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
-					<SelectInput name="district_id" label="District" data={cities2 ? cities2.map(item => ({ label: item.name, value: item.id })) : []} loading={isCity2Fetching || isCity2Loading} control={control} error={errors.district_id?.message} />
-					<SelectInput name="taluq_id" label="Taluq" data={taluqs2 ? taluqs2.map(item => ({ label: item.name, value: item.id })) : []} disabled={district_id === 0 || district_id === undefined || taluqs2 === undefined || taluqs2.length === 0} loading={isTaluq2Fetching || isTaluq2Loading} control={control} error={errors.taluq_id?.message} />
+					<SelectInput name="district_id" label="District" resetHandler={() => {setValue("taluq_id", 0); setValue("company_id", 0)}} data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.district_id?.message} />
+					<SelectInput name="taluq_id" label="Taluq" resetHandler={() => {setValue("company_id", 0)}} data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={district_id === 0 || district_id === undefined || taluqs === undefined || taluqs.length === 0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 					<div className='institute-select-register'>

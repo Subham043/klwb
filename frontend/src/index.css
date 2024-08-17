@@ -34,6 +34,10 @@ a, a:hover {
     display: inline-block;
 }
 
+.text-brand{
+    color: #00437d;
+}
+
 .sidebar-navlink.active{
     color: #00437d !important;
 }

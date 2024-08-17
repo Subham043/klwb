@@ -298,7 +298,7 @@ export type StudentApplicationMarkType = {
   graduation_id: number;
   course_id?: number;
   class_id?: number;
-  ins_pin: string;
+  ins_pin: number;
   ins_district_id: number;
   ins_taluq_id: number;
   prv_class: string;

@@ -4,7 +4,6 @@ import SelectInput from "../../FormInput/SelectInput";
 import classes from "./index.module.css";
 import { Control, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
-import { useEffect } from "react";
 import { useCityCommonSelectQuery } from "../../../hooks/data/city";
 import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
 import { useRegisteredInstituteCommonSelectQuery } from "../../../hooks/data/registered_institute";
@@ -35,28 +34,6 @@ export default function InstitutionInfo({ control, errors, watch, setValue }: Pr
 	const { data: courses, isFetching: isCourseFetching, isLoading: isCourseLoading } = useCourseCommonSelectQuery((graduation_id !== 0 && graduation_id !== undefined), (graduation_id === 0 ? undefined : graduation_id));
 	const { data: clases, isFetching: isClassFetching, isLoading: isClassLoading } = useClassCommonSelectQuery((course_id !== 0 && course_id !== undefined), (course_id === 0 ? undefined : course_id));
 
-	useEffect(() => {
-		setValue("ins_taluq_id", 0)
-		setValue("school_id", 0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ins_district_id]);
-
-	useEffect(() => {
-		setValue("school_id", 0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ins_taluq_id]);
-
-	useEffect(() => {
-		setValue("course_id", 0)
-		setValue("class_id", 0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [graduation_id]);
-
-	useEffect(() => {
-		setValue("class_id", 0)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [course_id]);
-
 	return (
 		<div className="mb-1">
 			<Panel header={
@@ -66,8 +43,8 @@ export default function InstitutionInfo({ control, errors, watch, setValue }: Pr
 				</div>
 			} className='info-modal-panel' bordered>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
-					<SelectInput name="ins_district_id" label="District" data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.ins_district_id?.message} />
-					<SelectInput name="ins_taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={ins_district_id === 0 || ins_district_id === undefined || taluqs === undefined || taluqs.length === 0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.ins_taluq_id?.message} />
+					<SelectInput name="ins_district_id" label="District" resetHandler={() => {setValue("ins_taluq_id", 0); setValue("school_id", 0)}} data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.ins_district_id?.message} />
+					<SelectInput name="ins_taluq_id" label="Taluq" resetHandler={() => {setValue("school_id", 0)}} data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={ins_district_id === 0 || ins_district_id === undefined || taluqs === undefined || taluqs.length === 0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.ins_taluq_id?.message} />
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 					<div className='institute-select-register'>
@@ -77,8 +54,8 @@ export default function InstitutionInfo({ control, errors, watch, setValue }: Pr
 					<TextInput name="ins_pin" label="Pincode" control={control} error={errors.ins_pin?.message} />
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
-					<SelectInput name="graduation_id" label="Graduation" data={graduations ? graduations.map(item => ({ label: item.name, value: item.id })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.graduation_id?.message} />
-					{(graduation_id !== 0 && courses !== undefined && courses.length !== 0) && <SelectInput name="course_id" label="Course" data={courses ? courses.map(item => ({ label: item.name, value: item.id })) : []} disabled={graduation_id === 0 || graduation_id === undefined || courses === undefined || courses.length === 0} loading={isCourseFetching || isCourseLoading} control={control} error={errors.course_id?.message} />}
+					<SelectInput name="graduation_id" label="Graduation" resetHandler={() => {setValue("course_id", 0); setValue("class_id", 0)}} data={graduations ? graduations.map(item => ({ label: item.name, value: item.id })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.graduation_id?.message} />
+					{(graduation_id !== 0 && courses !== undefined && courses.length !== 0) && <SelectInput name="course_id" label="Course" resetHandler={() => {setValue("class_id", 0)}} data={courses ? courses.map(item => ({ label: item.name, value: item.id })) : []} disabled={graduation_id === 0 || graduation_id === undefined || courses === undefined || courses.length === 0} loading={isCourseFetching || isCourseLoading} control={control} error={errors.course_id?.message} />}
 					{(course_id !== 0 && clases !== undefined && clases.length !== 0) && <SelectInput name="class_id" label="Class" data={clases ? clases.map(item => ({ label: item.name, value: item.id })) : []} disabled={course_id === 0 || course_id === undefined || clases === undefined || clases.length === 0} loading={isClassFetching || isClassLoading} control={control} error={errors.class_id?.message} />}
 				</Stack>
 			</Panel>

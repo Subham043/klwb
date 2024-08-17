@@ -19,25 +19,29 @@ class ScholarshipService
 {
 	public function apply(ApplyScholarshipRequest $request): Application
 	{
-		$application_date = (new ApplicationDateService)->getLatest();
-		if ($application_date && (now()->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->format('Y-m-d')))) {
-			$application = Application::create([
-				'application_year' => $application_date->application_year,
-				'student_id' => auth()->guard(Guards::Web->value())->user()->id,
-				'school_id' => $request->school_id,
-				'company_id' => $request->company_id,
-				'status' => ApplicationStatus::Pending->value,
-				'application_state' => ApplicationState::School->value,
-				'date' => now(),
-				'application_date_id' => $application_date->id,
-			]);
-			$this->store_basic_detail($request, $application);
-			$this->store_mark($request, $application);
-			$this->store_account($request, $application);
-			$this->store_company($request, $application);
-			return $application;
+		$areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
+		if (!$areScholarshipApplicationOpen) {
+			throw new \Exception('You can not apply for scholarship as application is not open yet.', 400);
 		}
-		throw new \Exception('You can not apply for scholarship as application is not open yet.');
+		if(!$this->isEligibleForScholarship()){
+			throw new \Exception('You have already applied scholarship for this year', 400);
+		}
+		$application_date = (new ApplicationDateService)->getLatest();
+		$application = Application::create([
+			'application_year' => $application_date->application_year,
+			'student_id' => auth()->guard(Guards::Web->value())->user()->id,
+			'school_id' => $request->school_id,
+			'company_id' => $request->company_id,
+			'status' => ApplicationStatus::Pending->value,
+			'application_state' => ApplicationState::School->value,
+			'date' => now(),
+			'application_date_id' => $application_date->id,
+		]);
+		$this->store_basic_detail($request, $application);
+		$this->store_mark($request, $application);
+		$this->store_account($request, $application);
+		$this->store_company($request, $application);
+		return $application;
 	}
 
 	protected function store_basic_detail(ApplyScholarshipRequest $request, Application $application)
@@ -145,7 +149,7 @@ class ScholarshipService
 		$application = Application::where('student_id', auth()->guard(Guards::Web->value())->user()->id)
 			->where('application_year', $application_date->application_year)
 			->where('application_date_id', $application_date->id)
-			->whereBetween('date', [$application_date->from_date, $application_date->to_date])
+			->whereBetween('date', [$application_date->from_date, $application_date->to_date->addDay(1)])
 			->first();
 		if ($application) {
 			return false;

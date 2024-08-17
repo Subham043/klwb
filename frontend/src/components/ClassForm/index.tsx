@@ -26,7 +26,7 @@ type SchemaType = {
 const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     name: yup.string().typeError("Name must contain characters only").required("Name is required"),
-    course_id: yup.number().typeError("Course must contain numbers only").required("Course is required"),
+    course_id: yup.number().typeError("Course must contain numbers only").required("Course is required").test("notZero", "Course is required", (value) => !(value === 0)),
     is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();

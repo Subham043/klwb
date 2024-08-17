@@ -20,8 +20,8 @@ class ApplyScholarshipController extends Controller
     }
 
     public function index(ApplyScholarshipRequest $request){
-        $applicationDate = $this->applicationDateService->getLatest();
-        if (!(now()->between($applicationDate->from_date->format('Y-m-d'), $applicationDate->to_date->format('Y-m-d')))) {
+        $areScholarshipApplicationOpen = $this->applicationDateService->areScholarshipApplicationOpen();
+        if (!$areScholarshipApplicationOpen) {
             return response()->json(["message" => "You can not apply for scholarship as application is not open yet."], 400);
         }
         if(!$this->scholarshipService->isEligibleForScholarship()){

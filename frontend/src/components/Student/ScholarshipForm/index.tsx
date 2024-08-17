@@ -54,6 +54,13 @@ export default function ScholarshipForm({ data }: Props) {
 			category: data ? data.basic_detail.category : '',
 			prv_class: data ? data.mark.prv_class : '',
 			prv_marks: data ? data.mark.prv_marks : 0,
+			ins_district_id: data ? data.mark.ins_district_id : 0,
+			ins_taluq_id: data ? data.mark.ins_taluq_id : 0,
+			ins_pin: data ? data.mark.ins_pin.toString() : '',
+			graduation_id: data ? data.mark.graduation_id : 0,
+			school_id: data ? data.school_id : 0,
+			course_id: data ? data.mark.course_id : 0,
+			class_id: data ? data.mark.class_id : 0,
 			type: data ? data.account.type.toString() : '',
 			bank_name: data ? data.account.bank_name : '',
 			branch: data ? data.account.branch : '',
@@ -68,6 +75,10 @@ export default function ScholarshipForm({ data }: Props) {
 			f_adhar: data ? data.basic_detail.f_adhar : undefined,
 			m_adhar: data ? data.basic_detail.m_adhar : undefined,
 			not_applicable: data ? data.basic_detail.not_applicable : undefined,
+			district_id: data ? data.company.district_id : 0,
+			taluq_id: data ? data.company.taluq_id : 0,
+			pincode: data ? data.company.pincode : '',
+			company_id: data ? data.company_id : 0,
 		}
 	});
 
