@@ -8,6 +8,10 @@ export const student_page_routes = {
   dashboard: "/student/dashboard",
   scholarship: {
     apply: "/student/scholarship/apply",
+    resubmit: "/student/scholarship/re-submit",
     status: "/student/scholarship/status",
+    list: "/student/scholarship/list",
+    view: (id: number | string) =>
+      "/student/scholarship/view/" + id,
   }
 } as const;

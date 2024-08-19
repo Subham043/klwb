@@ -84,9 +84,10 @@ class ApplicationDateService
                 'Id' => $data->id,
                 'From Date' => $data->from_date->format('Y-m-d'),
                 'To Date' => $data->to_date->format('Y-m-d'),
-                'Approval End Date' => $data->approval_end_date->format('Y-m-d'),
-                'Verification End Date' => $data->verification_end_date->format('Y-m-d'),
                 'Application Year' => $data->application_year,
+                'Can Student Resubmit' => $data->can_resubmit ? 'Yes' : 'No',
+                'Can Industry/Institute Approve' => $data->can_approve ? 'Yes' : 'No',
+                'Can Officials Verify' => $data->can_verify ? 'Yes' : 'No',
                 'Active' => $data->is_active ? 'Yes' : 'No',
                 'Created At' => $data->created_at->format('Y-m-d H:i:s'),
             ]);

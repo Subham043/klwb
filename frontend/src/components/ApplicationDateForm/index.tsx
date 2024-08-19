@@ -14,15 +14,17 @@ import ToggleInput from '../FormInput/ToggleInput';
 import DateInput from '../FormInput/DateInput';
 import { api_routes } from '../../utils/routes/api';
 import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
+import moment from 'moment';
 
 const date = new Date()
 
 type SchemaType = {
   from_date: string;
   to_date: string;
-  approval_end_date: string;
-  verification_end_date: string;
   application_year: number;
+  can_resubmit: number;
+  can_approve: number;
+  can_verify: number;
   is_active: number;
 };
 
@@ -32,8 +34,9 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     application_year: yup.number().typeError("Application Year must contain numbers only").positive("Application Year must contain positive numbers only").required("Application Year is required"),
     from_date: yup.string().typeError("From Date must contain characters only").required("From Date is required"),
     to_date: yup.string().typeError("To Date must contain characters only").required("To Date is required"),
-    approval_end_date: yup.string().typeError("Approval End Date must contain characters only").required("Approval End Date is required"),
-    verification_end_date: yup.string().typeError("Verification End Date must contain characters only").required("Verification End Date is required"),
+    can_resubmit: yup.number().typeError("Resubmission must contain numbers only").min(0).max(1).required("Resubmission is required"),
+    can_approve: yup.number().typeError("Approval must contain numbers only").min(0).max(1).required("Approval is required"),
+    can_verify: yup.number().typeError("Verification must contain numbers only").min(0).max(1).required("Verification is required"),
     is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();
@@ -50,25 +53,30 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
         getValues,
         reset,
         setError,
+        watch,
         formState: { errors }
     } = useForm<SchemaType>({ 
         resolver: yupResolver(schema),
         values: drawer.type==="Edit" ? {
             application_year: data? data.application_year : date.getFullYear(),
-            from_date: data? data.from_date : date.toISOString(),
-            to_date: data? data.to_date : date.toISOString(),
-            approval_end_date: data? data.approval_end_date : date.toISOString(),
-            verification_end_date: data? data.verification_end_date : date.toISOString(),
+            from_date: data? moment(data.from_date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD'),
+            to_date: data? moment(data.to_date).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD'),
+            can_resubmit: data? (data.can_resubmit ? 1: 0) : 0,
+            can_approve: data? (data.can_approve ? 1: 0) : 0,
+            can_verify: data? (data.can_verify ? 1: 0) : 0,
             is_active: data? (data.is_active ? 1: 0) : 0
         } : {
             application_year: date.getFullYear(),
-            from_date: date.toISOString(),
-            to_date: date.toISOString(),
-            approval_end_date: date.toISOString(),
-            verification_end_date: date.toISOString(),
-            is_active: 1
+            from_date: moment().format('YYYY-MM-DD'),
+            to_date: moment().format('YYYY-MM-DD'),
+            can_resubmit: 1,
+            can_approve: 1,
+            can_verify: 1,
+            is_active: 1,
         }
      });
+
+     const watchFromDate = watch("from_date");
 
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
@@ -77,11 +85,13 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
-                    from_date: date.toISOString(),
-                    to_date: date.toISOString(),
-                    approval_end_date: date.toISOString(),
-                    verification_end_date: date.toISOString(),
+                    from_date: moment().format('YYYY-MM-DD'),
+                    to_date: moment().format('YYYY-MM-DD'),
                     application_year: date.getFullYear(),
+                    can_resubmit: 1,
+                    can_approve: 1,
+                    can_verify: 1,
+                    is_active: 1
                 });
             }
             drawerHandler({status:false, type:'Create'});
@@ -109,11 +119,12 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
         <Drawer title="Application Date" drawer={drawer} drawerHandler={drawerHandler}>
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                    <DateInput name="from_date" label="From Date" control={control} error={errors.from_date?.message} />
-                    <DateInput name="to_date" label="To Date" control={control} error={errors.to_date?.message} />
-                    <DateInput name="approval_end_date" label="Approval End Date" control={control} error={errors.approval_end_date?.message} />
-                    <DateInput name="verification_end_date" label="Verification End Date" control={control} error={errors.approval_end_date?.message} />
+                    <DateInput name="from_date" label="From Date" shouldDisableDate={(dates) => drawer.type === "Edit" ? moment(dates).isSameOrBefore(moment(watchFromDate).subtract(1, "days").format("YYYY-MM-DD")) : moment(dates).isSameOrBefore(moment().subtract(1, "days").format("YYYY-MM-DD"))} control={control} error={errors.from_date?.message} />
+                    <DateInput name="to_date" label="To Date" shouldDisableDate={(dates) => moment(dates).isSameOrBefore(moment(watchFromDate).format("YYYY-MM-DD"))} control={control} error={errors.to_date?.message} />
                     <TextInput name="application_year" label="Application Year" type="number" focus={true} control={control} error={errors.application_year?.message} />
+                    <ToggleInput name="can_resubmit" checkedLabel="Student Can Resubmit" uncheckedLabel="Student Cannot Resubmit" control={control} error={errors.can_resubmit?.message} />
+                    <ToggleInput name="can_approve" checkedLabel="Industry/Institute Can Approve" uncheckedLabel="Industry/Institute Cannot Approve" control={control} error={errors.can_approve?.message} />
+                    <ToggleInput name="can_verify" checkedLabel="Officials Can Verify" uncheckedLabel="Officials Cannot Verify" control={control} error={errors.can_verify?.message} />
                     <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>

@@ -47,7 +47,10 @@ const InstituteResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword")
 const DashboardPage = lazy(()=>import("./pages/Dashboard"));
 const StudentDashboardPage = lazy(()=>import("./pages/Student/Dashboard"));
 const StudentApplyScholarshipPage = lazy(()=>import("./pages/Student/ApplyScholarship"));
+const StudentResubmitScholarshipPage = lazy(()=>import("./pages/Student/ResubmitScholarship"));
 const StudentScholarshipStatusPage = lazy(()=>import("./pages/Student/ScholarshipStatus"));
+const StudentScholarshipListPage = lazy(()=>import("./pages/Student/ScholarshipList"));
+const StudentScholarshipViewPage = lazy(()=>import("./pages/Student/ScholarshipView"));
 const GraduationPage = lazy(()=>import("./pages/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Course"));
 const ClassPage = lazy(()=>import("./pages/Class"));
@@ -132,7 +135,10 @@ function App() {
                           <Route element={<DashboardLayout />}>
                             <Route path={page_routes.student.dashboard} element={<StudentDashboardPage />} />
                             <Route path={page_routes.student.scholarship.apply} element={<StudentApplyScholarshipPage />} />
+                            <Route path={page_routes.student.scholarship.resubmit} element={<StudentResubmitScholarshipPage />} />
                             <Route path={page_routes.student.scholarship.status} element={<StudentScholarshipStatusPage />} />
+                            <Route path={page_routes.student.scholarship.list} element={<StudentScholarshipListPage />} />
+                            <Route path={page_routes.student.scholarship.view(":id")} element={<StudentScholarshipViewPage />} />
                           </Route>
                       </Route>
                     </Route>

@@ -253,6 +253,15 @@ h2{
     margin-bottom: 0 !important;
 }
 
+.scholarship-rejected-status .rs-message-container{
+    padding: 10px 15px !important;
+    gap: 5px;
+}
+
+.scholarship-rejected-status .rs-message-container button{
+    margin-top: 10px !important;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;

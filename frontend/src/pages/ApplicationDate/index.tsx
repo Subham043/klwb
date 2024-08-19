@@ -32,12 +32,12 @@ const ApplicationDate:FC = () => {
                     <Table.Cell dataKey="id" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column width={250}>
                     <Table.HeaderCell>Application Year</Table.HeaderCell>
                     <Table.Cell dataKey="application_year" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1} align="center">
+                <Table.Column width={250} align="center">
                     <Table.HeaderCell>From Date</Table.HeaderCell>
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
@@ -46,7 +46,7 @@ const ApplicationDate:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column flexGrow={1} align="center">
+                <Table.Column width={250} align="center">
                     <Table.HeaderCell>To Date</Table.HeaderCell>
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
@@ -55,25 +55,37 @@ const ApplicationDate:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column flexGrow={1} align="center">
-                    <Table.HeaderCell>Approval End Date</Table.HeaderCell>
+                <Table.Column width={250} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Can Student Resubmit?</Table.HeaderCell>
+
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
-                            <Moment datetime={rowData.approval_end_date} format="DD MMM, YYYY" />
+                            <Status status={rowData.can_resubmit} correctLabel="Yes" wrongLabel="No" />
                         )}
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column flexGrow={1} align="center">
-                    <Table.HeaderCell>Verification End Date</Table.HeaderCell>
+                <Table.Column width={250} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Can Industry/Institute Approve?</Table.HeaderCell>
+
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
-                            <Moment datetime={rowData.verification_end_date} format="DD MMM, YYYY" />
+                            <Status status={rowData.can_approve} correctLabel="Yes" wrongLabel="No" />
                         )}
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={60} align="center" verticalAlign="middle">
+                <Table.Column width={250} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Can Official Verify?</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <Status status={rowData.can_verify} correctLabel="Yes" wrongLabel="No" />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+                
+                <Table.Column width={250} align="center" verticalAlign="middle">
                     <Table.HeaderCell>Status</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
@@ -99,7 +111,7 @@ const ApplicationDate:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton appearance="primary" color="orange" disabled={!moment().isBetween(rowData.from_date, rowData.to_date)} icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <IconButton appearance="primary" color="orange" disabled={!moment().isBetween(rowData.from_date, moment(rowData.to_date).add(1, 'days'))} icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

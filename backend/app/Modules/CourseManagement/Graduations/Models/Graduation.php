@@ -3,6 +3,8 @@
 namespace App\Modules\CourseManagement\Graduations\Models;
 
 use App\Http\Traits\AuthTrait;
+use App\Modules\ApplicationManagement\Applications\Models\ApplicationMark;
+use App\Modules\ApplicationManagement\Fees\Models\Fee;
 use App\Modules\CourseManagement\Courses\Models\Course;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +38,21 @@ class Graduation extends Model
     public function courses()
     {
         return $this->hasMany(Course::class, 'graduation_id');
+    }
+    
+    public function marks_obtained()
+    {
+        return $this->hasMany(ApplicationMark::class, 'graduation_id');
+    }
+
+    public function fees()
+    {
+        return $this->hasMany(Fee::class, 'graduation_id');
+    }
+    
+    public function scholarship_fee()
+    {
+        return $this->hasOne(Fee::class, 'graduation_id')->where('year', '<=', $this->marks_obtained()->application->application_year ?? date('Y'))->latestOfMany();
     }
 
 }

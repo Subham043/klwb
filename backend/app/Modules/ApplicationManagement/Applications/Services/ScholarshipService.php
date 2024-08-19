@@ -14,6 +14,11 @@ use App\Modules\ApplicationManagement\Applications\Models\ApplicationBasicDetail
 use App\Modules\ApplicationManagement\Applications\Models\ApplicationCompany;
 use App\Modules\ApplicationManagement\Applications\Models\ApplicationMark;
 use App\Modules\ApplicationManagement\Applications\Requests\ApplyScholarshipRequest;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class ScholarshipService
 {
@@ -23,7 +28,7 @@ class ScholarshipService
 		if (!$areScholarshipApplicationOpen) {
 			throw new \Exception('You can not apply for scholarship as application is not open yet.', 400);
 		}
-		if(!$this->isEligibleForScholarship()){
+		if (!$this->isEligibleForScholarship()) {
 			throw new \Exception('You have already applied scholarship for this year', 400);
 		}
 		$application_date = (new ApplicationDateService)->getLatest();
@@ -145,6 +150,9 @@ class ScholarshipService
 
 	public function isEligibleForScholarship(): bool
 	{
+		if (!(new ApplicationDateService)->areScholarshipApplicationOpen()) {
+			return false;
+		}
 		$application_date = (new ApplicationDateService)->getLatest();
 		$application = Application::where('student_id', auth()->guard(Guards::Web->value())->user()->id)
 			->where('application_year', $application_date->application_year)
@@ -157,22 +165,74 @@ class ScholarshipService
 		return true;
 	}
 
-	public function getLatest(): Application|null
+	public function canResubmit(Application $application): bool
+	{
+		if (!(new ApplicationDateService)->areScholarshipApplicationOpen()) {
+			return false;
+		}
+		$application_date = (new ApplicationDateService)->getLatest();
+		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 2 && $application_date->can_resubmit == 2) {
+			return true;
+		}
+		return false;
+	}
+
+	protected function model(): Builder
 	{
 		return Application::with([
-			'basic_detail', 
-			'mark', 
-			'account', 
+			'basic_detail',
+			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class']),
+			'account',
 			'company' => fn($query) => $query->with(['taluq', 'district']),
 			'institute' => fn($query) => $query->with(['registration' => fn($q) => $q->with('address')]),
 			'industry'
-			])
+		])
 			->where('student_id', auth()->guard(Guards::Web->value())->user()->id)
 			->whereHas('basic_detail')
-			->whereHas('mark')
+			->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class'])->whereHas('graduation'))
 			->whereHas('account')
-			->whereHas('company')
+			->whereHas('company');
+	}
+	protected function query(): QueryBuilder
+	{
+		return QueryBuilder::for($this->model())
+			->defaultSort('-id')
+			->allowedSorts('id', 'year')
+			->allowedFilters([
+				AllowedFilter::custom('search', new CommonFilter, null, false),
+			]);
+	}
+
+	public function getLatest(): Application|null
+	{
+		return $this->model()
 			->latest()
 			->first();
+	}
+
+	public function getById(string $id): Application|null
+	{
+		return $this->model()
+			->where('id', $id)
+			->latest()
+			->first();
+	}
+
+	public function getList(Int $total = 10): LengthAwarePaginator
+	{
+		return $this->query()->paginate($total)
+			->appends(request()->query());
+	}
+}
+
+
+class CommonFilter implements Filter
+{
+	public function __invoke(Builder $query, $value, string $property)
+	{
+		$query->where(function ($q) use ($value) {
+			$q->where('amount', 'LIKE', '%' . $value . '%')
+				->orWhere('year', 'LIKE', '%' . $value . '%');
+		});
 	}
 }

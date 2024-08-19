@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('application_dates', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('from_date', 0)->nullable();
-            $table->timestamp('to_date', 0)->nullable();
-            $table->timestamp('approval_end_date', 0)->nullable();
-            $table->timestamp('verification_end_date', 0)->nullable();
+            $table->date('from_date')->nullable();
+            $table->date('to_date')->nullable();
             $table->string('application_year')->nullable();
             $table->foreignId('user_id')->nullable()->index();
+            $table->boolean('can_resubmit')->default(1);
+            $table->boolean('can_approve')->default(1);
+            $table->boolean('can_verify')->default(1);
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

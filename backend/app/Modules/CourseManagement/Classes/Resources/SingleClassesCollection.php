@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Modules\ApplicationManagement\ApplicationDates\Resources;
+namespace App\Modules\CourseManagement\Classes\Resources;
 
+use App\Modules\CourseManagement\Courses\Resources\CourseCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ApplicationDateCollection extends JsonResource
+class SingleClassesCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -16,14 +17,8 @@ class ApplicationDateCollection extends JsonResource
     {
         return [
             'id' => $this->id,
-            'from_date' => $this->from_date,
-            'to_date' => $this->to_date,
-            'application_year' => $this->application_year,
-            'user_id' => $this->user_id,
+            'name' => $this->name,
             'is_active' => $this->is_active,
-            'can_resubmit' => $this->can_resubmit,
-            'can_approve' => $this->can_approve,
-            'can_verify' => $this->can_verify,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

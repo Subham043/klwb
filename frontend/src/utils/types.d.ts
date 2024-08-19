@@ -105,8 +105,9 @@ export type ApplicationDateType = {
   application_year: number;
   from_date: string;
   to_date: string;
-  approval_end_date: string;
-  verification_end_date: string;
+  can_resubmit: boolean;
+  can_approve: boolean;
+  can_verify: boolean;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -297,8 +298,20 @@ export type StudentApplicationAccountType = {
 
 export type StudentApplicationMarkType = {
   graduation_id: number;
+  graduation: {
+    id: number;
+    name: string
+  }|null;
   course_id?: number;
+  course: {
+    id: number;
+    name: string
+  }|null;
   class_id?: number;
+  class: {
+    id: number;
+    name: string
+  }|null;
   ins_pin: number;
   ins_district_id: number;
   ins_taluq_id: number;
@@ -369,6 +382,12 @@ export type StudentApplicationType = {
   mark: StudentApplicationMarkType;
   company: StudentApplicationCompanyType;
   basic_detail: StudentApplicationBasicDetailType;
+  scholarship_fee: {
+    id: number;
+    amount: number;
+    graduation_id: number;
+    year: number;
+  } | null;
   created_at: string;
   updated_at: string;
 }

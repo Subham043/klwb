@@ -47,15 +47,15 @@ function StudentInfo({ data }: Props) {
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 					<HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Amount</Heading>
-						<Text>{data?.basic_detail.name}</Text>
+						<Text>{data?.scholarship_fee?.amount || 0}</Text>
 					</HeadingGroup>
 					<HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Graduation</Heading>
-						<Text>{data?.basic_detail.name}</Text>
+						<Text>{data?.mark.graduation?.name}</Text>
 					</HeadingGroup>
 					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Present class / Course</Heading>
-						<Text>{data?.basic_detail.name}</Text>
+						<Heading level={6} className='info-heading'>Present Class / Course</Heading>
+						<Text>{data?.mark?.class?.name}{data?.mark?.course?.name ? (' / ' + data?.mark?.course?.name) : null}</Text>
 					</HeadingGroup>
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>

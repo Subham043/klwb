@@ -2,7 +2,9 @@
 
 use App\Http\Enums\Guards;
 use App\Modules\ApplicationManagement\Applications\Controllers\ApplyScholarshipController;
+use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipListController;
 use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipStatusController;
+use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipViewController;
 use App\Modules\Students\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\Students\Accounts\Controllers\ProfileController;
 use App\Modules\Students\Accounts\Controllers\ProfileUpdateController;
@@ -74,6 +76,9 @@ Route::prefix('v1')->group(function () {
         Route::prefix('scholarship')->group(function () {
             Route::post('/apply', [ApplyScholarshipController::class, 'index']);
             Route::get('/status', [ScholarshipStatusController::class, 'index']);
+            Route::get('/list', [ScholarshipListController::class, 'index']);
+            Route::get('/view/{id}', [ScholarshipViewController::class, 'index']);
+
         });
     });
 });

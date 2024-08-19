@@ -21,24 +21,29 @@ class ApplicationDate extends Model
     protected $fillable = [
         'from_date',
         'to_date',
-        'verification_end_date',
-        'approval_end_date',
         'application_year',
         'user_id',
+        'can_resubmit',
+        'can_approve',
+        'can_verify',
         'is_active',
     ];
 
     protected $attributes = [
         'is_active' => true,
+        'can_resubmit' => true,
+        'can_approve' => true,
+        'can_verify' => true,
     ];
 
     protected $casts = [
-        'from_date' => 'datetime',
-        'to_date' => 'datetime',
-        'approval_end_date' => 'datetime',
-        'verification_end_date' => 'datetime',
+        'from_date' => 'date',
+        'to_date' => 'date',
         'application_year' => 'int',
         'is_active' => 'boolean',
+        'can_resubmit' => 'boolean',
+        'can_approve' => 'boolean',
+        'can_verify' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

@@ -1,12 +1,14 @@
 import { Button, ButtonToolbar, Divider, Heading, Panel, Stack } from "rsuite";
-import { useScholarshipStatusQuery } from "../../../hooks/data/scholarship_status";
+import { useScholarshipViewQuery } from "../../../hooks/data/scholarship_status";
 import ScholarshipStatus from "../../../components/Student/ScholarshipStatus";
 import ScholarshipInfo from "../../../components/Student/ScholarshipInfo";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
+import { useParams } from "react-router-dom";
 
 
-export default function StudentScholarshipStatusPage() {
-	const {data, isFetching, isLoading, isRefetching, refetch, error} = useScholarshipStatusQuery();
+export default function StudentScholarshipViewPage() {
+	const {id} = useParams<{ id: string }>();
+	const {data, isFetching, isLoading, isRefetching, refetch, error} = useScholarshipViewQuery(Number(id)||0, true);
 
 	return <div className="data-table-container">
 		<ErrorBoundaryLayout loading={isRefetching || isLoading || isFetching} error={error} refetch={refetch}>

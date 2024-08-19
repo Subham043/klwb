@@ -34,7 +34,7 @@ const NavMenu = () => {
                     <Nav.Item eventKey="3" as={NavLink} to={page_routes.student.scholarship.status} className='sidebar-navlink' icon={<DocPassIcon />}>
                         Scholarship Status
                     </Nav.Item>
-                    <Nav.Item eventKey="4" icon={<ListIcon />}>
+                    <Nav.Item eventKey="4" as={NavLink} to={page_routes.student.scholarship.list} className='sidebar-navlink' icon={<ListIcon />}>
                         Scholarship List
                     </Nav.Item>
                 </>

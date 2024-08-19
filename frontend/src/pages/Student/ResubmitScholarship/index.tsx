@@ -7,7 +7,7 @@ import CheckingEligibility from "../../../components/Student/Eligibility/Checkin
 import ApplicationApplied from "../../../components/Student/Eligibility/ApplicationApplied";
 import ApplicationClosed from "../../../components/Student/Eligibility/ApplicationClosed";
 
-export default function StudentApplyScholarshipPage() {
+export default function StudentResubmitScholarshipPage() {
 	const {data, isFetching, isLoading, isRefetching, refetch, error} = useScholarshipStatusQuery();
 	return <div className="data-table-container">
 		<Panel
@@ -29,7 +29,7 @@ export default function StudentApplyScholarshipPage() {
 						: 
 						((data && !data.is_scholarship_open) ? <ApplicationClosed message={data?.message} date={data?.application?.date} />
 						: 
-						((data && data.is_eligible_to_apply) ? <ScholarshipForm data={data && data.application ? data.application : null} />  : <ApplicationApplied message={data?.message} date={data?.application?.date} />))}
+						((data && data.can_resubmit) ? <ScholarshipForm data={data && data.application ? data.application : null} type="resubmit" />  : <ApplicationApplied message={data?.message} date={data?.application?.date} />))}
 				</div>
 			</ErrorBoundaryLayout>
 		</Panel>

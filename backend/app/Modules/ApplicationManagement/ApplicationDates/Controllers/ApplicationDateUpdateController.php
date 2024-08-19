@@ -18,7 +18,7 @@ class ApplicationDateUpdateController extends Controller
 
     public function index(ApplicationDateUpdateRequest $request, $id){
         $applicationDate = $this->applicationDateService->getById($id);
-        if (!(now()->between($applicationDate->from_date->format('Y-m-d'), $applicationDate->to_date->format('Y-m-d')))) {
+        if (!(today()->between($applicationDate->from_date->format('Y-m-d'), $applicationDate->to_date->addDay(1)->format('Y-m-d')))) {
             return response()->json(["message" => "You can not update application date."], 400);
         }
         try {

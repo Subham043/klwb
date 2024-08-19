@@ -11,8 +11,8 @@ type HeaderProps = {
     title: string; 
     addBtn?: boolean; 
     buttonName?: string; 
-    excelLink: string, 
-    excelName: string,
+    excelLink?: string, 
+    excelName?: string,
     addHandler?: () => void;
     children?: ReactNode;
 }
@@ -60,7 +60,7 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
     const {excelLoading, exportExcel} = useExcelExport();
     const { search, searchHandler } = useSearchQueryParam();
     const excelHandler = async () => {
-        await exportExcel(excelLink, excelName);
+        (excelLink && excelName) ? await exportExcel(excelLink, excelName) : null;
     }
 
     return <div className="mb-1">
@@ -69,9 +69,9 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
                 {addBtn && <Button appearance="primary" type="button" active onClick={addHandler ? addHandler : undefined}>
                     Add {buttonName}
                 </Button>}
-                <Button appearance="default" type="button" active loading={excelLoading} onClick={excelHandler}>
+                {(excelLink && excelName) && <Button appearance="default" type="button" active loading={excelLoading} onClick={excelHandler}>
                     Export Excel
-                </Button>
+                </Button>}
             </ButtonToolbar>
             <div>
                {children}

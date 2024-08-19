@@ -4,6 +4,8 @@
 
 .navigation_tabs {
 		counter-reset: step;
+		margin: 0;
+		padding: 0;
 }
 
 /* one item */
