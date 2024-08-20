@@ -30,7 +30,7 @@ class PasswordPostRequest extends FormRequest
     {
         return [
             'old_password' => ['required','string', function ($attribute, $value, $fail) {
-                if (!Hash::check($value, Auth::user()->password)) {
+                if (!Hash::check($value, Auth::guard(Guards::Web->value())->user()->password)) {
                     $fail('The '.$attribute.' entered is incorrect.');
                 }
             }],

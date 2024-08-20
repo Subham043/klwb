@@ -171,7 +171,7 @@ class ScholarshipService
 			return false;
 		}
 		$application_date = (new ApplicationDateService)->getLatest();
-		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 2 && $application_date->can_resubmit == 2) {
+		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 2 && $application_date->can_resubmit) {
 			return true;
 		}
 		return false;

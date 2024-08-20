@@ -1,15 +1,15 @@
 import { FC } from "react"
 import { ButtonToolbar, IconButton, Table } from "rsuite"
 import VisibleIcon from '@rsuite/icons/Visible';
-import { useScholarshipListQuery } from "../../../hooks/data/scholarship_status";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
 import { Link } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
+import { useInstituteScholarshipListQuery } from "../../../hooks/data/institute_scholarship";
 
 
-const StudentScholarshipListPage:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch, error} = useScholarshipListQuery();
+const InstituteScholarshipListPage:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch, error} = useInstituteScholarshipListQuery();
 
     return <PaginatedTableLayout title="Scholarship List">
         <PaginatedTableLayout.Header title="Scholarship List" addBtn={false} />
@@ -88,7 +88,7 @@ const StudentScholarshipListPage:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton as={Link} appearance="primary" color="orange" icon={<VisibleIcon />} to={page_routes.student.scholarship.view(rowData.id)} />
+                                <IconButton as={Link} appearance="primary" color="orange" icon={<VisibleIcon />} to={page_routes.institute.scholarship.view(rowData.id)} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>
@@ -98,4 +98,4 @@ const StudentScholarshipListPage:FC = () => {
     </PaginatedTableLayout>
 }
 
-export default StudentScholarshipListPage
+export default InstituteScholarshipListPage

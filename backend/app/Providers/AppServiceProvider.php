@@ -18,6 +18,8 @@ use App\Http\Listeners\SendOtpNotification as StudentsSendOtpNotification;
 use App\Http\Listeners\SendResetPasswordResendOtpNotification as StudentsSendResetPasswordResendOtpNotification;
 use App\Http\Events\UserRegistered as StudentsUserRegistered;
 use App\Http\Listeners\SendRegistrartionNotification as StudentsSendRegistrartionNotification;
+use App\Modules\InstituteManagement\Staff\Events\InstituteEmployeeCreated;
+use App\Modules\InstituteManagement\Staff\Listeners\SendInstituteEmployeeInviteNotification;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Event;
@@ -55,6 +57,10 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(
             EmployeeCreated::class,
             SendEmployeeInviteNotification::class,
+        );
+        Event::listen(
+            InstituteEmployeeCreated::class,
+            SendInstituteEmployeeInviteNotification::class,
         );
         Event::listen(
             StudentsForgotPassword::class,

@@ -12,7 +12,7 @@ class AuthService
 {
     public function login(array $credentials): bool
     {
-        return Auth::attempt($credentials);
+        return Auth::guard(Guards::Web->value())->attempt($credentials);
     }
 
     public function generate_token(User $user): string
@@ -22,7 +22,7 @@ class AuthService
 
     public function profile(): User
     {
-        return Auth::user();
+        return Auth::guard(Guards::Web->value())->user();
     }
 
     public function logout(Request $request): void

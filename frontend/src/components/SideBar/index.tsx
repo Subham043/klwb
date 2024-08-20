@@ -40,11 +40,21 @@ const NavMenu = () => {
                 </>
             }
             {
+                [RolesEnum.INSTITUTE, RolesEnum.INSTITUTE_STAFF].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="15" as={NavLink} to={page_routes.institute.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Dashboard
+                    </Nav.Item>
+                    <Nav.Item eventKey="16" as={NavLink} to={page_routes.institute.scholarship.list} className='sidebar-navlink' icon={<ListIcon />}>
+                        Scholarship List
+                    </Nav.Item>
+                </>
+            }
+            {
                 [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="13" as={NavLink} to={page_routes.admin.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
                         Employee Management
                     </Nav.Item>
-                    <Nav.Item eventKey="8" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
+                    <Nav.Item eventKey="14" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Employee Management
                     </Nav.Item>
                     <Nav.Item eventKey="10" as={NavLink} to={page_routes.admin.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
@@ -53,7 +63,7 @@ const NavMenu = () => {
                     <Nav.Item eventKey="11" as={NavLink} to={page_routes.admin.application_fee} className='sidebar-navlink' icon={<TagNumberIcon />}>
                         Scholarship Fees
                     </Nav.Item>
-                    <Nav.Item eventKey="9" as={NavLink} to={page_routes.admin.security_question} className='sidebar-navlink' icon={<SettingHorizontalIcon />}>
+                    <Nav.Item eventKey="12" as={NavLink} to={page_routes.admin.security_question} className='sidebar-navlink' icon={<SettingHorizontalIcon />}>
                         Security Questions
                     </Nav.Item>
                     <Nav.Menu

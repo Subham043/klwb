@@ -31,8 +31,8 @@ class ProfilePostRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,'.Auth::user()->id,
-            'phone' => ['required','numeric', 'digits:10', 'unique:users,phone,'.Auth::user()->id],
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,'.Auth::guard(Guards::Web->value())->user()->id,
+            'phone' => ['required','numeric', 'digits:10', 'unique:users,phone,'.Auth::guard(Guards::Web->value())->user()->id],
         ];
     }
 

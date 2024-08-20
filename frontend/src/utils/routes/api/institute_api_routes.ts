@@ -29,4 +29,8 @@ export const institute_api_routes = {
 		profile_verify: "/api/institute/v1/account/verify",
 		resend_otp: "/api/institute/v1/account/resend-otp",
 	},
+	scholarship: {
+		list: "/api/institute/v1/scholarship/list",
+		view: (id: string | number) => `/api/institute/v1/scholarship/view/${id}`,
+	}
 } as const;

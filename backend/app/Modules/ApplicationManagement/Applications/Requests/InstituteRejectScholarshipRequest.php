@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Modules\InstituteManagement\Accounts\Requests;
+namespace App\Modules\ApplicationManagement\Applications\Requests;
 
 use App\Http\Enums\Guards;
-use App\Http\Services\RateLimitService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Stevebauman\Purify\Facades\Purify;
 
 
-class ProfileVerifyPostRequest extends FormRequest
+class InstituteRejectScholarshipRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +17,6 @@ class ProfileVerifyPostRequest extends FormRequest
      */
     public function authorize()
     {
-        (new RateLimitService($this))->ensureIsNotRateLimited(3);
         return Auth::guard(Guards::Institute->value())->check();
     }
 
@@ -30,29 +28,21 @@ class ProfileVerifyPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp' => ['required','numeric', 'digits:4', 'exists:school_auths,otp'],
-            'captcha' => 'required|captcha'
+            'reason' => ['required', 'string', 'max:250'],
+            'comment' => ['required', 'string', 'max:250'],
         ];
     }
 
     /**
-     * Get the error messages for the defined validation rules.
+     * Get custom attributes for validator errors.
      *
      * @return array<string, string>
      */
-    public function messages(): array
+    public function attributes(): array
     {
-        return [
-            'captcha.captcha' => 'Invalid Captcha. Please try again.',
-            'otp.exists' => 'Invalid OTP.',
-        ];
+        return [];
     }
 
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
     protected function prepareForValidation(): void
     {
         $request = Purify::clean($this->all());

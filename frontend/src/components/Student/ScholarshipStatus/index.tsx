@@ -6,7 +6,7 @@ import { page_routes } from '../../../utils/routes/pages';
 
 type Props = {
 	data: StudentApplicationType;
-	can_resubmit: boolean;
+	can_resubmit?: boolean;
 }
 
 function Status({ children, tooltip, className }: { children: React.ReactNode, tooltip: string, className: string }) {
@@ -100,7 +100,7 @@ function CurrentStatus({ status, application_state, name, current_state }: { sta
 		</Pending>
 	);
 }
-export default function ScholarshipStatus({ data, can_resubmit }: Props) {
+export default function ScholarshipStatus({ data, can_resubmit = false }: Props) {
 	return (
 		<>
 			<div className={classes.navigation_menu}>

@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Enums\Guards;
+use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipApproveController;
+use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipListController;
+use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipRejectController;
+use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipViewController;
 use App\Modules\InstituteManagement\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\InstituteManagement\Accounts\Controllers\ProfileController;
 use App\Modules\InstituteManagement\Accounts\Controllers\ProfileUpdateController;
@@ -15,6 +19,12 @@ use App\Modules\InstituteManagement\Authentication\Controllers\PhoneLoginControl
 use App\Modules\InstituteManagement\Authentication\Controllers\ResetPasswordController;
 use App\Modules\InstituteManagement\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteCreateController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeCreateController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeDeleteController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeExportController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeePaginateController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeUpdateController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('institute')->group(function () {
@@ -41,6 +51,24 @@ Route::prefix('institute')->group(function () {
                 Route::middleware('verified')->post('/update-password', [PasswordUpdateController::class, 'index']);
                 Route::post('/verify', [ProfileVerifyController::class, 'index']);
                 Route::get('/resend-otp', [ResendRegisteredUserOtpController::class, 'index'])->middleware(['throttle:3,1']);
+            });
+        });
+        Route::middleware([Guards::Institute->middleware(), 'verified', 'role:Institute'])->group(function () {
+            Route::prefix('employees')->group(function () {
+                Route::get('/excel', [InstituteEmployeeExportController::class, 'index']);
+                Route::get('/paginate', [InstituteEmployeePaginateController::class, 'index']);
+                Route::post('/create', [InstituteEmployeeCreateController::class, 'index']);
+                Route::post('/update/{id}', [InstituteEmployeeUpdateController::class, 'index']);
+                Route::delete('/delete/{id}', [InstituteEmployeeDeleteController::class, 'index']);
+                Route::get('/view/{id}', [InstituteEmployeeViewController::class, 'index']);
+            });
+        });
+        Route::middleware([Guards::Institute->middleware(), 'verified', 'role:Institute|Institute-Staff'])->group(function () {
+            Route::prefix('scholarship')->group(function () {
+                Route::get('/list', [InstituteScholarshipListController::class, 'index']);
+                Route::get('/view/{id}', [InstituteScholarshipViewController::class, 'index']);
+                Route::post('/approve/{id}', [InstituteScholarshipApproveController::class, 'index']);
+                Route::post('/reject/{id}', [InstituteScholarshipRejectController::class, 'index']);
             });
         });
     });
