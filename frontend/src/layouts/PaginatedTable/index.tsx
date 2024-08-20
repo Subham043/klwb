@@ -73,7 +73,7 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
                     Export Excel
                 </Button>}
             </ButtonToolbar>
-            <div>
+            <Stack justifyContent="flex-end" alignItems="center" style={{ gap: 10 }}>
                {children}
                 <InputGroup size="md" inside>
                     <Input placeholder='Search' defaultValue={search} onChange={searchHandler} />
@@ -81,7 +81,7 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
                         <SearchIcon />
                     </InputGroup.Button>
                 </InputGroup>
-            </div>
+            </Stack>
         </Stack>
     </div>
 };

@@ -48,6 +48,7 @@ class InstituteScholarshipService
 			->defaultSort('-id')
 			->allowedSorts('id', 'year')
 			->allowedFilters([
+				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					if($value == 'approved'){
@@ -61,6 +62,9 @@ class InstituteScholarshipService
 					}
 					if($value == 'rejected'){
 						$query->where('status', 2)->where('application_state', 1);
+					}
+					if($value == 'pending'){
+						$query->where('status', 0)->where('application_state', 1);
 					}
 				}),
 			]);

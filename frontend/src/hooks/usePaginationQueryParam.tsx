@@ -19,10 +19,12 @@ export const usePaginationQueryParam:PaginationQueryParamHookType = (key?:string
 
     const [searchParams, setSearchParams] = useSearchParams();
     const pageHandler = (value: number) => {
-      setSearchParams({["page" + (key || "")]: value.toString(), ["limit" + (key || "")]: searchParams.get('limit' + (key || '')) || QueryTotalCount.toString(), ["search" + (key || "")]: searchParams.get('search') || ''})
+      searchParams.set("page"+(key || ""), value.toString())
+      setSearchParams(searchParams)
     }
     const limitHandler = (value: number) => {
-      setSearchParams({["page" + (key || "")]: searchParams.get('page' + (key || '')) || QueryInitialPageParam.toString(), ["limit" + (key || "")]: value.toString(), ["search" + (key || "")]: searchParams.get('search') || ''})
+      searchParams.set("limit"+(key || ""), value.toString())
+      setSearchParams(searchParams)
     }
 
     return {

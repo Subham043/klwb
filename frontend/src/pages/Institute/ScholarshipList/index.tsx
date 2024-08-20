@@ -6,13 +6,19 @@ import Moment from "../../../components/Moment";
 import { Link } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
 import { useInstituteScholarshipListQuery } from "../../../hooks/data/institute_scholarship";
+import SelectStatus from "../../../components/Institute/SelectStatus";
+import SelectYear from "../../../components/Institute/SelectYear";
+import StatusBadge from "../../../components/Institute/StatusBadge";
 
 
 const InstituteScholarshipListPage:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useInstituteScholarshipListQuery();
 
     return <PaginatedTableLayout title="Scholarship List">
-        <PaginatedTableLayout.Header title="Scholarship List" addBtn={false} />
+        <PaginatedTableLayout.Header title="Scholarship List" addBtn={false}>
+            <SelectStatus />
+            <SelectYear />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
@@ -70,6 +76,16 @@ const InstituteScholarshipListPage:FC = () => {
                 <Table.Column  width={160}>
                     <Table.HeaderCell>Year</Table.HeaderCell>
                     <Table.Cell dataKey="application_year" />
+                </Table.Column>
+
+                <Table.Column width={250} verticalAlign="middle">
+                    <Table.HeaderCell>Status</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <StatusBadge status={rowData.status} application_state={rowData.application_state} current_application_state={1} />
+                        )}
+                    </Table.Cell>
                 </Table.Column>
 
                 <Table.Column width={250} verticalAlign="middle">

@@ -1,7 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { DebouncedFunc } from 'lodash';
 import debounce from 'lodash.debounce';
-import { QueryInitialPageParam, QueryTotalCount } from '../utils/constants/query_client';
 
 /*
   * Toast Hook Type
@@ -18,7 +17,10 @@ type SearchQueryParamHookType = (key?: string) => {
 export const useSearchQueryParam:SearchQueryParamHookType = (key?: string) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchHandler = debounce((value: string) => setSearchParams({["page" + (key || "")]: searchParams.get('page'+(key || "")) || QueryInitialPageParam.toString(), ["limit" + (key || "")]: searchParams.get('limit'+(key || "")) || QueryTotalCount.toString(), ["search" + (key || "")]: value}), 500)
+    const searchHandler = debounce((value: string) => {
+      searchParams.set("search"+(key || ""), value)
+      setSearchParams(searchParams)
+    }, 500)
 
     return {
         search: searchParams.get("search"+(key || "")) || "",

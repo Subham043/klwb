@@ -1,4 +1,4 @@
-import { Button, Divider, Heading, HeadingGroup, Modal, Panel, Stack, Text, useMediaQuery } from 'rsuite'
+import { Button, Heading, HeadingGroup, Modal, Panel, Stack, Text, useMediaQuery } from 'rsuite'
 import { useRequestInstituteQuery } from '../../hooks/data/request_institute';
 import { useDeleteQuery } from '../../hooks/useDeleteQuery';
 import { useToast } from '../../hooks/useToast';

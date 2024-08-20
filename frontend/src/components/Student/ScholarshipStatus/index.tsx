@@ -1,4 +1,4 @@
-import { Button, Message, Tooltip, Whisper } from 'rsuite'
+import { Button, Message, Stack, Tooltip, Whisper } from 'rsuite'
 import classes from './index.module.css'
 import { StudentApplicationType } from '../../../utils/types';
 import { Link } from 'react-router-dom';
@@ -111,10 +111,12 @@ export default function ScholarshipStatus({ data, can_resubmit = false }: Props)
 					<CurrentStatus status={data.status} application_state={data.application_state} name='Labour Welfare Board' current_state={3} />
 				</ul>
 			</div>
-			{(data.status===2) && <div className='scholarship-rejected-status'>
-					<Message showIcon centered type="error" header="Application Rejected" className='mt-1'>
-					{(data.reject_reason) && <p>{data.reject_reason}</p>}
-					{can_resubmit && <Button as={Link} to={page_routes.student.scholarship.resubmit} size="sm" style={{ marginTop: 20 }} appearance="primary">RESUBMIT APPLICATION</Button>}
+			{(data.status===2) && <div className='scholarship-rejected-status mt-1'>
+				<Message type="error" bordered showIcon className="mb-1" style={{ gap: 10 }}>
+						<Stack justifyContent="space-between" className='w-100'>
+								{(data.reject_reason) && <div><strong>Reason for Rejection:</strong> {data.reject_reason}</div>}
+								{can_resubmit && <Button as={Link} to={page_routes.student.scholarship.resubmit} size="sm" appearance="primary" color='red'>RESUBMIT APPLICATION</Button>}
+						</Stack>
 				</Message>
 			</div>}
 		</>

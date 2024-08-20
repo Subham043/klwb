@@ -32,5 +32,16 @@ export const institute_api_routes = {
 	scholarship: {
 		list: "/api/institute/v1/scholarship/list",
 		view: (id: string | number) => `/api/institute/v1/scholarship/view/${id}`,
-	}
+		approve: (id: string | number) => `/api/institute/v1/scholarship/approve/${id}`,
+		reject: (id: string | number) => `/api/institute/v1/scholarship/reject/${id}`,
+	},
+	employee: {
+		excel: "/api/institute/v1/employees/excel",
+		all: "/api/institute/v1/employees/all",
+		paginate: "/api/institute/v1/employees/paginate",
+		create: "/api/institute/v1/employees/create",
+		update: (id: string | number) => `/api/institute/v1/employees/update/${id}`,
+		delete: (id: string | number) => `/api/institute/v1/employees/delete/${id}`,
+		view: (id: string | number) => `/api/institute/v1/employees/view/${id}`,
+},
 } as const;

@@ -4,6 +4,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const InstituteScholarshipViewQueryKey = "institute_scholarship_view";
 export const InstituteScholarshipListQueryKey = "institute_scholarship_list";
@@ -15,12 +16,13 @@ export const useInstituteScholarshipListQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [InstituteScholarshipListQueryKey, page, limit, search],
+    queryKey: [InstituteScholarshipListQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<StudentApplicationType>>(
         api_routes.institute.scholarship.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[application_year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
       );
       return response.data;
     },
