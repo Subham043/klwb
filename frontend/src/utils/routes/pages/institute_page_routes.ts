@@ -7,6 +7,7 @@ export const institute_page_routes = {
     reset_password: "/auth/institute/reset-password/:token",
   },
   dashboard: "/institute/dashboard",
+  employee: "/institute/employee",
   scholarship: {
     list: "/institute/scholarship/list",
     view: (id: number | string) =>

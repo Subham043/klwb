@@ -27,7 +27,7 @@ class InstituteEmployeeCreateController extends Controller
             $employee = $this->employeeService->create(
                 [...$request->validated(), 'created_by' => auth()->guard(Guards::Institute->value())->user()->id, 'school_id'=> auth()->guard(Guards::Institute->value())->user()->school_id]
             );
-            $this->employeeService->syncRoles([Roles::IndustryStaff->value()], $employee);
+            $this->employeeService->syncRoles([Roles::InstituteStaff->value()], $employee);
             InstituteEmployeeCreated::dispatch($employee, $request->password);
             return response()->json([
                 "message" => "Employee created successfully.",

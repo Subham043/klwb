@@ -50,9 +50,16 @@ const NavMenu = () => {
                 </>
             }
             {
+                [RolesEnum.INSTITUTE].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="17" as={NavLink} to={page_routes.institute.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
+                        Employees
+                    </Nav.Item>
+                </>
+            }
+            {
                 [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="13" as={NavLink} to={page_routes.admin.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
-                        Employee Management
+                        Dashboard
                     </Nav.Item>
                     <Nav.Item eventKey="14" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Employee Management

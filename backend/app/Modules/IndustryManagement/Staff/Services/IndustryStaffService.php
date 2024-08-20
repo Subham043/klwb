@@ -62,7 +62,7 @@ class IndustryStaffService
                 'Email' => $data->email,
                 'Phone' => $data->phone,
                 'Role' => $data->currentRole,
-                'Blocked' => $data->is_blocked ? 'No' : 'Yes',
+                'Blocked' => $data->is_blocked ? 'Yes' : 'No',
                 'Created At' => $data->created_at->format('Y-m-d H:i:s'),
             ]);
             if($i==1000){
