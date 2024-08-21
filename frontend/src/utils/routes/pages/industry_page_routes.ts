@@ -7,4 +7,10 @@ export const industry_page_routes = {
     reset_password: "/auth/industry/reset-password/:token",
   },
   dashboard: "/industry/dashboard",
+  employee: "/industry/employee",
+  scholarship: {
+    list: "/industry/scholarship/list",
+    view: (id: number | string) =>
+      "/industry/scholarship/view/" + id,
+  }
 } as const;

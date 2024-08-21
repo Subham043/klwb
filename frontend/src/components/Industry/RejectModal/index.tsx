@@ -23,7 +23,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function InstituteScholarshipRejectForm({modal, setModal, id, refetch}:{modal: boolean; id:number; setModal: (value:boolean)=>void; refetch: ()=>void}) {
+export default function IndustryScholarshipRejectForm({modal, setModal, id, refetch}:{modal: boolean; id:number; setModal: (value:boolean)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const axios = useAxios();
@@ -42,7 +42,7 @@ export default function InstituteScholarshipRejectForm({modal, setModal, id, ref
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(api_routes.institute.scholarship.reject(id), getValues());
+            await axios.post(api_routes.industry.scholarship.reject(id), getValues());
             toastSuccess("Rejected Successfully");
 												reset({
 																reason: "",

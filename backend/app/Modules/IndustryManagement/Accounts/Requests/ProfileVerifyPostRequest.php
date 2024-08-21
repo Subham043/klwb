@@ -30,7 +30,7 @@ class ProfileVerifyPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp' => ['required','numeric', 'digits:4', 'exists:users,otp'],
+            'otp' => ['required','numeric', 'digits:4', 'exists:industry_auths,otp'],
             'captcha' => 'required|captcha'
         ];
     }

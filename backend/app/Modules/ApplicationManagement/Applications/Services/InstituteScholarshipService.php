@@ -37,6 +37,7 @@ class InstituteScholarshipService
 			'industry'
 		])
 			->where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)
+			->where('application_state', '>', 0)
 			->whereHas('basic_detail')
 			->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class'])->whereHas('graduation'))
 			->whereHas('account')

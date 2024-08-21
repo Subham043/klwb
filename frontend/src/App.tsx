@@ -50,6 +50,10 @@ const InstituteDashboardPage = lazy(()=>import("./pages/Institute/Dashboard"));
 const InstituteScholarshipListPage = lazy(()=>import("./pages/Institute/ScholarshipList"));
 const InstituteScholarshipViewPage = lazy(()=>import("./pages/Institute/ScholarshipView"));
 const InstituteEmployeePage = lazy(()=>import("./pages/Institute/Employee"));
+const IndustryDashboardPage = lazy(()=>import("./pages/Industry/Dashboard"));
+const IndustryScholarshipListPage = lazy(()=>import("./pages/Industry/ScholarshipList"));
+const IndustryScholarshipViewPage = lazy(()=>import("./pages/Industry/ScholarshipView"));
+const IndustryEmployeePage = lazy(()=>import("./pages/Industry/Employee"));
 const StudentDashboardPage = lazy(()=>import("./pages/Student/Dashboard"));
 const StudentApplyScholarshipPage = lazy(()=>import("./pages/Student/ApplyScholarship"));
 const StudentResubmitScholarshipPage = lazy(()=>import("./pages/Student/ResubmitScholarship"));
@@ -195,6 +199,14 @@ function App() {
                     <Route element={<IndustryVerifiedLayout />} >
                       <Route element={<IndustryAuthorisedLayout />}>
                           <Route element={<DashboardLayout />}>
+                            <Route path={page_routes.industry.dashboard} element={<IndustryDashboardPage />} />
+                            <Route path={page_routes.industry.scholarship.list} element={<IndustryScholarshipListPage />} />
+                            <Route path={page_routes.industry.scholarship.view(":id")} element={<IndustryScholarshipViewPage />} />
+                          </Route>
+                      </Route>
+                      <Route element={<IndustryAuthorisedLayout roles={[RolesEnum.INDUSTRY]} />}>
+                          <Route element={<DashboardLayout />}>
+                            <Route path={page_routes.industry.employee} element={<IndustryEmployeePage />} />
                           </Route>
                       </Route>
                     </Route>

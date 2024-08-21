@@ -57,6 +57,23 @@ const NavMenu = () => {
                 </>
             }
             {
+                [RolesEnum.INDUSTRY, RolesEnum.INDUSTRY_STAFF].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="18" as={NavLink} to={page_routes.industry.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Dashboard
+                    </Nav.Item>
+                    <Nav.Item eventKey="19" as={NavLink} to={page_routes.industry.scholarship.list} className='sidebar-navlink' icon={<ListIcon />}>
+                        Scholarship List
+                    </Nav.Item>
+                </>
+            }
+            {
+                [RolesEnum.INDUSTRY].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="20" as={NavLink} to={page_routes.industry.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
+                        Employees
+                    </Nav.Item>
+                </>
+            }
+            {
                 [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="13" as={NavLink} to={page_routes.admin.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
                         Dashboard

@@ -65,12 +65,12 @@ class Application extends Model
 
 	protected $casts = [
 		'date' => 'datetime',
-		'school_approve' => 'datetime',
-		'company_approve' => 'datetime',
-		'govt_approve' => 'datetime',
-		'admin_approve' => 'datetime',
-		'date_offline_industry' => 'datetime',
-		'date_offline_govt' => 'datetime',
+		'school_approve' => 'date',
+		'company_approve' => 'date',
+		'govt_approve' => 'date',
+		'admin_approve' => 'date',
+		'date_offline_industry' => 'date',
+		'date_offline_govt' => 'date',
 		'application_year' => 'int',
 		'mode_industry' => 'boolean',
 		'mode_govt' => 'boolean',

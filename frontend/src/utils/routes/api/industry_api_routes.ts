@@ -29,4 +29,19 @@ export const industry_api_routes = {
 		profile_verify: "/api/industry/v1/account/verify",
 		resend_otp: "/api/industry/v1/account/resend-otp",
 	},
+	scholarship: {
+		list: "/api/industry/v1/scholarship/list",
+		view: (id: string | number) => `/api/industry/v1/scholarship/view/${id}`,
+		approve: (id: string | number) => `/api/industry/v1/scholarship/approve/${id}`,
+		reject: (id: string | number) => `/api/industry/v1/scholarship/reject/${id}`,
+	},
+	employee: {
+		excel: "/api/industry/v1/employees/excel",
+		all: "/api/industry/v1/employees/all",
+		paginate: "/api/industry/v1/employees/paginate",
+		create: "/api/industry/v1/employees/create",
+		update: (id: string | number) => `/api/industry/v1/employees/update/${id}`,
+		delete: (id: string | number) => `/api/industry/v1/employees/delete/${id}`,
+		view: (id: string | number) => `/api/industry/v1/employees/view/${id}`,
+},
 } as const;
