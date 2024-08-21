@@ -3,13 +3,16 @@
 namespace App\Modules\ApplicationManagement\Applications\Requests;
 
 use App\Http\Enums\Guards;
+use App\Modules\ApplicationManagement\ApplicationDates\Models\ApplicationDate;
 use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateService;
 use App\Modules\ApplicationManagement\Applications\Enums\AccountType;
 use App\Modules\ApplicationManagement\Applications\Enums\Category;
 use App\Modules\ApplicationManagement\Applications\Enums\Gender;
 use App\Modules\ApplicationManagement\Applications\Enums\NotApplicable;
 use App\Modules\ApplicationManagement\Applications\Enums\Working;
+use App\Modules\ApplicationManagement\Applications\Models\Application;
 use App\Modules\ApplicationManagement\Applications\Models\ApplicationBasicDetail;
+use App\Modules\ApplicationManagement\Applications\Services\ScholarshipService;
 use App\Modules\CourseManagement\Classes\Models\Classes;
 use App\Modules\CourseManagement\Courses\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,6 +24,9 @@ use Illuminate\Validation\Rule;
 
 class ResubmitScholarshipRequest extends FormRequest
 {
+    protected Application|null $application = null;
+    protected bool $areScholarshipApplicationOpen = false;
+    protected bool $can_resubmit = false;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,7 +34,12 @@ class ResubmitScholarshipRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::guard(Guards::Web->value())->check();
+        $this->application = (new ScholarshipService)->getLatest();
+        $this->areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
+        if($this->areScholarshipApplicationOpen && !(new ScholarshipService)->isEligibleForScholarship()){
+            $this->can_resubmit = (new ScholarshipService)->canResubmit($this->application);
+        }
+        return Auth::guard(Guards::Web->value())->check() && $this->can_resubmit;
     }
 
     /**
