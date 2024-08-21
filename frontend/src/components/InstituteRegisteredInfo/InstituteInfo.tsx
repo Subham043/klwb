@@ -11,6 +11,7 @@ import Moment from "../Moment";
 import { VerificationEnum } from "../../utils/constants/verified";
 import InstituteInfoUpdate from "./InstituteInfoUpdate";
 import InstituteAuthUpdate from "./InstituteAuthUpdate";
+import FileViewer from "../FileViewer";
 
 type Props = {
 	id: number;
@@ -111,15 +112,15 @@ export default function InstituteInfo({ id }: Props) {
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Institute Reg. File</Heading>
-							<img src={data?.reg_certification} alt="" style={{ objectFit: 'contain', height: '100px' }} />
+							<FileViewer src={data?.reg_certification} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Principal Signature</Heading>
-							<img src={data?.principal_signature} alt="" style={{ objectFit: 'contain', height: '100px' }} />
+							<FileViewer src={data?.principal_signature} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Seal</Heading>
-							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '100px' }} />
+							<FileViewer src={data?.seal} />
 						</HeadingGroup>
 					</Stack>
 				</Panel>

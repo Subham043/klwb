@@ -11,6 +11,7 @@ import Moment from "../Moment";
 import { VerificationEnum } from "../../utils/constants/verified";
 import IndustryInfoUpdate from "./IndustryInfoUpdate";
 import IndustryAuthUpdate from "./IndustryAuthUpdate";
+import FileViewer from "../FileViewer";
 
 type Props = {
 	id: number;
@@ -83,15 +84,15 @@ export default function IndustryInfo({ id }: Props) {
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Industry Reg. File</Heading>
-							<img src={data?.reg_doc} alt="" style={{ objectFit: 'contain', height: '100px' }} />
+							<FileViewer src={data?.reg_doc} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Director Signature</Heading>
-							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '100px' }} />
+							<FileViewer src={data?.seal} />
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Industry Seal</Heading>
-							<img src={data?.seal} alt="" style={{ objectFit: 'contain', height: '100px' }} />
+							<FileViewer src={data?.seal} />
 						</HeadingGroup>
 					</Stack>
 				</Panel>

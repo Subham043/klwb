@@ -1,6 +1,7 @@
 import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
+import FileViewer from "../../FileViewer";
 
 type Props = {
 	data: StudentApplicationType;
@@ -32,7 +33,7 @@ function CasteInfo({ data }: Props) {
 			{(data?.basic_detail.cast_certificate && data?.basic_detail.is_scst.toString()==="true") && <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 				<HeadingGroup className='mb-1'>
 					<Heading level={6} className='info-heading'>Caste Certificate</Heading>
-					<img src={data?.basic_detail.cast_certificate} alt="" style={{objectFit: 'contain', height: '100px'}} />
+					<FileViewer src={data?.basic_detail.cast_certificate} />
 				</HeadingGroup>
 			</Stack>}
 		</Panel>

@@ -1,6 +1,7 @@
 import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
+import FileViewer from "../../FileViewer";
 
 type Props = {
 	data: StudentApplicationType;
@@ -32,24 +33,24 @@ function AadharInfo({ data }: Props) {
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 					{data?.basic_detail.adharcard_file && <HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Aadhar File</Heading>
-						<img src={data?.basic_detail.adharcard_file} alt="" style={{objectFit: 'contain', height: '100px'}} />
+						<FileViewer src={data?.basic_detail.adharcard_file} />
 					</HeadingGroup>}
 					{
 						(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="father") ? (data?.basic_detail.deathcertificate && <HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Father's Death Certificate</Heading>
-							<img src={data?.basic_detail.deathcertificate} alt="" style={{objectFit: 'contain', height: '100px'}} />
+							<FileViewer src={data?.basic_detail.deathcertificate} />
 						</HeadingGroup>) : (data?.basic_detail.f_adharfile && <HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Father's Aadhar File</Heading>
-						<img src={data?.basic_detail.f_adharfile} alt="" style={{objectFit: 'contain', height: '100px'}} />
+						<FileViewer src={data?.basic_detail.f_adharfile} />
 					</HeadingGroup>)
 					}
 					{
 						(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="mother") ? (data?.basic_detail.deathcertificate && <HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Mother's Death Certificate</Heading>
-							<img src={data?.basic_detail.deathcertificate} alt="" style={{objectFit: 'contain', height: '100px'}} />
+							<FileViewer src={data?.basic_detail.deathcertificate} />
 						</HeadingGroup>) : (data?.basic_detail.m_adharfile && <HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Mother's Aadhar File</Heading>
-						<img src={data?.basic_detail.m_adharfile} alt="" style={{objectFit: 'contain', height: '100px'}} />
+						<FileViewer src={data?.basic_detail.m_adharfile} />
 					</HeadingGroup>)
 					}
 				</Stack>

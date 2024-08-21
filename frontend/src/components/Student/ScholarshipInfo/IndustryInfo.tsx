@@ -1,6 +1,7 @@
 import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
+import FileViewer from "../../FileViewer";
 
 type Props = {
 	data: StudentApplicationType;
@@ -54,7 +55,7 @@ function IndustryInfo({ data }: Props) {
 					</HeadingGroup>
 					{data?.company.salaryslip && <HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Salary Slip</Heading>
-						<img src={data?.company.salaryslip} alt="" style={{objectFit: 'contain', height: '100px'}} />
+						<FileViewer src={data?.company.salaryslip} />
 					</HeadingGroup>}
 				</Stack>
 			</Panel>

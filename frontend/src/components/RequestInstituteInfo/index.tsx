@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useAxios } from '../../hooks/useAxios';
 import { api_routes } from '../../utils/routes/api';
 import ErrorBoundaryLayout from '../../layouts/ErrorBoundaryLayout';
+import FileViewer from '../FileViewer';
 
 export default function RequestInstituteInfo({modal, modalHandler, refetch}:{modal: {status:boolean, id?:number}; modalHandler: (value:{status:boolean, id?:number})=>void; refetch: ()=>void}) {
     const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useRequestInstituteQuery(modal.id ? modal.id : 0, (modal.status && modal.id!==undefined && modal.id>0));
@@ -77,7 +78,7 @@ export default function RequestInstituteInfo({modal, modalHandler, refetch}:{mod
                         </HeadingGroup>
                         <HeadingGroup className='mb-1'>
                             <Heading level={6} className='mb-1 info-heading'>Register Doc</Heading>
-                            <img src={data?.register_doc} alt="" style={{objectFit: 'contain', height: '100px'}} />
+                            <FileViewer src={data?.register_doc} />
                         </HeadingGroup>
                     </Panel>
                 </>

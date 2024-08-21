@@ -1,6 +1,7 @@
 import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
+import FileViewer from "../../FileViewer";
 
 type Props = {
 	data: StudentApplicationType;
@@ -32,11 +33,11 @@ function MarkInfo({ data }: Props) {
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 					{data?.mark.prv_markcard && <HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>Marks Card Copy</Heading>
-						<img src={data?.mark.prv_markcard} alt="" style={{objectFit: 'contain', height: '100px'}} />
+						<FileViewer src={data?.mark.prv_markcard} />
 					</HeadingGroup>}
 					{data?.mark.prv_markcard2 && <HeadingGroup className='mb-1'>
 						<Heading level={6} className='info-heading'>2nd Marks Card Copy</Heading>
-						<img src={data?.mark.prv_markcard2} alt="" style={{objectFit: 'contain', height: '100px'}} />
+						<FileViewer src={data?.mark.prv_markcard2} />
 					</HeadingGroup>}
 					<div></div>
 				</Stack>

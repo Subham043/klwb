@@ -1,0 +1,6 @@
+.img{
+	object-fit: contain;
+	height: 100px;
+	object-position: center;
+	cursor: zoom-in;
+}
