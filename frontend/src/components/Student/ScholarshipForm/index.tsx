@@ -203,7 +203,7 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 				<Form.Group>
 					<StudentInfo control={control} errors={errors} />
 					<InstitutionInfo control={control} errors={errors} watch={watch} setValue={setValue} />
-					<CastInfo control={control} errors={errors} watch={watch} type={type} cast_certificate={data?.basic_detail.cast_certificate} />
+					<CastInfo control={control} errors={errors} watch={watch} setValue={setValue} type={type} cast_certificate={data?.basic_detail.cast_certificate} />
 					<MarksInfo control={control} errors={errors} watch={watch} type={type} prv_markcard={data?.mark.prv_markcard} prv_markcard2={data?.mark.prv_markcard2} />
 					<AadharInfo control={control} errors={errors} watch={watch} setValue={setValue} type={type} adharcard_file={data?.basic_detail.adharcard_file} f_adharfile={data?.basic_detail.f_adharfile} m_adharfile={data?.basic_detail.m_adharfile} deathcertificate={data?.basic_detail.deathcertificate} />
 					<BankInfo control={control} errors={errors} type={type} passbook={data?.account.passbook} />

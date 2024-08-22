@@ -35,11 +35,11 @@ class ScholarshipStatusController extends Controller
             $response['message'] = "Scholarship applications are closed as of now for the current year. Please check back later.";
         }else{
             $response['is_scholarship_open'] = true;
-            $response['is_eligible_to_apply'] = $this->scholarshipService->isEligibleForScholarship();
-            if(!$response['is_eligible_to_apply']){
-                $response['message'] = "You have already applied scholarship for the year ".$applicationDate->application_year;
-                $response['can_resubmit'] = $this->scholarshipService->canResubmit($application);
-            }
+        }
+        $response['is_eligible_to_apply'] = $this->scholarshipService->isEligibleForScholarship();
+        if(!$response['is_eligible_to_apply']){
+            $response['message'] = "You have already applied scholarship for the year ".$applicationDate->application_year;
+            $response['can_resubmit'] = $this->scholarshipService->canResubmit($application);
         }
         return response()->json($response, 200);
     }

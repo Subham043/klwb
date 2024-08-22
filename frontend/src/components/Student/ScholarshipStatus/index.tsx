@@ -114,7 +114,7 @@ export default function ScholarshipStatus({ data, can_resubmit = false }: Props)
 			{(data.status===2) && <div className='scholarship-rejected-status mt-1'>
 				<Message type="error" bordered showIcon className="mb-1" style={{ gap: 10 }}>
 						<Stack justifyContent="space-between" className='w-100'>
-								{(data.reject_reason) && <div><strong>Reason for Rejection:</strong> {data.reject_reason}</div>}
+								<div><strong>Reason for Rejection:</strong> {data.reject_reason || 'N/A'}</div>
 								{can_resubmit && <Button as={Link} to={page_routes.student.scholarship.resubmit} size="sm" appearance="primary" color='red'>RESUBMIT APPLICATION</Button>}
 						</Stack>
 				</Message>

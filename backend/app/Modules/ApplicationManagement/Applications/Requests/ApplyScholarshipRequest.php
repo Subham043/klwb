@@ -108,7 +108,7 @@ class ApplyScholarshipRequest extends FormRequest
             'who_working' => ['required', new Enum(Working::class)],
             'parent_guardian_name' => ['required', 'string', 'max:250'],
             'relationship' => ['required', 'string', 'max:250'],
-            'msalary' => ['required','numeric', 'digits_between: 1,30000'],
+            'msalary' => ['required','numeric', 'lte: 30000'],
             'pincode' => ['required','numeric', 'digits:6'],
             'district_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',

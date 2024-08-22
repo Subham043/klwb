@@ -29,9 +29,9 @@ class ResubmitScholarshipRequest extends FormRequest
      */
     public function authorize()
     {
+        $can_resubmit = false;
         $application = (new ScholarshipService)->getLatest();
-        $areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
-        if($areScholarshipApplicationOpen && !(new ScholarshipService)->isEligibleForScholarship()){
+        if(!(new ScholarshipService)->isEligibleForScholarship()){
             $can_resubmit = (new ScholarshipService)->canResubmit($application);
         }
         return Auth::guard(Guards::Web->value())->check() && $can_resubmit;
@@ -109,7 +109,7 @@ class ResubmitScholarshipRequest extends FormRequest
             'who_working' => ['required', new Enum(Working::class)],
             'parent_guardian_name' => ['required', 'string', 'max:250'],
             'relationship' => ['required', 'string', 'max:250'],
-            'msalary' => ['required','numeric', 'digits_between: 1,30000'],
+            'msalary' => ['required','numeric', 'lte: 30000'],
             'pincode' => ['required','numeric', 'digits:6'],
             'district_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
@@ -128,7 +128,7 @@ class ResubmitScholarshipRequest extends FormRequest
             $rules['prv_markcard2'] = ['nullable', Rule::requiredIf($this->marks_card_type==false), Rule::prohibitedIf($this->marks_card_type==true), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
         }
         
-        if($application && $application->basic_detail->cast_certificate){
+        if($application && $application->basic_detail->cast_certificate && $this->is_scst==$application->basic_detail->is_scst){
             $rules['cast_certificate'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
         }else{
             $rules['cast_certificate'] = ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
@@ -154,7 +154,7 @@ class ResubmitScholarshipRequest extends FormRequest
             $rules['m_adharfile'] = ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
         }
         
-        if($application && $application->basic_detail->deathcertificate){
+        if($application && $application->basic_detail->deathcertificate && $this->not_applicable == $application->basic_detail->not_applicable){
             $rules['deathcertificate'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
         }else{
             $rules['deathcertificate'] = ['nullable', Rule::requiredIf(!empty($this->not_applicable) && ($this->not_applicable == NotApplicable::Mother->value || $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf(empty($this->not_applicable) || (!empty($this->m_adharfile) && !empty($this->f_adharfile))), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];

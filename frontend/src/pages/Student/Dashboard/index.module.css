@@ -1,0 +1,39 @@
+.trend_box{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	gap: 15px;
+}
+.trend_box_red{
+	background: linear-gradient(87deg, #f5365c 0, #f56036 100%);
+}
+.trend_box_green{
+	background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%);
+}
+.trend_box_blue{
+	background: linear-gradient(87deg, #11cdef 0, #1171ef 100%);
+}
+
+.chart_img{
+	font-size: 3rem;
+	color: #fff;
+}
+
+.info{
+	flex: 1;
+}
+
+.info .title{
+	font-size: 1rem;
+	font-weight: 400;
+	color: #fff;
+	text-align: right;
+}
+
+.info .value{
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #fff;
+	text-align: right;
+}

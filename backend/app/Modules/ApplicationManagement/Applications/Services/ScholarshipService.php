@@ -149,10 +149,6 @@ class ScholarshipService
 
 	public function resubmit(ResubmitScholarshipRequest $request, Application $application): Application
 	{
-		$areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
-		if (!$areScholarshipApplicationOpen) {
-			throw new \Exception('You can not resubmit as application is not open yet.', 400);
-		}
 		if ($this->isEligibleForScholarship() && !$this->canResubmit($application)) {
 			throw new \Exception('You can not resubmit as application is not open yet.', 400);
 		}
@@ -271,9 +267,6 @@ class ScholarshipService
 
 	public function canResubmit(Application $application): bool
 	{
-		if (!(new ApplicationDateService)->areScholarshipApplicationOpen()) {
-			return false;
-		}
 		$application_date = (new ApplicationDateService)->getLatest();
 		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 2 && $application_date->can_resubmit) {
 			return true;
@@ -320,6 +313,32 @@ class ScholarshipService
 			->where('id', $id)
 			->latest()
 			->first();
+	}
+
+	public function getTotalApplicationCount(): int
+	{
+		return Application::where('student_id', auth()->guard(Guards::Web->value())->user()->id)->count();
+	}
+
+	public function getTotalApprovedApplicationCount(): int
+	{
+		return Application::where('student_id', auth()->guard(Guards::Web->value())->user()->id)->where(function($qry){
+			$qry->where('status', ApplicationStatus::Approve->value);
+		})->count();
+	}
+
+	public function getTotalRejectedApplicationCount(): int
+	{
+		return Application::where('student_id', auth()->guard(Guards::Web->value())->user()->id)->where(function($qry){
+			$qry->where('status', ApplicationStatus::Reject->value);
+		})->count();
+	}
+
+	public function getTotalScholarshipAmount(): int
+	{
+		return Application::where('student_id', auth()->guard(Guards::Web->value())->user()->id)->with([
+			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee')]),
+		])->where('application_state', '>', ApplicationState::Govt->value)->where('status', '!=', ApplicationStatus::Reject->value)->get()->sum('mark.graduation.scholarship_fee.amount');
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator

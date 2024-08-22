@@ -16,9 +16,6 @@ class IndustryScholarshipService
 
 	public function canApprove(Application $application): bool
 	{
-		if (!(new ApplicationDateService)->areScholarshipApplicationOpen()) {
-			return false;
-		}
 		$application_date = (new ApplicationDateService)->getLatest();
 		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 0 && $application->application_state == 2 && $application_date->can_approve) {
 			return true;

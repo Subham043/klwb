@@ -2,7 +2,7 @@ import { Panel, Stack, useMediaQuery } from "rsuite";
 import TextInput from "../../FormInput/TextInput";
 import SelectInput from "../../FormInput/SelectInput";
 import classes from "./index.module.css";
-import { Control, FieldErrors, UseFormWatch } from "react-hook-form";
+import { Control, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
 import FileInput from "../../FormInput/FileInput";
 import FileViewer from "../../FileViewer";
@@ -14,9 +14,10 @@ type PropType = {
 	watch: UseFormWatch<ScholarshipFormSchemaType>
 	type?: "apply" | "resubmit";
 	cast_certificate?: string | null;
+	setValue: UseFormSetValue<ScholarshipFormSchemaType>
 };
 
-export default function CastInfo({ control, errors, watch, type="apply", cast_certificate }: PropType) {
+export default function CastInfo({ control, errors, watch, setValue, type="apply", cast_certificate }: PropType) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const is_scst = watch("is_scst");
 
@@ -29,7 +30,7 @@ export default function CastInfo({ control, errors, watch, type="apply", cast_ce
 				</div>
 			} className='info-modal-panel' bordered>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
-					<SelectInput name="is_scst" label="Scheduled Castes / Scheduled Tribes?" data={[{ label: 'Yes', value: '1' }, { label: 'No', value: '0' }]} control={control} error={errors.is_scst?.message} />
+					<SelectInput name="is_scst" label="Scheduled Castes / Scheduled Tribes?" resetHandler={() => {setValue("category", "")}} data={[{ label: 'Yes', value: '1' }, { label: 'No', value: '0' }]} control={control} error={errors.is_scst?.message} />
 					{is_scst === '1' && <SelectInput name="category" label="Category" data={[{ label: 'SC', value: 'sc' }, { label: 'ST', value: 'st' }]} control={control} error={errors.category?.message} />}
 					{is_scst === '0' && <SelectInput name="category" label="Category" data={[{ label: 'General', value: 'general' }, { label: 'OBC', value: 'obc' }]} control={control} error={errors.category?.message} />}
 				</Stack>

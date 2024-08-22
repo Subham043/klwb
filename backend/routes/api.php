@@ -26,6 +26,7 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationAllController
 use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryAllController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteAllController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
+use App\Modules\Students\Dashboard\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -80,7 +81,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/status', [ScholarshipStatusController::class, 'index']);
             Route::get('/list', [ScholarshipListController::class, 'index']);
             Route::get('/view/{id}', [ScholarshipViewController::class, 'index']);
-
         });
+        Route::get('/dashboard', [StudentDashboardController::class, 'index']);
     });
 });
