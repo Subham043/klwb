@@ -65,12 +65,12 @@ class ApplyScholarshipRequest extends FormRequest
             'prv_class' => ['required', 'string', 'max:250'],
             'prv_marks' => ['required', 'numeric', 'min:0', 'max:999'],
             'marks_card_type' => 'required|boolean',
-            'prv_markcard' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
-            'prv_markcard2' =>  ['nullable', Rule::requiredIf($this->marks_card_type==false), Rule::prohibitedIf($this->marks_card_type==true), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
+            'prv_markcard' => 'required|file|extensions:jpg,jpeg,png,pdf|min:1|max:515',
+            'prv_markcard2' =>  ['nullable', Rule::requiredIf($this->marks_card_type==false), Rule::prohibitedIf($this->marks_card_type==true), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'],
             
             'is_scst' => 'required|boolean',
             'cast_no' => ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'string', 'max:250'],
-            'cast_certificate' => ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
+            'cast_certificate' => ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'],
             'category' => ['required', new Enum(Category::class)],
             
             'adharcard_no' => ['required','numeric', 'digits:12', 'different:f_adhar', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date) {
@@ -79,7 +79,7 @@ class ApplyScholarshipRequest extends FormRequest
                     $fail('This adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
-            'adharcard_file' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
+            'adharcard_file' => 'required|file|extensions:jpg,jpeg,png,pdf|min:1|max:515',
             'not_applicable' => ['nullable', new Enum(NotApplicable::class)],
             'f_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date) {
                 $basic_detail = ApplicationBasicDetail::with('application')->where('f_adhar', $value)->whereHas('application')->latest()->first();
@@ -87,15 +87,15 @@ class ApplyScholarshipRequest extends FormRequest
                     $fail('The father\'s adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
-            'f_adharfile' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
+            'f_adharfile' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'],
             'm_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:f_adhar', function ($attribute, $value, $fail) use($application_date) {
                 $basic_detail = ApplicationBasicDetail::with('application')->where('m_adhar', $value)->whereHas('application')->latest()->first();
                 if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year) {
                     $fail('The mother\'s adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
-            'm_adharfile' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
-            'deathcertificate' => ['nullable', Rule::requiredIf(!empty($this->not_applicable) && ($this->not_applicable == NotApplicable::Mother->value || $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf(empty($this->not_applicable) || (!empty($this->m_adharfile) && !empty($this->f_adharfile))), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
+            'm_adharfile' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'],
+            'deathcertificate' => ['nullable', Rule::requiredIf(!empty($this->not_applicable) && ($this->not_applicable == NotApplicable::Mother->value || $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf(empty($this->not_applicable) || (!empty($this->m_adharfile) && !empty($this->f_adharfile))), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'],
 
             'type' => ['required', new Enum(AccountType::class)],
             'bank_name' => ['required', 'string', 'max:250'],
@@ -103,7 +103,7 @@ class ApplyScholarshipRequest extends FormRequest
             'ifsc' => ['required', 'string', 'max:250'],
             'acc_no' => ['required','numeric'],
             'holder' => ['required', 'string', 'max:250'],
-            'passbook' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
+            'passbook' => 'required|file|extensions:jpg,jpeg,png,pdf|min:1|max:515',
             
             'who_working' => ['required', new Enum(Working::class)],
             'parent_guardian_name' => ['required', 'string', 'max:250'],
@@ -113,7 +113,7 @@ class ApplyScholarshipRequest extends FormRequest
             'district_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
             'company_id' => 'required|numeric|exists:registered_industries,id',
-            'salaryslip' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
+            'salaryslip' => 'required|file|extensions:jpg,jpeg,png,pdf|min:1|max:515',
         ];
     }
 

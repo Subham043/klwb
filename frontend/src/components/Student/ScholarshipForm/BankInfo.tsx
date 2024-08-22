@@ -5,14 +5,17 @@ import { Control, FieldErrors } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
 import FileInput from "../../FormInput/FileInput";
 import SelectInput from "../../FormInput/SelectInput";
+import FileViewer from "../../FileViewer";
 
 type PropType = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	control: Control<ScholarshipFormSchemaType, any>
 	errors: FieldErrors<ScholarshipFormSchemaType>
+	type?: "apply" | "resubmit";
+	passbook?: string | null
 };
 
-export default function BankInfo({ control, errors }: PropType) {
+export default function BankInfo({ control, errors, type="apply", passbook }: PropType) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 
 	return (
@@ -36,6 +39,7 @@ export default function BankInfo({ control, errors }: PropType) {
 					<TextInput name="acc_no" label="Account Number" control={control} error={errors.acc_no?.message} />
 				</Stack>
 				<FileInput name="passbook" accept='image/png, image/jpeg, image/jpg' label="Upload Passbook Front Page" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.passbook?.message} />
+				{(type === "resubmit" && passbook) && <FileViewer src={passbook} />}
 			</Panel>
 		</div>
 	)

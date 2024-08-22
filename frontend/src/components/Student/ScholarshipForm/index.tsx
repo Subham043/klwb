@@ -3,12 +3,12 @@ import { useToast } from "../../../hooks/useToast";
 import { useAxios } from "../../../hooks/useAxios";
 import { Button, ButtonToolbar, Form } from "rsuite";
 import { useForm } from "react-hook-form";
-import { scholarshipFormInitialValues, scholarshipFormSchema, ScholarshipFormSchemaType } from "./schema";
+import { scholarshipFormInitialValues, scholarshipFormSchema, ScholarshipFormSchemaType, scholarshipResubmitFormSchema } from "./schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api_routes } from "../../../utils/routes/api";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType, StudentApplicationType } from "../../../utils/types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
 import StudentInfo from "./StudentInfo";
 import InstitutionInfo from "./InstitutionInfo";
@@ -24,10 +24,11 @@ type Props = {
 }
 
 
-export default function ScholarshipForm({ data }: Props) {
+export default function ScholarshipForm({ data, type="apply" }: Props) {
 	const [loading, setLoading] = useState<boolean>(false);
 	const { toastError, toastSuccess } = useToast();
 	const axios = useAxios();
+	const navigate = useNavigate();
 
 	const {
 		control,
@@ -39,7 +40,7 @@ export default function ScholarshipForm({ data }: Props) {
 		setError,
 		formState: { errors },
 	} = useForm<ScholarshipFormSchemaType>({ 
-		resolver: yupResolver(scholarshipFormSchema), 
+		resolver: yupResolver(type==="apply" ? scholarshipFormSchema : scholarshipResubmitFormSchema), 
 		shouldFocusError: true,
 		values: {
 			...scholarshipFormInitialValues,
@@ -61,6 +62,7 @@ export default function ScholarshipForm({ data }: Props) {
 			school_id: data ? data.school_id : 0,
 			course_id: data ? data.mark.course_id : 0,
 			class_id: data ? data.mark.class_id : 0,
+			marks_card_type: (data && data.mark.prv_markcard2) ? "0" : "1",
 			type: data ? data.account.type.toString() : '',
 			bank_name: data ? data.account.bank_name : '',
 			branch: data ? data.account.branch : '',
@@ -74,7 +76,7 @@ export default function ScholarshipForm({ data }: Props) {
 			adharcard_no: data ? data.basic_detail.adharcard_no : 0,
 			f_adhar: data ? data.basic_detail.f_adhar : undefined,
 			m_adhar: data ? data.basic_detail.m_adhar : undefined,
-			not_applicable: data ? data.basic_detail.not_applicable : undefined,
+			not_applicable: data ? (data.basic_detail.not_applicable ? data.basic_detail.not_applicable : undefined) : undefined,
 			district_id: data ? data.company.district_id : 0,
 			taluq_id: data ? data.company.taluq_id : 0,
 			pincode: data ? data.company.pincode : '',
@@ -106,34 +108,52 @@ export default function ScholarshipForm({ data }: Props) {
 			formData.append("prv_class", getValues().prv_class);
 			formData.append("prv_marks", getValues().prv_marks.toString());
 			formData.append("marks_card_type", getValues().marks_card_type);
-			formData.append("prv_markcard", getValues().prv_markcard![0].blobFile!);
+			if(getValues().prv_markcard && getValues().prv_markcard!==undefined && getValues().prv_markcard!.length>0 && getValues().prv_markcard![0].blobFile){
+				formData.append("prv_markcard", getValues().prv_markcard![0].blobFile!);
+			}
 			if(getValues().marks_card_type === "0"){
-				formData.append("prv_markcard2", getValues().prv_markcard2![0].blobFile!);
+				if(getValues().prv_markcard2 && getValues().prv_markcard2!==undefined && getValues().prv_markcard2!.length>0 && getValues().prv_markcard2![0].blobFile){
+					formData.append("prv_markcard2", getValues().prv_markcard2![0].blobFile!);
+				}
 			}
 			formData.append("is_scst", getValues().is_scst);
 			formData.append("category", getValues().category);
 			if(getValues().is_scst === "1"){
 				formData.append("cast_no", getValues().cast_no!);
-				formData.append("cast_certificate", getValues().cast_certificate![0].blobFile!);
+				if(getValues().cast_certificate && getValues().cast_certificate!==undefined && getValues().cast_certificate!.length>0 && getValues().cast_certificate![0].blobFile){
+					formData.append("cast_certificate", getValues().cast_certificate![0].blobFile!);
+				}
 			}
 			formData.append("adharcard_no", getValues().adharcard_no.toString());
-			formData.append("adharcard_file", getValues().adharcard_file![0].blobFile!);
+			if(getValues().adharcard_file && getValues().adharcard_file!==undefined && getValues().adharcard_file!.length>0 && getValues().adharcard_file![0].blobFile){
+				formData.append("adharcard_file", getValues().adharcard_file![0].blobFile!);
+			}
 			if(getValues().not_applicable!==undefined){
 				formData.append("not_applicable", getValues().not_applicable!);
-				formData.append("deathcertificate", getValues().deathcertificate![0].blobFile!);
+				if(getValues().deathcertificate && getValues().deathcertificate!==undefined && getValues().deathcertificate!.length>0 && getValues().deathcertificate![0].blobFile){
+					formData.append("deathcertificate", getValues().deathcertificate![0].blobFile!);
+				}
 				if(getValues().not_applicable==="father"){
 					formData.append("m_adhar", getValues().m_adhar!.toString());
-					formData.append("m_adharfile", getValues().m_adharfile![0].blobFile!);
+					if(getValues().m_adharfile && getValues().m_adharfile!==undefined && getValues().m_adharfile!.length>0 && getValues().m_adharfile![0].blobFile){
+						formData.append("m_adharfile", getValues().m_adharfile![0].blobFile!);
+					}
 				}
 				if(getValues().not_applicable==="mother"){
 					formData.append("f_adhar", getValues().f_adhar!!.toString());
-					formData.append("f_adharfile", getValues().f_adharfile![0].blobFile!);
+					if(getValues().f_adharfile && getValues().f_adharfile!==undefined && getValues().f_adharfile!.length>0 && getValues().f_adharfile![0].blobFile){
+						formData.append("f_adharfile", getValues().f_adharfile![0].blobFile!);
+					}
 				}
 			}else{
 				formData.append("f_adhar", getValues().f_adhar!!.toString());
-				formData.append("f_adharfile", getValues().f_adharfile![0].blobFile!);
+				if(getValues().f_adharfile && getValues().f_adharfile!==undefined && getValues().f_adharfile!.length>0 && getValues().f_adharfile![0].blobFile){
+					formData.append("f_adharfile", getValues().f_adharfile![0].blobFile!);
+				}
 				formData.append("m_adhar", getValues().m_adhar!.toString());
-				formData.append("m_adharfile", getValues().m_adharfile![0].blobFile!);
+				if(getValues().m_adharfile && getValues().m_adharfile!==undefined && getValues().m_adharfile!.length>0 && getValues().m_adharfile![0].blobFile){
+					formData.append("m_adharfile", getValues().m_adharfile![0].blobFile!);
+				}
 			}
 			formData.append("type", getValues().type);
 			formData.append("bank_name", getValues().bank_name);
@@ -141,7 +161,9 @@ export default function ScholarshipForm({ data }: Props) {
 			formData.append("ifsc", getValues().ifsc);
 			formData.append("acc_no", getValues().acc_no.toString());
 			formData.append("holder", getValues().holder);
-			formData.append("passbook", getValues().passbook![0].blobFile!);
+			if(getValues().passbook && getValues().passbook!==undefined && getValues().passbook!.length>0 && getValues().passbook![0].blobFile){
+				formData.append("passbook", getValues().passbook![0].blobFile!);
+			}
 			formData.append("who_working", getValues().who_working);
 			formData.append("parent_guardian_name", getValues().parent_guardian_name);
 			formData.append("relationship", getValues().relationship);
@@ -150,10 +172,13 @@ export default function ScholarshipForm({ data }: Props) {
 			formData.append("district_id", getValues().district_id.toString());
 			formData.append("taluq_id", getValues().taluq_id.toString());
 			formData.append("company_id", getValues().company_id.toString());
-			formData.append("salaryslip", getValues().salaryslip![0].blobFile!);
-			await axios.post(api_routes.user.scholarship.apply, formData);
-			toastSuccess("Scholarship Applied Successfully");
+			if(getValues().salaryslip && getValues().salaryslip!==undefined && getValues().salaryslip!.length>0 && getValues().salaryslip![0].blobFile){
+				formData.append("salaryslip", getValues().salaryslip![0].blobFile!);
+			}
+			await axios.post(type=="apply" ? api_routes.user.scholarship.apply : api_routes.user.scholarship.resubmit, formData);
+			toastSuccess(type=="apply" ? "Scholarship Applied Successfully" : "Scholarship Resubmitted Successfully");
 			reset(scholarshipFormInitialValues);
+			navigate(page_routes.student.scholarship.status)
 		} catch (error) {
 			if (isAxiosError<AxiosErrorResponseType>(error)) {
 				if (error?.response?.data?.errors) {
@@ -178,11 +203,11 @@ export default function ScholarshipForm({ data }: Props) {
 				<Form.Group>
 					<StudentInfo control={control} errors={errors} />
 					<InstitutionInfo control={control} errors={errors} watch={watch} setValue={setValue} />
-					<CastInfo control={control} errors={errors} watch={watch} />
-					<MarksInfo control={control} errors={errors} watch={watch} />
-					<AadharInfo control={control} errors={errors} watch={watch} setValue={setValue} />
-					<BankInfo control={control} errors={errors} />
-					<IndustryInfo control={control} errors={errors} watch={watch} setValue={setValue} />
+					<CastInfo control={control} errors={errors} watch={watch} type={type} cast_certificate={data?.basic_detail.cast_certificate} />
+					<MarksInfo control={control} errors={errors} watch={watch} type={type} prv_markcard={data?.mark.prv_markcard} prv_markcard2={data?.mark.prv_markcard2} />
+					<AadharInfo control={control} errors={errors} watch={watch} setValue={setValue} type={type} adharcard_file={data?.basic_detail.adharcard_file} f_adharfile={data?.basic_detail.f_adharfile} m_adharfile={data?.basic_detail.m_adharfile} deathcertificate={data?.basic_detail.deathcertificate} />
+					<BankInfo control={control} errors={errors} type={type} passbook={data?.account.passbook} />
+					<IndustryInfo control={control} errors={errors} watch={watch} setValue={setValue} type={type} salaryslip={data?.company.salaryslip} />
 					<ButtonToolbar style={{ width: '100%', justifyContent: 'flex-start', gap: '5px' }}>
 						<Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Submit</Button>
 						<Button appearance="primary" color="orange" size='lg' type="button" onClick={() => reset(scholarshipFormInitialValues)}>Reset</Button>

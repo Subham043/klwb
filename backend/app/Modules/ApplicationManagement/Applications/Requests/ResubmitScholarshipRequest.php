@@ -3,14 +3,12 @@
 namespace App\Modules\ApplicationManagement\Applications\Requests;
 
 use App\Http\Enums\Guards;
-use App\Modules\ApplicationManagement\ApplicationDates\Models\ApplicationDate;
 use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateService;
 use App\Modules\ApplicationManagement\Applications\Enums\AccountType;
 use App\Modules\ApplicationManagement\Applications\Enums\Category;
 use App\Modules\ApplicationManagement\Applications\Enums\Gender;
 use App\Modules\ApplicationManagement\Applications\Enums\NotApplicable;
 use App\Modules\ApplicationManagement\Applications\Enums\Working;
-use App\Modules\ApplicationManagement\Applications\Models\Application;
 use App\Modules\ApplicationManagement\Applications\Models\ApplicationBasicDetail;
 use App\Modules\ApplicationManagement\Applications\Services\ScholarshipService;
 use App\Modules\CourseManagement\Classes\Models\Classes;
@@ -24,9 +22,6 @@ use Illuminate\Validation\Rule;
 
 class ResubmitScholarshipRequest extends FormRequest
 {
-    protected Application|null $application = null;
-    protected bool $areScholarshipApplicationOpen = false;
-    protected bool $can_resubmit = false;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -34,12 +29,12 @@ class ResubmitScholarshipRequest extends FormRequest
      */
     public function authorize()
     {
-        $this->application = (new ScholarshipService)->getLatest();
-        $this->areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
-        if($this->areScholarshipApplicationOpen && !(new ScholarshipService)->isEligibleForScholarship()){
-            $this->can_resubmit = (new ScholarshipService)->canResubmit($this->application);
+        $application = (new ScholarshipService)->getLatest();
+        $areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
+        if($areScholarshipApplicationOpen && !(new ScholarshipService)->isEligibleForScholarship()){
+            $can_resubmit = (new ScholarshipService)->canResubmit($application);
         }
-        return Auth::guard(Guards::Web->value())->check() && $this->can_resubmit;
+        return Auth::guard(Guards::Web->value())->check() && $can_resubmit;
     }
 
     /**
@@ -50,7 +45,9 @@ class ResubmitScholarshipRequest extends FormRequest
     public function rules()
     {
         $application_date = (new ApplicationDateService)->getLatest();
-        return [
+        $application = (new ScholarshipService)->getLatest();
+
+        $rules = [
             'name' => ['required', 'string', 'max:250'],
             'father_name' => ['required', 'string', 'max:250'],
             'mother_name' => ['required', 'string', 'max:250'],
@@ -76,37 +73,31 @@ class ResubmitScholarshipRequest extends FormRequest
             'prv_class' => ['required', 'string', 'max:250'],
             'prv_marks' => ['required', 'numeric', 'min:0', 'max:999'],
             'marks_card_type' => 'required|boolean',
-            'prv_markcard' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
-            'prv_markcard2' =>  ['nullable', Rule::requiredIf($this->marks_card_type==false), Rule::prohibitedIf($this->marks_card_type==true), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
-            
+
             'is_scst' => 'required|boolean',
             'cast_no' => ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'string', 'max:250'],
-            'cast_certificate' => ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
             'category' => ['required', new Enum(Category::class)],
-            
-            'adharcard_no' => ['required','numeric', 'digits:12', 'different:f_adhar', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date) {
+
+            'adharcard_no' => ['required','numeric', 'digits:12', 'different:f_adhar', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date, $application) {
                 $basic_detail = ApplicationBasicDetail::with('application')->where('adharcard_no', $value)->whereHas('application')->latest()->first();
-                if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year) {
+                if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year && $basic_detail->application->id != $application->id) {
                     $fail('This adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
-            'adharcard_file' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
+
             'not_applicable' => ['nullable', new Enum(NotApplicable::class)],
-            'f_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date) {
+            'f_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date, $application) {
                 $basic_detail = ApplicationBasicDetail::with('application')->where('f_adhar', $value)->whereHas('application')->latest()->first();
-                if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year) {
+                if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year && $basic_detail->application->id != $application->id) {
                     $fail('The father\'s adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
-            'f_adharfile' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
-            'm_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:f_adhar', function ($attribute, $value, $fail) use($application_date) {
+            'm_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:f_adhar', function ($attribute, $value, $fail) use($application_date, $application) {
                 $basic_detail = ApplicationBasicDetail::with('application')->where('m_adhar', $value)->whereHas('application')->latest()->first();
-                if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year) {
+                if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year && $basic_detail->application->id != $application->id) {
                     $fail('The mother\'s adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
-            'm_adharfile' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
-            'deathcertificate' => ['nullable', Rule::requiredIf(!empty($this->not_applicable) && ($this->not_applicable == NotApplicable::Mother->value || $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf(empty($this->not_applicable) || (!empty($this->m_adharfile) && !empty($this->f_adharfile))), 'file', 'extensions:jpg,jpeg,png', 'min:1', 'max:515'],
 
             'type' => ['required', new Enum(AccountType::class)],
             'bank_name' => ['required', 'string', 'max:250'],
@@ -114,7 +105,6 @@ class ResubmitScholarshipRequest extends FormRequest
             'ifsc' => ['required', 'string', 'max:250'],
             'acc_no' => ['required','numeric'],
             'holder' => ['required', 'string', 'max:250'],
-            'passbook' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
             
             'who_working' => ['required', new Enum(Working::class)],
             'parent_guardian_name' => ['required', 'string', 'max:250'],
@@ -124,8 +114,70 @@ class ResubmitScholarshipRequest extends FormRequest
             'district_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
             'company_id' => 'required|numeric|exists:registered_industries,id',
-            'salaryslip' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
         ];
+
+        if($application && $application->mark->prv_markcard){
+            $rules['prv_markcard'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['prv_markcard'] = ['required', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+        
+        if($application && $application->mark->prv_markcard2){
+            $rules['prv_markcard2'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['prv_markcard2'] = ['nullable', Rule::requiredIf($this->marks_card_type==false), Rule::prohibitedIf($this->marks_card_type==true), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+        
+        if($application && $application->basic_detail->cast_certificate){
+            $rules['cast_certificate'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['cast_certificate'] = ['nullable', Rule::requiredIf($this->is_scst==true), Rule::prohibitedIf($this->is_scst==false), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+        
+        if($application && $application->basic_detail->f_adharfile){
+            if(!empty($application->basic_detail->not_applicable) && $application->basic_detail->not_applicable == $this->not_applicable && $application->basic_detail->not_applicable == NotApplicable::Mother->value){
+                $rules['f_adharfile'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+            }else{
+                $rules['f_adharfile'] = ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+            }
+        }else{
+            $rules['f_adharfile'] = ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+        
+        if($application && $application->basic_detail->m_adharfile){
+            if(!empty($application->basic_detail->not_applicable) && $application->basic_detail->not_applicable == $this->not_applicable && $application->basic_detail->not_applicable == NotApplicable::Father->value){
+                $rules['m_adharfile'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+            }else{
+                $rules['m_adharfile'] = ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+            }
+        }else{
+            $rules['m_adharfile'] = ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+        
+        if($application && $application->basic_detail->deathcertificate){
+            $rules['deathcertificate'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['deathcertificate'] = ['nullable', Rule::requiredIf(!empty($this->not_applicable) && ($this->not_applicable == NotApplicable::Mother->value || $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf(empty($this->not_applicable) || (!empty($this->m_adharfile) && !empty($this->f_adharfile))), 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+
+        if($application && $application->basic_detail->adharcard_file){
+            $rules['adharcard_file'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['adharcard_file'] = ['required', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+
+        if($application && $application->account->passbook){
+            $rules['passbook'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['passbook'] = ['required', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+
+        if($application && $application->company->salaryslip){
+            $rules['salaryslip'] = ['nullable', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }else{
+            $rules['salaryslip'] = ['required', 'file', 'extensions:jpg,jpeg,png,pdf', 'min:1', 'max:515'];
+        }
+        return $rules;
     }
 
     /**

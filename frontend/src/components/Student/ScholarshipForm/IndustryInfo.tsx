@@ -8,6 +8,7 @@ import { useCityCommonSelectQuery } from "../../../hooks/data/city";
 import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
 import FileInput from "../../FormInput/FileInput";
 import { useRegisteredIndustryUserCommonSelectQuery } from "../../../hooks/data/registered_industry";
+import FileViewer from "../../FileViewer";
 
 type PropType = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,9 +16,11 @@ type PropType = {
 	errors: FieldErrors<ScholarshipFormSchemaType>
 	watch: UseFormWatch<ScholarshipFormSchemaType>
 	setValue: UseFormSetValue<ScholarshipFormSchemaType>
+	type?: "apply" | "resubmit";
+	salaryslip?: string | null;
 };
 
-export default function IndustryInfo({ control, errors, watch, setValue }: PropType) {
+export default function IndustryInfo({ control, errors, watch, setValue, type="apply", salaryslip }: PropType) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const district_id = watch("district_id");
 	const taluq_id = watch("taluq_id");
@@ -54,6 +57,7 @@ export default function IndustryInfo({ control, errors, watch, setValue }: PropT
 					<TextInput name="pincode" label="Pincode" control={control} error={errors.pincode?.message} />
 				</Stack>
 				<FileInput name="salaryslip" accept='image/png, image/jpeg, image/jpg' label="Attach Your Parent Employee Certification / Salary-Slip of Last Month" helpText=" Last month salary slips are only accepted. Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.salaryslip?.message} />
+				{(type === "resubmit" && salaryslip) && <FileViewer src={salaryslip} />}
 			</Panel>
 		</div>
 	)

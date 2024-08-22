@@ -5,15 +5,18 @@ import classes from "./index.module.css";
 import { Control, FieldErrors, UseFormWatch } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
 import FileInput from "../../FormInput/FileInput";
+import FileViewer from "../../FileViewer";
 
 type PropType = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	control: Control<ScholarshipFormSchemaType, any>
 	errors: FieldErrors<ScholarshipFormSchemaType>
 	watch: UseFormWatch<ScholarshipFormSchemaType>
+	type?: "apply" | "resubmit";
+	cast_certificate?: string | null;
 };
 
-export default function CastInfo({ control, errors, watch }: PropType) {
+export default function CastInfo({ control, errors, watch, type="apply", cast_certificate }: PropType) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const is_scst = watch("is_scst");
 
@@ -31,7 +34,10 @@ export default function CastInfo({ control, errors, watch }: PropType) {
 					{is_scst === '0' && <SelectInput name="category" label="Category" data={[{ label: 'General', value: 'general' }, { label: 'OBC', value: 'obc' }]} control={control} error={errors.category?.message} />}
 				</Stack>
 				{is_scst === '1' && <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
-					<FileInput name="cast_certificate" accept='image/png, image/jpeg, image/jpg' label="Attach Cast Certificate" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.cast_certificate?.message} />
+					<div>
+						<FileInput name="cast_certificate" accept='image/png, image/jpeg, image/jpg' label="Attach Cast Certificate" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.cast_certificate?.message} />
+						{(type === "resubmit" && cast_certificate) && <FileViewer src={cast_certificate} />}
+					</div>
 					<TextInput name="cast_no" label="Caste certificate number" control={control} error={errors.cast_no?.message} />
 				</Stack>}
 			</Panel>

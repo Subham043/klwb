@@ -4,6 +4,7 @@ import classes from "./index.module.css";
 import { Control, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
 import FileInput from "../../FormInput/FileInput";
+import FileViewer from "../../FileViewer";
 
 type PropType = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,9 +12,14 @@ type PropType = {
 	errors: FieldErrors<ScholarshipFormSchemaType>
 	watch: UseFormWatch<ScholarshipFormSchemaType>
 	setValue: UseFormSetValue<ScholarshipFormSchemaType>
+	type?: "apply" | "resubmit";
+	adharcard_file?: string | null;
+	f_adharfile?: string | null;
+	m_adharfile?: string | null;
+	deathcertificate?: string | null;
 };
 
-export default function AadharInfo({ control, errors, watch, setValue }: PropType) {
+export default function AadharInfo({ control, errors, watch, setValue, type="apply", adharcard_file, f_adharfile, m_adharfile, deathcertificate }: PropType) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const not_applicable = watch("not_applicable");
 
@@ -27,7 +33,10 @@ export default function AadharInfo({ control, errors, watch, setValue }: PropTyp
 			} className='info-modal-panel' bordered>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 					<TextInput name="adharcard_no" label="Aadhar Card Number" control={control} error={errors.adharcard_no?.message} />
-					<FileInput name="adharcard_file" accept='image/png, image/jpeg, image/jpg' label="Attach Your Aadhar Card" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.adharcard_file?.message} />
+					<div>
+						<FileInput name="adharcard_file" accept='image/png, image/jpeg, image/jpg' label="Attach Your Aadhar Card" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.adharcard_file?.message} />
+						{(type === "resubmit" && adharcard_file) && <FileViewer src={adharcard_file} />}
+					</div>
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 					<div className="scholarship-no-mb">
@@ -36,8 +45,15 @@ export default function AadharInfo({ control, errors, watch, setValue }: PropTyp
 					</div>
 					{
 						(not_applicable !== undefined) && (not_applicable === 'father') ?
-							<FileInput name="deathcertificate" accept='image/png, image/jpeg, image/jpg' label="Attach Your Father's Death Certificate" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.deathcertificate?.message} /> :
-							<FileInput name="f_adharfile" accept='image/png, image/jpeg, image/jpg' label="Attach Your Father's Aadhar Card" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.f_adharfile?.message} />
+							<div>
+								<FileInput name="deathcertificate" accept='image/png, image/jpeg, image/jpg' label="Attach Your Father's Death Certificate" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.deathcertificate?.message} /> 
+								{(type === "resubmit" && deathcertificate) && <FileViewer src={deathcertificate} />}
+							</div>
+							:
+							<div>
+								<FileInput name="f_adharfile" accept='image/png, image/jpeg, image/jpg' label="Attach Your Father's Aadhar Card" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.f_adharfile?.message} />
+								{(type === "resubmit" && f_adharfile) && <FileViewer src={f_adharfile} />}
+							</div>
 					}
 				</Stack>
 				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
@@ -47,8 +63,15 @@ export default function AadharInfo({ control, errors, watch, setValue }: PropTyp
 					</div>
 					{
 						(not_applicable !== undefined) && (not_applicable === 'mother') ?
-							<FileInput name="deathcertificate" accept='image/png, image/jpeg, image/jpg' label="Attach Your Mother's Death Certificate" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.deathcertificate?.message} /> :
-							<FileInput name="m_adharfile" accept='image/png, image/jpeg, image/jpg' label="Attach Your Mother's Aadhar Card" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.m_adharfile?.message} />
+						<div>
+							<FileInput name="deathcertificate" accept='image/png, image/jpeg, image/jpg' label="Attach Your Mother's Death Certificate" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.deathcertificate?.message} /> 
+							{(type === "resubmit" && deathcertificate) && <FileViewer src={deathcertificate} />}
+						</div>
+							:
+							<div>
+								<FileInput name="m_adharfile" accept='image/png, image/jpeg, image/jpg' label="Attach Your Mother's Aadhar Card" helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)" control={control} error={errors.m_adharfile?.message} />
+								{(type === "resubmit" && m_adharfile) && <FileViewer src={m_adharfile} />}
+							</div>
 					}
 				</Stack>
 			</Panel>

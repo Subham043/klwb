@@ -4,11 +4,11 @@ namespace App\Modules\ApplicationManagement\Applications\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateService;
-use App\Modules\ApplicationManagement\Applications\Requests\ApplyScholarshipRequest;
+use App\Modules\ApplicationManagement\Applications\Requests\ResubmitScholarshipRequest;
 use App\Modules\ApplicationManagement\Applications\Services\ScholarshipService;
 use Illuminate\Support\Facades\DB;
 
-class ApplyScholarshipController extends Controller
+class ResubmitScholarshipController extends Controller
 {
     private $scholarshipService;
     private $applicationDateService;
@@ -19,19 +19,20 @@ class ApplyScholarshipController extends Controller
         $this->applicationDateService = $applicationDateService;
     }
 
-    public function index(ApplyScholarshipRequest $request){
+    public function index(ResubmitScholarshipRequest $request){
         $areScholarshipApplicationOpen = $this->applicationDateService->areScholarshipApplicationOpen();
         if (!$areScholarshipApplicationOpen) {
-            return response()->json(["message" => "You can not apply for scholarship as application is not open yet."], 400);
+            return response()->json(["message" => "You can not resubmit as application is not open yet."], 400);
         }
-        if(!$this->scholarshipService->isEligibleForScholarship()){
-            return response()->json(["message" => "You have already applied scholarship for this year"], 400);
+        $application = (new ScholarshipService)->getLatest();
+        if($this->scholarshipService->isEligibleForScholarship() && !$this->scholarshipService->canResubmit($application)){
+            return response()->json(["message" => "You can not resubmit as application is not open yet."], 400);
         }
         DB::beginTransaction();
         try {
             //code...
             $request->validated();
-            $this->scholarshipService->apply($request);
+            $this->scholarshipService->resubmit($request, $application);
             return response()->json(["message" => "Scholarship applied successfully."], 201);
         } catch (\Throwable $th) {
             DB::rollBack();
