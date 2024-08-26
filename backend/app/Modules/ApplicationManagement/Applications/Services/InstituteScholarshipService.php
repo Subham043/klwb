@@ -4,6 +4,8 @@ namespace App\Modules\ApplicationManagement\Applications\Services;
 
 use App\Http\Enums\Guards;
 use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\ApplicationManagement\Applications\Enums\ApplicationState;
+use App\Modules\ApplicationManagement\Applications\Enums\ApplicationStatus;
 use App\Modules\ApplicationManagement\Applications\Models\Application;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -88,6 +90,39 @@ class InstituteScholarshipService
 		return $this->query()->paginate($total)
 			->appends(request()->query());
 	}
+
+	public function getTotalApplicationCount(): int
+	{
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)
+		->where('application_state', '>', 0)
+		->count();
+	}
+
+	public function getTotalApprovedApplicationCount(): int
+	{
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)->where(function($qry){
+			$qry->where(function($q){
+				$q->where('application_state', ApplicationState::School->value)->where('status', ApplicationStatus::Approve->value);
+			})->orWhere(function($q){
+				$q->where('application_state', '>', ApplicationState::School->value);
+			});
+		})->count();
+	}
+
+	public function getTotalRejectedApplicationCount(): int
+	{
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)->where(function($qry){
+			$qry->where('application_state', ApplicationState::School->value)->where('status', ApplicationStatus::Reject->value);
+		})->count();
+	}
+
+	public function getTotalPendingApplicationCount(): int
+	{
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)->where(function($qry){
+			$qry->where('application_state', ApplicationState::School->value)->where('status', ApplicationStatus::Pending->value);
+		})->count();
+	}
+
 }
 
 

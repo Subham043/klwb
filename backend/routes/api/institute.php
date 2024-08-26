@@ -5,6 +5,9 @@ use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholars
 use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipListController;
 use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipRejectController;
 use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipViewController;
+use App\Modules\InstituteManagement\Accounts\Controllers\AccountDocUpdateController;
+use App\Modules\InstituteManagement\Accounts\Controllers\AccountInfoController;
+use App\Modules\InstituteManagement\Accounts\Controllers\AccountInfoUpdateController;
 use App\Modules\InstituteManagement\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\InstituteManagement\Accounts\Controllers\ProfileController;
 use App\Modules\InstituteManagement\Accounts\Controllers\ProfileUpdateController;
@@ -18,6 +21,7 @@ use App\Modules\InstituteManagement\Authentication\Controllers\LogoutController;
 use App\Modules\InstituteManagement\Authentication\Controllers\PhoneLoginController;
 use App\Modules\InstituteManagement\Authentication\Controllers\ResetPasswordController;
 use App\Modules\InstituteManagement\Authentication\Controllers\ResetPasswordResendOtpController;
+use App\Modules\InstituteManagement\Dashboard\InstituteDashboardController;
 use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteCreateController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeCreateController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeDeleteController;
@@ -49,6 +53,9 @@ Route::prefix('institute')->group(function () {
                 Route::get('/', [ProfileController::class, 'index']);
                 Route::middleware('verified')->post('/update', [ProfileUpdateController::class, 'index']);
                 Route::middleware('verified')->post('/update-password', [PasswordUpdateController::class, 'index']);
+                Route::middleware('verified')->get('/info', [AccountInfoController::class, 'index']);
+                Route::middleware(['verified', 'role:Institute'])->post('/info-update', [AccountInfoUpdateController::class, 'index']);
+                Route::middleware(['verified', 'role:Institute'])->post('/doc-update', [AccountDocUpdateController::class, 'index']);
                 Route::post('/verify', [ProfileVerifyController::class, 'index']);
                 Route::get('/resend-otp', [ResendRegisteredUserOtpController::class, 'index'])->middleware(['throttle:3,1']);
             });
@@ -70,6 +77,7 @@ Route::prefix('institute')->group(function () {
                 Route::post('/approve/{id}', [InstituteScholarshipApproveController::class, 'index']);
                 Route::post('/reject/{id}', [InstituteScholarshipRejectController::class, 'index']);
             });
+            Route::get('/dashboard', [InstituteDashboardController::class, 'index']);
         });
     });
 });

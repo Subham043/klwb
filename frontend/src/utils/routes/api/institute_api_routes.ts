@@ -24,6 +24,9 @@ export const institute_api_routes = {
 	},
 	account: {
 		profile: "/api/institute/v1/account",
+		info: "/api/institute/v1/account/info",
+		info_update: "/api/institute/v1/account/info-update",
+		doc_update: "/api/institute/v1/account/doc-update",
 		profile_update: "/api/institute/v1/account/update",
 		password_update: "/api/institute/v1/account/update-password",
 		profile_verify: "/api/institute/v1/account/verify",
@@ -44,4 +47,5 @@ export const institute_api_routes = {
 		delete: (id: string | number) => `/api/institute/v1/employees/delete/${id}`,
 		view: (id: string | number) => `/api/institute/v1/employees/view/${id}`,
 },
+dashboard: "/api/institute/v1/dashboard",
 } as const;

@@ -6,11 +6,13 @@ import {
 } from "@tanstack/react-query";
 import { useToast } from "../useToast";
 import { isAxiosError } from "axios";
-import { AuthType } from "../../utils/types";
+import { AuthType, InstituteRegisteredType } from "../../utils/types";
 import { useUser } from "../useUser";
 import { useAxios } from "../useAxios";
+import { api_routes } from "../../utils/routes/api";
 
 export const ProfileQueryKey = "profile";
+export const InstituteAccountQueryKey = "institute_account_info";
 
 export const useProfileQuery: (
   enabled: boolean
@@ -71,5 +73,22 @@ export const useUpdateProfileMutation = () => {
         toastError("Something went wrong. Please try again later.");
       }
     },
+  });
+};
+
+
+export const useInstituteAccountQuery: (
+  enabled: boolean
+) => UseQueryResult<InstituteRegisteredType, unknown> = (enabled) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [ProfileQueryKey],
+    queryFn: async () => {
+      const response = await axios.get<{ account_info: InstituteRegisteredType }>(
+        api_routes.institute.account.info
+      );
+      return response.data.account_info;
+    },
+    enabled,
   });
 };
