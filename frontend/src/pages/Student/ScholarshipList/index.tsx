@@ -6,6 +6,8 @@ import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
 import { Link } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
+import ApplicationStateBadge from "../../../components/Student/ApplicationStateBadge";
+import StatusBadge from "../../../components/Student/StatusBadge";
 
 
 const StudentScholarshipListPage:FC = () => {
@@ -55,6 +57,26 @@ const StudentScholarshipListPage:FC = () => {
                 <Table.Column  width={160}>
                     <Table.HeaderCell>Class</Table.HeaderCell>
                     <Table.Cell dataKey="mark.class.name" />
+                </Table.Column>
+
+                <Table.Column width={160} verticalAlign="middle">
+                    <Table.HeaderCell>Application State</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <ApplicationStateBadge application_state={rowData?.application_state} />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+
+                <Table.Column width={160} verticalAlign="middle">
+                    <Table.HeaderCell>Status</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <StatusBadge status={rowData?.status} />
+                        )}
+                    </Table.Cell>
                 </Table.Column>
 
                 <Table.Column width={160} verticalAlign="middle">

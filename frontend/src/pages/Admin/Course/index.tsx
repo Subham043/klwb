@@ -1,30 +1,30 @@
 import { FC, useState } from "react"
 import { ButtonToolbar, IconButton, Table } from "rsuite"
-import { useTaluqsQuery } from "../../hooks/data/taluq";
-import PaginatedTableLayout from "../../layouts/PaginatedTable";
-import { DrawerProps } from "../../utils/types";
-import TaluqForm from "../../components/Admin/TaluqForm";
+import { useCoursesQuery } from "../../../hooks/data/course";
+import PaginatedTableLayout from "../../../layouts/PaginatedTable";
+import { DrawerProps } from "../../../utils/types";
+import CourseForm from "../../../components/Admin/CourseForm";
 import EditIcon from '@rsuite/icons/Edit';
 import TrashIcon from '@rsuite/icons/Trash';
-import { useDeleteQuery } from "../../hooks/useDeleteQuery";
-import ConfirmAlert from "../../components/ConfirmAlert";
-import { api_routes } from "../../utils/routes/api";
-import Status from "../../components/Status";
-import Moment from "../../components/Moment";
+import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
+import ConfirmAlert from "../../../components/ConfirmAlert";
+import { api_routes } from "../../../utils/routes/api";
+import Status from "../../../components/Status";
+import Moment from "../../../components/Moment";
 
 
-const Taluq:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch, error} = useTaluqsQuery();
+const Course:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch, error} = useCoursesQuery();
     const {deleteHandler, deleteLoading} = useDeleteQuery();
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     const onDeleteHandler = async (id:number) => {
-        await deleteHandler(api_routes.admin.taluq.delete(id));
+        await deleteHandler(api_routes.admin.course.delete(id));
         refetch();
     }
 
-    return <PaginatedTableLayout title="Taluqs">
-        <PaginatedTableLayout.Header title="Taluqs" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.taluq.excel} excelName="taluq.xlsx" />
+    return <PaginatedTableLayout title="Courses">
+        <PaginatedTableLayout.Header title="Courses" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.course.excel} excelName="course.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
@@ -45,13 +45,8 @@ const Taluq:FC = () => {
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
-                    <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell dataKey="city.name" />
-                </Table.Column>
-
-                <Table.Column flexGrow={1}>
-                    <Table.HeaderCell>State</Table.HeaderCell>
-                    <Table.Cell dataKey="city.state.name" />
+                    <Table.HeaderCell>Graduation</Table.HeaderCell>
+                    <Table.Cell dataKey="graduation.name" />
                 </Table.Column>
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
@@ -90,8 +85,8 @@ const Taluq:FC = () => {
                 </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>
-        <TaluqForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
+        <CourseForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
     </PaginatedTableLayout>
 }
 
-export default Taluq
+export default Course
