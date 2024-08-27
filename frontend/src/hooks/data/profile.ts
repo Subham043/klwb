@@ -6,13 +6,14 @@ import {
 } from "@tanstack/react-query";
 import { useToast } from "../useToast";
 import { isAxiosError } from "axios";
-import { AuthType, InstituteRegisteredType } from "../../utils/types";
+import { AuthType, IndustryRegisteredType, InstituteRegisteredType } from "../../utils/types";
 import { useUser } from "../useUser";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 
 export const ProfileQueryKey = "profile";
 export const InstituteAccountQueryKey = "institute_account_info";
+export const IndustryAccountQueryKey = "industry_account_info";
 
 export const useProfileQuery: (
   enabled: boolean
@@ -82,10 +83,26 @@ export const useInstituteAccountQuery: (
 ) => UseQueryResult<InstituteRegisteredType, unknown> = (enabled) => {
   const axios = useAxios();
   return useQuery({
-    queryKey: [ProfileQueryKey],
+    queryKey: [InstituteAccountQueryKey],
     queryFn: async () => {
       const response = await axios.get<{ account_info: InstituteRegisteredType }>(
         api_routes.institute.account.info
+      );
+      return response.data.account_info;
+    },
+    enabled,
+  });
+};
+
+export const useIndustryAccountQuery: (
+  enabled: boolean
+) => UseQueryResult<IndustryRegisteredType, unknown> = (enabled) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [IndustryAccountQueryKey],
+    queryFn: async () => {
+      const response = await axios.get<{ account_info: IndustryRegisteredType }>(
+        api_routes.industry.account.info
       );
       return response.data.account_info;
     },

@@ -40,9 +40,9 @@ export default function ProfileUpdate({display}: {display: boolean}) {
     } = useForm<SchemaType>({ 
         resolver: yupResolver(schema),
         values: {
-            name: data ? data.name : "",
-            email: data ? data.email : "",
-            phone: data ? Number(data.phone) : 0,
+            name: (data && data.name) ? (data.name ?? '') : "",
+            email: (data && data.email) ? (data.email ?? '') : "",
+            phone: (data && data.phone) ? Number((data.phone ?? 0)) : 0,
         }
     });
 

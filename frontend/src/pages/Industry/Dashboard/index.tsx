@@ -1,5 +1,12 @@
+import IndustryDashboardCounter from "../../../components/Industry/Dashboard/Conters";
+import IndustryDashboardAccountInfo from "../../../components/Industry/Dashboard/AccountInfo";
 
 export default function IndustryDashboardPage() {
 
-	return <div>Dashboard</div>
+  return (
+    <div>
+					<IndustryDashboardCounter />
+					<IndustryDashboardAccountInfo />
+    </div>
+  );
 }

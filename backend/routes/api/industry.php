@@ -5,6 +5,9 @@ use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarsh
 use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipListController;
 use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipRejectController;
 use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipViewController;
+use App\Modules\IndustryManagement\Accounts\Controllers\AccountDocUpdateController;
+use App\Modules\IndustryManagement\Accounts\Controllers\AccountInfoController;
+use App\Modules\IndustryManagement\Accounts\Controllers\AccountInfoUpdateController;
 use App\Modules\IndustryManagement\Accounts\Controllers\PasswordUpdateController;
 use App\Modules\IndustryManagement\Accounts\Controllers\ProfileController;
 use App\Modules\IndustryManagement\Accounts\Controllers\ProfileUpdateController;
@@ -18,6 +21,7 @@ use App\Modules\IndustryManagement\Authentication\Controllers\LogoutController;
 use App\Modules\IndustryManagement\Authentication\Controllers\PhoneLoginController;
 use App\Modules\IndustryManagement\Authentication\Controllers\ResetPasswordController;
 use App\Modules\IndustryManagement\Authentication\Controllers\ResetPasswordResendOtpController;
+use App\Modules\IndustryManagement\Dashboard\IndustryDashboardController;
 use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryCreateController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeCreateController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeDeleteController;
@@ -50,6 +54,9 @@ Route::prefix('industry')->group(function () {
                 Route::get('/', [ProfileController::class, 'index']);
                 Route::middleware('verified')->post('/update', [ProfileUpdateController::class, 'index']);
                 Route::middleware('verified')->post('/update-password', [PasswordUpdateController::class, 'index']);
+                Route::middleware('verified')->get('/info', [AccountInfoController::class, 'index']);
+                Route::middleware(['verified', 'role:Industry'])->post('/info-update', [AccountInfoUpdateController::class, 'index']);
+                Route::middleware(['verified', 'role:Industry'])->post('/doc-update', [AccountDocUpdateController::class, 'index']);
                 Route::post('/verify', [ProfileVerifyController::class, 'index']);
                 Route::get('/resend-otp', [ResendRegisteredUserOtpController::class, 'index'])->middleware(['throttle:3,1']);
             });
@@ -71,6 +78,7 @@ Route::prefix('industry')->group(function () {
                 Route::post('/approve/{id}', [IndustryScholarshipApproveController::class, 'index']);
                 Route::post('/reject/{id}', [IndustryScholarshipRejectController::class, 'index']);
             });
+            Route::get('/dashboard', [IndustryDashboardController::class, 'index']);
         });
     });
 });

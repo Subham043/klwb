@@ -4,6 +4,7 @@ import { api_routes } from "../../utils/routes/api";
 
 export const StudentDashboardQueryKey = "student_dashboard";
 export const InstituteDashboardQueryKey = "institute_dashboard";
+export const IndustryDashboardQueryKey = "industry_dashboard";
 
 export const useStudentDashboardQuery: () => UseQueryResult<{ message: string, is_scholarship_open: boolean, is_eligible_to_apply: boolean, can_resubmit: boolean, total_application: number, total_approved_application: number, total_rejected_application: number, total_scholarship_amount: number }, unknown> = () => {
   const axios = useAxios();
@@ -25,6 +26,19 @@ export const useInstituteDashboardQuery: () => UseQueryResult<{ total_applicatio
     queryFn: async () => {
       const response = await axios.get<{ total_application: number, total_approved_application: number, total_rejected_application: number, total_pending_application: number }>(
         api_routes.institute.dashboard
+      );
+      return response.data;
+    },
+  });
+};
+
+export const useIndustryDashboardQuery: () => UseQueryResult<{ total_application: number, total_approved_application: number, total_rejected_application: number, total_pending_application: number }, unknown> = () => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [IndustryDashboardQueryKey],
+    queryFn: async () => {
+      const response = await axios.get<{ total_application: number, total_approved_application: number, total_rejected_application: number, total_pending_application: number }>(
+        api_routes.industry.dashboard
       );
       return response.data;
     },

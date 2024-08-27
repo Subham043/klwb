@@ -94,7 +94,7 @@ class InstituteScholarshipService
 	public function getTotalApplicationCount(): int
 	{
 		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)
-		->where('application_state', '>', 0)
+		->where('application_state', '>', ApplicationState::None->value)
 		->count();
 	}
 
