@@ -2,26 +2,25 @@
 
 namespace App\Modules\IndustryManagement\RequestIndustry\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Http\Services\FileService;
 use App\Modules\IndustryManagement\RequestIndustry\Models\RequestIndustry;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class RequestIndustryService
+class RequestIndustryService extends AbstractExcelService
 {
-    protected function model(): Builder
+    public function model(): Builder
     {
         return RequestIndustry::with([
             'taluq',
             'city',
         ])->where('is_active', true);
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -37,45 +36,12 @@ class RequestIndustryService
                 ]);
     }
 
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): RequestIndustry|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): RequestIndustry
-    {
-        return RequestIndustry::create($data);
-    }
-
     public function saveRegisterDoc(RequestIndustry $requestIndustry): RequestIndustry
     {
         $register_doc = (new FileService)->save_file('register_doc', (new RequestIndustry)->register_doc_path);
         return $this->update([
             'register_doc' => $register_doc,
         ], $requestIndustry);
-    }
-
-    public function update(array $data, RequestIndustry $requestIndustry): RequestIndustry
-    {
-        $requestIndustry->update($data);
-        return $requestIndustry;
-    }
-
-    public function delete(RequestIndustry $requestIndustry): bool|null
-    {
-        return $requestIndustry->delete();
     }
 
     public function excel() : SimpleExcelWriter

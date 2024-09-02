@@ -20,7 +20,7 @@ class EmailLoginController extends Controller
 
     public function index(EmailLoginPostRequest $request){
 
-        $is_authenticated = $this->authService->login([...$request->safe()->except(['captcha']), 'is_blocked' => 0]);
+        $is_authenticated = $this->authService->login([...$request->safe()->except(['captcha']), 'is_blocked' => 0], Guards::Admin->value());
         if ($is_authenticated) {
             (new RateLimitService($request))->clearRateLimit();
             $employee = auth()->guard(Guards::Admin->value())->user();

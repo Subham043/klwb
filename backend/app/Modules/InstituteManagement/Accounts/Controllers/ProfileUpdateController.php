@@ -27,14 +27,14 @@ class ProfileUpdateController extends Controller
         $phone_status = false;
         try {
             //code...
-            $user = $this->profileService->profile();
+            $user = $this->profileService->profile(Guards::Institute->value());
             if($user->email != $request->email) {
                 $email_status = true;
             }
             if($user->phone != $request->phone) {
                 $phone_status = true;
             }
-            $updated_user = $this->instituteAuthService->updateInstituteAuth(
+            $updated_user = $this->instituteAuthService->update(
                 $request->validated(),
                 $user
             );

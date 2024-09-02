@@ -2,25 +2,24 @@
 
 namespace App\Modules\InstituteManagement\Institutes\Services;
 
+use App\Http\Abstracts\AbstractAuthenticableService;
 use App\Http\Services\FileService;
 use App\Modules\InstituteManagement\Institutes\Models\Institute;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAddress;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class InstituteAuthService
+class InstituteAuthService extends AbstractAuthenticableService
 {
 
-    protected function model(): Builder
+    public function model(): Builder
     {
         return InstituteAuth::with('roles');
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -30,43 +29,10 @@ class InstituteAuthService
                 ]);
     }
 
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): InstituteAuth|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function getByEmail(String $email): InstituteAuth
-    {
-        return $this->model()->where('email', $email)->firstOrFail();
-    }
-
-    public function getByPhone(String $phone): InstituteAuth
-    {
-        return $this->model()->where('phone', $phone)->firstOrFail();
-    }
-
     public function createInstitute(array $data): Institute
     {
         $institute = Institute::create([...$data]);
         return $institute;
-    }
-
-    public function createInstituteAuth(array $data): InstituteAuth
-    {
-        $instituteAuth = InstituteAuth::create([...$data, 'otp' => rand (1111, 9999)]);
-        return $instituteAuth;
     }
 
     public function createInstituteAddress(array $data): InstituteAddress
@@ -105,26 +71,10 @@ class InstituteAuthService
         return $institute;
     }
 
-    public function updateInstituteAuth(array $data, InstituteAuth $instituteAuth): InstituteAuth
-    {
-        $instituteAuth->update($data);
-        return $instituteAuth;
-    }
-
     public function updateInstituteAddress(array $data, InstituteAddress $instituteAddress): InstituteAddress
     {
         $instituteAddress->update($data);
         return $instituteAddress;
-    }
-
-    public function syncRoles(array $roles = [], InstituteAuth $instituteAuth): void
-    {
-        $instituteAuth->syncRoles($roles);
-    }
-
-    public function delete(InstituteAuth $instituteAuth): bool|null
-    {
-        return $instituteAuth->delete();
     }
 
 }

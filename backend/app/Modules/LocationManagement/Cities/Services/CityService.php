@@ -2,22 +2,21 @@
 
 namespace App\Modules\LocationManagement\Cities\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Modules\LocationManagement\Cities\Models\City;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class CityService
+class CityService extends AbstractExcelService
 {
-    protected function model(): Builder
+    public function model(): Builder
     {
         return City::with('state')->whenNotAdmin();
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -28,40 +27,6 @@ class CityService
                         $query->where('state_id', $value);
                     })
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()
-                ->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): City|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): City
-    {
-        return City::create($data);
-    }
-
-    public function update(array $data, City $city): City
-    {
-        $city->update($data);
-        return $city;
-    }
-
-    public function delete(City $city): bool|null
-    {
-        return $city->delete();
     }
 
     public function excel() : SimpleExcelWriter

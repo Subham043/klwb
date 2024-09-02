@@ -3,6 +3,7 @@
 namespace App\Modules\IndustryManagement\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\IndustryManagement\Accounts\Services\ProfileService;
 use App\Modules\IndustryManagement\Accounts\Requests\PasswordPostRequest;
@@ -23,8 +24,8 @@ class PasswordUpdateController extends Controller
     {
         try {
             //code...
-            $user = $this->profileService->profile();
-            $this->instituteAuthService->updateIndustryAuth(
+            $user = $this->profileService->profile(Guards::Industry->value());
+            $this->instituteAuthService->update(
                 $request->safe()->only('password'),
                 $user
             );

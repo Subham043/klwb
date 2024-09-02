@@ -40,7 +40,7 @@ class InstituteRegisterController extends Controller
             if($request->hasFile('seal')){
                 $this->instituteAuthService->saveSeal($institute);
             }
-            $instituteAuth = $this->instituteAuthService->createInstituteAuth([
+            $instituteAuth = $this->instituteAuthService->create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,

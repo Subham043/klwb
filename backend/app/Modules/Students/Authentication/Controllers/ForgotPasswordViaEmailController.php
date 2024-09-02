@@ -20,7 +20,7 @@ class ForgotPasswordViaEmailController extends Controller
 
     public function index(ForgotPasswordViaEmailPostRequest $request){
         $user = $this->authService->getByEmail($request->email);
-        $this->authService->updateUser($user, ['otp' => rand (1111, 9999)]);
+        $this->authService->update($user, ['otp' => rand (1111, 9999)]);
         $uuid = str()->uuid();
         $this->authService->setPasswordResetLink(['user_id' => $user->id, 'uuid' => $uuid]);
         $signedUrl = URL::temporarySignedRoute(

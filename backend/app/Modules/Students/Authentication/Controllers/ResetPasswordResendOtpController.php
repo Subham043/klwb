@@ -21,7 +21,7 @@ class ResetPasswordResendOtpController extends Controller
         if($data){
             if($data->created_at->diffInMinutes(now()) < (int)config('auth.reset_password_link_timeout')){
                 $user = $data->user;
-                $this->authService->updateUser($user, ['otp' => rand (1111, 9999)]);
+                $this->authService->update($user, ['otp' => rand (1111, 9999)]);
                 ResetPasswordResendOtp::dispatch($user);
                 return response()->json([
                     'message' => "Otp sent successfully.",

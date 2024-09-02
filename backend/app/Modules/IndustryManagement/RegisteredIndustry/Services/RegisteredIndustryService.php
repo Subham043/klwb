@@ -2,23 +2,22 @@
 
 namespace App\Modules\IndustryManagement\RegisteredIndustry\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Modules\IndustryManagement\RegisteredIndustry\Models\RegisteredIndustry;
 use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class RegisteredIndustryService
+class RegisteredIndustryService extends AbstractExcelService
 {
-    protected function model(): Builder
+    public function model(): Builder
     {
         return RegisteredIndustry::whenNotAdmin();
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -29,41 +28,6 @@ class RegisteredIndustryService
                         $query->where('taluq_id', $value);
                     })
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()
-                ->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): RegisteredIndustry|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): RegisteredIndustry
-    {
-        return RegisteredIndustry::create($data);
-    }
-
-    public function update(array $data, RegisteredIndustry $registeredIndustry): RegisteredIndustry
-    {
-        $registeredIndustry->update($data);
-        $registeredIndustry->refresh();
-        return $registeredIndustry;
-    }
-
-    public function delete(RegisteredIndustry $registeredIndustry): bool|null
-    {
-        return $registeredIndustry->delete();
     }
 
     public function excel() : SimpleExcelWriter

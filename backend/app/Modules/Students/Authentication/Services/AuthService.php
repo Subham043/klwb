@@ -2,55 +2,17 @@
 
 namespace App\Modules\Students\Authentication\Services;
 
-use App\Http\Enums\Guards;
+use App\Http\Abstracts\AbstractAuthService;
 use App\Modules\Students\Users\Models\PasswordReset;
-use Illuminate\Support\Facades\Auth;
 use App\Modules\Students\Users\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
-class AuthService
+class AuthService extends AbstractAuthService
 {
-    public function login(array $credentials): bool
-    {
-        return Auth::guard(Guards::Web->value())->attempt($credentials);
-    }
 
-    public function generate_token(User $user): string
+    public function model(): Builder
     {
-        return $user->createToken($user->email)->plainTextToken;
-    }
-
-    public function profile(): User
-    {
-        return Auth::guard(Guards::Web->value())->user();
-    }
-
-    public function logout(Request $request): void
-    {
-        $request->user()->tokens()->delete();
-        auth()->guard(Guards::Web->value())->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-    }
-
-    public function getByPhone(string $phone): User|null
-    {
-        return User::with('roles')->where('phone', $phone)->where('is_blocked', 0)->firstOrFail();
-    }
-
-    public function getByEmail(string $email): User|null
-    {
-        return User::with('roles')->where('email', $email)->where('is_blocked', 0)->firstOrFail();
-    }
-
-    public function getById(string $id): User|null
-    {
-        return User::with('roles')->where('id', $id)->where('is_blocked', 0)->firstOrFail();
-    }
-
-    public function updateUser(User $user, array $data): void
-    {
-        $user->update($data);
+        return User::with('roles')->where('is_blocked', 0);
     }
 
     public function setPasswordResetLink(array $data): void

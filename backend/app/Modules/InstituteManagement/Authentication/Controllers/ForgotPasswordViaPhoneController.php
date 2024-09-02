@@ -20,7 +20,7 @@ class ForgotPasswordViaPhoneController extends Controller
 
     public function index(ForgotPasswordViaPhonePostRequest $request){
         $user = $this->authService->getByPhone($request->phone);
-        $this->authService->updateInstituteAuth($user, ['otp' => rand (1111, 9999)]);
+        $this->authService->update($user, ['otp' => rand (1111, 9999)]);
         $uuid = str()->uuid();
         $this->authService->setPasswordResetLink(['school_auth_id' => $user->id, 'uuid' => $uuid]);
         $signedUrl = URL::temporarySignedRoute(

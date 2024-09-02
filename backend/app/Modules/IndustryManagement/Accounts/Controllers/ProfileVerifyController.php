@@ -25,8 +25,8 @@ class ProfileVerifyController extends Controller
 
         try {
             //code...
-            $user = $this->profileService->profile();
-            $this->instituteAuthService->updateIndustryAuth(
+            $user = $this->profileService->profile(Guards::Industry->value());
+            $this->instituteAuthService->update(
                 [
                     'verified_at' => now(),
                     'otp' => rand(1111, 9999),

@@ -165,15 +165,18 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    public function getResetPasswordClientLink() {
+    public function getResetPasswordClientLink(): string 
+    {
         return (config('app.client_url').'/auth/industry/reset-password/');
     }
 
-    public function getLoginClientLink() {
+    public function getLoginClientLink(): string 
+    {
         return (config('app.client_url').'/auth/industry/login');
     }
 
-    public function hasVerifiedEmail() {
+    public function hasVerifiedEmail() 
+    {
         return !is_null($this->verified_at);
     }
 

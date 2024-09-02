@@ -7,6 +7,7 @@ use App\Http\Services\RateLimitService;
 use App\Modules\Students\Users\Services\UserService;
 use App\Modules\Students\Accounts\Services\ProfileService;
 use App\Modules\Students\Accounts\Requests\PasswordPostRequest;
+use App\Http\Enums\Guards;
 
 class PasswordUpdateController extends Controller
 {
@@ -23,7 +24,7 @@ class PasswordUpdateController extends Controller
     {
         try {
             //code...
-            $user = $this->profileService->profile();
+            $user = $this->profileService->profile(Guards::Web->value());
             $this->userService->update(
                 $request->safe()->only('password'),
                 $user

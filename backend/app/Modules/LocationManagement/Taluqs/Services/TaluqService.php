@@ -2,19 +2,18 @@
 
 namespace App\Modules\LocationManagement\Taluqs\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class TaluqService
+class TaluqService extends AbstractExcelService
 {
 
-    protected function model(): Builder
+    public function model(): Builder
     {
         return Taluq::with([
             'city' => function ($query) {
@@ -22,7 +21,7 @@ class TaluqService
             }
         ])->whenNotAdmin();
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -33,39 +32,6 @@ class TaluqService
                         $query->where('city_id', $value);
                     })
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): Taluq|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): Taluq
-    {
-        return Taluq::create($data);
-    }
-
-    public function update(array $data, Taluq $taluq): Taluq
-    {
-        $taluq->update($data);
-        return $taluq;
-    }
-
-    public function delete(Taluq $taluq): bool|null
-    {
-        return $taluq->delete();
     }
 
     public function excel() : SimpleExcelWriter

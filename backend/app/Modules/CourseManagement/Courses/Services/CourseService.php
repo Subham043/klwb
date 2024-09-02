@@ -2,22 +2,21 @@
 
 namespace App\Modules\CourseManagement\Courses\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Modules\CourseManagement\Courses\Models\Course;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class CourseService
+class CourseService extends AbstractExcelService
 {
-    protected function model(): Builder
+    public function model(): Builder
     {
         return Course::with('graduation')->whenNotAdmin();
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -28,38 +27,6 @@ class CourseService
                         $query->where('graduation_id', $value);
                     })
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): Course|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): Course
-    {
-        return Course::create($data);
-    }
-
-    public function update(array $data, Course $course): Course
-    {
-        $course->update($data);
-        return $course;
-    }
-
-    public function delete(Course $course): bool|null
-    {
-        return $course->delete();
     }
 
     public function excel() : SimpleExcelWriter

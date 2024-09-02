@@ -2,24 +2,23 @@
 
 namespace App\Modules\Roles\Services;
 
+use App\Http\Abstracts\AbstractService;
 use App\Modules\Roles\Enums\Roles;
 use Spatie\Permission\Models\Role;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class RoleService
+class RoleService extends AbstractService
 {
     protected $employee_roles = [Roles::SuperAdmin, Roles::Institute, Roles::InstituteStaff, Roles::Industry, Roles::IndustryStaff, Roles::Student];
 
-    protected function model(): Builder
+    public function model(): Builder
     {
         return Role::whereNotIn('name', $this->employee_roles);
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -27,17 +26,6 @@ class RoleService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total);
     }
 
 }

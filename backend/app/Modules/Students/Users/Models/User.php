@@ -67,11 +67,13 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function getResetPasswordClientLink() {
+    public function getResetPasswordClientLink(): string
+    {
         return (config('app.client_url').'/auth/student/reset-password/');
     }
 
-    public function getLoginClientLink() {
+    public function getLoginClientLink(): string
+    {
         return (config('app.client_url').'/auth/student/login');
     }
 
@@ -84,7 +86,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return UserFactory::new();
     }
 
-    public function hasVerifiedEmail() {
+    public function hasVerifiedEmail(): bool
+    {
         return !is_null($this->verified_at);
     }
 

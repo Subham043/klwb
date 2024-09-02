@@ -2,23 +2,23 @@
 
 namespace App\Modules\IndustryManagement\Industry\Services;
 
+use App\Http\Abstracts\AbstractAuthenticableService;
 use App\Http\Services\FileService;
 use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class IndustryAuthService
+class IndustryAuthService extends AbstractAuthenticableService
 {
 
-    protected function model(): Builder
+    public function model(): Builder
     {
         return IndustryAuth::with('roles');
     }
-    protected function query(): QueryBuilder
+
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -28,43 +28,10 @@ class IndustryAuthService
                 ]);
     }
 
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): IndustryAuth|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function getByEmail(String $email): IndustryAuth
-    {
-        return $this->model()->where('email', $email)->firstOrFail();
-    }
-
-    public function getByPhone(String $phone): IndustryAuth
-    {
-        return $this->model()->where('phone', $phone)->firstOrFail();
-    }
-
-    public function createIndustryAuth(array $data): IndustryAuth
-    {
-        $industryAuth = IndustryAuth::create([...$data, 'otp' => rand (1111, 9999)]);
-        return $industryAuth;
-    }
-
     public function saveRegDoc(IndustryAuth $industry): IndustryAuth
     {
         $reg_doc = (new FileService)->save_file('reg_doc', (new IndustryAuth)->reg_doc_path);
-        return $this->updateIndustryAuth([
+        return $this->update([
             'reg_doc' => $reg_doc,
         ], $industry);
     }
@@ -72,7 +39,7 @@ class IndustryAuthService
     public function saveSign(IndustryAuth $industry): IndustryAuth
     {
         $sign = (new FileService)->save_file('sign', (new IndustryAuth)->sign_path);
-        return $this->updateIndustryAuth([
+        return $this->update([
             'sign' => $sign,
         ], $industry);
     }
@@ -80,7 +47,7 @@ class IndustryAuthService
     public function saveSeal(IndustryAuth $industry): IndustryAuth
     {
         $seal = (new FileService)->save_file('seal', (new IndustryAuth)->seal_path);
-        return $this->updateIndustryAuth([
+        return $this->update([
             'seal' => $seal,
         ], $industry);
     }
@@ -88,7 +55,7 @@ class IndustryAuthService
     public function savePan(IndustryAuth $industry): IndustryAuth
     {
         $pan = (new FileService)->save_file('pan', (new IndustryAuth)->pan_path);
-        return $this->updateIndustryAuth([
+        return $this->update([
             'pan' => $pan,
         ], $industry);
     }
@@ -96,25 +63,9 @@ class IndustryAuthService
     public function saveGst(IndustryAuth $industry): IndustryAuth
     {
         $gst = (new FileService)->save_file('gst', (new IndustryAuth)->gst_path);
-        return $this->updateIndustryAuth([
+        return $this->update([
             'gst' => $gst,
         ], $industry);
-    }
-
-    public function updateIndustryAuth(array $data, IndustryAuth $industryAuth): IndustryAuth
-    {
-        $industryAuth->update($data);
-        return $industryAuth;
-    }
-
-    public function syncRoles(array $roles = [], IndustryAuth $industryAuth): void
-    {
-        $industryAuth->syncRoles($roles);
-    }
-
-    public function delete(IndustryAuth $industryAuth): bool|null
-    {
-        return $industryAuth->delete();
     }
 
 }

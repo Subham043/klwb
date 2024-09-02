@@ -30,7 +30,7 @@ class ResetPasswordController extends Controller
             if($data->created_at->diffInMinutes(now()) < (int)config('auth.reset_password_link_timeout')){
                 $emplpyee = $data->employee;
                 if($emplpyee->otp == $request->otp){
-                    $this->authService->updateEmployee($emplpyee, ['otp' => rand (1111, 9999), 'password' => $request->password]);
+                    $this->authService->update($emplpyee, ['otp' => rand (1111, 9999), 'password' => $request->password]);
                     $this->authService->deletePasswordResetLink($token);
                     (new RateLimitService($request))->clearRateLimit();
                     return response()->json([

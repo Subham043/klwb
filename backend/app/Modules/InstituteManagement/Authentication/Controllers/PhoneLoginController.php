@@ -20,7 +20,7 @@ class PhoneLoginController extends Controller
 
     public function index(PhoneLoginPostRequest $request){
 
-        $is_authenticated = $this->authService->login([...$request->safe()->except(['captcha']), 'is_blocked' => 0]);
+        $is_authenticated = $this->authService->login([...$request->safe()->except(['captcha']), 'is_blocked' => 0], Guards::Institute->value());
 
         if ($is_authenticated) {
             (new RateLimitService($request))->clearRateLimit();

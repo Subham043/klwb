@@ -2,25 +2,25 @@
 
 namespace App\Modules\Admins\Employees\Services;
 
+use App\Http\Abstracts\AbstractAuthenticableExcelService;
 use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Roles\Enums\Roles;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class EmployeeService{
+class EmployeeService extends AbstractAuthenticableExcelService
+{
 
     protected $employee_roles = [Roles::SuperAdmin, Roles::Institute, Roles::InstituteStaff, Roles::Industry, Roles::IndustryStaff, Roles::Student];
 
-    protected function model(): Builder
+    public function model(): Builder
     {
         return Employee::doesNotHaveRoles($this->employee_roles);
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -28,54 +28,6 @@ class EmployeeService{
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id)
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function getByEmail(String $email): Employee
-    {
-        return $this->model()->where('email', $email)->firstOrFail();
-    }
-
-    public function getByPhone(String $phone): Employee
-    {
-        return $this->model()->where('phone', $phone)->firstOrFail();
-    }
-
-    public function create(array $data): Employee
-    {
-        $employee = Employee::create([...$data, 'otp' => rand (1111, 9999)]);
-        return $employee;
-    }
-
-    public function update(array $data, Employee $employee): Employee
-    {
-        $employee->update($data);
-        return $employee;
-    }
-
-    public function syncRoles(array $roles = [], Employee $employee): void
-    {
-        $employee->syncRoles($roles);
-    }
-
-    public function delete(Employee $employee): bool|null
-    {
-        return $employee->delete();
     }
 
     public function excel() : SimpleExcelWriter

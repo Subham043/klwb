@@ -2,19 +2,18 @@
 
 namespace App\Modules\InstituteManagement\RequestInstitutes\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Http\Services\FileService;
 use App\Modules\InstituteManagement\RequestInstitutes\Models\RequestInstitute;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class RequestInstituteService
+class RequestInstituteService extends AbstractExcelService
 {
-    protected function model(): Builder
+    public function model(): Builder
     {
         return RequestInstitute::with([
             'taluq' => function ($query) {
@@ -26,7 +25,7 @@ class RequestInstituteService
             }
         ])->where('is_active', true);
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -39,45 +38,12 @@ class RequestInstituteService
                 ]);
     }
 
-    public function all(): Collection
-    {
-        return $this->query()->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): RequestInstitute|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): RequestInstitute
-    {
-        return RequestInstitute::create($data);
-    }
-
     public function saveRegisterDoc(RequestInstitute $requestInstitute): RequestInstitute
     {
         $register_doc = (new FileService)->save_file('register_doc', (new RequestInstitute)->register_doc_path);
         return $this->update([
             'register_doc' => $register_doc,
         ], $requestInstitute);
-    }
-
-    public function update(array $data, RequestInstitute $requestInstitute): RequestInstitute
-    {
-        $requestInstitute->update($data);
-        return $requestInstitute;
-    }
-
-    public function delete(RequestInstitute $requestInstitute): bool|null
-    {
-        return $requestInstitute->delete();
     }
 
     public function excel() : SimpleExcelWriter

@@ -25,7 +25,7 @@ class ProfileVerifyController extends Controller
 
         try {
             //code...
-            $employee = $this->profileService->profile();
+            $employee = $this->profileService->profile(Guards::Admin->value());
             $this->employeeService->update(
                 [
                     'verified_at' => now(),

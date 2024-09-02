@@ -67,12 +67,14 @@ class Employee extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function getResetPasswordClientLink() {
-        return (config('app.client_url').'/auth/admin/reset-password/');
+    public function getResetPasswordClientLink(): string
+    {
+        return (config('app.client_url').'/auth/official/reset-password/');
     }
 
-    public function getLoginClientLink() {
-        return (config('app.client_url').'/auth/admin/login');
+    public function getLoginClientLink(): string 
+    {
+        return (config('app.client_url').'/auth/official/login');
     }
 
     /**
@@ -84,7 +86,8 @@ class Employee extends Authenticatable implements MustVerifyEmail
         return EmployeeFactory::new();
     }
 
-    public function hasVerifiedEmail() {
+    public function hasVerifiedEmail(): bool
+    {
         return !is_null($this->verified_at);
     }
 

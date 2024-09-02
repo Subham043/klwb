@@ -26,7 +26,7 @@ class IndustryRegisterController extends Controller
         try {
             //code...
             $city = (new CityService)->getById($request->city_id);
-            $industry = $this->industryAuthService->createIndustryAuth([
+            $industry = $this->industryAuthService->create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,

@@ -27,7 +27,7 @@ class ProfileUpdateController extends Controller
         $phone_status = false;
         try {
             //code...
-            $employee = $this->profileService->profile();
+            $employee = $this->profileService->profile(Guards::Admin->value());
             if($employee->email != $request->email) {
                 $email_status = true;
             }

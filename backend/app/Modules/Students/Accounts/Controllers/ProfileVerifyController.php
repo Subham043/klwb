@@ -25,7 +25,7 @@ class ProfileVerifyController extends Controller
 
         try {
             //code...
-            $user = $this->profileService->profile();
+            $user = $this->profileService->profile(Guards::Web->value());
             $this->userService->update(
                 [
                     'verified_at' => now(),

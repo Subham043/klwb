@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\RateLimitService;
 use App\Modules\Admins\Accounts\Services\ProfileService;
 use App\Modules\Admins\Accounts\Requests\PasswordPostRequest;
@@ -23,7 +24,7 @@ class PasswordUpdateController extends Controller
     {
         try {
             //code...
-            $employee = $this->profileService->profile();
+            $employee = $this->profileService->profile(Guards::Admin->value());
             $this->employeeService->update(
                 $request->safe()->only('password'),
                 $employee

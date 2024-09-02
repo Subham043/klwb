@@ -2,18 +2,17 @@
 
 namespace App\Modules\InstituteManagement\RegisteredInstitutes\Services;
 
+use App\Http\Abstracts\AbstractExcelService;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Models\RegisteredInstitute;
-use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class RegisteredInstituteService
+class RegisteredInstituteService extends AbstractExcelService
 {
-    protected function model(): Builder
+    public function model(): Builder
     {
         return RegisteredInstitute::with([
             'taluq' => function ($query) {
@@ -25,7 +24,7 @@ class RegisteredInstituteService
             }
         ])->whenNotAdmin();
     }
-    protected function query(): QueryBuilder
+    public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
                 ->defaultSort('-id')
@@ -36,41 +35,6 @@ class RegisteredInstituteService
                         $query->where('taluq_id', $value);
                     })
                 ]);
-    }
-
-    public function all(): Collection
-    {
-        return $this->query()
-                ->lazy(100)->collect();
-    }
-
-    public function paginate(Int $total = 10): LengthAwarePaginator
-    {
-        return $this->query()
-                ->paginate($total)
-                ->appends(request()->query());
-    }
-
-    public function getById(Int $id): RegisteredInstitute|null
-    {
-        return $this->model()->findOrFail($id);
-    }
-
-    public function create(array $data): RegisteredInstitute
-    {
-        return RegisteredInstitute::create($data);
-    }
-
-    public function update(array $data, RegisteredInstitute $registeredInstitute): RegisteredInstitute
-    {
-        $registeredInstitute->update($data);
-        $registeredInstitute->refresh();
-        return $registeredInstitute;
-    }
-
-    public function delete(RegisteredInstitute $registeredInstitute): bool|null
-    {
-        return $registeredInstitute->delete();
     }
 
     public function excel() : SimpleExcelWriter
