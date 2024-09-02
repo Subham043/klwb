@@ -49,7 +49,7 @@ export default function Staff({ id }: Props) {
 						cellBordered={true}
 						autoHeight={true}
 						height={100}
-						data={staffs?.data ?? []}
+						data={staffs?.data || []}
 					>
 						<Table.Column width={60} align="center" fixed>
 							<Table.HeaderCell>Id</Table.HeaderCell>
@@ -108,7 +108,7 @@ export default function Staff({ id }: Props) {
 							maxButtons={5}
 							size="sm"
 							layout={['total', '-', 'limit', '|', 'pager', 'skip']}
-							total={(staffs?.meta.total ?? 0)}
+							total={(staffs?.meta.total || 0)}
 							limitOptions={[10, 30, 50]}
 							limit={Number(limit)}
 							activePage={Number(page)}

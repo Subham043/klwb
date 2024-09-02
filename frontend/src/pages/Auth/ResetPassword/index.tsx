@@ -23,7 +23,7 @@ function ResetPasswordPage({title, login_link, reset_password_api_link, reset_pa
             </div>
             <div className="auth-form">
               <div className={classes.formFields}>
-                <ResetPassword token={params.token ?? ''} login_link={login_link} reset_password_api_link={reset_password_api_link} reset_password_resend_otp_api_link={reset_password_resend_otp_api_link} expires={searchParams.get('expires') || ''} signature={searchParams.get('signature') || ''} />
+                <ResetPassword token={params.token || ''} login_link={login_link} reset_password_api_link={reset_password_api_link} reset_password_resend_otp_api_link={reset_password_resend_otp_api_link} expires={searchParams.get('expires') || ''} signature={searchParams.get('signature') || ''} />
               </div>
             </div>
         </div>

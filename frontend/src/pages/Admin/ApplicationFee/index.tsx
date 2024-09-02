@@ -25,14 +25,14 @@ const ApplicationFee:FC = () => {
 
     return <PaginatedTableLayout title="Scholarship Fees">
         <PaginatedTableLayout.Header title="Scholarship Fees" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.application_fee.excel} excelName="application_fee.xlsx" />
-        <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
+        <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 bordered={true}
                 cellBordered={true}
                 autoHeight={true}
                 height={200}
-                data={data?.data ?? []}
+                data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>

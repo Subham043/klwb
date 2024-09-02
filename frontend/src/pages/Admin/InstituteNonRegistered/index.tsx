@@ -12,14 +12,14 @@ const InstituteNonRegistered:FC = () => {
 
     return <PaginatedTableLayout title="Institutes Non Registered">
         <PaginatedTableLayout.Header title="Institutes Non Registered" addBtn={false} excelLink={api_routes.admin.institute.non_registered.excel} excelName="non_registered_institute.xlsx" />
-        <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
+        <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 bordered={true}
                 cellBordered={true}
                 autoHeight={true}
                 height={200}
-                data={data?.data ?? []}
+                data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>

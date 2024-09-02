@@ -25,14 +25,14 @@ const Graduation:FC = () => {
 
     return <PaginatedTableLayout title="Graduations">
         <PaginatedTableLayout.Header title="Graduations" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.graduation.excel} excelName="graduation.xlsx" />
-        <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
+        <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 bordered={true}
                 cellBordered={true}
                 autoHeight={true}
                 height={200}
-                data={data?.data ?? []}
+                data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>

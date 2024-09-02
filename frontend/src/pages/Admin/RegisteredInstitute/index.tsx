@@ -16,14 +16,14 @@ const RegisteredInstitute:FC = () => {
 
     return <PaginatedTableLayout title="All Institutes">
         <PaginatedTableLayout.Header title="All Institutes" buttonName="Institute" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.registered_institute.excel} excelName="registered_institute.xlsx" />
-        <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
+        <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 bordered={true}
                 cellBordered={true}
                 autoHeight={true}
                 height={200}
-                data={data?.data ?? []}
+                data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>

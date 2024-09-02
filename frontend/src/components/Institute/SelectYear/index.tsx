@@ -25,7 +25,7 @@ const SelectYear = (props: PropType) => {
       data={data}
       name="year"
       value={searchParams.get("year"+(key || "")) || ''}
-      onChange={(value) => selectHandler(value ?? '')}
+      onChange={(value) => selectHandler(value || '')}
       placeholder={"Select Year"}
       virtualized
       style={{ minWidth: "150px" }}

@@ -26,7 +26,7 @@ const SelectStatus = (props: PropType) => {
       data={data}
       name="status"
       value={searchParams.get("status"+(key || "")) || ''}
-      onChange={(value) => selectHandler(value ?? '')}
+      onChange={(value) => selectHandler(value || '')}
       placeholder={"Select Status"}
       style={{ minWidth: "150px" }}
     />

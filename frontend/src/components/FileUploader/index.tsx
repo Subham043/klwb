@@ -68,7 +68,7 @@ export default function FileUploader({ src, name, apiRoute, refetch, allowed=fal
 			setLoading(true);
 			try {
 					const formData = new FormData();
-					formData.append(name, getValues().file![getValues().file!.length - 1 ?? 0].blobFile!);
+					formData.append(name, getValues().file![getValues().file!.length - 1 || 0].blobFile!);
 					await axios.post(apiRoute, formData);
 					toastSuccess("File uploaded successfully");
 					reset({

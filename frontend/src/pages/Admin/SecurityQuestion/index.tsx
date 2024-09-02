@@ -25,14 +25,14 @@ const SecurityQuestion:FC = () => {
 
     return <PaginatedTableLayout title="Security Questions">
         <PaginatedTableLayout.Header title="Security Questions" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.security_question.excel} excelName="security_question.xlsx" />
-        <PaginatedTableLayout.Content total={(data?.meta.total ?? 0)} error={error} refetch={refetch}>
+        <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 bordered={true}
                 cellBordered={true}
                 autoHeight={true}
                 height={200}
-                data={data?.data ?? []}
+                data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
