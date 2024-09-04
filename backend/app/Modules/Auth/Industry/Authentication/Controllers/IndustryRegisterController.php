@@ -7,13 +7,14 @@ use App\Http\Events\UserRegistered;
 use App\Http\Services\RateLimitService;
 use App\Modules\Auth\Industry\Authentication\Requests\IndustryRegisterPostRequest;
 use App\Modules\Auth\Industry\Authentication\Resources\AuthCollection;
+use App\Modules\IndustryManagement\Industry\Services\IndustryAuthFileService;
 use App\Modules\IndustryManagement\Industry\Services\IndustryAuthService;
 use App\Modules\LocationManagement\Cities\Services\CityService;
 use Illuminate\Support\Facades\DB;
 
 class IndustryRegisterController extends Controller
 {
-    public function __construct(private IndustryAuthService $industryAuthService){}
+    public function __construct(private IndustryAuthService $industryAuthService, private IndustryAuthFileService $industryAuthFileService){}
 
     public function index(IndustryRegisterPostRequest $request){
         $request->validated();
@@ -32,13 +33,13 @@ class IndustryRegisterController extends Controller
                 'taluq_id' => $request->taluq_id,
             ]);
             if($request->hasFile('reg_doc')){
-                $this->industryAuthService->saveRegDoc($industry);
+                $this->industryAuthFileService->saveRegDoc($industry);
             }
             if($request->hasFile('sign')){
-                $this->industryAuthService->saveSign($industry);
+                $this->industryAuthFileService->saveSign($industry);
             }
             if($request->hasFile('seal')){
-                $this->industryAuthService->saveSeal($industry);
+                $this->industryAuthFileService->saveSeal($industry);
             }
             $this->industryAuthService->syncRoles(["Industry"], $industry);
             $industry->registered_industry->update([

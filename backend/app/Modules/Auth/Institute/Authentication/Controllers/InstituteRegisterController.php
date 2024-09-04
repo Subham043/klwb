@@ -7,13 +7,14 @@ use App\Http\Events\UserRegistered;
 use App\Http\Services\RateLimitService;
 use App\Modules\Auth\Institute\Authentication\Requests\InstituteRegisterPostRequest;
 use App\Modules\Auth\Institute\Authentication\Resources\AuthCollection;
+use App\Modules\InstituteManagement\Institutes\Services\InstituteAuthFileService;
 use App\Modules\InstituteManagement\Institutes\Services\InstituteAuthService;
 use App\Modules\LocationManagement\Cities\Services\CityService;
 use Illuminate\Support\Facades\DB;
 
 class InstituteRegisterController extends Controller
 {
-    public function __construct(private InstituteAuthService $instituteAuthService){}
+    public function __construct(private InstituteAuthService $instituteAuthService, private InstituteAuthFileService $instituteAuthFileService){}
 
     public function index(InstituteRegisterPostRequest $request){
         $request->validated();
@@ -27,13 +28,13 @@ class InstituteRegisterController extends Controller
                 'reg_institute_id' => $request->reg_institute_id,
             ]);
             if($request->hasFile('reg_certification')){
-                $this->instituteAuthService->saveRegCertification($institute);
+                $this->instituteAuthFileService->saveRegCertification($institute);
             }
             if($request->hasFile('principal_signature')){
-                $this->instituteAuthService->savePrincipalSignature($institute);
+                $this->instituteAuthFileService->savePrincipalSignature($institute);
             }
             if($request->hasFile('seal')){
-                $this->instituteAuthService->saveSeal($institute);
+                $this->instituteAuthFileService->saveSeal($institute);
             }
             $instituteAuth = $this->instituteAuthService->create([
                 'name' => $request->name,

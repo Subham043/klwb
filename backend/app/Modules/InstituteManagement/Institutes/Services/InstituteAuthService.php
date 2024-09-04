@@ -3,7 +3,6 @@
 namespace App\Modules\InstituteManagement\Institutes\Services;
 
 use App\Http\Abstracts\AbstractAuthenticableService;
-use App\Http\Services\FileService;
 use App\Modules\InstituteManagement\Institutes\Models\Institute;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAddress;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
@@ -39,30 +38,6 @@ class InstituteAuthService extends AbstractAuthenticableService
     {
         $instituteAddress = InstituteAddress::create([...$data]);
         return $instituteAddress;
-    }
-
-    public function saveRegCertification(Institute $institute): Institute
-    {
-        $reg_certification = (new FileService)->save_file('reg_certification', (new Institute)->reg_certification_path);
-        return $this->updateInstitute([
-            'reg_certification' => $reg_certification,
-        ], $institute);
-    }
-
-    public function savePrincipalSignature(Institute $institute): Institute
-    {
-        $principal_signature = (new FileService)->save_file('principal_signature', (new Institute)->principal_signature_path);
-        return $this->updateInstitute([
-            'principal_signature' => $principal_signature,
-        ], $institute);
-    }
-
-    public function saveSeal(Institute $institute): Institute
-    {
-        $seal = (new FileService)->save_file('seal', (new Institute)->seal_path);
-        return $this->updateInstitute([
-            'seal' => $seal,
-        ], $institute);
     }
 
     public function updateInstitute(array $data, Institute $institute): Institute
