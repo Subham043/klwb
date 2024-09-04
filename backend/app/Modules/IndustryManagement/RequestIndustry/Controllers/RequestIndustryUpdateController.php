@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestIndustryUpdateController extends Controller
 {
-    private $industryService;
-
-    public function __construct(RequestIndustryService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private RequestIndustryService $industryService){}
 
     public function index(RequestIndustryRequest $request, $id){
         $industry = $this->industryService->getById($id);

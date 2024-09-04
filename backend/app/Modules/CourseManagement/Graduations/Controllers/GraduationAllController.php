@@ -8,12 +8,7 @@ use App\Modules\CourseManagement\Graduations\Services\GraduationService;
 
 class GraduationAllController extends Controller
 {
-    private $graduationService;
-
-    public function __construct(GraduationService $graduationService)
-    {
-        $this->graduationService = $graduationService;
-    }
+    public function __construct(private GraduationService $graduationService){}
 
     public function index(){
         $graduation = $this->graduationService->all();

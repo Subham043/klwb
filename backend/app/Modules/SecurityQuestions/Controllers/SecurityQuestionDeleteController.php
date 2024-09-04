@@ -8,12 +8,7 @@ use App\Modules\SecurityQuestions\Services\SecurityQuestionService;
 
 class SecurityQuestionDeleteController extends Controller
 {
-    private $questionService;
-
-    public function __construct(SecurityQuestionService $questionService)
-    {
-        $this->questionService = $questionService;
-    }
+    public function __construct(private SecurityQuestionService $questionService){}
 
     public function index($id){
         $question = $this->questionService->getById($id);

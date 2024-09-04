@@ -9,12 +9,7 @@ use Illuminate\Http\Request;
 
 class ApplicationDatePaginateController extends Controller
 {
-    private $applicationDateService;
-
-    public function __construct(ApplicationDateService $applicationDateService)
-    {
-        $this->applicationDateService = $applicationDateService;
-    }
+    public function __construct(private ApplicationDateService $applicationDateService){}
 
     public function index(Request $request){
         $data = $this->applicationDateService->paginate($request->total ?? 10);

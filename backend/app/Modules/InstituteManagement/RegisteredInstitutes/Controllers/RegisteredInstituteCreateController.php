@@ -9,12 +9,7 @@ use App\Modules\InstituteManagement\RegisteredInstitutes\Services\RegisteredInst
 
 class RegisteredInstituteCreateController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(RegisteredInstituteService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private RegisteredInstituteService $instituteService){}
 
     public function index(RegisteredInstituteRequest $request){
         try {

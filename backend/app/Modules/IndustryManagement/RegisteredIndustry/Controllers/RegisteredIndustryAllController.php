@@ -8,12 +8,7 @@ use App\Modules\IndustryManagement\RegisteredIndustry\Services\RegisteredIndustr
 
 class RegisteredIndustryAllController extends Controller
 {
-    private $industryService;
-
-    public function __construct(RegisteredIndustryService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private RegisteredIndustryService $industryService){}
 
     public function index(){
         $industry = $this->industryService->all();

@@ -8,12 +8,7 @@ use Illuminate\Http\Request;
 
 class InstituteScholarshipApproveController extends Controller
 {
-    private $scholarshipService;
-
-    public function __construct(InstituteScholarshipService $scholarshipService)
-    {
-        $this->scholarshipService = $scholarshipService;
-    }
+    public function __construct(private InstituteScholarshipService $scholarshipService){}
 
     public function index(Request $request, $id){
         $application = $this->scholarshipService->getById($id);

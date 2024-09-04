@@ -10,12 +10,8 @@ use App\Modules\Admins\Authentication\Services\AuthService;
 
 class ResetPasswordController extends Controller
 {
-    private $authService;
 
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(private AuthService $authService){}
 
     public function index(ResetPasswordPostRequest $request, $token){
         //code...

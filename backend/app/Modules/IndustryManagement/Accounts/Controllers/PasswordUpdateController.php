@@ -11,14 +11,7 @@ use App\Modules\IndustryManagement\Industry\Services\IndustryAuthService;
 
 class PasswordUpdateController extends Controller
 {
-    private $instituteAuthService;
-    private $profileService;
-
-    public function __construct(IndustryAuthService $instituteAuthService, ProfileService $profileService)
-    {
-        $this->instituteAuthService = $instituteAuthService;
-        $this->profileService = $profileService;
-    }
+    public function __construct(private IndustryAuthService $instituteAuthService, private ProfileService $profileService){}
 
     public function index(PasswordPostRequest $request)
     {

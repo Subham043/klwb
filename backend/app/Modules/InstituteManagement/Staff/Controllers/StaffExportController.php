@@ -8,12 +8,7 @@ use App\Modules\InstituteManagement\Staff\Services\InstituteStaffService;
 
 class StaffExportController extends Controller
 {
-    private $staffService;
-
-    public function __construct(InstituteStaffService $staffService)
-    {
-        $this->staffService = $staffService;
-    }
+    public function __construct(private InstituteStaffService $staffService){}
 
     public function index($id){
         $school = (new InstituteRegisteredService)->getById($id);

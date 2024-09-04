@@ -12,12 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class EmployeeCreateController extends Controller
 {
-    private $employeeService;
 
-    public function __construct(EmployeeService $employeeService)
-    {
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private EmployeeService $employeeService){}
 
     public function index(EmployeeCreatePostRequest $request){
         DB::beginTransaction();

@@ -7,12 +7,7 @@ use App\Modules\CourseManagement\Courses\Services\CourseService;
 
 class CourseExportController extends Controller
 {
-    private $courseService;
-
-    public function __construct(CourseService $courseService)
-    {
-        $this->courseService = $courseService;
-    }
+    public function __construct(private CourseService $courseService){}
 
     public function index(){
         return $this->courseService->excel()->toBrowser();

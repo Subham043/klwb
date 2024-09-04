@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestIndustryCreateController extends Controller
 {
-    private $industryService;
-
-    public function __construct(RequestIndustryService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private RequestIndustryService $industryService){}
 
     public function index(RequestIndustryRequest $request){
         DB::beginTransaction();

@@ -10,12 +10,7 @@ use App\Modules\ApplicationManagement\Fees\Services\FeeService;
 
 class FeeCreateController extends Controller
 {
-    private $feeService;
-
-    public function __construct(FeeService $feeService)
-    {
-        $this->feeService = $feeService;
-    }
+    public function __construct(private FeeService $feeService){}
 
     public function index(FeeCreateRequest $request){
         try {

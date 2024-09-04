@@ -8,12 +8,7 @@ use App\Modules\IndustryManagement\RegisteredIndustry\Services\RegisteredIndustr
 
 class RegisteredIndustryViewController extends Controller
 {
-    private $industryService;
-
-    public function __construct(RegisteredIndustryService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private RegisteredIndustryService $industryService){}
 
     public function index($id){
         $industry = $this->industryService->getById($id);

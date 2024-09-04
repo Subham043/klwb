@@ -12,14 +12,7 @@ use App\Modules\IndustryManagement\Industry\Services\IndustryAuthService;
 
 class ProfileVerifyController extends Controller
 {
-    private $profileService;
-    private $instituteAuthService;
-
-    public function __construct(ProfileService $profileService, IndustryAuthService $instituteAuthService)
-    {
-        $this->profileService = $profileService;
-        $this->instituteAuthService = $instituteAuthService;
-    }
+    public function __construct(private ProfileService $profileService, private IndustryAuthService $instituteAuthService){}
 
     public function index(ProfileVerifyPostRequest $request){
 

@@ -8,12 +8,7 @@ use App\Modules\InstituteManagement\Staff\Services\InstituteEmployeeService;
 
 class InstituteEmployeeViewController extends Controller
 {
-    private $employeeService;
-
-    public function __construct(InstituteEmployeeService $employeeService)
-    {
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private InstituteEmployeeService $employeeService){}
 
     public function index($id){
         $employee = $this->employeeService->getById($id);

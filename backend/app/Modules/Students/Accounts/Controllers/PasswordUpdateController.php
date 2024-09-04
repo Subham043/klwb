@@ -11,14 +11,7 @@ use App\Http\Enums\Guards;
 
 class PasswordUpdateController extends Controller
 {
-    private $userService;
-    private $profileService;
-
-    public function __construct(UserService $userService, ProfileService $profileService)
-    {
-        $this->userService = $userService;
-        $this->profileService = $profileService;
-    }
+    public function __construct(private UserService $userService, private ProfileService $profileService){}
 
     public function index(PasswordPostRequest $request)
     {

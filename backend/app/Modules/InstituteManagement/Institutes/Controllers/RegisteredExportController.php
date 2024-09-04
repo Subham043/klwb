@@ -7,12 +7,7 @@ use App\Modules\InstituteManagement\Institutes\Services\InstituteRegisteredServi
 
 class RegisteredExportController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(InstituteRegisteredService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private InstituteRegisteredService $instituteService){}
 
     public function index(){
         return $this->instituteService->excel()->toBrowser();

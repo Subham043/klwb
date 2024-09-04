@@ -7,12 +7,7 @@ use App\Modules\InstituteManagement\Staff\Services\InstituteEmployeeService;
 
 class InstituteEmployeeExportController extends Controller
 {
-    private $employeeService;
-
-    public function __construct(InstituteEmployeeService $employeeService)
-    {
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private InstituteEmployeeService $employeeService){}
 
     public function index(){
         return $this->employeeService->excel()->toBrowser();

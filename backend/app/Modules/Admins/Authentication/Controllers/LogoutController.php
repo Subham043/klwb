@@ -9,12 +9,8 @@ use Illuminate\Http\Request;
 
 class LogoutController extends Controller
 {
-    private $authService;
 
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(private AuthService $authService){}
 
     public function index(Request $request){
 

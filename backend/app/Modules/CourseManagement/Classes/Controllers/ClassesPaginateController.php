@@ -9,12 +9,7 @@ use Illuminate\Http\Request;
 
 class ClassesPaginateController extends Controller
 {
-    private $classesService;
-
-    public function __construct(ClassesService $classesService)
-    {
-        $this->classesService = $classesService;
-    }
+    public function __construct(private ClassesService $classesService){}
 
     public function index(Request $request){
         $data = $this->classesService->paginate($request->total ?? 10);

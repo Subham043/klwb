@@ -11,12 +11,7 @@ use Illuminate\Support\Facades\URL;
 
 class ForgotPasswordViaPhoneController extends Controller
 {
-    private $authService;
-
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(private AuthService $authService){}
 
     public function index(ForgotPasswordViaPhonePostRequest $request){
         $user = $this->authService->getByPhone($request->phone);

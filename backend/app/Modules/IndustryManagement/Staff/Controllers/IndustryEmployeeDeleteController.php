@@ -8,12 +8,7 @@ use App\Modules\IndustryManagement\Staff\Services\IndustryEmployeeService;
 
 class IndustryEmployeeDeleteController extends Controller
 {
-    private $employeeService;
-
-    public function __construct(IndustryEmployeeService $employeeService)
-    {
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private IndustryEmployeeService $employeeService){}
 
     public function index($id){
         $employee = $this->employeeService->getById($id);

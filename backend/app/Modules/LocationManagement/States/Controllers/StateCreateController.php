@@ -9,12 +9,7 @@ use App\Modules\LocationManagement\States\Services\StateService;
 
 class StateCreateController extends Controller
 {
-    private $stateService;
-
-    public function __construct(StateService $stateService)
-    {
-        $this->stateService = $stateService;
-    }
+    public function __construct(private StateService $stateService){}
 
     public function index(StateRequest $request){
         try {

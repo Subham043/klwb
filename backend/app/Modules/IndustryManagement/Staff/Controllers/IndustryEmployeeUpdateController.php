@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class IndustryEmployeeUpdateController extends Controller
 {
-    private $employeeService;
-
-    public function __construct(IndustryEmployeeService $employeeService)
-    {
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private IndustryEmployeeService $employeeService){}
 
     public function index(IndustryEmployeeUpdatePostRequest $request, $id){
         $employee = $this->employeeService->getById($id);

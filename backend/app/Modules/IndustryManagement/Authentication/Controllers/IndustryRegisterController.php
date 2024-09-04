@@ -13,12 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class IndustryRegisterController extends Controller
 {
-    private IndustryAuthService $industryAuthService;
-
-    public function __construct(IndustryAuthService $industryAuthService)
-    {
-        $this->industryAuthService = $industryAuthService;
-    }
+    public function __construct(private IndustryAuthService $industryAuthService){}
 
     public function index(IndustryRegisterPostRequest $request){
         $request->validated();

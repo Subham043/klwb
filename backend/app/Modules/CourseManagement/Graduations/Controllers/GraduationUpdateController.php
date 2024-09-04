@@ -9,12 +9,7 @@ use App\Modules\CourseManagement\Graduations\Services\GraduationService;
 
 class GraduationUpdateController extends Controller
 {
-    private $graduationService;
-
-    public function __construct(GraduationService $graduationService)
-    {
-        $this->graduationService = $graduationService;
-    }
+    public function __construct(private GraduationService $graduationService){}
 
     public function index(GraduationRequest $request, $id){
         $graduation = $this->graduationService->getById($id);

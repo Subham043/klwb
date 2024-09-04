@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class RegisteredToggleController extends Controller
 {
-    private $industryService;
-
-    public function __construct(IndustryRegisteredService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private IndustryRegisteredService $industryService){}
 
     public function index($id){
         $industry = $this->industryService->getById($id);

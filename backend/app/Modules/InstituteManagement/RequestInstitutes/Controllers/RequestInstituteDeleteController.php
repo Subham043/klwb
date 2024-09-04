@@ -8,12 +8,7 @@ use App\Modules\InstituteManagement\RequestInstitutes\Services\RequestInstituteS
 
 class RequestInstituteDeleteController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(RequestInstituteService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private RequestInstituteService $instituteService){}
 
     public function index($id){
         $institute = $this->instituteService->getById($id);

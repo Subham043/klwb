@@ -8,12 +8,7 @@ use App\Modules\Roles\Services\RoleService;
 
 class RoleAllController extends Controller
 {
-    private $roleService;
-
-    public function __construct(RoleService $roleService)
-    {
-        $this->roleService = $roleService;
-    }
+    public function __construct(private RoleService $roleService){}
 
     public function index(){
         $data = $this->roleService->all();

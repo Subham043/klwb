@@ -12,14 +12,8 @@ use App\Modules\InstituteManagement\Institutes\Services\InstituteAuthService;
 
 class ProfileUpdateController extends Controller
 {
-    private $profileService;
-    private $instituteAuthService;
-
-    public function __construct(ProfileService $profileService, InstituteAuthService $instituteAuthService)
-    {
-        $this->profileService = $profileService;
-        $this->instituteAuthService = $instituteAuthService;
-    }
+    
+    public function __construct(private InstituteAuthService $instituteAuthService, private ProfileService $profileService){}
 
     public function index(ProfilePostRequest $request){
 

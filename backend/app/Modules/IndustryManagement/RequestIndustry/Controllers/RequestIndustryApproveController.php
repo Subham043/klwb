@@ -10,14 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestIndustryApproveController extends Controller
 {
-    private $reqIndustryService;
-    private $regIndustryService;
-
-    public function __construct(RequestIndustryService $reqIndustryService, RegisteredIndustryService $regIndustryService)
-    {
-        $this->reqIndustryService = $reqIndustryService;
-        $this->regIndustryService = $regIndustryService;
-    }
+    public function __construct(private RequestIndustryService $reqIndustryService, private RegisteredIndustryService $regIndustryService){}
 
     public function index($id){
         $reqIndustry = $this->reqIndustryService->getById($id);

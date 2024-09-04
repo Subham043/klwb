@@ -11,14 +11,8 @@ use App\Modules\Admins\Employees\Services\EmployeeService;
 
 class PasswordUpdateController extends Controller
 {
-    private $employeeService;
-    private $profileService;
 
-    public function __construct(EmployeeService $employeeService, ProfileService $profileService)
-    {
-        $this->employeeService = $employeeService;
-        $this->profileService = $profileService;
-    }
+    public function __construct(private EmployeeService $employeeService, private ProfileService $profileService){}
 
     public function index(PasswordPostRequest $request)
     {

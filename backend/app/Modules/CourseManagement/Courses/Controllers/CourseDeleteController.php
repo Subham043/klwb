@@ -8,12 +8,7 @@ use App\Modules\CourseManagement\Courses\Services\CourseService;
 
 class CourseDeleteController extends Controller
 {
-    private $courseService;
-
-    public function __construct(CourseService $courseService)
-    {
-        $this->courseService = $courseService;
-    }
+    public function __construct(private CourseService $courseService){}
 
     public function index($id){
         $course = $this->courseService->getById($id);

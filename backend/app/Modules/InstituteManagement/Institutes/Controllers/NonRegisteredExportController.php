@@ -7,12 +7,7 @@ use App\Modules\InstituteManagement\Institutes\Services\InstituteNonRegisteredSe
 
 class NonRegisteredExportController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(InstituteNonRegisteredService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private InstituteNonRegisteredService $instituteService){}
 
     public function index(){
         return $this->instituteService->excel()->toBrowser();

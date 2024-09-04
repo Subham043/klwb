@@ -8,12 +8,7 @@ use App\Modules\LocationManagement\Cities\Services\CityService;
 
 class CityAllController extends Controller
 {
-    private $cityService;
-
-    public function __construct(CityService $cityService)
-    {
-        $this->cityService = $cityService;
-    }
+    public function __construct(private CityService $cityService){}
 
     public function index(){
         $city = $this->cityService->all();

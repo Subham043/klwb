@@ -7,12 +7,7 @@ use App\Modules\IndustryManagement\RequestIndustry\Services\RequestIndustryServi
 
 class RequestIndustryExportController extends Controller
 {
-    private $industryService;
-
-    public function __construct(RequestIndustryService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private RequestIndustryService $industryService){}
 
     public function index(){
         return $this->industryService->excel()->toBrowser();

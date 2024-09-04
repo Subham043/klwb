@@ -9,12 +9,7 @@ use App\Modules\ApplicationManagement\Fees\Services\FeeService;
 
 class FeeUpdateController extends Controller
 {
-    private $feeService;
-
-    public function __construct(FeeService $feeService)
-    {
-        $this->feeService = $feeService;
-    }
+    public function __construct(private FeeService $feeService){}
 
     public function index(FeeUpdateRequest $request, $id){
         $fee = $this->feeService->getById($id);

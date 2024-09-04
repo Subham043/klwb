@@ -10,14 +10,8 @@ use App\Modules\ApplicationManagement\Applications\Services\InstituteScholarship
 
 class InstituteScholarshipViewController extends Controller
 {
-    private $scholarshipService;
-    private $applicationDateService;
 
-    public function __construct(InstituteScholarshipService $scholarshipService, ApplicationDateService $applicationDateService)
-    {
-        $this->scholarshipService = $scholarshipService;
-        $this->applicationDateService = $applicationDateService;
-    }
+    public function __construct(private InstituteScholarshipService $scholarshipService, private ApplicationDateService $applicationDateService){}
 
     public function index($id){
         $applicationDate = $this->applicationDateService->getLatest();

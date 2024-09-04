@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestInstituteUpdateController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(RequestInstituteService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private RequestInstituteService $instituteService){}
 
     public function index(RequestInstituteRequest $request, $id){
         $institute = $this->instituteService->getById($id);

@@ -8,12 +8,7 @@ use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateS
 
 class ApplicationDateViewController extends Controller
 {
-    private $applicationDateService;
-
-    public function __construct(ApplicationDateService $applicationDateService)
-    {
-        $this->applicationDateService = $applicationDateService;
-    }
+    public function __construct(private ApplicationDateService $applicationDateService){}
 
     public function index($id){
         $applicationDate = $this->applicationDateService->getById($id);

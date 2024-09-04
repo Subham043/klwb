@@ -11,12 +11,8 @@ use App\Modules\Admins\Authentication\Services\AuthService;
 
 class PhoneLoginController extends Controller
 {
-    private $authService;
 
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(private AuthService $authService){}
 
     public function index(PhoneLoginPostRequest $request){
 

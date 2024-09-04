@@ -7,12 +7,7 @@ use App\Modules\ApplicationManagement\Applications\Services\InstituteScholarship
 
 class InstituteDashboardController extends Controller
 {
-	private $scholarshipService;
-
-	public function __construct(InstituteScholarshipService $scholarshipService)
-	{
-		$this->scholarshipService = $scholarshipService;
-	}
+	public function __construct(private InstituteScholarshipService $scholarshipService){}
 
 	public function index()
 	{

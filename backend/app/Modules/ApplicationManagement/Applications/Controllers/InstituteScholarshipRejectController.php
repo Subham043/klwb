@@ -8,12 +8,7 @@ use App\Modules\ApplicationManagement\Applications\Services\InstituteScholarship
 
 class InstituteScholarshipRejectController extends Controller
 {
-    private $scholarshipService;
-
-    public function __construct(InstituteScholarshipService $scholarshipService)
-    {
-        $this->scholarshipService = $scholarshipService;
-    }
+    public function __construct(private InstituteScholarshipService $scholarshipService){}
 
     public function index(InstituteRejectScholarshipRequest $request, $id){
         $request->validated();

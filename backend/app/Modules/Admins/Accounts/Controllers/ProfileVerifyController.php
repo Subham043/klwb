@@ -12,14 +12,8 @@ use App\Modules\Admins\Employees\Services\EmployeeService;
 
 class ProfileVerifyController extends Controller
 {
-    private $profileService;
-    private $employeeService;
 
-    public function __construct(ProfileService $profileService, EmployeeService $employeeService)
-    {
-        $this->profileService = $profileService;
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private ProfileService $profileService, private EmployeeService $employeeService){}
 
     public function index(ProfileVerifyPostRequest $request){
 

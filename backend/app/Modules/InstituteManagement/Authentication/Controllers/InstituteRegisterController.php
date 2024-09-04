@@ -13,12 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class InstituteRegisterController extends Controller
 {
-    private InstituteAuthService $instituteAuthService;
-
-    public function __construct(InstituteAuthService $instituteAuthService)
-    {
-        $this->instituteAuthService = $instituteAuthService;
-    }
+    public function __construct(private InstituteAuthService $instituteAuthService){}
 
     public function index(InstituteRegisterPostRequest $request){
         $request->validated();

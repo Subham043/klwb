@@ -7,14 +7,9 @@ use App\Modules\SecurityQuestions\Services\SecurityQuestionService;
 
 class SecurityQuestionExportController extends Controller
 {
-    private $stateService;
-
-    public function __construct(SecurityQuestionService $stateService)
-    {
-        $this->stateService = $stateService;
-    }
+    public function __construct(private SecurityQuestionService $questionService){}
 
     public function index(){
-        return $this->stateService->excel()->toBrowser();
+        return $this->questionService->excel()->toBrowser();
     }
 }

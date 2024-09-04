@@ -10,14 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestInstituteApproveController extends Controller
 {
-    private $reqInstituteService;
-    private $regInstituteService;
-
-    public function __construct(RequestInstituteService $reqInstituteService, RegisteredInstituteService $regInstituteService)
-    {
-        $this->reqInstituteService = $reqInstituteService;
-        $this->regInstituteService = $regInstituteService;
-    }
+    public function __construct(private RequestInstituteService $reqInstituteService, private RegisteredInstituteService $regInstituteService){}
 
     public function index($id){
         $reqInstitute = $this->reqInstituteService->getById($id);

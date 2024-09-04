@@ -10,12 +10,7 @@ use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateS
 
 class ApplicationDateCreateController extends Controller
 {
-    private $applicationDateService;
-
-    public function __construct(ApplicationDateService $applicationDateService)
-    {
-        $this->applicationDateService = $applicationDateService;
-    }
+    public function __construct(private ApplicationDateService $applicationDateService){}
 
     public function index(ApplicationDateCreateRequest $request){
         try {

@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ResubmitScholarshipController extends Controller
 {
-    private $scholarshipService;
-
-    public function __construct(ScholarshipService $scholarshipService)
-    {
-        $this->scholarshipService = $scholarshipService;
-    }
+    public function __construct(private ScholarshipService $scholarshipService){}
 
     public function index(ResubmitScholarshipRequest $request){
         $application = (new ScholarshipService)->getLatest();

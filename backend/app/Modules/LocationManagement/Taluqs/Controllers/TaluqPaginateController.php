@@ -9,12 +9,8 @@ use Illuminate\Http\Request;
 
 class TaluqPaginateController extends Controller
 {
-    private $taluqService;
 
-    public function __construct(TaluqService $taluqService)
-    {
-        $this->taluqService = $taluqService;
-    }
+    public function __construct(private TaluqService $taluqService){}
 
     public function index(Request $request){
         $data = $this->taluqService->paginate($request->total ?? 10);

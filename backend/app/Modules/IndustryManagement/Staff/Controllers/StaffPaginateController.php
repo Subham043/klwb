@@ -10,12 +10,7 @@ use Illuminate\Http\Request;
 
 class StaffPaginateController extends Controller
 {
-    private $staffService;
-
-    public function __construct(IndustryStaffService $staffService)
-    {
-        $this->staffService = $staffService;
-    }
+    public function __construct(private IndustryStaffService $staffService){}
 
     public function index(Request $request, $id){
         $industry = (new IndustryRegisteredService)->getById($id);

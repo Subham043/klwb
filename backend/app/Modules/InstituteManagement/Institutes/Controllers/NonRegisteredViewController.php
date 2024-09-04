@@ -8,12 +8,7 @@ use App\Modules\InstituteManagement\RegisteredInstitutes\Resources\RegisteredIns
 
 class NonRegisteredViewController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(InstituteNonRegisteredService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private InstituteNonRegisteredService $instituteService){}
 
     public function index($id){
         $institute = $this->instituteService->getById($id);

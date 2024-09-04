@@ -9,12 +9,7 @@ use App\Modules\LocationManagement\Cities\Services\CityService;
 
 class CityUpdateController extends Controller
 {
-    private $cityService;
-
-    public function __construct(CityService $cityService)
-    {
-        $this->cityService = $cityService;
-    }
+    public function __construct(private CityService $cityService){}
 
     public function index(CityRequest $request, $id){
         $city = $this->cityService->getById($id);

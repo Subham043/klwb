@@ -12,14 +12,7 @@ use App\Modules\Students\Users\Services\UserService;
 
 class ProfileUpdateController extends Controller
 {
-    private $profileService;
-    private $userService;
-
-    public function __construct(ProfileService $profileService, UserService $userService)
-    {
-        $this->profileService = $profileService;
-        $this->userService = $userService;
-    }
+    public function __construct(private UserService $userService, private ProfileService $profileService){}
 
     public function index(ProfilePostRequest $request){
 

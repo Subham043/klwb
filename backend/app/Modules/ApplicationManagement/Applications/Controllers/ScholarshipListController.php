@@ -8,12 +8,8 @@ use App\Modules\ApplicationManagement\Applications\Services\ScholarshipService;
 
 class ScholarshipListController extends Controller
 {
-    private $scholarshipService;
 
-    public function __construct(ScholarshipService $scholarshipService)
-    {
-        $this->scholarshipService = $scholarshipService;
-    }
+    public function __construct(private ScholarshipService $scholarshipService){}
 
     public function index(){
         $application = $this->scholarshipService->getList();

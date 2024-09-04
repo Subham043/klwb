@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RegisteredAuthController extends Controller
 {
-    private $industryService;
-
-    public function __construct(IndustryRegisteredService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private IndustryRegisteredService $industryService){}
 
     public function index(RegisteredAuthRequest $request, $id){
         $industry = $this->industryService->getById($id);

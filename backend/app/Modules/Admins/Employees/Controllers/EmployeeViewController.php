@@ -8,12 +8,7 @@ use App\Modules\Admins\Employees\Services\EmployeeService;
 
 class EmployeeViewController extends Controller
 {
-    private $employeeService;
-
-    public function __construct(EmployeeService $employeeService)
-    {
-        $this->employeeService = $employeeService;
-    }
+    public function __construct(private EmployeeService $employeeService){}
 
     public function index($id){
         $employee = $this->employeeService->getById($id);

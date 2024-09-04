@@ -7,12 +7,7 @@ use App\Modules\IndustryManagement\Industry\Services\IndustryNonRegisteredServic
 
 class NonRegisteredExportController extends Controller
 {
-    private $industryService;
-
-    public function __construct(IndustryNonRegisteredService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private IndustryNonRegisteredService $industryService){}
 
     public function index(){
         return $this->industryService->excel()->toBrowser();

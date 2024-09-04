@@ -8,12 +8,7 @@ use App\Modules\InstituteManagement\Institutes\Resources\InstituteRegisteredColl
 
 class RegisteredViewController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(InstituteRegisteredService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private InstituteRegisteredService $instituteService){}
 
     public function index($id){
         $institute = $this->instituteService->getById($id);

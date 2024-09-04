@@ -7,12 +7,7 @@ use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateS
 
 class ApplicationDateExportController extends Controller
 {
-    private $applicationDateService;
-
-    public function __construct(ApplicationDateService $applicationDateService)
-    {
-        $this->applicationDateService = $applicationDateService;
-    }
+    public function __construct(private ApplicationDateService $applicationDateService){}
 
     public function index(){
         return $this->applicationDateService->excel()->toBrowser();

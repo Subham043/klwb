@@ -10,12 +10,7 @@ use Illuminate\Http\Request;
 
 class StaffPaginateController extends Controller
 {
-    private $staffService;
-
-    public function __construct(InstituteStaffService $staffService)
-    {
-        $this->staffService = $staffService;
-    }
+    public function __construct(private InstituteStaffService $staffService){}
 
     public function index(Request $request, $id){
         $school = (new InstituteRegisteredService)->getById($id);

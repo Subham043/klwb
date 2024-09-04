@@ -11,14 +11,7 @@ use App\Modules\InstituteManagement\Institutes\Services\InstituteAuthService;
 
 class PasswordUpdateController extends Controller
 {
-    private $instituteAuthService;
-    private $profileService;
-
-    public function __construct(InstituteAuthService $instituteAuthService, ProfileService $profileService)
-    {
-        $this->instituteAuthService = $instituteAuthService;
-        $this->profileService = $profileService;
-    }
+    public function __construct(private InstituteAuthService $instituteAuthService, private ProfileService $profileService){}
 
     public function index(PasswordPostRequest $request)
     {

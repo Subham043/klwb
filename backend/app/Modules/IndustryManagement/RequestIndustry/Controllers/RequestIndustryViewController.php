@@ -8,12 +8,7 @@ use App\Modules\IndustryManagement\RequestIndustry\Services\RequestIndustryServi
 
 class RequestIndustryViewController extends Controller
 {
-    private $industryService;
-
-    public function __construct(RequestIndustryService $industryService)
-    {
-        $this->industryService = $industryService;
-    }
+    public function __construct(private RequestIndustryService $industryService){}
 
     public function index($id){
         $industry = $this->industryService->getById($id);

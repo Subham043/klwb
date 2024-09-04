@@ -7,12 +7,7 @@ use App\Modules\LocationManagement\States\Services\StateService;
 
 class StateExportController extends Controller
 {
-    private $stateService;
-
-    public function __construct(StateService $stateService)
-    {
-        $this->stateService = $stateService;
-    }
+    public function __construct(private StateService $stateService){}
 
     public function index(){
         return $this->stateService->excel()->toBrowser();

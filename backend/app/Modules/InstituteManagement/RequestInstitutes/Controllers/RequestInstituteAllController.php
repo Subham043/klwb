@@ -8,12 +8,7 @@ use App\Modules\InstituteManagement\RequestInstitutes\Services\RequestInstituteS
 
 class RequestInstituteAllController extends Controller
 {
-    private $instituteService;
-
-    public function __construct(RequestInstituteService $instituteService)
-    {
-        $this->instituteService = $instituteService;
-    }
+    public function __construct(private RequestInstituteService $instituteService){}
 
     public function index(){
         $institute = $this->instituteService->all();

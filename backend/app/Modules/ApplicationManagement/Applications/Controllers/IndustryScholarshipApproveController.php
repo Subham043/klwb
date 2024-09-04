@@ -8,12 +8,8 @@ use App\Modules\ApplicationManagement\Applications\Services\IndustryScholarshipS
 
 class IndustryScholarshipApproveController extends Controller
 {
-    private $scholarshipService;
 
-    public function __construct(IndustryScholarshipService $scholarshipService)
-    {
-        $this->scholarshipService = $scholarshipService;
-    }
+    public function __construct(private IndustryScholarshipService $scholarshipService){}
 
     public function index(IndustryApproveScholarshipRequest $request, $id){
         $application = $this->scholarshipService->getById($id);

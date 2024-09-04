@@ -9,12 +9,7 @@ use App\Modules\CourseManagement\Classes\Services\ClassesService;
 
 class ClassesUpdateController extends Controller
 {
-    private $classesService;
-
-    public function __construct(ClassesService $classesService)
-    {
-        $this->classesService = $classesService;
-    }
+    public function __construct(private ClassesService $classesService){}
 
     public function index(ClassesRequest $request, $id){
         $classes = $this->classesService->getById($id);

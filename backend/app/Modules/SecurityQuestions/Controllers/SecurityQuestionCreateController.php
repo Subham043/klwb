@@ -9,12 +9,7 @@ use App\Modules\SecurityQuestions\Services\SecurityQuestionService;
 
 class SecurityQuestionCreateController extends Controller
 {
-    private $questionService;
-
-    public function __construct(SecurityQuestionService $questionService)
-    {
-        $this->questionService = $questionService;
-    }
+    public function __construct(private SecurityQuestionService $questionService){}
 
     public function index(SecurityQuestionRequest $request){
         try {

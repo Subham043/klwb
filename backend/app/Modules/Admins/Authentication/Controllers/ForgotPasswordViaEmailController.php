@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\URL;
 
 class ForgotPasswordViaEmailController extends Controller
 {
-    private $authService;
 
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(private AuthService $authService){}
 
     public function index(ForgotPasswordViaEmailPostRequest $request){
         $employee = $this->authService->getByEmail($request->email);

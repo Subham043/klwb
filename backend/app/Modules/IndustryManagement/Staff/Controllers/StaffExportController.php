@@ -8,12 +8,7 @@ use App\Modules\IndustryManagement\Staff\Services\IndustryStaffService;
 
 class StaffExportController extends Controller
 {
-    private $staffService;
-
-    public function __construct(IndustryStaffService $staffService)
-    {
-        $this->staffService = $staffService;
-    }
+    public function __construct(private IndustryStaffService $staffService){}
 
     public function index($id){
         $industry = (new IndustryRegisteredService)->getById($id);

@@ -9,12 +9,7 @@ use App\Modules\LocationManagement\Taluqs\Services\TaluqService;
 
 class TaluqCreateController extends Controller
 {
-    private $taluqService;
-
-    public function __construct(TaluqService $taluqService)
-    {
-        $this->taluqService = $taluqService;
-    }
+    public function __construct(private TaluqService $taluqService){}
 
     public function index(TaluqRequest $request){
         try {

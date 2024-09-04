@@ -7,12 +7,7 @@ use App\Modules\CourseManagement\Graduations\Services\GraduationService;
 
 class GraduationExportController extends Controller
 {
-    private $graduationService;
-
-    public function __construct(GraduationService $graduationService)
-    {
-        $this->graduationService = $graduationService;
-    }
+    public function __construct(private GraduationService $graduationService){}
 
     public function index(){
         return $this->graduationService->excel()->toBrowser();

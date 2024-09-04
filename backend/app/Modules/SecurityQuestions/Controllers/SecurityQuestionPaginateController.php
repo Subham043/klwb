@@ -9,15 +9,10 @@ use Illuminate\Http\Request;
 
 class SecurityQuestionPaginateController extends Controller
 {
-    private $stateService;
-
-    public function __construct(SecurityQuestionService $stateService)
-    {
-        $this->stateService = $stateService;
-    }
+    public function __construct(private SecurityQuestionService $questionService){}
 
     public function index(Request $request){
-        $data = $this->stateService->paginate($request->total ?? 10);
+        $data = $this->questionService->paginate($request->total ?? 10);
         return SecurityQuestionCollection::collection($data);
     }
 
