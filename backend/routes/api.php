@@ -6,11 +6,11 @@ use App\Modules\ApplicationManagement\Applications\Controllers\ResubmitScholarsh
 use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipListController;
 use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipStatusController;
 use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipViewController;
-use App\Modules\Auth\Student\Accounts\Controllers\PasswordUpdateController;
-use App\Modules\Auth\Student\Accounts\Controllers\ProfileController;
-use App\Modules\Auth\Student\Accounts\Controllers\ProfileUpdateController;
-use App\Modules\Auth\Student\Accounts\Controllers\ProfileVerifyController;
-use App\Modules\Auth\Student\Accounts\Controllers\ResendRegisteredUserOtpController;
+use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
+use App\Modules\Auth\Common\Controllers\ProfileController;
+use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
+use App\Modules\Auth\Common\Controllers\ProfileVerifyController;
+use App\Modules\Auth\Common\Controllers\ResendRegisteredUserOtpController;
 use App\Modules\Auth\Student\Authentication\Controllers\EmailLoginController;
 use App\Modules\Auth\Student\Authentication\Controllers\ForgotPasswordViaEmailController;
 use App\Modules\Auth\Student\Authentication\Controllers\ForgotPasswordViaPhoneController;

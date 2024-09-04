@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Modules\Auth\Official\Accounts\Requests;
+namespace App\Modules\Auth\Common\Requests;
 
-use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -17,7 +15,7 @@ class PasswordPostRequest extends InputRequest
     public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::guard(Guards::Admin->value())->check();
+        return true;
     }
 
     /**
@@ -27,10 +25,11 @@ class PasswordPostRequest extends InputRequest
      */
     public function rules(): array
     {
+        $user = $this->user();
         return [
-            'old_password' => ['required','string', function ($attribute, $value, $fail) {
-                if (!Hash::check($value, Auth::guard(Guards::Admin->value())->user()->password)) {
-                    $fail('The '.$attribute.' entered is incorrect.');
+            'old_password' => ['required','string', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    $fail('The old password entered is incorrect.');
                 }
             }],
             'password' => ['required',

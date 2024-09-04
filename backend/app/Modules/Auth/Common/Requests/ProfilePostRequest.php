@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Modules\Auth\Industry\Accounts\Requests;
+namespace App\Modules\Auth\Common\Requests;
 
-use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
-use Illuminate\Support\Facades\Auth;
 
 
 class ProfilePostRequest extends InputRequest
@@ -18,7 +16,7 @@ class ProfilePostRequest extends InputRequest
     public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::guard(Guards::Industry->value())->check();
+        return true;
     }
 
     /**
@@ -30,8 +28,8 @@ class ProfilePostRequest extends InputRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email:rfc,dns|max:255|unique:industry_auths,email,'.Auth::guard(Guards::Industry->value())->user()->id,
-            'phone' => ['required','numeric', 'digits:10', 'unique:industry_auths,phone,'.Auth::guard(Guards::Industry->value())->user()->id],
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,'. $this->user()->id,
+            'phone' => ['required','numeric', 'digits:10', 'unique:users,phone,'. $this->user()->id],
         ];
     }
 

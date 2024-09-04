@@ -1,27 +1,18 @@
 <?php
 
-namespace App\Modules\Auth\Student\Accounts\Controllers;
+namespace App\Modules\Auth\Common\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
-use App\Modules\Auth\Student\Accounts\Services\ProfileService;
-use App\Modules\Auth\Student\Accounts\Requests\PasswordPostRequest;
-use App\Http\Enums\Guards;
-use App\Modules\Students\Users\Services\UserService;
+use App\Modules\Auth\Common\Requests\PasswordPostRequest;
 
 class PasswordUpdateController extends Controller
 {
-    public function __construct(private UserService $userService, private ProfileService $profileService){}
-
     public function index(PasswordPostRequest $request)
     {
         try {
             //code...
-            $user = $this->profileService->profile(Guards::Web->value());
-            $this->userService->update(
-                $request->safe()->only('password'),
-                $user
-            );
+            $request->user()->update($request->safe()->only('password'));
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 'message' => "Password Updated successfully.",

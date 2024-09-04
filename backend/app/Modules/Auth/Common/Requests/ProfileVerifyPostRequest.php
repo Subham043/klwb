@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Modules\Auth\Industry\Accounts\Requests;
+namespace App\Modules\Auth\Common\Requests;
 
-use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
-use Illuminate\Support\Facades\Auth;
 
 
 class ProfileVerifyPostRequest extends InputRequest
@@ -18,7 +16,7 @@ class ProfileVerifyPostRequest extends InputRequest
     public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
-        return Auth::guard(Guards::Industry->value())->check();
+        return true;
     }
 
     /**
@@ -28,8 +26,13 @@ class ProfileVerifyPostRequest extends InputRequest
      */
     public function rules()
     {
+        $user = $this->user();
         return [
-            'otp' => ['required','numeric', 'digits:4', 'exists:industry_auths,otp'],
+            'otp' => ['required','numeric', 'digits:4', 'exists:users,otp', function ($attribute, $value, $fail) use ($user) {
+                if ($value != $user->otp) {
+                    $fail('Invalid OTP.');
+                }
+            }],
             'captcha' => 'required|captcha'
         ];
     }
@@ -46,5 +49,4 @@ class ProfileVerifyPostRequest extends InputRequest
             'otp.exists' => 'Invalid OTP.',
         ];
     }
-
 }
