@@ -41,6 +41,18 @@ use App\Modules\ApplicationManagement\Fees\Controllers\FeeExportController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeePaginateController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeUpdateController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeViewController;
+use App\Modules\Auth\Official\Accounts\Controllers\PasswordUpdateController;
+use App\Modules\Auth\Official\Accounts\Controllers\ProfileController;
+use App\Modules\Auth\Official\Accounts\Controllers\ProfileUpdateController;
+use App\Modules\Auth\Official\Accounts\Controllers\ProfileVerifyController;
+use App\Modules\Auth\Official\Accounts\Controllers\ResendRegisteredUserOtpController;
+use App\Modules\Auth\Official\Authentication\Controllers\EmailLoginController;
+use App\Modules\Auth\Official\Authentication\Controllers\ForgotPasswordViaEmailController;
+use App\Modules\Auth\Official\Authentication\Controllers\ForgotPasswordViaPhoneController;
+use App\Modules\Auth\Official\Authentication\Controllers\LogoutController;
+use App\Modules\Auth\Official\Authentication\Controllers\PhoneLoginController;
+use App\Modules\Auth\Official\Authentication\Controllers\ResetPasswordController;
+use App\Modules\Auth\Official\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\LocationManagement\States\Controllers\StateAllController;
 use App\Modules\LocationManagement\States\Controllers\StateCreateController;
 use App\Modules\LocationManagement\States\Controllers\StateDeleteController;
@@ -83,18 +95,6 @@ use App\Modules\LocationManagement\Taluqs\Controllers\TaluqExportController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqPaginateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqUpdateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqViewController;
-use App\Modules\Admins\Accounts\Controllers\PasswordUpdateController;
-use App\Modules\Admins\Accounts\Controllers\ProfileController;
-use App\Modules\Admins\Accounts\Controllers\ProfileUpdateController;
-use App\Modules\Admins\Accounts\Controllers\ProfileVerifyController;
-use App\Modules\Admins\Accounts\Controllers\ResendRegisteredUserOtpController;
-use App\Modules\Admins\Authentication\Controllers\ForgotPasswordViaEmailController;
-use App\Modules\Admins\Authentication\Controllers\EmailLoginController;
-use App\Modules\Admins\Authentication\Controllers\ForgotPasswordViaPhoneController;
-use App\Modules\Admins\Authentication\Controllers\LogoutController;
-use App\Modules\Admins\Authentication\Controllers\PhoneLoginController;
-use App\Modules\Admins\Authentication\Controllers\ResetPasswordController;
-use App\Modules\Admins\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredExportController as ControllersNonRegisteredExportController;
 use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredPaginateController as ControllersNonRegisteredPaginateController;
 use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredViewController as ControllersNonRegisteredViewController;
@@ -134,7 +134,7 @@ use App\Modules\IndustryManagement\Staff\Controllers\StaffExportController as Co
 use App\Modules\IndustryManagement\Staff\Controllers\StaffPaginateController as ControllersStaffPaginateController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('official')->group(function () {
     Route::prefix('v1')->group(function () {
         Route::prefix('auth')->group(function () {
             Route::post('/login-via-email', [EmailLoginController::class, 'index']);
