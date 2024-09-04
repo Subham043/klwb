@@ -3,6 +3,7 @@
 namespace App\Modules\ApplicationManagement\Applications\Requests;
 
 use App\Http\Enums\Guards;
+use App\Http\Requests\InputRequest;
 use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateService;
 use App\Modules\ApplicationManagement\Applications\Enums\AccountType;
 use App\Modules\ApplicationManagement\Applications\Enums\Category;
@@ -13,21 +14,19 @@ use App\Modules\ApplicationManagement\Applications\Models\ApplicationBasicDetail
 use App\Modules\ApplicationManagement\Applications\Services\ScholarshipService;
 use App\Modules\CourseManagement\Classes\Models\Classes;
 use App\Modules\CourseManagement\Courses\Models\Course;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
-use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Validation\Rule;
 
 
-class ResubmitScholarshipRequest extends FormRequest
+class ResubmitScholarshipRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $can_resubmit = false;
         $application = (new ScholarshipService)->getLatest();
@@ -224,11 +223,5 @@ class ResubmitScholarshipRequest extends FormRequest
             'company_id' => 'Parent Industry',
             'salaryslip' => 'Salary slip',
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
     }
 }

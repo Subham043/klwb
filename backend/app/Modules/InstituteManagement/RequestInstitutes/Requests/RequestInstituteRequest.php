@@ -2,21 +2,11 @@
 
 namespace App\Modules\InstituteManagement\RequestInstitutes\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Stevebauman\Purify\Facades\Purify;
+use App\Http\Requests\InputRequest;
 
 
-class RequestInstituteRequest extends FormRequest
+class RequestInstituteRequest extends InputRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return TRUE;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -62,9 +52,4 @@ class RequestInstituteRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

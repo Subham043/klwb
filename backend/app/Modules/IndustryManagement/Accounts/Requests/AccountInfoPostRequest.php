@@ -3,23 +3,22 @@
 namespace App\Modules\IndustryManagement\Accounts\Requests;
 
 use App\Http\Enums\Guards;
+use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
 use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
 use App\Modules\Roles\Enums\Roles;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
-use Stevebauman\Purify\Facades\Purify;
 
 
-class AccountInfoPostRequest extends FormRequest
+class AccountInfoPostRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
         return Auth::guard(Guards::Industry->value())->check() && Auth::guard(Guards::Industry->value())->user()->current_role == Roles::Industry->value;
@@ -53,14 +52,4 @@ class AccountInfoPostRequest extends FormRequest
         ];
     }
 
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

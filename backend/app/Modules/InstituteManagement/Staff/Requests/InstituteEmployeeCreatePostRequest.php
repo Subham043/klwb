@@ -3,20 +3,19 @@
 namespace App\Modules\InstituteManagement\Staff\Requests;
 
 use App\Http\Enums\Guards;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\InputRequest;
 use Illuminate\Support\Facades\Auth;
-use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Validation\Rules\Password;
 
 
-class InstituteEmployeeCreatePostRequest extends FormRequest
+class InstituteEmployeeCreatePostRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return Auth::guard(Guards::Institute->value())->check();
     }
@@ -57,14 +56,4 @@ class InstituteEmployeeCreatePostRequest extends FormRequest
         ];
     }
 
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

@@ -3,14 +3,13 @@
 namespace App\Modules\IndustryManagement\Accounts\Requests;
 
 use App\Http\Enums\Guards;
+use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
-use Stevebauman\Purify\Facades\Purify;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-class PasswordPostRequest extends FormRequest
+class PasswordPostRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -46,14 +45,4 @@ class PasswordPostRequest extends FormRequest
         ];
     }
 
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

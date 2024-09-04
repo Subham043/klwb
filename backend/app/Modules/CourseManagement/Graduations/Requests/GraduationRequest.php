@@ -3,19 +3,18 @@
 namespace App\Modules\CourseManagement\Graduations\Requests;
 
 use App\Http\Enums\Guards;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\InputRequest;
 use Illuminate\Support\Facades\Auth;
-use Stevebauman\Purify\Facades\Purify;
 
 
-class GraduationRequest extends FormRequest
+class GraduationRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return Auth::guard(Guards::Admin->value())->check();
     }
@@ -45,9 +44,4 @@ class GraduationRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

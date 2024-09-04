@@ -3,21 +3,20 @@
 namespace App\Modules\IndustryManagement\RegisteredIndustry\Requests;
 
 use App\Http\Enums\Guards;
+use App\Http\Requests\InputRequest;
 use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Validation\Rules\Enum;
 
 
-class RegisteredIndustryRequest extends FormRequest
+class RegisteredIndustryRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return Auth::guard(Guards::Admin->value())->check();
     }
@@ -48,9 +47,4 @@ class RegisteredIndustryRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

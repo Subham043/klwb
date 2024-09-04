@@ -2,18 +2,17 @@
 
 namespace App\Modules\IndustryManagement\Authentication\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Stevebauman\Purify\Facades\Purify;
+use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
 
-class ForgotPasswordViaPhonePostRequest extends FormRequest
+class ForgotPasswordViaPhonePostRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
         return true;
@@ -44,14 +43,4 @@ class ForgotPasswordViaPhonePostRequest extends FormRequest
         ];
     }
 
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

@@ -2,22 +2,21 @@
 
 namespace App\Modules\IndustryManagement\Authentication\Requests;
 
+use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
 use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
-use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Validation\Rules\Password as PasswordValidation;
 
 
-class IndustryRegisterPostRequest extends FormRequest
+class IndustryRegisterPostRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         (new RateLimitService($this))->ensureIsNotRateLimited(3);
         return true;
@@ -75,17 +74,6 @@ class IndustryRegisterPostRequest extends FormRequest
             'captcha.captcha' => 'Invalid Captcha. Please try again.',
             'reg_industry_id.unique' => 'Industry already registered.',
         ];
-    }
-
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
     }
 
 }

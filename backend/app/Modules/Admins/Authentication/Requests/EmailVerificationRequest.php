@@ -2,19 +2,19 @@
 
 namespace App\Modules\Admins\Authentication\Requests;
 
+use App\Http\Requests\InputRequest;
 use App\Modules\Admins\Employees\Models\Employee;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class EmailVerificationRequest extends FormRequest
+class EmailVerificationRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $user = Employee::findOrFail($this->route('id'));
 

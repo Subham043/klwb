@@ -3,20 +3,19 @@
 namespace App\Modules\ApplicationManagement\Applications\Requests;
 
 use App\Http\Enums\Guards;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\InputRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Stevebauman\Purify\Facades\Purify;
 
 
-class IndustryApproveScholarshipRequest extends FormRequest
+class IndustryApproveScholarshipRequest extends InputRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return Auth::guard(Guards::Industry->value())->check();
     }
@@ -53,9 +52,4 @@ class IndustryApproveScholarshipRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }

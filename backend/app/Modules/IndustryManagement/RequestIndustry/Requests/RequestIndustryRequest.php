@@ -2,21 +2,11 @@
 
 namespace App\Modules\IndustryManagement\RequestIndustry\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Stevebauman\Purify\Facades\Purify;
+use App\Http\Requests\InputRequest;
 
 
-class RequestIndustryRequest extends FormRequest
+class RequestIndustryRequest extends InputRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return TRUE;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -63,9 +53,4 @@ class RequestIndustryRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation(): void
-    {
-        $request = Purify::clean($this->all());
-        $this->replace([...$request]);
-    }
 }
