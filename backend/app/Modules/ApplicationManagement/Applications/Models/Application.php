@@ -5,7 +5,7 @@ namespace App\Modules\ApplicationManagement\Applications\Models;
 use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\ApplicationManagement\ApplicationDates\Models\ApplicationDate;
 use App\Modules\Admins\Industries\Models\Industry;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Models\RegisteredInstitute;
+use App\Modules\Admins\Institutes\Models\Institute;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -91,7 +91,7 @@ class Application extends Model
 	
 	public function institute()
 	{
-		return $this->belongsTo(RegisteredInstitute::class, 'school_id')->withDefault();
+		return $this->belongsTo(Institute::class, 'school_id')->withDefault();
 	}
 	
 	public function industry()

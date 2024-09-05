@@ -50,7 +50,7 @@ class InstituteAddress extends Model
 
     public function school()
     {
-        return $this->belongsTo(Institute::class, 'school_id')->withDefault();
+        return $this->belongsTo(School::class, 'school_id')->withDefault();
     }
 
 }

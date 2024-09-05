@@ -2,6 +2,7 @@
 
 use App\Http\Enums\Guards;
 use App\Modules\Admins\Industries\Controllers\IndustryAllController;
+use App\Modules\Admins\Institutes\Controllers\InstituteAllController;
 use App\Modules\ApplicationManagement\Applications\Controllers\ApplyScholarshipController;
 use App\Modules\ApplicationManagement\Applications\Controllers\ResubmitScholarshipController;
 use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipListController;
@@ -24,7 +25,6 @@ use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
 use App\Modules\CourseManagement\Classes\Controllers\ClassesAllController;
 use App\Modules\CourseManagement\Courses\Controllers\CourseAllController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationAllController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteAllController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
 use App\Modules\Students\Dashboard\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -57,8 +57,8 @@ Route::prefix('v1')->group(function () {
     Route::prefix('classes')->group(function () {
         Route::get('/all', [ClassesAllController::class, 'index']);
     });
-    Route::prefix('registered-institutes')->group(function () {
-        Route::get('/all', [RegisteredInstituteAllController::class, 'index']);
+    Route::prefix('institutes')->group(function () {
+        Route::get('/all', [InstituteAllController::class, 'index']);
     });
     Route::prefix('industries')->group(function () {
         Route::get('/all', [IndustryAllController::class, 'index']);

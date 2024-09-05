@@ -41,9 +41,19 @@ use App\Modules\Admins\Industries\Controllers\IndustryExportController;
 use App\Modules\Admins\Industries\Controllers\IndustryPaginateController;
 use App\Modules\Admins\Industries\Controllers\IndustryUpdateController;
 use App\Modules\Admins\Industries\Controllers\IndustryViewController;
+use App\Modules\Admins\Institutes\Controllers\InstituteAllController;
+use App\Modules\Admins\Institutes\Controllers\InstituteCreateController;
+use App\Modules\Admins\Institutes\Controllers\InstituteDeleteController;
+use App\Modules\Admins\Institutes\Controllers\InstituteExportController;
+use App\Modules\Admins\Institutes\Controllers\InstitutePaginateController;
+use App\Modules\Admins\Institutes\Controllers\InstituteUpdateController;
+use App\Modules\Admins\Institutes\Controllers\InstituteViewController;
 use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryExportController;
 use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryPaginateController;
 use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryViewController;
+use App\Modules\Admins\NonRegisteredInstitute\Controllers\NonRegisteredInstituteExportController;
+use App\Modules\Admins\NonRegisteredInstitute\Controllers\NonRegisteredInstitutePaginateController;
+use App\Modules\Admins\NonRegisteredInstitute\Controllers\NonRegisteredInstituteViewController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryAuthController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryExportController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryPaginateController;
@@ -79,27 +89,29 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationPaginateContr
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationViewController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPaginateController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteAllController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteCreateController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteDeleteController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteExportController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstitutePaginateController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteUpdateController;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteViewController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteAllController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteDeleteController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteExportController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstitutePaginateController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteUpdateController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteViewController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteAuthController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteExportController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstitutePaginateController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteToggleController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteUpdateController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteViewController;
+use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPaginateController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteAllController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteApproveController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteDeleteController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteExportController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstitutePaginateController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteUpdateController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteViewController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionAllController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionCreateController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionDeleteController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionExportController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionPaginateController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionUpdateController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionViewController;
+use App\Modules\InstituteManagement\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Roles\Controllers\RoleAllController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionAllController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionCreateController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionDeleteController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionExportController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionPaginateController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionUpdateController;
-use App\Modules\SecurityQuestions\Controllers\SecurityQuestionViewController;
 use App\Modules\LocationManagement\States\Controllers\StateExportController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqCreateController;
@@ -108,18 +120,6 @@ use App\Modules\LocationManagement\Taluqs\Controllers\TaluqExportController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqPaginateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqUpdateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqViewController;
-use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredExportController;
-use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredPaginateController;
-use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredViewController;
-use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredAuthController;
-use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredExportController;
-use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredPaginateController;
-use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredToggleController;
-use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredUpdateController;
-use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredViewController;
-use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteApproveController;
-use App\Modules\InstituteManagement\Staff\Controllers\StaffExportController;
-use App\Modules\InstituteManagement\Staff\Controllers\StaffPaginateController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
@@ -217,14 +217,14 @@ Route::prefix('admin')->group(function () {
                 // Route::delete('/delete/{id}', [ApplicationDateDeleteController::class, 'index']);
                 Route::get('/view/{id}', [ApplicationDateViewController::class, 'index']);
             });
-            Route::prefix('registered-institutes')->group(function () {
-                Route::get('/excel', [RegisteredInstituteExportController::class, 'index']);
-                Route::get('/all', [RegisteredInstituteAllController::class, 'index']);
-                Route::get('/paginate', [RegisteredInstitutePaginateController::class, 'index']);
-                Route::post('/create', [RegisteredInstituteCreateController::class, 'index']);
-                Route::post('/update/{id}', [RegisteredInstituteUpdateController::class, 'index']);
-                Route::delete('/delete/{id}', [RegisteredInstituteDeleteController::class, 'index']);
-                Route::get('/view/{id}', [RegisteredInstituteViewController::class, 'index']);
+            Route::prefix('institutes')->group(function () {
+                Route::get('/excel', [InstituteExportController::class, 'index']);
+                Route::get('/all', [InstituteAllController::class, 'index']);
+                Route::get('/paginate', [InstitutePaginateController::class, 'index']);
+                Route::post('/create', [InstituteCreateController::class, 'index']);
+                Route::post('/update/{id}', [InstituteUpdateController::class, 'index']);
+                Route::delete('/delete/{id}', [InstituteDeleteController::class, 'index']);
+                Route::get('/view/{id}', [InstituteViewController::class, 'index']);
             });
             Route::prefix('request-institutes')->group(function () {
                 Route::get('/excel', [RequestInstituteExportController::class, 'index']);
@@ -235,24 +235,22 @@ Route::prefix('admin')->group(function () {
                 Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestInstituteViewController::class, 'index']);
             });
-            Route::prefix('institutes')->group(function () {
-                Route::prefix('registered')->group(function () {
-                    Route::get('/excel', [RegisteredExportController::class, 'index']);
-                    Route::get('/paginate', [RegisteredPaginateController::class, 'index']);
-                    Route::get('/view/{id}', [RegisteredViewController::class, 'index']);
-                    Route::post('/update/{id}', [RegisteredUpdateController::class, 'index']);
-                    Route::post('/update-auth/{id}', [RegisteredAuthController::class, 'index']);
-                    Route::get('/toggle-status/{id}', [RegisteredToggleController::class, 'index']);
-                    Route::prefix('staff/{id}')->group(function () {
-                        Route::get('/excel', [StaffExportController::class, 'index']);
-                        Route::get('/paginate', [StaffPaginateController::class, 'index']);
-                    });
+            Route::prefix('registered-institutes')->group(function () {
+                Route::get('/excel', [RegisteredInstituteExportController::class, 'index']);
+                Route::get('/paginate', [RegisteredInstitutePaginateController::class, 'index']);
+                Route::get('/view/{id}', [RegisteredInstituteViewController::class, 'index']);
+                Route::post('/update/{id}', [RegisteredInstituteUpdateController::class, 'index']);
+                Route::post('/update-auth/{id}', [RegisteredInstituteAuthController::class, 'index']);
+                Route::get('/toggle-status/{id}', [RegisteredInstituteToggleController::class, 'index']);
+                Route::prefix('staff/{id}')->group(function () {
+                    Route::get('/excel', [RegisteredInstituteStaffExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredInstituteStaffPaginateController::class, 'index']);
                 });
-                Route::prefix('non-registered')->group(function () {
-                    Route::get('/excel', [NonRegisteredExportController::class, 'index']);
-                    Route::get('/paginate', [NonRegisteredPaginateController::class, 'index']);
-                    Route::get('/view/{id}', [NonRegisteredViewController::class, 'index']);
-                });
+            });
+            Route::prefix('non-registered-institutes')->group(function () {
+                Route::get('/excel', [NonRegisteredInstituteExportController::class, 'index']);
+                Route::get('/paginate', [NonRegisteredInstitutePaginateController::class, 'index']);
+                Route::get('/view/{id}', [NonRegisteredInstituteViewController::class, 'index']);
             });
             Route::prefix('industries')->group(function () {
                 Route::get('/excel', [IndustryExportController::class, 'index']);

@@ -82,7 +82,7 @@ class InstituteAuth extends Authenticatable implements MustVerifyEmail
 
     public function school()
     {
-        return $this->belongsTo(Institute::class, 'school_id')->withDefault();
+        return $this->belongsTo(School::class, 'school_id')->withDefault();
     }
 
 }

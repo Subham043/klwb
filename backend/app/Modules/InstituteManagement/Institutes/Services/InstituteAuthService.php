@@ -3,9 +3,9 @@
 namespace App\Modules\InstituteManagement\Institutes\Services;
 
 use App\Http\Abstracts\AbstractAuthenticableService;
-use App\Modules\InstituteManagement\Institutes\Models\Institute;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAddress;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
+use App\Modules\InstituteManagement\Institutes\Models\School;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,9 +28,9 @@ class InstituteAuthService extends AbstractAuthenticableService
                 ]);
     }
 
-    public function createInstitute(array $data): Institute
+    public function createInstitute(array $data): School
     {
-        $institute = Institute::create([...$data]);
+        $institute = School::create([...$data]);
         return $institute;
     }
 
@@ -40,7 +40,7 @@ class InstituteAuthService extends AbstractAuthenticableService
         return $instituteAddress;
     }
 
-    public function updateInstitute(array $data, Institute $institute): Institute
+    public function updateInstitute(array $data, School $institute): School
     {
         $institute->update($data);
         return $institute;

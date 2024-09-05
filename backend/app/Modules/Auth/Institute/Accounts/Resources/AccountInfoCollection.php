@@ -2,8 +2,8 @@
 
 namespace App\Modules\Auth\Institute\Accounts\Resources;
 
+use App\Modules\Admins\Institutes\Resources\SingleInstituteCollection;
 use App\Modules\InstituteManagement\Institutes\Resources\InstituteAddressCollection;
-use App\Modules\InstituteManagement\RegisteredInstitutes\Resources\SingleRegisteredInstituteCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AccountInfoCollection extends JsonResource
@@ -25,7 +25,7 @@ class AccountInfoCollection extends JsonResource
 			'reg_certification' => $this->reg_certification_link,
 			'principal_signature' => $this->principal_signature_link,
 			'seal' => $this->seal_link,
-			'registered_institute' => SingleRegisteredInstituteCollection::make($this->whenLoaded('registered_institute')),
+			'institute' => SingleInstituteCollection::make($this->whenLoaded('institute')),
 			'address' => InstituteAddressCollection::make($this->whenLoaded('address')),
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,
