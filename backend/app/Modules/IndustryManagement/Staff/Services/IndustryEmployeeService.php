@@ -3,7 +3,7 @@
 namespace App\Modules\IndustryManagement\Staff\Services;
 
 use App\Http\Enums\Guards;
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
+use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use App\Modules\Roles\Enums\Roles;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;

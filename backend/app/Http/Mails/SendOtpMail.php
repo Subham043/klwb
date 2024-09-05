@@ -3,7 +3,7 @@
 namespace App\Http\Mails;
 
 use App\Modules\Admins\Employees\Models\Employee;
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
+use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use App\Modules\InstituteManagement\Institutes\Models\InstituteAuth;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Bus\Queueable;

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Industry\Accounts\Resources;
 
-use App\Modules\IndustryManagement\Industry\Resources\IndustryRegisteredCollection;
+use App\Modules\Admins\Industries\Resources\IndustryCollection;
 use App\Modules\LocationManagement\Cities\Resources\SingleCityCollection;
 use App\Modules\LocationManagement\Taluqs\Resources\SingleTaluqCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,7 +35,7 @@ class AccountInfoCollection extends JsonResource
 			'pan' => $this->pan_link,
 			'gst' => $this->gst_link,
 			'reg_industry_id' => $this->reg_industry_id,
-			'registered_industry' => IndustryRegisteredCollection::make($this->whenLoaded('registered_industry')),
+			'industry' => IndustryCollection::make($this->whenLoaded('industry')),
 			'city' => SingleCityCollection::make($this->whenLoaded('city')),
 			'taluq' => SingleTaluqCollection::make($this->whenLoaded('taluq')),
 			'created_at' => $this->created_at,

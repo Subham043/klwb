@@ -3,8 +3,8 @@
 namespace App\Modules\Auth\Industry\Authentication\Services;
 
 use App\Http\Abstracts\AbstractAuthService;
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
-use App\Modules\IndustryManagement\Industry\Models\PasswordReset;
+use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
+use App\Modules\IndustryManagement\IndustryAuth\Models\PasswordReset;
 use Illuminate\Database\Eloquent\Builder;
 
 class AuthService extends AbstractAuthService

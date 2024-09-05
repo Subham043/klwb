@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Auth\Industry\Accounts\Requests\AccountDocPatchRequest;
 use App\Modules\Auth\Industry\Accounts\Resources\AccountInfoCollection;
 use App\Modules\Auth\Industry\Accounts\Services\ProfileService;
-use App\Modules\IndustryManagement\Industry\Services\IndustryAuthFileService;
+use App\Modules\IndustryManagement\IndustryAuth\Services\IndustryAuthFileService;
 
 class AccountDocUpdateController extends Controller
 {

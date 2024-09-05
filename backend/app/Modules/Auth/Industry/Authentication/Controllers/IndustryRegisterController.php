@@ -7,8 +7,8 @@ use App\Http\Events\UserRegistered;
 use App\Http\Services\RateLimitService;
 use App\Modules\Auth\Industry\Authentication\Requests\IndustryRegisterPostRequest;
 use App\Modules\Auth\Industry\Authentication\Resources\AuthCollection;
-use App\Modules\IndustryManagement\Industry\Services\IndustryAuthFileService;
-use App\Modules\IndustryManagement\Industry\Services\IndustryAuthService;
+use App\Modules\IndustryManagement\IndustryAuth\Services\IndustryAuthFileService;
+use App\Modules\IndustryManagement\IndustryAuth\Services\IndustryAuthService;
 use App\Modules\LocationManagement\Cities\Services\CityService;
 use Illuminate\Support\Facades\DB;
 
@@ -42,7 +42,7 @@ class IndustryRegisterController extends Controller
                 $this->industryAuthFileService->saveSeal($industry);
             }
             $this->industryAuthService->syncRoles(["Industry"], $industry);
-            $industry->registered_industry->update([
+            $industry->industry->update([
                 'act' => $request->act,
                 'state_id' => $city->state_id,
                 'city_id' => $request->city_id,

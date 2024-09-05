@@ -32,7 +32,7 @@ class InstituteScholarshipService
 			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class']),
 			'account',
 			'company' => fn($query) => $query->with(['taluq', 'district']),
-			'institute' => fn($query) => $query->with(['registration' => fn($q) => $q->with('address')]),
+			'institute' => fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]),
 			'industry'
 		])
 			->where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)

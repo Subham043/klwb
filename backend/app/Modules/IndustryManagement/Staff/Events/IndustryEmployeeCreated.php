@@ -2,7 +2,7 @@
 
 namespace App\Modules\IndustryManagement\Staff\Events;
 
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
+use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

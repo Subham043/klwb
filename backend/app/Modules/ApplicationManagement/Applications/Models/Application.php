@@ -4,7 +4,7 @@ namespace App\Modules\ApplicationManagement\Applications\Models;
 
 use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\ApplicationManagement\ApplicationDates\Models\ApplicationDate;
-use App\Modules\IndustryManagement\RegisteredIndustry\Models\RegisteredIndustry;
+use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Models\RegisteredInstitute;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -96,7 +96,7 @@ class Application extends Model
 	
 	public function industry()
 	{
-		return $this->belongsTo(RegisteredIndustry::class, 'company_id')->withDefault();
+		return $this->belongsTo(Industry::class, 'company_id')->withDefault();
 	}
 
 	public function approved_by()

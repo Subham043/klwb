@@ -82,7 +82,7 @@ return [
         ],
         'industries' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_INDUSTRY_MODEL', App\Modules\IndustryManagement\Industry\Models\IndustryAuth::class),
+            'model' => env('AUTH_INDUSTRY_MODEL', App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth::class),
         ],
         'institutes' => [
             'driver' => 'eloquent',

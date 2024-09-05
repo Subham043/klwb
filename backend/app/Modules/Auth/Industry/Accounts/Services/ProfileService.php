@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Industry\Accounts\Services;
 use App\Http\Enums\Guards;
 use App\Modules\Auth\Industry\Accounts\Requests\AccountInfoPostRequest;
 use App\Modules\Auth\Industry\Authentication\Services\AuthService;
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
+use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use App\Modules\Roles\Enums\Roles;
 
 class ProfileService extends AuthService
@@ -13,7 +13,7 @@ class ProfileService extends AuthService
 	public function getAccountInfo(): IndustryAuth
 	{
 		$account = IndustryAuth::with([
-			'registered_industry',
+			'industry',
 			'taluq',
 			'city',
 		])->where('id', auth()->guard(Guards::Industry->value())->user()->current_role == Roles::IndustryStaff->value() ? auth()->guard(Guards::Industry->value())->user()->created_by : auth()->guard(Guards::Industry->value())->user()->id)->firstOrFail();
@@ -27,7 +27,7 @@ class ProfileService extends AuthService
 			'pan_no' => $request->pan_no,
 			'address' => $request->address,
 		]);
-		$industry->registered_industry->update([
+		$industry->industry->update([
 			'pincode' => $request->pincode,
 			'act' => $request->act,
 		]);

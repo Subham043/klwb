@@ -34,6 +34,30 @@ use App\Modules\Admins\Employees\Controllers\EmployeeExportController;
 use App\Modules\Admins\Employees\Controllers\EmployeePaginateController;
 use App\Modules\Admins\Employees\Controllers\EmployeeUpdateController;
 use App\Modules\Admins\Employees\Controllers\EmployeeViewController;
+use App\Modules\Admins\Industries\Controllers\IndustryAllController;
+use App\Modules\Admins\Industries\Controllers\IndustryCreateController;
+use App\Modules\Admins\Industries\Controllers\IndustryDeleteController;
+use App\Modules\Admins\Industries\Controllers\IndustryExportController;
+use App\Modules\Admins\Industries\Controllers\IndustryPaginateController;
+use App\Modules\Admins\Industries\Controllers\IndustryUpdateController;
+use App\Modules\Admins\Industries\Controllers\IndustryViewController;
+use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryExportController;
+use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryPaginateController;
+use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryViewController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryAuthController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryExportController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryPaginateController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryToggleController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
+use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffExportController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryAllController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryApproveController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryDeleteController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryExportController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryPaginateController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryUpdateController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryViewController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeAllController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeCreateController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeDeleteController;
@@ -41,18 +65,6 @@ use App\Modules\ApplicationManagement\Fees\Controllers\FeeExportController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeePaginateController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeUpdateController;
 use App\Modules\ApplicationManagement\Fees\Controllers\FeeViewController;
-use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
-use App\Modules\Auth\Common\Controllers\ProfileController;
-use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
-use App\Modules\Auth\Common\Controllers\ProfileVerifyController;
-use App\Modules\Auth\Common\Controllers\ResendRegisteredUserOtpController;
-use App\Modules\Auth\Official\Authentication\Controllers\EmailLoginController;
-use App\Modules\Auth\Official\Authentication\Controllers\ForgotPasswordViaEmailController;
-use App\Modules\Auth\Official\Authentication\Controllers\ForgotPasswordViaPhoneController;
-use App\Modules\Auth\Official\Authentication\Controllers\LogoutController;
-use App\Modules\Auth\Official\Authentication\Controllers\PhoneLoginController;
-use App\Modules\Auth\Official\Authentication\Controllers\ResetPasswordController;
-use App\Modules\Auth\Official\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\LocationManagement\States\Controllers\StateAllController;
 use App\Modules\LocationManagement\States\Controllers\StateCreateController;
 use App\Modules\LocationManagement\States\Controllers\StateDeleteController;
@@ -66,6 +78,7 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationExportControl
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationPaginateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationViewController;
+use App\Modules\IndustryManagement\Staff\Controllers\RegisteredIndustryStaffPaginateController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteAllController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteCreateController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteDeleteController;
@@ -95,22 +108,6 @@ use App\Modules\LocationManagement\Taluqs\Controllers\TaluqExportController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqPaginateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqUpdateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqViewController;
-use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredExportController as ControllersNonRegisteredExportController;
-use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredPaginateController as ControllersNonRegisteredPaginateController;
-use App\Modules\IndustryManagement\Industry\Controllers\NonRegisteredViewController as ControllersNonRegisteredViewController;
-use App\Modules\IndustryManagement\Industry\Controllers\RegisteredAuthController as ControllersRegisteredAuthController;
-use App\Modules\IndustryManagement\Industry\Controllers\RegisteredExportController as ControllersRegisteredExportController;
-use App\Modules\IndustryManagement\Industry\Controllers\RegisteredPaginateController as ControllersRegisteredPaginateController;
-use App\Modules\IndustryManagement\Industry\Controllers\RegisteredToggleController as ControllersRegisteredToggleController;
-use App\Modules\IndustryManagement\Industry\Controllers\RegisteredUpdateController as ControllersRegisteredUpdateController;
-use App\Modules\IndustryManagement\Industry\Controllers\RegisteredViewController as ControllersRegisteredViewController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryAllController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryCreateController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryDeleteController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryExportController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryPaginateController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
-use App\Modules\IndustryManagement\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredExportController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredPaginateController;
 use App\Modules\InstituteManagement\Institutes\Controllers\NonRegisteredViewController;
@@ -123,37 +120,10 @@ use App\Modules\InstituteManagement\Institutes\Controllers\RegisteredViewControl
 use App\Modules\InstituteManagement\RequestInstitutes\Controllers\RequestInstituteApproveController;
 use App\Modules\InstituteManagement\Staff\Controllers\StaffExportController;
 use App\Modules\InstituteManagement\Staff\Controllers\StaffPaginateController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryAllController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryDeleteController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryExportController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryPaginateController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryUpdateController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryViewController;
-use App\Modules\IndustryManagement\RequestIndustry\Controllers\RequestIndustryApproveController;
-use App\Modules\IndustryManagement\Staff\Controllers\StaffExportController as ControllersStaffExportController;
-use App\Modules\IndustryManagement\Staff\Controllers\StaffPaginateController as ControllersStaffPaginateController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('official')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::prefix('v1')->group(function () {
-        Route::prefix('auth')->group(function () {
-            Route::post('/login-via-email', [EmailLoginController::class, 'index']);
-            Route::post('/login-via-phone', [PhoneLoginController::class, 'index']);
-            Route::post('/forgot-password-via-email', [ForgotPasswordViaEmailController::class, 'index']);
-            Route::post('/forgot-password-via-phone', [ForgotPasswordViaPhoneController::class, 'index']);
-            Route::post('/reset-password/{token}', [ResetPasswordController::class, 'index'])->name('admin-reset-password');
-            Route::get('/reset-password-resend-otp/{token}', [ResetPasswordResendOtpController::class, 'index'])->middleware(['throttle:3,1']);
-        });
-        Route::middleware([Guards::Admin->middleware(), 'role:Super-Admin|Admin|Verification-Officer|Financial-Officer|Payment-Officer'])->group(function () {
-            Route::get('/auth/logout', [LogoutController::class, 'index']);
-            Route::prefix('account')->group(function () {
-                Route::get('/', [ProfileController::class, 'index']);
-                Route::middleware('verified')->post('/update', [ProfileUpdateController::class, 'index']);
-                Route::middleware('verified')->post('/update-password', [PasswordUpdateController::class, 'index']);
-                Route::post('/verify', [ProfileVerifyController::class, 'index']);
-                Route::get('/resend-otp', [ResendRegisteredUserOtpController::class, 'index'])->middleware(['throttle:3,1']);
-            });
-        });
         Route::middleware([Guards::Admin->middleware(), 'verified', 'role:Super-Admin|Admin|Verification-Officer|Financial-Officer|Payment-Officer'])->group(function () {
             Route::prefix('roles')->group(function () {
                 Route::get('/all', [RoleAllController::class, 'index']);
@@ -284,14 +254,14 @@ Route::prefix('official')->group(function () {
                     Route::get('/view/{id}', [NonRegisteredViewController::class, 'index']);
                 });
             });
-            Route::prefix('registered-industries')->group(function () {
-                Route::get('/excel', [RegisteredIndustryExportController::class, 'index']);
-                Route::get('/all', [RegisteredIndustryAllController::class, 'index']);
-                Route::get('/paginate', [RegisteredIndustryPaginateController::class, 'index']);
-                Route::post('/create', [RegisteredIndustryCreateController::class, 'index']);
-                Route::post('/update/{id}', [RegisteredIndustryUpdateController::class, 'index']);
-                Route::delete('/delete/{id}', [RegisteredIndustryDeleteController::class, 'index']);
-                Route::get('/view/{id}', [RegisteredIndustryViewController::class, 'index']);
+            Route::prefix('industries')->group(function () {
+                Route::get('/excel', [IndustryExportController::class, 'index']);
+                Route::get('/all', [IndustryAllController::class, 'index']);
+                Route::get('/paginate', [IndustryPaginateController::class, 'index']);
+                Route::post('/create', [IndustryCreateController::class, 'index']);
+                Route::post('/update/{id}', [IndustryUpdateController::class, 'index']);
+                Route::delete('/delete/{id}', [IndustryDeleteController::class, 'index']);
+                Route::get('/view/{id}', [IndustryViewController::class, 'index']);
             });
             Route::prefix('request-industries')->group(function () {
                 Route::get('/excel', [RequestIndustryExportController::class, 'index']);
@@ -302,24 +272,22 @@ Route::prefix('official')->group(function () {
                 Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestIndustryViewController::class, 'index']);
             });
-            Route::prefix('industries')->group(function () {
-                Route::prefix('registered')->group(function () {
-                    Route::get('/excel', [ControllersRegisteredExportController::class, 'index']);
-                    Route::get('/paginate', [ControllersRegisteredPaginateController::class, 'index']);
-                    Route::get('/view/{id}', [ControllersRegisteredViewController::class, 'index']);
-                    Route::post('/update/{id}', [ControllersRegisteredUpdateController::class, 'index']);
-                    Route::post('/update-auth/{id}', [ControllersRegisteredAuthController::class, 'index']);
-                    Route::get('/toggle-status/{id}', [ControllersRegisteredToggleController::class, 'index']);
-                    Route::prefix('staff/{id}')->group(function () {
-                        Route::get('/excel', [ControllersStaffExportController::class, 'index']);
-                        Route::get('/paginate', [ControllersStaffPaginateController::class, 'index']);
-                    });
+            Route::prefix('registered-industries')->group(function () {
+                Route::get('/excel', [RegisteredIndustryExportController::class, 'index']);
+                Route::get('/paginate', [RegisteredIndustryPaginateController::class, 'index']);
+                Route::get('/view/{id}', [RegisteredIndustryViewController::class, 'index']);
+                Route::post('/update/{id}', [RegisteredIndustryUpdateController::class, 'index']);
+                Route::post('/update-auth/{id}', [RegisteredIndustryAuthController::class, 'index']);
+                Route::get('/toggle-status/{id}', [RegisteredIndustryToggleController::class, 'index']);
+                Route::prefix('staff/{id}')->group(function () {
+                    Route::get('/excel', [RegisteredIndustryStaffExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredIndustryStaffPaginateController::class, 'index']);
                 });
-                Route::prefix('non-registered')->group(function () {
-                    Route::get('/excel', [ControllersNonRegisteredExportController::class, 'index']);
-                    Route::get('/paginate', [ControllersNonRegisteredPaginateController::class, 'index']);
-                    Route::get('/view/{id}', [ControllersNonRegisteredViewController::class, 'index']);
-                });
+            });
+            Route::prefix('non-registered-industries')->group(function () {
+                Route::get('/excel', [NonRegisteredIndustryExportController::class, 'index']);
+                Route::get('/paginate', [NonRegisteredIndustryPaginateController::class, 'index']);
+                Route::get('/view/{id}', [NonRegisteredIndustryViewController::class, 'index']);
             });
         });
     });

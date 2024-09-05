@@ -3,7 +3,7 @@
 namespace App\Modules\Auth\Industry\Authentication\Requests;
 
 use App\Http\Requests\InputRequest;
-use App\Modules\IndustryManagement\Industry\Models\IndustryAuth;
+use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Validation\Validator;
 

@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Industry\Accounts\Requests;
 use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
-use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
+use App\Modules\Admins\RequestIndustry\Enums\Act;
 use App\Modules\Roles\Enums\Roles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;

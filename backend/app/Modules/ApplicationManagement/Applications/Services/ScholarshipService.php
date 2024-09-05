@@ -281,7 +281,7 @@ class ScholarshipService
 			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class']),
 			'account',
 			'company' => fn($query) => $query->with(['taluq', 'district']),
-			'institute' => fn($query) => $query->with(['registration' => fn($q) => $q->with('address')]),
+			'institute' => fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]),
 			'industry'
 		])
 			->where('student_id', auth()->guard(Guards::Web->value())->user()->id)

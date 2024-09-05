@@ -24,7 +24,7 @@ class InstituteNonRegisteredService
                 ]);
             }
         ])
-        ->doesntHave('registration')
+        ->doesntHave('auth')
         ->whenNotAdmin();
     }
     protected function query(): QueryBuilder
