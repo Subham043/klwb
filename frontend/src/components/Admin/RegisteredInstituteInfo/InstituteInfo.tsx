@@ -3,7 +3,7 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { useToast } from "../../../hooks/useToast";
 import { useAxios } from "../../../hooks/useAxios";
 import { useState } from "react";
-import { useInstituteRegisteredQuery } from "../../../hooks/data/institute_registered";
+import { useRegisteredInstituteQuery } from "../../../hooks/data/registered_institute";
 import { api_routes } from "../../../utils/routes/api";
 import { Button, ButtonToolbar, Heading, HeadingGroup, Panel, Stack, Text } from "rsuite";
 import Status from "../../Status";
@@ -21,7 +21,7 @@ export default function InstituteInfo({ id }: Props) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const { toastError, toastSuccess } = useToast();
 	const axios = useAxios();
-	const { data, isFetching, isLoading, isRefetching, refetch: refetchData, error } = useInstituteRegisteredQuery(Number(id) || 0, true);
+	const { data, isFetching, isLoading, isRefetching, refetch: refetchData, error } = useRegisteredInstituteQuery(Number(id) || 0, true);
 	const [toggleLoading, setToggleLoading] = useState<boolean>(false);
 	const [instituteUpdateModal, setInstituteUpdateModal] = useState<boolean>(false);
 	const [instituteAuthModal, setInstituteAuthModal] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function InstituteInfo({ id }: Props) {
 	const toggleStatus = async () => {
 		setToggleLoading(true);
 		try {
-			const response = await axios.get(api_routes.admin.institute.registered.toggle(Number(id) || 0));
+			const response = await axios.get(api_routes.admin.registered_institute.toggle(Number(id) || 0));
 			toastSuccess(response.data.message);
 			refetchData();
 		} catch (error) {
@@ -56,7 +56,7 @@ export default function InstituteInfo({ id }: Props) {
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Name</Heading>
-							<Text>{data?.registered_institute.name}</Text>
+							<Text>{data?.institute.name}</Text>
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Principal Name</Heading>
@@ -74,21 +74,21 @@ export default function InstituteInfo({ id }: Props) {
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Management Type</Heading>
-							<Text>{data?.registered_institute.management_type}</Text>
+							<Text>{data?.institute.management_type}</Text>
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Institute Category</Heading>
-							<Text>{data?.registered_institute.category}</Text>
+							<Text>{data?.institute.category}</Text>
 						</HeadingGroup>
 					</Stack>
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Institute Type</Heading>
-							<Text>{data?.registered_institute.type}</Text>
+							<Text>{data?.institute.type}</Text>
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Region Type</Heading>
-							<Text>{data?.registered_institute.urban_rural}</Text>
+							<Text>{data?.institute.urban_rural}</Text>
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Pincode</Heading>

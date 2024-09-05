@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { isAxiosError } from "axios";
 import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
-import { AxiosErrorResponseType, InstituteRegisteredType } from "../../../../utils/types";
+import { AxiosErrorResponseType, RegisteredInstituteType } from "../../../../utils/types";
 import { useToast } from "../../../../hooks/useToast";
 import { useAxios } from "../../../../hooks/useAxios";
 import { api_routes } from "../../../../utils/routes/api";
@@ -18,7 +18,7 @@ type Props = {
 	loading?: boolean;
 	error?: unknown;
  refetch?: () => void;
-	data: InstituteRegisteredType | undefined
+	data: RegisteredInstituteType | undefined
 }
 
 type SchemaType = {

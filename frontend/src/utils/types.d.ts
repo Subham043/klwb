@@ -125,7 +125,7 @@ export type ApplicationFeeType = {
   updated_at: string;
 };
 
-export type RegisteredInstituteType = {
+export type InstituteType = {
   id: number;
   reg_no: string;
   name: string;
@@ -155,7 +155,7 @@ export type RequestInstituteType = {
   updated_at: string;
 };
 
-export type InstituteRegisteredType = {
+export type RegisteredInstituteType = {
   id: number;
   reg_no: string;
   principal: string;
@@ -164,7 +164,7 @@ export type InstituteRegisteredType = {
   reg_certification: string;
   principal_signature: string;
   seal: string;
-  registered_institute: {
+  institute: {
     id: number;
     reg_no: string;
     name: string;
@@ -192,9 +192,9 @@ export type InstituteRegisteredType = {
   profile: InstituteAuthType;
 };
 
-export type InstituteRegisteredStaffType = InstituteAuthType;
+export type RegisteredInstituteStaffType = InstituteAuthType;
 
-export type InstituteNonRegisteredType = {
+export type NonRegisteredInstituteType = {
   id: number;
   reg_no: string;
   name: string;

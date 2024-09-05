@@ -1,20 +1,17 @@
 import { FC } from "react"
-import { ButtonToolbar, IconButton, Table } from "rsuite"
+import { Table } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
-import { useInstitutesRegisteredQuery } from "../../../hooks/data/institute_registered";
-import { Link } from "react-router-dom";
-import VisibleIcon from '@rsuite/icons/Visible';
+import { useNonRegisteredInstitutesQuery } from "../../../hooks/data/non_registered_institute";
 import { api_routes } from "../../../utils/routes/api";
-import { page_routes } from "../../../utils/routes/pages";
-import Moment from "../../../components/Moment";
 import Status from "../../../components/Status";
+import Moment from "../../../components/Moment";
 
 
-const InstituteRegistered:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch, error} = useInstitutesRegisteredQuery();
+const NonRegisteredInstitute:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch, error} = useNonRegisteredInstitutesQuery();
 
-    return <PaginatedTableLayout title="Institutes Registered">
-        <PaginatedTableLayout.Header title="Institutes Registered" addBtn={false} excelLink={api_routes.admin.institute.registered.excel} excelName="registered_institute.xlsx" />
+    return <PaginatedTableLayout title="Institutes Non Registered">
+        <PaginatedTableLayout.Header title="Institutes Non Registered" addBtn={false} excelLink={api_routes.admin.non_registered_institute.excel} excelName="non_registered_institute.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
@@ -31,37 +28,42 @@ const InstituteRegistered:FC = () => {
 
                 <Table.Column  width={260}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.Cell dataKey="registered_institute.name" />
+                    <Table.Cell dataKey="name" />
                 </Table.Column>
 
                 <Table.Column width={260}>
-                    <Table.HeaderCell>Principal Name</Table.HeaderCell>
-                    <Table.Cell dataKey="principal" />
-                </Table.Column>
-
-                <Table.Column width={260}>
-                    <Table.HeaderCell>Email</Table.HeaderCell>
-                    <Table.Cell dataKey="email" />
-                </Table.Column>
-
-                <Table.Column width={260}>
-                    <Table.HeaderCell>Phone</Table.HeaderCell>
-                    <Table.Cell dataKey="phone" />
+                    <Table.HeaderCell>Reg. No.</Table.HeaderCell>
+                    <Table.Cell dataKey="reg_no" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Management Type</Table.HeaderCell>
-                    <Table.Cell dataKey="registered_institute.management_type" />
+                    <Table.Cell dataKey="management_type" />
+                </Table.Column>
+
+                <Table.Column width={260}>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
+                    <Table.Cell dataKey="category" />
+                </Table.Column>
+
+                <Table.Column width={160}>
+                    <Table.HeaderCell>Type</Table.HeaderCell>
+                    <Table.Cell dataKey="type" />
+                </Table.Column>
+
+                <Table.Column width={160}>
+                    <Table.HeaderCell>Urban/Rural</Table.HeaderCell>
+                    <Table.Cell dataKey="urban_rural" />
                 </Table.Column>
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell dataKey="address.city.name" />
+                    <Table.Cell dataKey="taluq.city.name" />
                 </Table.Column>
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>Taluq</Table.HeaderCell>
-                    <Table.Cell dataKey="address.taluq.name" />
+                    <Table.Cell dataKey="taluq.name" />
                 </Table.Column>
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
@@ -69,7 +71,7 @@ const InstituteRegistered:FC = () => {
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
-                            <Status status={!rowData.profile.is_blocked} wrongLabel="Blocked" />
+                            <Status status={rowData.is_active} />
                         )}
                     </Table.Cell>
                 </Table.Column>
@@ -83,21 +85,9 @@ const InstituteRegistered:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
-
-                <Table.Column width={70} fixed="right">
-                    <Table.HeaderCell>Action</Table.HeaderCell>
-
-                    <Table.Cell style={{ padding: '6px' }}>
-                        {rowData => (
-                            <ButtonToolbar>
-                                <IconButton as={Link} appearance="primary" color="orange" icon={<VisibleIcon />} to={page_routes.admin.institute.registered_info(rowData.id)} />
-                            </ButtonToolbar>
-                        )}
-                    </Table.Cell>
-                </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>
     </PaginatedTableLayout>
 }
 
-export default InstituteRegistered
+export default NonRegisteredInstitute

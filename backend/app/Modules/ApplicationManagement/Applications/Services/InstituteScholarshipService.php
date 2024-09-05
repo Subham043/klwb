@@ -35,7 +35,7 @@ class InstituteScholarshipService
 			'institute' => fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]),
 			'industry'
 		])
-			->where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)
+			->where('school_id', auth()->guard(Guards::Institute->value())->user()->school->institute->id)
 			->where('application_state', '>', 0)
 			->whereHas('basic_detail')
 			->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class'])->whereHas('graduation'))
@@ -93,14 +93,14 @@ class InstituteScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->institute->id)
 		->where('application_state', '>', ApplicationState::None->value)
 		->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
-		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)->where(function($qry){
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->institute->id)->where(function($qry){
 			$qry->where(function($q){
 				$q->where('application_state', ApplicationState::School->value)->where('status', ApplicationStatus::Approve->value);
 			})->orWhere(function($q){
@@ -111,14 +111,14 @@ class InstituteScholarshipService
 
 	public function getTotalRejectedApplicationCount(): int
 	{
-		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)->where(function($qry){
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->institute->id)->where(function($qry){
 			$qry->where('application_state', ApplicationState::School->value)->where('status', ApplicationStatus::Reject->value);
 		})->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
-		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->registered_institute->id)->where(function($qry){
+		return Application::where('school_id', auth()->guard(Guards::Institute->value())->user()->school->institute->id)->where(function($qry){
 			$qry->where('application_state', ApplicationState::School->value)->where('status', ApplicationStatus::Pending->value);
 		})->count();
 	}

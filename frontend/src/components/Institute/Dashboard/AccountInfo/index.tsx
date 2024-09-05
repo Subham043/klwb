@@ -67,7 +67,7 @@ export default function InstituteDashboardAccountInfo() {
 															<Heading level={6} className="info-heading">
 																	Institute Name
 															</Heading>
-															<Text>{account_info?.registered_institute.name}</Text>
+															<Text>{account_info?.institute.name}</Text>
 													</HeadingGroup>
 													<HeadingGroup className="mb-1">
 															<Heading level={6} className="info-heading">

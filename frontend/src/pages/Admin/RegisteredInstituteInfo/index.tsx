@@ -1,12 +1,12 @@
 import { FC } from "react"
 import { useParams } from "react-router-dom"
 import DetailLayout from "../../../layouts/DetailLayout";
-import Staff from "../../../components/Admin/InstituteRegisteredInfo/Staff";
-import Scholarship from "../../../components/Admin/InstituteRegisteredInfo/Scholarship";
-import InstituteInfo from "../../../components/Admin/InstituteRegisteredInfo/InstituteInfo";
+import Staff from "../../../components/Admin/RegisteredInstituteInfo/Staff";
+import Scholarship from "../../../components/Admin/RegisteredInstituteInfo/Scholarship";
+import InstituteInfo from "../../../components/Admin/RegisteredInstituteInfo/InstituteInfo";
 
 
-const InstituteRegisteredInfo:FC = () => {
+const RegisteredInstituteInfo:FC = () => {
     const {id} = useParams<{ id: string }>();
 
     return <DetailLayout title="Registered Institute Information">
@@ -16,4 +16,4 @@ const InstituteRegisteredInfo:FC = () => {
     </DetailLayout>
 }
 
-export default InstituteRegisteredInfo
+export default RegisteredInstituteInfo

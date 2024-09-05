@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { useToast } from "../useToast";
 import { isAxiosError } from "axios";
-import { AuthType, RegisteredIndustryType, InstituteRegisteredType } from "../../utils/types";
+import { AuthType, RegisteredIndustryType, RegisteredInstituteType } from "../../utils/types";
 import { useUser } from "../useUser";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
@@ -80,12 +80,12 @@ export const useUpdateProfileMutation = () => {
 
 export const useInstituteAccountQuery: (
   enabled: boolean
-) => UseQueryResult<InstituteRegisteredType, unknown> = (enabled) => {
+) => UseQueryResult<RegisteredInstituteType, unknown> = (enabled) => {
   const axios = useAxios();
   return useQuery({
     queryKey: [InstituteAccountQueryKey],
     queryFn: async () => {
-      const response = await axios.get<{ account_info: InstituteRegisteredType }>(
+      const response = await axios.get<{ account_info: RegisteredInstituteType }>(
         api_routes.institute.account.info
       );
       return response.data.account_info;

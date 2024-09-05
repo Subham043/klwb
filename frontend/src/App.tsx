@@ -63,10 +63,10 @@ const EmployeePage = lazy(()=>import("./pages/Admin/Employee"));
 const StatePage = lazy(()=>import("./pages/Admin/State"));
 const CityPage = lazy(()=>import("./pages/Admin/City"));
 const TaluqPage = lazy(()=>import("./pages/Taluq"));
+const InstitutePage = lazy(()=>import("./pages/Admin/Institute"));
 const RegisteredInstitutePage = lazy(()=>import("./pages/Admin/RegisteredInstitute"));
-const InstituteRegisteredPage = lazy(()=>import("./pages/Admin/InstituteRegistered"));
-const InstituteRegisteredInfoPage = lazy(()=>import("./pages/Admin/InstituteRegisteredInfo"));
-const InstituteNonRegisteredPage = lazy(()=>import("./pages/Admin/InstituteNonRegistered"));
+const RegisteredInstituteInfoPage = lazy(()=>import("./pages/Admin/RegisteredInstituteInfo"));
+const NonRegisteredInstitutePage = lazy(()=>import("./pages/Admin/NonRegisteredInstitute"));
 const RequestInstitutePage = lazy(()=>import("./pages/Admin/RequestInstitute"));
 const SecurityQuestionPage = lazy(()=>import("./pages/Admin/SecurityQuestion"));
 const ApplicationDatePage = lazy(()=>import("./pages/Admin/ApplicationDate"));
@@ -100,11 +100,11 @@ function App() {
                       <Route path={page_routes.admin.state} element={<StatePage />} />
                       <Route path={page_routes.admin.city} element={<CityPage />} />
                       <Route path={page_routes.admin.taluq} element={<TaluqPage />} />
-                      <Route path={page_routes.admin.institute.all} element={<RegisteredInstitutePage />} />
+                      <Route path={page_routes.admin.institute.all} element={<InstitutePage />} />
                       <Route path={page_routes.admin.institute.request} element={<RequestInstitutePage />} />
-                      <Route path={page_routes.admin.institute.non_registered} element={<InstituteNonRegisteredPage />} />
-                      <Route path={page_routes.admin.institute.registered} element={<InstituteRegisteredPage />} />
-                      <Route path={page_routes.admin.institute.registered_info(":id")} element={<InstituteRegisteredInfoPage />} />
+                      <Route path={page_routes.admin.institute.non_registered} element={<NonRegisteredInstitutePage />} />
+                      <Route path={page_routes.admin.institute.registered} element={<RegisteredInstitutePage />} />
+                      <Route path={page_routes.admin.institute.registered_info(":id")} element={<RegisteredInstituteInfoPage />} />
                       <Route path={page_routes.admin.industry.all} element={<IndustryPage />} />
                       <Route path={page_routes.admin.industry.request} element={<RequestIndustryPage />} />
                       <Route path={page_routes.admin.industry.non_registered} element={<NonRegisteredIndustryPage />} />

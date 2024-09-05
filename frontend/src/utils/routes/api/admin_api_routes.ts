@@ -102,17 +102,17 @@ export const admin_api_routes = {
     delete: (id: string | number) => `/api/admin/v1/fees/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/fees/view/${id}`,
   },
-  registered_institute: {
-    excel: "/api/admin/v1/registered-institutes/excel",
-    all: "/api/admin/v1/registered-institutes/all",
-    paginate: "/api/admin/v1/registered-institutes/paginate",
-    create: "/api/admin/v1/registered-institutes/create",
+  institute: {
+    excel: "/api/admin/v1/institutes/excel",
+    all: "/api/admin/v1/institutes/all",
+    paginate: "/api/admin/v1/institutes/paginate",
+    create: "/api/admin/v1/institutes/create",
     update: (id: string | number) =>
-      `/api/admin/v1/registered-institutes/update/${id}`,
+      `/api/admin/v1/institutes/update/${id}`,
     delete: (id: string | number) =>
-      `/api/admin/v1/registered-institutes/delete/${id}`,
+      `/api/admin/v1/institutes/delete/${id}`,
     view: (id: string | number) =>
-      `/api/admin/v1/registered-institutes/view/${id}`,
+      `/api/admin/v1/institutes/view/${id}`,
   },
   request_institute: {
     excel: "/api/admin/v1/request-institutes/excel",
@@ -127,31 +127,29 @@ export const admin_api_routes = {
     view: (id: string | number) =>
       `/api/admin/v1/request-institutes/view/${id}`,
   },
-  institute: {
-    registered: {
-      excel: "/api/admin/v1/institutes/registered/excel",
-      paginate: "/api/admin/v1/institutes/registered/paginate",
-      view: (id: string | number) =>
-        `/api/admin/v1/institutes/registered/view/${id}`,
-      update: (id: string | number) =>
-        `/api/admin/v1/institutes/registered/update/${id}`,
-      update_auth: (id: string | number) =>
-        `/api/admin/v1/institutes/registered/update-auth/${id}`,
-      toggle: (id: string | number) =>
-        `/api/admin/v1/institutes/registered/toggle-status/${id}`,
-      staff: {
-        excel: (id: string | number) =>
-          `/api/admin/v1/institutes/registered/staff/${id}/excel`,
-        paginate: (id: string | number) =>
-          `/api/admin/v1/institutes/registered/staff/${id}/paginate`,
-      },
+  registered_institute: {
+    excel: "/api/admin/v1/registered-institutes/excel",
+    paginate: "/api/admin/v1/registered-institutes/paginate",
+    view: (id: string | number) =>
+      `/api/admin/v1/registered-institutes/view/${id}`,
+    update: (id: string | number) =>
+      `/api/admin/v1/registered-institutes/update/${id}`,
+    update_auth: (id: string | number) =>
+      `/api/admin/v1/registered-institutes/update-auth/${id}`,
+    toggle: (id: string | number) =>
+      `/api/admin/v1/registered-institutes/toggle-status/${id}`,
+    staff: {
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-institutes/staff/${id}/excel`,
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-institutes/staff/${id}/paginate`,
     },
-    non_registered: {
-      excel: "/api/admin/v1/institutes/non-registered/excel",
-      paginate: "/api/admin/v1/institutes/non-registered/paginate",
-      view: (id: string | number) =>
-        `/api/admin/v1/institutes/non-registered/view/${id}`,
-    },
+  },
+  non_registered_institute: {
+    excel: "/api/admin/v1/non-registered-institutes/excel",
+    paginate: "/api/admin/v1/non-registered-institutes/paginate",
+    view: (id: string | number) =>
+      `/api/admin/v1/non-registered-institutes/view/${id}`,
   },
   industry: {
     excel: "/api/admin/v1/industries/excel",

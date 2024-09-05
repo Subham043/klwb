@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { useToast } from "../../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../../utils/types";
 import { isAxiosError } from "axios";
-import { useRegisteredInstituteQuery } from '../../../hooks/data/registered_institute';
+import { useInstituteQuery } from '../../../hooks/data/institute';
 import { useTaluqSelectQuery } from '../../../hooks/data/taluq';
 import { useAxios } from '../../../hooks/useAxios';
 import TextInput from '../../FormInput/TextInput';
@@ -42,10 +42,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
+export default function InstituteForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useRegisteredInstituteQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useInstituteQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const axios = useAxios();
     const [isMobile] = useMediaQuery('(max-width: 700px)');
 
@@ -90,7 +90,7 @@ export default function RegisteredInstituteForm({drawer, drawerHandler, refetch}
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(drawer.type === "Edit" ? api_routes.admin.registered_institute.update(drawer.id) : api_routes.admin.registered_institute.create, getValues());
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.institute.update(drawer.id) : api_routes.admin.institute.create, getValues());
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({

@@ -24,8 +24,8 @@ export const user_api_routes = {
 	security_question: {
 		all: "/api/v1/security-questions/all",
 	},
-	registered_institute: {
-		all: "/api/v1/registered-institutes/all",
+	institute: {
+		all: "/api/v1/institutes/all",
 	},
 	industry: {
 		all: "/api/v1/industries/all",

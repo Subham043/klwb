@@ -17,7 +17,7 @@ import { useTaluqCommonSelectQuery } from '../../../hooks/data/taluq';
 import SelectInput from '../../../components/FormInput/SelectInput';
 import FileInput from '../../../components/FormInput/FileInput';
 import { FileType } from 'rsuite/esm/Uploader';
-import { useRegisteredInstituteCommonSelectQuery } from '../../../hooks/data/registered_institute';
+import { useInstituteCommonSelectQuery } from '../../../hooks/data/institute';
 import PasswordInput from '../../../components/FormInput/PasswordInput';
 import { api_routes } from '../../../utils/routes/api';
 import { page_routes } from '../../../utils/routes/pages';
@@ -129,7 +129,7 @@ function InstituteRegisterPage() {
 
   const { data: cities, isFetching: isCityFetching, isLoading: isCityLoading } = useCityCommonSelectQuery(true);
   const { data: taluqs, isFetching: isTaluqFetching, isLoading: isTaluqLoading } = useTaluqCommonSelectQuery((city_id !== 0 && city_id !== undefined), (city_id === 0 ? undefined : city_id));
-  const { data: institutes, isFetching: isInstituteFetching, isLoading: isInstituteLoading } = useRegisteredInstituteCommonSelectQuery((taluq_id !== 0 && taluq_id !== undefined), (taluq_id === 0 ? undefined : taluq_id));
+  const { data: institutes, isFetching: isInstituteFetching, isLoading: isInstituteLoading } = useInstituteCommonSelectQuery((taluq_id !== 0 && taluq_id !== undefined), (taluq_id === 0 ? undefined : taluq_id));
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);

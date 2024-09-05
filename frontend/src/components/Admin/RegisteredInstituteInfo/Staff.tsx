@@ -1,7 +1,7 @@
 import { Button, ButtonToolbar, Input, InputGroup, Pagination, Panel, Stack, Table } from "rsuite";
 import Status from "../../Status";
 import Moment from "../../Moment";
-import { useInstitutesRegisteredStaffQuery } from "../../../hooks/data/institute_registered";
+import { useRegisteredInstitutesStaffQuery } from "../../../hooks/data/registered_institute";
 import { useExcelExport } from "../../../hooks/useExcelExport";
 import { useSearchQueryParam } from "../../../hooks/useSearchQueryParam";
 import { usePaginationQueryParam } from "../../../hooks/usePaginationQueryParam";
@@ -17,11 +17,11 @@ type Props = {
 export default function Staff({ id }: Props) {
 	const { search, searchHandler } = useSearchQueryParam("_staff");
 	const { page, pageHandler, limit, limitHandler } = usePaginationQueryParam("_staff");
-	const { data: staffs, isFetching: isStaffFetching, isLoading: isStaffLoading, isRefetching: isStaffRefetching, error, refetch: refetchData } = useInstitutesRegisteredStaffQuery(Number(id) || 0);
+	const { data: staffs, isFetching: isStaffFetching, isLoading: isStaffLoading, isRefetching: isStaffRefetching, error, refetch: refetchData } = useRegisteredInstitutesStaffQuery(Number(id) || 0);
 	const { excelLoading, exportExcel } = useExcelExport();
 
 	const excelHandler = async () => {
-		await exportExcel(api_routes.admin.institute.registered.staff.excel(Number(id)), 'registered_institute_staffs.xlsx');
+		await exportExcel(api_routes.admin.registered_institute.staff.excel(Number(id)), 'registered_institute_staffs.xlsx');
 	}
 
 	return (

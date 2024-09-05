@@ -1,17 +1,21 @@
-import { FC } from "react"
-import { Table } from "rsuite"
+import { FC, useState } from "react"
+import { ButtonToolbar, IconButton, Table } from "rsuite"
+import { useInstitutesQuery } from "../../../hooks/data/institute";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
-import { useInstitutesNonRegisteredQuery } from "../../../hooks/data/institute_non_registered";
+import { DrawerProps } from "../../../utils/types";
+import InstituteForm from "../../../components/Admin/InstituteForm";
+import EditIcon from '@rsuite/icons/Edit';
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 
 
-const InstituteNonRegistered:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch, error} = useInstitutesNonRegisteredQuery();
+const Institute:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch, error} = useInstitutesQuery();
+    const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
-    return <PaginatedTableLayout title="Institutes Non Registered">
-        <PaginatedTableLayout.Header title="Institutes Non Registered" addBtn={false} excelLink={api_routes.admin.institute.non_registered.excel} excelName="non_registered_institute.xlsx" />
+    return <PaginatedTableLayout title="All Institutes">
+        <PaginatedTableLayout.Header title="All Institutes" buttonName="Institute" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.registered_institute.excel} excelName="registered_institute.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
@@ -85,9 +89,22 @@ const InstituteNonRegistered:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
+
+                <Table.Column width={70} fixed="right">
+                    <Table.HeaderCell>Action</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <ButtonToolbar>
+                                <IconButton appearance="primary" color="orange" icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                            </ButtonToolbar>
+                        )}
+                    </Table.Cell>
+                </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>
+        <InstituteForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
     </PaginatedTableLayout>
 }
 
-export default InstituteNonRegistered
+export default Institute

@@ -6,7 +6,7 @@ import { Control, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-
 import { ScholarshipFormSchemaType } from "./schema";
 import { useCityCommonSelectQuery } from "../../../hooks/data/city";
 import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
-import { useRegisteredInstituteCommonSelectQuery } from "../../../hooks/data/registered_institute";
+import { useRegisteredInstituteCommonSelectQuery } from "../../../hooks/data/institute";
 import { useGraduationCommonSelectQuery } from "../../../hooks/data/graduation";
 import { useCourseCommonSelectQuery } from "../../../hooks/data/course";
 import { useClassCommonSelectQuery } from "../../../hooks/data/class";

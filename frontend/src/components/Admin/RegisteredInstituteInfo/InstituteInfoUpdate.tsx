@@ -13,7 +13,7 @@ import SelectInput from '../../FormInput/SelectInput';
 import { useCitySelectQuery } from '../../../hooks/data/city';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
-import { AxiosErrorResponseType, InstituteRegisteredType } from "../../../utils/types";
+import { AxiosErrorResponseType, RegisteredInstituteType } from "../../../utils/types";
 import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
 	loading?: boolean;
 	error?: unknown;
  refetch?: () => void;
-	data: InstituteRegisteredType | undefined
+	data: RegisteredInstituteType | undefined
 }
 
 type SchemaType = {
@@ -77,16 +77,16 @@ const InstituteInfoUpdate = ({ modal, setModal, data, refetch, error, loading:da
 	} = useForm<SchemaType>({
 		resolver: yupResolver(schema),
 		values: {
-			name: data ? data.registered_institute.name : "",
+			name: data ? data.institute.name : "",
 			principal: data ? data.principal : "",
 			email: data ? data.email : "",
 			phone: data ? Number(data.phone) : 0,
 			pincode: data ? data.address.pincode : "",
 			address: data ? data.address.address : "",
-			management_type: data ? data.registered_institute.management_type : "",
-			category: data ? data.registered_institute.category : "",
-			type: data ? data.registered_institute.type : "",
-			urban_rural: data ? data.registered_institute.urban_rural : "",
+			management_type: data ? data.institute.management_type : "",
+			category: data ? data.institute.category : "",
+			type: data ? data.institute.type : "",
+			urban_rural: data ? data.institute.urban_rural : "",
 			taluq_id: data ? data.address.taluq.id : 0,
 			city_id: data ? data.address.city.id : 0,
 			is_active: data ? (!data.profile.is_blocked ? 1 : 0) : 0
@@ -101,7 +101,7 @@ const InstituteInfoUpdate = ({ modal, setModal, data, refetch, error, loading:da
 		const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(api_routes.admin.institute.registered.update(data!.id), getValues());
+            await axios.post(api_routes.admin.registered_institute.update(data!.id), getValues());
             toastSuccess("Saved Successfully");
             setModal(false)
             refetch && refetch();
@@ -143,9 +143,10 @@ const InstituteInfoUpdate = ({ modal, setModal, data, refetch, error, loading:da
 																</Stack>
 																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
 																					<TextInput name="type" label="Institute Type" control={control} error={errors.type?.message} />
-																					<TextInput name="pincode" label="Pincode" control={control} error={errors.pincode?.message} />
+																					<SelectInput name="urban_rural" label="Urban/Rural" data={[{label:'Urban', value:'Urban'}, {label:'Rural', value:'Rural'}]} control={control} error={errors.urban_rural?.message} />
 																</Stack>
 																<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack mb-1'>
+																					<TextInput name="pincode" label="Pincode" control={control} error={errors.pincode?.message} />
 																					<SelectInput name="city_id" label="District" resetHandler={() => {setValue("taluq_id", 0)}} data={cities ? cities.map(item => ({ label: item.name, value: item.id })) : []} loading={isCityFetching || isCityLoading} control={control} error={errors.city_id?.message} />
 																					<SelectInput name="taluq_id" label="Taluq" data={taluqs ? taluqs.map(item => ({ label: item.name, value: item.id })) : []} disabled={city_id===0} loading={isTaluqFetching || isTaluqLoading} control={control} error={errors.taluq_id?.message} />
 																</Stack>

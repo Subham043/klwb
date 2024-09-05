@@ -10,7 +10,7 @@ import TextInput from '../../FormInput/TextInput';
 import ToggleInput from '../../FormInput/ToggleInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
-import { AxiosErrorResponseType, InstituteRegisteredType } from "../../../utils/types";
+import { AxiosErrorResponseType, RegisteredInstituteType } from "../../../utils/types";
 import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 	loading?: boolean;
 	error?: unknown;
  refetch?: () => void;
-	data: InstituteRegisteredType | undefined
+	data: RegisteredInstituteType | undefined
 }
 
 type SchemaType = {
@@ -65,7 +65,7 @@ const InstituteAuthUpdate = ({ modal, setModal, data, refetch, error, loading:da
         setLoading(true);
         try {
 												const {is_blocked, ...rest} = getValues();
-            await axios.post(api_routes.admin.institute.registered.update_auth(data!.id), {...rest, is_blocked: is_blocked===1 ? 0: 1});
+            await axios.post(api_routes.admin.registered_institute.update_auth(data!.id), {...rest, is_blocked: is_blocked===1 ? 0: 1});
             toastSuccess("Saved Successfully");
             setModal(false)
             refetch && refetch();
