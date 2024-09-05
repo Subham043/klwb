@@ -27,8 +27,8 @@ export const user_api_routes = {
 	registered_institute: {
 		all: "/api/v1/registered-institutes/all",
 	},
-	registered_industry: {
-		all: "/api/v1/registered-industries/all",
+	industry: {
+		all: "/api/v1/industries/all",
 	},
 	auth: {
 		login: {

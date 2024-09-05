@@ -7,7 +7,7 @@ import { ScholarshipFormSchemaType } from "./schema";
 import { useCityCommonSelectQuery } from "../../../hooks/data/city";
 import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
 import FileInput from "../../FormInput/FileInput";
-import { useRegisteredIndustryUserCommonSelectQuery } from "../../../hooks/data/registered_industry";
+import { useIndustryUserCommonSelectQuery } from "../../../hooks/data/industry";
 import FileViewer from "../../FileViewer";
 
 type PropType = {
@@ -27,7 +27,7 @@ export default function IndustryInfo({ control, errors, watch, setValue, type="a
 
 	const { data: cities, isFetching: isCityFetching, isLoading: isCityLoading } = useCityCommonSelectQuery(true);
 	const { data: taluqs, isFetching: isTaluqFetching, isLoading: isTaluqLoading } = useTaluqCommonSelectQuery((district_id !== 0 && district_id !== undefined), (district_id === 0 ? undefined : district_id));
-	const { data: industries, isFetching: isIndustryFetching, isLoading: isIndustryLoading } = useRegisteredIndustryUserCommonSelectQuery((taluq_id !== 0 && taluq_id !== undefined), (taluq_id === 0 ? undefined : taluq_id));
+	const { data: industries, isFetching: isIndustryFetching, isLoading: isIndustryLoading } = useIndustryUserCommonSelectQuery((taluq_id !== 0 && taluq_id !== undefined), (taluq_id === 0 ? undefined : taluq_id));
 
 	return (
 		<div className="mb-1">

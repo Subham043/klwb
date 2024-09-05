@@ -78,7 +78,7 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationExportControl
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationPaginateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationViewController;
-use App\Modules\IndustryManagement\Staff\Controllers\RegisteredIndustryStaffPaginateController;
+use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPaginateController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteAllController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteCreateController;
 use App\Modules\InstituteManagement\RegisteredInstitutes\Controllers\RegisteredInstituteDeleteController;
@@ -124,7 +124,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
     Route::prefix('v1')->group(function () {
-        Route::middleware([Guards::Admin->middleware(), 'verified', 'role:Super-Admin|Admin|Verification-Officer|Financial-Officer|Payment-Officer'])->group(function () {
+        Route::middleware([Guards::Admin->middleware(), 'verified', 'role:Super-Admin|Admin'])->group(function () {
             Route::prefix('roles')->group(function () {
                 Route::get('/all', [RoleAllController::class, 'index']);
             });

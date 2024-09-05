@@ -75,10 +75,10 @@ const HomePage = lazy(()=>import("./pages/Home"));
 const InstituteRequestPage = lazy(()=>import("./pages/Auth/InstituteRequestPage"));
 const RequestIndustryPage = lazy(()=>import("./pages/Admin/RequestIndustry"));
 const IndustryRequestPage = lazy(()=>import("./pages/Auth/IndustryRequestPage"));
+const IndustryPage = lazy(()=>import("./pages/Admin/Industry"));
 const RegisteredIndustryPage = lazy(()=>import("./pages/Admin/RegisteredIndustry"));
-const IndustryRegisteredPage = lazy(()=>import("./pages/Admin/IndustryRegistered"));
-const IndustryRegisteredInfoPage = lazy(()=>import("./pages/Admin/IndustryRegisteredInfo"));
-const IndustryNonRegisteredPage = lazy(()=>import("./pages/Admin/IndustryNonRegistered"));
+const RegisteredIndustryInfoPage = lazy(()=>import("./pages/Admin/RegisteredIndustryInfo"));
+const NonRegisteredIndustryPage = lazy(()=>import("./pages/Admin/NonRegisteredIndustry"));
 
 function App() {
 
@@ -105,11 +105,11 @@ function App() {
                       <Route path={page_routes.admin.institute.non_registered} element={<InstituteNonRegisteredPage />} />
                       <Route path={page_routes.admin.institute.registered} element={<InstituteRegisteredPage />} />
                       <Route path={page_routes.admin.institute.registered_info(":id")} element={<InstituteRegisteredInfoPage />} />
-                      <Route path={page_routes.admin.industry.all} element={<RegisteredIndustryPage />} />
+                      <Route path={page_routes.admin.industry.all} element={<IndustryPage />} />
                       <Route path={page_routes.admin.industry.request} element={<RequestIndustryPage />} />
-                      <Route path={page_routes.admin.industry.non_registered} element={<IndustryNonRegisteredPage />} />
-                      <Route path={page_routes.admin.industry.registered} element={<IndustryRegisteredPage />} />
-                      <Route path={page_routes.admin.industry.registered_info(":id")} element={<IndustryRegisteredInfoPage />} />
+                      <Route path={page_routes.admin.industry.non_registered} element={<NonRegisteredIndustryPage />} />
+                      <Route path={page_routes.admin.industry.registered} element={<RegisteredIndustryPage />} />
+                      <Route path={page_routes.admin.industry.registered_info(":id")} element={<RegisteredIndustryInfoPage />} />
                       <Route path={page_routes.admin.security_question} element={<SecurityQuestionPage />} />
                       <Route path={page_routes.admin.application_date} element={<ApplicationDatePage />} />
                       <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />

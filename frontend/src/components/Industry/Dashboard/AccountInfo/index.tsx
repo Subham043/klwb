@@ -67,13 +67,13 @@ export default function IndustryDashboardAccountInfo() {
 															<Heading level={6} className="info-heading">
 																	Industry Name
 															</Heading>
-															<Text>{account_info?.registered_industry.name}</Text>
+															<Text>{account_info?.industry.name}</Text>
 													</HeadingGroup>
 													<HeadingGroup className="mb-1">
 															<Heading level={6} className="info-heading">
 																	Industry Reg. No.
 															</Heading>
-															<Text>{account_info?.registered_industry.reg_id}</Text>
+															<Text>{account_info?.industry.reg_id}</Text>
 													</HeadingGroup>
 													<HeadingGroup className="mb-1">
 															<Heading level={6} className="info-heading">
@@ -104,7 +104,7 @@ export default function IndustryDashboardAccountInfo() {
 															<Heading level={6} className="info-heading">
 																	Pincode
 															</Heading>
-															<Text>{account_info?.registered_industry.pincode}</Text>
+															<Text>{account_info?.industry.pincode}</Text>
 													</HeadingGroup>
 											</Stack>
 											<Stack

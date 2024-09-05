@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\IndustryManagement\Staff\Controllers;
+namespace App\Modules\Admins\RegisteredIndustryStaff\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\RegisteredIndustry\Services\RegisteredIndustryService;

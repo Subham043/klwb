@@ -210,7 +210,7 @@ export type InstituteNonRegisteredType = {
 };
 
 
-export type RegisteredIndustryType = {
+export type IndustryType = {
   id: number;
   reg_id: string;
   name: string;
@@ -248,12 +248,12 @@ export type RequestIndustryType = {
   updated_at: string;
 };
 
-export type IndustryRegisteredStaffType = AuthType & {
+export type RegisteredIndustryStaffType = AuthType & {
   reg_industry_id: number;
   created_by: number;
 };
 
-export type IndustryRegisteredType = IndustryRegisteredStaffType & {
+export type RegisteredIndustryType = RegisteredIndustryStaffType & {
   id: number;
   gst_no: string;
   pan_no: string;
@@ -262,7 +262,7 @@ export type IndustryRegisteredType = IndustryRegisteredStaffType & {
   seal: string;
   gst: string;
   pan: string;
-  registered_industry: RegisteredIndustryType;
+  industry: IndustryType;
   address: string;
   city: {
     id: number;
@@ -274,7 +274,7 @@ export type IndustryRegisteredType = IndustryRegisteredStaffType & {
   };
 };
 
-export type IndustryNonRegisteredType = {
+export type NonRegisteredIndustryType = {
   id: number;
   reg_id: string;
   name: string;

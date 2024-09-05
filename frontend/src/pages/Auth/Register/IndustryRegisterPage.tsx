@@ -17,7 +17,7 @@ import { useTaluqCommonSelectQuery } from '../../../hooks/data/taluq';
 import SelectInput from '../../../components/FormInput/SelectInput';
 import FileInput from '../../../components/FormInput/FileInput';
 import { FileType } from 'rsuite/esm/Uploader';
-import { useRegisteredIndustryCommonSelectQuery } from '../../../hooks/data/registered_industry';
+import { useIndustryCommonSelectQuery } from '../../../hooks/data/industry';
 import PasswordInput from '../../../components/FormInput/PasswordInput';
 import { api_routes } from '../../../utils/routes/api';
 import { page_routes } from '../../../utils/routes/pages';
@@ -130,7 +130,7 @@ function IndustryRegisterPage() {
 
   const { data: cities, isFetching: isCityFetching, isLoading: isCityLoading } = useCityCommonSelectQuery(true);
   const { data: taluqs, isFetching: isTaluqFetching, isLoading: isTaluqLoading } = useTaluqCommonSelectQuery((city_id !== 0 && city_id !== undefined), (city_id === 0 ? undefined : city_id));
-  const { data: industries, isFetching: isIndustryFetching, isLoading: isIndustryLoading } = useRegisteredIndustryCommonSelectQuery(search.length > 0, search);
+  const { data: industries, isFetching: isIndustryFetching, isLoading: isIndustryLoading } = useIndustryCommonSelectQuery(search.length > 0, search);
 
   const searchHandler = debounce((value: string) => {
     setSearch(value);

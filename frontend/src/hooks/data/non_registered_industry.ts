@@ -1,27 +1,27 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { IndustryNonRegisteredType, PaginationType } from "../../utils/types";
+import { NonRegisteredIndustryType, PaginationType } from "../../utils/types";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
 
-export const IndustryNonRegisteredQueryKey = "industry_non_registered";
-export const IndustriesNonRegisteredQueryKey = "industries_non_registered";
+export const NonRegisteredIndustryQueryKey = "non_registered_industry";
+export const NonRegisteredIndustriesQueryKey = "non_registered_industries";
 
-export const useIndustriesNonRegisteredQuery: () => UseQueryResult<
-  PaginationType<IndustryNonRegisteredType>,
+export const useNonRegisteredIndustriesQuery: () => UseQueryResult<
+  PaginationType<NonRegisteredIndustryType>,
   unknown
 > = () => {
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
   return useQuery({
-    queryKey: [IndustriesNonRegisteredQueryKey, page, limit, search],
+    queryKey: [NonRegisteredIndustriesQueryKey, page, limit, search],
     queryFn: async () => {
       const response = await axios.get<
-        PaginationType<IndustryNonRegisteredType>
+        PaginationType<NonRegisteredIndustryType>
       >(
-        api_routes.admin.industry.non_registered.paginate +
+        api_routes.admin.non_registered_industry.paginate +
           `?page=${page}&total=${limit}&filter[search]=${search}`
       );
       return response.data;
@@ -29,16 +29,16 @@ export const useIndustriesNonRegisteredQuery: () => UseQueryResult<
   });
 };
 
-export const useIndustryNonRegisteredQuery: (
+export const useNonRegisteredIndustryQuery: (
   id: number,
   enabled: boolean
-) => UseQueryResult<IndustryNonRegisteredType, unknown> = (id, enabled) => {
+) => UseQueryResult<NonRegisteredIndustryType, unknown> = (id, enabled) => {
   const axios = useAxios();
   return useQuery({
-    queryKey: [IndustryNonRegisteredQueryKey, id],
+    queryKey: [NonRegisteredIndustryQueryKey, id],
     queryFn: async () => {
-      const response = await axios.get<{ data: IndustryNonRegisteredType }>(
-        api_routes.admin.industry.non_registered.view(id)
+      const response = await axios.get<{ data: NonRegisteredIndustryType }>(
+        api_routes.admin.non_registered_industry.view(id)
       );
       return response.data.data;
     },

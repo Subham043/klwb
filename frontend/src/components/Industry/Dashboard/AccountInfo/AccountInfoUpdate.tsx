@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { isAxiosError } from "axios";
 import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
-import { AxiosErrorResponseType, IndustryRegisteredType } from "../../../../utils/types";
+import { AxiosErrorResponseType, RegisteredIndustryType } from "../../../../utils/types";
 import { useToast } from "../../../../hooks/useToast";
 import { useAxios } from "../../../../hooks/useAxios";
 import { api_routes } from "../../../../utils/routes/api";
@@ -19,7 +19,7 @@ type Props = {
 	loading?: boolean;
 	error?: unknown;
 	refetch?: () => void;
-	data: IndustryRegisteredType | undefined
+	data: RegisteredIndustryType | undefined
 }
 
 type SchemaType = {
@@ -57,10 +57,10 @@ const AccountInfoUpdate = ({ modal, setModal, data, refetch, error, loading: dat
 		resolver: yupResolver(schema),
 		values: {
 			gst_no: data ? data.gst_no : "",
-			pincode: data ? data.registered_industry.pincode : "",
+			pincode: data ? data.industry.pincode : "",
 			pan_no: data ? data.pan_no : "",
 			address: data ? data.address : "",
-			act: (data && data.registered_industry.act) ? data.registered_industry.act.toString() : "",
+			act: (data && data.industry.act) ? data.industry.act.toString() : "",
 		}
 	});
 

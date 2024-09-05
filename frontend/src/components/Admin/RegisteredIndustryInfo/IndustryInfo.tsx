@@ -3,7 +3,7 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { useToast } from "../../../hooks/useToast";
 import { useAxios } from "../../../hooks/useAxios";
 import { useState } from "react";
-import { useIndustryRegisteredQuery } from "../../../hooks/data/industry_registered";
+import { useRegisteredIndustryQuery } from "../../../hooks/data/registered_industry";
 import { api_routes } from "../../../utils/routes/api";
 import { Button, ButtonToolbar, Heading, HeadingGroup, Panel, Stack, Text } from "rsuite";
 import Status from "../../Status";
@@ -21,7 +21,7 @@ export default function IndustryInfo({ id }: Props) {
 	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const { toastError, toastSuccess } = useToast();
 	const axios = useAxios();
-	const { data, isFetching, isLoading, isRefetching, refetch: refetchData, error } = useIndustryRegisteredQuery(Number(id) || 0, true);
+	const { data, isFetching, isLoading, isRefetching, refetch: refetchData, error } = useRegisteredIndustryQuery(Number(id) || 0, true);
 	const [toggleLoading, setToggleLoading] = useState<boolean>(false);
 	const [industryUpdateModal, setIndustryUpdateModal] = useState<boolean>(false);
 	const [industryAuthModal, setIndustryAuthModal] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function IndustryInfo({ id }: Props) {
 	const toggleStatus = async () => {
 		setToggleLoading(true);
 		try {
-			const response = await axios.get(api_routes.admin.industry.registered.toggle(Number(id) || 0));
+			const response = await axios.get(api_routes.admin.registered_industry.toggle(Number(id) || 0));
 			toastSuccess(response.data.message);
 			refetchData();
 		} catch (error) {
@@ -56,15 +56,15 @@ export default function IndustryInfo({ id }: Props) {
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Name</Heading>
-							<Text>{data?.registered_industry.name}</Text>
+							<Text>{data?.industry.name}</Text>
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Reg. ID</Heading>
-							<Text>{data?.registered_industry.reg_id}</Text>
+							<Text>{data?.industry.reg_id}</Text>
 						</HeadingGroup>
 						<HeadingGroup className='mb-1'>
 							<Heading level={6} className='info-heading'>Act</Heading>
-							<Text>{data?.registered_industry.act_label}</Text>
+							<Text>{data?.industry.act_label}</Text>
 						</HeadingGroup>
 					</Stack>
 					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>

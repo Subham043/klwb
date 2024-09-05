@@ -1,17 +1,17 @@
 import { FC } from "react"
 import { Table } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
-import { useIndustriesNonRegisteredQuery } from "../../../hooks/data/industry_non_registered";
+import { useNonRegisteredIndustriesQuery } from "../../../hooks/data/non_registered_industry";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 
 
-const IndustryNonRegistered:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch, error} = useIndustriesNonRegisteredQuery();
+const NonRegisteredIndustry:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch, error} = useNonRegisteredIndustriesQuery();
 
-    return <PaginatedTableLayout title="Industries Non Registered">
-        <PaginatedTableLayout.Header title="Industries Non Registered" addBtn={false} excelLink={api_routes.admin.industry.non_registered.excel} excelName="non_registered_industry.xlsx" />
+    return <PaginatedTableLayout title="Non Registered Industries ">
+        <PaginatedTableLayout.Header title="Non Registered Industries " addBtn={false} excelLink={api_routes.admin.non_registered_industry.excel} excelName="non_registered_industry.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
@@ -65,4 +65,4 @@ const IndustryNonRegistered:FC = () => {
     </PaginatedTableLayout>
 }
 
-export default IndustryNonRegistered
+export default NonRegisteredIndustry

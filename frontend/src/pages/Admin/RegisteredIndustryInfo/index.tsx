@@ -1,12 +1,12 @@
 import { FC } from "react"
 import { useParams } from "react-router-dom"
 import DetailLayout from "../../../layouts/DetailLayout";
-import Staff from "../../../components/Admin/IndustryRegisteredInfo/Staff";
-import Scholarship from "../../../components/Admin/IndustryRegisteredInfo/Scholarship";
-import IndustryInfo from "../../../components/Admin/IndustryRegisteredInfo/IndustryInfo";
+import Staff from "../../../components/Admin/RegisteredIndustryInfo/Staff";
+import Scholarship from "../../../components/Admin/RegisteredIndustryInfo/Scholarship";
+import IndustryInfo from "../../../components/Admin/RegisteredIndustryInfo/IndustryInfo";
 
 
-const IndustryRegisteredInfo:FC = () => {
+const RegisteredIndustryInfo:FC = () => {
     const {id} = useParams<{ id: string }>();
 
     return <DetailLayout title="Registered Industry Information">
@@ -16,4 +16,4 @@ const IndustryRegisteredInfo:FC = () => {
     </DetailLayout>
 }
 
-export default IndustryRegisteredInfo
+export default RegisteredIndustryInfo

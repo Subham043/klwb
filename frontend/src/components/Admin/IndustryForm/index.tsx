@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { useToast } from "../../../hooks/useToast";
 import { AxiosErrorResponseType, DrawerProps } from "../../../utils/types";
 import { isAxiosError } from "axios";
-import { useRegisteredIndustryQuery } from '../../../hooks/data/registered_industry';
+import { useIndustryQuery } from '../../../hooks/data/industry';
 import { useAxios } from '../../../hooks/useAxios';
 import TextInput from '../../FormInput/TextInput';
 import ToggleInput from '../../FormInput/ToggleInput';
@@ -30,10 +30,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function RegisteredIndustryForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
+export default function IndustryForm({drawer, drawerHandler, refetch}:{drawer: DrawerProps; drawerHandler: (value:DrawerProps)=>void; refetch: ()=>void}) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
-    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useRegisteredIndustryQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
+    const {data, isFetching, isLoading, isRefetching, refetch:refetchData, error } = useIndustryQuery(drawer.type === "Edit" ? drawer.id : 0, (drawer.type === "Edit" && drawer.status && drawer.id>0));
     const axios = useAxios();
     const [isMobile] = useMediaQuery('(max-width: 700px)');
 
@@ -61,7 +61,7 @@ export default function RegisteredIndustryForm({drawer, drawerHandler, refetch}:
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(drawer.type === "Edit" ? api_routes.admin.registered_industry.update(drawer.id) : api_routes.admin.registered_industry.create, getValues());
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.industry.update(drawer.id) : api_routes.admin.industry.create, getValues());
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({

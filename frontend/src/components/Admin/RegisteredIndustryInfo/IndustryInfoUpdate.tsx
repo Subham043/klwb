@@ -13,7 +13,7 @@ import SelectInput from '../../FormInput/SelectInput';
 import { useCitySelectQuery } from '../../../hooks/data/city';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
-import { AxiosErrorResponseType, IndustryRegisteredType } from "../../../utils/types";
+import { AxiosErrorResponseType, RegisteredIndustryType } from "../../../utils/types";
 import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
 	loading?: boolean;
 	error?: unknown;
  refetch?: () => void;
-	data: IndustryRegisteredType | undefined
+	data: RegisteredIndustryType | undefined
 }
 
 type SchemaType = {
@@ -63,8 +63,8 @@ const IndustryInfoUpdate = ({ modal, setModal, data, refetch, error, loading:dat
 	} = useForm<SchemaType>({
 		resolver: yupResolver(schema),
 		values: {
-			name: data ? data.registered_industry.name : "",
-			act: (data && data.registered_industry.act) ? data.registered_industry.act.toString() : "",
+			name: data ? data.industry.name : "",
+			act: (data && data.industry.act) ? data.industry.act.toString() : "",
 			address: data ? data.address : "",
 			taluq_id: data ? data.taluq.id : 0,
 			city_id: data ? data.city.id : 0,
@@ -80,7 +80,7 @@ const IndustryInfoUpdate = ({ modal, setModal, data, refetch, error, loading:dat
 		const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(api_routes.admin.industry.registered.update(data!.id), getValues());
+            await axios.post(api_routes.admin.registered_industry.update(data!.id), getValues());
             toastSuccess("Saved Successfully");
             setModal(false)
             refetch && refetch();

@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { useToast } from "../useToast";
 import { isAxiosError } from "axios";
-import { AuthType, IndustryRegisteredType, InstituteRegisteredType } from "../../utils/types";
+import { AuthType, RegisteredIndustryType, InstituteRegisteredType } from "../../utils/types";
 import { useUser } from "../useUser";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
@@ -96,12 +96,12 @@ export const useInstituteAccountQuery: (
 
 export const useIndustryAccountQuery: (
   enabled: boolean
-) => UseQueryResult<IndustryRegisteredType, unknown> = (enabled) => {
+) => UseQueryResult<RegisteredIndustryType, unknown> = (enabled) => {
   const axios = useAxios();
   return useQuery({
     queryKey: [IndustryAccountQueryKey],
     queryFn: async () => {
-      const response = await axios.get<{ account_info: IndustryRegisteredType }>(
+      const response = await axios.get<{ account_info: RegisteredIndustryType }>(
         api_routes.industry.account.info
       );
       return response.data.account_info;

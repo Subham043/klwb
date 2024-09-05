@@ -1,5 +1,9 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { RegisteredIndustryType, PaginationType } from "../../utils/types";
+import {
+  RegisteredIndustryType,
+  RegisteredIndustryStaffType,
+  PaginationType,
+} from "../../utils/types";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
@@ -7,11 +11,7 @@ import { useSearchQueryParam } from "../useSearchQueryParam";
 
 export const RegisteredIndustryQueryKey = "registered_industry";
 export const RegisteredIndustriesQueryKey = "registered_industries";
-export const RegisteredIndustrySelectQueryKey = "registered_industry_select";
-export const RegisteredIndustryCommonSelectQueryKey =
-  "registered_industry_common_select";
-export const RegisteredIndustryUserCommonSelectQueryKey =
-  "registered_industry_common_select";
+export const RegisteredIndustriesStaffQueryKey = "registered_industries_staff";
 
 export const useRegisteredIndustriesQuery: () => UseQueryResult<
   PaginationType<RegisteredIndustryType>,
@@ -23,7 +23,9 @@ export const useRegisteredIndustriesQuery: () => UseQueryResult<
   return useQuery({
     queryKey: [RegisteredIndustriesQueryKey, page, limit, search],
     queryFn: async () => {
-      const response = await axios.get<PaginationType<RegisteredIndustryType>>(
+      const response = await axios.get<
+        PaginationType<RegisteredIndustryType>
+      >(
         api_routes.admin.registered_industry.paginate +
           `?page=${page}&total=${limit}&filter[search]=${search}`
       );
@@ -32,63 +34,24 @@ export const useRegisteredIndustriesQuery: () => UseQueryResult<
   });
 };
 
-export const useRegisteredIndustrySelectQuery: (
-  enabled: boolean
-) => UseQueryResult<RegisteredIndustryType[], unknown> = (
-  enabled
-) => {
+export const useRegisteredIndustriesStaffQuery: (id: number) => UseQueryResult<
+  PaginationType<RegisteredIndustryStaffType>,
+  unknown
+> = (id) => {
   const axios = useAxios();
+  const { page, limit } = usePaginationQueryParam("_staff");
+  const { search } = useSearchQueryParam("_staff");
   return useQuery({
-    queryKey: [RegisteredIndustrySelectQueryKey],
+    queryKey: [RegisteredIndustriesStaffQueryKey, id, page, limit, search],
     queryFn: async () => {
-      const response = await axios.get<{ data: RegisteredIndustryType[] }>(
-        api_routes.admin.registered_industry.all
+      const response = await axios.get<
+        PaginationType<RegisteredIndustryStaffType>
+      >(
+        api_routes.admin.registered_industry.staff.paginate(id) +
+          `?page=${page}&total=${limit}&filter[search]=${search}`
       );
-      return response.data.data;
+      return response.data;
     },
-    enabled,
-  });
-};
-
-export const useRegisteredIndustryCommonSelectQuery: (
-  enabled: boolean,
-  search?: string
-) => UseQueryResult<RegisteredIndustryType[], unknown> = (
-  enabled,
-  search = ''
-) => {
-  const axios = useAxios();
-  return useQuery({
-    queryKey: [RegisteredIndustryCommonSelectQueryKey],
-    queryFn: async () => {
-      const response = await axios.get<{ data: RegisteredIndustryType[] }>(
-        api_routes.user.registered_industry.all +
-        (search ? `?filter[search]=${search}` : "")
-      );
-      return response.data.data;
-    },
-    enabled,
-  });
-};
-
-export const useRegisteredIndustryUserCommonSelectQuery: (
-  enabled: boolean,
-  taluq_id?: number
-) => UseQueryResult<RegisteredIndustryType[], unknown> = (
-  enabled,
-  taluq_id
-) => {
-  const axios = useAxios();
-  return useQuery({
-    queryKey: [RegisteredIndustryUserCommonSelectQueryKey, taluq_id],
-    queryFn: async () => {
-      const response = await axios.get<{ data: RegisteredIndustryType[] }>(
-        api_routes.user.registered_industry.all +
-        (taluq_id ? `?filter[has_taluq]=${taluq_id}` : "")
-      );
-      return response.data.data;
-    },
-    enabled,
   });
 };
 
