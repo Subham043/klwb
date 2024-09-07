@@ -4,7 +4,7 @@ namespace App\Modules\Students\Scholarship\Requests;
 
 use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
-use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Enums\AccountType;
 use App\Modules\Students\Scholarship\Enums\Category;
 use App\Modules\Students\Scholarship\Enums\Gender;
@@ -20,6 +20,8 @@ use Illuminate\Validation\Rule;
 
 class ApplyScholarshipRequest extends InputRequest
 {
+    public function __construct(private ScholarshipApplicationChecksService $applicationChecks){}
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,7 +29,7 @@ class ApplyScholarshipRequest extends InputRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard(Guards::Web->value())->check();
+        return Auth::guard(Guards::Web->value())->check() && $this->applicationChecks->areScholarshipApplicationOpen() && $this->applicationChecks->isEligibleForScholarship();
     }
 
     /**
@@ -37,7 +39,7 @@ class ApplyScholarshipRequest extends InputRequest
      */
     public function rules()
     {
-        $application_date = (new ApplicationDateService)->getLatest();
+        $application_date = $this->applicationChecks->getLatestApplicationDate();
         return [
             'name' => ['required', 'string', 'max:250'],
             'father_name' => ['required', 'string', 'max:250'],

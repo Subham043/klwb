@@ -2,7 +2,6 @@
 
 namespace App\Modules\IndustryManagement\Scholarship\Services;
 
-use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Models\Application;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -13,15 +12,6 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class IndustryScholarshipService
 {
-
-	public function canApprove(Application $application): bool
-	{
-		$application_date = (new ApplicationDateService)->getLatest();
-		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 0 && $application->application_state == 2 && $application_date->can_approve) {
-			return true;
-		}
-		return false;
-	}
 
 	protected function model(): Builder
 	{

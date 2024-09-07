@@ -14,15 +14,6 @@ use Spatie\QueryBuilder\AllowedFilter;
 class InstituteScholarshipService
 {
 
-	public function canApprove(Application $application): bool
-	{
-		$application_date = (new ApplicationDateService)->getLatest();
-		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 0 && $application->application_state == 1 && $application_date->can_approve) {
-			return true;
-		}
-		return false;
-	}
-
 	protected function model(): Builder
 	{
 		return Application::commonWith()

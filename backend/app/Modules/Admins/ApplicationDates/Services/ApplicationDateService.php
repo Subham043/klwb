@@ -31,15 +31,6 @@ class ApplicationDateService extends AbstractExcelService
     {
         return $this->model()->latest()->firstOrFail();
     }
-    
-    public function areScholarshipApplicationOpen(): bool
-    {
-        $applicationDate = $this->getLatest();
-        if ($applicationDate==null || (!(now()->between($applicationDate->from_date->format('Y-m-d'), $applicationDate->to_date->addDay(1)->format('Y-m-d'))))) {
-            return false;
-        }
-        return true;
-    }
 
     public function excel() : SimpleExcelWriter
     {

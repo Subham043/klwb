@@ -4,7 +4,7 @@ namespace App\Modules\Students\Scholarship\Services;
 
 use App\Http\Enums\Guards;
 use App\Http\Services\FileService;
-use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Enums\ApplicationStatus;
 use App\Modules\Students\Scholarship\Enums\NotApplicable;
@@ -23,16 +23,18 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class ScholarshipService
 {
+
+	public function __construct(private ScholarshipApplicationChecksService $applicationChecks){}
+
 	public function apply(ApplyScholarshipRequest $request): Application
 	{
-		$areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
-		if (!$areScholarshipApplicationOpen) {
+		if (!$this->applicationChecks->areScholarshipApplicationOpen()) {
 			throw new \Exception('You can not apply for scholarship as application is not open yet.', 400);
 		}
-		if (!$this->isEligibleForScholarship()) {
+		if (!$this->applicationChecks->isEligibleForScholarship()) {
 			throw new \Exception('You have already applied scholarship for this year', 400);
 		}
-		$application_date = (new ApplicationDateService)->getLatest();
+		$application_date = $this->applicationChecks->getLatestApplicationDate();
 		$application = Application::create([
 			'application_year' => $application_date->application_year,
 			'student_id' => auth()->guard(Guards::Web->value())->user()->id,
@@ -149,7 +151,7 @@ class ScholarshipService
 
 	public function resubmit(ResubmitScholarshipRequest $request, Application $application): Application
 	{
-		if ($this->isEligibleForScholarship() && !$this->canResubmit($application)) {
+		if ($this->applicationChecks->isEligibleForScholarship() && !$this->applicationChecks->canResubmit($application)) {
 			throw new \Exception('You can not resubmit as application is not open yet.', 400);
 		}
 		$application->update([
@@ -246,32 +248,6 @@ class ScholarshipService
 
 		$application->refresh();
 		return $application;
-	}
-
-	public function isEligibleForScholarship(): bool
-	{
-		if (!(new ApplicationDateService)->areScholarshipApplicationOpen()) {
-			return false;
-		}
-		$application_date = (new ApplicationDateService)->getLatest();
-		$application = Application::belongsToAuthStudent()
-			->where('application_year', $application_date->application_year)
-			->where('application_date_id', $application_date->id)
-			->whereBetween('date', [$application_date->from_date, $application_date->to_date->addDay(1)])
-			->first();
-		if ($application) {
-			return false;
-		}
-		return true;
-	}
-
-	public function canResubmit(Application $application): bool
-	{
-		$application_date = (new ApplicationDateService)->getLatest();
-		if ((($application->date->between($application_date->from_date->format('Y-m-d'), $application_date->to_date->addDay(1)->format('Y-m-d')))) && $application->status == 2 && $application_date->can_resubmit) {
-			return true;
-		}
-		return false;
 	}
 
 	protected function model(): Builder

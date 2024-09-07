@@ -3,7 +3,7 @@
 namespace App\Modules\Students\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Requests\ApplyScholarshipRequest;
 use App\Modules\Students\Scholarship\Services\ScholarshipService;
 use Illuminate\Support\Facades\DB;
@@ -11,14 +11,13 @@ use Illuminate\Support\Facades\DB;
 class ApplyScholarshipController extends Controller
 {
 
-    public function __construct(private ScholarshipService $scholarshipService, private ApplicationDateService $applicationDateService){}
+    public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
     public function index(ApplyScholarshipRequest $request){
-        $areScholarshipApplicationOpen = $this->applicationDateService->areScholarshipApplicationOpen();
-        if (!$areScholarshipApplicationOpen) {
+        if (!$this->applicationChecks->areScholarshipApplicationOpen()) {
             return response()->json(["message" => "You can not apply for scholarship as application is not open yet."], 400);
         }
-        if(!$this->scholarshipService->isEligibleForScholarship()){
+        if(!$this->applicationChecks->isEligibleForScholarship()){
             return response()->json(["message" => "You have already applied scholarship for this year"], 400);
         }
         DB::beginTransaction();

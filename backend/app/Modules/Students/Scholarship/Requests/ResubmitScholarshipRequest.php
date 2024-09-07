@@ -4,7 +4,7 @@ namespace App\Modules\Students\Scholarship\Requests;
 
 use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
-use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Enums\AccountType;
 use App\Modules\Students\Scholarship\Enums\Category;
 use App\Modules\Students\Scholarship\Enums\Gender;
@@ -21,6 +21,8 @@ use Illuminate\Validation\Rule;
 
 class ResubmitScholarshipRequest extends InputRequest
 {
+
+    public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,12 +30,8 @@ class ResubmitScholarshipRequest extends InputRequest
      */
     public function authorize(): bool
     {
-        $can_resubmit = false;
-        $application = (new ScholarshipService)->getLatest();
-        if(!(new ScholarshipService)->isEligibleForScholarship()){
-            $can_resubmit = (new ScholarshipService)->canResubmit($application);
-        }
-        return Auth::guard(Guards::Web->value())->check() && $can_resubmit;
+        $application = $this->scholarshipService->getLatest();
+        return Auth::guard(Guards::Web->value())->check() &&  $this->applicationChecks->canResubmit($application);
     }
 
     /**
@@ -43,8 +41,8 @@ class ResubmitScholarshipRequest extends InputRequest
      */
     public function rules()
     {
-        $application_date = (new ApplicationDateService)->getLatest();
-        $application = (new ScholarshipService)->getLatest();
+        $application_date = $this->applicationChecks->getLatestApplicationDate();
+        $application = $this->scholarshipService->getLatest();
 
         $rules = [
             'name' => ['required', 'string', 'max:250'],

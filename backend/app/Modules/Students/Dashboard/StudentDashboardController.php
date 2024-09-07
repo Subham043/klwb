@@ -3,16 +3,16 @@
 namespace App\Modules\Students\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Services\ScholarshipService;
 
 class StudentDashboardController extends Controller
 {
-	public function __construct(private ScholarshipService $scholarshipService, private ApplicationDateService $applicationDateService){}
+	public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
 	public function index()
 	{
-		$applicationDate = $this->applicationDateService->getLatest();
+		$applicationDate = $this->applicationChecks->getLatestApplicationDate();
 		$application = $this->scholarshipService->getLatest();
 		$response = [
 			'is_scholarship_open' => false,
@@ -24,15 +24,14 @@ class StudentDashboardController extends Controller
 			'total_rejected_application' => $this->scholarshipService->getTotalRejectedApplicationCount(),
 			'total_scholarship_amount' => $this->scholarshipService->getTotalScholarshipAmount(),
 		];
-		$areScholarshipApplicationOpen = (new ApplicationDateService)->areScholarshipApplicationOpen();
-		if (!$areScholarshipApplicationOpen) {
+		if ($applicationDate->has_expired) {
 			$response['message'] = "Scholarship applications are closed as of now for the current year. Please check back later.";
 		} else {
 			$response['is_scholarship_open'] = true;
-			$response['is_eligible_to_apply'] = $this->scholarshipService->isEligibleForScholarship();
+			$response['is_eligible_to_apply'] = $this->applicationChecks->isEligibleForScholarship();
 			if (!$response['is_eligible_to_apply']) {
 				$response['message'] = "You have already applied scholarship for the year " . $applicationDate->application_year;
-				$response['can_resubmit'] = $this->scholarshipService->canResubmit($application);
+				$response['can_resubmit'] = $this->applicationChecks->canResubmit($application);
 				if($response['can_resubmit']){
 					$response['message'] = "Your application has been rejected. Please rectify it and resubmit. The reason behind rejection is " . ($application->reject_reason ?? "Unknown");
 				}

@@ -3,20 +3,22 @@
 namespace App\Modules\InstituteManagement\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\InstituteManagement\Scholarship\Requests\InstituteRejectScholarshipRequest;
 use App\Modules\InstituteManagement\Scholarship\Services\InstituteScholarshipService;
+use App\Modules\Students\Scholarship\Enums\ApplicationStatus;
 
 class InstituteScholarshipRejectController extends Controller
 {
-    public function __construct(private InstituteScholarshipService $scholarshipService){}
+    public function __construct(private InstituteScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
     public function index(InstituteRejectScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);
-        if($this->scholarshipService->canApprove($application)){
+        if($this->applicationChecks->canSchoolApprove($application)){
             $application->update([
                 'school_approve' => now(),
-                'status' => 2,
+                'status' => ApplicationStatus::Reject->value,
                 'reject_reason' => $request->reason,
                 'institute_reject_comment' => $request->comment,
             ]);
