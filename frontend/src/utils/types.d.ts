@@ -109,6 +109,7 @@ export type ApplicationDateType = {
   can_approve: boolean;
   can_verify: boolean;
   is_active: boolean;
+  has_expired: boolean;
   created_at: string;
   updated_at: string;
 };

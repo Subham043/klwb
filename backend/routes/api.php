@@ -3,11 +3,6 @@
 use App\Http\Enums\Guards;
 use App\Modules\Admins\Industries\Controllers\IndustryAllController;
 use App\Modules\Admins\Institutes\Controllers\InstituteAllController;
-use App\Modules\ApplicationManagement\Applications\Controllers\ApplyScholarshipController;
-use App\Modules\ApplicationManagement\Applications\Controllers\ResubmitScholarshipController;
-use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipListController;
-use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipStatusController;
-use App\Modules\ApplicationManagement\Applications\Controllers\ScholarshipViewController;
 use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
 use App\Modules\Auth\Common\Controllers\ProfileController;
 use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
@@ -27,6 +22,11 @@ use App\Modules\CourseManagement\Courses\Controllers\CourseAllController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationAllController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
 use App\Modules\Students\Dashboard\StudentDashboardController;
+use App\Modules\Students\Scholarship\Controllers\ApplyScholarshipController;
+use App\Modules\Students\Scholarship\Controllers\ResubmitScholarshipController;
+use App\Modules\Students\Scholarship\Controllers\ScholarshipListController;
+use App\Modules\Students\Scholarship\Controllers\ScholarshipStatusController;
+use App\Modules\Students\Scholarship\Controllers\ScholarshipViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {

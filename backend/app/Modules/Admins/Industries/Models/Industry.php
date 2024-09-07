@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Industries\Models;
 
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use App\Modules\LocationManagement\Cities\Models\City;
@@ -10,7 +11,7 @@ use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class Industry extends Model implements AuthTraitInterface
 {
     use HasFactory, AuthTrait;
 

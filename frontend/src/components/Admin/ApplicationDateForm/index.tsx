@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Form } from 'rsuite'
+import { Button, ButtonToolbar, Form, Message } from 'rsuite'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,6 +22,16 @@ type SchemaType = {
   from_date: string;
   to_date: string;
   application_year: number;
+  can_resubmit: number;
+  can_approve: number;
+  can_verify: number;
+  is_active: number;
+};
+
+type ValueType = {
+  from_date?: string;
+  to_date?: string;
+  application_year?: number;
   can_resubmit: number;
   can_approve: number;
   can_verify: number;
@@ -81,7 +91,17 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            await axios.post(drawer.type === "Edit" ? api_routes.admin.application_date.update(drawer.id) : api_routes.admin.application_date.create, getValues());
+            const {application_year, from_date, to_date, ...rest} = getValues();
+            let values:ValueType = {...rest};
+            if(drawer.type === "Create" || (drawer.type === "Edit" && (data && !data.has_expired))){
+                values = {
+                    ...values,
+                    from_date,
+                    to_date,
+                    application_year
+                }
+            }
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.application_date.update(drawer.id) : api_routes.admin.application_date.create, values);
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -118,10 +138,15 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
     return (
         <Drawer title="Application Date" drawer={drawer} drawerHandler={drawerHandler}>
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
+                {(drawer.type === "Edit" && (data && data.has_expired)) && <Message type="info" centered showIcon header="Application Date has expired !" className='mb-1'>
+                    <p>
+                        This application date has expired so you cannot edit the application year, from date and to date.
+                    </p>
+                </Message>}
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
-                    <DateInput name="from_date" label="From Date" shouldDisableDate={(dates) => drawer.type === "Edit" ? moment(dates).isSameOrBefore(moment(watchFromDate).subtract(1, "days").format("YYYY-MM-DD")) : moment(dates).isSameOrBefore(moment().subtract(1, "days").format("YYYY-MM-DD"))} control={control} error={errors.from_date?.message} />
-                    <DateInput name="to_date" label="To Date" shouldDisableDate={(dates) => moment(dates).isSameOrBefore(moment(watchFromDate).format("YYYY-MM-DD"))} control={control} error={errors.to_date?.message} />
-                    <TextInput name="application_year" label="Application Year" type="number" focus={true} control={control} error={errors.application_year?.message} />
+                    <DateInput name="from_date" label="From Date" disabled={drawer.type === "Edit" && (data && data.has_expired)} shouldDisableDate={(dates) => drawer.type === "Edit" ? moment(dates).isSameOrBefore(moment(watchFromDate).subtract(1, "days").format("YYYY-MM-DD")) : moment(dates).isSameOrBefore(moment().subtract(1, "days").format("YYYY-MM-DD"))} control={control} error={errors.from_date?.message} />
+                    <DateInput name="to_date" label="To Date" disabled={drawer.type === "Edit" && (data && data.has_expired)} shouldDisableDate={(dates) => moment(dates).isSameOrBefore(moment(watchFromDate).format("YYYY-MM-DD"))} control={control} error={errors.to_date?.message} />
+                    <TextInput name="application_year" label="Application Year" disabled={drawer.type === "Edit" && (data && data.has_expired)} type="number" focus={true} control={control} error={errors.application_year?.message} />
                     <ToggleInput name="can_resubmit" checkedLabel="Student Can Resubmit" uncheckedLabel="Student Cannot Resubmit" control={control} error={errors.can_resubmit?.message} />
                     <ToggleInput name="can_approve" checkedLabel="Industry/Institute Can Approve" uncheckedLabel="Industry/Institute Cannot Approve" control={control} error={errors.can_approve?.message} />
                     <ToggleInput name="can_verify" checkedLabel="Officials Can Verify" uncheckedLabel="Officials Cannot Verify" control={control} error={errors.can_verify?.message} />

@@ -2,11 +2,12 @@
 
 namespace App\Modules\Admins\SecurityQuestions\Models;
 
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SecurityQuestion extends Model
+class SecurityQuestion extends Model implements AuthTraitInterface
 {
     use HasFactory, AuthTrait;
 

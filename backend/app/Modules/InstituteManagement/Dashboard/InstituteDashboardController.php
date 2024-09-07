@@ -3,7 +3,7 @@
 namespace App\Modules\InstituteManagement\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Modules\ApplicationManagement\Applications\Services\InstituteScholarshipService;
+use App\Modules\InstituteManagement\Scholarship\Services\InstituteScholarshipService;
 
 class InstituteDashboardController extends Controller
 {

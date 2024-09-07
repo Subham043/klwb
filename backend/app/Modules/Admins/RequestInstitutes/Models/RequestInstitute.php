@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\RequestInstitutes\Models;
 
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 
-class RequestInstitute extends Model
+class RequestInstitute extends Model implements AuthTraitInterface
 {
     use HasFactory, AuthTrait;
 

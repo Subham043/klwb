@@ -5,7 +5,6 @@ import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { DrawerProps } from "../../../utils/types";
 import ApplicationDateForm from "../../../components/Admin/ApplicationDateForm";
 import EditIcon from '@rsuite/icons/Edit';
-import moment from "moment";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
@@ -95,6 +94,16 @@ const ApplicationDate:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
+                <Table.Column width={250} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Has Expired?</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <Status status={!rowData.has_expired} correctLabel="No" wrongLabel="Yes" />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Created At</Table.HeaderCell>
 
@@ -111,7 +120,7 @@ const ApplicationDate:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton appearance="primary" color="orange" disabled={!moment().isBetween(rowData.from_date, moment(rowData.to_date).add(1, 'days'))} icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <IconButton appearance="primary" color="orange" icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

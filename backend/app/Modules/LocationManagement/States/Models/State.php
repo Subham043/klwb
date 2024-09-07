@@ -2,12 +2,13 @@
 
 namespace App\Modules\LocationManagement\States\Models;
 
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use App\Modules\LocationManagement\Cities\Models\City;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class State extends Model implements AuthTraitInterface
 {
     use HasFactory, AuthTrait;
 

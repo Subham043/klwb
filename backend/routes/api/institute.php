@@ -2,10 +2,6 @@
 
 use App\Http\Enums\Guards;
 use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteCreateController;
-use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipApproveController;
-use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipListController;
-use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipRejectController;
-use App\Modules\ApplicationManagement\Applications\Controllers\InstituteScholarshipViewController;
 use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
 use App\Modules\Auth\Common\Controllers\ProfileController;
 use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
@@ -23,6 +19,10 @@ use App\Modules\Auth\Institute\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Auth\Institute\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Auth\Institute\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\InstituteManagement\Dashboard\InstituteDashboardController;
+use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipApproveController;
+use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipListController;
+use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipRejectController;
+use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipViewController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeCreateController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeDeleteController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeExportController;

@@ -2,10 +2,6 @@
 
 use App\Http\Enums\Guards;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryCreateController;
-use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipApproveController;
-use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipListController;
-use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipRejectController;
-use App\Modules\ApplicationManagement\Applications\Controllers\IndustryScholarshipViewController;
 use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
 use App\Modules\Auth\Common\Controllers\ProfileController;
 use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
@@ -23,6 +19,10 @@ use App\Modules\Auth\Industry\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\IndustryManagement\Dashboard\IndustryDashboardController;
+use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipApproveController;
+use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipListController;
+use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipRejectController;
+use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipViewController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeCreateController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeDeleteController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeExportController;

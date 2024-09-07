@@ -3,7 +3,8 @@
 namespace App\Modules\Admins\Employees\Models;
 
 use App\Http\Enums\Guards;
-use App\Modules\Students\Users\Traits\RoleTrait;
+use App\Http\Interfaces\RoleTraitInterface;
+use App\Http\Traits\RoleTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Database\Factories\EmployeeFactory;
 use Laravel\Sanctum\HasApiTokens;
 
-class Employee extends Authenticatable implements MustVerifyEmail
+class Employee extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
 

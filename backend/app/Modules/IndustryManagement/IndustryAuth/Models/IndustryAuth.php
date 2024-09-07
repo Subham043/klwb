@@ -3,10 +3,11 @@
 namespace App\Modules\IndustryManagement\IndustryAuth\Models;
 
 use App\Http\Enums\Guards;
+use App\Http\Interfaces\RoleTraitInterface;
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\LocationManagement\Cities\Models\City;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
-use App\Modules\Students\Users\Traits\RoleTrait;
+use App\Http\Traits\RoleTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 
-class IndustryAuth extends Authenticatable implements MustVerifyEmail
+class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
 

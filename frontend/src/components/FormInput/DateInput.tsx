@@ -8,12 +8,13 @@ type PropType = {
 		label: string
 		name: string
 		error: string | undefined
+		disabled?: boolean
 		shouldDisableDate?: ((date: Date) => boolean) | undefined
 };
 
 
 const DateInput = (props: PropType) => {
-	const { control, error, label, name, shouldDisableDate } = props;
+	const { control, error, label, name, disabled, shouldDisableDate } = props;
 	return (
 					<Form.Group>
 										<Controller
@@ -22,7 +23,7 @@ const DateInput = (props: PropType) => {
 														render={({ field }) => (
 																		<>
 																						<Form.ControlLabel>{label}</Form.ControlLabel>
-																						<DatePicker name={field.name} value={new Date(field.value)} shouldDisableDate={shouldDisableDate} onChange={(value) => field.onChange(moment(value).format('YYYY-MM-DD'))} oneTap format='dd-MM-yyyy' className='w-100' />
+																						<DatePicker disabled={disabled} name={field.name} value={new Date(field.value)} shouldDisableDate={shouldDisableDate} onChange={(value) => field.onChange(moment(value).format('YYYY-MM-DD'))} oneTap format='dd-MM-yyyy' className='w-100' />
 																						<Form.ErrorMessage show={!!error} placement="bottomStart">
 																										{error}
 																						</Form.ErrorMessage>

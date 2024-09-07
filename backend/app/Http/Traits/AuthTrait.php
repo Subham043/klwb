@@ -2,7 +2,6 @@
 
 namespace App\Http\Traits;
 
-use App\Http\Enums\Guards;
 use Illuminate\Database\Eloquent\Builder;
 
 trait AuthTrait

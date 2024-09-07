@@ -3,8 +3,8 @@
 namespace App\Modules\Students\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Modules\ApplicationManagement\ApplicationDates\Services\ApplicationDateService;
-use App\Modules\ApplicationManagement\Applications\Services\ScholarshipService;
+use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use App\Modules\Students\Scholarship\Services\ScholarshipService;
 
 class StudentDashboardController extends Controller
 {

@@ -2,13 +2,14 @@
 
 namespace App\Modules\Admins\Institutes\Models;
 
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use App\Modules\InstituteManagement\Institutes\Models\School;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Institute extends Model
+class Institute extends Model implements AuthTraitInterface
 {
     use HasFactory, AuthTrait;
 

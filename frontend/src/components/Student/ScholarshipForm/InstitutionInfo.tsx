@@ -6,7 +6,7 @@ import { Control, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-
 import { ScholarshipFormSchemaType } from "./schema";
 import { useCityCommonSelectQuery } from "../../../hooks/data/city";
 import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
-import { useRegisteredInstituteCommonSelectQuery } from "../../../hooks/data/institute";
+import { useInstituteCommonSelectQuery } from "../../../hooks/data/institute";
 import { useGraduationCommonSelectQuery } from "../../../hooks/data/graduation";
 import { useCourseCommonSelectQuery } from "../../../hooks/data/course";
 import { useClassCommonSelectQuery } from "../../../hooks/data/class";
@@ -28,7 +28,7 @@ export default function InstitutionInfo({ control, errors, watch, setValue }: Pr
 
 	const { data: cities, isFetching: isCityFetching, isLoading: isCityLoading } = useCityCommonSelectQuery(true);
 	const { data: taluqs, isFetching: isTaluqFetching, isLoading: isTaluqLoading } = useTaluqCommonSelectQuery((ins_district_id !== 0 && ins_district_id !== undefined), (ins_district_id === 0 ? undefined : ins_district_id));
-	const { data: institutes, isFetching: isInstituteFetching, isLoading: isInstituteLoading } = useRegisteredInstituteCommonSelectQuery((ins_taluq_id !== 0 && ins_taluq_id !== undefined), (ins_taluq_id === 0 ? undefined : ins_taluq_id));
+	const { data: institutes, isFetching: isInstituteFetching, isLoading: isInstituteLoading } = useInstituteCommonSelectQuery((ins_taluq_id !== 0 && ins_taluq_id !== undefined), (ins_taluq_id === 0 ? undefined : ins_taluq_id));
 
 	const { data: graduations, isFetching: isGraduationFetching, isLoading: isGraduationLoading } = useGraduationCommonSelectQuery(true);
 	const { data: courses, isFetching: isCourseFetching, isLoading: isCourseLoading } = useCourseCommonSelectQuery((graduation_id !== 0 && graduation_id !== undefined), (graduation_id === 0 ? undefined : graduation_id));

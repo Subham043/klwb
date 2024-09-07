@@ -3,7 +3,7 @@
 namespace App\Modules\IndustryManagement\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Modules\ApplicationManagement\Applications\Services\IndustryScholarshipService;
+use App\Modules\IndustryManagement\Scholarship\Services\IndustryScholarshipService;
 
 class IndustryDashboardController extends Controller
 {

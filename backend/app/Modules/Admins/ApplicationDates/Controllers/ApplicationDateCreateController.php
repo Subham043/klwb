@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Modules\Admins\ApplicationDates\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
+use App\Modules\Admins\ApplicationDates\Requests\ApplicationDateCreateRequest;
+use App\Modules\Admins\ApplicationDates\Resources\ApplicationDateCollection;
+use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+
+class ApplicationDateCreateController extends Controller
+{
+    public function __construct(private ApplicationDateService $applicationDateService){}
+
+    public function index(ApplicationDateCreateRequest $request){
+        try {
+            //code...
+            $applicationDate = $this->applicationDateService->create(
+                [...$request->validated(), 'user_id' => auth()->guard(Guards::Admin->value())->user()->id]
+            );
+            return response()->json(["message" => "Application Date created successfully.", "data" => ApplicationDateCollection::make($applicationDate)], 201);
+        } catch (\Throwable $th) {
+            return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        }
+
+    }
+}

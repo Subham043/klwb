@@ -3,7 +3,8 @@
 namespace App\Modules\InstituteManagement\Institutes\Models;
 
 use App\Http\Enums\Guards;
-use App\Modules\Students\Users\Traits\RoleTrait;
+use App\Http\Interfaces\RoleTraitInterface;
+use App\Http\Traits\RoleTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 
-class InstituteAuth extends Authenticatable implements MustVerifyEmail
+class InstituteAuth extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
 

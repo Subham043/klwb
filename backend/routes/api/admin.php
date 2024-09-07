@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Enums\Guards;
-use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateAllController;
-use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateCreateController;
-use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateExportController;
-use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDatePaginateController;
-use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateUpdateController;
-use App\Modules\ApplicationManagement\ApplicationDates\Controllers\ApplicationDateViewController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateAllController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateCreateController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateExportController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDatePaginateController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateUpdateController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewController;
 use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
 use App\Modules\LocationManagement\Cities\Controllers\CityCreateController;
 use App\Modules\LocationManagement\Cities\Controllers\CityDeleteController;
@@ -34,6 +34,13 @@ use App\Modules\Admins\Employees\Controllers\EmployeeExportController;
 use App\Modules\Admins\Employees\Controllers\EmployeePaginateController;
 use App\Modules\Admins\Employees\Controllers\EmployeeUpdateController;
 use App\Modules\Admins\Employees\Controllers\EmployeeViewController;
+use App\Modules\Admins\Fees\Controllers\FeeAllController;
+use App\Modules\Admins\Fees\Controllers\FeeCreateController;
+use App\Modules\Admins\Fees\Controllers\FeeDeleteController;
+use App\Modules\Admins\Fees\Controllers\FeeExportController;
+use App\Modules\Admins\Fees\Controllers\FeePaginateController;
+use App\Modules\Admins\Fees\Controllers\FeeUpdateController;
+use App\Modules\Admins\Fees\Controllers\FeeViewController;
 use App\Modules\Admins\Industries\Controllers\IndustryAllController;
 use App\Modules\Admins\Industries\Controllers\IndustryCreateController;
 use App\Modules\Admins\Industries\Controllers\IndustryDeleteController;
@@ -68,13 +75,6 @@ use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryExportControll
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryPaginateController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryUpdateController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryViewController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeeAllController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeeCreateController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeeDeleteController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeeExportController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeePaginateController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeeUpdateController;
-use App\Modules\ApplicationManagement\Fees\Controllers\FeeViewController;
 use App\Modules\LocationManagement\States\Controllers\StateAllController;
 use App\Modules\LocationManagement\States\Controllers\StateCreateController;
 use App\Modules\LocationManagement\States\Controllers\StateDeleteController;

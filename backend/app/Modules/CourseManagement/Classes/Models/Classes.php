@@ -2,12 +2,13 @@
 
 namespace App\Modules\CourseManagement\Classes\Models;
 
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use App\Modules\CourseManagement\Courses\Models\Course;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classes extends Model
+class Classes extends Model implements AuthTraitInterface
 {
     use HasFactory, AuthTrait;
 
