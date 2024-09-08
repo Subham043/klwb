@@ -7,7 +7,7 @@ import { page_routes } from "../../../utils/routes/pages";
 import ApplicationStateBadge from "../../../components/Student/ApplicationStateBadge";
 import StatusBadge from "../../../components/Student/StatusBadge";
 import { table } from "../../../utils/constants/table";
-import ViewBtn from "../../../components/Buttons/ViewBtn";
+import { ViewLink } from "../../../components/Buttons/ViewBtn";
 
 
 const StudentScholarshipListPage:FC = () => {
@@ -107,7 +107,7 @@ const StudentScholarshipListPage:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <ViewBtn to={page_routes.student.scholarship.view(rowData.id)} />
+                                <ViewLink to={page_routes.student.scholarship.view(rowData.id)} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

@@ -1,17 +1,16 @@
 import { FC, useState } from "react"
-import { ButtonToolbar, IconButton, Table } from "rsuite"
+import { ButtonToolbar, Table } from "rsuite"
 import { useCitiesQuery } from "../../../hooks/data/city";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { DrawerProps } from "../../../utils/types";
 import CityForm from "../../../components/Admin/CityForm";
-import EditIcon from '@rsuite/icons/Edit';
-import TrashIcon from '@rsuite/icons/Trash';
 import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
-import ConfirmAlert from "../../../components/ConfirmAlert";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
+import DeleteBtn from "../../../components/Buttons/DeleteBtn";
+import EditBtn from "../../../components/Buttons/EditBtn";
 
 
 const City:FC = () => {
@@ -73,10 +72,8 @@ const City:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton appearance="primary" color="orange" icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
-                                <ConfirmAlert confirmHandler={() => onDeleteHandler(rowData.id)}>
-                                    <IconButton appearance="primary" color="red" icon={<TrashIcon />} loading={deleteLoading} />
-                                </ConfirmAlert>
+                                <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

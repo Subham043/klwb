@@ -7,7 +7,7 @@ import { page_routes } from "../../../utils/routes/pages";
 import Moment from "../../../components/Moment";
 import Status from "../../../components/Status";
 import { table } from "../../../utils/constants/table";
-import ViewBtn from "../../../components/Buttons/ViewBtn";
+import { ViewLink } from "../../../components/Buttons/ViewBtn";
 
 
 const RegisteredInstitute:FC = () => {
@@ -87,7 +87,7 @@ const RegisteredInstitute:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <ViewBtn to={page_routes.admin.institute.registered_info(rowData.id)} />
+                                <ViewLink to={page_routes.admin.institute.registered_info(rowData.id)} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

@@ -4,13 +4,12 @@ import { useRequestIndustriesQuery } from "../../../hooks/data/request_industry"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import RequestIndustryInfo from "../../../components/Admin/RequestIndustryInfo";
 import VisibleIcon from '@rsuite/icons/Visible';
-import TrashIcon from '@rsuite/icons/Trash';
 import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
-import ConfirmAlert from "../../../components/ConfirmAlert";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
+import DeleteBtn from "../../../components/Buttons/DeleteBtn";
 
 
 const RequestIndustry:FC = () => {
@@ -103,9 +102,7 @@ const RequestIndustry:FC = () => {
                         {rowData => (
                             <ButtonToolbar>
                                 <IconButton appearance="primary" color="orange" icon={<VisibleIcon />} onClick={() => setOpenModal({status:true, id:rowData.id})} />
-                                <ConfirmAlert confirmHandler={() => onDeleteHandler(rowData.id)}>
-                                    <IconButton appearance="primary" color="red" icon={<TrashIcon />} loading={deleteLoading} />
-                                </ConfirmAlert>
+                                <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

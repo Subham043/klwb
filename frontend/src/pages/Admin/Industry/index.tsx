@@ -1,14 +1,14 @@
 import { FC, useState } from "react"
-import { ButtonToolbar, IconButton, Table } from "rsuite"
+import { ButtonToolbar, Table } from "rsuite"
 import { useIndustriesQuery } from "../../../hooks/data/industry";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { DrawerProps } from "../../../utils/types";
 import IndustryForm from "../../../components/Admin/IndustryForm";
-import EditIcon from '@rsuite/icons/Edit';
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
+import EditBtn from "../../../components/Buttons/EditBtn";
 
 
 const Industry:FC = () => {
@@ -69,7 +69,7 @@ const Industry:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton appearance="primary" color="orange" icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

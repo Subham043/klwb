@@ -1,17 +1,16 @@
 import { FC, useState } from "react"
-import { ButtonToolbar, IconButton, Table } from "rsuite"
-import EditIcon from '@rsuite/icons/Edit';
-import TrashIcon from '@rsuite/icons/Trash';
+import { ButtonToolbar, Table } from "rsuite"
 import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
 import { DrawerProps } from "../../../utils/types";
 import { api_routes } from "../../../utils/routes/api";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
-import ConfirmAlert from "../../../components/ConfirmAlert";
 import { useIndustryEmployeesQuery } from "../../../hooks/data/industry_employee";
 import IndustryEmployeeForm from "../../../components/Industry/EmployeeForm";
 import { table } from "../../../utils/constants/table";
+import DeleteBtn from "../../../components/Buttons/DeleteBtn";
+import EditBtn from "../../../components/Buttons/EditBtn";
 
 
 const IndustryEmployeePage:FC = () => {
@@ -83,10 +82,8 @@ const IndustryEmployeePage:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton appearance="primary" color="orange" icon={<EditIcon />} onClick={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
-                                <ConfirmAlert confirmHandler={() => onDeleteHandler(rowData.id)}>
-                                    <IconButton appearance="primary" color="red" icon={<TrashIcon />} loading={deleteLoading} />
-                                </ConfirmAlert>
+                                <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>
