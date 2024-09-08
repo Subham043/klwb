@@ -77,7 +77,7 @@ export default function InstituteScholarshipViewPage() {
               <ScholarshipStatus data={data.application} />
             </Panel>
           )}
-          <ScholarshipInfo data={data ? data.application : null} />\
+          <ScholarshipInfo data={data ? data.application : null} />
 					{(data!==undefined && data.application!==null) && <InstituteScholarshipRejectForm modal={modal && data!==undefined && data.application!==null} setModal={setModal} id={data!.application!.id} refetch={refetch} />}
         </div>
       </ErrorBoundaryLayout>

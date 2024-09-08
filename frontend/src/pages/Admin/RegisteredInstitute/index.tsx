@@ -1,13 +1,13 @@
 import { FC } from "react"
-import { ButtonToolbar, IconButton, Table } from "rsuite"
+import { ButtonToolbar, Table } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { useRegisteredInstitutesQuery } from "../../../hooks/data/registered_institute";
-import { Link } from "react-router-dom";
-import VisibleIcon from '@rsuite/icons/Visible';
 import { api_routes } from "../../../utils/routes/api";
 import { page_routes } from "../../../utils/routes/pages";
 import Moment from "../../../components/Moment";
 import Status from "../../../components/Status";
+import { table } from "../../../utils/constants/table";
+import ViewBtn from "../../../components/Buttons/ViewBtn";
 
 
 const RegisteredInstitute:FC = () => {
@@ -18,10 +18,7 @@ const RegisteredInstitute:FC = () => {
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
-                bordered={true}
-                cellBordered={true}
-                autoHeight={true}
-                height={200}
+                {...table}
                 data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
@@ -90,7 +87,7 @@ const RegisteredInstitute:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton as={Link} appearance="primary" color="orange" icon={<VisibleIcon />} to={page_routes.admin.institute.registered_info(rowData.id)} />
+                                <ViewBtn to={page_routes.admin.institute.registered_info(rowData.id)} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

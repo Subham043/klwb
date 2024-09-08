@@ -53,7 +53,7 @@ export default function IndustryScholarshipViewPage() {
               <ScholarshipStatus data={data.application} />
             </Panel>
           )}
-          <ScholarshipInfo data={data ? data.application : null} />\
+          <ScholarshipInfo data={data ? data.application : null} />
 					{(data!==undefined && data.application!==null) && <IndustryScholarshipApproveForm modal={approveModal && data!==undefined && data.application!==null} setModal={setApproveModal} id={data!.application!.id} refetch={refetch} />}
 					{(data!==undefined && data.application!==null) && <IndustryScholarshipRejectForm modal={modal && data!==undefined && data.application!==null} setModal={setModal} id={data!.application!.id} refetch={refetch} />}
         </div>

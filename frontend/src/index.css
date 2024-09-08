@@ -112,6 +112,10 @@ a, a:hover {
     gap: 5rem;
 }
 
+.m-0{
+    margin: 0;
+}
+
 .mt-1{
     margin-top: 1rem;
 }
@@ -122,6 +126,10 @@ a, a:hover {
 
 .mb-1{
     margin-bottom: 1rem;
+}
+
+.pb-1{
+    padding-bottom: 1rem;
 }
 
 .py-1{

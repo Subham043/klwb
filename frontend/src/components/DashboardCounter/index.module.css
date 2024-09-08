@@ -14,6 +14,9 @@
 .trend_box_blue{
 	background: linear-gradient(87deg, #11cdef 0, #1171ef 100%);
 }
+.trend_box_purple{
+	background: linear-gradient(87deg, #f236f5 0, #3671f5 100%);
+}
 
 .chart_img{
 	font-size: 3rem;

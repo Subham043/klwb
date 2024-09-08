@@ -8,6 +8,7 @@ import { usePaginationQueryParam } from "../../../hooks/usePaginationQueryParam"
 import { api_routes } from "../../../utils/routes/api";
 import SearchIcon from '@rsuite/icons/Search';
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
+import { table } from "../../../utils/constants/table";
 
 type Props = {
 	id: number;
@@ -45,10 +46,7 @@ export default function Staff({ id }: Props) {
 					</div>
 					<Table
 						loading={isStaffLoading || isStaffFetching || isStaffRefetching}
-						bordered={true}
-						cellBordered={true}
-						autoHeight={true}
-						height={100}
+						{...table}
 						data={staffs?.data || []}
 					>
 						<Table.Column width={60} align="center" fixed>

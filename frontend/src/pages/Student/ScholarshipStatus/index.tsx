@@ -1,10 +1,10 @@
-import { Button, ButtonToolbar, Divider, Heading, Message, Panel, Stack } from "rsuite";
+import { Button, ButtonToolbar, Divider, Heading, Panel, Stack } from "rsuite";
 import { useScholarshipStatusQuery } from "../../../hooks/data/scholarship_status";
 import ScholarshipStatus from "../../../components/Student/ScholarshipStatus";
 import ScholarshipInfo from "../../../components/Student/ScholarshipInfo";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { page_routes } from "../../../utils/routes/pages";
-import { Link } from "react-router-dom";
+import DashboardMessageCard from "../../../components/Student/DashboardMessage/DashboardMessageCard";
 
 
 export default function StudentScholarshipStatusPage() {
@@ -31,12 +31,7 @@ export default function StudentScholarshipStatusPage() {
 				</Panel>
 				<ScholarshipInfo data={data ? data.application : null} />
 			</div>}
-			{(data && data.application===null) && <Message type="error" bordered showIcon className="mt-1" style={{ gap: 10 }}>
-							<Stack justifyContent="space-between" className='w-100'>
-											<div><strong>You have not applied for any scholarship till date.</strong></div>
-											<Button as={Link} to={page_routes.student.scholarship.apply} size="sm" appearance="primary" color='red'>APPLY</Button>
-							</Stack>
-			</Message>}
+			{(data && data.application===null) && <DashboardMessageCard message="You have not applied for any scholarship till date." link={page_routes.student.scholarship.apply} type="error" color="red" button_title="APPLY" />}
 		</ErrorBoundaryLayout>
 </div>
 }

@@ -1,14 +1,14 @@
-import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
+import { Panel, Grid, Row, Col } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
 import FileViewer from "../../FileViewer";
+import DetailInfo from "../../DetailInfo";
 
 type Props = {
 	data: StudentApplicationType;
 }
 
 function AadharInfo({ data }: Props) {
-	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	return (
 		<div className="mb-1">
 			<Panel header={
@@ -16,44 +16,32 @@ function AadharInfo({ data }: Props) {
 					<h5 className={classes.inner_main_heading}>Aadhar Card Details</h5>
 				</div>
 			} className='info-modal-panel' bordered>
-				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Aadhar</Heading>
-						<Text>{data?.basic_detail.adharcard_no}</Text>
-					</HeadingGroup>
-					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Father's Aadhar</Heading>
-						<Text>{(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="father") ? "Not Applicable": data?.basic_detail.f_adhar}</Text>
-					</HeadingGroup>
-					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Mother's Aadhar</Heading>
-						<Text>{(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="mother") ? "Not Applicable": data?.basic_detail.m_adhar}</Text>
-					</HeadingGroup>
-				</Stack>
-				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-					{data?.basic_detail.adharcard_file && <HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Aadhar File</Heading>
-						<FileViewer src={data?.basic_detail.adharcard_file} />
-					</HeadingGroup>}
-					{
-						(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="father") ? (data?.basic_detail.deathcertificate && <HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Father's Death Certificate</Heading>
-							<FileViewer src={data?.basic_detail.deathcertificate} />
-						</HeadingGroup>) : (data?.basic_detail.f_adharfile && <HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Father's Aadhar File</Heading>
-						<FileViewer src={data?.basic_detail.f_adharfile} />
-					</HeadingGroup>)
-					}
-					{
-						(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="mother") ? (data?.basic_detail.deathcertificate && <HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Mother's Death Certificate</Heading>
-							<FileViewer src={data?.basic_detail.deathcertificate} />
-						</HeadingGroup>) : (data?.basic_detail.m_adharfile && <HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Mother's Aadhar File</Heading>
-						<FileViewer src={data?.basic_detail.m_adharfile} />
-					</HeadingGroup>)
-					}
-				</Stack>
+				<Grid fluid>
+					<Row gutter={30}>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Aadhar" value={data?.basic_detail.adharcard_no} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Father's Aadhar" value={(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="father") ? "Not Applicable": data?.basic_detail.f_adhar} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Mother's Aadhar" value={(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="mother") ? "Not Applicable": data?.basic_detail.m_adhar} />
+					</Col>
+					{data?.basic_detail.adharcard_file && <Col className="pb-1" xs={8}>
+							<DetailInfo title="Aadhar File" value={<FileViewer src={data?.basic_detail.adharcard_file} />} />
+					</Col>}
+					{(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="father") ? (data?.basic_detail.deathcertificate && <Col className="pb-1" xs={8}>
+							<DetailInfo title="Father's Death Certificate" value={<FileViewer src={data?.basic_detail.deathcertificate} />} />
+					</Col>) : (data?.basic_detail.f_adharfile && <Col className="pb-1" xs={8}>
+							<DetailInfo title="Father's Aadhar File" value={<FileViewer src={data?.basic_detail.f_adharfile} />} />
+					</Col>)}
+					{(data?.basic_detail.not_applicable && data?.basic_detail.not_applicable==="mother") ? (data?.basic_detail.deathcertificate && <Col className="pb-1" xs={8}>
+							<DetailInfo title="Mother's Death Certificate" value={<FileViewer src={data?.basic_detail.deathcertificate} />} />
+					</Col>) : (data?.basic_detail.m_adharfile && <Col className="pb-1" xs={8}>
+							<DetailInfo title="Mother's Aadhar File" value={<FileViewer src={data?.basic_detail.m_adharfile} />} />
+					</Col>)}
+					</Row>
+				</Grid>
 			</Panel>
 		</div>
 	)

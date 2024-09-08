@@ -1,49 +1,64 @@
-import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
+import { Panel, Grid, Row, Col } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
 import FileViewer from "../../FileViewer";
+import DetailInfo from "../../DetailInfo";
 
 type Props = {
 	data: StudentApplicationType;
 }
 
 function MarkInfo({ data }: Props) {
-	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	return (
-		<div className="mb-1">
-			<Panel header={
-				<div className="text-center">
-					<h5 className={classes.inner_main_heading}>Previous Year Class and Marks</h5>
-				</div>
-			} className='info-modal-panel' bordered>
-				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Class Name</Heading>
-						<Text>{data?.mark.prv_class}</Text>
-					</HeadingGroup>
-					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Marks</Heading>
-						<Text>{data?.mark.prv_marks}</Text>
-					</HeadingGroup>
-					<HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Marks Card Type</Heading>
-						<Text>{data?.mark.prv_markcard2 ? "Semester Wise" : "Yearly"}</Text>
-					</HeadingGroup>
-				</Stack>
-				<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-					{data?.mark.prv_markcard && <HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>Marks Card Copy</Heading>
-						<FileViewer src={data?.mark.prv_markcard} />
-					</HeadingGroup>}
-					{data?.mark.prv_markcard2 && <HeadingGroup className='mb-1'>
-						<Heading level={6} className='info-heading'>2nd Marks Card Copy</Heading>
-						<FileViewer src={data?.mark.prv_markcard2} />
-					</HeadingGroup>}
-					<div></div>
-				</Stack>
-			</Panel>
-		</div>
-	)
+    <div className="mb-1">
+      <Panel
+        header={
+          <div className="text-center">
+            <h5 className={classes.inner_main_heading}>
+              Previous Year Class and Marks
+            </h5>
+          </div>
+        }
+        className="info-modal-panel"
+        bordered
+      >
+        <Grid fluid>
+          <Row gutter={30}>
+            <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="Class Name"
+                value={data?.mark.prv_class}
+              />
+            </Col>
+            <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="Marks"
+                value={data?.mark.prv_marks}
+              />
+            </Col>
+            <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="Marks Card Type"
+                value={data?.mark.prv_markcard2 ? "Semester Wise" : "Yearly"}
+              />
+            </Col>
+            {data?.mark.prv_markcard && <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="Marks Card Copy"
+                value={<FileViewer src={data?.mark.prv_markcard} />}
+              />
+            </Col>}
+            {data?.mark.prv_markcard2 && <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="2nd Marks Card Copy"
+                value={<FileViewer src={data?.mark.prv_markcard2} />}
+              />
+            </Col>}
+          </Row>
+        </Grid>
+      </Panel>
+    </div>
+  );
 }
 
 export default MarkInfo

@@ -11,6 +11,7 @@ import ConfirmAlert from "../../../components/ConfirmAlert";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
+import { table } from "../../../utils/constants/table";
 
 
 const Graduation:FC = () => {
@@ -28,10 +29,7 @@ const Graduation:FC = () => {
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
-                bordered={true}
-                cellBordered={true}
-                autoHeight={true}
-                height={200}
+                {...table}
                 data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>

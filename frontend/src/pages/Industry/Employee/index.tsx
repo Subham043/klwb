@@ -11,6 +11,7 @@ import Moment from "../../../components/Moment";
 import ConfirmAlert from "../../../components/ConfirmAlert";
 import { useIndustryEmployeesQuery } from "../../../hooks/data/industry_employee";
 import IndustryEmployeeForm from "../../../components/Industry/EmployeeForm";
+import { table } from "../../../utils/constants/table";
 
 
 const IndustryEmployeePage:FC = () => {
@@ -28,10 +29,7 @@ const IndustryEmployeePage:FC = () => {
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
-                bordered={true}
-                cellBordered={true}
-                autoHeight={true}
-                height={200}
+                {...table}
                 data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>

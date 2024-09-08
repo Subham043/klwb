@@ -1,24 +1,23 @@
-import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { useToast } from "../../../hooks/useToast";
 import { useAxios } from "../../../hooks/useAxios";
 import { useState } from "react";
 import { useRegisteredInstituteQuery } from "../../../hooks/data/registered_institute";
 import { api_routes } from "../../../utils/routes/api";
-import { Button, ButtonToolbar, Heading, HeadingGroup, Panel, Stack, Text } from "rsuite";
+import { Button, ButtonToolbar, Col, Grid, Heading, Panel, Row, Stack } from "rsuite";
 import Status from "../../Status";
-import Moment from "../../Moment";
 import { VerificationEnum } from "../../../utils/constants/verified";
 import InstituteInfoUpdate from "./InstituteInfoUpdate";
 import InstituteAuthUpdate from "./InstituteAuthUpdate";
 import FileViewer from "../../FileViewer";
+import DetailInfo from "../../DetailInfo";
+import Moment from "../../Moment";
 
 type Props = {
 	id: number;
 }
 
 export default function InstituteInfo({ id }: Props) {
-	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	const { toastError, toastSuccess } = useToast();
 	const axios = useAxios();
 	const { data, isFetching, isLoading, isRefetching, refetch: refetchData, error } = useRegisteredInstituteQuery(Number(id) || 0, true);
@@ -53,76 +52,55 @@ export default function InstituteInfo({ id }: Props) {
 					}
 					className='info-modal-panel'
 					bordered>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Name</Heading>
-							<Text>{data?.institute.name}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Principal Name</Heading>
-							<Text>{data?.principal}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Email</Heading>
-							<Text>{data?.email}</Text>
-						</HeadingGroup>
-					</Stack>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Phone</Heading>
-							<Text>{data?.phone}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Management Type</Heading>
-							<Text>{data?.institute.management_type}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Institute Category</Heading>
-							<Text>{data?.institute.category}</Text>
-						</HeadingGroup>
-					</Stack>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Institute Type</Heading>
-							<Text>{data?.institute.type}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Region Type</Heading>
-							<Text>{data?.institute.urban_rural}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Pincode</Heading>
-							<Text>{data?.address.pincode}</Text>
-						</HeadingGroup>
-					</Stack>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Address</Heading>
-							<Text>{data?.address.address}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>District</Heading>
-							<Text>{data?.address.city.name}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Taluq</Heading>
-							<Text>{data?.address.taluq.name}</Text>
-						</HeadingGroup>
-					</Stack>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Institute Reg. File</Heading>
-							<FileViewer src={data?.reg_certification} />
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Principal Signature</Heading>
-							<FileViewer src={data?.principal_signature} />
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Seal</Heading>
-							<FileViewer src={data?.seal} />
-						</HeadingGroup>
-					</Stack>
+						<Grid fluid>
+							<Row gutter={30}>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Name" value={data?.institute.name} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Principal Name" value={data?.principal} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Email" value={data?.email} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Phone" value={data?.phone} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Management Type" value={data?.institute.management_type} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Institute Category" value={data?.institute.category} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Institute Type" value={data?.institute.type} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Region Type" value={data?.institute.urban_rural} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Pincode" value={data?.address.pincode} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Address" value={data?.address.address} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="District" value={data?.address.city.name} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Taluq" value={data?.address.taluq.name} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Institute Reg. File" value={<FileViewer src={data?.reg_certification} />} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Principal Signature" value={<FileViewer src={data?.principal_signature} />} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Seal" value={<FileViewer src={data?.seal} />} />
+									</Col>
+							</Row>
+						</Grid>
 				</Panel>
 			</div>
 			<div className="mb-1">
@@ -135,34 +113,28 @@ export default function InstituteInfo({ id }: Props) {
 					}
 					className='info-modal-panel'
 					bordered>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Name</Heading>
-							<Text>{data?.profile.name}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Email</Heading>
-							<Text>{data?.profile.email}</Text>
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Phone</Heading>
-							<Text>{data?.profile.phone}</Text>
-						</HeadingGroup>
-					</Stack>
-					<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Verification</Heading>
-							<Status status={data?.profile.verified === VerificationEnum.VERIFIED} wrongLabel={VerificationEnum.VERIFICATION_PENDING} correctLabel={VerificationEnum.VERIFIED} />
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Status</Heading>
-							<Status status={!data?.profile.is_blocked} wrongLabel="Blocked" />
-						</HeadingGroup>
-						<HeadingGroup className='mb-1'>
-							<Heading level={6} className='info-heading'>Registered On</Heading>
-							<Text><Moment datetime={data?.profile.created_at || ''} /></Text>
-						</HeadingGroup>
-					</Stack>
+						<Grid fluid>
+							<Row gutter={30}>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Name" value={data?.profile.name} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Email" value={data?.profile.email} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Phone" value={data?.profile.phone} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Verification" value={<Status status={data?.profile.verified === VerificationEnum.VERIFIED} wrongLabel={VerificationEnum.VERIFICATION_PENDING} correctLabel={VerificationEnum.VERIFIED} />} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Status" value={<Status status={!data?.profile.is_blocked} wrongLabel="Blocked" />} />
+									</Col>
+									<Col className="pb-1" xs={8}>
+											<DetailInfo title="Registered On" value={<Moment datetime={data?.profile.created_at || ''} />} />
+									</Col>
+							</Row>
+						</Grid>
 				</Panel>
 			</div>
 			<InstituteInfoUpdate modal={instituteUpdateModal} setModal={setInstituteUpdateModal} data={data} refetch={refetchData} error={error} loading={(isFetching || isLoading || isRefetching)} />

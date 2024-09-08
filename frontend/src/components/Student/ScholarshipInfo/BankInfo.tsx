@@ -1,14 +1,14 @@
-import { Panel, Stack, HeadingGroup, Heading, Text, useMediaQuery } from "rsuite"
+import { Panel, Grid, Row, Col } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
 import FileViewer from "../../FileViewer";
+import DetailInfo from "../../DetailInfo";
 
 type Props = {
 	data: StudentApplicationType;
 }
 
 function BankInfo({ data }: Props) {
-	const [isMobile] = useMediaQuery('(max-width: 700px)');
 	return (
 		<div className="mb-1">
 		<Panel header={
@@ -16,40 +16,31 @@ function BankInfo({ data }: Props) {
 				<h5 className={classes.inner_main_heading}>Bank Details</h5>
 			</div>
 		} className='info-modal-panel' bordered>
-			<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>Bank name</Heading>
-					<Text>{data?.account.bank_name}</Text>
-				</HeadingGroup>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>Branch Name</Heading>
-					<Text>{data?.account.branch}</Text>
-				</HeadingGroup>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>Account Type</Heading>
-					<Text>{data?.account.type.toString()==="1" ? "Parent" : "Student"}</Text>
-				</HeadingGroup>
-			</Stack>
-			<Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>Account Holder name</Heading>
-					<Text>{data?.account.holder}</Text>
-				</HeadingGroup>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>Account Number</Heading>
-					<Text>{data?.account.acc_no}</Text>
-				</HeadingGroup>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>IFSC Code No</Heading>
-					<Text>{data?.account.ifsc}</Text>
-				</HeadingGroup>
-			</Stack>
-			{data?.account.passbook && <Stack alignItems="flex-start" direction={isMobile ? 'column' : 'row'} spacing={10} className='info-modal-stack'>
-				<HeadingGroup className='mb-1'>
-					<Heading level={6} className='info-heading'>Passbook Front Page Copy</Heading>
-					<FileViewer src={data?.account.passbook} />
-				</HeadingGroup>
-			</Stack>}
+			<Grid fluid>
+				<Row gutter={30}>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Bank name" value={data?.account.bank_name} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Branch name" value={data?.account.branch} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Account Type" value={data?.account.type.toString()==="1" ? "Parent" : "Student"} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Account Holder Name" value={data?.account.holder} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="Account Number" value={data?.account.acc_no} />
+					</Col>
+					<Col className="pb-1" xs={8}>
+							<DetailInfo title="IFSC Code No" value={data?.account.ifsc} />
+					</Col>
+					{data?.account.passbook && <Col className="pb-1" xs={8}>
+							<DetailInfo title="Passbook Front Page Copy" value={<FileViewer src={data?.account.passbook} />} />
+					</Col>}
+				</Row>
+			</Grid>
 		</Panel>
 		</div>
 	)

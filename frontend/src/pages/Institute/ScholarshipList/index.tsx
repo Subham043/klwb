@@ -1,14 +1,14 @@
 import { FC } from "react"
-import { ButtonToolbar, IconButton, Table } from "rsuite"
-import VisibleIcon from '@rsuite/icons/Visible';
+import { ButtonToolbar, Table } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
-import { Link } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
 import { useInstituteScholarshipListQuery } from "../../../hooks/data/institute_scholarship";
 import SelectStatus from "../../../components/Institute/SelectStatus";
 import SelectYear from "../../../components/Institute/SelectYear";
 import StatusBadge from "../../../components/Institute/StatusBadge";
+import { table } from "../../../utils/constants/table";
+import ViewBtn from "../../../components/Buttons/ViewBtn";
 
 
 const InstituteScholarshipListPage:FC = () => {
@@ -22,10 +22,7 @@ const InstituteScholarshipListPage:FC = () => {
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
-                bordered={true}
-                cellBordered={true}
-                autoHeight={true}
-                height={200}
+                {...table}
                 data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
@@ -104,7 +101,7 @@ const InstituteScholarshipListPage:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <IconButton as={Link} appearance="primary" color="orange" icon={<VisibleIcon />} to={page_routes.institute.scholarship.view(rowData.id)} />
+                                <ViewBtn to={page_routes.institute.scholarship.view(rowData.id)} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>
