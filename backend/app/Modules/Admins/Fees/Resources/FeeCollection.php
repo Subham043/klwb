@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Fees\Resources;
 
+use App\Modules\CourseManagement\Graduations\Resources\GraduationCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FeeCollection extends JsonResource
@@ -19,7 +20,6 @@ class FeeCollection extends JsonResource
             'amount' => $this->amount,
             'year' => $this->year,
             'graduation_id' => $this->graduation_id,
-            'graduation' => GraduationCollection::make($this->graduation),
             'user_id' => $this->user_id,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,

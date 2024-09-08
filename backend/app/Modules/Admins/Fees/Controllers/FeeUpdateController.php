@@ -4,7 +4,7 @@ namespace App\Modules\Admins\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\Fees\Requests\FeeUpdateRequest;
-use App\Modules\Admins\Fees\Resources\FeeCollection;
+use App\Modules\Admins\Fees\Resources\ExtendedFeeCollection;
 use App\Modules\Admins\Fees\Services\FeeService;
 
 class FeeUpdateController extends Controller
@@ -19,7 +19,7 @@ class FeeUpdateController extends Controller
                 $request->validated(),
                 $fee
             );
-            return response()->json(["message" => "Fee updated successfully.", "data" => FeeCollection::make($fee)], 200);
+            return response()->json(["message" => "Fee updated successfully.", "data" => ExtendedFeeCollection::make($fee)], 200);
         } catch (\Throwable $th) {
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
         }

@@ -3,9 +3,8 @@
 namespace App\Modules\CourseManagement\Classes\Resources;
 
 use App\Modules\CourseManagement\Courses\Resources\CourseCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClassesCollection extends JsonResource
+class ClassesCollection extends SingleClassesCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,14 +14,9 @@ class ClassesCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'course_id' => $this->course_id,
-            'course' => CourseCollection::make($this->course),
-            'is_active' => $this->is_active,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        $parentArray = parent::toArray($request);
+        return array_merge($parentArray, [
+            'course' => CourseCollection::make($this->whenLoaded('course')),
+        ]);
     }
 }

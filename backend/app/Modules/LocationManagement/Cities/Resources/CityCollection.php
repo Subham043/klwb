@@ -3,9 +3,8 @@
 namespace App\Modules\LocationManagement\Cities\Resources;
 
 use App\Modules\LocationManagement\States\Resources\StateCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class CityCollection extends JsonResource
+class CityCollection extends SingleCityCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,14 +14,9 @@ class CityCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'state_id' => $this->state_id,
+        $parentRules = parent::toArray($request);
+        return array_merge($parentRules, [
             'state' => StateCollection::make($this->whenLoaded('state')),
-            'is_active' => $this->is_active,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        ]);
     }
 }

@@ -13,11 +13,12 @@ class InstituteEmployeeUpdatePostRequest extends InstituteEmployeeCreatePostRequ
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:255',
+        $parentRules = parent::rules();
+        unset($parentRules['password']);
+        unset($parentRules['password_confirmation']);
+        return array_merge($parentRules, [
             'email' => 'required|string|email|max:255|unique:school_auths,email,'.$this->route('id'),
             'phone' => 'required|numeric|digits:10|unique:school_auths,phone,'.$this->route('id'),
-            'is_blocked' => 'required|boolean',
-        ];
+        ]);
     }
 }

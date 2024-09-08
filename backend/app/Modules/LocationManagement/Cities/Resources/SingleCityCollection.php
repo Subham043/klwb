@@ -17,6 +17,7 @@ class SingleCityCollection extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'state_id' => $this->state_id,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

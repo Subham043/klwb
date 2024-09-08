@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Modules\CourseManagement\Classes\Resources;
-
-use App\Modules\CourseManagement\Courses\Resources\CourseCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SingleClassesCollection extends JsonResource
@@ -18,6 +16,7 @@ class SingleClassesCollection extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'course_id' => $this->course_id,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

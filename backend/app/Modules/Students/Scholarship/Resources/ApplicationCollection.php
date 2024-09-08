@@ -2,7 +2,7 @@
 
 namespace App\Modules\Students\Scholarship\Resources;
 
-use App\Modules\Admins\Fees\Resources\SingleFeeCollection;
+use App\Modules\Admins\Fees\Resources\FeeCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApplicationCollection extends JsonResource
@@ -36,7 +36,7 @@ class ApplicationCollection extends JsonResource
             'mark' => ApplicationMarkCollection::make($this->mark),
             'company' => ApplicationCompanyCollection::make($this->company),
             'basic_detail' => ApplicationBasicDetailCollection::make($this->basic_detail),
-            'scholarship_fee' => $this->mark->graduation->scholarship_fee ? SingleFeeCollection::make($this->mark->graduation->scholarship_fee) : null,
+            'scholarship_fee' => $this->mark->graduation->scholarship_fee ? FeeCollection::make($this->mark->graduation->scholarship_fee) : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\CourseManagement\Courses\Resources;
+namespace App\Modules\Admins\Fees\Resources;
 
 use App\Modules\CourseManagement\Graduations\Resources\GraduationCollection;
 
-class CourseCollection extends SingleCourseCollection
+class ExtendedFeeCollection extends FeeCollection
 {
     /**
      * Transform the resource collection into an array.

@@ -3,9 +3,8 @@
 namespace App\Modules\LocationManagement\Taluqs\Resources;
 
 use App\Modules\LocationManagement\Cities\Resources\CityCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class TaluqCollection extends JsonResource
+class TaluqCollection extends SingleTaluqCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,14 +14,9 @@ class TaluqCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'city_id' => $this->city_id,
-            'city' => CityCollection::make($this->city),
-            'is_active' => $this->is_active,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        $parentArray = parent::toArray($request);
+        return array_merge($parentArray, [
+            'city' => CityCollection::make($this->whenLoaded('city')),
+        ]);
     }
 }

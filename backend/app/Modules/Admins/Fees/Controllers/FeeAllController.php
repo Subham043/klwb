@@ -3,7 +3,7 @@
 namespace App\Modules\Admins\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\Fees\Resources\FeeCollection;
+use App\Modules\Admins\Fees\Resources\ExtendedFeeCollection;
 use App\Modules\Admins\Fees\Services\FeeService;
 
 class FeeAllController extends Controller
@@ -12,6 +12,6 @@ class FeeAllController extends Controller
 
     public function index(){
         $fee = $this->feeService->all();
-        return response()->json(["message" => "Fee fetched successfully.", "data" => FeeCollection::collection($fee)], 200);
+        return response()->json(["message" => "Fee fetched successfully.", "data" => ExtendedFeeCollection::collection($fee)], 200);
     }
 }
