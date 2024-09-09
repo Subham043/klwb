@@ -1,4 +1,4 @@
-import { Col, Grid, Panel, Row } from "rsuite";
+import { Col, Grid, Row } from "rsuite";
 import TextInput from "../../FormInput/TextInput";
 import SelectInput from "../../FormInput/SelectInput";
 import classes from "./index.module.css";
@@ -14,6 +14,7 @@ import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
 import FileInput from "../../FormInput/FileInput";
 import { useIndustryUserCommonSelectQuery } from "../../../hooks/data/industry";
 import FileViewer from "../../FileViewer";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type PropType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,15 +61,13 @@ export default function IndustryInfo({
 
   return (
     <div className="mb-1">
-      <Panel
+      <ModalCardContainer
         header={
           <div className="text-center">
             <h5 className={classes.inner_main_heading}>Industry Details</h5>
             <h6 className={classes.inner_sub_heading}>ಉದ್ಯಮದ ವಿವರಗಳು</h6>
           </div>
         }
-        className="info-modal-panel"
-        bordered
       >
         <Grid fluid>
           <Row gutter={30}>
@@ -208,7 +207,7 @@ export default function IndustryInfo({
             <Col className="pb-1" xs={12}></Col>
           </Row>
         </Grid>
-      </Panel>
+      </ModalCardContainer>
     </div>
   );
 }

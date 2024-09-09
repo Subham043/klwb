@@ -1,5 +1,4 @@
 import {
-  Panel,
   Grid,
   Row,
 		Col,
@@ -7,6 +6,7 @@ import {
 // import { StudentApplicationType } from "../../../utils/types";
 import classes from "./index.module.css";
 import DetailInfo from "../../DetailInfo";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 // type Props = {
 // 	data: StudentApplicationType;
@@ -15,14 +15,12 @@ import DetailInfo from "../../DetailInfo";
 function ConfirmationReport() {
   return (
     <div className="mb-1">
-      <Panel
+      <ModalCardContainer
         header={
           <div className="text-center">
             <h5 className={classes.inner_main_heading}>Confirmation Report</h5>
           </div>
         }
-        className="info-modal-panel"
-        bordered
       >
         <Grid fluid>
           <Row gutter={30}>
@@ -40,7 +38,7 @@ function ConfirmationReport() {
             </Col>
           </Row>
         </Grid>
-      </Panel>
+      </ModalCardContainer>
     </div>
   );
 }

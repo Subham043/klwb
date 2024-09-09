@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Divider, Heading, Panel, Stack } from "rsuite";
+import { Button, ButtonToolbar, Divider, Heading, Stack } from "rsuite";
 import ScholarshipStatus from "../../../components/Student/ScholarshipStatus";
 import ScholarshipInfo from "../../../components/Student/ScholarshipInfo";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
@@ -8,6 +8,7 @@ import { useState } from "react";
 import IndustryScholarshipRejectForm from "../../../components/Industry/RejectModal";
 import StatusBadge from "../../../components/Institute/StatusBadge";
 import IndustryScholarshipApproveForm from "../../../components/Industry/ApproveModal";
+import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
 
 export default function IndustryScholarshipViewPage() {
   const { id } = useParams<{ id: string }>();
@@ -26,10 +27,8 @@ export default function IndustryScholarshipViewPage() {
       >
         <div style={{ width: "100%", position: "relative" }}>
           {data && data.application && (
-            <Panel
-              bordered
-              shaded
-              className="mb-1"
+            <PanelCardContainer
+              class_name="mb-1"
               header={
                 <Stack justifyContent="space-between">
                   <Heading level={6} className="text-brand">
@@ -51,7 +50,7 @@ export default function IndustryScholarshipViewPage() {
             >
               <Divider />
               <ScholarshipStatus data={data.application} />
-            </Panel>
+            </PanelCardContainer>
           )}
           <ScholarshipInfo data={data ? data.application : null} />
 					{(data!==undefined && data.application!==null) && <IndustryScholarshipApproveForm modal={approveModal && data!==undefined && data.application!==null} setModal={setApproveModal} id={data!.application!.id} refetch={refetch} />}

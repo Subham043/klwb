@@ -1,4 +1,4 @@
-import { Button, Col, Form, Grid, Modal, Panel, Row } from "rsuite";
+import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +15,7 @@ import SelectInput from "../../FormInput/SelectInput";
 import { useCitySelectQuery } from "../../../hooks/data/city";
 import { api_routes } from "../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type SchemaType = {
   name: string;
@@ -200,12 +201,10 @@ export default function InstituteForm({
         error={error}
         refetch={refetchData}
       >
-        <Panel
+        <ModalCardContainer
           header={
             drawer.type === "Edit" ? "Update Institute" : " Add Institute"
           }
-          className="info-modal-panel"
-          bordered
         >
           <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
             <Grid fluid>
@@ -323,7 +322,7 @@ export default function InstituteForm({
               </Button>
             </Modal.Footer>
           </Form>
-        </Panel>
+        </ModalCardContainer>
       </ErrorBoundaryLayout>
     </Modal>
   );

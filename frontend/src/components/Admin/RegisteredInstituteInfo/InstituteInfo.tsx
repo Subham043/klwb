@@ -4,7 +4,7 @@ import { useAxios } from "../../../hooks/useAxios";
 import { useState } from "react";
 import { useRegisteredInstituteQuery } from "../../../hooks/data/registered_institute";
 import { api_routes } from "../../../utils/routes/api";
-import { Button, ButtonToolbar, Col, Grid, Heading, Panel, Row, Stack } from "rsuite";
+import { Button, ButtonToolbar, Col, Grid, Heading, Row, Stack } from "rsuite";
 import Status from "../../Status";
 import { VerificationEnum } from "../../../utils/constants/verified";
 import InstituteInfoUpdate from "./InstituteInfoUpdate";
@@ -12,6 +12,7 @@ import InstituteAuthUpdate from "./InstituteAuthUpdate";
 import FileViewer from "../../FileViewer";
 import DetailInfo from "../../DetailInfo";
 import Moment from "../../Moment";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type Props = {
 	id: number;
@@ -40,7 +41,7 @@ export default function InstituteInfo({ id }: Props) {
 	return (
 		<ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
 			<div className="mb-1">
-				<Panel
+				<ModalCardContainer
 					header={
 						<Stack justifyContent="space-between">
 							<Heading level={6} style={{ color: 'white' }}>Institute Information</Heading>
@@ -49,9 +50,7 @@ export default function InstituteInfo({ id }: Props) {
 								<Button appearance="primary" color="orange" size="sm" onClick={toggleStatus} disabled={toggleLoading} loading={toggleLoading} >{data?.profile.is_blocked ? "Unblock" : "Block"}</Button>
 							</ButtonToolbar>
 						</Stack>
-					}
-					className='info-modal-panel'
-					bordered>
+					}>
 						<Grid fluid>
 							<Row gutter={30}>
 									<Col className="pb-1" xs={8}>
@@ -101,18 +100,16 @@ export default function InstituteInfo({ id }: Props) {
 									</Col>
 							</Row>
 						</Grid>
-				</Panel>
+				</ModalCardContainer>
 			</div>
 			<div className="mb-1">
-				<Panel
+				<ModalCardContainer
 					header={
 						<Stack justifyContent="space-between">
 							<Heading level={6} style={{ color: 'white' }}>Login Information</Heading>
 							<Button appearance="primary" color="cyan" size="sm" onClick={() => setInstituteAuthModal(true)}>Edit</Button>
 						</Stack>
-					}
-					className='info-modal-panel'
-					bordered>
+					}>
 						<Grid fluid>
 							<Row gutter={30}>
 									<Col className="pb-1" xs={8}>
@@ -135,7 +132,7 @@ export default function InstituteInfo({ id }: Props) {
 									</Col>
 							</Row>
 						</Grid>
-				</Panel>
+				</ModalCardContainer>
 			</div>
 			<InstituteInfoUpdate modal={instituteUpdateModal} setModal={setInstituteUpdateModal} data={data} refetch={refetchData} error={error} loading={(isFetching || isLoading || isRefetching)} />
 			<InstituteAuthUpdate modal={instituteAuthModal} setModal={setInstituteAuthModal} data={data} refetch={refetchData} error={error} loading={(isFetching || isLoading || isRefetching)} />

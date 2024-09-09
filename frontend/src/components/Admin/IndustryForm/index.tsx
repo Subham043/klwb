@@ -1,4 +1,4 @@
-import { Button, Col, Form, Grid, Modal, Panel, Row } from "rsuite";
+import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,6 +13,7 @@ import ToggleInput from "../../FormInput/ToggleInput";
 import SelectInput from "../../FormInput/SelectInput";
 import { api_routes } from "../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type SchemaType = {
   name: string;
@@ -138,11 +139,7 @@ export default function IndustryForm({
         error={error}
         refetch={refetchData}
       >
-        <Panel
-          header={drawer.type === "Edit" ? "Update Industry" : " Add Industry"}
-          className="info-modal-panel"
-          bordered
-        >
+        <ModalCardContainer header={drawer.type === "Edit" ? "Update Industry" : " Add Industry"}>
           <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
             <Grid fluid>
               <Row gutter={30}>
@@ -197,7 +194,7 @@ export default function IndustryForm({
               </Button>
             </Modal.Footer>
           </Form>
-        </Panel>
+        </ModalCardContainer>
       </ErrorBoundaryLayout>
     </Modal>
   );

@@ -1,4 +1,4 @@
-import { Divider, Panel, Stack } from "rsuite";
+import { Divider, Stack } from "rsuite";
 import classes from './index.module.css';
 import ScholarshipForm from "../../../components/Student/ScholarshipForm";
 import { useScholarshipStatusQuery } from "../../../hooks/data/scholarship_status";
@@ -6,13 +6,12 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import CheckingEligibility from "../../../components/Student/Eligibility/CheckingEligibility";
 import ApplicationApplied from "../../../components/Student/Eligibility/ApplicationApplied";
 import ApplicationClosed from "../../../components/Student/Eligibility/ApplicationClosed";
+import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
 
 export default function StudentApplyScholarshipPage() {
 	const {data, isFetching, isLoading, isRefetching, refetch, error} = useScholarshipStatusQuery();
 	return <div className="data-table-container">
-		<Panel
-			bordered
-			shaded
+		<PanelCardContainer
 			header={
 				<Stack justifyContent="center" alignItems="center">
 					<div className="text-center">
@@ -32,6 +31,6 @@ export default function StudentApplyScholarshipPage() {
 						((data && data.is_eligible_to_apply) ? <ScholarshipForm data={data && data.application ? data.application : null} />  : <ApplicationApplied message={data?.message} date={data?.application?.date} />))}
 				</div>
 			</ErrorBoundaryLayout>
-		</Panel>
+		</PanelCardContainer>
 	</div>
 }

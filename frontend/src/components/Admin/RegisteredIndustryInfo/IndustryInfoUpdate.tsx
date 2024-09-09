@@ -1,4 +1,4 @@
-import { Button, Col, Form, Grid, Modal, Panel, Row } from "rsuite";
+import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +17,7 @@ import {
   AxiosErrorResponseType,
   RegisteredIndustryType,
 } from "../../../utils/types";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type Props = {
   modal: boolean;
@@ -161,10 +162,8 @@ const IndustryInfoUpdate = ({
           refetch={refetch}
         >
           <>
-            <Panel
+            <ModalCardContainer
               header="Industry Information Update"
-              className="info-modal-panel"
-              bordered
             >
               <Grid fluid>
                 <Row gutter={30}>
@@ -248,7 +247,7 @@ const IndustryInfoUpdate = ({
                   </Col>
                 </Row>
               </Grid>
-            </Panel>
+            </ModalCardContainer>
           </>
           {data !== undefined && (
             <Modal.Footer className="mb-1 info-modal-footer">

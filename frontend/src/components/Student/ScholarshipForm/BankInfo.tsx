@@ -1,4 +1,4 @@
-import { Col, Grid, Panel, Row } from "rsuite";
+import { Col, Grid, Row } from "rsuite";
 import TextInput from "../../FormInput/TextInput";
 import classes from "./index.module.css";
 import { Control, FieldErrors } from "react-hook-form";
@@ -6,6 +6,7 @@ import { ScholarshipFormSchemaType } from "./schema";
 import FileInput from "../../FormInput/FileInput";
 import SelectInput from "../../FormInput/SelectInput";
 import FileViewer from "../../FileViewer";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type PropType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,7 +25,7 @@ export default function BankInfo({
 
   return (
     <div className="mb-1">
-      <Panel
+      <ModalCardContainer
         header={
           <div className="text-center">
             <h5 className={classes.inner_main_heading}>Student Bank Details</h5>
@@ -33,8 +34,6 @@ export default function BankInfo({
             </h6>
           </div>
         }
-        className="info-modal-panel"
-        bordered
       >
         <Grid fluid>
           <Row gutter={30}>
@@ -104,7 +103,7 @@ export default function BankInfo({
             </Col>
           </Row>
         </Grid>
-      </Panel>
+      </ModalCardContainer>
     </div>
   );
 }

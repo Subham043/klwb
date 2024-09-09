@@ -1,4 +1,4 @@
-import { Panel } from "rsuite";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 export type Props = {
 	id: number;
@@ -7,9 +7,9 @@ export type Props = {
 export default function Scholarship() {
 		return (
 				<div className="mb-1">
-							<Panel header="Scholarship Information" className='info-modal-panel' bordered>
+							<ModalCardContainer header="Scholarship Information">
 
-							</Panel>
+							</ModalCardContainer>
 			</div>
 		)
 }

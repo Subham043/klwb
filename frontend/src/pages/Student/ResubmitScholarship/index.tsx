@@ -1,4 +1,4 @@
-import { Button, Divider, Message, Panel, Stack } from "rsuite";
+import { Button, Divider, Message, Stack } from "rsuite";
 import classes from "./index.module.css";
 import ScholarshipForm from "../../../components/Student/ScholarshipForm";
 import { useScholarshipStatusQuery } from "../../../hooks/data/scholarship_status";
@@ -6,15 +6,14 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import CheckingEligibility from "../../../components/Student/Eligibility/CheckingEligibility";
 import { Link } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
+import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
 
 export default function StudentResubmitScholarshipPage() {
   const { data, isFetching, isLoading, isRefetching, refetch, error } =
     useScholarshipStatusQuery();
   return (
     <div className="data-table-container">
-      <Panel
-        bordered
-        shaded
+      <PanelCardContainer
         header={
           <Stack justifyContent="center" alignItems="center">
             <div className="text-center">
@@ -70,7 +69,7 @@ export default function StudentResubmitScholarshipPage() {
             )}
           </div>
         </ErrorBoundaryLayout>
-      </Panel>
+      </PanelCardContainer>
     </div>
   );
 }

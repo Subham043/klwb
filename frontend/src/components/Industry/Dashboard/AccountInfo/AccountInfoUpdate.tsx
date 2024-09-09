@@ -1,4 +1,4 @@
-import { Button, Col, Form, Grid, Modal, Panel, Row } from "rsuite";
+import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,7 @@ import { api_routes } from "../../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../../layouts/ErrorBoundaryLayout";
 import TextInput from "../../../FormInput/TextInput";
 import SelectInput from "../../../FormInput/SelectInput";
+import ModalCardContainer from "../../../MainCards/ModalCardContainer";
 
 type Props = {
   modal: boolean;
@@ -127,10 +128,8 @@ const AccountInfoUpdate = ({
           refetch={refetch}
         >
           <>
-            <Panel
+            <ModalCardContainer
               header="Industry Information Update"
-              className="info-modal-panel"
-              bordered
             >
               <Grid fluid>
                 <Row gutter={30}>
@@ -183,7 +182,7 @@ const AccountInfoUpdate = ({
                   </Col>
                 </Row>
               </Grid>
-            </Panel>
+            </ModalCardContainer>
           </>
           {data !== undefined && (
             <Modal.Footer className="mb-1 info-modal-footer">

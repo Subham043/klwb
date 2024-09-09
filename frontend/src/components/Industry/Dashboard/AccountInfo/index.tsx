@@ -4,7 +4,6 @@ import {
   Col,
   Grid,
   Heading,
-  Panel,
   Row,
   Stack,
 } from "rsuite";
@@ -17,6 +16,7 @@ import AccountInfoUpdate from "./AccountInfoUpdate";
 import { useUser } from "../../../../hooks/useUser";
 import { RolesEnum } from "../../../../utils/constants/role";
 import DetailInfo from "../../../DetailInfo";
+import MainCardContainer from "../../../MainCards/MainCardContainer";
 
 const Uploader = ({
   title,
@@ -26,7 +26,7 @@ const Uploader = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Panel
+    <MainCardContainer
       header={
         <Stack justifyContent="center">
           <Heading level={6} style={{ color: "white" }}>
@@ -34,12 +34,11 @@ const Uploader = ({
           </Heading>
         </Stack>
       }
-      className="info-modal-panel"
-      bordered
+      shaded={false}
       style={{ backgroundColor: "white" }}
     >
       {children}
-    </Panel>
+    </MainCardContainer>
   );
 };
 
@@ -64,7 +63,7 @@ export default function IndustryDashboardAccountInfo() {
         refetch={accountRefetch}
       >
         <div className="mt-1">
-          <Panel
+          <MainCardContainer
             header={
               <Stack
                 justifyContent={
@@ -90,8 +89,7 @@ export default function IndustryDashboardAccountInfo() {
                 )}
               </Stack>
             }
-            className="info-modal-panel"
-            bordered
+            shaded={false}
             style={{ backgroundColor: "white" }}
           >
             <Grid fluid>
@@ -146,7 +144,7 @@ export default function IndustryDashboardAccountInfo() {
                 </Col>
               </Row>
             </Grid>
-          </Panel>
+          </MainCardContainer>
         </div>
         <div className="mt-1">
           <Row gutter={30}>

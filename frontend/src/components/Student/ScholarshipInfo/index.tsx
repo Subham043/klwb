@@ -1,4 +1,4 @@
-import { Divider, Panel, Stack } from "rsuite";
+import { Divider, Stack } from "rsuite";
 import classes from './index.module.css';
 import { StudentApplicationType } from "../../../utils/types";
 import StudentInfo from "./StudentInfo";
@@ -8,6 +8,7 @@ import IndustryInfo from "./IndustryInfo";
 import AadharInfo from "./AadharInfo";
 import BankInfo from "./BankInfo";
 import ConfirmationReport from "./ConfirmationReport";
+import MainCardContainer from "../../MainCards/MainCardContainer";
 
 type Props = {
 	data: StudentApplicationType | null;
@@ -15,9 +16,7 @@ type Props = {
 
 export default function ScholarshipInfo({ data }: Props) {
 	return <div className="data-table-container">
-	<Panel
-		bordered
-		shaded
+	<MainCardContainer
 		header={
 			<Stack justifyContent="center" alignItems="center">
 				<div className="text-center">
@@ -37,6 +36,6 @@ export default function ScholarshipInfo({ data }: Props) {
 			<BankInfo data={data} />
 			<ConfirmationReport />
 		</>}
-	</Panel>
+	</MainCardContainer>
 </div>
 }

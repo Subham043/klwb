@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Input, InputGroup, Pagination, Panel, Stack, Table } from "rsuite";
+import { Button, ButtonToolbar, Input, InputGroup, Pagination, Stack, Table } from "rsuite";
 import Status from "../../Status";
 import Moment from "../../Moment";
 import { useRegisteredInstitutesStaffQuery } from "../../../hooks/data/registered_institute";
@@ -9,6 +9,7 @@ import { api_routes } from "../../../utils/routes/api";
 import SearchIcon from '@rsuite/icons/Search';
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { table } from "../../../utils/constants/table";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type Props = {
 	id: number;
@@ -28,7 +29,7 @@ export default function Staff({ id }: Props) {
 	return (
 		<div className="mb-1">
 			<ErrorBoundaryLayout error={error} refetch={refetchData}>
-				<Panel header="Employee Information" className='info-modal-panel' bordered>
+				<ModalCardContainer header="Employee Information">
 					<div className="mb-1">
 						<Stack justifyContent="space-between">
 							<ButtonToolbar>
@@ -114,7 +115,7 @@ export default function Staff({ id }: Props) {
 							onChangeLimit={limitHandler}
 						/>
 					</div>
-				</Panel>
+				</ModalCardContainer>
 			</ErrorBoundaryLayout>
 		</div>
 	)

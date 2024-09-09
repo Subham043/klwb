@@ -1,4 +1,4 @@
-import { Checkbox, Col, Grid, Panel, Row } from "rsuite";
+import { Checkbox, Col, Grid, Row } from "rsuite";
 import TextInput from "../../FormInput/TextInput";
 import classes from "./index.module.css";
 import {
@@ -10,6 +10,7 @@ import {
 import { ScholarshipFormSchemaType } from "./schema";
 import FileInput from "../../FormInput/FileInput";
 import FileViewer from "../../FileViewer";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type PropType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,7 +40,7 @@ export default function AadharInfo({
 
   return (
     <div className="mb-1">
-      <Panel
+      <ModalCardContainer
         header={
           <div className="text-center">
             <h5 className={classes.inner_main_heading}>
@@ -50,8 +51,6 @@ export default function AadharInfo({
             </h6>
           </div>
         }
-        className="info-modal-panel"
-        bordered
       >
         <Grid fluid>
           <Row gutter={30}>
@@ -192,7 +191,7 @@ export default function AadharInfo({
             </Col>
           </Row>
         </Grid>
-      </Panel>
+      </ModalCardContainer>
     </div>
   );
 }

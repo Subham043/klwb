@@ -1,9 +1,10 @@
-import { Button, ButtonToolbar, Divider, Heading, Panel, Stack } from "rsuite";
+import { Button, ButtonToolbar, Divider, Heading, Stack } from "rsuite";
 import { useScholarshipViewQuery } from "../../../hooks/data/scholarship_status";
 import ScholarshipStatus from "../../../components/Student/ScholarshipStatus";
 import ScholarshipInfo from "../../../components/Student/ScholarshipInfo";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { useParams } from "react-router-dom";
+import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
 
 
 export default function StudentScholarshipViewPage() {
@@ -13,10 +14,8 @@ export default function StudentScholarshipViewPage() {
 	return <div className="data-table-container">
 		<ErrorBoundaryLayout loading={isRefetching || isLoading || isFetching} error={error} refetch={refetch}>
 			<div style={{ width: "100%", position: "relative" }}>			
-				{(data && data.application) && <Panel
-					bordered
-					shaded
-					className='mb-1'
+				{(data && data.application) && <PanelCardContainer
+					class_name='mb-1'
 					header={
 						<Stack justifyContent="space-between">
 							<Heading level={6} className="text-brand">Scholarship Application Status</Heading>
@@ -28,7 +27,7 @@ export default function StudentScholarshipViewPage() {
 				>
 					<Divider />
 					<ScholarshipStatus data={data.application} can_resubmit={data.can_resubmit} />
-				</Panel>}
+				</PanelCardContainer>}
 				<ScholarshipInfo data={data ? data.application : null} />
 			</div>
 		</ErrorBoundaryLayout>

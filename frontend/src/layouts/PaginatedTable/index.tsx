@@ -1,11 +1,12 @@
 import { FC, ReactNode } from "react"
-import { Button, ButtonToolbar, Divider, Input, InputGroup, Message, Pagination, Panel, Stack } from "rsuite"
+import { Button, ButtonToolbar, Divider, Input, InputGroup, Message, Pagination, Stack } from "rsuite"
 import SearchIcon from '@rsuite/icons/Search';
 import { usePaginationQueryParam } from "../../hooks/usePaginationQueryParam";
 import { useSearchQueryParam } from "../../hooks/useSearchQueryParam";
 import { useExcelExport } from "../../hooks/useExcelExport";
 import { AxiosError } from "axios";
 import ReloadIcon from '@rsuite/icons/Reload';
+import PanelCardContainer from "../../components/MainCards/PanelCardContainer";
 
 type HeaderProps = { 
     title: string; 
@@ -36,9 +37,7 @@ const PaginatedTableLayout: FC<Props> & {
 } = ({ children, title }) => {
 
   return <div className="data-table-container">
-        <Panel
-            bordered
-            shaded
+        <PanelCardContainer
             header={
                 <Stack justifyContent="center">
                     <div>
@@ -51,7 +50,7 @@ const PaginatedTableLayout: FC<Props> & {
             <>
                 {children}
             </>
-        </Panel>
+        </PanelCardContainer>
     </div>
 };
 

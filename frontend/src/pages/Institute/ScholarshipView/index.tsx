@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Divider, Heading, Panel, Stack } from "rsuite";
+import { Button, ButtonToolbar, Divider, Heading, Stack } from "rsuite";
 import ScholarshipStatus from "../../../components/Student/ScholarshipStatus";
 import ScholarshipInfo from "../../../components/Student/ScholarshipInfo";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
@@ -12,6 +12,7 @@ import { AxiosErrorResponseType } from "../../../utils/types";
 import { api_routes } from "../../../utils/routes/api";
 import InstituteScholarshipRejectForm from "../../../components/Institute/RejectModal";
 import StatusBadge from "../../../components/Institute/StatusBadge";
+import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
 
 export default function InstituteScholarshipViewPage() {
   const { id } = useParams<{ id: string }>();
@@ -50,10 +51,8 @@ export default function InstituteScholarshipViewPage() {
       >
         <div style={{ width: "100%", position: "relative" }}>
           {data && data.application && (
-            <Panel
-              bordered
-              shaded
-              className="mb-1"
+            <PanelCardContainer
+              class_name="mb-1"
               header={
                 <Stack justifyContent="space-between">
                   <Heading level={6} className="text-brand">
@@ -75,7 +74,7 @@ export default function InstituteScholarshipViewPage() {
             >
               <Divider />
               <ScholarshipStatus data={data.application} />
-            </Panel>
+            </PanelCardContainer>
           )}
           <ScholarshipInfo data={data ? data.application : null} />
 					{(data!==undefined && data.application!==null) && <InstituteScholarshipRejectForm modal={modal && data!==undefined && data.application!==null} setModal={setModal} id={data!.application!.id} refetch={refetch} />}

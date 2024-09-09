@@ -1,8 +1,9 @@
-import { Panel, Grid, Row, Col } from "rsuite"
+import { Grid, Row, Col } from "rsuite"
 import { StudentApplicationType } from "../../../utils/types";
 import classes from './index.module.css';
 import FileViewer from "../../FileViewer";
 import DetailInfo from "../../DetailInfo";
+import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type Props = {
 	data: StudentApplicationType;
@@ -11,11 +12,11 @@ type Props = {
 function BankInfo({ data }: Props) {
 	return (
 		<div className="mb-1">
-		<Panel header={
+		<ModalCardContainer header={
 			<div className="text-center">
 				<h5 className={classes.inner_main_heading}>Bank Details</h5>
 			</div>
-		} className='info-modal-panel' bordered>
+		}>
 			<Grid fluid>
 				<Row gutter={30}>
 					<Col className="pb-1" xs={8}>
@@ -41,7 +42,7 @@ function BankInfo({ data }: Props) {
 					</Col>}
 				</Row>
 			</Grid>
-		</Panel>
+		</ModalCardContainer>
 		</div>
 	)
 }
