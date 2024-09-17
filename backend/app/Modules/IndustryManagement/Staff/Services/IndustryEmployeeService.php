@@ -33,6 +33,13 @@ class IndustryEmployeeService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function toggleStatus(IndustryAuth $industry): IndustryAuth
+    {
+        $industry->update(['is_blocked'=>!$industry->is_blocked]);
+        $industry->refresh();
+        return $industry;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

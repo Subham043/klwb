@@ -66,7 +66,7 @@ class ApplicationBasicDetail extends Model
 	protected function castCertificateLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->cast_certificate ? Storage::temporaryUrl($this->cast_certificate, now()->addMinutes(5)) : null,
+			get: fn() => ($this->cast_certificate && Storage::exists($this->cast_certificate)) ? Storage::temporaryUrl($this->cast_certificate, now()->addMinutes(20)) : null,
 		);
 	}
 	
@@ -80,7 +80,7 @@ class ApplicationBasicDetail extends Model
 	protected function adharcardFileLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->adharcard_file ? Storage::temporaryUrl($this->adharcard_file, now()->addMinutes(5)) : null,
+			get: fn() => ($this->adharcard_file && Storage::exists($this->adharcard_file)) ? Storage::temporaryUrl($this->adharcard_file, now()->addMinutes(20)) : null,
 		);
 	}
 	
@@ -94,7 +94,7 @@ class ApplicationBasicDetail extends Model
 	protected function fAdharfileLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->f_adharfile ? Storage::temporaryUrl($this->f_adharfile, now()->addMinutes(5)) : null,
+			get: fn() => ($this->f_adharfile && Storage::exists($this->f_adharfile)) ? Storage::temporaryUrl($this->f_adharfile, now()->addMinutes(20)) : null,
 		);
 	}
 	
@@ -108,7 +108,7 @@ class ApplicationBasicDetail extends Model
 	protected function mAdharfileLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->m_adharfile ? Storage::temporaryUrl($this->m_adharfile, now()->addMinutes(5)) : null,
+			get: fn() => ($this->m_adharfile && Storage::exists($this->m_adharfile)) ? Storage::temporaryUrl($this->m_adharfile, now()->addMinutes(20)) : null,
 		);
 	}
 	
@@ -122,7 +122,7 @@ class ApplicationBasicDetail extends Model
 	protected function deathcertificateLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->deathcertificate ? Storage::temporaryUrl($this->deathcertificate, now()->addMinutes(5)) : null,
+			get: fn() => ($this->deathcertificate && Storage::exists($this->deathcertificate)) ? Storage::temporaryUrl($this->deathcertificate, now()->addMinutes(20)) : null,
 		);
 	}
 

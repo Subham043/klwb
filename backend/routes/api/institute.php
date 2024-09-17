@@ -27,6 +27,7 @@ use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeCreateCon
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeDeleteController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeExportController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeePaginateController;
+use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeToggleController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeUpdateController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeViewController;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,7 @@ Route::prefix('institute')->group(function () {
                 Route::post('/update/{id}', [InstituteEmployeeUpdateController::class, 'index']);
                 Route::delete('/delete/{id}', [InstituteEmployeeDeleteController::class, 'index']);
                 Route::get('/view/{id}', [InstituteEmployeeViewController::class, 'index']);
+                Route::get('/status/{id}', [InstituteEmployeeToggleController::class, 'index']);
             });
         });
         Route::middleware([Guards::Institute->middleware(), 'verified', 'role:Institute|Institute-Staff'])->group(function () {

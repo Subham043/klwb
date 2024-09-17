@@ -56,7 +56,7 @@ class ApplicationCompany extends Model
 	protected function salaryslipLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->salaryslip ? Storage::temporaryUrl($this->salaryslip, now()->addMinutes(5)) : null,
+			get: fn() => ($this->salaryslip && Storage::exists($this->salaryslip)) ? Storage::temporaryUrl($this->salaryslip, now()->addMinutes(20)) : null,
 		);
 	}
 

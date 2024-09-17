@@ -278,7 +278,7 @@ class ScholarshipService
 		return $this->model()
 			->where('id', $id)
 			->latest()
-			->first();
+			->firstOrFail();
 	}
 
 	public function getTotalApplicationCount(): int

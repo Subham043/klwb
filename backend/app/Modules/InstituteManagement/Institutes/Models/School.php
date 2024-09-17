@@ -57,7 +57,7 @@ class School extends Model
     protected function regCertificationLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->reg_certification ? Storage::temporaryUrl($this->reg_certification, now()->addMinutes(5)) : null,
+            get: fn () => ($this->reg_certification && Storage::exists($this->reg_certification)) ? Storage::temporaryUrl($this->reg_certification, now()->addMinutes(20)) : null,
         );
     }
 
@@ -71,7 +71,7 @@ class School extends Model
     protected function principalSignatureLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->principal_signature ? Storage::temporaryUrl($this->principal_signature, now()->addMinutes(5)) : null,
+            get: fn () => ($this->principal_signature && Storage::exists($this->principal_signature)) ? Storage::temporaryUrl($this->principal_signature, now()->addMinutes(20)) : null,
         );
     }
 
@@ -85,7 +85,7 @@ class School extends Model
     protected function sealLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->seal ? Storage::temporaryUrl($this->seal, now()->addMinutes(5)) : null,
+            get: fn () => ($this->seal && Storage::exists($this->seal)) ? Storage::temporaryUrl($this->seal, now()->addMinutes(20)) : null,
         );
     }
 

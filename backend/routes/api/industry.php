@@ -27,6 +27,7 @@ use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeCreateContr
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeDeleteController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeExportController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeePaginateController;
+use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeToggleController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeUpdateController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeViewController;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,7 @@ Route::prefix('industry')->group(function () {
                 Route::post('/update/{id}', [IndustryEmployeeUpdateController::class, 'index']);
                 Route::delete('/delete/{id}', [IndustryEmployeeDeleteController::class, 'index']);
                 Route::get('/view/{id}', [IndustryEmployeeViewController::class, 'index']);
+                Route::get('/status/{id}', [IndustryEmployeeToggleController::class, 'index']);
             });
         });
         Route::middleware([Guards::Industry->middleware(), 'verified', 'role:Industry|Industry-Staff'])->group(function () {

@@ -67,6 +67,8 @@ use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryPaginate
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryToggleController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
+use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipExportController;
+use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipPaginateController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffExportController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryAllController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryApproveController;
@@ -89,13 +91,16 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationPaginateContr
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationViewController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPaginateController;
+use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffToggleController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteAuthController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteExportController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstitutePaginateController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteToggleController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteUpdateController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteViewController;
+use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInstituteScholarshipPaginateController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPaginateController;
+use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffToggleController;
 use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteAllController;
 use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteApproveController;
 use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteDeleteController;
@@ -110,7 +115,8 @@ use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionExportContr
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionPaginateController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionUpdateController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionViewController;
-use App\Modules\InstituteManagement\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
+use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInstituteScholarshipExportController;
+use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Roles\Controllers\RoleAllController;
 use App\Modules\LocationManagement\States\Controllers\StateExportController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
@@ -245,6 +251,11 @@ Route::prefix('admin')->group(function () {
                 Route::prefix('staff/{id}')->group(function () {
                     Route::get('/excel', [RegisteredInstituteStaffExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredInstituteStaffPaginateController::class, 'index']);
+                    Route::get('/status/{staff_id}', [RegisteredInstituteStaffToggleController::class, 'index']);
+                });
+                Route::prefix('scholarship/{id}')->group(function () {
+                    Route::get('/excel', [RegisteredInstituteScholarshipExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredInstituteScholarshipPaginateController::class, 'index']);
                 });
             });
             Route::prefix('non-registered-institutes')->group(function () {
@@ -280,6 +291,11 @@ Route::prefix('admin')->group(function () {
                 Route::prefix('staff/{id}')->group(function () {
                     Route::get('/excel', [RegisteredIndustryStaffExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredIndustryStaffPaginateController::class, 'index']);
+                    Route::get('/status/{staff_id}', [RegisteredIndustryStaffToggleController::class, 'index']);
+                });
+                Route::prefix('scholarship/{id}')->group(function () {
+                    Route::get('/excel', [RegisteredIndustryScholarshipExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredIndustryScholarshipPaginateController::class, 'index']);
                 });
             });
             Route::prefix('non-registered-industries')->group(function () {

@@ -33,6 +33,13 @@ class InstituteEmployeeService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function toggleStatus(InstituteAuth $institute): InstituteAuth
+    {
+        $institute->update(['is_blocked'=>!$institute->is_blocked]);
+        $institute->refresh();
+        return $institute;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

@@ -25,6 +25,7 @@ use App\Modules\Students\Dashboard\StudentDashboardController;
 use App\Modules\Students\Scholarship\Controllers\ApplyScholarshipController;
 use App\Modules\Students\Scholarship\Controllers\ResubmitScholarshipController;
 use App\Modules\Students\Scholarship\Controllers\ScholarshipListController;
+use App\Modules\Students\Scholarship\Controllers\ScholarshipPdfController;
 use App\Modules\Students\Scholarship\Controllers\ScholarshipStatusController;
 use App\Modules\Students\Scholarship\Controllers\ScholarshipViewController;
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/status', [ScholarshipStatusController::class, 'index']);
             Route::get('/list', [ScholarshipListController::class, 'index']);
             Route::get('/view/{id}', [ScholarshipViewController::class, 'index']);
+            Route::get('/pdf/{id}', [ScholarshipPdfController::class, 'index']);
         });
         Route::get('/dashboard', [StudentDashboardController::class, 'index']);
     });

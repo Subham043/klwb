@@ -61,7 +61,7 @@ class InstituteScholarshipService
 		return $this->model()
 			->where('id', $id)
 			->latest()
-			->first();
+			->firstOrFail();
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator

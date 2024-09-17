@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         api: [
             __DIR__.'/../routes/api/admin.php',
             __DIR__.'/../routes/api/official.php',
-            __DIR__.'/../routes/api/contribution.php',
+            __DIR__.'/../routes/api/govt.php',
             __DIR__.'/../routes/api/industry.php',
             __DIR__.'/../routes/api/institute.php',
             __DIR__.'/../routes/api/finance.php',

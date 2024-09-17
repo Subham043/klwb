@@ -106,7 +106,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     protected function regDocLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->reg_doc ? Storage::temporaryUrl($this->reg_doc, now()->addMinutes(5)) : null,
+            get: fn () => ($this->reg_doc && Storage::exists($this->reg_doc)) ? Storage::temporaryUrl($this->reg_doc, now()->addMinutes(20)) : null,
         );
     }
 
@@ -120,7 +120,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     protected function signLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->sign ? Storage::temporaryUrl($this->sign, now()->addMinutes(5)) : null,
+            get: fn () =>( $this->sign && Storage::exists($this->sign)) ? Storage::temporaryUrl($this->sign, now()->addMinutes(20)) : null,
         );
     }
 
@@ -134,7 +134,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     protected function sealLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->seal ? Storage::temporaryUrl($this->seal, now()->addMinutes(5)) : null,
+            get: fn () => ($this->seal && Storage::exists($this->seal)) ? Storage::temporaryUrl($this->seal, now()->addMinutes(20)) : null,
         );
     }
 
@@ -148,7 +148,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     protected function panLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->pan ? Storage::temporaryUrl($this->pan, now()->addMinutes(5)) : null,
+            get: fn () => ($this->pan && Storage::exists($this->pan)) ? Storage::temporaryUrl($this->pan, now()->addMinutes(20)) : null,
         );
     }
 
@@ -162,7 +162,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     protected function gstLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->gst ? Storage::temporaryUrl($this->gst, now()->addMinutes(5)) : null,
+            get: fn () => ($this->gst && Storage::exists($this->gst)) ? Storage::temporaryUrl($this->gst, now()->addMinutes(20)) : null,
         );
     }
 

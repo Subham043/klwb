@@ -51,7 +51,7 @@ class ApplicationAccount extends Model
 				protected function passbookLink(): Attribute
 				{
 					return new Attribute(
-						get: fn() => $this->passbook ? Storage::temporaryUrl($this->passbook, now()->addMinutes(5)) : null,
+						get: fn() => ($this->passbook && Storage::exists($this->passbook)) ? Storage::temporaryUrl($this->passbook, now()->addMinutes(20)) : null,
 					);
 				}
 

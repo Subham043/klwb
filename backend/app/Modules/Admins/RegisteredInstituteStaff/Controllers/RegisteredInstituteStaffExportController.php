@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\InstituteManagement\RegisteredInstituteStaff\Controllers;
+namespace App\Modules\Admins\RegisteredInstituteStaff\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\RegisteredInstitute\Services\RegisteredInstituteService;

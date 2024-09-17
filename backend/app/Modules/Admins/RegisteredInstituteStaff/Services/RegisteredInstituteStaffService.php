@@ -51,6 +51,18 @@ class RegisteredInstituteStaffService
                 ->appends(request()->query());
     }
 
+    public function get(string $school_id, string $created_by, string $id): InstituteAuth
+    {
+        return $this->query($school_id, $created_by)->where('id', $id)->firstOrFail();
+    }
+
+    public function toggleStatus(InstituteAuth $institute): InstituteAuth
+    {
+        $institute->update(['is_blocked'=>!$institute->is_blocked]);
+        $institute->refresh();
+        return $institute;
+    }
+
     public function excel(string $school_id, string $created_by) : SimpleExcelWriter
     {
         $model = $this->model($school_id, $created_by);

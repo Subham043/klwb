@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\IndustryManagement\Scholarship\Services;
+namespace App\Modules\Govt\Scholarship\Services;
 
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Models\Application;
@@ -10,15 +10,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class IndustryScholarshipService
+class GovtScholarshipService
 {
 
 	protected function model(): Builder
 	{
 		return Application::commonWith()
 		->commonRelation()
-		->belongsToAuthCompany()
-		->whereApplicationStageGreaterThan(ApplicationState::School);
+		->whereApplicationStageGreaterThan(ApplicationState::Company);
 	}
 	protected function query(): QueryBuilder
 	{
@@ -32,17 +31,17 @@ class IndustryScholarshipService
 					if($value == 'approved'){
 						$query->where(function($qry){
 							$qry->where(function($q){
-								$q->isApplicationApproved()->inCompanyStage();
+								$q->isApplicationApproved()->inGovtStage();
 							})->orWhere(function($q){
 								$q->whereApplicationStageGreaterThan(ApplicationState::Company);
 							});
 						});
 					}
 					if($value == 'rejected'){
-						$query->isApplicationRejected()->inCompanyStage();
+						$query->isApplicationRejected()->inGovtStage();
 					}
 					if($value == 'pending'){
-						$query->isApplicationPending()->inCompanyStage();
+						$query->isApplicationPending()->inGovtStage();
 					}
 				}),
 			]);
@@ -72,33 +71,32 @@ class IndustryScholarshipService
 	
 	public function getTotalApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()
-		->whereApplicationStageGreaterThan(ApplicationState::School)
+		return Application::whereApplicationStageGreaterThan(ApplicationState::Company)
 		->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()->where(function($qry){
+		return Application::where(function($qry){
 			$qry->where(function($q){
-				$q->inCompanyStage()->isApplicationApproved();
+				$q->inGovtStage()->isApplicationApproved();
 			})->orWhere(function($q){
-				$q->whereApplicationStageGreaterThan(ApplicationState::Company);
+				$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
 			});
 		})->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()->where(function($qry){
-			$qry->inCompanyStage()->isApplicationRejected();
+		return Application::where(function($qry){
+			$qry->inGovtStage()->isApplicationRejected();
 		})->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()->where(function($qry){
-			$qry->inCompanyStage()->isApplicationPending();
+		return Application::where(function($qry){
+			$qry->inGovtStage()->isApplicationPending();
 		})->count();
 	}
 

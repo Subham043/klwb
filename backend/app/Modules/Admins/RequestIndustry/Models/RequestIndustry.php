@@ -68,7 +68,7 @@ class RequestIndustry extends Model implements AuthTraitInterface
     protected function registerDocLink(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->register_doc ? Storage::temporaryUrl($this->register_doc, now()->addMinutes(5)) : null,
+            get: fn () => ($this->register_doc && Storage::exists($this->register_doc)) ? Storage::temporaryUrl($this->register_doc, now()->addMinutes(20)) : null,
         );
     }
 

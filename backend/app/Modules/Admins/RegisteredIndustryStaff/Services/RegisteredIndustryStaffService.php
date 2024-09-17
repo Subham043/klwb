@@ -51,6 +51,18 @@ class RegisteredIndustryStaffService
                 ->appends(request()->query());
     }
 
+    public function get(string $reg_industry_id, string $created_by, string $id): IndustryAuth
+    {
+        return $this->query($reg_industry_id, $created_by)->where('id', $id)->firstOrFail();
+    }
+
+    public function toggleStatus(IndustryAuth $industry): IndustryAuth
+    {
+        $industry->update(['is_blocked'=>!$industry->is_blocked]);
+        $industry->refresh();
+        return $industry;
+    }
+
     public function excel(string $reg_industry_id, string $created_by) : SimpleExcelWriter
     {
         $model = $this->model($reg_industry_id, $created_by);

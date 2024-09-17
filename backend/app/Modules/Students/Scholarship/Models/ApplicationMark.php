@@ -60,7 +60,7 @@ class ApplicationMark extends Model
 	protected function prvMarkcardLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->prv_markcard ? Storage::temporaryUrl($this->prv_markcard, now()->addMinutes(5)) : null,
+			get: fn() => ($this->prv_markcard && Storage::exists($this->prv_markcard)) ? Storage::temporaryUrl($this->prv_markcard, now()->addMinutes(20)) : null,
 		);
 	}
 
@@ -74,7 +74,7 @@ class ApplicationMark extends Model
 	protected function prvMarkcard2Link(): Attribute
 	{
 		return new Attribute(
-			get: fn() => $this->prv_markcard2 ? Storage::temporaryUrl($this->prv_markcard2, now()->addMinutes(5)) : null,
+			get: fn() => ($this->prv_markcard2 && Storage::exists($this->prv_markcard2)) ? Storage::temporaryUrl($this->prv_markcard2, now()->addMinutes(20)) : null,
 		);
 	}
 
