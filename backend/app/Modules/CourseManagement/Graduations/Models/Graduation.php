@@ -53,7 +53,7 @@ class Graduation extends Model implements AuthTraitInterface
     
     public function scholarship_fee()
     {
-        return $this->hasOne(Fee::class, 'graduation_id')->where('year', '<=', $this->marks_obtained()->application->application_year ?? date('Y'))->latestOfMany();
+        return $this->hasOne(Fee::class, 'graduation_id')->where('year', '<=', $this->marks_obtained()->application->application_year ?? date('Y'))->orderBy('year', 'desc')->latestOfMany();
     }
 
 }

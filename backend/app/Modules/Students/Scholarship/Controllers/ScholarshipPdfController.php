@@ -16,6 +16,7 @@ class ScholarshipPdfController extends Controller
         $data = [
             'application' => $application
         ];
+        // return view('pdf.scholarship', compact(['application']));
         $pdf = Pdf::loadView('pdf.scholarship', $data)->setPaper('a4', 'potrait');
         return $pdf->download($fileName.'.pdf');
     }

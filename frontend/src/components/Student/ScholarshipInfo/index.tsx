@@ -8,7 +8,7 @@ import IndustryInfo from "./IndustryInfo";
 import AadharInfo from "./AadharInfo";
 import BankInfo from "./BankInfo";
 import ConfirmationReport from "./ConfirmationReport";
-import MainCardContainer from "../../MainCards/MainCardContainer";
+import PanelCardContainer from "../../MainCards/PanelCardContainer";
 
 type Props = {
 	data: StudentApplicationType | null;
@@ -16,7 +16,7 @@ type Props = {
 
 export default function ScholarshipInfo({ data }: Props) {
 	return <div className="data-table-container">
-	<MainCardContainer
+	<PanelCardContainer
 		header={
 			<Stack justifyContent="center" alignItems="center">
 				<div className="text-center">
@@ -36,6 +36,6 @@ export default function ScholarshipInfo({ data }: Props) {
 			<BankInfo data={data} />
 			<ConfirmationReport />
 		</>}
-	</MainCardContainer>
+	</PanelCardContainer>
 </div>
 }
