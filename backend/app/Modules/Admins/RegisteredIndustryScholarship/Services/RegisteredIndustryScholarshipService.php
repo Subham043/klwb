@@ -46,7 +46,7 @@ class RegisteredIndustryScholarshipService
     {
         $model = $this->model($reg_industry_id);
         $i=0;
-        $writer = SimpleExcelWriter::streamDownload('industry_staffs.xlsx');
+        $writer = SimpleExcelWriter::streamDownload('industry_scholarships.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {
             $writer->addRow([
                 'Name' => $data->name,

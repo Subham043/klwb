@@ -14,7 +14,7 @@ type Props = {
 export default function ErrorBoundaryLayout({children, loading=false, error, refetch}:Props) {
 		return (
 				<div className="p-relative">
-					{(loading) && <Loader backdrop content="loading..." vertical style={{ zIndex: 3 }} />}
+					{(loading) && <Loader backdrop content="loading..." size="sm" style={{ zIndex: 3 }} />}
 					{
 									error ? 
 									<Message showIcon type="error" header="A problem occurred" className="mb-1">

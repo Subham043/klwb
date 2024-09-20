@@ -20,7 +20,6 @@ class IndustryScholarshipRejectController extends Controller
                 'company_approve' => now(),
                 'status' => ApplicationStatus::Reject->value,
                 'reject_reason' => $request->reason,
-                'industry_reject_comment' => $request->comment,
             ]);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }

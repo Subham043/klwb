@@ -8,10 +8,10 @@ use App\Modules\Admins\RegisteredInstituteScholarship\Services\RegisteredInstitu
 
 class RegisteredInstituteScholarshipExportController extends Controller
 {
-    public function __construct(private RegisteredInstituteScholarshipService $staffService, private RegisteredInstituteService $instituteService){}
+    public function __construct(private RegisteredInstituteScholarshipService $scholarshipService, private RegisteredInstituteService $instituteService){}
 
     public function index($id){
         $school = $this->instituteService->getById($id);
-        return $this->staffService->excel($school->reg_institute_id)->toBrowser();
+        return $this->scholarshipService->excel($school->reg_institute_id)->toBrowser();
     }
 }

@@ -11,7 +11,7 @@ const RegisteredInstituteInfo:FC = () => {
 
     return <DetailLayout title="Registered Institute Information">
         <InstituteInfo id={Number(id)} />
-        <Scholarship />
+        <Scholarship id={Number(id)} />
         <Staff id={Number(id)} />
     </DetailLayout>
 }

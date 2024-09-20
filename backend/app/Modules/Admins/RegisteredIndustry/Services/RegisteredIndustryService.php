@@ -149,7 +149,25 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where(function($q) use($value){
-            $q->where('principal', 'LIKE', '%' . $value . '%');
+            $q->where('name', 'LIKE', '%' . $value . '%')
+            ->orWhere('phone', 'LIKE', '%' . $value . '%')
+            ->orWhere('email', 'LIKE', '%' . $value . '%')
+            ->orWhere('gst_no', 'LIKE', '%' . $value . '%')
+            ->orWhere('pan_no', 'LIKE', '%' . $value . '%')
+            ->orWhere('address', 'LIKE', '%' . $value . '%')
+            ->orWhere('reg_industry_id', 'LIKE', '%' . $value . '%')
+            ->orWhereHas('industry', function($qry) use($value){
+                $qry->where('name', 'LIKE', '%' . $value . '%')
+                ->orWhere('reg_id', 'LIKE', '%' . $value . '%')
+                ->orWhere('pincode', 'LIKE', '%' . $value . '%')
+                ->orWhere('act', 'LIKE', '%' . $value . '%');
+            })
+            ->orWhereHas('city', function($qry) use($value){
+                $qry->where('name', 'LIKE', '%' . $value . '%');
+            })
+            ->orWhereHas('taluq', function($qry) use($value){
+                $qry->where('name', 'LIKE', '%' . $value . '%');
+            });
         });
     }
 }

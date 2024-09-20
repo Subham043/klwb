@@ -6,10 +6,17 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { page_routes } from "../../../utils/routes/pages";
 import DashboardMessageCard from "../../../components/Student/DashboardMessage/DashboardMessageCard";
 import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
+import { usePdfExport } from "../../../hooks/usePdfExport";
+import { api_routes } from "../../../utils/routes/api";
 
 
 export default function StudentScholarshipStatusPage() {
 	const {data, isFetching, isLoading, isRefetching, refetch, error} = useScholarshipStatusQuery();
+	const {pdfLoading, exportPdf} = usePdfExport();
+
+	const exportPdfHandler = async () => {
+		await exportPdf(api_routes.user.scholarship.pdf((data && data.application) ? data.application.id : ""), "ScholarshipForm.pdf")
+	}
 
 	return <div className="data-table-container">
 		<ErrorBoundaryLayout loading={isRefetching || isLoading || isFetching} error={error} refetch={refetch}>
@@ -20,7 +27,7 @@ export default function StudentScholarshipStatusPage() {
 						<Stack justifyContent="space-between">
 							<Heading level={6} className="text-brand">Scholarship Application Status</Heading>
 							<ButtonToolbar>
-								{(data && data.application) && <Button appearance="primary" color="green" size="sm">Download</Button>}
+								{(data && data.application) && <Button appearance="primary" size="sm" loading={pdfLoading} disabled={pdfLoading} onClick={exportPdfHandler}>Download</Button>}
 							</ButtonToolbar>
 					</Stack>
 					}

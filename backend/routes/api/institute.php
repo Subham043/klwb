@@ -21,6 +21,7 @@ use App\Modules\Auth\Institute\Authentication\Controllers\ResetPasswordResendOtp
 use App\Modules\InstituteManagement\Dashboard\InstituteDashboardController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipApproveController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipListController;
+use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipPdfController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipRejectController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipViewController;
 use App\Modules\InstituteManagement\Staff\Controllers\InstituteEmployeeCreateController;
@@ -76,6 +77,7 @@ Route::prefix('institute')->group(function () {
             Route::prefix('scholarship')->group(function () {
                 Route::get('/list', [InstituteScholarshipListController::class, 'index']);
                 Route::get('/view/{id}', [InstituteScholarshipViewController::class, 'index']);
+                Route::get('/pdf/{id}', [InstituteScholarshipPdfController::class, 'index']);
                 Route::post('/approve/{id}', [InstituteScholarshipApproveController::class, 'index']);
                 Route::post('/reject/{id}', [InstituteScholarshipRejectController::class, 'index']);
             });

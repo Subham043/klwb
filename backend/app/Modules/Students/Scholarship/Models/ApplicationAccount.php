@@ -2,6 +2,7 @@
 
 namespace App\Modules\Students\Scholarship\Models;
 
+use App\Modules\Students\Scholarship\Enums\AccountType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -39,7 +40,14 @@ class ApplicationAccount extends Model
 
 				public $passbook_path = 'student-passbook';
 
-				protected $appends = ['passbook_link'];
+				protected $appends = ['passbook_link', 'account_type'];
+
+				protected function accountType(): Attribute
+				{
+					return new Attribute(
+						get: fn() => AccountType::getValue($this->type),
+					);
+				}
 			
 				protected function passbook(): Attribute
 				{

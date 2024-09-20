@@ -4,6 +4,7 @@ namespace App\Modules\Students\Scholarship\Models;
 
 use App\Modules\LocationManagement\Cities\Models\City;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
+use App\Modules\Students\Scholarship\Enums\Working;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -44,7 +45,14 @@ class ApplicationCompany extends Model
 
 	public $salaryslip_path = 'salaryslip';
 
-	protected $appends = ['salaryslip_link'];
+	protected $appends = ['salaryslip_link', 'who_working_text'];
+
+	protected function whoWorkingText(): Attribute
+	{
+		return new Attribute(
+			get: fn() => Working::getValue($this->who_working),
+		);
+	}
 
 	protected function salaryslip(): Attribute
 	{

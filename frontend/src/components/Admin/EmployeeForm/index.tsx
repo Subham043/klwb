@@ -113,7 +113,7 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
     });
 
     return (
-        <Drawer title="Employee" drawer={drawer} drawerHandler={drawerHandler}>
+        <Drawer title="Staff / Officer" drawer={drawer} drawerHandler={drawerHandler}>
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />

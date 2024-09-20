@@ -9,6 +9,8 @@ import IndustryScholarshipRejectForm from "../../../components/Industry/RejectMo
 import StatusBadge from "../../../components/Institute/StatusBadge";
 import IndustryScholarshipApproveForm from "../../../components/Industry/ApproveModal";
 import PanelCardContainer from "../../../components/MainCards/PanelCardContainer";
+import { usePdfExport } from "../../../hooks/usePdfExport";
+import { api_routes } from "../../../utils/routes/api";
 
 export default function IndustryScholarshipViewPage() {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +18,11 @@ export default function IndustryScholarshipViewPage() {
   const [approveModal, setApproveModal] = useState<boolean>(false);
   const { data, isFetching, isLoading, isRefetching, refetch, error } =
     useIndustryScholarshipViewQuery(Number(id) || 0, true);
+  const {pdfLoading, exportPdf} = usePdfExport();
+
+  const exportPdfHandler = async () => {
+    await exportPdf(api_routes.industry.scholarship.pdf(id || ""), "ScholarshipForm.pdf")
+  }
 
 
   return (
@@ -34,17 +41,21 @@ export default function IndustryScholarshipViewPage() {
                   <Heading level={6} className="text-brand">
                     Scholarship Application Status
                   </Heading>
-                  {(data && data.application && data.can_approve) && (
-                    <ButtonToolbar>
-                      <Button appearance="primary" color="green" size="sm" onClick={() => setApproveModal(true)}>
-                        Approve
-                      </Button>
-                      <Button appearance="primary" color="red" size="sm" onClick={() => setModal(true)}>
-                        Reject
-                      </Button>
-                    </ButtonToolbar>
-                  )}
-                  {(data && data.application && !data.can_approve) && <StatusBadge status={data.application.status} application_state={data.application.application_state} current_application_state={2} />}
+                  <ButtonToolbar>
+                    <Button appearance="primary" size="sm" loading={pdfLoading} disabled={pdfLoading} onClick={exportPdfHandler}>Download</Button>
+                    {
+                      (data && data.application && data.can_approve) ? <>
+                        <Button appearance="primary" color="green" size="sm" onClick={() => setApproveModal(true)}>
+                          Approve
+                        </Button>
+                        <Button appearance="primary" color="red" size="sm" onClick={() => setModal(true)}>
+                          Reject
+                        </Button>
+                      </> : 
+                      <StatusBadge status={data.application.status} application_state={data.application.application_state} current_application_state={2} />
+                    }
+                    
+                  </ButtonToolbar>
                 </Stack>
               }
             >

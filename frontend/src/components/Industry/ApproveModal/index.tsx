@@ -31,10 +31,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     reference_industry: yup
       .string()
       .typeError("Reference Number must contain characters only")
+      .matches(/^KLWB-\d{14}$/ , 'Please enter a valid reference number in the format "KLWB-YYYYMMDDXXXXX"')
       .when("mode_industry", {
         is: "1",
         then: (schema) =>
-          schema.required("Cast Certificate Number is required"),
+          schema.required("Reference Number is required"),
         otherwise: (schema) => schema.notRequired(),
       }),
     dd_industry: yup
@@ -172,6 +173,7 @@ export default function IndustryScholarshipApproveForm({
               name="reference_industry"
               focus={true}
               label="Reference Number"
+              helpText="Reference number is the KLWB payment transaction ID which starts with 'KLWB-' and contains 14 digits. Example: KLWB-20202110102059"
               control={control}
               error={errors.reference_industry?.message}
             />
@@ -192,7 +194,7 @@ export default function IndustryScholarshipApproveForm({
               />
               <DateInput
                 name="date_offline_industry"
-                label="From Date"
+                label="Paid On"
                 control={control}
                 error={errors.date_offline_industry?.message}
               />

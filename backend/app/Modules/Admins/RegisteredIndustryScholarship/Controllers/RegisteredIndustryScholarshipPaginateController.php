@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class RegisteredIndustryScholarshipPaginateController extends Controller
 {
-    public function __construct(private RegisteredIndustryScholarshipService $staffService){}
+    public function __construct(private RegisteredIndustryScholarshipService $scholarshipService){}
 
     public function index(Request $request, $id){
         $industry = (new RegisteredIndustryService)->getById($id);
-        $data = $this->staffService->paginate($industry->reg_industry_id, $request->total ?? 10);
+        $data = $this->scholarshipService->paginate($industry->reg_industry_id, $request->total ?? 10);
         return RegisteredIndustryScholarshipCollection::collection($data);
     }
 

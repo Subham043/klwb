@@ -23,8 +23,8 @@ const Employee:FC = () => {
         refetch();
     }
 
-    return <PaginatedTableLayout title="Employees">
-        <PaginatedTableLayout.Header title="Employees" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.employee.excel} excelName="employee.xlsx" />
+    return <PaginatedTableLayout title="Staff / Officer">
+        <PaginatedTableLayout.Header title="Staff / Officer" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.employee.excel} excelName="staffs.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

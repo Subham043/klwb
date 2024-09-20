@@ -143,6 +143,14 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-institutes/staff/${id}/excel`,
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-institutes/staff/${id}/paginate`,
+      status: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-institutes/staff/${id}/status/${staff_id}`,
+    },
+    scholarship: {
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-institutes/scholarship/${id}/excel`,
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-institutes/scholarship/${id}/paginate`,
     },
   },
   non_registered_institute: {
@@ -192,6 +200,14 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-industries/staff/${id}/excel`,
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-industries/staff/${id}/paginate`,
+      status: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-industries/staff/${id}/status/${staff_id}`,
+    },
+    scholarship: {
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-industries/scholarship/${id}/excel`,
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-industries/scholarship/${id}/paginate`,
     },
   },
   non_registered_industry: {

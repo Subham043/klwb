@@ -73,7 +73,7 @@ export default function InstituteDashboardAccountInfo() {
                 }
               >
                 <Heading level={6} style={{ color: "white" }}>
-                  Industry Information
+                  Institute Information
                 </Heading>
                 {user && user.role === RolesEnum.INSTITUTE && (
                   <ButtonToolbar>

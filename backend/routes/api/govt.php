@@ -5,6 +5,7 @@ use App\Modules\Govt\Dashboard\GovtDashboardController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipApproveController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipListController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipNoteController;
+use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipPdfController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipRejectController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipViewController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::prefix('govt')->group(function () {
 				Route::get('/approve/{id}', [GovtScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [GovtScholarshipRejectController::class, 'index']);
 				Route::post('/note/{id}', [GovtScholarshipNoteController::class, 'index']);
+				Route::get('/pdf/{id}', [GovtScholarshipPdfController::class, 'index']);
 			});
 			Route::get('/dashboard', [GovtDashboardController::class, 'index']);
 		});

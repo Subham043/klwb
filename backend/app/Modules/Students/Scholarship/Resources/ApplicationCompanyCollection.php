@@ -18,6 +18,7 @@ class ApplicationCompanyCollection extends JsonResource
     {
         return [
             'who_working' => $this->who_working,
+            'who_working_text' => $this->who_working_text,
             'parent_guardian_name' => $this->name,
             'relationship' => $this->relationship,
             'msalary' => $this->msalary,

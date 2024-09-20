@@ -21,6 +21,7 @@ class ApplicationAccountCollection extends JsonResource
             'acc_no' => $this->acc_no,
             'holder' => $this->holder,
             'type' => $this->type,
+            'account_type' => $this->account_type,
             'passbook' => $this->passbook_link,
         ];
     }

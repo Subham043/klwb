@@ -23,8 +23,8 @@ const ApplicationFee:FC = () => {
         refetch();
     }
 
-    return <PaginatedTableLayout title="Scholarship Fees">
-        <PaginatedTableLayout.Header title="Scholarship Fees" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.application_fee.excel} excelName="application_fee.xlsx" />
+    return <PaginatedTableLayout title="Educational Assistance Amount">
+        <PaginatedTableLayout.Header title="Amount" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.application_fee.excel} excelName="application_fee.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

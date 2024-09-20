@@ -79,13 +79,13 @@ const NavMenu = () => {
                         Dashboard
                     </Nav.Item>
                     <Nav.Item eventKey="14" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
-                        Employee Management
+                        Staff / Officer
                     </Nav.Item>
                     <Nav.Item eventKey="10" as={NavLink} to={page_routes.admin.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
                         Application Dates
                     </Nav.Item>
                     <Nav.Item eventKey="11" as={NavLink} to={page_routes.admin.application_fee} className='sidebar-navlink' icon={<TagNumberIcon />}>
-                        Scholarship Fees
+                        Educational Assistance Amount
                     </Nav.Item>
                     <Nav.Item eventKey="12" as={NavLink} to={page_routes.admin.security_question} className='sidebar-navlink' icon={<SettingHorizontalIcon />}>
                         Security Questions

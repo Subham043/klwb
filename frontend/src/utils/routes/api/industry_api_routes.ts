@@ -35,6 +35,7 @@ export const industry_api_routes = {
 	scholarship: {
 		list: "/api/industry/v1/scholarship/list",
 		view: (id: string | number) => `/api/industry/v1/scholarship/view/${id}`,
+		pdf: (id: string | number) => `/api/industry/v1/scholarship/pdf/${id}`,
 		approve: (id: string | number) => `/api/industry/v1/scholarship/approve/${id}`,
 		reject: (id: string | number) => `/api/industry/v1/scholarship/reject/${id}`,
 	},

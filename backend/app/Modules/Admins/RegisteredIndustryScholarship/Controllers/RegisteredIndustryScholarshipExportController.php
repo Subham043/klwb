@@ -8,10 +8,10 @@ use App\Modules\Admins\RegisteredIndustryScholarship\Services\RegisteredIndustry
 
 class RegisteredIndustryScholarshipExportController extends Controller
 {
-    public function __construct(private RegisteredIndustryScholarshipService $staffService){}
+    public function __construct(private RegisteredIndustryScholarshipService $scholarshipService){}
 
     public function index($id){
         $industry = (new RegisteredIndustryService)->getById($id);
-        return $this->staffService->excel($industry->reg_industry_id)->toBrowser();
+        return $this->scholarshipService->excel($industry->reg_industry_id)->toBrowser();
     }
 }

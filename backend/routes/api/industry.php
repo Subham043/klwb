@@ -21,6 +21,7 @@ use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordResendOtpC
 use App\Modules\IndustryManagement\Dashboard\IndustryDashboardController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipApproveController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipListController;
+use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipPdfController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipRejectController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipViewController;
 use App\Modules\IndustryManagement\Staff\Controllers\IndustryEmployeeCreateController;
@@ -79,6 +80,7 @@ Route::prefix('industry')->group(function () {
                 Route::get('/view/{id}', [IndustryScholarshipViewController::class, 'index']);
                 Route::post('/approve/{id}', [IndustryScholarshipApproveController::class, 'index']);
                 Route::post('/reject/{id}', [IndustryScholarshipRejectController::class, 'index']);
+                Route::get('/pdf/{id}', [IndustryScholarshipPdfController::class, 'index']);
             });
             Route::get('/dashboard', [IndustryDashboardController::class, 'index']);
         });

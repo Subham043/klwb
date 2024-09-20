@@ -1,0 +1,27 @@
+{
+    "noto serif kannada": {
+        "100": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_100_9fb5690027ab2d1b5ee1298e4786de02",
+        "200": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_200_632680c9c93b5f0d8a756d93918f1225",
+        "300": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_300_bd40cf8d4c8a681f1a590fd9dfb1a79d",
+        "normal": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_normal_38c921d4ef5e8a1f9b5a77ca1cf8dba4",
+        "500": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_500_4b6811ff1fa969be57de27f7e46cf54e",
+        "600": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_600_6dc43a1fb2bfb5fdb2d59eacdcb4333e",
+        "bold": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_bold_6c4a2d9bd8f7610476535395d5921b80",
+        "800": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/noto_serif_kannada_800_ef002023ee420a825e95fa4e3a852b67",
+        "900": "noto_serif_kannada_900_ae5f9792f33a7a49abfc6dc17c295ccd"
+    },
+    "open sans": {
+        "300_italic": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_300_italic_945d8dd4a3efccc1bb28c16b6242db51",
+        "italic": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_italic_877b1c2661afb6fd8801d8d676e92166",
+        "500_italic": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_500_italic_6553c22d1e76c3d4440f64b48805fc7c",
+        "600_italic": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_600_italic_38650afefae818658a58a3f734c27327",
+        "bold_italic": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_bold_italic_f909b48de15edc7e40c0cecc141c2730",
+        "800_italic": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_800_italic_0a4825527362f06dbcf6601f5ab55f61",
+        "300": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_300_8513b9024ad211a10e857eba11f0f357",
+        "normal": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_normal_2bf6e8a03908d49a7fa7b1094b0c2804",
+        "500": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_500_663f11545dfeea65b44b2da12b5a66b1",
+        "600": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_600_94288badef373364367fbfb769e688ce",
+        "bold": "C:\\Users\\subha\\Documents\\subham-codes\\klwb\\backend\\storage\\fonts\/open_sans_bold_0e7196744e416eea97ecd5b9781a44c2",
+        "800": "open_sans_800_32706e64358098f2a0ad457efc8e0229"
+    }
+}

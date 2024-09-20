@@ -91,7 +91,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
     });
 
     return (
-        <Drawer title="Scholarship Fee" drawer={drawer} drawerHandler={drawerHandler}>
+        <Drawer title="Amount" drawer={drawer} drawerHandler={drawerHandler}>
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="amount" label="Amount" type="number" focus={true} control={control} error={errors.amount?.message} />

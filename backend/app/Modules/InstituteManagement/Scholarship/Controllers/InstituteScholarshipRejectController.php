@@ -20,7 +20,6 @@ class InstituteScholarshipRejectController extends Controller
                 'school_approve' => now(),
                 'status' => ApplicationStatus::Reject->value,
                 'reject_reason' => $request->reason,
-                'institute_reject_comment' => $request->comment,
             ]);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }

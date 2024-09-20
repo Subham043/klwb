@@ -28,7 +28,6 @@ class InstituteRejectScholarshipRequest extends InputRequest
     {
         return [
             'reason' => ['required', 'string', 'max:250'],
-            'comment' => ['required', 'string', 'max:250'],
         ];
     }
 

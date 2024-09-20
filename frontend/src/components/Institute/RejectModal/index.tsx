@@ -13,7 +13,6 @@ import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type SchemaType = {
   reason: string;
-  comment: string;
 };
 
 const schema: yup.ObjectSchema<SchemaType> = yup
@@ -22,10 +21,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Reason must contain characters only")
       .required("Reason is required"),
-    comment: yup
-      .string()
-      .typeError("Comment must contain characters only")
-      .required("Comment is required"),
   })
   .required();
 
@@ -65,7 +60,6 @@ export default function InstituteScholarshipRejectForm({
       toastSuccess("Rejected Successfully");
       reset({
         reason: "",
-        comment: "",
       });
       setModal(false);
       refetch();
@@ -107,14 +101,6 @@ export default function InstituteScholarshipRejectForm({
             helpText="Eg.Document is missing"
             control={control}
             error={errors.reason?.message}
-          />
-          <TextInput
-            name="comment"
-            textarea={true}
-            label="Comment"
-            helpText="Eg.Document is missing"
-            control={control}
-            error={errors.comment?.message}
           />
           <Modal.Footer className="info-modal-footer">
             <Button

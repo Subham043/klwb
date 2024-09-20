@@ -172,7 +172,37 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where(function($q) use($value){
-            $q->where('principal', 'LIKE', '%' . $value . '%');
+            $q->where('reg_no', 'LIKE', '%' . $value . '%')
+            ->orWhere('principal', 'LIKE', '%' . $value . '%')
+            ->orWhere('phone', 'LIKE', '%' . $value . '%')
+            ->orWhere('reg_institute_id', 'LIKE', '%' . $value . '%')
+            ->orWhere('email', 'LIKE', '%' . $value . '%')
+            ->orWhereHas('institute', function($q) use($value){
+                $q->where('reg_no', 'LIKE', '%' . $value . '%')
+                ->orWhere('management_type', 'LIKE', '%' . $value . '%')
+                ->orWhere('category', 'LIKE', '%' . $value . '%')
+                ->orWhere('type', 'LIKE', '%' . $value . '%')
+                ->orWhere('urban_rural', 'LIKE', '%' . $value . '%')
+                ->orWhere('name', 'LIKE', '%' . $value . '%');
+            })
+            ->orWhereHas('profile', function($q) use($value){
+                $q->where('name', 'LIKE', '%' . $value . '%')
+                ->orWhere('email', 'LIKE', '%' . $value . '%')
+                ->orWhere('phone', 'LIKE', '%' . $value . '%');
+            })
+            ->orWhereHas('address', function($q) use($value){
+                $q->where('address', 'LIKE', '%' . $value . '%')
+                ->orWhere('pincode', 'LIKE', '%' . $value . '%')
+                ->orWhereHas('state', function($q) use($value){
+                    $q->where('name', 'LIKE', '%' . $value . '%');
+                })
+                ->orWhereHas('city', function($q) use($value){
+                    $q->where('name', 'LIKE', '%' . $value . '%');
+                })
+                ->orWhereHas('taluq', function($q) use($value){
+                    $q->where('name', 'LIKE', '%' . $value . '%');
+                });
+            });
         });
     }
 }

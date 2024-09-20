@@ -35,6 +35,7 @@ export const institute_api_routes = {
 	scholarship: {
 		list: "/api/institute/v1/scholarship/list",
 		view: (id: string | number) => `/api/institute/v1/scholarship/view/${id}`,
+		pdf: (id: string | number) => `/api/institute/v1/scholarship/pdf/${id}`,
 		approve: (id: string | number) => `/api/institute/v1/scholarship/approve/${id}`,
 		reject: (id: string | number) => `/api/institute/v1/scholarship/reject/${id}`,
 	},

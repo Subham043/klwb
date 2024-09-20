@@ -7,6 +7,10 @@
   <meta name="description" content="Free Web tutorials">
   <meta name="keywords" content="HTML,CSS,XML,JavaScript">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   <!-- bar -->
   <style>
 			/*!
@@ -1501,7 +1505,7 @@ table caption {
 
 table tr {
   border: 1px solid #ddd;
-  padding: .35em;
+  padding: 0;
 }
 
 table tr:nth-child(odd),
@@ -1510,7 +1514,7 @@ table tr:hover {
 }
 
 table td {
-  padding: 15px 10px;
+  padding: 0;
   /* text-align: center; */
 }
 
@@ -1603,7 +1607,7 @@ table caption {
 
 table tr {
   border: 1px solid #ddd;
-  padding: .35em;
+  padding: 0;
 }
 
 table tr:nth-child(odd),
@@ -1612,7 +1616,7 @@ table tr:hover {
 }
 
 table td {
-  padding: 15px 10px;
+  padding: 0;
   /* text-align: center; */
 }
 
@@ -1633,7 +1637,7 @@ table th {
   table tr {
     border-bottom: 3px solid #ddd;
     display: block;
-    margin-bottom: .625em;
+    margin-bottom: 0;
   }
   table td {
     border-bottom: 1px solid #ddd;
@@ -1705,7 +1709,7 @@ thead tr {
 
 .hr-list .dataTable thead th,
 table.dataTable thead td {
-  padding: 8px 18px;
+  padding: 0;
 }
 
 .hr-list .dataTables_info {
@@ -1922,7 +1926,7 @@ table.dataTable thead td {
     display: inline-flex !important;
   }
   .vue-data-table .tbody-list td {
-    padding: 5px 10px;
+    padding: 0;
     width: 104px;
   }
   .hr-list {
@@ -2113,7 +2117,7 @@ thead tr {
 
 .hr-list .dataTable thead th,
 table.dataTable thead td {
-  padding: 9px 18px;
+  padding: 0;
 }
 
 .hr-list .dataTables_info {
@@ -2424,7 +2428,7 @@ table.dataTable thead td {
   table tr {
     border-bottom: 3px solid #ddd;
     display: contents;
-    margin-bottom: .625em;
+    margin-bottom: 0;
   }
 }
 
@@ -2977,7 +2981,7 @@ table.dataTable thead td {
   text-align: left;
   font-weight: 600;
   letter-spacing: 1px;
-  padding: 10px !important;
+  padding: 0px !important;
   height: auto;
   border: 1px solid #cecccc;
 }
@@ -3346,7 +3350,7 @@ table.striped > tbody > tr > td {
 }
 
 .gb td {
-  padding: 5px 10px;
+  padding: 0px;
 }
 
 @media (max-width: 767px) {
@@ -3549,7 +3553,7 @@ padding-left: 13px;
   <style>
     @page { margin:0; }
     body{
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: '"Noto Serif Kannada", "Open Sans", sans-serif' !important;
       margin: 0;
       padding: 0;
       margin: auto
@@ -3573,10 +3577,35 @@ padding-left: 13px;
     }
 
     td,
-    th {
+    th,
+    tr {
 
-      padding: 8px 5px;
+      padding: 0 !important;
+      margin: 0 !important;
+      line-height: 1 !important;
     }
+
+    td,
+    th{
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+
+    th{
+      font-size: 13px !important;
+    }
+
+    td{
+      font-weight: normal !important;
+      font-size: 12px !important;
+    }
+    td span{
+      font-size: 12px !important;
+    }
+
+
   </style>
 </head>
 
