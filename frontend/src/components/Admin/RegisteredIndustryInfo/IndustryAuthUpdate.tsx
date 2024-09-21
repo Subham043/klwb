@@ -7,7 +7,6 @@ import { useToast } from "../../../hooks/useToast";
 import { isAxiosError } from "axios";
 import { useAxios } from "../../../hooks/useAxios";
 import TextInput from "../../FormInput/TextInput";
-import ToggleInput from "../../FormInput/ToggleInput";
 import { api_routes } from "../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import {
@@ -29,7 +28,6 @@ type SchemaType = {
   name: string;
   email: string;
   phone: number;
-  is_blocked: number;
 };
 
 const schema: yup.ObjectSchema<SchemaType> = yup
@@ -48,12 +46,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .typeError("Phone must contain numbers only")
       .positive()
       .required("Phone is required"),
-    is_blocked: yup
-      .number()
-      .typeError("Active/Blocked must contain numbers only")
-      .min(0)
-      .max(1)
-      .required("Active/Blocked is required"),
   })
   .required();
 
@@ -81,17 +73,16 @@ const IndustryAuthUpdate = ({
       name: data ? data.name : "",
       email: data ? data.email : "",
       phone: data ? Number(data.phone) : 0,
-      is_blocked: data ? (!data.is_blocked ? 1 : 0) : 0,
     },
   });
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
     try {
-      const { is_blocked, ...rest } = getValues();
+      const { ...rest } = getValues();
       await axios.post(
         api_routes.admin.registered_industry.update_auth(data!.id),
-        { ...rest, is_blocked: is_blocked === 1 ? 0 : 1 }
+        { ...rest }
       );
       toastSuccess("Saved Successfully");
       setModal(false);
@@ -130,9 +121,7 @@ const IndustryAuthUpdate = ({
           refetch={refetch}
         >
           <>
-            <ModalCardContainer
-              header="Industry Credential Update"
-            >
+            <ModalCardContainer header="Industry Credential Update">
               <Grid fluid>
                 <Row gutter={30}>
                   <Col className="pb-1" xs={8}>
@@ -158,15 +147,6 @@ const IndustryAuthUpdate = ({
                       label="Phone"
                       control={control}
                       error={errors.phone?.message}
-                    />
-                  </Col>
-                  <Col className="pb-1" xs={24}>
-                    <ToggleInput
-                      name="is_blocked"
-                      checkedLabel="Active"
-                      uncheckedLabel="Blocked"
-                      control={control}
-                      error={errors.is_blocked?.message}
                     />
                   </Col>
                 </Row>

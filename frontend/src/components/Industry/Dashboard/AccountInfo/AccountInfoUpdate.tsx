@@ -128,9 +128,7 @@ const AccountInfoUpdate = ({
           refetch={refetch}
         >
           <>
-            <ModalCardContainer
-              header="Industry Information Update"
-            >
+            <ModalCardContainer header="Industry Information Update">
               <Grid fluid>
                 <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
@@ -149,6 +147,8 @@ const AccountInfoUpdate = ({
                       error={errors.pan_no?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
                     <SelectInput
                       name="act"
@@ -170,6 +170,8 @@ const AccountInfoUpdate = ({
                       error={errors.pincode?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={24}>
                     <TextInput
                       name="address"

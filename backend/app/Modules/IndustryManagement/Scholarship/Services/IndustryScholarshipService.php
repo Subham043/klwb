@@ -16,9 +16,9 @@ class IndustryScholarshipService
 	protected function model(): Builder
 	{
 		return Application::commonWith()
-		->commonRelation()
-		->belongsToAuthCompany()
-		->whereApplicationStageGreaterThan(ApplicationState::School);
+			->commonRelation()
+			->belongsToAuthCompany()
+			->whereApplicationStageGreaterThan(ApplicationState::School);
 	}
 	protected function query(): QueryBuilder
 	{
@@ -29,19 +29,19 @@ class IndustryScholarshipService
 				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
-					if($value == 'approved'){
-						$query->where(function($qry){
-							$qry->where(function($q){
+					if ($value == 'approved') {
+						$query->where(function ($qry) {
+							$qry->where(function ($q) {
 								$q->isApplicationApproved()->inCompanyStage();
-							})->orWhere(function($q){
+							})->orWhere(function ($q) {
 								$q->whereApplicationStageGreaterThan(ApplicationState::Company);
 							});
 						});
 					}
-					if($value == 'rejected'){
+					if ($value == 'rejected') {
 						$query->isApplicationRejected()->inCompanyStage();
 					}
-					if($value == 'pending'){
+					if ($value == 'pending') {
 						$query->isApplicationPending()->inCompanyStage();
 					}
 				}),
@@ -69,20 +69,20 @@ class IndustryScholarshipService
 			->appends(request()->query());
 	}
 
-	
+
 	public function getTotalApplicationCount(): int
 	{
 		return Application::belongsToAuthCompany()
-		->whereApplicationStageGreaterThan(ApplicationState::School)
-		->count();
+			->whereApplicationStageGreaterThan(ApplicationState::School)
+			->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()->where(function($qry){
-			$qry->where(function($q){
+		return Application::belongsToAuthCompany()->where(function ($qry) {
+			$qry->where(function ($q) {
 				$q->inCompanyStage()->isApplicationApproved();
-			})->orWhere(function($q){
+			})->orWhere(function ($q) {
 				$q->whereApplicationStageGreaterThan(ApplicationState::Company);
 			});
 		})->count();
@@ -90,18 +90,17 @@ class IndustryScholarshipService
 
 	public function getTotalRejectedApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()->where(function($qry){
+		return Application::belongsToAuthCompany()->where(function ($qry) {
 			$qry->inCompanyStage()->isApplicationRejected();
 		})->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
-		return Application::belongsToAuthCompany()->where(function($qry){
+		return Application::belongsToAuthCompany()->where(function ($qry) {
 			$qry->inCompanyStage()->isApplicationPending();
 		})->count();
 	}
-
 }
 
 
@@ -110,8 +109,69 @@ class CommonFilter implements Filter
 	public function __invoke(Builder $query, $value, string $property)
 	{
 		$query->where(function ($q) use ($value) {
-			$q->where('amount', 'LIKE', '%' . $value . '%')
-				->orWhere('year', 'LIKE', '%' . $value . '%');
+			$q->where('application_year', 'LIKE', '%' . $value . '%')
+				->orWhere('uniq', 'LIKE', '%' . $value . '%')
+				->orWhereHas('student', function ($q) use ($value) {
+					$q->where('name', 'LIKE', '%' . $value . '%')
+						->orWhere('email', 'LIKE', '%' . $value . '%')
+						->orWhere('phone', 'LIKE', '%' . $value . '%');
+				})
+				->orWhereHas('institute', function ($q) use ($value) {
+					$q->where('name', 'LIKE', '%' . $value . '%');
+				})
+				->orWhereHas('industry', function ($q) use ($value) {
+					$q->where('name', 'LIKE', '%' . $value . '%');
+				})
+				->orWhereHas('basic_detail', function ($q) use ($value) {
+					$q->where('name', 'LIKE', '%' . $value . '%')
+						->orWhere('father_name', 'LIKE', '%' . $value . '%')
+						->orWhere('address', 'LIKE', '%' . $value . '%')
+						->orWhere('parent_phone', 'LIKE', '%' . $value . '%')
+						->orWhere('category', 'LIKE', '%' . $value . '%')
+						->orWhere('cast_no', 'LIKE', '%' . $value . '%')
+						->orWhere('adharcard_no', 'LIKE', '%' . $value . '%')
+						->orWhere('gender', 'LIKE', '%' . $value . '%')
+						->orWhere('f_adhar', 'LIKE', '%' . $value . '%')
+						->orWhere('m_adhar', 'LIKE', '%' . $value . '%')
+						->orWhere('mother_name', 'LIKE', '%' . $value . '%');
+				})
+				->orWhereHas('mark', function ($q) use ($value) {
+					$q->where('prv_class', 'LIKE', '%' . $value . '%')
+						->orWhere('prv_marks', 'LIKE', '%' . $value . '%')
+						->orWhereHas('graduation', function ($qry) use ($value) {
+							$qry->where('name', 'LIKE', '%' . $value . '%')
+								->orWhereHas('scholarship_fee', function ($q) use ($value) {
+									$q->where('amount', 'LIKE', '%' . $value . '%');
+								});
+						})
+						->orWhereHas('class', function ($qry) use ($value) {
+							$qry->where('name', 'LIKE', '%' . $value . '%');
+						})
+						->orWhereHas('course', function ($qry) use ($value) {
+							$qry->where('name', 'LIKE', '%' . $value . '%');
+						});
+				})
+				->orWhereHas('company', function ($q) use ($value) {
+					$q->where('who_working', 'LIKE', '%' . $value . '%')
+						->orWhere('name', 'LIKE', '%' . $value . '%')
+						->orWhere('relationship', 'LIKE', '%' . $value . '%')
+						->orWhere('msalary', 'LIKE', '%' . $value . '%')
+						->orWhere('pincode', 'LIKE', '%' . $value . '%')
+						->orWhereHas('district', function ($qry) use ($value) {
+							$qry->where('name', 'LIKE', '%' . $value . '%');
+						})
+						->orWhereHas('taluq', function ($qry) use ($value) {
+							$qry->where('name', 'LIKE', '%' . $value . '%');
+						});
+				})
+				->orWhereHas('account', function ($q) use ($value) {
+					$q->where('branch', 'LIKE', '%' . $value . '%')
+						->orWhere('name', 'LIKE', '%' . $value . '%')
+						->orWhere('ifsc', 'LIKE', '%' . $value . '%')
+						->orWhere('acc_no', 'LIKE', '%' . $value . '%')
+						->orWhere('holder', 'LIKE', '%' . $value . '%')
+						->orWhere('type', 'LIKE', '%' . $value . '%');
+				});
 		});
 	}
 }

@@ -30,7 +30,6 @@ class RegisteredIndustryAuthRequest extends InputRequest
             'name' => 'required|string|max:500',
             'email' => ['required','email:rfc,dns','unique:industry_auths,email,'.$this->route('id')],
             'phone' => ['required','numeric', 'digits:10','unique:industry_auths,phone,'.$this->route('id')],
-            'is_blocked' => 'required|boolean',
         ];
     }
 

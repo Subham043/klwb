@@ -14,6 +14,7 @@ export default function DeleteBtn({ clickHandler, deleteLoading }: DeleteBtnProp
         color="red"
         icon={<TrashIcon />}
         loading={deleteLoading}
+        size="sm"
       />
     </ConfirmAlert>
   );

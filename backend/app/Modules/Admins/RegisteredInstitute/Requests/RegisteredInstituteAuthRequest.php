@@ -32,7 +32,6 @@ class RegisteredInstituteAuthRequest extends InputRequest
             'name' => 'required|string|max:500',
             'email' => ['required','email:rfc,dns','unique:school_auths,email,'.$institute->profile->id],
             'phone' => ['required','numeric', 'digits:10','unique:school_auths,phone,'.$institute->profile->id],
-            'is_blocked' => 'required|boolean',
         ];
     }
 

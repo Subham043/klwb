@@ -1,12 +1,4 @@
-import {
-  Button,
-  ButtonToolbar,
-  Col,
-  Grid,
-  Heading,
-  Row,
-  Stack,
-} from "rsuite";
+import { Button, ButtonToolbar, Col, Grid, Heading, Row, Stack } from "rsuite";
 import { useIndustryAccountQuery } from "../../../../hooks/data/profile";
 import ErrorBoundaryLayout from "../../../../layouts/ErrorBoundaryLayout";
 import FileUploader from "../../../FileUploader";
@@ -112,6 +104,8 @@ export default function IndustryDashboardAccountInfo() {
                     value={account_info?.name}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo title="Email" value={account_info?.email} />
                 </Col>
@@ -124,6 +118,8 @@ export default function IndustryDashboardAccountInfo() {
                     value={account_info?.industry.pincode}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo title="GST No." value={account_info?.gst_no} />
                 </Col>
@@ -136,6 +132,8 @@ export default function IndustryDashboardAccountInfo() {
                     value={account_info?.city.name}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo title="Taluq" value={account_info?.taluq.name} />
                 </Col>

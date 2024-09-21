@@ -6,6 +6,7 @@ use App\Http\Abstracts\AbstractAuthService;
 use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
 use App\Modules\IndustryManagement\IndustryAuth\Models\PasswordReset;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class AuthService extends AbstractAuthService
 {
@@ -19,6 +20,14 @@ class AuthService extends AbstractAuthService
     {
         PasswordReset::updateOrCreate(['industry_auth_id' => $data['industry_auth_id']],['uuid'=>$data['uuid'], 'created_at' => now()]);
     }
+
+    public function login(array $credentials, string $guard): bool
+	{
+		return Auth::guard($guard)->attempt([
+            ...$credentials,
+            fn (Builder $query) => $query->whereHas('industry', fn($query) => $query->where('is_active', 1))
+        ]);
+	}
 
     public function deletePasswordResetLink(string $uuid): void
     {

@@ -12,7 +12,6 @@ import { useRoleSelectQuery } from '../../../hooks/data/role';
 import { useAxios } from '../../../hooks/useAxios';
 import PasswordInput from '../../FormInput/PasswordInput';
 import TextInput from '../../FormInput/TextInput';
-import ToggleInput from '../../FormInput/ToggleInput';
 import SelectInput from '../../FormInput/SelectInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
@@ -21,7 +20,6 @@ type UpdateSchemaType = {
   name: string;
   email: string;
   phone: number;
-  is_blocked: number;
   role: string;
 };
 
@@ -37,7 +35,6 @@ const updateSchema: yup.ObjectSchema<UpdateSchemaType> = yup
     email: yup.string().typeError("Email must contain characters only").email().required("Email is required"),
     phone: yup.number().typeError("Phone must contain numbers only").positive().required("Phone is required"),
     role: yup.string().typeError("Role must contain characters only").required("Role is required"),
-    is_blocked: yup.number().typeError("Blocked must contain numbers only").min(0).max(1).required("Blocked is required"),
 })
 .required();
 
@@ -69,7 +66,6 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
             email: data? data.email : "",
             phone: data? Number(data.phone) : 0,
             role: (data && data.role)? data.role : "",
-            is_blocked: data? (!data.is_blocked ? 1: 0) : 0
         } : {
             name: "",
             email: "",
@@ -77,15 +73,14 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
             password: "",
             password_confirmation: "",
             role: "",
-            is_blocked: 0
         }
      });
 
     const onSubmit = handleSubmit(async () => {
         setLoading(true);
         try {
-            const {is_blocked, ...rest} = getValues();
-            await axios.post(drawer.type === "Edit" ? api_routes.admin.employee.update(drawer.id) : api_routes.admin.employee.create, {...rest, is_blocked: is_blocked===1 ? 0: 1});
+            const {...rest} = getValues();
+            await axios.post(drawer.type === "Edit" ? api_routes.admin.employee.update(drawer.id) : api_routes.admin.employee.create, {...rest});
             toastSuccess("Saved Successfully");
             if(drawer.type==="Create"){
                 reset({
@@ -126,7 +121,6 @@ export default function EmployeeForm({drawer, drawerHandler, refetch}:{drawer: D
                             <PasswordInput name="password_confirmation" label="Confirm Password" control={control} error={errors.password_confirmation?.message} />
                         </>
                     }
-                    <ToggleInput name="is_blocked" checkedLabel="Active" uncheckedLabel="Blocked" control={control} error={errors.is_blocked?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

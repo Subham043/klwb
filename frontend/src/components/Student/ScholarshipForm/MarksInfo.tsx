@@ -73,6 +73,8 @@ export default function MarksInfo({
                 error={errors.marks_card_type?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={8}>
               <div>
                 <FileInput

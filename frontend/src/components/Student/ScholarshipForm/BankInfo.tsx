@@ -22,7 +22,6 @@ export default function BankInfo({
   type = "apply",
   passbook,
 }: PropType) {
-
   return (
     <div className="mb-1">
       <ModalCardContainer
@@ -57,6 +56,8 @@ export default function BankInfo({
                 error={errors.holder?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <TextInput
                 name="bank_name"
@@ -73,6 +74,8 @@ export default function BankInfo({
                 error={errors.branch?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <TextInput
                 name="ifsc"
@@ -90,6 +93,8 @@ export default function BankInfo({
                 error={errors.acc_no?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <FileInput
                 name="passbook"

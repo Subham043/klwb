@@ -8,7 +8,6 @@ import { isAxiosError } from "axios";
 import { useTaluqSelectQuery } from "../../../hooks/data/taluq";
 import { useAxios } from "../../../hooks/useAxios";
 import TextInput from "../../FormInput/TextInput";
-import ToggleInput from "../../FormInput/ToggleInput";
 import SelectInput from "../../FormInput/SelectInput";
 import { useCitySelectQuery } from "../../../hooks/data/city";
 import { api_routes } from "../../../utils/routes/api";
@@ -32,7 +31,6 @@ type SchemaType = {
   name: string;
   act: string;
   address: string;
-  is_active: number;
   city_id: number;
   taluq_id: number;
 };
@@ -61,12 +59,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Address must contain characters only")
       .required("Address is required"),
-    is_active: yup
-      .number()
-      .typeError("Active/Inactive must contain numbers only")
-      .min(0)
-      .max(1)
-      .required("Active/Inactive is required"),
   })
   .required();
 
@@ -98,7 +90,6 @@ const IndustryInfoUpdate = ({
       address: data ? data.address : "",
       taluq_id: data ? data.taluq.id : 0,
       city_id: data ? data.city.id : 0,
-      is_active: data ? (!data.is_blocked ? 1 : 0) : 0,
     },
   });
 
@@ -162,9 +153,7 @@ const IndustryInfoUpdate = ({
           refetch={refetch}
         >
           <>
-            <ModalCardContainer
-              header="Industry Information Update"
-            >
+            <ModalCardContainer header="Industry Information Update">
               <Grid fluid>
                 <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
@@ -188,6 +177,8 @@ const IndustryInfoUpdate = ({
                       error={errors.act?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
                     <SelectInput
                       name="city_id"
@@ -226,6 +217,8 @@ const IndustryInfoUpdate = ({
                       error={errors.taluq_id?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={24}>
                     <TextInput
                       name="address"
@@ -234,15 +227,6 @@ const IndustryInfoUpdate = ({
                       textarea={true}
                       control={control}
                       error={errors.address?.message}
-                    />
-                  </Col>
-                  <Col className="pb-1" xs={24}>
-                    <ToggleInput
-                      name="is_active"
-                      checkedLabel="Active"
-                      uncheckedLabel="Inactive"
-                      control={control}
-                      error={errors.is_active?.message}
                     />
                   </Col>
                 </Row>

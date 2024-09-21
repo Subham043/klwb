@@ -34,7 +34,6 @@ class RegisteredIndustryUpdateRequest extends InputRequest
             'city_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
             'address' => 'required|string|max:500',
-            'is_active' => 'required|boolean',
         ];
     }
 

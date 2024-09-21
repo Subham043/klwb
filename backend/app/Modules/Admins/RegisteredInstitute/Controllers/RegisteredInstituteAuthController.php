@@ -21,7 +21,6 @@ class RegisteredInstituteAuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'is_blocked' => $request->is_blocked,
             ], $institute);
             return response()->json(["message" => "Institute Registered updated successfully.", "data" => RegisteredInstituteCollection::make($institute)], 200);
         } catch (\Throwable $th) {

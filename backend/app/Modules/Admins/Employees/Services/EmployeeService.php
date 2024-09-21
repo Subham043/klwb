@@ -30,6 +30,13 @@ class EmployeeService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function toggleStatus(Employee $employee): Employee
+    {
+        $this->update(['is_blocked'=>!$employee->is_blocked], $employee);
+        $employee->refresh();
+        return $employee;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

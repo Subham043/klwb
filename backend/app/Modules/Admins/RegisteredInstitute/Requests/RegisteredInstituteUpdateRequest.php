@@ -40,7 +40,6 @@ class RegisteredInstituteUpdateRequest extends InputRequest
             'phone' => ['required','numeric', 'digits:10'],
             'pincode' => 'required|string|max:500',
             'address' => 'required|string|max:500',
-            'is_active' => 'required|boolean',
         ];
     }
 

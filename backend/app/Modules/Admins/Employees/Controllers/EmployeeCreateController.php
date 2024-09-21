@@ -20,7 +20,11 @@ class EmployeeCreateController extends Controller
         try {
             //code...
             $employee = $this->employeeService->create(
-                [...$request->except('role'), 'created_by' => auth()->guard(Guards::Admin->value())->user()->id]
+                [
+                    ...$request->except('role'), 
+                    'created_by' => auth()->guard(Guards::Admin->value())->user()->id,
+                    'is_blocked' => 0
+                ]
             );
             $this->employeeService->syncRoles([$request->role], $employee);
             EmployeeCreated::dispatch($employee, $request->password);

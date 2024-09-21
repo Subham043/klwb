@@ -8,6 +8,8 @@ import Moment from "../../../components/Moment";
 import Status from "../../../components/Status";
 import { table } from "../../../utils/constants/table";
 import { ViewLink } from "../../../components/Buttons/ViewBtn";
+import BlockBtn from "../../../components/Buttons/BlockBtn";
+import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 
 
 const RegisteredInstitute:FC = () => {
@@ -81,13 +83,15 @@ const RegisteredInstitute:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={70} fixed="right">
+                <Table.Column width={140} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
                                 <ViewLink to={page_routes.admin.institute.registered_info(rowData.id)} />
+                                <PasswordBtn route={api_routes.admin.registered_institute.update_password(Number(rowData.id) || 0)} />
+                                <BlockBtn route={api_routes.admin.registered_institute.toggle(Number(rowData.id) || 0)} refetch={refetch} isBlocked={rowData.profile.is_blocked!} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

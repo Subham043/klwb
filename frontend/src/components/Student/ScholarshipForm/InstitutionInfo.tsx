@@ -143,6 +143,8 @@ export default function InstitutionInfo({
                 error={errors.ins_taluq_id?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <div className="institute-select-register">
                 <SelectInput
@@ -180,6 +182,8 @@ export default function InstitutionInfo({
                 error={errors.ins_pin?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={8}>
               <SelectInput
                 name="graduation_id"

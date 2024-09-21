@@ -4,23 +4,15 @@ import { useRequestIndustriesQuery } from "../../../hooks/data/request_industry"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import RequestIndustryInfo from "../../../components/Admin/RequestIndustryInfo";
 import VisibleIcon from '@rsuite/icons/Visible';
-import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
-import DeleteBtn from "../../../components/Buttons/DeleteBtn";
 
 
 const RequestIndustry:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useRequestIndustriesQuery();
-    const {deleteHandler, deleteLoading} = useDeleteQuery();
     const [openModal, setOpenModal] = useState<{status:boolean, id?:number}>({status: false});
-
-    const onDeleteHandler = async (id:number) => {
-        await deleteHandler(api_routes.admin.request_industry.delete(id));
-        refetch();
-    }
 
     return <PaginatedTableLayout title="Industry Request List">
         <PaginatedTableLayout.Header title="Industry Request List" addBtn={false} excelLink={api_routes.admin.request_industry.excel} excelName="request_industry.xlsx" />
@@ -102,7 +94,6 @@ const RequestIndustry:FC = () => {
                         {rowData => (
                             <ButtonToolbar>
                                 <IconButton appearance="primary" color="orange" icon={<VisibleIcon />} onClick={() => setOpenModal({status:true, id:rowData.id})} />
-                                <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

@@ -225,6 +225,8 @@ export default function InstituteForm({
                     error={errors.management_type?.message}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={12}>
                   <TextInput
                     name="category"
@@ -241,6 +243,8 @@ export default function InstituteForm({
                     error={errors.type?.message}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
                   <SelectInput
                     name="urban_rural"
@@ -291,6 +295,8 @@ export default function InstituteForm({
                     error={errors.taluq_id?.message}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={24}>
                   <ToggleInput
                     name="is_active"

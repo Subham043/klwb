@@ -75,7 +75,18 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where(function($q) use($value){
-            $q->where('principal', 'LIKE', '%' . $value . '%');
+            $q->where('name', 'LIKE', '%' . $value . '%')
+            ->orWhere('management_type', 'LIKE', '%' . $value . '%')
+            ->orWhere('category', 'LIKE', '%' . $value . '%')
+            ->orWhere('type', 'LIKE', '%' . $value . '%')
+            ->orWhere('urban_rural', 'LIKE', '%' . $value . '%')
+            ->orWhere('reg_no', 'LIKE', '%' . $value . '%')
+            ->orWhereHas('taluq', function($q) use($value){
+                $q->where('name', 'LIKE', '%' . $value . '%')
+                ->orWhereHas('city', function($qry) use($value){
+                    $qry->where('name', 'LIKE', '%' . $value . '%');
+                });
+            });
         });
     }
 }

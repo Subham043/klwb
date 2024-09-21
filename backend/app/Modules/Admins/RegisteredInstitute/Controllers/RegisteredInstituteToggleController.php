@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\RegisteredInstitute\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\RegisteredInstitute\Requests\RegisteredInstituteToggleRequest;
 use App\Modules\Admins\RegisteredInstitute\Services\RegisteredInstituteService;
 use App\Modules\Admins\RegisteredInstitute\Resources\RegisteredInstituteCollection;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,7 @@ class RegisteredInstituteToggleController extends Controller
 {
     public function __construct(private RegisteredInstituteService $instituteService){}
 
-    public function index($id){
+    public function index(RegisteredInstituteToggleRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         DB::beginTransaction();
         try {

@@ -4,16 +4,16 @@ namespace App\Modules\Admins\RegisteredIndustryStaff\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\RegisteredIndustry\Services\RegisteredIndustryService;
+use App\Modules\Admins\RegisteredIndustryStaff\Requests\RegisteredIndustryStaffToggleRequest;
 use App\Modules\Admins\RegisteredIndustryStaff\Resources\RegisteredIndustryStaffCollection;
 use App\Modules\Admins\RegisteredIndustryStaff\Services\RegisteredIndustryStaffService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RegisteredIndustryStaffToggleController extends Controller
 {
     public function __construct(private RegisteredIndustryStaffService $staffService){}
 
-    public function index(Request $request, $id, $staff_id){
+    public function index(RegisteredIndustryStaffToggleRequest $request, $id, $staff_id){
         $industry = (new RegisteredIndustryService)->getById($id);
         $staff = $this->staffService->get($industry->reg_industry_id, $industry->id, $staff_id);
         DB::beginTransaction();

@@ -33,6 +33,8 @@ function StudentInfo({ data }: Props) {
                 value={data?.basic_detail.father_name}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={8}>
               <DetailInfo
                 title="Mobile Number"
@@ -48,6 +50,8 @@ function StudentInfo({ data }: Props) {
                 value={data?.scholarship_fee?.amount || 0}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={8}>
               <DetailInfo
                 title="Graduation"
@@ -70,6 +74,8 @@ function StudentInfo({ data }: Props) {
                 value={data?.present_institute_name}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={8}>
               <DetailInfo
                 title="Present School Address"
@@ -88,6 +94,8 @@ function StudentInfo({ data }: Props) {
                 value={data?.application_year}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xsPush={8}>
               <DetailInfo
                 title="Applied On"

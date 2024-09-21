@@ -10,9 +10,7 @@ import SearchIcon from '@rsuite/icons/Search';
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { table } from "../../../utils/constants/table";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
-import { useState } from "react";
-import { useAxios } from "../../../hooks/useAxios";
-import { useToast } from "../../../hooks/useToast";
+import BlockBtn from "../../Buttons/BlockBtn";
 
 type Props = {
 	id: number;
@@ -24,25 +22,9 @@ export default function Staff({ id }: Props) {
 	const { page, pageHandler, limit, limitHandler } = usePaginationQueryParam("_staff");
 	const { data: staffs, isFetching: isStaffFetching, isLoading: isStaffLoading, isRefetching: isStaffRefetching, error, refetch: refetchData } = useRegisteredIndustriesStaffQuery(Number(id) || 0);
 	const { excelLoading, exportExcel } = useExcelExport();
-	const [toggleLoading, setToggleLoading] = useState<boolean>(false);
-	const axios = useAxios();
-	const { toastError, toastSuccess } = useToast();
 
 	const excelHandler = async () => {
 		await exportExcel(api_routes.admin.registered_industry.staff.excel(Number(id)), 'registered_industry_staffs.xlsx');
-	}
-
-	const toggleStatus = async (staff_id:number) => {
-		setToggleLoading(true);
-		try {
-			const response = await axios.get(api_routes.admin.registered_industry.staff.status(Number(id) || 0, staff_id));
-			toastSuccess(response.data.message);
-			refetchData();
-		} catch (error) {
-			toastError("Failed to toggle status");
-		} finally {
-			setToggleLoading(false);
-		}
 	}
 
 	return (
@@ -114,13 +96,13 @@ export default function Staff({ id }: Props) {
 							</Table.Cell>
 						</Table.Column>
 
-						<Table.Column width={100} fixed="right">
+						<Table.Column width={70} fixed="right">
 										<Table.HeaderCell>Action</Table.HeaderCell>
 
 										<Table.Cell style={{ padding: '6px' }}>
 														{rowData => (
 																		<ButtonToolbar>
-																						<Button appearance="primary" color="orange" size="sm" onClick={()=>toggleStatus(rowData.id)} disabled={toggleLoading} loading={toggleLoading} >{rowData.is_blocked ? "Unblock" : "Block"}</Button>
+																						<BlockBtn route={api_routes.admin.registered_industry.staff.status(Number(id) || 0, rowData.id)} refetch={refetchData} isBlocked={rowData.is_blocked!} />
 																		</ButtonToolbar>
 														)}
 										</Table.Cell>

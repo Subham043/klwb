@@ -8,7 +8,6 @@ import { isAxiosError } from "axios";
 import { useTaluqSelectQuery } from "../../../hooks/data/taluq";
 import { useAxios } from "../../../hooks/useAxios";
 import TextInput from "../../FormInput/TextInput";
-import ToggleInput from "../../FormInput/ToggleInput";
 import SelectInput from "../../FormInput/SelectInput";
 import { useCitySelectQuery } from "../../../hooks/data/city";
 import { api_routes } from "../../../utils/routes/api";
@@ -39,7 +38,6 @@ type SchemaType = {
   urban_rural: string;
   pincode: string;
   address: string;
-  is_active: number;
   city_id: number;
   taluq_id: number;
 };
@@ -98,12 +96,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Address must contain characters only")
       .required("Address is required"),
-    is_active: yup
-      .number()
-      .typeError("Active/Inactive must contain numbers only")
-      .min(0)
-      .max(1)
-      .required("Active/Inactive is required"),
   })
   .required();
 
@@ -142,7 +134,6 @@ const InstituteInfoUpdate = ({
       urban_rural: data ? data.institute.urban_rural : "",
       taluq_id: data ? data.address.taluq.id : 0,
       city_id: data ? data.address.city.id : 0,
-      is_active: data ? (!data.profile.is_blocked ? 1 : 0) : 0,
     },
   });
 
@@ -206,9 +197,7 @@ const InstituteInfoUpdate = ({
           refetch={refetch}
         >
           <>
-            <ModalCardContainer
-              header="Institute Information Update"
-            >
+            <ModalCardContainer header="Institute Information Update">
               <Grid fluid>
                 <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
@@ -227,6 +216,8 @@ const InstituteInfoUpdate = ({
                       error={errors.principal?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
                     <TextInput
                       name="email"
@@ -244,6 +235,8 @@ const InstituteInfoUpdate = ({
                       error={errors.phone?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
                     <TextInput
                       name="management_type"
@@ -260,6 +253,8 @@ const InstituteInfoUpdate = ({
                       error={errors.category?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
                     <TextInput
                       name="type"
@@ -280,6 +275,8 @@ const InstituteInfoUpdate = ({
                       error={errors.urban_rural?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={8}>
                     <TextInput
                       name="pincode"
@@ -326,6 +323,8 @@ const InstituteInfoUpdate = ({
                       error={errors.taluq_id?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={24}>
                     <TextInput
                       name="address"
@@ -336,16 +335,8 @@ const InstituteInfoUpdate = ({
                       error={errors.address?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={24}>
-                    <ToggleInput
-                      name="is_active"
-                      checkedLabel="Active"
-                      uncheckedLabel="Inactive"
-                      control={control}
-                      error={errors.is_active?.message}
-                    />
-                  </Col>
                 </Row>
+                <Row gutter={30}></Row>
               </Grid>
             </ModalCardContainer>
           </>

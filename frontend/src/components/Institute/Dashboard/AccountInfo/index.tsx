@@ -1,12 +1,4 @@
-import {
-  Button,
-  ButtonToolbar,
-  Col,
-  Grid,
-  Heading,
-  Row,
-  Stack,
-} from "rsuite";
+import { Button, ButtonToolbar, Col, Grid, Heading, Row, Stack } from "rsuite";
 import { useInstituteAccountQuery } from "../../../../hooks/data/profile";
 import ErrorBoundaryLayout from "../../../../layouts/ErrorBoundaryLayout";
 import FileUploader from "../../../FileUploader";
@@ -112,6 +104,8 @@ export default function InstituteDashboardAccountInfo() {
                     value={account_info?.principal}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo title="Email" value={account_info?.email} />
                 </Col>
@@ -124,6 +118,8 @@ export default function InstituteDashboardAccountInfo() {
                     value={account_info?.address.pincode}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo
                     title="District"

@@ -40,6 +40,8 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/employees/paginate",
     create: "/api/admin/v1/employees/create",
     update: (id: string | number) => `/api/admin/v1/employees/update/${id}`,
+    password: (id: string | number) => `/api/admin/v1/employees/password/${id}`,
+    status: (id: string | number) => `/api/admin/v1/employees/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/employees/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/employees/view/${id}`,
   },
@@ -136,6 +138,8 @@ export const admin_api_routes = {
       `/api/admin/v1/registered-institutes/update/${id}`,
     update_auth: (id: string | number) =>
       `/api/admin/v1/registered-institutes/update-auth/${id}`,
+    update_password: (id: string | number) =>
+      `/api/admin/v1/registered-institutes/update-password/${id}`,
     toggle: (id: string | number) =>
       `/api/admin/v1/registered-institutes/toggle-status/${id}`,
     staff: {
@@ -193,6 +197,8 @@ export const admin_api_routes = {
       `/api/admin/v1/registered-industries/update/${id}`,
     update_auth: (id: string | number) =>
       `/api/admin/v1/registered-industries/update-auth/${id}`,
+    update_password: (id: string | number) =>
+      `/api/admin/v1/registered-industries/update-password/${id}`,
     toggle: (id: string | number) =>
       `/api/admin/v1/registered-industries/toggle-status/${id}`,
     staff: {

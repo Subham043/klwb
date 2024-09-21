@@ -7,6 +7,6 @@ type ViewLinkProps = {
 }
 export function ViewLink({ to }: ViewLinkProps) {
 		return (
-			<IconButton as={Link} appearance="primary" color="orange" icon={<VisibleIcon />} to={to} />
+			<IconButton as={Link} appearance="primary" color="orange" size="sm" icon={<VisibleIcon />} to={to} />
 		)
 }

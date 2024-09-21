@@ -55,6 +55,8 @@ export default function StudentInfo({ control, errors }: PropType) {
                 error={errors.gender?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <TextInput
                 name="father_name"
@@ -71,6 +73,8 @@ export default function StudentInfo({ control, errors }: PropType) {
                 error={errors.mother_name?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={24}>
               <TextInput
                 name="address"

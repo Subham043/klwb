@@ -100,10 +100,6 @@ class RegisteredInstituteService
             'category' => $request->category,
             'type' => $request->type,
             'urban_rural' => $request->urban_rural,
-            'is_active' => $request->is_active,
-        ]);
-        $institute->profile->update([
-            'is_blocked' => !$request->is_active,
         ]);
         $institute->refresh();
         return $institute;
@@ -115,13 +111,16 @@ class RegisteredInstituteService
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
-            'is_blocked' => $data['is_blocked'],
-        ]);
-        $institute->institute->update([
-            'is_active' => !$data['is_blocked'],
         ]);
         $institute->refresh();
         return $institute;
+    }
+
+    public function updateAuthPassword(array $data, School $institute)
+    {
+        $institute->profile->update([
+            'password' => $data['password'],
+        ]);
     }
 
     public function toggleStatus(School $institute): School

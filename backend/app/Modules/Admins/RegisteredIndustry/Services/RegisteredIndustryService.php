@@ -71,7 +71,6 @@ class RegisteredIndustryService
             'address' => $request->address,
             'taluq_id' => $request->taluq_id,
             'city_id' => $request->city_id,
-            'is_blocked' => !$request->is_active,
         ]);
         $city = (new CityService)->getById($request->city_id);
         $industry->industry->update([
@@ -80,7 +79,6 @@ class RegisteredIndustryService
             'state_id' => $city->state->id,
             'taluq_id' => $request->taluq_id,
             'city_id' => $request->city_id,
-            'is_active' => $request->is_active,
         ]);
         $industry->refresh();
         return $industry;
@@ -92,13 +90,16 @@ class RegisteredIndustryService
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
-            'is_blocked' => $data['is_blocked'],
-        ]);
-        $industry->industry->update([
-            'is_active' => !$data['is_blocked'],
         ]);
         $industry->refresh();
         return $industry;
+    }
+
+    public function updateAuthPassword(array $data, IndustryAuth $industry)
+    {
+        $industry->update([
+            'password' => $data['password'],
+        ]);
     }
 
     public function toggleStatus(IndustryAuth $industry): IndustryAuth

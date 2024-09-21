@@ -4,24 +4,18 @@ import { useEmployeesQuery } from "../../../hooks/data/employee";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { DrawerProps } from "../../../utils/types";
 import EmployeeForm from "../../../components/Admin/EmployeeForm";
-import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
-import DeleteBtn from "../../../components/Buttons/DeleteBtn";
 import EditBtn from "../../../components/Buttons/EditBtn";
+import BlockBtn from "../../../components/Buttons/BlockBtn";
+import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 
 
 const Employee:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error } = useEmployeesQuery();
-    const {deleteHandler, deleteLoading} = useDeleteQuery();
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
-
-    const onDeleteHandler = async (id:number) => {
-        await deleteHandler(api_routes.admin.employee.delete(id));
-        refetch();
-    }
 
     return <PaginatedTableLayout title="Staff / Officer">
         <PaginatedTableLayout.Header title="Staff / Officer" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.employee.excel} excelName="staffs.xlsx" />
@@ -76,14 +70,15 @@ const Employee:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={150} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
                                 <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
-                                <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />
+                                <PasswordBtn route={api_routes.admin.employee.password(rowData.id)} />
+                                <BlockBtn route={api_routes.admin.employee.status(rowData.id)} refetch={refetch} isBlocked={rowData.is_blocked} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

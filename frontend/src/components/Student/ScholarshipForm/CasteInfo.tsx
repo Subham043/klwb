@@ -94,34 +94,34 @@ export default function CastInfo({
                 />
               )}
             </Col>
-            {is_scst === "1" && (
-              <>
-                <Col className="pb-1" xs={12}>
-                  <div>
-                    <FileInput
-                      name="cast_certificate"
-                      accept="image/png, image/jpeg, image/jpg"
-                      label="Attach Cast Certificate"
-                      helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
-                      control={control}
-                      error={errors.cast_certificate?.message}
-                    />
-                    {type === "resubmit" && cast_certificate && (
-                      <FileViewer src={cast_certificate} />
-                    )}
-                  </div>
-                </Col>
-                <Col className="pb-1" xs={12}>
-                  <TextInput
-                    name="cast_no"
-                    label="Caste certificate number"
-                    control={control}
-                    error={errors.cast_no?.message}
-                  />
-                </Col>
-              </>
-            )}
           </Row>
+          {is_scst === "1" && (
+            <Row gutter={30}>
+              <Col className="pb-1" xs={12}>
+                <div>
+                  <FileInput
+                    name="cast_certificate"
+                    accept="image/png, image/jpeg, image/jpg"
+                    label="Attach Cast Certificate"
+                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    control={control}
+                    error={errors.cast_certificate?.message}
+                  />
+                  {type === "resubmit" && cast_certificate && (
+                    <FileViewer src={cast_certificate} />
+                  )}
+                </div>
+              </Col>
+              <Col className="pb-1" xs={12}>
+                <TextInput
+                  name="cast_no"
+                  label="Caste certificate number"
+                  control={control}
+                  error={errors.cast_no?.message}
+                />
+              </Col>
+            </Row>
+          )}
         </Grid>
       </ModalCardContainer>
     </div>

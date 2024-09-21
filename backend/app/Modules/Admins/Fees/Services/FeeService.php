@@ -57,7 +57,10 @@ class CommonFilter implements Filter
     {
         $query->where(function($q) use($value){
             $q->where('amount', 'LIKE', '%' . $value . '%')
-            ->orWhere('year', 'LIKE', '%' . $value . '%');
+            ->orWhere('year', 'LIKE', '%' . $value . '%')
+            ->orWhereHas('graduation', function($q) use($value){
+                $q->where('name', 'LIKE', '%' . $value . '%');
+            });
         });
     }
 }

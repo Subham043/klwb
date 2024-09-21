@@ -91,6 +91,8 @@ export default function IndustryInfo({
                 error={errors.parent_guardian_name?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <TextInput
                 name="relationship"
@@ -107,6 +109,8 @@ export default function IndustryInfo({
                 error={errors.msalary?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <SelectInput
                 name="district_id"
@@ -154,6 +158,8 @@ export default function IndustryInfo({
                 error={errors.taluq_id?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <div className="institute-select-register">
                 <SelectInput
@@ -191,6 +197,8 @@ export default function IndustryInfo({
                 error={errors.pincode?.message}
               />
             </Col>
+          </Row>
+          <Row gutter={30}>
             <Col className="pb-1" xs={12}>
               <FileInput
                 name="salaryslip"

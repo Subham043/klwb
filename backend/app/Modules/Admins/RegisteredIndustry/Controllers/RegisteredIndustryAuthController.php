@@ -21,7 +21,6 @@ class RegisteredIndustryAuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'is_blocked' => $request->is_blocked,
             ], $industry);
             return response()->json(["message" => "Registered Industry updated successfully.", "data" => RegisteredIndustryCollection::make($industry)], 200);
         } catch (\Throwable $th) {

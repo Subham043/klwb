@@ -4,23 +4,15 @@ import { useRequestInstitutesQuery } from "../../../hooks/data/request_institute
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import RequestInstituteInfo from "../../../components/Admin/RequestInstituteInfo";
 import VisibleIcon from '@rsuite/icons/Visible';
-import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
-import DeleteBtn from "../../../components/Buttons/DeleteBtn";
 
 
 const RequestInstitute:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useRequestInstitutesQuery();
-    const {deleteHandler, deleteLoading} = useDeleteQuery();
     const [openModal, setOpenModal] = useState<{status:boolean, id?:number}>({status: false});
-
-    const onDeleteHandler = async (id:number) => {
-        await deleteHandler(api_routes.admin.request_institute.delete(id));
-        refetch();
-    }
 
     return <PaginatedTableLayout title="Institute Request List">
         <PaginatedTableLayout.Header title="Institute Request List" addBtn={false} excelLink={api_routes.admin.request_institute.excel} excelName="request_institute.xlsx" />
@@ -85,14 +77,13 @@ const RequestInstitute:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={90} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
                                 <IconButton appearance="primary" color="orange" icon={<VisibleIcon />} onClick={() => setOpenModal({status:true, id:rowData.id})} />
-                                <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

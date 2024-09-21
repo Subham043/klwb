@@ -1,16 +1,16 @@
-import { Grid, Row, Col } from "rsuite"
+import { Grid, Row, Col } from "rsuite";
 import { StudentApplicationType } from "../../../utils/types";
-import classes from './index.module.css';
+import classes from "./index.module.css";
 import FileViewer from "../../FileViewer";
 import DetailInfo from "../../DetailInfo";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
 
 type Props = {
-	data: StudentApplicationType;
-}
+  data: StudentApplicationType;
+};
 
 function MarkInfo({ data }: Props) {
-	return (
+  return (
     <div className="mb-1">
       <ModalCardContainer
         header={
@@ -24,16 +24,10 @@ function MarkInfo({ data }: Props) {
         <Grid fluid>
           <Row gutter={30}>
             <Col className="pb-1" xs={8}>
-              <DetailInfo
-                title="Class Name"
-                value={data?.mark.prv_class}
-              />
+              <DetailInfo title="Class Name" value={data?.mark.prv_class} />
             </Col>
             <Col className="pb-1" xs={8}>
-              <DetailInfo
-                title="Marks"
-                value={data?.mark.prv_marks}
-              />
+              <DetailInfo title="Marks" value={data?.mark.prv_marks} />
             </Col>
             <Col className="pb-1" xs={8}>
               <DetailInfo
@@ -41,18 +35,24 @@ function MarkInfo({ data }: Props) {
                 value={data?.mark.prv_markcard2 ? "Semester Wise" : "Yearly"}
               />
             </Col>
-            {data?.mark.prv_markcard && <Col className="pb-1" xs={8}>
-              <DetailInfo
-                title="Marks Card Copy"
-                value={<FileViewer src={data?.mark.prv_markcard} />}
-              />
-            </Col>}
-            {data?.mark.prv_markcard2 && <Col className="pb-1" xs={8}>
-              <DetailInfo
-                title="2nd Marks Card Copy"
-                value={<FileViewer src={data?.mark.prv_markcard2} />}
-              />
-            </Col>}
+          </Row>
+          <Row gutter={30}>
+            {data?.mark.prv_markcard && (
+              <Col className="pb-1" xs={8}>
+                <DetailInfo
+                  title="Marks Card Copy"
+                  value={<FileViewer src={data?.mark.prv_markcard} />}
+                />
+              </Col>
+            )}
+            {data?.mark.prv_markcard2 && (
+              <Col className="pb-1" xs={8}>
+                <DetailInfo
+                  title="2nd Marks Card Copy"
+                  value={<FileViewer src={data?.mark.prv_markcard2} />}
+                />
+              </Col>
+            )}
           </Row>
         </Grid>
       </ModalCardContainer>
@@ -60,4 +60,4 @@ function MarkInfo({ data }: Props) {
   );
 }
 
-export default MarkInfo
+export default MarkInfo;
