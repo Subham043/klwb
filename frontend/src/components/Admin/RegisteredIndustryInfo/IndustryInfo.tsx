@@ -14,6 +14,7 @@ import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import EditBtn from "../../Buttons/EditBtn";
 import BlockBtn from "../../Buttons/BlockBtn";
 import PasswordBtn from "../../Buttons/PasswordBtn";
+import VerifyBtn from "../../Buttons/VerifyBtn";
 
 type Props = {
   id: number;
@@ -107,7 +108,8 @@ export default function IndustryInfo({ id }: Props) {
               <ButtonToolbar>
                 <EditBtn clickHandler={() => setIndustryAuthModal(true)} />
                 {data && <PasswordBtn route={api_routes.admin.registered_industry.update_password(Number(id) || 0)} />}
-                {data && <BlockBtn route={api_routes.admin.registered_industry.toggle(Number(id) || 0)} refetch={refetchData} isBlocked={data?.is_blocked!} />}
+                {data && <VerifyBtn route={api_routes.admin.registered_industry.verify(Number(id) || 0)} refetch={refetchData} isVerified={data.verified === VerificationEnum.VERIFIED} />}
+                {data && <BlockBtn route={api_routes.admin.registered_industry.toggle(Number(id) || 0)} refetch={refetchData} isBlocked={data.is_blocked!} />}
               </ButtonToolbar>
             </Stack>
           }

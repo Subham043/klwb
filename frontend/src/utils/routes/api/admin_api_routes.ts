@@ -45,6 +45,7 @@ export const admin_api_routes = {
     update: (id: string | number) => `/api/admin/v1/employees/update/${id}`,
     password: (id: string | number) => `/api/admin/v1/employees/password/${id}`,
     status: (id: string | number) => `/api/admin/v1/employees/status/${id}`,
+    verify: (id: string | number) => `/api/admin/v1/employees/verify/${id}`,
     delete: (id: string | number) => `/api/admin/v1/employees/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/employees/view/${id}`,
   },
@@ -56,6 +57,7 @@ export const admin_api_routes = {
     update: (id: string | number) => `/api/admin/v1/students/update/${id}`,
     password: (id: string | number) => `/api/admin/v1/students/password/${id}`,
     status: (id: string | number) => `/api/admin/v1/students/status/${id}`,
+    verify: (id: string | number) => `/api/admin/v1/students/verify/${id}`,
     delete: (id: string | number) => `/api/admin/v1/students/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/students/view/${id}`,
   },
@@ -166,6 +168,8 @@ export const admin_api_routes = {
       `/api/admin/v1/registered-institutes/update-password/${id}`,
     toggle: (id: string | number) =>
       `/api/admin/v1/registered-institutes/toggle-status/${id}`,
+    verify: (id: string | number) =>
+      `/api/admin/v1/registered-institutes/toggle-verification/${id}`,
     staff: {
       excel: (id: string | number) =>
         `/api/admin/v1/registered-institutes/staff/${id}/excel`,
@@ -173,6 +177,8 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-institutes/staff/${id}/paginate`,
       status: (id: string | number, staff_id: string | number) =>
         `/api/admin/v1/registered-institutes/staff/${id}/status/${staff_id}`,
+      verify: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-institutes/staff/${id}/verify/${staff_id}`,
       account: (id: string | number, staff_id: string | number) =>
         `/api/admin/v1/registered-institutes/staff/${id}/account/${staff_id}`,
       password: (id: string | number, staff_id: string | number) =>
@@ -231,6 +237,8 @@ export const admin_api_routes = {
       `/api/admin/v1/registered-industries/update-password/${id}`,
     toggle: (id: string | number) =>
       `/api/admin/v1/registered-industries/toggle-status/${id}`,
+    verify: (id: string | number) =>
+      `/api/admin/v1/registered-industries/toggle-verification/${id}`,
     staff: {
       excel: (id: string | number) =>
         `/api/admin/v1/registered-industries/staff/${id}/excel`,
@@ -238,6 +246,8 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-industries/staff/${id}/paginate`,
       status: (id: string | number, staff_id: string | number) =>
         `/api/admin/v1/registered-industries/staff/${id}/status/${staff_id}`,
+      verify: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-industries/staff/${id}/verify/${staff_id}`,
       account: (id: string | number, staff_id: string | number) =>
         `/api/admin/v1/registered-industries/staff/${id}/account/${staff_id}`,
       password: (id: string | number, staff_id: string | number) =>

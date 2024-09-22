@@ -14,6 +14,7 @@ import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import BlockBtn from "../../Buttons/BlockBtn";
 import EditBtn from "../../Buttons/EditBtn";
 import PasswordBtn from "../../Buttons/PasswordBtn";
+import VerifyBtn from "../../Buttons/VerifyBtn";
 
 type Props = {
   id: number;
@@ -141,7 +142,8 @@ export default function InstituteInfo({ id }: Props) {
               <ButtonToolbar>
                 <EditBtn clickHandler={() => setInstituteAuthModal(true)} />
                 {data && <PasswordBtn route={api_routes.admin.registered_institute.update_password(Number(id) || 0)} />}
-                {data && <BlockBtn route={api_routes.admin.registered_institute.toggle(Number(id) || 0)} refetch={refetchData} isBlocked={data?.profile.is_blocked!} />}
+                {data && <VerifyBtn route={api_routes.admin.registered_institute.verify(Number(id) || 0)} refetch={refetchData} isVerified={data.profile.verified === VerificationEnum.VERIFIED} />}
+                {data && <BlockBtn route={api_routes.admin.registered_institute.toggle(Number(id) || 0)} refetch={refetchData} isBlocked={data.profile.is_blocked!} />}
               </ButtonToolbar>
             </Stack>
           }

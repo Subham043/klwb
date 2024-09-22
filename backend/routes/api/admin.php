@@ -31,6 +31,7 @@ use App\Modules\Admins\Employees\Controllers\EmployeeExportController;
 use App\Modules\Admins\Employees\Controllers\EmployeePaginateController;
 use App\Modules\Admins\Employees\Controllers\EmployeePasswordController;
 use App\Modules\Admins\Employees\Controllers\EmployeeToggleStatusController;
+use App\Modules\Admins\Employees\Controllers\EmployeeToggleVerificationController;
 use App\Modules\Admins\Employees\Controllers\EmployeeUpdateController;
 use App\Modules\Admins\Employees\Controllers\EmployeeViewController;
 use App\Modules\Admins\Fees\Controllers\FeeAllController;
@@ -66,6 +67,7 @@ use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryPaginate
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryPasswordController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryToggleController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
+use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryVerificationController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipExportController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipPaginateController;
@@ -92,12 +94,14 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationViewControlle
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPaginateController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPasswordController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffToggleController;
+use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffVerificationController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteAuthController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteExportController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstitutePaginateController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstitutePasswordController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteToggleController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteUpdateController;
+use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteVerificationController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteViewController;
 use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInstituteScholarshipPaginateController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPaginateController;
@@ -119,12 +123,14 @@ use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInst
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffAccountController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
+use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffVerificationController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionToggleController;
 use App\Modules\Admins\Students\Controllers\StudentCreateController;
 use App\Modules\Admins\Students\Controllers\StudentExportController;
 use App\Modules\Admins\Students\Controllers\StudentPaginateController;
 use App\Modules\Admins\Students\Controllers\StudentPasswordController;
 use App\Modules\Admins\Students\Controllers\StudentToggleStatusController;
+use App\Modules\Admins\Students\Controllers\StudentToggleVerificationController;
 use App\Modules\Admins\Students\Controllers\StudentUpdateController;
 use App\Modules\Admins\Students\Controllers\StudentViewController;
 use App\Modules\CourseManagement\Classes\Controllers\ClassesToggleController;
@@ -155,6 +161,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('/create', [EmployeeCreateController::class, 'index']);
                 Route::post('/update/{id}', [EmployeeUpdateController::class, 'index']);
                 Route::post('/status/{id}', [EmployeeToggleStatusController::class, 'index']);
+                Route::post('/verify/{id}', [EmployeeToggleVerificationController::class, 'index']);
                 Route::post('/password/{id}', [EmployeePasswordController::class, 'index']);
                 // Route::delete('/delete/{id}', [EmployeeDeleteController::class, 'index']);
                 Route::get('/view/{id}', [EmployeeViewController::class, 'index']);
@@ -165,6 +172,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('/create', [StudentCreateController::class, 'index']);
                 Route::post('/update/{id}', [StudentUpdateController::class, 'index']);
                 Route::post('/status/{id}', [StudentToggleStatusController::class, 'index']);
+                Route::post('/verify/{id}', [StudentToggleVerificationController::class, 'index']);
                 Route::post('/password/{id}', [StudentPasswordController::class, 'index']);
                 // Route::delete('/delete/{id}', [StudentDeleteController::class, 'index']);
                 Route::get('/view/{id}', [StudentViewController::class, 'index']);
@@ -286,10 +294,12 @@ Route::prefix('admin')->group(function () {
                 Route::post('/update-auth/{id}', [RegisteredInstituteAuthController::class, 'index']);
                 Route::post('/update-password/{id}', [RegisteredInstitutePasswordController::class, 'index']);
                 Route::post('/toggle-status/{id}', [RegisteredInstituteToggleController::class, 'index']);
+                Route::post('/toggle-verification/{id}', [RegisteredInstituteVerificationController::class, 'index']);
                 Route::prefix('staff/{id}')->group(function () {
                     Route::get('/excel', [RegisteredInstituteStaffExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredInstituteStaffPaginateController::class, 'index']);
                     Route::post('/status/{staff_id}', [RegisteredInstituteStaffToggleController::class, 'index']);
+                    Route::post('/verify/{staff_id}', [RegisteredInstituteStaffVerificationController::class, 'index']);
                     Route::post('/account/{staff_id}', [RegisteredInstituteStaffAccountController::class, 'index']);
                     Route::post('/password/{staff_id}', [RegisteredInstituteStaffPasswordController::class, 'index']);
                 });
@@ -330,10 +340,12 @@ Route::prefix('admin')->group(function () {
                 Route::post('/update-auth/{id}', [RegisteredIndustryAuthController::class, 'index']);
                 Route::post('/update-password/{id}', [RegisteredIndustryPasswordController::class, 'index']);
                 Route::post('/toggle-status/{id}', [RegisteredIndustryToggleController::class, 'index']);
+                Route::post('/toggle-verification/{id}', [RegisteredIndustryVerificationController::class, 'index']);
                 Route::prefix('staff/{id}')->group(function () {
                     Route::get('/excel', [RegisteredIndustryStaffExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredIndustryStaffPaginateController::class, 'index']);
                     Route::post('/status/{staff_id}', [RegisteredIndustryStaffToggleController::class, 'index']);
+                    Route::post('/verify/{staff_id}', [RegisteredIndustryStaffVerificationController::class, 'index']);
                     Route::post('/account/{staff_id}', [RegisteredIndustryStaffAccountController::class, 'index']);
                     Route::post('/password/{staff_id}', [RegisteredIndustryStaffPasswordController::class, 'index']);
                 });

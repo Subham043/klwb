@@ -11,6 +11,7 @@ import { ViewLink } from "../../../components/Buttons/ViewBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 import { VerificationEnum } from "../../../utils/constants/verified";
+import VerifyBtn from "../../../components/Buttons/VerifyBtn";
 
 
 const RegisteredIndustry:FC = () => {
@@ -100,7 +101,7 @@ const RegisteredIndustry:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={140} fixed="right">
+                <Table.Column width={190} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
@@ -108,6 +109,7 @@ const RegisteredIndustry:FC = () => {
                             <ButtonToolbar>
                                 <ViewLink to={page_routes.admin.industry.registered_info(rowData.id)} />
                                 <PasswordBtn route={api_routes.admin.registered_industry.update_password(Number(rowData.id) || 0)} />
+                                <VerifyBtn route={api_routes.admin.registered_industry.verify(rowData.id)} refetch={refetch} isVerified={rowData.verified === VerificationEnum.VERIFIED} />
                                 <BlockBtn route={api_routes.admin.registered_industry.toggle(Number(rowData.id) || 0)} refetch={refetch} isBlocked={rowData.is_blocked!} />
                             </ButtonToolbar>
                         )}

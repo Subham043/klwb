@@ -25,6 +25,7 @@ import EditBtn from "../../Buttons/EditBtn";
 import PasswordBtn from "../../Buttons/PasswordBtn";
 import StaffForm from "./StaffForm";
 import { VerificationEnum } from "../../../utils/constants/verified";
+import VerifyBtn from "../../Buttons/VerifyBtn";
 
 type Props = {
   id: number;
@@ -151,7 +152,7 @@ export default function Staff({ id }: Props) {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={140} fixed="right">
+            <Table.Column width={190} fixed="right">
               <Table.HeaderCell>Action</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>
@@ -171,6 +172,7 @@ export default function Staff({ id }: Props) {
                         rowData.id
                       )}
                     />
+                    <VerifyBtn route={api_routes.admin.registered_industry.staff.verify(id, rowData.id)} refetch={refetchData} isVerified={rowData.verified === VerificationEnum.VERIFIED} />
                     <BlockBtn
                       route={api_routes.admin.registered_industry.staff.status(
                         Number(id) || 0,

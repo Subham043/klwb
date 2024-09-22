@@ -12,6 +12,7 @@ import EditBtn from "../../../components/Buttons/EditBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 import { VerificationEnum } from "../../../utils/constants/verified";
+import VerifyBtn from "../../../components/Buttons/VerifyBtn";
 
 
 const Employee:FC = () => {
@@ -87,7 +88,7 @@ const Employee:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={150} fixed="right">
+                <Table.Column width={190} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
@@ -95,6 +96,7 @@ const Employee:FC = () => {
                             <ButtonToolbar>
                                 <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
                                 <PasswordBtn route={api_routes.admin.employee.password(rowData.id)} />
+                                <VerifyBtn route={api_routes.admin.employee.verify(rowData.id)} refetch={refetch} isVerified={rowData.verified === VerificationEnum.VERIFIED} />
                                 <BlockBtn route={api_routes.admin.employee.status(rowData.id)} refetch={refetch} isBlocked={rowData.is_blocked} />
                             </ButtonToolbar>
                         )}
