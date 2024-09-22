@@ -11,6 +11,7 @@ import { table } from "../../../utils/constants/table";
 import EditBtn from "../../../components/Buttons/EditBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
+import { VerificationEnum } from "../../../utils/constants/verified";
 
 
 const Employee:FC = () => {
@@ -56,6 +57,22 @@ const Employee:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <Status status={!rowData.is_blocked} wrongLabel="Blocked" />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+
+                <Table.Column width={160} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Verification Status</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <Status
+                                status={
+                                    rowData.verified === VerificationEnum.VERIFIED
+                                }
+                                wrongLabel={VerificationEnum.VERIFICATION_PENDING}
+                                correctLabel={VerificationEnum.VERIFIED}
+                            />
                         )}
                     </Table.Cell>
                 </Table.Column>

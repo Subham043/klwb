@@ -8,6 +8,7 @@ export const admin_page_routes = {
   graduation: "/admin/graduation",
   class: "/admin/class",
   employee: "/admin/employee",
+  student: "/admin/student",
   state: "/admin/state",
   city: "/admin/district",
   taluq: "/admin/taluq",

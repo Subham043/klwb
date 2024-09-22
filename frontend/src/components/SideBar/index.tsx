@@ -19,6 +19,7 @@ import ReviewIcon from '@rsuite/icons/Review';
 import { page_routes } from '../../utils/routes/pages';
 import { RolesEnum } from '../../utils/constants/role';
 import AppSelectIcon from '@rsuite/icons/AppSelect';
+import AdminIcon from '@rsuite/icons/Admin';
 
 const NavMenu = () => {
     const  {user} = useUser();
@@ -80,6 +81,9 @@ const NavMenu = () => {
                     </Nav.Item>
                     <Nav.Item eventKey="14" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Staff / Officer
+                    </Nav.Item>
+                    <Nav.Item eventKey="15" as={NavLink} to={page_routes.admin.student} className='sidebar-navlink' icon={<AdminIcon />}>
+                        Student
                     </Nav.Item>
                     <Nav.Item eventKey="10" as={NavLink} to={page_routes.admin.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
                         Application Dates

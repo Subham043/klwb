@@ -19,12 +19,28 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import { table } from "../../../utils/constants/table";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import BlockBtn from "../../Buttons/BlockBtn";
+import { useState } from "react";
+import { InstituteAuthType } from "../../../utils/types";
+import StaffForm from "./StaffForm";
+import EditBtn from "../../Buttons/EditBtn";
+import PasswordBtn from "../../Buttons/PasswordBtn";
+import { VerificationEnum } from "../../../utils/constants/verified";
 
 type Props = {
   id: number;
 };
 
+type Modal =
+  | {
+      status: false;
+    }
+  | {
+      status: true;
+      data: InstituteAuthType | undefined;
+    };
+
 export default function Staff({ id }: Props) {
+  const [staffModal, setStaffModal] = useState<Modal>({ status: false });
   const { search, searchHandler } = useSearchQueryParam("_staff");
   const { page, pageHandler, limit, limitHandler } =
     usePaginationQueryParam("_staff");
@@ -113,6 +129,20 @@ export default function Staff({ id }: Props) {
               </Table.Cell>
             </Table.Column>
 
+            <Table.Column width={160} align="center" verticalAlign="middle">
+              <Table.HeaderCell>Verification Status</Table.HeaderCell>
+
+              <Table.Cell style={{ padding: "6px" }}>
+                {(rowData) => (
+                  <Status
+                    status={rowData.verified === VerificationEnum.VERIFIED}
+                    wrongLabel={VerificationEnum.VERIFICATION_PENDING}
+                    correctLabel={VerificationEnum.VERIFIED}
+                  />
+                )}
+              </Table.Cell>
+            </Table.Column>
+
             <Table.Column width={250} verticalAlign="middle">
               <Table.HeaderCell>Created At</Table.HeaderCell>
 
@@ -121,12 +151,26 @@ export default function Staff({ id }: Props) {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={70} fixed="right">
+            <Table.Column width={140} fixed="right">
               <Table.HeaderCell>Action</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>
                 {(rowData) => (
                   <ButtonToolbar>
+                    <EditBtn
+                      clickHandler={() =>
+                        setStaffModal({
+                          status: true,
+                          data: rowData as InstituteAuthType,
+                        })
+                      }
+                    />
+                    <PasswordBtn
+                      route={api_routes.admin.registered_institute.staff.password(
+                        Number(id) || 0,
+                        rowData.id
+                      )}
+                    />
                     <BlockBtn
                       route={api_routes.admin.registered_institute.staff.status(
                         Number(id) || 0,
@@ -160,6 +204,12 @@ export default function Staff({ id }: Props) {
             />
           </div>
         </ModalCardContainer>
+        <StaffForm
+          modal={staffModal}
+          closeModal={() => setStaffModal({ status: false })}
+          refetch={refetchData}
+          id={Number(id)}
+        />
       </ErrorBoundaryLayout>
     </div>
   );

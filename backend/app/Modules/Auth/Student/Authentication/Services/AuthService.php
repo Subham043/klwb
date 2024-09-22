@@ -20,7 +20,7 @@ class AuthService extends AbstractAuthService
     public function register(array $data): User
     {
         $user = (new UserService)->create($data);
-        (new UserService)->syncRoles(["Student"], $user);
+        $user->syncRoles(["Student"]);
         UserRegistered::dispatch($user);
         $user->refresh();
         return $user;

@@ -1,23 +1,25 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { ButtonToolbar, Table } from "rsuite"
+import { useStudentsQuery } from "../../../hooks/data/student";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
-import { useRegisteredIndustriesQuery } from "../../../hooks/data/registered_industry";
+import { DrawerProps } from "../../../utils/types";
+import StudentForm from "../../../components/Admin/StudentForm";
 import { api_routes } from "../../../utils/routes/api";
-import { page_routes } from "../../../utils/routes/pages";
-import Moment from "../../../components/Moment";
 import Status from "../../../components/Status";
+import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
-import { ViewLink } from "../../../components/Buttons/ViewBtn";
+import EditBtn from "../../../components/Buttons/EditBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 import { VerificationEnum } from "../../../utils/constants/verified";
 
 
-const RegisteredIndustry:FC = () => {
-    const {data, isLoading, isFetching, isRefetching, refetch, error} = useRegisteredIndustriesQuery();
+const Student:FC = () => {
+    const {data, isLoading, isFetching, isRefetching, refetch, error } = useStudentsQuery();
+    const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
-    return <PaginatedTableLayout title="Registered Industries">
-        <PaginatedTableLayout.Header title="Registered Industries" addBtn={false} excelLink={api_routes.admin.registered_industry.excel} excelName="registered_industry.xlsx" />
+    return <PaginatedTableLayout title="Students">
+        <PaginatedTableLayout.Header title="Students" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.student.excel} excelName="staffs.xlsx" />
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
@@ -29,39 +31,24 @@ const RegisteredIndustry:FC = () => {
                     <Table.Cell dataKey="id" />
                 </Table.Column>
 
-                <Table.Column  width={260}>
+                <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.Cell dataKey="industry.name" />
-                </Table.Column>
-
-                <Table.Column width={260}>
-                    <Table.HeaderCell>Director Name</Table.HeaderCell>
                     <Table.Cell dataKey="name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Email</Table.HeaderCell>
                     <Table.Cell dataKey="email" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Phone</Table.HeaderCell>
                     <Table.Cell dataKey="phone" />
                 </Table.Column>
 
-                <Table.Column width={260}>
-                    <Table.HeaderCell>Act</Table.HeaderCell>
-                    <Table.Cell dataKey="industry.act_label" />
-                </Table.Column>
-
-                <Table.Column  width={160}>
-                    <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell dataKey="city.name" />
-                </Table.Column>
-
-                <Table.Column  width={160}>
-                    <Table.HeaderCell>Taluq</Table.HeaderCell>
-                    <Table.Cell dataKey="taluq.name" />
+                <Table.Column flexGrow={1}>
+                    <Table.HeaderCell>Role</Table.HeaderCell>
+                    <Table.Cell dataKey="role" />
                 </Table.Column>
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
@@ -100,22 +87,23 @@ const RegisteredIndustry:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={140} fixed="right">
+                <Table.Column width={150} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
-                                <ViewLink to={page_routes.admin.industry.registered_info(rowData.id)} />
-                                <PasswordBtn route={api_routes.admin.registered_industry.update_password(Number(rowData.id) || 0)} />
-                                <BlockBtn route={api_routes.admin.registered_industry.toggle(Number(rowData.id) || 0)} refetch={refetch} isBlocked={rowData.is_blocked!} />
+                                <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <PasswordBtn route={api_routes.admin.student.password(rowData.id)} />
+                                <BlockBtn route={api_routes.admin.student.status(rowData.id)} refetch={refetch} isBlocked={rowData.is_blocked} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>
                 </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>
+        <StudentForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
     </PaginatedTableLayout>
 }
 
-export default RegisteredIndustry
+export default Student

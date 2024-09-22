@@ -60,6 +60,7 @@ const GraduationPage = lazy(()=>import("./pages/Admin/Graduation"));
 const CoursePage = lazy(()=>import("./pages/Admin/Course"));
 const ClassPage = lazy(()=>import("./pages/Admin/Class"));
 const EmployeePage = lazy(()=>import("./pages/Admin/Employee"));
+const StudentPage = lazy(()=>import("./pages/Admin/Student"));
 const StatePage = lazy(()=>import("./pages/Admin/State"));
 const CityPage = lazy(()=>import("./pages/Admin/City"));
 const TaluqPage = lazy(()=>import("./pages/Taluq"));
@@ -97,6 +98,7 @@ function App() {
                       <Route path={page_routes.admin.course} element={<CoursePage />} />
                       <Route path={page_routes.admin.class} element={<ClassPage />} />
                       <Route path={page_routes.admin.employee} element={<EmployeePage />} />
+                      <Route path={page_routes.admin.student} element={<StudentPage />} />
                       <Route path={page_routes.admin.state} element={<StatePage />} />
                       <Route path={page_routes.admin.city} element={<CityPage />} />
                       <Route path={page_routes.admin.taluq} element={<TaluqPage />} />

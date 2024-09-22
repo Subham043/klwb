@@ -48,6 +48,17 @@ export const admin_api_routes = {
     delete: (id: string | number) => `/api/admin/v1/employees/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/employees/view/${id}`,
   },
+  student: {
+    excel: "/api/admin/v1/students/excel",
+    all: "/api/admin/v1/students/all",
+    paginate: "/api/admin/v1/students/paginate",
+    create: "/api/admin/v1/students/create",
+    update: (id: string | number) => `/api/admin/v1/students/update/${id}`,
+    password: (id: string | number) => `/api/admin/v1/students/password/${id}`,
+    status: (id: string | number) => `/api/admin/v1/students/status/${id}`,
+    delete: (id: string | number) => `/api/admin/v1/students/delete/${id}`,
+    view: (id: string | number) => `/api/admin/v1/students/view/${id}`,
+  },
   state: {
     excel: "/api/admin/v1/states/excel",
     all: "/api/admin/v1/states/all",
@@ -162,6 +173,10 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-institutes/staff/${id}/paginate`,
       status: (id: string | number, staff_id: string | number) =>
         `/api/admin/v1/registered-institutes/staff/${id}/status/${staff_id}`,
+      account: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-institutes/staff/${id}/account/${staff_id}`,
+      password: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-institutes/staff/${id}/password/${staff_id}`,
     },
     scholarship: {
       excel: (id: string | number) =>
@@ -223,6 +238,10 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-industries/staff/${id}/paginate`,
       status: (id: string | number, staff_id: string | number) =>
         `/api/admin/v1/registered-industries/staff/${id}/status/${staff_id}`,
+      account: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-industries/staff/${id}/account/${staff_id}`,
+      password: (id: string | number, staff_id: string | number) =>
+        `/api/admin/v1/registered-industries/staff/${id}/password/${staff_id}`,
     },
     scholarship: {
       excel: (id: string | number) =>

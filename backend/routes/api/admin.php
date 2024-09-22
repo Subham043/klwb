@@ -120,6 +120,13 @@ use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteS
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionToggleController;
+use App\Modules\Admins\Students\Controllers\StudentCreateController;
+use App\Modules\Admins\Students\Controllers\StudentExportController;
+use App\Modules\Admins\Students\Controllers\StudentPaginateController;
+use App\Modules\Admins\Students\Controllers\StudentPasswordController;
+use App\Modules\Admins\Students\Controllers\StudentToggleStatusController;
+use App\Modules\Admins\Students\Controllers\StudentUpdateController;
+use App\Modules\Admins\Students\Controllers\StudentViewController;
 use App\Modules\CourseManagement\Classes\Controllers\ClassesToggleController;
 use App\Modules\CourseManagement\Courses\Controllers\CourseToggleController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationToggleController;
@@ -151,6 +158,16 @@ Route::prefix('admin')->group(function () {
                 Route::post('/password/{id}', [EmployeePasswordController::class, 'index']);
                 // Route::delete('/delete/{id}', [EmployeeDeleteController::class, 'index']);
                 Route::get('/view/{id}', [EmployeeViewController::class, 'index']);
+            });
+            Route::prefix('students')->group(function () {
+                Route::get('/excel', [StudentExportController::class, 'index']);
+                Route::get('/paginate', [StudentPaginateController::class, 'index']);
+                Route::post('/create', [StudentCreateController::class, 'index']);
+                Route::post('/update/{id}', [StudentUpdateController::class, 'index']);
+                Route::post('/status/{id}', [StudentToggleStatusController::class, 'index']);
+                Route::post('/password/{id}', [StudentPasswordController::class, 'index']);
+                // Route::delete('/delete/{id}', [StudentDeleteController::class, 'index']);
+                Route::get('/view/{id}', [StudentViewController::class, 'index']);
             });
             Route::prefix('states')->group(function () {
                 Route::get('/excel', [StateExportController::class, 'index']);

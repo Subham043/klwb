@@ -28,8 +28,8 @@ class RegisteredInstituteStaffAccountRequest extends InputRequest
 	{
 		return [
 			'name' => 'required|string|max:500',
-			'email' => ['required', 'email:rfc,dns', 'unique:industry_auths,email,' . $this->route('staff_id')],
-			'phone' => ['required', 'numeric', 'digits:10', 'unique:industry_auths,phone,' . $this->route('staff_id')],
+			'email' => ['required', 'email:rfc,dns', 'unique:school_auths,email,' . $this->route('staff_id')],
+			'phone' => ['required', 'numeric', 'digits:10', 'unique:school_auths,phone,' . $this->route('staff_id')],
 		];
 	}
 }

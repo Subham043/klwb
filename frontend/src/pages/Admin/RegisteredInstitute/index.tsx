@@ -10,6 +10,7 @@ import { table } from "../../../utils/constants/table";
 import { ViewLink } from "../../../components/Buttons/ViewBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
+import { VerificationEnum } from "../../../utils/constants/verified";
 
 
 const RegisteredInstitute:FC = () => {
@@ -69,6 +70,22 @@ const RegisteredInstitute:FC = () => {
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <Status status={!rowData.profile.is_blocked} wrongLabel="Blocked" />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+
+                <Table.Column width={160} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Verification Status</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            <Status
+                                status={
+                                    rowData.profile.verified === VerificationEnum.VERIFIED
+                                }
+                                wrongLabel={VerificationEnum.VERIFICATION_PENDING}
+                                correctLabel={VerificationEnum.VERIFIED}
+                            />
                         )}
                     </Table.Cell>
                 </Table.Column>
