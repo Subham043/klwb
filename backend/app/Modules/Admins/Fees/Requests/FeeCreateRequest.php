@@ -26,10 +26,13 @@ class FeeCreateRequest extends InputRequest
      * @return array
      */
     public function rules()
-    {
+    {   
+        $request = $this;
         return [
             'amount' => 'required|numeric|gt:0',
-            'graduation_id' => ['required','numeric','exists:graduations,id', Rule::unique('fees', 'graduation_id', 'year')],
+            'graduation_id' => ['required','numeric','exists:graduations,id', Rule::unique('fees')->where(function ($query) use ($request) {
+                return $query->where('year', date('Y'))->where('graduation_id', $request->graduation_id);
+             })],
         ];
     }
 

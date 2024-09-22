@@ -14,6 +14,7 @@ import SelectInput from '../../FormInput/SelectInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
 import { useGraduationSelectQuery } from '../../../hooks/data/graduation';
+import moment from 'moment';
 
 type SchemaType = {
   amount: number;
@@ -85,7 +86,7 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
     });
 
     return (
-        <Drawer title="Amount" drawer={drawer} drawerHandler={drawerHandler}>
+        <Drawer title={drawer.type === "Edit" ? "Amount" : ("Amount for the year " + moment().format("YYYY"))} drawer={drawer} drawerHandler={drawerHandler}>
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="amount" label="Amount" type="number" focus={true} control={control} error={errors.amount?.message} />
