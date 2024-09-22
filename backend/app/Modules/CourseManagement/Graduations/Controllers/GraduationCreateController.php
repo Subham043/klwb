@@ -15,7 +15,7 @@ class GraduationCreateController extends Controller
         try {
             //code...
             $graduation = $this->graduationService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "Graduation created successfully.", "data" => GraduationCollection::make($graduation)], 201);
         } catch (\Throwable $th) {

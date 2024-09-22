@@ -32,6 +32,13 @@ class ApplicationDateService extends AbstractExcelService
         return $this->model()->latest()->firstOrFail();
     }
 
+    public function toggleStatus(ApplicationDate $data): ApplicationDate
+    {
+        $this->update(['is_active'=>!$data->is_active], $data);
+        $data->refresh();
+        return $data;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

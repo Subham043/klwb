@@ -15,7 +15,7 @@ class SecurityQuestionCreateController extends Controller
         try {
             //code...
             $question = $this->questionService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "Security Question created successfully.", "data" => SecurityQuestionCollection::make($question)], 201);
         } catch (\Throwable $th) {

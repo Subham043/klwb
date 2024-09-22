@@ -37,6 +37,18 @@ class InstituteService extends AbstractExcelService
                 ]);
     }
 
+    public function toggleStatus(Institute $data): Institute
+    {
+        $status = true;
+        if($data->is_active){
+            $status = false;
+        }
+        $this->update(['is_active'=>$status], $data);
+        $data->auth->profile->update(['is_blocked' => !$status]);
+        $data->refresh();
+        return $data;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

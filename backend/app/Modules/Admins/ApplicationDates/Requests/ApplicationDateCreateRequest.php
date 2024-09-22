@@ -30,7 +30,6 @@ class ApplicationDateCreateRequest extends InputRequest
             'application_year' => 'required|numeric|gt:0|gte:'.date("Y").'|unique:application_dates,application_year',
             'from_date' => ['required', 'date', 'after_or_equal:today'],
             'to_date' => ['required', 'date', 'after:from_date'],
-            'is_active' => 'required|boolean',
             'can_resubmit' => 'required|boolean',
             'can_approve' => 'required|boolean',
             'can_verify' => 'required|boolean',
@@ -45,7 +44,6 @@ class ApplicationDateCreateRequest extends InputRequest
     public function attributes(): array
     {
         return [
-            'is_active' => 'Active',
             'can_resubmit' => 'Can Student Resubmit',
             'can_approve' => 'Can Industry/Institute Approve',
             'can_verify' => 'Can Officials Verify',

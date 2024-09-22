@@ -26,6 +26,13 @@ class FeeService extends AbstractExcelService
                 ]);
     }
 
+    public function toggleStatus(Fee $data): Fee
+    {
+        $this->update(['is_active'=>!$data->is_active], $data);
+        $data->refresh();
+        return $data;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

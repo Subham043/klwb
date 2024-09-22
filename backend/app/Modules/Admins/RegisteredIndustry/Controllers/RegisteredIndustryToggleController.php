@@ -3,7 +3,7 @@
 namespace App\Modules\Admins\RegisteredIndustry\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\RegisteredIndustry\Requests\RegisteredIndustryToggleRequest;
+use App\Http\Requests\ToggleStatusRequest;
 use App\Modules\Admins\RegisteredIndustry\Services\RegisteredIndustryService;
 use App\Modules\Admins\RegisteredIndustry\Resources\RegisteredIndustryCollection;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +12,7 @@ class RegisteredIndustryToggleController extends Controller
 {
     public function __construct(private RegisteredIndustryService $industryService){}
 
-    public function index(RegisteredIndustryToggleRequest $request, $id){
+    public function index(ToggleStatusRequest $request, $id){
         $industry = $this->industryService->getById($id);
         DB::beginTransaction();
         try {

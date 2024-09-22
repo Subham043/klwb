@@ -29,7 +29,6 @@ class TaluqRequest extends InputRequest
         return [
             'name' => 'required|string|max:500',
             'city_id' => 'required|numeric|exists:cities,id',
-            'is_active' => 'required|boolean',
         ];
     }
 

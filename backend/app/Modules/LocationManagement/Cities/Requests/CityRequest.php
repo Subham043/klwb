@@ -29,7 +29,6 @@ class CityRequest extends InputRequest
         return [
             'name' => 'required|string|max:500',
             'state_id' => 'required|numeric|exists:states,id',
-            'is_active' => 'required|boolean',
         ];
     }
 

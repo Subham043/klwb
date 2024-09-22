@@ -29,7 +29,6 @@ class CourseRequest extends InputRequest
         return [
             'name' => 'required|string|max:500',
             'graduation_id' => 'required|numeric|exists:graduations,id',
-            'is_active' => 'required|boolean',
         ];
     }
 

@@ -16,7 +16,7 @@ class ApplicationDateCreateController extends Controller
         try {
             //code...
             $applicationDate = $this->applicationDateService->create(
-                [...$request->validated(), 'user_id' => auth()->guard(Guards::Admin->value())->user()->id]
+                [...$request->validated(), 'is_active' => 1, 'user_id' => auth()->guard(Guards::Admin->value())->user()->id]
             );
             return response()->json(["message" => "Application Date created successfully.", "data" => ApplicationDateCollection::make($applicationDate)], 201);
         } catch (\Throwable $th) {

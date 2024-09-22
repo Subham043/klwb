@@ -28,7 +28,6 @@ class SecurityQuestionRequest extends InputRequest
     {
         return [
             'question' => 'required|string',
-            'is_active' => 'required|boolean',
         ];
     }
 

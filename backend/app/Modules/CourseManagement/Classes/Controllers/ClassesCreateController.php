@@ -15,7 +15,7 @@ class ClassesCreateController extends Controller
         try {
             //code...
             $classes = $this->classesService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "Classes created successfully.", "data" => ClassesCollection::make($classes)], 201);
         } catch (\Throwable $th) {

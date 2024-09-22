@@ -15,7 +15,7 @@ class TaluqCreateController extends Controller
         try {
             //code...
             $taluq = $this->taluqService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "Taluq created successfully.", "data" => TaluqCollection::make($taluq)], 201);
         } catch (\Throwable $th) {

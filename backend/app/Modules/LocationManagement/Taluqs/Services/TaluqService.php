@@ -34,6 +34,13 @@ class TaluqService extends AbstractExcelService
                 ]);
     }
 
+    public function toggleStatus(Taluq $data): Taluq
+    {
+        $this->update(['is_active'=>!$data->is_active], $data);
+        $data->refresh();
+        return $data;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

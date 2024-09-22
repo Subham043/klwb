@@ -33,6 +33,13 @@ class ClassesService extends AbstractExcelService
                 ]);
     }
 
+    public function toggleStatus(Classes $data): Classes
+    {
+        $this->update(['is_active'=>!$data->is_active], $data);
+        $data->refresh();
+        return $data;
+    }
+
     public function excel() : SimpleExcelWriter
     {
         $model = $this->model();

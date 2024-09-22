@@ -15,7 +15,7 @@ class StateCreateController extends Controller
         try {
             //code...
             $state = $this->stateService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "State created successfully.", "data" => StateCollection::make($state)], 201);
         } catch (\Throwable $th) {

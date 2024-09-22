@@ -16,7 +16,7 @@ class FeeCreateController extends Controller
         try {
             //code...
             $fee = $this->feeService->create(
-                [...$request->validated(), 'year'=>date('Y'), 'user_id' => auth()->guard(Guards::Admin->value())->user()->id]
+                [...$request->validated(), 'year'=>date('Y'), 'is_active' => 1, 'user_id' => auth()->guard(Guards::Admin->value())->user()->id]
             );
             return response()->json(["message" => "Fee created successfully.", "data" => ExtendedFeeCollection::make($fee)], 201);
         } catch (\Throwable $th) {

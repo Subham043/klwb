@@ -3,7 +3,7 @@
 namespace App\Modules\Admins\Employees\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\Employees\Requests\EmployeeToggleStatusRequest;
+use App\Http\Requests\ToggleStatusRequest;
 use App\Modules\Admins\Employees\Resources\EmployeeCollection;
 use App\Modules\Admins\Employees\Services\EmployeeService;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +12,7 @@ class EmployeeToggleStatusController extends Controller
 {
     public function __construct(private EmployeeService $employeeService){}
 
-    public function index(EmployeeToggleStatusRequest $request, $id){
+    public function index(ToggleStatusRequest $request, $id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();
         try {

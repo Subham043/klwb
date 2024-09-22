@@ -17,7 +17,6 @@ class FeeUpdateRequest extends FeeCreateRequest
         return [
             'amount' => 'required|numeric|gt:0',
             'graduation_id' => ['required','numeric','exists:graduations,id', Rule::unique('fees', 'graduation_id', 'year')->ignore($this->route('id'))],
-            'is_active' => 'required|boolean',
         ];
     }
 

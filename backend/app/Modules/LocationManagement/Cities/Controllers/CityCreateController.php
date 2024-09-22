@@ -15,7 +15,7 @@ class CityCreateController extends Controller
         try {
             //code...
             $city = $this->cityService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "City created successfully.", "data" => CityCollection::make($city)], 201);
         } catch (\Throwable $th) {

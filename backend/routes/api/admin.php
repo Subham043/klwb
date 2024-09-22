@@ -5,6 +5,7 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateAllController
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateCreateController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateExportController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDatePaginateController;
+use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateToggleController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateUpdateController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewController;
 use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
@@ -36,18 +37,21 @@ use App\Modules\Admins\Fees\Controllers\FeeAllController;
 use App\Modules\Admins\Fees\Controllers\FeeCreateController;
 use App\Modules\Admins\Fees\Controllers\FeeExportController;
 use App\Modules\Admins\Fees\Controllers\FeePaginateController;
+use App\Modules\Admins\Fees\Controllers\FeeToggleController;
 use App\Modules\Admins\Fees\Controllers\FeeUpdateController;
 use App\Modules\Admins\Fees\Controllers\FeeViewController;
 use App\Modules\Admins\Industries\Controllers\IndustryAllController;
 use App\Modules\Admins\Industries\Controllers\IndustryCreateController;
 use App\Modules\Admins\Industries\Controllers\IndustryExportController;
 use App\Modules\Admins\Industries\Controllers\IndustryPaginateController;
+use App\Modules\Admins\Industries\Controllers\IndustryToggleController;
 use App\Modules\Admins\Industries\Controllers\IndustryUpdateController;
 use App\Modules\Admins\Industries\Controllers\IndustryViewController;
 use App\Modules\Admins\Institutes\Controllers\InstituteAllController;
 use App\Modules\Admins\Institutes\Controllers\InstituteCreateController;
 use App\Modules\Admins\Institutes\Controllers\InstituteExportController;
 use App\Modules\Admins\Institutes\Controllers\InstitutePaginateController;
+use App\Modules\Admins\Institutes\Controllers\InstituteToggleController;
 use App\Modules\Admins\Institutes\Controllers\InstituteUpdateController;
 use App\Modules\Admins\Institutes\Controllers\InstituteViewController;
 use App\Modules\Admins\NonRegisteredIndustry\Controllers\NonRegisteredIndustryExportController;
@@ -111,12 +115,19 @@ use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionUpdateContr
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionViewController;
 use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInstituteScholarshipExportController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
+use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionToggleController;
+use App\Modules\CourseManagement\Classes\Controllers\ClassesToggleController;
+use App\Modules\CourseManagement\Courses\Controllers\CourseToggleController;
+use App\Modules\CourseManagement\Graduations\Controllers\GraduationToggleController;
+use App\Modules\LocationManagement\Cities\Controllers\CityToggleController;
 use App\Modules\Roles\Controllers\RoleAllController;
 use App\Modules\LocationManagement\States\Controllers\StateExportController;
+use App\Modules\LocationManagement\States\Controllers\StateToggleController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqCreateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqExportController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqPaginateController;
+use App\Modules\LocationManagement\Taluqs\Controllers\TaluqToggleController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqUpdateController;
 use App\Modules\LocationManagement\Taluqs\Controllers\TaluqViewController;
 use Illuminate\Support\Facades\Route;
@@ -143,6 +154,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [StatePaginateController::class, 'index']);
                 Route::post('/create', [StateCreateController::class, 'index']);
                 Route::post('/update/{id}', [StateUpdateController::class, 'index']);
+                Route::post('/status/{id}', [StateToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [StateDeleteController::class, 'index']);
                 Route::get('/view/{id}', [StateViewController::class, 'index']);
             });
@@ -152,6 +164,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [CityPaginateController::class, 'index']);
                 Route::post('/create', [CityCreateController::class, 'index']);
                 Route::post('/update/{id}', [CityUpdateController::class, 'index']);
+                Route::post('/status/{id}', [CityToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [CityDeleteController::class, 'index']);
                 Route::get('/view/{id}', [CityViewController::class, 'index']);
             });
@@ -161,6 +174,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [TaluqPaginateController::class, 'index']);
                 Route::post('/create', [TaluqCreateController::class, 'index']);
                 Route::post('/update/{id}', [TaluqUpdateController::class, 'index']);
+                Route::post('/status/{id}', [TaluqToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [TaluqDeleteController::class, 'index']);
                 Route::get('/view/{id}', [TaluqViewController::class, 'index']);
             });
@@ -170,6 +184,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [GraduationPaginateController::class, 'index']);
                 Route::post('/create', [GraduationCreateController::class, 'index']);
                 Route::post('/update/{id}', [GraduationUpdateController::class, 'index']);
+                Route::post('/status/{id}', [GraduationToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [GraduationDeleteController::class, 'index']);
                 Route::get('/view/{id}', [GraduationViewController::class, 'index']);
             });
@@ -179,6 +194,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [CoursePaginateController::class, 'index']);
                 Route::post('/create', [CourseCreateController::class, 'index']);
                 Route::post('/update/{id}', [CourseUpdateController::class, 'index']);
+                Route::post('/status/{id}', [CourseToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [CourseDeleteController::class, 'index']);
                 Route::get('/view/{id}', [CourseViewController::class, 'index']);
             });
@@ -188,6 +204,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [ClassesPaginateController::class, 'index']);
                 Route::post('/create', [ClassesCreateController::class, 'index']);
                 Route::post('/update/{id}', [ClassesUpdateController::class, 'index']);
+                Route::post('/status/{id}', [ClassesToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [ClassesDeleteController::class, 'index']);
                 Route::get('/view/{id}', [ClassesViewController::class, 'index']);
             });
@@ -197,6 +214,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [SecurityQuestionPaginateController::class, 'index']);
                 Route::post('/create', [SecurityQuestionCreateController::class, 'index']);
                 Route::post('/update/{id}', [SecurityQuestionUpdateController::class, 'index']);
+                Route::post('/status/{id}', [SecurityQuestionToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [SecurityQuestionDeleteController::class, 'index']);
                 Route::get('/view/{id}', [SecurityQuestionViewController::class, 'index']);
             });
@@ -206,6 +224,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [FeePaginateController::class, 'index']);
                 Route::post('/create', [FeeCreateController::class, 'index']);
                 Route::post('/update/{id}', [FeeUpdateController::class, 'index']);
+                Route::post('/status/{id}', [FeeToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [FeeDeleteController::class, 'index']);
                 Route::get('/view/{id}', [FeeViewController::class, 'index']);
             });
@@ -215,6 +234,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [ApplicationDatePaginateController::class, 'index']);
                 Route::post('/create', [ApplicationDateCreateController::class, 'index']);
                 Route::post('/update/{id}', [ApplicationDateUpdateController::class, 'index']);
+                Route::post('/status/{id}', [ApplicationDateToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [ApplicationDateDeleteController::class, 'index']);
                 Route::get('/view/{id}', [ApplicationDateViewController::class, 'index']);
             });
@@ -224,6 +244,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [InstitutePaginateController::class, 'index']);
                 Route::post('/create', [InstituteCreateController::class, 'index']);
                 Route::post('/update/{id}', [InstituteUpdateController::class, 'index']);
+                Route::post('/status/{id}', [InstituteToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [InstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [InstituteViewController::class, 'index']);
             });
@@ -265,6 +286,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [IndustryPaginateController::class, 'index']);
                 Route::post('/create', [IndustryCreateController::class, 'index']);
                 Route::post('/update/{id}', [IndustryUpdateController::class, 'index']);
+                Route::post('/status/{id}', [IndustryToggleController::class, 'index']);
                 // Route::delete('/delete/{id}', [IndustryDeleteController::class, 'index']);
                 Route::get('/view/{id}', [IndustryViewController::class, 'index']);
             });

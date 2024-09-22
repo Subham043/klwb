@@ -15,7 +15,7 @@ class CourseCreateController extends Controller
         try {
             //code...
             $course = $this->courseService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "Course created successfully.", "data" => CourseCollection::make($course)], 201);
         } catch (\Throwable $th) {

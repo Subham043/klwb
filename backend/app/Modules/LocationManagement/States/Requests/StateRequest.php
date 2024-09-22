@@ -28,7 +28,6 @@ class StateRequest extends InputRequest
     {
         return [
             'name' => 'required|string|max:500',
-            'is_active' => 'required|boolean',
         ];
     }
 
