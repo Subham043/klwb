@@ -17,7 +17,7 @@ Route::prefix('govt')->group(function () {
 			Route::prefix('scholarship')->group(function () {
 				Route::get('/list', [GovtScholarshipListController::class, 'index']);
 				Route::get('/view/{id}', [GovtScholarshipViewController::class, 'index']);
-				Route::get('/approve/{id}', [GovtScholarshipApproveController::class, 'index']);
+				Route::post('/approve/{id}', [GovtScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [GovtScholarshipRejectController::class, 'index']);
 				Route::post('/note/{id}', [GovtScholarshipNoteController::class, 'index']);
 				Route::get('/pdf/{id}', [GovtScholarshipPdfController::class, 'index']);

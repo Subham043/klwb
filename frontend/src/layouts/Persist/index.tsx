@@ -50,3 +50,4 @@ export const AdminPersistLayout = () => <PersistLayout profile_api_link={api_rou
 export const StudentPersistLayout = () => <PersistLayout profile_api_link={api_routes.user.account.profile} />
 export const InstitutePersistLayout = () => <PersistLayout profile_api_link={api_routes.institute.account.profile} />
 export const IndustryPersistLayout = () => <PersistLayout profile_api_link={api_routes.industry.account.profile} />
+export const GovtPersistLayout = () => <PersistLayout profile_api_link={api_routes.govt.account.profile} />

@@ -24,6 +24,7 @@ const AuthLayout:FC<AuthMenuProps & {bgImage?:string}> = (props) => {
 }
 
 export const AdminAuthLayout = () => <AuthLayout noMenu={false} loginLink={page_routes.admin.auth.login} hasRegister={false} />
+export const GovtAuthLayout = () => <AuthLayout noMenu={false} loginLink={page_routes.govt.auth.login} hasRegister={false} />
 export const InstituteAuthLayout = () => <AuthLayout noMenu={false} loginLink={page_routes.institute.auth.login} hasRegister={true} registerLink={page_routes.institute.auth.register} bgImage={'/inst-bg.jpg'} />
 export const IndustryAuthLayout = () => <AuthLayout noMenu={false} loginLink={page_routes.industry.auth.login} hasRegister={true} registerLink={page_routes.industry.auth.register} bgImage={'/ind-bg.jpg'} />
 export const StudentAuthLayout = () => <AuthLayout noMenu={false} loginLink={page_routes.student.auth.login} hasRegister={true} registerLink={page_routes.student.auth.register} bgImage={'/rg-bg.jpg'} />

@@ -24,3 +24,4 @@ export const AdminGuestLayout = () => <GuestLayout navigation_link={page_routes.
 export const StudentGuestLayout = () => <GuestLayout navigation_link={page_routes.student.dashboard} />
 export const InstituteGuestLayout = () => <GuestLayout navigation_link={page_routes.institute.dashboard} />
 export const IndustryGuestLayout = () => <GuestLayout navigation_link={page_routes.industry.dashboard} />
+export const GovtGuestLayout = () => <GuestLayout navigation_link={page_routes.govt.dashboard} />

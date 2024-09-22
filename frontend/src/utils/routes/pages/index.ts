@@ -1,4 +1,5 @@
 import { admin_page_routes } from "./admin_page_routes";
+import { govt_page_routes } from "./govt_page_routes";
 import { industry_page_routes } from "./industry_page_routes";
 import { institute_page_routes } from "./institute_page_routes";
 import { student_page_routes } from "./student_page_routes";
@@ -13,6 +14,9 @@ export const page_routes = {
 	},
 	industry: {
 		...industry_page_routes,
+	},
+	govt: {
+		...govt_page_routes,
 	},
 	admin: {
 		...admin_page_routes,

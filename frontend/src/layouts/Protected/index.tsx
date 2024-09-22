@@ -23,3 +23,4 @@ export const AdminProtectedLayout = () => <ProtectedLayout navigation_link={page
 export const StudentProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.student.auth.login} />
 export const InstituteProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.institute.auth.login} />
 export const IndustryProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.industry.auth.login} />
+export const GovtProtectedLayout = () => <ProtectedLayout navigation_link={page_routes.govt.auth.login} />

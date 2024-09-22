@@ -75,6 +75,16 @@ const NavMenu = () => {
                 </>
             }
             {
+                [RolesEnum.VERIFICATION_OFFICER].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="22" as={NavLink} to={page_routes.govt.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Dashboard
+                    </Nav.Item>
+                    <Nav.Item eventKey="23" as={NavLink} to={page_routes.govt.scholarship.list} className='sidebar-navlink' icon={<ListIcon />}>
+                        Scholarship List
+                    </Nav.Item>
+                </>
+            }
+            {
                 [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="13" as={NavLink} to={page_routes.admin.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
                         Dashboard
@@ -82,7 +92,7 @@ const NavMenu = () => {
                     <Nav.Item eventKey="14" as={NavLink} to={page_routes.admin.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Staff / Officer
                     </Nav.Item>
-                    <Nav.Item eventKey="15" as={NavLink} to={page_routes.admin.student} className='sidebar-navlink' icon={<AdminIcon />}>
+                    <Nav.Item eventKey="21" as={NavLink} to={page_routes.admin.student} className='sidebar-navlink' icon={<AdminIcon />}>
                         Student
                     </Nav.Item>
                     <Nav.Item eventKey="10" as={NavLink} to={page_routes.admin.application_date} className='sidebar-navlink' icon={<CalendarIcon />}>
