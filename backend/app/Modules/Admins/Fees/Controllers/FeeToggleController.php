@@ -3,7 +3,7 @@
 namespace App\Modules\Admins\Fees\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admins\Fees\Requests\FeeUpdateRequest;
+use App\Http\Requests\ToggleStatusRequest;
 use App\Modules\Admins\Fees\Resources\ExtendedFeeCollection;
 use App\Modules\Admins\Fees\Services\FeeService;
 
@@ -11,7 +11,7 @@ class FeeToggleController extends Controller
 {
     public function __construct(private FeeService $feeService){}
 
-    public function index(FeeUpdateRequest $request, $id){
+    public function index(ToggleStatusRequest $request, $id){
         $fee = $this->feeService->getById($id);
         try {
             //code...

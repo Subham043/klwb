@@ -9,6 +9,7 @@ import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
 import EditBtn from "../../../components/Buttons/EditBtn";
+import BlockBtn from "../../../components/Buttons/BlockBtn";
 
 
 const Course:FC = () => {
@@ -58,13 +59,14 @@ const Course:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={90} fixed="right">
+                <Table.Column width={100} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
                                 <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <BlockBtn route={api_routes.admin.course.status(rowData.id)} refetch={refetch} isBlocked={!rowData.is_active} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

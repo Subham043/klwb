@@ -69,6 +69,7 @@ use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateCo
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipExportController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipPaginateController;
+use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffAccountController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffExportController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryAllController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryApproveController;
@@ -89,6 +90,7 @@ use App\Modules\CourseManagement\Graduations\Controllers\GraduationPaginateContr
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationUpdateController;
 use App\Modules\CourseManagement\Graduations\Controllers\GraduationViewController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPaginateController;
+use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffPasswordController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffToggleController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteAuthController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteExportController;
@@ -114,7 +116,9 @@ use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionPaginateCon
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionUpdateController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionViewController;
 use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInstituteScholarshipExportController;
+use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffAccountController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
+use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionToggleController;
 use App\Modules\CourseManagement\Classes\Controllers\ClassesToggleController;
 use App\Modules\CourseManagement\Courses\Controllers\CourseToggleController;
@@ -269,6 +273,8 @@ Route::prefix('admin')->group(function () {
                     Route::get('/excel', [RegisteredInstituteStaffExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredInstituteStaffPaginateController::class, 'index']);
                     Route::post('/status/{staff_id}', [RegisteredInstituteStaffToggleController::class, 'index']);
+                    Route::post('/account/{staff_id}', [RegisteredInstituteStaffAccountController::class, 'index']);
+                    Route::post('/password/{staff_id}', [RegisteredInstituteStaffPasswordController::class, 'index']);
                 });
                 Route::prefix('scholarship/{id}')->group(function () {
                     Route::get('/excel', [RegisteredInstituteScholarshipExportController::class, 'index']);
@@ -311,6 +317,8 @@ Route::prefix('admin')->group(function () {
                     Route::get('/excel', [RegisteredIndustryStaffExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredIndustryStaffPaginateController::class, 'index']);
                     Route::post('/status/{staff_id}', [RegisteredIndustryStaffToggleController::class, 'index']);
+                    Route::post('/account/{staff_id}', [RegisteredIndustryStaffAccountController::class, 'index']);
+                    Route::post('/password/{staff_id}', [RegisteredIndustryStaffPasswordController::class, 'index']);
                 });
                 Route::prefix('scholarship/{id}')->group(function () {
                     Route::get('/excel', [RegisteredIndustryScholarshipExportController::class, 'index']);

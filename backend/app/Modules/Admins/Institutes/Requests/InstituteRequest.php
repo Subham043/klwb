@@ -35,7 +35,6 @@ class InstituteRequest extends InputRequest
             'type' => 'required|string|max:500',
             'urban_rural' => ['required', new Enum(UrbanRural::class)],
             'taluq_id' => 'required|numeric|exists:taluqs,id',
-            'is_active' => 'required|boolean',
         ];
     }
 

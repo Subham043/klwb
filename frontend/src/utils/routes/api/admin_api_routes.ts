@@ -13,6 +13,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/graduations/paginate",
     create: "/api/admin/v1/graduations/create",
     update: (id: string | number) => `/api/admin/v1/graduations/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/graduations/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/graduations/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/graduations/view/${id}`,
   },
@@ -22,6 +23,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/courses/paginate",
     create: "/api/admin/v1/courses/create",
     update: (id: string | number) => `/api/admin/v1/courses/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/courses/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/courses/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/courses/view/${id}`,
   },
@@ -31,6 +33,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/classes/paginate",
     create: "/api/admin/v1/classes/create",
     update: (id: string | number) => `/api/admin/v1/classes/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/classes/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/classes/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/classes/view/${id}`,
   },
@@ -51,6 +54,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/states/paginate",
     create: "/api/admin/v1/states/create",
     update: (id: string | number) => `/api/admin/v1/states/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/states/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/states/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/states/view/${id}`,
   },
@@ -60,6 +64,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/cities/paginate",
     create: "/api/admin/v1/cities/create",
     update: (id: string | number) => `/api/admin/v1/cities/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/cities/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/cities/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/cities/view/${id}`,
   },
@@ -69,6 +74,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/taluqs/paginate",
     create: "/api/admin/v1/taluqs/create",
     update: (id: string | number) => `/api/admin/v1/taluqs/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/taluqs/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/taluqs/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/taluqs/view/${id}`,
   },
@@ -79,6 +85,8 @@ export const admin_api_routes = {
     create: "/api/admin/v1/security-questions/create",
     update: (id: string | number) =>
       `/api/admin/v1/security-questions/update/${id}`,
+    status: (id: string | number) =>
+      `/api/admin/v1/security-questions/status/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/security-questions/delete/${id}`,
     view: (id: string | number) =>
@@ -91,6 +99,8 @@ export const admin_api_routes = {
     create: "/api/admin/v1/application-dates/create",
     update: (id: string | number) =>
       `/api/admin/v1/application-dates/update/${id}`,
+    status: (id: string | number) =>
+      `/api/admin/v1/application-dates/status/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/application-dates/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/application-dates/view/${id}`,
@@ -101,6 +111,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/fees/paginate",
     create: "/api/admin/v1/fees/create",
     update: (id: string | number) => `/api/admin/v1/fees/update/${id}`,
+    status: (id: string | number) => `/api/admin/v1/fees/status/${id}`,
     delete: (id: string | number) => `/api/admin/v1/fees/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/fees/view/${id}`,
   },
@@ -111,6 +122,8 @@ export const admin_api_routes = {
     create: "/api/admin/v1/institutes/create",
     update: (id: string | number) =>
       `/api/admin/v1/institutes/update/${id}`,
+    status: (id: string | number) =>
+      `/api/admin/v1/institutes/status/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/institutes/delete/${id}`,
     view: (id: string | number) =>
@@ -170,6 +183,8 @@ export const admin_api_routes = {
     create: "/api/admin/v1/industries/create",
     update: (id: string | number) =>
       `/api/admin/v1/industries/update/${id}`,
+    status: (id: string | number) =>
+      `/api/admin/v1/industries/status/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/industries/delete/${id}`,
     view: (id: string | number) =>

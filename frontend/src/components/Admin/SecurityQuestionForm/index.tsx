@@ -10,21 +10,18 @@ import Drawer from "../../Drawer";
 import { useSecurityQuestionQuery } from '../../../hooks/data/security_question';
 import { useAxios } from '../../../hooks/useAxios';
 import TextInput from '../../FormInput/TextInput';
-import ToggleInput from '../../FormInput/ToggleInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
 
 
 type SchemaType = {
   question: string;
-  is_active: number;
 };
 
 
 const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     question: yup.string().typeError("Question must contain characters only").required("Question is required"),
-    is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();
 
@@ -45,10 +42,8 @@ export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{d
         resolver: yupResolver(schema),
         values: drawer.type==="Edit" ? {
             question: data? data.question : "",
-            is_active: data? (data.is_active ? 1: 0) : 0
         } : {
             question: "",
-            is_active: 1
         }
      });
 
@@ -87,7 +82,6 @@ export default function SecurityQuestionForm({drawer, drawerHandler, refetch}:{d
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="question" label="Question" textarea={true} focus={true} control={control} error={errors.question?.message} />
-                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

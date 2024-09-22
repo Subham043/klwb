@@ -25,7 +25,6 @@ type SchemaType = {
   can_resubmit: number;
   can_approve: number;
   can_verify: number;
-  is_active: number;
 };
 
 type ValueType = {
@@ -35,7 +34,6 @@ type ValueType = {
   can_resubmit: number;
   can_approve: number;
   can_verify: number;
-  is_active: number;
 };
 
 
@@ -47,7 +45,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     can_resubmit: yup.number().typeError("Resubmission must contain numbers only").min(0).max(1).required("Resubmission is required"),
     can_approve: yup.number().typeError("Approval must contain numbers only").min(0).max(1).required("Approval is required"),
     can_verify: yup.number().typeError("Verification must contain numbers only").min(0).max(1).required("Verification is required"),
-    is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();
 
@@ -74,7 +71,6 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
             can_resubmit: data? (data.can_resubmit ? 1: 0) : 0,
             can_approve: data? (data.can_approve ? 1: 0) : 0,
             can_verify: data? (data.can_verify ? 1: 0) : 0,
-            is_active: data? (data.is_active ? 1: 0) : 0
         } : {
             application_year: date.getFullYear(),
             from_date: moment().format('YYYY-MM-DD'),
@@ -82,7 +78,6 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
             can_resubmit: 1,
             can_approve: 1,
             can_verify: 1,
-            is_active: 1,
         }
      });
 
@@ -111,7 +106,6 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
                     can_resubmit: 1,
                     can_approve: 1,
                     can_verify: 1,
-                    is_active: 1
                 });
             }
             drawerHandler({status:false, type:'Create'});
@@ -150,7 +144,6 @@ export default function ApplicationDateForm({drawer, drawerHandler, refetch}:{dr
                     <ToggleInput name="can_resubmit" checkedLabel="Student Can Resubmit" uncheckedLabel="Student Cannot Resubmit" control={control} error={errors.can_resubmit?.message} />
                     <ToggleInput name="can_approve" checkedLabel="Industry/Institute Can Approve" uncheckedLabel="Industry/Institute Cannot Approve" control={control} error={errors.can_approve?.message} />
                     <ToggleInput name="can_verify" checkedLabel="Officials Can Verify" uncheckedLabel="Officials Cannot Verify" control={control} error={errors.can_verify?.message} />
-                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

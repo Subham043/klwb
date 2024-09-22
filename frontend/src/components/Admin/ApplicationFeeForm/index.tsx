@@ -10,7 +10,6 @@ import Drawer from "../../Drawer";
 import { useApplicationFeeQuery } from '../../../hooks/data/application_fee';
 import { useAxios } from '../../../hooks/useAxios';
 import TextInput from '../../FormInput/TextInput';
-import ToggleInput from '../../FormInput/ToggleInput';
 import SelectInput from '../../FormInput/SelectInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
@@ -18,7 +17,6 @@ import { useGraduationSelectQuery } from '../../../hooks/data/graduation';
 
 type SchemaType = {
   amount: number;
-  is_active: number;
   graduation_id: number;
 };
 
@@ -27,7 +25,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     amount: yup.number().typeError("Amount must contain numbers only").positive("Amount must contain positive numbers only").required("Amount is required"),
     graduation_id: yup.number().typeError("Graduation must contain numbers only").required("Graduation is required").test("notZero", "Graduation is required", (value) => !(value === 0)),
-    is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();
 
@@ -50,11 +47,9 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
         values: drawer.type==="Edit" ? {
             amount: data? data.amount : 0,
             graduation_id: data? data.graduation.id : 0,
-            is_active: data? (data.is_active ? 1: 0) : 0
         } : {
             amount: 0,
             graduation_id: 0,
-            is_active: 1
         }
      });
 
@@ -67,7 +62,6 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
                 reset({
                     amount: 0,
                     graduation_id: 0,
-                    is_active: 1
                 });
             }
             drawerHandler({status:false, type:'Create'});
@@ -96,7 +90,6 @@ export default function ApplicationFeeForm({drawer, drawerHandler, refetch}:{dra
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="amount" label="Amount" type="number" focus={true} control={control} error={errors.amount?.message} />
                     <SelectInput name="graduation_id" label="Graduation" data={graduations ? graduations.map(item => ({ label: item.name, value: item.id })) : []} loading={isGraduationFetching || isGraduationLoading} control={control} error={errors.graduation_id?.message} />
-                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

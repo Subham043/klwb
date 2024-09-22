@@ -10,7 +10,6 @@ import { useInstituteQuery } from "../../../hooks/data/institute";
 import { useTaluqSelectQuery } from "../../../hooks/data/taluq";
 import { useAxios } from "../../../hooks/useAxios";
 import TextInput from "../../FormInput/TextInput";
-import ToggleInput from "../../FormInput/ToggleInput";
 import SelectInput from "../../FormInput/SelectInput";
 import { useCitySelectQuery } from "../../../hooks/data/city";
 import { api_routes } from "../../../utils/routes/api";
@@ -23,7 +22,6 @@ type SchemaType = {
   category: string;
   type: string;
   urban_rural: string;
-  is_active: number;
   city_id: number;
   taluq_id: number;
 };
@@ -60,12 +58,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .typeError("Taluq must contain numbers only")
       .required("Taluq is required")
       .test("notZero", "Taluq is required", (value) => !(value === 0)),
-    is_active: yup
-      .number()
-      .typeError("Active/Inactive must contain numbers only")
-      .min(0)
-      .max(1)
-      .required("Active/Inactive is required"),
   })
   .required();
 
@@ -114,7 +106,6 @@ export default function InstituteForm({
             urban_rural: data ? data.urban_rural : "",
             taluq_id: data ? data.taluq.id : 0,
             city_id: data ? data.taluq.city.id : 0,
-            is_active: data ? (data.is_active ? 1 : 0) : 0,
           }
         : {
             name: "",
@@ -124,7 +115,6 @@ export default function InstituteForm({
             urban_rural: "",
             city_id: 0,
             taluq_id: 0,
-            is_active: 1,
           },
   });
 
@@ -163,7 +153,6 @@ export default function InstituteForm({
           urban_rural: "",
           city_id: 0,
           taluq_id: 0,
-          is_active: 1,
         });
       }
       drawerHandler({ status: false, type: "Create" });
@@ -293,17 +282,6 @@ export default function InstituteForm({
                     loading={isTaluqFetching || isTaluqLoading}
                     control={control}
                     error={errors.taluq_id?.message}
-                  />
-                </Col>
-              </Row>
-              <Row gutter={30}>
-                <Col className="pb-1" xs={24}>
-                  <ToggleInput
-                    name="is_active"
-                    checkedLabel="Active"
-                    uncheckedLabel="Inactive"
-                    control={control}
-                    error={errors.is_active?.message}
                   />
                 </Col>
               </Row>

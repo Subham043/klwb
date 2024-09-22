@@ -11,14 +11,12 @@ import { useClassQuery } from '../../../hooks/data/class';
 import { useCourseSelectQuery } from '../../../hooks/data/course';
 import { useAxios } from '../../../hooks/useAxios';
 import TextInput from '../../FormInput/TextInput';
-import ToggleInput from '../../FormInput/ToggleInput';
 import SelectInput from '../../FormInput/SelectInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
 
 type SchemaType = {
   name: string;
-  is_active: number;
   course_id: number;
 };
 
@@ -27,7 +25,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     name: yup.string().typeError("Name must contain characters only").required("Name is required"),
     course_id: yup.number().typeError("Course must contain numbers only").required("Course is required").test("notZero", "Course is required", (value) => !(value === 0)),
-    is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();
 
@@ -50,11 +47,9 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
         values: drawer.type==="Edit" ? {
             name: data? data.name : "",
             course_id: data? data.course.id : 0,
-            is_active: data? (data.is_active ? 1: 0) : 0
         } : {
             name: "",
             course_id: 0,
-            is_active: 1
         }
      });
 
@@ -94,7 +89,6 @@ export default function ClassForm({drawer, drawerHandler, refetch}:{drawer: Draw
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
                     <SelectInput name="course_id" label="Course" data={courses ? courses.map(item => ({ label: item.name, value: item.id })) : []} loading={isCourseFetching || isCourseLoading} control={control} error={errors.course_id?.message} />
-                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

@@ -56,6 +56,13 @@ class RegisteredIndustryStaffService
         return $this->query($reg_industry_id, $created_by)->where('id', $id)->firstOrFail();
     }
 
+    public function update(array $data, IndustryAuth $industry): IndustryAuth
+    {
+        $industry->update($data);
+        $industry->refresh();
+        return $industry;
+    }
+
     public function toggleStatus(IndustryAuth $industry): IndustryAuth
     {
         $industry->update(['is_blocked'=>!$industry->is_blocked]);

@@ -9,7 +9,6 @@ import { isAxiosError } from "axios";
 import { useIndustryQuery } from "../../../hooks/data/industry";
 import { useAxios } from "../../../hooks/useAxios";
 import TextInput from "../../FormInput/TextInput";
-import ToggleInput from "../../FormInput/ToggleInput";
 import SelectInput from "../../FormInput/SelectInput";
 import { api_routes } from "../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
@@ -18,7 +17,6 @@ import ModalCardContainer from "../../MainCards/ModalCardContainer";
 type SchemaType = {
   name: string;
   act: string;
-  is_active: number;
 };
 
 const schema: yup.ObjectSchema<SchemaType> = yup
@@ -31,12 +29,6 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Act must contain characters only")
       .required("Act is required"),
-    is_active: yup
-      .number()
-      .typeError("Active/Inactive must contain numbers only")
-      .min(0)
-      .max(1)
-      .required("Active/Inactive is required"),
   })
   .required();
 
@@ -78,12 +70,10 @@ export default function IndustryForm({
         ? {
             name: data ? data.name : "",
             act: data && data.act ? data.act.toString() : "",
-            is_active: data ? (data.is_active ? 1 : 0) : 0,
           }
         : {
             name: "",
             act: "",
-            is_active: 1,
           },
   });
 
@@ -101,7 +91,6 @@ export default function IndustryForm({
         reset({
           name: "",
           act: "",
-          is_active: 1,
         });
       }
       drawerHandler({ status: false, type: "Create" });
@@ -162,15 +151,6 @@ export default function IndustryForm({
                     ]}
                     control={control}
                     error={errors.act?.message}
-                  />
-                </Col>
-                <Col className="pb-1" xs={24}>
-                  <ToggleInput
-                    name="is_active"
-                    checkedLabel="Active"
-                    uncheckedLabel="Inactive"
-                    control={control}
-                    error={errors.is_active?.message}
                   />
                 </Col>
               </Row>

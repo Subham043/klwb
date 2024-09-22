@@ -10,20 +10,17 @@ import Drawer from "../../Drawer";
 import { useStateQuery } from '../../../hooks/data/state';
 import { useAxios } from '../../../hooks/useAxios';
 import TextInput from '../../FormInput/TextInput';
-import ToggleInput from '../../FormInput/ToggleInput';
 import { api_routes } from '../../../utils/routes/api';
 import ErrorBoundaryLayout from '../../../layouts/ErrorBoundaryLayout';
 
 type SchemaType = {
   name: string;
-  is_active: number;
 };
 
 
 const schema: yup.ObjectSchema<SchemaType> = yup
   .object({
     name: yup.string().typeError("Name must contain characters only").required("Name is required"),
-    is_active: yup.number().typeError("Active/Inactive must contain numbers only").min(0).max(1).required("Active/Inactive is required"),
   })
   .required();
 
@@ -44,10 +41,8 @@ export default function StateForm({drawer, drawerHandler, refetch}:{drawer: Draw
         resolver: yupResolver(schema),
         values: drawer.type==="Edit" ? {
             name: data? data.name : "",
-            is_active: data? (data.is_active ? 1: 0) : 0
         } : {
             name: "",
-            is_active: 1
         }
      });
 
@@ -86,7 +81,6 @@ export default function StateForm({drawer, drawerHandler, refetch}:{drawer: Draw
             <ErrorBoundaryLayout loading={(isFetching || isLoading || isRefetching)} error={error} refetch={refetchData}>
                 <Form onSubmit={()=>onSubmit()} style={{ width: '100%' }}>
                     <TextInput name="name" label="Name" focus={true} control={control} error={errors.name?.message} />
-                    <ToggleInput name="is_active" checkedLabel="Active" uncheckedLabel="Inactive" control={control} error={errors.is_active?.message} />
                     <Form.Group>
                         <ButtonToolbar style={{ width: '100%', justifyContent: 'space-between' }}>
                             <Button appearance="primary" active size='lg' type="submit" loading={loading} disabled={loading}>Save</Button>

@@ -24,9 +24,6 @@ class InstituteUpdateController extends Controller
                 $institute
             );
             $taluq = (new TaluqService)->getById($request->taluq_id);
-            $this->instituteAuthService->update([
-                'is_blocked' => !$request->is_active,
-            ], $institute->auth->profile);
             $this->instituteAuthService->updateInstituteAddress([
                 'taluq_id' => $taluq->id,
                 'city_id' => $taluq->city->id,

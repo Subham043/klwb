@@ -56,6 +56,13 @@ class RegisteredInstituteStaffService
         return $this->query($school_id, $created_by)->where('id', $id)->firstOrFail();
     }
 
+    public function update(array $data, InstituteAuth $institute): InstituteAuth
+    {
+        $institute->update($data);
+        $institute->refresh();
+        return $institute;
+    }
+
     public function toggleStatus(InstituteAuth $institute): InstituteAuth
     {
         $institute->update(['is_blocked'=>!$institute->is_blocked]);

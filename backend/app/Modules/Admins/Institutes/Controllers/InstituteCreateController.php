@@ -15,7 +15,7 @@ class InstituteCreateController extends Controller
         try {
             //code...
             $institute = $this->instituteService->create(
-                $request->validated()
+                [...$request->validated(), 'is_active' => 1]
             );
             return response()->json(["message" => "Institute created successfully.", "data" => InstituteCollection::make($institute)], 201);
         } catch (\Throwable $th) {
