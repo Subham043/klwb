@@ -63,11 +63,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
           return false;
         } else {
           return ["image/jpeg", "image/jpg", "image/png"].includes(
-            value[0].blobFile!.type
+            value[value.length - 1].blobFile!.type
           );
         }
       })
-      .transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+      .transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
       .required("Institute Reg. File is required"),
     principal_signature: yup
       .mixed<FileType[]>()
@@ -80,11 +80,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
           return false;
         } else {
           return ["image/jpeg", "image/jpg", "image/png"].includes(
-            value[0].blobFile!.type
+            value[value.length - 1].blobFile!.type
           );
         }
       })
-      .transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+      .transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
       .required("Principal Signature is required"),
     seal: yup
       .mixed<FileType[]>()
@@ -97,11 +97,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
           return false;
         } else {
           return ["image/jpeg", "image/jpg", "image/png"].includes(
-            value[0].blobFile!.type
+            value[value.length - 1].blobFile!.type
           );
         }
       })
-      .transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+      .transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
       .required("Seal is required"),
   })
   .required();
@@ -146,9 +146,9 @@ function InstituteRegisterPage() {
       formData.append("taluq_id", getValues().taluq_id.toString());
       formData.append("reg_institute_id", getValues().reg_institute_id.toString());
       formData.append("captcha", getValues().captcha);
-      formData.append("reg_certification", getValues().reg_certification![0].blobFile!);
-      formData.append("principal_signature", getValues().principal_signature![0].blobFile!);
-      formData.append("seal", getValues().seal![0].blobFile!);
+      formData.append("reg_certification", getValues().reg_certification![getValues().reg_certification!.length - 1 || 0].blobFile!);
+      formData.append("principal_signature", getValues().principal_signature![getValues().principal_signature!.length - 1 || 0].blobFile!);
+      formData.append("seal", getValues().seal![getValues().seal!.length - 1 || 0].blobFile!);
       await axios.post(api_routes.institute.auth.register.institute, formData);
       toastSuccess("Registration Successful");
       reset({

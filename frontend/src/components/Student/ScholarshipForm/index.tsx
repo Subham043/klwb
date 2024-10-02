@@ -108,51 +108,51 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			formData.append("prv_class", getValues().prv_class);
 			formData.append("prv_marks", getValues().prv_marks.toString());
 			formData.append("marks_card_type", getValues().marks_card_type);
-			if(getValues().prv_markcard && getValues().prv_markcard!==undefined && getValues().prv_markcard!.length>0 && getValues().prv_markcard![0].blobFile){
-				formData.append("prv_markcard", getValues().prv_markcard![0].blobFile!);
+			if(getValues().prv_markcard && getValues().prv_markcard!==undefined && getValues().prv_markcard!.length>0 && getValues().prv_markcard![getValues().prv_markcard!.length - 1 || 0].blobFile){
+				formData.append("prv_markcard", getValues().prv_markcard![getValues().prv_markcard!.length - 1 || 0].blobFile!);
 			}
 			if(getValues().marks_card_type === "0"){
-				if(getValues().prv_markcard2 && getValues().prv_markcard2!==undefined && getValues().prv_markcard2!.length>0 && getValues().prv_markcard2![0].blobFile){
-					formData.append("prv_markcard2", getValues().prv_markcard2![0].blobFile!);
+				if(getValues().prv_markcard2 && getValues().prv_markcard2!==undefined && getValues().prv_markcard2!.length>0 && getValues().prv_markcard2![getValues().prv_markcard2!.length - 1 || 0].blobFile){
+					formData.append("prv_markcard2", getValues().prv_markcard2![getValues().prv_markcard2!.length - 1 || 0].blobFile!);
 				}
 			}
 			formData.append("is_scst", getValues().is_scst);
 			formData.append("category", getValues().category);
 			if(getValues().is_scst === "1"){
 				formData.append("cast_no", getValues().cast_no!);
-				if(getValues().cast_certificate && getValues().cast_certificate!==undefined && getValues().cast_certificate!.length>0 && getValues().cast_certificate![0].blobFile){
-					formData.append("cast_certificate", getValues().cast_certificate![0].blobFile!);
+				if(getValues().cast_certificate && getValues().cast_certificate!==undefined && getValues().cast_certificate!.length>0 && getValues().cast_certificate![getValues().cast_certificate!.length - 1 || 0].blobFile){
+					formData.append("cast_certificate", getValues().cast_certificate![getValues().cast_certificate!.length - 1 || 0].blobFile!);
 				}
 			}
 			formData.append("adharcard_no", getValues().adharcard_no.toString());
-			if(getValues().adharcard_file && getValues().adharcard_file!==undefined && getValues().adharcard_file!.length>0 && getValues().adharcard_file![0].blobFile){
-				formData.append("adharcard_file", getValues().adharcard_file![0].blobFile!);
+			if(getValues().adharcard_file && getValues().adharcard_file!==undefined && getValues().adharcard_file!.length>0 && getValues().adharcard_file![getValues().adharcard_file!.length - 1 || 0].blobFile){
+				formData.append("adharcard_file", getValues().adharcard_file![getValues().adharcard_file!.length - 1 || 0].blobFile!);
 			}
 			if(getValues().not_applicable!==undefined){
 				formData.append("not_applicable", getValues().not_applicable!);
-				if(getValues().deathcertificate && getValues().deathcertificate!==undefined && getValues().deathcertificate!.length>0 && getValues().deathcertificate![0].blobFile){
-					formData.append("deathcertificate", getValues().deathcertificate![0].blobFile!);
+				if(getValues().deathcertificate && getValues().deathcertificate!==undefined && getValues().deathcertificate!.length>0 && getValues().deathcertificate![getValues().deathcertificate!.length - 1 || 0].blobFile){
+					formData.append("deathcertificate", getValues().deathcertificate![getValues().deathcertificate!.length - 1 || 0].blobFile!);
 				}
 				if(getValues().not_applicable==="father"){
 					formData.append("m_adhar", getValues().m_adhar!.toString());
-					if(getValues().m_adharfile && getValues().m_adharfile!==undefined && getValues().m_adharfile!.length>0 && getValues().m_adharfile![0].blobFile){
-						formData.append("m_adharfile", getValues().m_adharfile![0].blobFile!);
+					if(getValues().m_adharfile && getValues().m_adharfile!==undefined && getValues().m_adharfile!.length>0 && getValues().m_adharfile![getValues().m_adharfile!.length - 1 || 0].blobFile){
+						formData.append("m_adharfile", getValues().m_adharfile![getValues().m_adharfile!.length - 1 || 0].blobFile!);
 					}
 				}
 				if(getValues().not_applicable==="mother"){
 					formData.append("f_adhar", getValues().f_adhar!!.toString());
-					if(getValues().f_adharfile && getValues().f_adharfile!==undefined && getValues().f_adharfile!.length>0 && getValues().f_adharfile![0].blobFile){
-						formData.append("f_adharfile", getValues().f_adharfile![0].blobFile!);
+					if(getValues().f_adharfile && getValues().f_adharfile!==undefined && getValues().f_adharfile!.length>0 && getValues().f_adharfile![getValues().f_adharfile!.length - 1 || 0].blobFile){
+						formData.append("f_adharfile", getValues().f_adharfile![getValues().f_adharfile!.length - 1 || 0].blobFile!);
 					}
 				}
 			}else{
 				formData.append("f_adhar", getValues().f_adhar!!.toString());
-				if(getValues().f_adharfile && getValues().f_adharfile!==undefined && getValues().f_adharfile!.length>0 && getValues().f_adharfile![0].blobFile){
-					formData.append("f_adharfile", getValues().f_adharfile![0].blobFile!);
+				if(getValues().f_adharfile && getValues().f_adharfile!==undefined && getValues().f_adharfile!.length>0 && getValues().f_adharfile![getValues().f_adharfile!.length - 1 || 0].blobFile){
+					formData.append("f_adharfile", getValues().f_adharfile![getValues().f_adharfile!.length - 1 || 0].blobFile!);
 				}
 				formData.append("m_adhar", getValues().m_adhar!.toString());
-				if(getValues().m_adharfile && getValues().m_adharfile!==undefined && getValues().m_adharfile!.length>0 && getValues().m_adharfile![0].blobFile){
-					formData.append("m_adharfile", getValues().m_adharfile![0].blobFile!);
+				if(getValues().m_adharfile && getValues().m_adharfile!==undefined && getValues().m_adharfile!.length>0 && getValues().m_adharfile![getValues().m_adharfile!.length - 1 || 0].blobFile){
+					formData.append("m_adharfile", getValues().m_adharfile![getValues().m_adharfile!.length - 1 || 0].blobFile!);
 				}
 			}
 			formData.append("type", getValues().type);
@@ -161,8 +161,8 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			formData.append("ifsc", getValues().ifsc);
 			formData.append("acc_no", getValues().acc_no.toString());
 			formData.append("holder", getValues().holder);
-			if(getValues().passbook && getValues().passbook!==undefined && getValues().passbook!.length>0 && getValues().passbook![0].blobFile){
-				formData.append("passbook", getValues().passbook![0].blobFile!);
+			if(getValues().passbook && getValues().passbook!==undefined && getValues().passbook!.length>0 && getValues().passbook![getValues().passbook!.length - 1 || 0].blobFile){
+				formData.append("passbook", getValues().passbook![getValues().passbook!.length - 1 || 0].blobFile!);
 			}
 			formData.append("who_working", getValues().who_working);
 			formData.append("parent_guardian_name", getValues().parent_guardian_name);
@@ -172,8 +172,8 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			formData.append("district_id", getValues().district_id.toString());
 			formData.append("taluq_id", getValues().taluq_id.toString());
 			formData.append("company_id", getValues().company_id.toString());
-			if(getValues().salaryslip && getValues().salaryslip!==undefined && getValues().salaryslip!.length>0 && getValues().salaryslip![0].blobFile){
-				formData.append("salaryslip", getValues().salaryslip![0].blobFile!);
+			if(getValues().salaryslip && getValues().salaryslip!==undefined && getValues().salaryslip!.length>0 && getValues().salaryslip![getValues().salaryslip!.length - 1 || 0].blobFile){
+				formData.append("salaryslip", getValues().salaryslip![getValues().salaryslip!.length - 1 || 0].blobFile!);
 			}
 			await axios.post(type=="apply" ? api_routes.user.scholarship.apply : api_routes.user.scholarship.resubmit, formData);
 			toastSuccess(type=="apply" ? "Scholarship Applied Successfully" : "Scholarship Resubmitted Successfully");

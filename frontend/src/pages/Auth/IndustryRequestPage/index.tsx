@@ -51,11 +51,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
         return false;
       }else{
         return ["image/jpeg", "image/jpg", "image/png"].includes(
-          value[0].blobFile!.type
+          value[value.length - 1].blobFile!.type
         );
       }
     })
-    .transform((value) => (((value!==undefined && value.length>0) && (value[0].blobFile instanceof File)) ? value : undefined))
+    .transform((value) => (((value!==undefined && value.length>0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
     .required("Document is required"),
   })
   .required();
@@ -94,7 +94,7 @@ function IndustryRequestPage() {
             formData.append("city_id", getValues().city_id.toString());
             formData.append("taluq_id", getValues().taluq_id.toString());
             formData.append("captcha", getValues().captcha);
-            formData.append("register_doc", getValues().register_doc![0].blobFile!);
+            formData.append("register_doc", getValues().register_doc![getValues().register_doc!.length - 1 || 0].blobFile!);
             await axios.post(api_routes.industry.auth.register.request, formData);
             toastSuccess("Industry Request sent successfully");
             reset({

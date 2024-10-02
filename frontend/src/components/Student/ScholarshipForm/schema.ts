@@ -76,11 +76,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 							return false;
 						} else {
 							return ["image/jpeg", "image/jpg", "image/png"].includes(
-								value[0].blobFile!.type
+								value[value.length - 1].blobFile!.type
 							);
 						}
 					})
-					.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+					.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 					.required("Cast Certificate is required"),
 				otherwise: (schema) => schema.notRequired(),
 			}),
@@ -106,11 +106,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 					return false;
 				} else {
 					return ["image/jpeg", "image/jpg", "image/png"].includes(
-						value[0].blobFile!.type
+						value[value.length - 1].blobFile!.type
 					);
 				}
 			})
-			.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+			.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 			.required("Previous year marks card is required"),
 		prv_markcard2: yup
 			.mixed<FileType[]>().when("marks_card_type", {
@@ -124,11 +124,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 							return false;
 						} else {
 							return ["image/jpeg", "image/jpg", "image/png"].includes(
-								value[0].blobFile!.type
+								value[value.length - 1].blobFile!.type
 							);
 						}
 					})
-					.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+					.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 					.required("Previous year marks card is required"),
 				otherwise: (schema) => schema.notRequired(),
 			}),
@@ -149,11 +149,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 					return false;
 				} else {
 					return ["image/jpeg", "image/jpg", "image/png"].includes(
-						value[0].blobFile!.type
+						value[value.length - 1].blobFile!.type
 					);
 				}
 			})
-			.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+			.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 			.required("Passbook is required"),
 		who_working: yup.string().typeError("Who's Working type must contain characters only").required("Who's Working type is required"),
 		parent_guardian_name: yup.string().typeError("Parent/Guardian Name type must contain characters only").max(250).required("Parent/Guardian Name type is required"),
@@ -174,11 +174,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 					return false;
 				} else {
 					return ["image/jpeg", "image/jpg", "image/png"].includes(
-						value[0].blobFile!.type
+						value[value.length - 1].blobFile!.type
 					);
 				}
 			})
-			.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+			.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 			.required("Salary Slip is required"),
 		not_applicable: yup.string().typeError("Not Applicable must contain characters only").optional(),
 		adharcard_no: yup.number().typeError("Aadhar Card Number must contain numbers only").required("Aadhar Card Number is required"),
@@ -193,11 +193,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 					return false;
 				} else {
 					return ["image/jpeg", "image/jpg", "image/png"].includes(
-						value[0].blobFile!.type
+						value[value.length - 1].blobFile!.type
 					);
 				}
 			})
-			.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+			.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 			.required("Aadhar Card is required"),
 		f_adhar: yup.number().typeError("Faher's Aadhar Card Number must contain numbers only").when("not_applicable", {
 			is: (value: string | undefined) => (value === undefined) || (value === 'mother'),
@@ -216,11 +216,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 							return false;
 						} else {
 							return ["image/jpeg", "image/jpg", "image/png"].includes(
-								value[0].blobFile!.type
+								value[value.length - 1].blobFile!.type
 							);
 						}
 					})
-					.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+					.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 					.required("Faher's Aadhar Card is required"),
 				otherwise: (schema) => schema.notRequired(),
 			}),
@@ -241,11 +241,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 							return false;
 						} else {
 							return ["image/jpeg", "image/jpg", "image/png"].includes(
-								value[0].blobFile!.type
+								value[value.length - 1].blobFile!.type
 							);
 						}
 					})
-					.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+					.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 					.required("Mother's Aadhar Card is required"),
 				otherwise: (schema) => schema.notRequired(),
 			}),
@@ -261,11 +261,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 						return false;
 					} else {
 						return ["image/jpeg", "image/jpg", "image/png"].includes(
-							value[0].blobFile!.type
+							value[value.length - 1].blobFile!.type
 						);
 					}
 				})
-				.transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+				.transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
 				.required("Death Certificate is required"),
 				otherwise: (schema) => schema.notRequired(),
 			}),

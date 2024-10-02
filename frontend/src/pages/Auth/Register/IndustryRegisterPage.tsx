@@ -64,11 +64,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
           return false;
         } else {
           return ["image/jpeg", "image/jpg", "image/png"].includes(
-            value[0].blobFile!.type
+            value[value.length - 1].blobFile!.type
           );
         }
       })
-      .transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+      .transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
       .required("Industry Reg. Doc is required"),
     sign: yup
       .mixed<FileType[]>()
@@ -81,11 +81,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
           return false;
         } else {
           return ["image/jpeg", "image/jpg", "image/png"].includes(
-            value[0].blobFile!.type
+            value[value.length - 1].blobFile!.type
           );
         }
       })
-      .transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+      .transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
       .required("Director Signature is required"),
     seal: yup
       .mixed<FileType[]>()
@@ -98,11 +98,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
           return false;
         } else {
           return ["image/jpeg", "image/jpg", "image/png"].includes(
-            value[0].blobFile!.type
+            value[value.length - 1].blobFile!.type
           );
         }
       })
-      .transform((value) => (((value !== undefined && value.length > 0) && (value[0].blobFile instanceof File)) ? value : undefined))
+      .transform((value) => (((value !== undefined && value.length > 0) && (value[value.length - 1].blobFile instanceof File)) ? value : undefined))
       .required("Seal is required"),
   })
   .required();
@@ -151,9 +151,9 @@ function IndustryRegisterPage() {
       formData.append("taluq_id", getValues().taluq_id.toString());
       formData.append("reg_industry_id", getValues().reg_industry_id.toString());
       formData.append("captcha", getValues().captcha);
-      formData.append("reg_doc", getValues().reg_doc![0].blobFile!);
-      formData.append("sign", getValues().sign![0].blobFile!);
-      formData.append("seal", getValues().seal![0].blobFile!);
+      formData.append("reg_doc", getValues().reg_doc![getValues().reg_doc!.length - 1 || 0].blobFile!);
+      formData.append("sign", getValues().sign![getValues().sign!.length - 1 || 0].blobFile!);
+      formData.append("seal", getValues().seal![getValues().seal!.length - 1 || 0].blobFile!);
       await axios.post(api_routes.industry.auth.register.industry, formData);
       toastSuccess("Registration Successful");
       reset({
