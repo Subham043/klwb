@@ -3,9 +3,9 @@
 use App\Http\Enums\Guards;
 use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
 use App\Modules\Auth\Common\Controllers\ProfileController;
-use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
-use App\Modules\Auth\Common\Controllers\ProfileVerifyController;
 use App\Modules\Auth\Common\Controllers\ResendRegisteredUserOtpController;
+use App\Modules\Auth\Official\Accounts\Controllers\ProfileUpdateController;
+use App\Modules\Auth\Official\Accounts\Controllers\ProfileVerifyController;
 use App\Modules\Auth\Official\Authentication\Controllers\EmailLoginController;
 use App\Modules\Auth\Official\Authentication\Controllers\ForgotPasswordViaEmailController;
 use App\Modules\Auth\Official\Authentication\Controllers\ForgotPasswordViaPhoneController;

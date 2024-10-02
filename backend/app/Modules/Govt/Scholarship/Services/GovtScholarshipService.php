@@ -33,7 +33,7 @@ class GovtScholarshipService
 							$qry->where(function ($q) {
 								$q->isApplicationApproved()->inGovtStage();
 							})->orWhere(function ($q) {
-								$q->whereApplicationStageGreaterThan(ApplicationState::Company);
+								$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
 							});
 						});
 					}
