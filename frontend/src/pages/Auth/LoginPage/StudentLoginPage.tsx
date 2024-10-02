@@ -27,7 +27,7 @@ function StudentLoginPage() {
             </ol>
         </div>
         <div className={classes.form_col}>
-            <Login title='Student' forgot_password_link={page_routes.student.auth.forgot_password} authenticated_redirect_link={page_routes.student.dashboard} login_email_api_link={api_routes.user.auth.login.email} login_phone_api_link={api_routes.user.auth.login.phone} />
+            <Login title='Student' forgot_password_link={page_routes.student.auth.forgot_password} login_email_api_link={api_routes.user.auth.login.email} login_phone_api_link={api_routes.user.auth.login.phone} />
         </div>
     </div>
   )

@@ -1,17 +1,15 @@
 import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { AdminPersistLayout, GovtPersistLayout, InstitutePersistLayout, StudentPersistLayout, IndustryPersistLayout } from "./layouts/Persist"
+import { AdminPersistLayout, InstitutePersistLayout, StudentPersistLayout, IndustryPersistLayout } from "./layouts/Persist"
 import PageNotFound from "./pages/PageNotFound";
 import SuspenseOutlet from "./components/SuspenseOutlet";
 import { page_routes } from "./utils/routes/pages";
 import { RolesEnum } from "./utils/constants/role";
 const AdminAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.AdminAuthLayout })));
-const GovtAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.GovtAuthLayout })));
 const IndustryAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.IndustryAuthLayout })));
 const InstituteAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.InstituteAuthLayout })));
 const StudentAuthLayout = lazy(()=>import("./layouts/Auth").then(module => ({ default: module.StudentAuthLayout })));
 const AdminVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.AdminVerifiedLayout })));
-const GovtVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.GovtVerifiedLayout })));
 const StudentVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.StudentVerifiedLayout })));
 const InstituteVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.InstituteVerifiedLayout })));
 const IndustryVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.IndustryVerifiedLayout })));
@@ -21,12 +19,10 @@ const StudentAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(mod
 const InstituteAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.InstituteAuthorisedLayout })));
 const IndustryAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.IndustryAuthorisedLayout })));
 const AdminProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.AdminProtectedLayout })));
-const GovtProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.GovtProtectedLayout })));
 const StudentProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.StudentProtectedLayout })));
 const InstituteProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.InstituteProtectedLayout })));
 const IndustryProtectedLayout = lazy(()=>import("./layouts/Protected").then(module => ({ default: module.IndustryProtectedLayout })));
 const AdminGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.AdminGuestLayout })));
-const GovtGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.GovtGuestLayout })));
 const StudentGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.StudentGuestLayout })));
 const InstituteGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.InstituteGuestLayout })));
 const IndustryGuestLayout = lazy(()=>import("./layouts/Guest").then(module => ({ default: module.IndustryGuestLayout })));
@@ -125,6 +121,18 @@ function App() {
                       <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
                     </Route>
                 </Route>
+
+                {/* Govt Routes Starts */}
+                <Route element={<GovtAuthorisedLayout />}>
+                    <Route element={<DashboardLayout />}>
+                      <Route path={page_routes.govt.dashboard} element={<GovtDashboardPage />} />
+                      <Route path={page_routes.govt.scholarship.list} element={<GovtScholarshipListPage />} />
+                      <Route path={page_routes.govt.scholarship.view(":id")} element={<GovtScholarshipViewPage />} />
+                    </Route>
+                </Route>
+                {/* Govt Routes Ends */}
+
+                
               </Route>
             </Route>
             <Route element={<AdminGuestLayout />}>
@@ -223,29 +231,6 @@ function App() {
             </Route>
           </Route>
           {/* Industry Routes Ends */}
-
-          {/* Industry Routes Starts */}
-          <Route element={<GovtPersistLayout />}>
-            <Route element={<GovtProtectedLayout />}>
-              <Route element={<GovtVerifiedLayout />} >
-                <Route element={<GovtAuthorisedLayout />}>
-                    <Route element={<DashboardLayout />}>
-                      <Route path={page_routes.govt.dashboard} element={<GovtDashboardPage />} />
-                      <Route path={page_routes.govt.scholarship.list} element={<GovtScholarshipListPage />} />
-                      <Route path={page_routes.govt.scholarship.view(":id")} element={<GovtScholarshipViewPage />} />
-                    </Route>
-                </Route>
-              </Route>
-            </Route>
-            <Route element={<GovtGuestLayout />}>
-              <Route element={<GovtAuthLayout />}>
-                  <Route path={page_routes.govt.auth.login} element={<AdminLoginPage />} />
-                  <Route path={page_routes.govt.auth.forgot_password} element={<AdminForgotPasswordPage />} />
-                  <Route path={page_routes.govt.auth.reset_password} element={<AdminResetPasswordPage />} />
-              </Route>
-            </Route>
-          </Route>
-          {/* Govt Routes Ends */}
 
           <Route element={<SuspenseOutlet />}>
             <Route path={page_routes.main} element={<HomePage />} />

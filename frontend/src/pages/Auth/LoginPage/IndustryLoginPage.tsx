@@ -27,7 +27,7 @@ function IndustryLoginPage() {
             </ol>
         </div>
         <div className={classes.form_col}>
-            <Login title='Industry' forgot_password_link={page_routes.industry.auth.forgot_password} authenticated_redirect_link={page_routes.industry.dashboard} login_email_api_link={api_routes.industry.auth.login.email} login_phone_api_link={api_routes.industry.auth.login.phone} />
+            <Login title='Industry' forgot_password_link={page_routes.industry.auth.forgot_password} login_email_api_link={api_routes.industry.auth.login.email} login_phone_api_link={api_routes.industry.auth.login.phone} />
         </div>
     </div>
   )

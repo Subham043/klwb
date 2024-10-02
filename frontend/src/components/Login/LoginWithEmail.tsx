@@ -14,12 +14,12 @@ import CaptchaInput from "../FormInput/CaptchaInput";
 import PasswordInput from "../FormInput/PasswordInput";
 import TextInput from "../FormInput/TextInput";
 import { api_routes } from "../../utils/routes/api";
-import { page_routes } from "../../utils/routes/pages";
+import { loginRedirect } from "../../utils/constants/redirection";
+import { RolesEnum } from "../../utils/constants/role";
 
 type Props = {
     forgot_password_link: string;
     login_email_api_link?: string;
-    authenticated_redirect_link?: string;
 };
 
 type SchemaType = {
@@ -37,13 +37,13 @@ const schema: yup.ObjectSchema<SchemaType> = yup
   })
   .required();
 
-export default function LoginWithEmail({forgot_password_link, login_email_api_link = api_routes.user.auth.login.email, authenticated_redirect_link = page_routes.student.dashboard}: Props) {
+export default function LoginWithEmail({forgot_password_link, login_email_api_link = api_routes.user.auth.login.email}: Props) {
     const [loading, setLoading] = useState<boolean>(false);
     const {toastError, toastSuccess} = useToast();
     const {setUser} = useUser();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location?.state?.from?.pathname || authenticated_redirect_link;
+    const from = location?.state?.from?.pathname;
     const captchaRef = useRef<ReCAPTCHA>(null);
     const axios = useAxios();
 
@@ -67,7 +67,7 @@ export default function LoginWithEmail({forgot_password_link, login_email_api_li
                 password: "",
                 captcha: "",
             });
-            navigate(from, {replace: true});
+            navigate((from || loginRedirect(response.data.user.role ?? RolesEnum.STUDENT)), {replace: true});
         } catch (error) {
             if(isAxiosError<AxiosErrorResponseType>(error)){
                 if(error?.response?.data?.errors){

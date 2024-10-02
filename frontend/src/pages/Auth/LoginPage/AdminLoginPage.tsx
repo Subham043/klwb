@@ -19,7 +19,7 @@ function AdminLoginPage() {
             </ol>
         </div>
         <div className={classes.form_col}>
-            <Login title='Admin' forgot_password_link={page_routes.admin.auth.forgot_password} authenticated_redirect_link={page_routes.admin.dashboard} login_email_api_link={api_routes.admin.auth.login.email} login_phone_api_link={api_routes.admin.auth.login.phone} />
+            <Login title='Official' forgot_password_link={page_routes.admin.auth.forgot_password} login_email_api_link={api_routes.admin.auth.login.email} login_phone_api_link={api_routes.admin.auth.login.phone} />
         </div>
     </div>
   )
