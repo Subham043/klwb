@@ -15,7 +15,7 @@ class GovtScholarshipNoteController extends Controller
         $request->validated();
         $application = $this->scholarshipService->getById($id);
         $application->update([
-            'govt_note' => $request->govt_note,
+            'govt_note' => $request->note,
         ]);
         return response()->json(['message' => 'Application note updated successfully.'], 200);
     }

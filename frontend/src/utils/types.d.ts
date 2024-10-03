@@ -391,6 +391,10 @@ export type StudentApplicationType = {
   } | null;
   created_at: string;
   updated_at: string;
+  pay_status: boolean;
+  payf_reason: string|null;
+  govt_note: string|null;
+  resubmitted_status: boolean;
 }
 
 export type AxiosErrorResponseType = {

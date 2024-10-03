@@ -27,7 +27,7 @@ class GovtNoteScholarshipRequest extends InputRequest
     public function rules()
     {
         return [
-            'govt_note' => ['required', 'string', 'max:250'],
+            'note' => ['required', 'string', 'max:250'],
         ];
     }
 

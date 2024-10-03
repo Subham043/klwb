@@ -81,7 +81,12 @@ trait ScholarshipApplicationTrait
 
 	public function scopeInAdminStage(Builder $query): Builder
 	{
-		return $query->whereApplicationStage(ApplicationState::Govt);
+		return $query->whereApplicationStage(ApplicationState::Admin);
+	}
+	
+	public function scopeIsPaymentProcessed(Builder $query): Builder
+	{
+		return $query->where('pay_status', true);
 	}
 
 	public function scopeBelongsToAuthStudent(Builder $query): Builder

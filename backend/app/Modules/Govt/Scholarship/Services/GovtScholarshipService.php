@@ -43,6 +43,9 @@ class GovtScholarshipService
 					if ($value == 'pending') {
 						$query->isApplicationPending()->inGovtStage();
 					}
+					if ($value == 'payment_processed') {
+						$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
+					}
 				}),
 			]);
 	}

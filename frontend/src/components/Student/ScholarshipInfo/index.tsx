@@ -9,12 +9,17 @@ import AadharInfo from "./AadharInfo";
 import BankInfo from "./BankInfo";
 import ConfirmationReport from "./ConfirmationReport";
 import PanelCardContainer from "../../MainCards/PanelCardContainer";
+import { useUser } from "../../../hooks/useUser";
+import { RolesEnum } from "../../../utils/constants/role";
+import NoteInfo from "./NoteInfo";
 
 type Props = {
 	data: StudentApplicationType | null;
+	refetch?: () => void;
 }
 
-export default function ScholarshipInfo({ data }: Props) {
+export default function ScholarshipInfo({ data, refetch }: Props) {
+	const {user} = useUser();
 	return <div className="data-table-container">
 	<PanelCardContainer
 		header={
@@ -22,12 +27,14 @@ export default function ScholarshipInfo({ data }: Props) {
 				<div className="text-center">
 					<h1 className={classes.main_heading}>Online Scholarship Application Form</h1>
 					<h6 className={classes.main_sub_heading}>ಸಂಘಟಿತ ಕಾರ್ಮಿಕ ಮಕ್ಕಳಿಂದ ಶೈಕ್ಷಣಿಕ ಪ್ರೋತ್ಸಾಹ ಧನ ಸಹಾಯಕ್ಕಾಗಿ ಅರ್ಜಿ</h6>
+					{(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN || user.role === RolesEnum.VERIFICATION_OFFICER || user.role === RolesEnum.FINANCIAL_OFFICER || user.role === RolesEnum.PAYMENT_OFFICER)) && <p className={classes.main_sub_text}>{data?.resubmitted_status ? 'Resubmitted Application' : 'Fresh Application'}</p>}
 				</div>
 			</Stack>
 		}
 	>
 		<Divider />
 		{data && <>
+			{(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN || user.role === RolesEnum.VERIFICATION_OFFICER)) && <NoteInfo data={data} refetch={refetch} />}
 			<StudentInfo data={data} />
 			<MarkInfo data={data} />
 			<CasteInfo data={data} />

@@ -86,7 +86,7 @@ export default function GovtScholarshipViewPage() {
               <ScholarshipStatus data={data.application} />
             </PanelCardContainer>
           )}
-          <ScholarshipInfo data={data ? data.application : null} />
+          <ScholarshipInfo data={data ? data.application : null} refetch={refetch} />
 					{(data!==undefined && data.application!==null) && <GovtScholarshipRejectForm modal={modal && data!==undefined && data.application!==null} setModal={setModal} id={data!.application!.id} refetch={refetch} />}
         </div>
       </ErrorBoundaryLayout>
