@@ -4,6 +4,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const CityQueryKey = "city";
 export const CitiesQueryKey = "cities";
@@ -17,12 +18,13 @@ export const useCitiesQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [CitiesQueryKey, page, limit, search],
+    queryKey: [CitiesQueryKey, page, limit, search, searchParams.get("active_status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<CityType>>(
         api_routes.admin.city.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

@@ -27,9 +27,23 @@ class ClassesService extends AbstractExcelService
                 ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
+                        $query->whereHas('course', function ($qry) use ($value) {
+                            $qry->where('graduation_id', $value);
+                        });
+                    }),
                     AllowedFilter::callback('has_course', function (Builder $query, $value) {
                         $query->where('course_id', $value);
-                    })
+                    }),
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="active"){
+                                $query->where('is_active', true);
+                            }else{
+                                $query->where('is_active', false);
+                            }
+                        }
+                    }),
                 ]);
     }
 

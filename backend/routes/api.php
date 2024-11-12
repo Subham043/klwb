@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Enums\Guards;
-use App\Modules\Admins\Industries\Controllers\IndustryAllController;
-use App\Modules\Admins\Institutes\Controllers\InstituteAllController;
+use App\Modules\Admins\Industries\Controllers\IndustryPaginateController;
+use App\Modules\Admins\Institutes\Controllers\InstitutePaginateController;
 use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
 use App\Modules\Auth\Common\Controllers\ProfileController;
 use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
@@ -16,11 +16,11 @@ use App\Modules\Auth\Student\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Auth\Student\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Auth\Student\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\Auth\Student\Authentication\Controllers\StudentRegisterController;
-use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
-use App\Modules\CourseManagement\Classes\Controllers\ClassesAllController;
-use App\Modules\CourseManagement\Courses\Controllers\CourseAllController;
-use App\Modules\CourseManagement\Graduations\Controllers\GraduationAllController;
-use App\Modules\LocationManagement\Taluqs\Controllers\TaluqAllController;
+use App\Modules\CourseManagement\Classes\Controllers\ClassesPaginateController;
+use App\Modules\CourseManagement\Courses\Controllers\CoursePaginateController;
+use App\Modules\CourseManagement\Graduations\Controllers\GraduationPaginateController;
+use App\Modules\LocationManagement\Cities\Controllers\CityPaginateController;
+use App\Modules\LocationManagement\Taluqs\Controllers\TaluqPaginateController;
 use App\Modules\Students\Dashboard\StudentDashboardController;
 use App\Modules\Students\Scholarship\Controllers\ApplyScholarshipController;
 use App\Modules\Students\Scholarship\Controllers\ResubmitScholarshipController;
@@ -44,25 +44,25 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('cities')->group(function () {
-        Route::get('/all', [CityAllController::class, 'index']);
+        Route::get('/all', [CityPaginateController::class, 'index']);
     });
     Route::prefix('taluqs')->group(function () {
-        Route::get('/all', [TaluqAllController::class, 'index']);
+        Route::get('/all', [TaluqPaginateController::class, 'index']);
     });
     Route::prefix('graduations')->group(function () {
-        Route::get('/all', [GraduationAllController::class, 'index']);
+        Route::get('/all', [GraduationPaginateController::class, 'index']);
     });
     Route::prefix('courses')->group(function () {
-        Route::get('/all', [CourseAllController::class, 'index']);
+        Route::get('/all', [CoursePaginateController::class, 'index']);
     });
     Route::prefix('classes')->group(function () {
-        Route::get('/all', [ClassesAllController::class, 'index']);
+        Route::get('/all', [ClassesPaginateController::class, 'index']);
     });
     Route::prefix('institutes')->group(function () {
-        Route::get('/all', [InstituteAllController::class, 'index']);
+        Route::get('/all', [InstitutePaginateController::class, 'index']);
     });
     Route::prefix('industries')->group(function () {
-        Route::get('/all', [IndustryAllController::class, 'index']);
+        Route::get('/all', [IndustryPaginateController::class, 'index']);
     });
 
     Route::middleware([Guards::Web->middleware(), 'role:Student'])->group(function () {

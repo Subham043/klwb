@@ -10,6 +10,9 @@ import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
 import EditBtn from "../../../components/Buttons/EditBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
+import SelectGraduationStatus from "../../../components/SelectGraduation";
+import SelectActiveStatus from "../../../components/SelectActiveStatus";
+import SelectCourseStatus from "../../../components/SelectCourse";
 
 
 const Class:FC = () => {
@@ -17,7 +20,11 @@ const Class:FC = () => {
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="Classes">
-        <PaginatedTableLayout.Header title="Classes" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.class.excel} excelName="class.xlsx" />
+        <PaginatedTableLayout.Header title="Classes" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.class.excel} excelName="class.xlsx">
+            <SelectGraduationStatus />
+            <SelectCourseStatus />
+            <SelectActiveStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

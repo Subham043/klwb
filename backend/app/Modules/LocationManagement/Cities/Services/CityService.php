@@ -25,7 +25,16 @@ class CityService extends AbstractExcelService
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('has_state', function (Builder $query, $value) {
                         $query->where('state_id', $value);
-                    })
+                    }),
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="active"){
+                                $query->where('is_active', true);
+                            }else{
+                                $query->where('is_active', false);
+                            }
+                        }
+                    }),
                 ]);
     }
 

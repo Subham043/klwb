@@ -10,6 +10,9 @@ import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
 import EditBtn from "../../../components/Buttons/EditBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
+import SelectYear from "../../../components/Institute/SelectYear";
+import SelectGraduationStatus from "../../../components/SelectGraduation";
+import SelectActiveStatus from "../../../components/SelectActiveStatus";
 
 
 const ApplicationFee:FC = () => {
@@ -17,7 +20,11 @@ const ApplicationFee:FC = () => {
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="Educational Assistance Amount">
-        <PaginatedTableLayout.Header title="Amount" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.application_fee.excel} excelName="application_fee.xlsx" />
+        <PaginatedTableLayout.Header title="Amount" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.application_fee.excel} excelName="application_fee.xlsx">
+            <SelectGraduationStatus />
+            <SelectActiveStatus />
+            <SelectYear />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

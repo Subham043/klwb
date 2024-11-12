@@ -4,6 +4,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { useSearchQueryParam } from "../useSearchQueryParam";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const CourseQueryKey = "course";
 export const CoursesQueryKey = "courses";
@@ -17,12 +18,13 @@ export const useCoursesQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [CoursesQueryKey, page, limit, search],
+    queryKey: [CoursesQueryKey, page, limit, search, searchParams.get("graduation_id") || "", searchParams.get("active_status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<CourseType>>(
         api_routes.admin.course.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

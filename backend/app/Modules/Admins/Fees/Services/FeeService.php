@@ -23,6 +23,25 @@ class FeeService extends AbstractExcelService
                 ->allowedSorts('id', 'year')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="active"){
+                                $query->where('is_active', true);
+                            }else{
+                                $query->where('is_active', false);
+                            }
+                        }
+                    }),
+                    AllowedFilter::callback('year', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            $query->where('year', $value);
+                        }
+                    }),
+                    AllowedFilter::callback('graduation_id', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            $query->where('graduation_id', $value);
+                        }
+                    }),
                 ]);
     }
 

@@ -30,7 +30,16 @@ class TaluqService extends AbstractExcelService
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('has_city', function (Builder $query, $value) {
                         $query->where('city_id', $value);
-                    })
+                    }),
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="active"){
+                                $query->where('is_active', true);
+                            }else{
+                                $query->where('is_active', false);
+                            }
+                        }
+                    }),
                 ]);
     }
 

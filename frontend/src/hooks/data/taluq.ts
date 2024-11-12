@@ -4,6 +4,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const TaluqQueryKey = "taluq";
 export const TaluqsQueryKey = "taluqs";
@@ -17,12 +18,13 @@ export const useTaluqsQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [TaluqsQueryKey, page, limit, search],
+    queryKey: [TaluqsQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("active_status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<TaluqType>>(
         api_routes.admin.taluq.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

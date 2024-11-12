@@ -13,6 +13,9 @@ import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 import { VerificationEnum } from "../../../utils/constants/verified";
 import VerifyBtn from "../../../components/Buttons/VerifyBtn";
+import SelectYear from "../../../components/Institute/SelectYear";
+import SelectVerificationStatus from "../../../components/SelectVerificationStatus";
+import SelectAccountStatus from "../../../components/SelectAccountStatus";
 
 
 const Student:FC = () => {
@@ -20,7 +23,11 @@ const Student:FC = () => {
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="Students">
-        <PaginatedTableLayout.Header title="Students" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.student.excel} excelName="staffs.xlsx" />
+        <PaginatedTableLayout.Header title="Students"  addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.student.excel} excelName="staffs.xlsx">
+            <SelectAccountStatus />
+            <SelectVerificationStatus />
+            <SelectYear />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

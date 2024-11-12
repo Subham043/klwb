@@ -10,6 +10,8 @@ import Moment from "../../components/Moment";
 import { table } from "../../utils/constants/table";
 import EditBtn from "../../components/Buttons/EditBtn";
 import BlockBtn from "../../components/Buttons/BlockBtn";
+import SelectActiveStatus from "../../components/SelectActiveStatus";
+import SelectCityStatus from "../../components/SelectCity";
 
 
 const Taluq:FC = () => {
@@ -17,7 +19,10 @@ const Taluq:FC = () => {
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="Taluqs">
-        <PaginatedTableLayout.Header title="Taluqs" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.taluq.excel} excelName="taluq.xlsx" />
+        <PaginatedTableLayout.Header title="Taluqs" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.taluq.excel} excelName="taluq.xlsx">
+            <SelectCityStatus />
+            <SelectActiveStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}
