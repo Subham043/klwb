@@ -56,7 +56,33 @@ class RegisteredInstituteService
                         $query->whereHas('address', function ($qry) use ($value) {
                             $qry->where('taluq_id', $value);
                         });
-                    })
+                    }),
+                    AllowedFilter::callback('account_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="blocked"){
+                                $query->whereHas('profile', function ($qry) {
+                                    $qry->where('is_blocked', true);
+                                });
+                            }else{
+                                $query->whereHas('profile', function ($qry) {
+                                    $qry->where('is_blocked', false);
+                                });
+                            }
+                        }
+                    }),
+                    AllowedFilter::callback('verification_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="verified"){
+                                $query->whereHas('profile', function ($qry) {
+                                    $qry->whereNotNull('verified_at');
+                                });
+                            }else{
+                                $query->whereHas('profile', function ($qry) {
+                                    $qry->whereNull('verified_at');
+                                });
+                            }
+                        }
+                    }),
                 ]);
     }
 

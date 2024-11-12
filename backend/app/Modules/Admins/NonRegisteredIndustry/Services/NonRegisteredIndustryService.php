@@ -25,6 +25,15 @@ class NonRegisteredIndustryService extends AbstractExcelService
                 ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="active"){
+                                $query->where('is_active', true);
+                            }else{
+                                $query->where('is_active', false);
+                            }
+                        }
+                    }),
                 ]);
     }
 

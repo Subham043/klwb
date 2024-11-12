@@ -8,6 +8,8 @@ import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
+import SelectCityStatus from "../../../components/SelectCity";
+import SelectTaluqStatus from "../../../components/SelectTaluq";
 
 
 const RequestIndustry:FC = () => {
@@ -15,7 +17,10 @@ const RequestIndustry:FC = () => {
     const [openModal, setOpenModal] = useState<{status:boolean, id?:number}>({status: false});
 
     return <PaginatedTableLayout title="Industry Request List">
-        <PaginatedTableLayout.Header title="Industry Request List" addBtn={false} excelLink={api_routes.admin.request_industry.excel} excelName="request_industry.xlsx" />
+        <PaginatedTableLayout.Header title="Industry Request List" addBtn={false} excelLink={api_routes.admin.request_industry.excel} excelName="request_industry.xlsx">
+            <SelectCityStatus />
+            <SelectTaluqStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

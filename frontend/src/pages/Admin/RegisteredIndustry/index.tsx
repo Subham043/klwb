@@ -12,13 +12,22 @@ import BlockBtn from "../../../components/Buttons/BlockBtn";
 import PasswordBtn from "../../../components/Buttons/PasswordBtn";
 import { VerificationEnum } from "../../../utils/constants/verified";
 import VerifyBtn from "../../../components/Buttons/VerifyBtn";
+import SelectCityStatus from "../../../components/SelectCity";
+import SelectTaluqStatus from "../../../components/SelectTaluq";
+import SelectAccountStatus from "../../../components/SelectAccountStatus";
+import SelectVerificationStatus from "../../../components/SelectVerificationStatus";
 
 
 const RegisteredIndustry:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useRegisteredIndustriesQuery();
 
     return <PaginatedTableLayout title="Registered Industries">
-        <PaginatedTableLayout.Header title="Registered Industries" addBtn={false} excelLink={api_routes.admin.registered_industry.excel} excelName="registered_industry.xlsx" />
+        <PaginatedTableLayout.Header title="Registered Industries" addBtn={false} excelLink={api_routes.admin.registered_industry.excel} excelName="registered_industry.xlsx">
+            <SelectCityStatus />
+            <SelectTaluqStatus />
+            <SelectAccountStatus />
+            <SelectVerificationStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

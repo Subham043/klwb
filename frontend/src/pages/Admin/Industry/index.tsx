@@ -10,6 +10,7 @@ import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
 import EditBtn from "../../../components/Buttons/EditBtn";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
+import SelectActiveStatus from "../../../components/SelectActiveStatus";
 
 
 const Industry:FC = () => {
@@ -17,7 +18,9 @@ const Industry:FC = () => {
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="All Industries">
-        <PaginatedTableLayout.Header title="All Industries" buttonName="Industry" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.industry.excel} excelName="all_industry.xlsx" />
+        <PaginatedTableLayout.Header title="All Industries" buttonName="Industry" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.industry.excel} excelName="all_industry.xlsx">
+            <SelectActiveStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

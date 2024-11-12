@@ -43,7 +43,25 @@ class RegisteredIndustryService
                     }),
                     AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
                         $query->where('taluq_id', $value);
-                    })
+                    }),
+                    AllowedFilter::callback('account_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="blocked"){
+                                $query->where('is_blocked', true);
+                            }else{
+                                $query->where('is_blocked', false);
+                            }
+                        }
+                    }),
+                    AllowedFilter::callback('verification_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="verified"){
+                                $query->whereNotNull('verified_at');
+                            }else{
+                                $query->whereNull('verified_at');
+                            }
+                        }
+                    }),
                 ]);
     }
 

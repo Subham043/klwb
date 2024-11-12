@@ -4,6 +4,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const IndustryQueryKey = "industry";
 export const IndustriesQueryKey = "industries";
@@ -20,12 +21,13 @@ export const useIndustriesQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [IndustriesQueryKey, page, limit, search],
+    queryKey: [IndustriesQueryKey, page, limit, search, searchParams.get("active_status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<IndustryType>>(
         api_routes.admin.industry.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

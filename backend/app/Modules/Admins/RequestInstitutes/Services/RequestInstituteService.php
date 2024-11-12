@@ -32,9 +32,14 @@ class RequestInstituteService extends AbstractExcelService
                 ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('has_city', function (Builder $query, $value) {
+                        $query->whereHas('taluq', function ($qry) use ($value) {
+                            $qry->where('city_id', $value);
+                        });
+                    }),
                     AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
                         $query->where('taluq_id', $value);
-                    })
+                    }),
                 ]);
     }
 

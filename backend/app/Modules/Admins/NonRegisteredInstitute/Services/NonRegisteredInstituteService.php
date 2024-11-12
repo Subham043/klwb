@@ -33,9 +33,23 @@ class NonRegisteredInstituteService extends AbstractExcelService
                 ->allowedSorts('id', 'principal')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
+                    AllowedFilter::callback('has_city', function (Builder $query, $value) {
+                        $query->whereHas('taluq', function ($qry) use ($value) {
+                            $qry->where('city_id', $value);
+                        });
+                    }),
                     AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
                         $query->where('taluq_id', $value);
-                    })
+                    }),
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                        if(!empty($value)){
+                            if(strtolower($value)=="active"){
+                                $query->where('is_active', true);
+                            }else{
+                                $query->where('is_active', false);
+                            }
+                        }
+                    }),
                 ]);
     }
 

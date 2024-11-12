@@ -6,13 +6,20 @@ import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
+import SelectCityStatus from "../../../components/SelectCity";
+import SelectTaluqStatus from "../../../components/SelectTaluq";
+import SelectActiveStatus from "../../../components/SelectActiveStatus";
 
 
 const NonRegisteredInstitute:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useNonRegisteredInstitutesQuery();
 
     return <PaginatedTableLayout title="Institutes Non Registered">
-        <PaginatedTableLayout.Header title="Institutes Non Registered" addBtn={false} excelLink={api_routes.admin.non_registered_institute.excel} excelName="non_registered_institute.xlsx" />
+        <PaginatedTableLayout.Header title="Institutes Non Registered" addBtn={false} excelLink={api_routes.admin.non_registered_institute.excel} excelName="non_registered_institute.xlsx">
+            <SelectCityStatus />
+            <SelectTaluqStatus />
+            <SelectActiveStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

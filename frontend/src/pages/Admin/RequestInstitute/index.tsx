@@ -8,6 +8,8 @@ import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
+import SelectCityStatus from "../../../components/SelectCity";
+import SelectTaluqStatus from "../../../components/SelectTaluq";
 
 
 const RequestInstitute:FC = () => {
@@ -15,7 +17,10 @@ const RequestInstitute:FC = () => {
     const [openModal, setOpenModal] = useState<{status:boolean, id?:number}>({status: false});
 
     return <PaginatedTableLayout title="Institute Request List">
-        <PaginatedTableLayout.Header title="Institute Request List" addBtn={false} excelLink={api_routes.admin.request_institute.excel} excelName="request_institute.xlsx" />
+        <PaginatedTableLayout.Header title="Institute Request List" addBtn={false} excelLink={api_routes.admin.request_institute.excel} excelName="request_institute.xlsx">
+            <SelectCityStatus />
+            <SelectTaluqStatus />
+        </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
                 loading={isLoading||isFetching||isRefetching}

@@ -9,6 +9,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const RegisteredInstituteQueryKey = "registered_institute";
 export const RegisteredInstitutesQueryKey = "registered_institutes";
@@ -22,14 +23,15 @@ export const useRegisteredInstitutesQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [RegisteredInstitutesQueryKey, page, limit, search],
+    queryKey: [RegisteredInstitutesQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("taluq_id") || "", searchParams.get("verification_status") || "", searchParams.get("account_status") || ""],
     queryFn: async () => {
       const response = await axios.get<
         PaginationType<RegisteredInstituteType>
       >(
         api_routes.admin.registered_institute.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[account_status]=${searchParams.get("account_status") || ""}`
       );
       return response.data;
     },

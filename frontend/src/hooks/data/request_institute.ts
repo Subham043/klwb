@@ -4,6 +4,7 @@ import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchQueryParam } from "../useSearchQueryParam";
+import { useSearchParams } from "react-router-dom";
 
 export const RequestInstituteQueryKey = "request_institute";
 export const RequestInstitutesQueryKey = "request_institutes";
@@ -16,12 +17,13 @@ export const useRequestInstitutesQuery: () => UseQueryResult<
   const axios = useAxios();
   const { page, limit } = usePaginationQueryParam();
   const { search } = useSearchQueryParam();
+  const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [RequestInstitutesQueryKey, page, limit, search],
+    queryKey: [RequestInstitutesQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("taluq_id") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<RequestInstituteType>>(
         api_routes.admin.request_institute.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}`
       );
       return response.data;
     },
