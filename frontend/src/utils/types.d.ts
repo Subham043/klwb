@@ -315,7 +315,15 @@ export type StudentApplicationMarkType = {
   }|null;
   ins_pin: number;
   ins_district_id: number;
+  district: {
+    id: number;
+    name: string
+  }|null;
   ins_taluq_id: number;
+  taluq: {
+    id: number;
+    name: string
+  }|null;
   prv_class: string;
   prv_marks: number;
   prv_markcard: string|null;

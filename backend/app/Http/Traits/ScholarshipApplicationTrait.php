@@ -13,7 +13,7 @@ trait ScholarshipApplicationTrait
 	{
 		return $query->with([
 			'basic_detail',
-			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class']),
+			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class', 'taluq', 'district']),
 			'account',
 			'company' => fn($query) => $query->with(['taluq', 'district']),
 			'institute' => fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]),
@@ -24,7 +24,7 @@ trait ScholarshipApplicationTrait
 	public function scopeCommonRelation(Builder $query): Builder
 	{
 		return $query->whereHas('basic_detail')
-		->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class'])->whereHas('graduation'))
+		->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class', 'taluq', 'district'])->whereHas('graduation'))
 		->whereHas('account')
 		->whereHas('company') ;
 	}

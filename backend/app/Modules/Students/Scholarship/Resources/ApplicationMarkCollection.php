@@ -5,6 +5,8 @@ namespace App\Modules\Students\Scholarship\Resources;
 use App\Modules\CourseManagement\Classes\Resources\SingleClassesCollection;
 use App\Modules\CourseManagement\Courses\Resources\SingleCourseCollection;
 use App\Modules\CourseManagement\Graduations\Resources\GraduationCollection;
+use App\Modules\LocationManagement\Cities\Resources\SingleCityCollection;
+use App\Modules\LocationManagement\Taluqs\Resources\SingleTaluqCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApplicationMarkCollection extends JsonResource
@@ -26,7 +28,9 @@ class ApplicationMarkCollection extends JsonResource
             'class' => SingleClassesCollection::make($this->class),
             'ins_pin' => $this->ins_pin,
             'ins_district_id' => $this->ins_district_id,
+            'district' => SingleCityCollection::make($this->whenLoaded('district')),
             'ins_taluq_id' => $this->ins_taluq_id,
+            'taluq' => SingleTaluqCollection::make($this->whenLoaded('taluq')),
             'prv_class' => $this->prv_class,
             'prv_marks' => $this->prv_marks,
             'prv_markcard' => $this->prv_markcard_link,

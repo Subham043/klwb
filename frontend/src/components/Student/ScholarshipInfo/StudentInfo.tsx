@@ -78,14 +78,14 @@ function StudentInfo({ data }: Props) {
           <Row gutter={30}>
             <Col className="pb-1" xs={8}>
               <DetailInfo
-                title="Present School Address"
-                value={data?.present_institute_address}
+                title="Institute District"
+                value={data?.mark.district?.name}
               />
             </Col>
             <Col className="pb-1" xs={8}>
               <DetailInfo
-                title="Student Present Address"
-                value={data?.basic_detail.address}
+                title="Institute Taluq"
+                value={data?.mark.taluq?.name}
               />
             </Col>
             <Col className="pb-1" xs={8}>
@@ -96,10 +96,22 @@ function StudentInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xsPush={8}>
+            <Col className="pb-1" xs={8}>
               <DetailInfo
                 title="Applied On"
                 value={<Moment datetime={data?.date} />}
+              />
+            </Col>
+            <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="Present School Address"
+                value={data?.present_institute_address}
+              />
+            </Col>
+            <Col className="pb-1" xs={8}>
+              <DetailInfo
+                title="Student Present Address"
+                value={data?.basic_detail.address}
               />
             </Col>
           </Row>

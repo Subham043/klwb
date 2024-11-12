@@ -23,7 +23,7 @@ const SelectStatus = (props: PropType) => {
   };
   return (
     <SelectPicker
-      data={(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN || user.role === RolesEnum.VERIFICATION_OFFICER)) ? [...data, { label: "PAYMENT PROCESSED", value: "payment_processed" }] : data}
+      data={(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN || user.role === RolesEnum.PAYMENT_OFFICER)) ? [...data, { label: "PAYMENT PROCESSED", value: "payment_processed" }] : data}
       name="status"
       value={searchParams.get("status" + (key || "")) || ""}
       onChange={(value) => selectHandler(value || "")}

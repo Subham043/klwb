@@ -35,7 +35,7 @@ const SelectCityStatus = (props: PropType) => {
       additional: { page: number } | undefined
     ) => {
       const response = await api.get<PaginationType<CityType>>(
-        api_routes.admin.city.paginate +
+        api_routes.user.city.all +
           `?page=${
             additional ? additional.page : 1
           }&total=10&filter[search]=${search}`
@@ -54,7 +54,7 @@ const SelectCityStatus = (props: PropType) => {
     []
   );
   return (
-    <div style={{ position: "relative", zIndex: 12, minWidth: "150px"}}>
+    <div style={{ position: "relative", zIndex: 12, minWidth: "200px"}}>
       <AsyncPaginate
           placeholder="Select District"
           value={(searchParams.get("city_name") && searchParams.get("city_id")) ? {

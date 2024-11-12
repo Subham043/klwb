@@ -18,11 +18,11 @@ export const useGovtScholarshipListQuery: () => UseQueryResult<
   const { search } = useSearchQueryParam();
   const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [GovtScholarshipListQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("status") || ""],
+    queryKey: [GovtScholarshipListQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("status") || "", searchParams.get("city_id") || "", searchParams.get("taluq_id") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<StudentApplicationType>>(
         api_routes.govt.scholarship.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[application_year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[application_year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
       );
       return response.data;
     },

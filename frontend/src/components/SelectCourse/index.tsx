@@ -35,7 +35,7 @@ const SelectCourseStatus = (props: PropType) => {
       additional: { page: number } | undefined
     ) => {
       const response = await api.get<PaginationType<CourseType>>(
-        api_routes.admin.course.paginate +
+        api_routes.user.course.all +
           `?page=${
             additional ? additional.page : 1
           }&total=10&filter[search]=${search}${
@@ -63,7 +63,7 @@ const SelectCourseStatus = (props: PropType) => {
   },[searchParams.get("graduation_id")])
 
   return (
-    <div style={{ position: "relative", zIndex: 12, minWidth: "150px"}}>
+    <div style={{ position: "relative", zIndex: 12, minWidth: "200px"}}>
       <AsyncPaginate
           placeholder="Select Course"
           value={(searchParams.get("course_id")) ? {

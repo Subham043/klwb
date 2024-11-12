@@ -47,6 +47,16 @@ class GovtScholarshipService
 						$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
 					}
 				}),
+				AllowedFilter::callback('has_city', function (Builder $query, $value) {
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('ins_district_id', $value);
+					});
+				}),
+				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('ins_taluq_id', $value);
+					});
+				}),
 			]);
 	}
 
