@@ -5,6 +5,7 @@ import { RolesEnum } from "../../../utils/constants/role";
 
 type PropType = {
   key?: string;
+  className?: string;
 };
 
 const data = [
@@ -29,6 +30,7 @@ const SelectStatus = (props: PropType) => {
       onChange={(value) => selectHandler(value || "")}
       placeholder={"Select Status"}
       style={{ minWidth: "150px" }}
+      className={props.className}
     />
   );
 };

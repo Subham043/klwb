@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class GovtScholarshipService
 {
@@ -46,6 +47,31 @@ class GovtScholarshipService
 					if ($value == 'payment_processed') {
 						$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
 					}
+				}),
+				AllowedFilter::callback('has_gender', function (Builder $query, $value) {
+					$query->whereHas('basic_detail', function ($qry) use ($value) {
+						$qry->where('gender', $value);
+					});
+				}),
+				AllowedFilter::callback('has_category', function (Builder $query, $value) {
+					$query->whereHas('basic_detail', function ($qry) use ($value) {
+						$qry->where('category', $value);
+					});
+				}),
+				AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('graduation_id', $value);
+					});
+				}),
+				AllowedFilter::callback('has_course', function (Builder $query, $value) {
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('course_id', $value);
+					});
+				}),
+				AllowedFilter::callback('has_class', function (Builder $query, $value) {
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('class_id', $value);
+					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
 					$query->whereHas('mark', function ($qry) use ($value) {
@@ -111,6 +137,39 @@ class GovtScholarshipService
 		return Application::where(function ($qry) {
 			$qry->inGovtStage()->isApplicationPending();
 		})->count();
+	}
+
+	public function excel(): SimpleExcelWriter
+	{
+		$model = $this->model();
+		$i = 0;
+		$writer = SimpleExcelWriter::streamDownload('applications.xlsx');
+		foreach ($model->lazy(1000)->collect() as $data) {
+			$writer->addRow([
+				'Id' => $data->id,
+				'Name' => $data->basic_detail->name,
+				'Mobile' => $data->student->phone,
+				'Email' => $data->student->email,
+				'Aadhar No' => $data->basic_detail->adharcard_no,
+				'Father Aadhar No' => $data->basic_detail->f_adhar,
+				'Mother Aadhar No' => $data->basic_detail->m_adhar,
+				'Institute' => $data->institute->name ?? null,
+				'Industry' => $data->industry->name ?? null,
+				'Graduation' => $data->mark->graduation->name,
+				'Course' => $data->mark->course->name,
+				'Class' => $data->mark->class->name,
+				'District' => $data->mark->district->name,
+				'Taluq' => $data->mark->taluq->name,
+				'Amount' => $data->mark->graduation->scholarship_fee->amount ?? 0,
+				'Application Year' => $data->application_year,
+				'Applied Date' => $data->date->format('Y-m-d'),
+			]);
+			if ($i == 1000) {
+				flush();
+			}
+			$i++;
+		}
+		return $writer;
 	}
 }
 

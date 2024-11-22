@@ -4,6 +4,7 @@ import { SelectPicker } from "rsuite";
 
 type PropType = {
 	key?: string
+  className?: string;
 };
 
 const diff = moment().year() - 2017;
@@ -29,6 +30,7 @@ const SelectYear = (props: PropType) => {
       placeholder={"Select Year"}
       virtualized
       style={{ minWidth: "150px" }}
+      className={props.className}
     />
   );
 };

@@ -3,6 +3,7 @@
 use App\Http\Enums\Guards;
 use App\Modules\Govt\Dashboard\GovtDashboardController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipApproveController;
+use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipExportController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipListController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipNoteController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipPdfController;
@@ -16,6 +17,7 @@ Route::prefix('govt')->group(function () {
 		Route::middleware([Guards::Admin->middleware(), 'verified', 'role:Verification-Officer'])->group(function () {
 			Route::prefix('scholarship')->group(function () {
 				Route::get('/list', [GovtScholarshipListController::class, 'index']);
+				Route::get('/excel', [GovtScholarshipExportController::class, 'index']);
 				Route::get('/view/{id}', [GovtScholarshipViewController::class, 'index']);
 				Route::post('/approve/{id}', [GovtScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [GovtScholarshipRejectController::class, 'index']);

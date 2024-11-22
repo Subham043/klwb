@@ -35,7 +35,7 @@ const SelectGraduationStatus = (props: PropType) => {
       additional: { page: number } | undefined
     ) => {
       const response = await api.get<PaginationType<GraduationType>>(
-        api_routes.admin.graduation.paginate +
+        api_routes.user.graduation.all +
           `?page=${
             additional ? additional.page : 1
           }&total=10&filter[search]=${search}`

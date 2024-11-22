@@ -18,11 +18,11 @@ export const useGovtScholarshipListQuery: () => UseQueryResult<
   const { search } = useSearchQueryParam();
   const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [GovtScholarshipListQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("status") || "", searchParams.get("city_id") || "", searchParams.get("taluq_id") || ""],
+    queryKey: [GovtScholarshipListQueryKey, page, limit, search, searchParams.get("gender") || "", searchParams.get("category") || "", searchParams.get("year") || "", searchParams.get("status") || "", searchParams.get("city_id") || "", searchParams.get("taluq_id") || "", searchParams.get("graduation_id") || "", searchParams.get("course_id") || "", searchParams.get("class_id") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<StudentApplicationType>>(
         api_routes.govt.scholarship.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[application_year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[has_course]=${searchParams.get("course_id") || ""}&filter[has_class]=${searchParams.get("class_id") || ""}&filter[application_year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}&filter[has_gender]=${searchParams.get("gender") || ""}&filter[has_category]=${searchParams.get("category") || ""}`
       );
       return response.data;
     },

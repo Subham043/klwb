@@ -17,7 +17,8 @@ trait ScholarshipApplicationTrait
 			'account',
 			'company' => fn($query) => $query->with(['taluq', 'district']),
 			'institute' => fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]),
-			'industry'
+			'industry',
+			'student'
 		]);
 	}
 
@@ -26,7 +27,10 @@ trait ScholarshipApplicationTrait
 		return $query->whereHas('basic_detail')
 		->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class', 'taluq', 'district'])->whereHas('graduation'))
 		->whereHas('account')
-		->whereHas('company') ;
+		->whereHas('company')
+		->whereHas('institute', fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]))
+		->whereHas('industry')
+		->whereHas('student');
 	}
 
 	public function scopeWhereApplicationStatus(Builder $query, ApplicationStatus $status): Builder
