@@ -90,4 +90,12 @@ class ScholarshipApplicationChecksService
 	{
 		return $application->application_state == ApplicationState::Govt->value && $this->canVerify($application);
 	}
+	
+	public function canFinanceVerify(Application $application): bool
+	{
+		if ((($application->date->between($this->latestApplicationDate->from_date->format('Y-m-d'), $this->latestApplicationDate->to_date->addDay(1)->format('Y-m-d')))) && $application->pay_status == ApplicationStatus::Pending->value && $application->status == ApplicationStatus::Approve->value && $application->application_state == ApplicationState::Admin->value && $this->latestApplicationDate->can_verify) {
+			return true;
+		}
+		return false;
+	}
 }
