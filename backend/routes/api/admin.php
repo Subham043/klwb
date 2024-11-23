@@ -8,6 +8,7 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDatePaginateContr
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateToggleController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateUpdateController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewController;
+use App\Modules\Admins\Dashboard\AdminDashboardController;
 use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
 use App\Modules\LocationManagement\Cities\Controllers\CityCreateController;
 use App\Modules\LocationManagement\Cities\Controllers\CityExportController;
@@ -124,6 +125,14 @@ use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteS
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffVerificationController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipNoteController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipPdfController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipRejectController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipToggleStatusController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipViewController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionToggleController;
 use App\Modules\Admins\Students\Controllers\StudentCreateController;
 use App\Modules\Admins\Students\Controllers\StudentExportController;
@@ -359,6 +368,17 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [NonRegisteredIndustryPaginateController::class, 'index']);
                 Route::get('/view/{id}', [NonRegisteredIndustryViewController::class, 'index']);
             });
+            Route::prefix('scholarship')->group(function () {
+				Route::get('/list', [AdminScholarshipListController::class, 'index']);
+				Route::get('/excel', [AdminScholarshipExportController::class, 'index']);
+				Route::get('/view/{id}', [AdminScholarshipViewController::class, 'index']);
+				Route::post('/approve/{id}', [AdminScholarshipApproveController::class, 'index']);
+				Route::post('/reject/{id}', [AdminScholarshipRejectController::class, 'index']);
+				Route::post('/toggle-status/{id}', [AdminScholarshipToggleStatusController::class, 'index']);
+				Route::post('/note/{id}', [AdminScholarshipNoteController::class, 'index']);
+				Route::get('/pdf/{id}', [AdminScholarshipPdfController::class, 'index']);
+			});
+			Route::get('/dashboard', [AdminDashboardController::class, 'index']);
         });
     });
 });

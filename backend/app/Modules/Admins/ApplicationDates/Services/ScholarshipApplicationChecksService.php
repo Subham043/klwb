@@ -90,6 +90,11 @@ class ScholarshipApplicationChecksService
 	{
 		return $application->application_state == ApplicationState::Govt->value && $this->canVerify($application);
 	}
+
+	public function canAdminVerify(Application $application): bool
+	{
+		return $application->application_state == ApplicationState::Admin->value && $this->canVerify($application);
+	}
 	
 	public function canFinanceVerify(Application $application): bool
 	{
