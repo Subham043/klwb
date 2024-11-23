@@ -399,7 +399,7 @@ export type StudentApplicationType = {
   } | null;
   created_at: string;
   updated_at: string;
-  pay_status: boolean;
+  pay_status: number;
   payf_reason: string|null;
   govt_note: string|null;
   resubmitted_status: boolean;

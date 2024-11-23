@@ -15,6 +15,7 @@ const InstituteVerifiedLayout = lazy(()=>import("./layouts/Verified").then(modul
 const IndustryVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module => ({ default: module.IndustryVerifiedLayout })));
 const AdminAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.AdminAuthorisedLayout })));
 const GovtAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.GovtAuthorisedLayout })));
+const FinanceAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.FinanceAuthorisedLayout })));
 const StudentAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.StudentAuthorisedLayout })));
 const InstituteAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.InstituteAuthorisedLayout })));
 const IndustryAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.IndustryAuthorisedLayout })));
@@ -84,6 +85,9 @@ const NonRegisteredIndustryPage = lazy(()=>import("./pages/Admin/NonRegisteredIn
 const GovtDashboardPage = lazy(()=>import("./pages/Govt/Dashboard"));
 const GovtScholarshipListPage = lazy(()=>import("./pages/Govt/ScholarshipList"));
 const GovtScholarshipViewPage = lazy(()=>import("./pages/Govt/ScholarshipView"));
+const FinanceDashboardPage = lazy(()=>import("./pages/Finance/Dashboard"));
+const FinanceScholarshipListPage = lazy(()=>import("./pages/Finance/ScholarshipList"));
+const FinanceScholarshipViewPage = lazy(()=>import("./pages/Finance/ScholarshipView"));
 
 function App() {
 
@@ -126,11 +130,25 @@ function App() {
                 <Route element={<GovtAuthorisedLayout />}>
                     <Route element={<DashboardLayout />}>
                       <Route path={page_routes.govt.dashboard} element={<GovtDashboardPage />} />
-                      <Route path={page_routes.govt.scholarship.list} element={<GovtScholarshipListPage />} />
+                      <Route path={page_routes.govt.scholarship.approved_list} element={<GovtScholarshipListPage />} />
+                      <Route path={page_routes.govt.scholarship.pending_list} element={<GovtScholarshipListPage />} />
+                      <Route path={page_routes.govt.scholarship.rejected_list} element={<GovtScholarshipListPage />} />
                       <Route path={page_routes.govt.scholarship.view(":id")} element={<GovtScholarshipViewPage />} />
                     </Route>
                 </Route>
                 {/* Govt Routes Ends */}
+
+                {/* Finance Routes Starts */}
+                <Route element={<FinanceAuthorisedLayout />}>
+                    <Route element={<DashboardLayout />}>
+                      <Route path={page_routes.finance.dashboard} element={<FinanceDashboardPage />} />
+                      <Route path={page_routes.finance.scholarship.payment_pending_list} element={<FinanceScholarshipListPage />} />
+                      <Route path={page_routes.finance.scholarship.payment_processed_list} element={<FinanceScholarshipListPage />} />
+                      <Route path={page_routes.finance.scholarship.payment_failed_list} element={<FinanceScholarshipListPage />} />
+                      <Route path={page_routes.finance.scholarship.view(":id")} element={<FinanceScholarshipViewPage />} />
+                    </Route>
+                </Route>
+                {/* Finance Routes Ends */}
 
                 
               </Route>

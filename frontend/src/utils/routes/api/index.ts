@@ -3,6 +3,7 @@
  */
 
 import { admin_api_routes } from "./admin_api_routes";
+import { finance_api_routes } from "./finance_api_routes";
 import { govt_api_routes } from "./govt_api_routes";
 import { industry_api_routes } from "./industry_api_routes";
 import { institute_api_routes } from "./institute_api_routes";
@@ -20,6 +21,9 @@ export const api_routes = {
   },
   govt: {
     ...govt_api_routes,
+  },
+  finance: {
+    ...finance_api_routes,
   },
   admin: {
     ...admin_api_routes,

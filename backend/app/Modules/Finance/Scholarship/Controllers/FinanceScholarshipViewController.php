@@ -19,9 +19,7 @@ class FinanceScholarshipViewController extends Controller
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? FinanceApplicationCollection::make($application) : null,
-            'can_approve' => false,
         ];
-        $response['can_approve'] = $this->applicationChecks->canFinanceVerify($application);
         return response()->json($response, 200);
     }
 }

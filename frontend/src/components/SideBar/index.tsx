@@ -79,9 +79,37 @@ const NavMenu = () => {
                     <Nav.Item eventKey="22" as={NavLink} to={page_routes.govt.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
                         Dashboard
                     </Nav.Item>
-                    <Nav.Item eventKey="23" as={NavLink} to={page_routes.govt.scholarship.list} className='sidebar-navlink' icon={<ListIcon />}>
-                        Scholarship List
+                    <Nav.Menu
+                        eventKey="23"
+                        trigger="hover"
+                        title="Scholarship List"
+                        icon={<ListIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.govt.scholarship.pending_list_main} className='sidebar-navlink' eventKey="23-1">Pending</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.govt.scholarship.approved_list_main} className='sidebar-navlink' eventKey="23-2">Approved</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.govt.scholarship.rejected_list_main} className='sidebar-navlink' eventKey="23-3">Rejected</Nav.Item>
+                    </Nav.Menu>
+                </>
+            }
+            {
+                [RolesEnum.FINANCIAL_OFFICER].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="24" as={NavLink} to={page_routes.finance.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Dashboard
                     </Nav.Item>
+                    <Nav.Menu
+                        eventKey="25"
+                        trigger="hover"
+                        title="Scholarship List"
+                        icon={<ListIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.finance.scholarship.payment_pending_list_main} className='sidebar-navlink' eventKey="25-1">Payment Pending</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.finance.scholarship.payment_processed_list_main} className='sidebar-navlink' eventKey="25-2">Payment Proccessed</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.finance.scholarship.payment_failed_list_main} className='sidebar-navlink' eventKey="25-3">Payment Failed</Nav.Item>
+                    </Nav.Menu>
                 </>
             }
             {

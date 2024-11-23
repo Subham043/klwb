@@ -4,7 +4,6 @@ import SelectTaluqStatus from "../SelectTaluq";
 import SelectGraduationStatus from "../SelectGraduation";
 import SelectCourseStatus from "../SelectCourse";
 import SelectClassStatus from "../SelectClass";
-import SelectStatus from "../Institute/SelectStatus";
 import SelectYear from "../Institute/SelectYear";
 import SelectCategory from "../SelectCategory";
 import SelectGender from "../SelectGender";
@@ -71,9 +70,6 @@ export default function ApplicationFilter({
         </div>
         <div className="w-100 mb-1" style={{ position: "relative", zIndex: 15}}>
           <SelectGender className="w-100" />
-        </div>
-        <div className="w-100 mb-1" style={{ position: "relative", zIndex: 15}}>
-          <SelectStatus className="w-100" />
         </div>
         <div className="w-100 mb-1" style={{ position: "relative", zIndex: 14}}>
           <SelectYear className="w-100" />

@@ -31,7 +31,7 @@ class FinanceScholarshipService
 				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('payment_status', function (Builder $query, $value) {
-					if ($value == 'success') {
+					if ($value == 'processed') {
 						$query->where('pay_status', ApplicationStatus::Approve->value);
 					}
 					if ($value == 'failed') {

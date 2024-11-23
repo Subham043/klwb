@@ -81,7 +81,6 @@ class Application extends Model implements ScholarshipApplicationTraitInterface
 		'hold' => 'boolean',
 		'deleted' => 'boolean',
 		'inactive' => 'boolean',
-		'pay_status' => 'boolean',
 		'created_at' => 'datetime',
 		'updated_at' => 'datetime',
 	];
