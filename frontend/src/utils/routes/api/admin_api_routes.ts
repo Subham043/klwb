@@ -266,4 +266,15 @@ export const admin_api_routes = {
     view: (id: string | number) =>
       `/api/admin/v1/non-registered-industries/view/${id}`,
   },
+  scholarship: {
+		list: "/api/admin/v1/scholarship/list",
+		excel: "/api/admin/v1/scholarship/excel",
+		view: (id: string | number) => `/api/admin/v1/scholarship/view/${id}`,
+		pdf: (id: string | number) => `/api/admin/v1/scholarship/pdf/${id}`,
+		approve: (id: string | number) => `/api/admin/v1/scholarship/approve/${id}`,
+		reject: (id: string | number) => `/api/admin/v1/scholarship/reject/${id}`,
+		note: (id: string | number) => `/api/admin/v1/scholarship/note/${id}`,
+		toggle: (id: string | number) => `/api/admin/v1/scholarship/toggle-status/${id}`,
+	},
+  dashboard: "/api/admin/v1/dashboard",
 } as const;

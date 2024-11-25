@@ -182,6 +182,20 @@ const NavMenu = () => {
                         <Nav.Item as={NavLink} to={page_routes.admin.industry.non_registered} className='sidebar-navlink' eventKey="9-3">Industry Non Registered</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.industry.request} className='sidebar-navlink' eventKey="9-4">Industry Request</Nav.Item>
                     </Nav.Menu>
+                    <Nav.Menu
+                        eventKey="26"
+                        trigger="hover"
+                        title="Scholarship List"
+                        icon={<ListIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.admin.scholarship.processing_list_main} className='sidebar-navlink' eventKey="26-2">Processing</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.scholarship.pending_list_main} className='sidebar-navlink' eventKey="26-1">Pending</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.scholarship.approved_list_main} className='sidebar-navlink' eventKey="26-4">Approved</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.scholarship.rejected_list_main} className='sidebar-navlink' eventKey="26-3">Rejected</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.scholarship.payment_processed_list_main} className='sidebar-navlink' eventKey="26-5">Payment Processed</Nav.Item>
+                    </Nav.Menu>
                 </>
             }
         </>

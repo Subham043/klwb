@@ -165,7 +165,7 @@ export default function Scholarship({ id }: Props) {
                 {(rowData) => (
                   <ButtonToolbar>
                     <ViewLink
-                      to={page_routes.industry.scholarship.view(rowData.id)}
+                      to={page_routes.admin.scholarship.view(rowData.id)}
                     />
                   </ButtonToolbar>
                 )}

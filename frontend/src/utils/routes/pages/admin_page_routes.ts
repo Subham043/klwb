@@ -32,4 +32,18 @@ export const admin_page_routes = {
       "/admin/industry-registered/" + id,
     non_registered: "/admin/industry-non-registered",
   },
+  scholarship: {
+    approved_list: "/admin/scholarship/approved-list",
+    approved_list_main: "/admin/scholarship/approved-list?status=approved&year=" + new Date().getFullYear(),
+    pending_list: "/admin/scholarship/pending-list",
+    pending_list_main: "/admin/scholarship/pending-list?status=pending&year=" + new Date().getFullYear(),
+    rejected_list: "/admin/scholarship/rejected-list",
+    rejected_list_main: "/admin/scholarship/rejected-list?status=rejected&year=" + new Date().getFullYear(),
+    processing_list: "/admin/scholarship/processing-list",
+    processing_list_main: "/admin/scholarship/processing-list?status=processing&year=" + new Date().getFullYear(),
+    payment_processed_list: "/admin/scholarship/payment-processed-list",
+    payment_processed_list_main: "/admin/scholarship/payment-processed-list?status=payment_processed&year=" + new Date().getFullYear(),
+    view: (id: number | string) =>
+      "/admin/scholarship/view/" + id,
+  }
 } as const;

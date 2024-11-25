@@ -402,7 +402,13 @@ export type StudentApplicationType = {
   pay_status: number;
   payf_reason: string|null;
   govt_note: string|null;
+  admin_note: string|null;
   resubmitted_status: boolean;
+  hold: boolean;
+  deleted: boolean;
+  delete_reason: string|null;
+  inactive: boolean;
+  approved_by: AuthType|null;
 }
 
 export type AxiosErrorResponseType = {

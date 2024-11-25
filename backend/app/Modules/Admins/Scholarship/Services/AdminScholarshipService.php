@@ -33,7 +33,7 @@ class AdminScholarshipService
 						$query->isApplicationApproved()->inAdminStage();
 					}
 					if ($value == 'processing') {
-						$query->where('application_state', '<', ApplicationState::Admin->value);
+						$query->where('application_state', '<', ApplicationState::Admin->value)->isApplicationPending();
 					}
 					if ($value == 'rejected') {
 						$query->isApplicationRejected();

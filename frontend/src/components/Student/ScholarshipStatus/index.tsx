@@ -108,7 +108,7 @@ export default function ScholarshipStatus({ data, can_resubmit = false }: Props)
 					<ApplicationStatus />
 					<CurrentStatus status={data.status} application_state={data.application_state} name='Institution' current_state={1} />
 					<CurrentStatus status={data.status} application_state={data.application_state} name='Industry' current_state={2} />
-					<CurrentStatus status={data.status} application_state={data.application_state} name='Labour Welfare Board' current_state={3} />
+					<CurrentStatus status={data.status} application_state={data.application_state} name='Labour Welfare Board' current_state={4} />
 				</ul>
 			</div>
 			{(data.status===2) && <div className='scholarship-rejected-status mt-1'>

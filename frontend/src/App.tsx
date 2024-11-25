@@ -43,7 +43,7 @@ const AdminResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").the
 const StudentResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.StudentResetPasswordPage })));
 const IndustryResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.IndustryResetPasswordPage })));
 const InstituteResetPasswordPage = lazy(()=>import("./pages/Auth/ResetPassword").then(module => ({ default: module.InstituteResetPasswordPage })));
-const DashboardPage = lazy(()=>import("./pages/Dashboard"));
+const DashboardPage = lazy(()=>import("./pages/Admin/Dashboard"));
 const InstituteDashboardPage = lazy(()=>import("./pages/Institute/Dashboard"));
 const InstituteScholarshipListPage = lazy(()=>import("./pages/Institute/ScholarshipList"));
 const InstituteScholarshipViewPage = lazy(()=>import("./pages/Institute/ScholarshipView"));
@@ -88,6 +88,8 @@ const GovtScholarshipViewPage = lazy(()=>import("./pages/Govt/ScholarshipView"))
 const FinanceDashboardPage = lazy(()=>import("./pages/Finance/Dashboard"));
 const FinanceScholarshipListPage = lazy(()=>import("./pages/Finance/ScholarshipList"));
 const FinanceScholarshipViewPage = lazy(()=>import("./pages/Finance/ScholarshipView"));
+const AdminScholarshipListPage = lazy(()=>import("./pages/Admin/ScholarshipList"));
+const AdminScholarshipViewPage = lazy(()=>import("./pages/Admin/ScholarshipView"));
 
 function App() {
 
@@ -123,6 +125,12 @@ function App() {
                       <Route path={page_routes.admin.security_question} element={<SecurityQuestionPage />} />
                       <Route path={page_routes.admin.application_date} element={<ApplicationDatePage />} />
                       <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
+                      <Route path={page_routes.admin.scholarship.processing_list} element={<AdminScholarshipListPage />} />
+                      <Route path={page_routes.admin.scholarship.approved_list} element={<AdminScholarshipListPage />} />
+                      <Route path={page_routes.admin.scholarship.pending_list} element={<AdminScholarshipListPage />} />
+                      <Route path={page_routes.admin.scholarship.rejected_list} element={<AdminScholarshipListPage />} />
+                      <Route path={page_routes.admin.scholarship.payment_processed_list} element={<AdminScholarshipListPage />} />
+                      <Route path={page_routes.admin.scholarship.view(":id")} element={<AdminScholarshipViewPage />} />
                     </Route>
                 </Route>
 

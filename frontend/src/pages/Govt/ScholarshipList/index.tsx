@@ -39,6 +39,11 @@ const GovtScholarshipListPage: FC = () => {
                     </Table.Column>
 
                     <Table.Column width={260}>
+                        <Table.HeaderCell>Phone</Table.HeaderCell>
+                        <Table.Cell dataKey="basic_detail.parent_phone" />
+                    </Table.Column>
+
+                    <Table.Column width={260}>
                         <Table.HeaderCell>Institute</Table.HeaderCell>
                         <Table.Cell dataKey="present_institute_name" />
                     </Table.Column>

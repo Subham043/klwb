@@ -53,13 +53,13 @@ function NoteInfo({ data, refetch }: Props) {
     resolver: yupResolver(schema),
     values: {
       note: data
-        ? user && user.role === RolesEnum.VERIFICATION_OFFICER
-          ? data.govt_note
+        ? (user && user.role === RolesEnum.VERIFICATION_OFFICER
+          ? (data.govt_note
             ? data.govt_note
-            : ""
-          : data.govt_note
-          ? data.govt_note
-          : ""
+            : "")
+          : (data.admin_note
+          ? data.admin_note
+          : ""))
         : "",
     },
   });
@@ -67,7 +67,11 @@ function NoteInfo({ data, refetch }: Props) {
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
     try {
-      await axios.post(api_routes.govt.scholarship.note(data.id), getValues());
+      if(user && user.role === RolesEnum.VERIFICATION_OFFICER){
+        await axios.post(api_routes.govt.scholarship.note(data.id), getValues());
+      }else{
+        await axios.post(api_routes.admin.scholarship.note(data.id), getValues());
+      }
       toastSuccess("Saved Successfully");
       refetch && refetch();
       setAllowEdit(false);
@@ -139,7 +143,7 @@ function NoteInfo({ data, refetch }: Props) {
                 <Text>
                   {user && user.role === RolesEnum.VERIFICATION_OFFICER
                     ? data?.govt_note
-                    : data?.govt_note}
+                    : data?.admin_note}
                 </Text>
               )}
             </Col>
