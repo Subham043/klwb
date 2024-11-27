@@ -85,6 +85,10 @@ export default function MakePaymentPage() {
 	}, [amount, interest]);
 
 	const onSubmit = handleSubmit(async () => {
+		if(maleCount === 0 && femaleCount === 0){
+			toastError("Both male and female employees cannot be 0");
+			return;
+		}
 		setLoading(true);
 		try {
 			const formData = new FormData();
@@ -274,7 +278,7 @@ export default function MakePaymentPage() {
 								</ModalCardContainer>
 							</div>
 							<ButtonToolbar style={{ width: '100%', justifyContent: 'flex-start', gap: '5px' }}>
-								<Button appearance="primary" size='md' type="submit" loading={loading} disabled={loading || (maleCount === 0 && femaleCount === 0) || (!maleCount || !femaleCount)}>Pay</Button>
+								<Button appearance="primary" size='md' type="submit" loading={loading} disabled={loading}>Pay</Button>
 								<Button appearance="primary" color="red" size='md' type="button" onClick={() => reset(paymentFormInitialValues)}>Reset</Button>
 							</ButtonToolbar>
 						</Form.Group>

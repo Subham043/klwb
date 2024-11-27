@@ -6,7 +6,7 @@ use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Validation\Rule;
 
 class PaymentRequest extends InputRequest
 {
@@ -40,9 +40,17 @@ class PaymentRequest extends InputRequest
                     $fail('You have already paid for the selected year.');
                 }
             }],
-            'male' => ['required', 'numeric'],
-            'female' => ['required', 'numeric'],
-            'price' => ['required', 'numeric'],
+            'male' => ['required', 'numeric', function ($attribute, $value, $fail) use($years) {
+                if ($value==0 && $this->female==0) {
+                    $fail('Male or Female count should be greater than 0.');
+                }
+            }],
+            'female' => ['required', 'numeric', function ($attribute, $value, $fail) use($years) {
+                if ($value==0 && $this->male==0) {
+                    $fail('Male or Female count should be greater than 0.');
+                }
+            }],
+            'price' => ['required', 'numeric', 'gt:0'],
             'interest' => ['required', 'numeric'],
             'employee_excel' => 'required|file|extensions:xlsx',
         ];
