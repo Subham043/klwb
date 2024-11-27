@@ -20,6 +20,7 @@ import { page_routes } from '../../utils/routes/pages';
 import { RolesEnum } from '../../utils/constants/role';
 import AppSelectIcon from '@rsuite/icons/AppSelect';
 import AdminIcon from '@rsuite/icons/Admin';
+import TaskIcon from '@rsuite/icons/Task';
 
 const NavMenu = () => {
     const  {user} = useUser();
@@ -71,6 +72,12 @@ const NavMenu = () => {
                 [RolesEnum.INDUSTRY].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="20" as={NavLink} to={page_routes.industry.employee} className='sidebar-navlink' icon={<PeoplesIcon />}>
                         Employees
+                    </Nav.Item>
+                    <Nav.Item eventKey="27" as={NavLink} to={page_routes.industry.payment.list} className='sidebar-navlink' icon={<TaskIcon />}>
+                        Payments
+                    </Nav.Item>
+                    <Nav.Item eventKey="28" as={NavLink} to={page_routes.industry.payment.pay} className='sidebar-navlink' icon={<DocPassIcon />}>
+                        Make Payment
                     </Nav.Item>
                 </>
             }

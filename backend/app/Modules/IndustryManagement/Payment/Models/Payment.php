@@ -53,10 +53,10 @@ class Payment extends Model
 
     protected $casts = [
         'year' => 'int',
-        'price' => 'int',
+        'price' => 'float',
         'male' => 'int',
         'female' => 'int',
-        'interest' => 'int',
+        'interest' => 'float',
         'status' => 'int',
         'resolved' => 'int',
         'payed_on' => 'datetime',

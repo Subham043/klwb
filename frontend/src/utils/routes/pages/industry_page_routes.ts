@@ -12,5 +12,11 @@ export const industry_page_routes = {
     list: "/industry/scholarship/list",
     view: (id: number | string) =>
       "/industry/scholarship/view/" + id,
+  },
+  payment: {
+    list: "/industry/payment/list",
+    pay: "/industry/payment/pay",
+    view: (id: number | string) =>
+      "/industry/payment/view/" + id,
   }
 } as const;

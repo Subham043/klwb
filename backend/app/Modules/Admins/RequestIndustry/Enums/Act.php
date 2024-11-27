@@ -10,8 +10,8 @@ enum Act:int {
     public static function getValue(int|null $value): string|null
     {
         return match ($value) {
-            self::Labour->value => 'Labour',
-            self::Company->value => 'Company',
+            self::Labour->value => 'Shops and Commercial Act',
+            self::Company->value => 'Factory Act',
             self::Other->value => 'Other',
             default => null,
         };

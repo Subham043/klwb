@@ -19,6 +19,7 @@ use App\Modules\Auth\Industry\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\IndustryManagement\Dashboard\IndustryDashboardController;
+use App\Modules\IndustryManagement\Payment\Controllers\MakePaymentController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentExportController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentFormDPdfController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentListController;
@@ -81,8 +82,9 @@ Route::prefix('industry')->group(function () {
             });
             Route::prefix('payments')->group(function () {
                 Route::get('/excel', [PaymentExportController::class, 'index']);
-                Route::get('/paginate', [PaymentListController::class, 'index']);
+                Route::get('/list', [PaymentListController::class, 'index']);
                 Route::get('/paid-years', [PaymentPaidYearController::class, 'index']);
+                Route::post('/make-payment', [MakePaymentController::class, 'index']);
                 Route::get('/view/{id}', [PaymentViewController::class, 'index']);
                 Route::get('/reciept/{id}', [PaymentRecieptPdfController::class, 'index']);
                 Route::get('/form-d/{id}', [PaymentFormDPdfController::class, 'index']);

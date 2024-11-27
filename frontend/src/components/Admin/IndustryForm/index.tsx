@@ -145,8 +145,8 @@ export default function IndustryForm({
                     name="act"
                     label="Act"
                     data={[
-                      { label: "Labour", value: "1" },
-                      { label: "Company", value: "2" },
+                      { label: "Shops and Commercial Act", value: "1" },
+                      { label: "Factory Act", value: "2" },
                       { label: "Other", value: "3" },
                     ]}
                     control={control}

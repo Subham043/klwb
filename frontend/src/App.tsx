@@ -49,6 +49,8 @@ const InstituteScholarshipListPage = lazy(()=>import("./pages/Institute/Scholars
 const InstituteScholarshipViewPage = lazy(()=>import("./pages/Institute/ScholarshipView"));
 const InstituteEmployeePage = lazy(()=>import("./pages/Institute/Employee"));
 const IndustryDashboardPage = lazy(()=>import("./pages/Industry/Dashboard"));
+const IndustryPaymentListPage = lazy(()=>import("./pages/Industry/PaymentList"));
+const IndustryMakePaymentPage = lazy(()=>import("./pages/Industry/MakePayment"));
 const IndustryScholarshipListPage = lazy(()=>import("./pages/Industry/ScholarshipList"));
 const IndustryScholarshipViewPage = lazy(()=>import("./pages/Industry/ScholarshipView"));
 const IndustryEmployeePage = lazy(()=>import("./pages/Industry/Employee"));
@@ -242,6 +244,8 @@ function App() {
                 <Route element={<IndustryAuthorisedLayout roles={[RolesEnum.INDUSTRY]} />}>
                     <Route element={<DashboardLayout />}>
                       <Route path={page_routes.industry.employee} element={<IndustryEmployeePage />} />
+                      <Route path={page_routes.industry.payment.list} element={<IndustryPaymentListPage />} />
+                      <Route path={page_routes.industry.payment.pay} element={<IndustryMakePaymentPage />} />
                     </Route>
                 </Route>
               </Route>

@@ -3,8 +3,10 @@
 namespace App\Modules\IndustryManagement\Payment\Services;
 
 use App\Http\Enums\Guards;
+use App\Http\Services\FileService;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
+use App\Modules\IndustryManagement\Payment\Requests\PaymentRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,6 +30,7 @@ class PaymentService
 			->defaultSort('-id')
 			->allowedSorts('id', 'year')
 			->allowedFilters([
+				'year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 			]);
 	}
@@ -70,8 +73,23 @@ class PaymentService
 
 	public function getPaidYears()
 	{
-		return $this->query()->lazy(100)->collect()
+		return $this->query()->where('status', 1)->lazy(100)->collect()
 			->pluck('year')->toArray();
+	}
+
+	public function makePayment(PaymentRequest $request)
+	{
+		$file = (new FileService)->save_file('employee_excel', (new Payment)->employee_excel_path);
+		return Payment::updateOrCreate([
+			'year' => $request->year,
+			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id
+		],[
+			...$request->validated(),
+			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
+			'pay_id' => 'KLWB-'.date('Ydmhis').rand(1,10000),
+			'employee_excel' => $file,
+			'payed_on' => now()
+		]);
 	}
 
 	public function excel(): SimpleExcelWriter

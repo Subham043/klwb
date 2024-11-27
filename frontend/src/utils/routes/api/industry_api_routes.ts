@@ -39,6 +39,15 @@ export const industry_api_routes = {
 		approve: (id: string | number) => `/api/industry/v1/scholarship/approve/${id}`,
 		reject: (id: string | number) => `/api/industry/v1/scholarship/reject/${id}`,
 	},
+	payment: {
+		list: "/api/industry/v1/payments/list",
+		excel: "/api/industry/v1/payments/excel",
+		paid_years: "/api/industry/v1/payments/paid-years",
+		make_payment: "/api/industry/v1/payments/make-payment",
+		view: (id: string | number) => `/api/industry/v1/payments/view/${id}`,
+		reciept: (id: string | number) => `/api/industry/v1/payments/reciept/${id}`,
+		form_d: (id: string | number) => `/api/industry/v1/payments/form-d/${id}`,
+	},
 	employee: {
 		excel: "/api/industry/v1/employees/excel",
 		all: "/api/industry/v1/employees/all",

@@ -411,6 +411,25 @@ export type StudentApplicationType = {
   approved_by: AuthType|null;
 }
 
+export type PaymentType = {
+  id: number;
+  comp_regd_id: number;
+  year: number;
+  pay_id: string;
+  price: number;
+  male: number;
+  female: number;
+  total_employees: number;
+  interest: number;
+  status: number;
+  status_text: string;
+  employee_excel: string|null;
+  payed_on: string;
+  created_at: string;
+  updated_at: string;
+  industry: IndustryType|null;
+}
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;
