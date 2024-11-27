@@ -41,4 +41,10 @@ return [
         'token' => env('SMS_TOKEN'),
     ],
 
+    'sbi' => [
+        'id' => env('SBI_MERCHANT_ID'),
+        'key' => env('SBI_MERCHANT_KEY'),
+        'payment_url' => env('SBI_PAYMENT_URL'),
+    ],
+
 ];

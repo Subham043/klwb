@@ -416,6 +416,7 @@ export type PaymentType = {
   comp_regd_id: number;
   year: number;
   pay_id: string;
+  price_word: string;
   price: number;
   male: number;
   female: number;

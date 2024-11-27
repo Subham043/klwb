@@ -2,6 +2,7 @@
 
 namespace App\Modules\IndustryManagement\Payment\Resources;
 
+use App\Http\Services\NumberToWordService;
 use App\Modules\Admins\Industries\Resources\IndustryCollection;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,6 +23,7 @@ class PaymentCollection extends JsonResource
             'year' => $this->year,
             'pay_id' => $this->pay_id,
             'price' => $this->price,
+            'price_word' => (new NumberToWordService)->convert($this->price),
             'male' => $this->male,
             'female' => $this->female,
             'total_employees' => $this->female + $this->male,

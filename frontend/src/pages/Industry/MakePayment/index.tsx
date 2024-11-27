@@ -25,9 +25,8 @@ const years = Array.from({ length: diff }, (_, i) => ({ label: (moment().year() 
 
 export default function MakePaymentPage() {
 	const [loading, setLoading] = useState<boolean>(false);
-	const { toastError, toastSuccess } = useToast();
+	const { toastError } = useToast();
 	const axios = useAxios();
-	// const navigate = useNavigate();
 
 	const {
 		control,
@@ -97,12 +96,11 @@ export default function MakePaymentPage() {
 			if (getValues().employee_excel && getValues().employee_excel !== undefined && getValues().employee_excel!.length > 0 && getValues().employee_excel![getValues().employee_excel!.length - 1 || 0].blobFile) {
 				formData.append("employee_excel", getValues().employee_excel![getValues().employee_excel!.length - 1 || 0].blobFile!);
 			}
-			await axios.post(api_routes.industry.payment.make_payment, formData);
-			toastSuccess("Payment Completed Successfully");
+			const resp = await axios.post<{data: string}>(api_routes.industry.payment.make_payment, formData);
+			window.open(resp.data.data, "_self");
 			reset(paymentFormInitialValues);
 			await refetch();
 			await accountRefetch();
-			// navigate(page_routes.student.scholarship.status)
 		} catch (error) {
 			if (isAxiosError<AxiosErrorResponseType>(error)) {
 				if (error?.response?.data?.errors) {

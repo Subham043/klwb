@@ -56,6 +56,15 @@ class PaymentService
 			->firstOrFail();
 	}
 
+	public function getPaymentPendingById(string $id): Payment
+	{
+		return Payment::with('industry')
+			->where('id', $id)
+			->where('status', 0)
+			->latest()
+			->firstOrFail();
+	}
+
 	public function getPaymentCompletedById(string $id): Payment
 	{
 		return $this->model()
