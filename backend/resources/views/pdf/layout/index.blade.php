@@ -3075,8 +3075,8 @@ table.dataTable thead td {
 }
 
 .receipt-detail b {
-  line-height: 55px;
-  font-size: 14px;
+  line-height: 50px;
+  font-size: 13px;
 }
 
 .office-ex {

@@ -3,6 +3,7 @@
 namespace App\Modules\IndustryManagement\Payment\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Modules\IndustryManagement\Payment\Services\PaymentService;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -15,13 +16,14 @@ class PaymentFormDPdfController extends Controller
         $payment = $this->paymentService->getPaymentCompletedById($id);
         $fileName = str()->uuid();
         $data = [
-            'payment' => $payment
+            'payment' => $payment,
+            'auth' => auth(Guards::Industry->value())->user(),
         ];
         $pdf = Pdf::setOption([
             'defaultFont' => '"Noto Serif Kannada", "Open Sans", sans-serif', 
             'isPhpEnabled' => true, 
             'isRemoteEnabled' => true, 
-        ])->setPaper('a4', 'potrait')->loadView('pdf.scholarship', $data);
+        ])->setPaper('a4', 'potrait')->loadView('pdf.industry_formd', $data);
         return $pdf->download($fileName.'.pdf');
     }
 }
