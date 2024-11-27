@@ -19,6 +19,12 @@ use App\Modules\Auth\Industry\Authentication\Controllers\PhoneLoginController;
 use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordController;
 use App\Modules\Auth\Industry\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\IndustryManagement\Dashboard\IndustryDashboardController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentExportController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentFormDPdfController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentListController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentPaidYearController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentRecieptPdfController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentViewController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipApproveController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipListController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipPdfController;
@@ -72,6 +78,14 @@ Route::prefix('industry')->group(function () {
                 Route::delete('/delete/{id}', [IndustryEmployeeDeleteController::class, 'index']);
                 Route::get('/view/{id}', [IndustryEmployeeViewController::class, 'index']);
                 Route::get('/status/{id}', [IndustryEmployeeToggleController::class, 'index']);
+            });
+            Route::prefix('payments')->group(function () {
+                Route::get('/excel', [PaymentExportController::class, 'index']);
+                Route::get('/paginate', [PaymentListController::class, 'index']);
+                Route::get('/paid-years', [PaymentPaidYearController::class, 'index']);
+                Route::get('/view/{id}', [PaymentViewController::class, 'index']);
+                Route::get('/reciept/{id}', [PaymentRecieptPdfController::class, 'index']);
+                Route::get('/form-d/{id}', [PaymentFormDPdfController::class, 'index']);
             });
         });
         Route::middleware([Guards::Industry->middleware(), 'verified', 'role:Industry|Industry-Staff'])->group(function () {
