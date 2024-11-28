@@ -4,7 +4,7 @@ namespace App\Modules\Auth\Industry\Authentication\Requests;
 
 use App\Http\Requests\InputRequest;
 use App\Http\Services\RateLimitService;
-use App\Modules\IndustryManagement\RequestIndustry\Enums\Act;
+use App\Modules\Admins\RequestIndustry\Enums\Act;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password as PasswordValidation;
 

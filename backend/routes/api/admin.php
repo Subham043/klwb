@@ -8,6 +8,13 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDatePaginateContr
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateToggleController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateUpdateController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewController;
+use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
+use App\Modules\Admins\Contributions\Controllers\ContributionPaginateController;
+use App\Modules\Admins\Contributions\Controllers\ContributionRecieptPdfController;
+use App\Modules\Admins\Contributions\Controllers\ContributionViewController;
+use App\Modules\Admins\Contributions\Controllers\NonContributionExportController;
+use App\Modules\Admins\Contributions\Controllers\NonContributionPaginateController;
+use App\Modules\Admins\Contributions\Controllers\NonContributionViewController;
 use App\Modules\Admins\Dashboard\AdminDashboardController;
 use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
 use App\Modules\LocationManagement\Cities\Controllers\CityCreateController;
@@ -377,6 +384,17 @@ Route::prefix('admin')->group(function () {
 				Route::post('/toggle-status/{id}', [AdminScholarshipToggleStatusController::class, 'index']);
 				Route::post('/note/{id}', [AdminScholarshipNoteController::class, 'index']);
 				Route::get('/pdf/{id}', [AdminScholarshipPdfController::class, 'index']);
+			});
+            Route::prefix('contribution')->group(function () {
+				Route::get('/list', [ContributionPaginateController::class, 'index']);
+				Route::get('/excel', [ContributionExportController::class, 'index']);
+				Route::get('/view/{id}', [ContributionViewController::class, 'index']);
+				Route::get('/reciept/{id}', [ContributionRecieptPdfController::class, 'index']);
+			});
+            Route::prefix('non-contribution')->group(function () {
+				Route::get('/list', [NonContributionPaginateController::class, 'index']);
+				Route::get('/excel', [NonContributionExportController::class, 'index']);
+				Route::get('/view/{id}', [NonContributionViewController::class, 'index']);
 			});
 			Route::get('/dashboard', [AdminDashboardController::class, 'index']);
         });

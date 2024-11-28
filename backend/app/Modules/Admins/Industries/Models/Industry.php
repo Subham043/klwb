@@ -5,6 +5,7 @@ namespace App\Modules\Admins\Industries\Models;
 use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Traits\AuthTrait;
 use App\Modules\IndustryManagement\IndustryAuth\Models\IndustryAuth;
+use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\LocationManagement\Cities\Models\City;
 use App\Modules\LocationManagement\States\Models\State;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
@@ -64,6 +65,11 @@ class Industry extends Model implements AuthTraitInterface
     public function auth()
     {
         return $this->hasOne(IndustryAuth::class, 'reg_industry_id')->withDefault();
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'comp_regd_id');
     }
 
 }
