@@ -136,7 +136,7 @@ class RegisteredIndustryService
 
     public function excel() : SimpleExcelWriter
     {
-        $model = $this->model();
+        $model = $this->query();
         $i=0;
         $writer = SimpleExcelWriter::streamDownload('registered_industry.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {

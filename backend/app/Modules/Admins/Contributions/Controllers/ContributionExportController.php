@@ -10,6 +10,7 @@ class ContributionExportController extends Controller
     public function __construct(private ContributionService $contributionService){}
 
     public function index(){
+        return ($this->contributionService->excel());
         return $this->contributionService->excel()->toBrowser();
     }
 }

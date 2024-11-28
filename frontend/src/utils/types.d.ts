@@ -431,6 +431,56 @@ export type PaymentType = {
   industry: IndustryType|null;
 }
 
+export type ContributionType = {
+  id: number;
+  comp_regd_id: number;
+  year: number;
+  pay_id: string;
+  price_word: string;
+  price: number;
+  male: number;
+  female: number;
+  total_employees: number;
+  interest: number;
+  status: number;
+  status_text: string;
+  employee_excel: string|null;
+  payed_on: string;
+  created_at: string;
+  updated_at: string;
+  industry: {
+    id: number;
+    reg_id: string;
+    name: string;
+    act: number;
+    act_label: string;
+    pincode: string;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+    city: {
+      id: number;
+      name: string
+    }|null;
+    taluq: {
+      id: number;
+      name: string
+    }|null;
+  }|null;
+}
+
+export type NonContributionType = {
+  id: number;
+  reg_id: string;
+  name: string;
+  act: number;
+  act_label: string;
+  pincode: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

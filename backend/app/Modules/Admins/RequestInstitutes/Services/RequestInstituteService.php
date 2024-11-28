@@ -53,7 +53,7 @@ class RequestInstituteService extends AbstractExcelService
 
     public function excel() : SimpleExcelWriter
     {
-        $model = $this->model();
+        $model = $this->query();
         $i=0;
         $writer = SimpleExcelWriter::streamDownload('request_institutes.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {

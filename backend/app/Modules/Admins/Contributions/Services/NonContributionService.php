@@ -4,6 +4,7 @@ namespace App\Modules\Admins\Contributions\Services;
 
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\Admins\RequestIndustry\Enums\Act;
+use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
@@ -17,7 +18,13 @@ class NonContributionService
 
 	protected function model(): Builder
 	{
-		return Industry::whenNotAdmin()->doesntHave('payments');
+		return Industry::whenNotAdmin()->where(function ($query) {
+			$query->doesntHave('payments')->orWhere(function ($qry){
+				$qry->whereHas('payments', function ($q) {
+					$q->where('status', '!=', PaymentStatus::Success->value);
+				});
+			});
+		});
 	}
 	protected function query(): QueryBuilder
 	{
@@ -27,8 +34,10 @@ class NonContributionService
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('has_year', function (Builder $query, $value) {
-					$query->doesntHave('payments', function ($qry) use ($value) {
-						$qry->where('year', $value);
+					$query->doesntHave('payments')->orWhere(function ($qry) use ($value){
+						$qry->whereHas('payments', function ($q) use ($value) {
+							$q->where('status', '!=', PaymentStatus::Success->value)->where('year', $value);
+						});
 					});
 				}),
 			]);
@@ -50,7 +59,7 @@ class NonContributionService
 
 	public function excel(): SimpleExcelWriter
 	{
-		$model = $this->model();
+		$model = $this->query();
 		$i = 0;
 		$writer = SimpleExcelWriter::streamDownload('non-contributions.xlsx');
 		foreach ($model->lazy(1000)->collect() as $data) {

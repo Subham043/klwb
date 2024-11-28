@@ -203,6 +203,17 @@ const NavMenu = () => {
                         <Nav.Item as={NavLink} to={page_routes.admin.scholarship.rejected_list_main} className='sidebar-navlink' eventKey="26-3">Rejected</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.scholarship.payment_processed_list_main} className='sidebar-navlink' eventKey="26-5">Payment Processed</Nav.Item>
                     </Nav.Menu>
+                    <Nav.Menu
+                        eventKey="29"
+                        trigger="hover"
+                        title="Contribution"
+                        icon={<TaskIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.admin.contribution.pending_list_main} className='sidebar-navlink' eventKey="29-1">Pending</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.contribution.completed_list_main} className='sidebar-navlink' eventKey="29-2">Completed</Nav.Item>
+                    </Nav.Menu>
                 </>
             }
         </>

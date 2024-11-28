@@ -22,7 +22,7 @@ class ContributionService
 			}
 		])->whereHas('industry', function ($query) {
 			$query->whereHas('city')->whereHas('taluq');
-		});
+		})->where('status', PaymentStatus::Success->value);
 	}
 	protected function query(): QueryBuilder
 	{
@@ -76,7 +76,7 @@ class ContributionService
 
 	public function excel(): SimpleExcelWriter
 	{
-		$model = $this->model();
+		$model = $this->query();
 		$i = 0;
 		$writer = SimpleExcelWriter::streamDownload('contributions.xlsx');
 		foreach ($model->lazy(1000)->collect() as $data) {

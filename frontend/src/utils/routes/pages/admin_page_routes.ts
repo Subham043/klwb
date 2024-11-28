@@ -45,5 +45,11 @@ export const admin_page_routes = {
     payment_processed_list_main: "/admin/scholarship/payment-processed-list?status=payment_processed&year=" + new Date().getFullYear(),
     view: (id: number | string) =>
       "/admin/scholarship/view/" + id,
+  },
+  contribution: {
+    completed_list: "/admin/contribution/completed-list",
+    completed_list_main: "/admin/contribution/completed-list?year=" + new Date().getFullYear(),
+    pending_list: "/admin/contribution/pending-list",
+    pending_list_main: "/admin/contribution/pending-list?year=" + new Date().getFullYear(),
   }
 } as const;

@@ -276,5 +276,16 @@ export const admin_api_routes = {
 		note: (id: string | number) => `/api/admin/v1/scholarship/note/${id}`,
 		toggle: (id: string | number) => `/api/admin/v1/scholarship/toggle-status/${id}`,
 	},
+  contribution: {
+		list: "/api/admin/v1/contribution/list",
+		excel: "/api/admin/v1/contribution/excel",
+		view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
+		reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
+	},
+  non_contribution: {
+		list: "/api/admin/v1/non-contribution/list",
+		excel: "/api/admin/v1/non-contribution/excel",
+		view: (id: string | number) => `/api/admin/v1/non-contribution/view/${id}`,
+	},
   dashboard: "/api/admin/v1/dashboard",
 } as const;

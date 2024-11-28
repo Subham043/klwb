@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FileController;
 use App\Http\Services\AESEncDecService;
+use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,5 @@ Route::get('/private/file', function () {
         'message' => "Link has expired.",
     ], 404);
 })->name('login');
+
+Route::get('/excel', [ContributionExportController::class, 'index']);
