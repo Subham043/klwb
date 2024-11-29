@@ -8,6 +8,7 @@ use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Admins\ApplicationDates\Models\ApplicationDate;
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\Admins\Institutes\Models\Institute;
+use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -140,7 +141,7 @@ class Application extends Model implements ScholarshipApplicationTraitInterface
 			'comp_regd_id',     // Foreign key on the `payments` table
 			'company_id',     // Local key on the `applications` table
 			'id'               // Local key on the `industries` table
-		);
+		)->orderBy('year', 'desc')->where('status', PaymentStatus::Success->value);
 	}
 
 	public function industryPayment()
@@ -152,7 +153,7 @@ class Application extends Model implements ScholarshipApplicationTraitInterface
 			'comp_regd_id',     // Foreign key on the `payments` table
 			'company_id',     // Local key on the `applications` table
 			'id'               // Local key on the `industries` table
-		)->orderBy('year', 'desc')->where('status', 1)->where('payments.year', '=', $this->application_year);
+		)->orderBy('year', 'desc')->where('status', PaymentStatus::Success->value)->where('payments.year', '=', $this->application_year);
 		// ->whereColumn('payments.year', 'applications.application_year');
 	}
 }

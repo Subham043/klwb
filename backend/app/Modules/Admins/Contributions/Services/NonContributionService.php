@@ -5,7 +5,6 @@ namespace App\Modules\Admins\Contributions\Services;
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\Admins\RequestIndustry\Enums\Act;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
-use App\Modules\IndustryManagement\Payment\Models\Payment;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -43,7 +42,7 @@ class NonContributionService
 			]);
 	}
 
-	public function getById(string $id): Payment
+	public function getById(string $id): Industry
 	{
 		return $this->model()
 			->where('id', $id)

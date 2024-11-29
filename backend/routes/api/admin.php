@@ -132,6 +132,7 @@ use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteS
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffVerificationController;
+use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
@@ -395,6 +396,9 @@ Route::prefix('admin')->group(function () {
 				Route::get('/list', [NonContributionPaginateController::class, 'index']);
 				Route::get('/excel', [NonContributionExportController::class, 'index']);
 				Route::get('/view/{id}', [NonContributionViewController::class, 'index']);
+			});
+            Route::prefix('report')->group(function () {
+				Route::get('/contribution', [ContributionReportController::class, 'index']);
 			});
 			Route::get('/dashboard', [AdminDashboardController::class, 'index']);
         });
