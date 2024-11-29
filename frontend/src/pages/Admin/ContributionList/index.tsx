@@ -11,6 +11,7 @@ import { usePdfExport } from "../../../hooks/usePdfExport";
 import PaymentStatusBadge from "../../../components/PaymentStatusBadge";
 import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
+import SelectDateRangePicker from "../../../components/SelectDateRangePicker";
 
 const Receipt = ({id}:{id: number}) => {
     const {pdfLoading, exportPdf} = usePdfExport();
@@ -69,6 +70,7 @@ const ContributionListPage:FC = () => {
 
     return <PaginatedTableLayout title="Contribution Comleted">
         <PaginatedTableLayout.Header title="Contribution Comleted" addBtn={false} excelLink={api_routes.admin.contribution.excel} excelName="contribution.xlsx">
+            <SelectDateRangePicker />
             <SelectCityStatus />
             <SelectTaluqStatus />
             <SelectYear />
