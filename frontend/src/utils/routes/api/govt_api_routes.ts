@@ -15,5 +15,11 @@ export const govt_api_routes = {
 		reject: (id: string | number) => `/api/govt/v1/scholarship/reject/${id}`,
 		note: (id: string | number) => `/api/govt/v1/scholarship/note/${id}`,
 	},
+	report: {
+			scholarship: {
+					list: "/api/govt/v1/report/scholarship/list",
+					excel: "/api/govt/v1/report/scholarship/excel",
+			}
+},
 dashboard: "/api/govt/v1/dashboard",
 } as const;

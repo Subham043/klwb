@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Enums\Guards;
+use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportExportController;
+use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListController;
 use App\Modules\Govt\Dashboard\GovtDashboardController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipApproveController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipExportController;
@@ -23,6 +25,12 @@ Route::prefix('govt')->group(function () {
 				Route::post('/reject/{id}', [GovtScholarshipRejectController::class, 'index']);
 				Route::post('/note/{id}', [GovtScholarshipNoteController::class, 'index']);
 				Route::get('/pdf/{id}', [GovtScholarshipPdfController::class, 'index']);
+			});
+			Route::prefix('report')->group(function () {
+				Route::prefix('scholarship')->group(function () {
+								Route::get('/excel', [ScholarshipReportExportController::class, 'index']);
+								Route::get('/list', [ScholarshipReportListController::class, 'index']);
+				});
 			});
 			Route::get('/dashboard', [GovtDashboardController::class, 'index']);
 		});

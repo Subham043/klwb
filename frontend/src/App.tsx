@@ -101,6 +101,7 @@ const PaymentOfficerNonContributionListPage = lazy(()=>import("./pages/PaymentOf
 const PaymentOfficerContributionListPage = lazy(()=>import("./pages/PaymentOfficer/ContributionList"));
 const ScholarshipReportListPage = lazy(()=>import("./pages/Admin/ScholarshipReportList"));
 const ContributionReportListPage = lazy(()=>import("./pages/Admin/ContributionReportList"));
+const GovtScholarshipReportListPage = lazy(()=>import("./pages/Govt/ScholarshipReportList"));
 
 function App() {
 
@@ -158,6 +159,7 @@ function App() {
                       <Route path={page_routes.govt.scholarship.pending_list} element={<GovtScholarshipListPage />} />
                       <Route path={page_routes.govt.scholarship.rejected_list} element={<GovtScholarshipListPage />} />
                       <Route path={page_routes.govt.scholarship.view(":id")} element={<GovtScholarshipViewPage />} />
+                      <Route path={page_routes.govt.report.scholarship} element={<GovtScholarshipReportListPage />} />
                     </Route>
                 </Route>
                 {/* Govt Routes Ends */}

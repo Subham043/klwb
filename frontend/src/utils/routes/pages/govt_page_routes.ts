@@ -14,5 +14,8 @@ export const govt_page_routes = {
     rejected_list_main: "/govt/scholarship/rejected-list?status=rejected&year=" + new Date().getFullYear(),
     view: (id: number | string) =>
       "/govt/scholarship/view/" + id,
+  },
+  report: {
+    scholarship: "/govt/report/scholarship",
   }
 } as const;

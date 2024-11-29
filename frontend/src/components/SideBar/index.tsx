@@ -99,6 +99,9 @@ const NavMenu = () => {
                         <Nav.Item as={NavLink} to={page_routes.govt.scholarship.approved_list_main} className='sidebar-navlink' eventKey="23-2">Approved</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.govt.scholarship.rejected_list_main} className='sidebar-navlink' eventKey="23-3">Rejected</Nav.Item>
                     </Nav.Menu>
+                    <Nav.Item eventKey="32" as={NavLink} to={page_routes.govt.report.scholarship} className='sidebar-navlink' icon={<LineChartIcon />}>
+                        Reports
+                    </Nav.Item>
                 </>
             }
             {
