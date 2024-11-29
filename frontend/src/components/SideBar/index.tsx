@@ -220,6 +220,7 @@ const NavMenu = () => {
                         <Nav.Item as={NavLink} to={page_routes.admin.scholarship.approved_list_main} className='sidebar-navlink' eventKey="26-4">Approved</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.scholarship.rejected_list_main} className='sidebar-navlink' eventKey="26-3">Rejected</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.scholarship.payment_processed_list_main} className='sidebar-navlink' eventKey="26-5">Payment Processed</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.scholarship.all_list_main} className='sidebar-navlink' eventKey="26-5">All</Nav.Item>
                     </Nav.Menu>
                     <Nav.Menu
                         eventKey="29"

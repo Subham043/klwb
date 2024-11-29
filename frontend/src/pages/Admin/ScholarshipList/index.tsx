@@ -165,6 +165,15 @@ const AdminScholarshipListPage: FC = () => {
                             </Table.Cell>
                     </Table.Column>
 
+                    <Table.Column width={160} verticalAlign="middle">
+                        <Table.HeaderCell>Verified By</Table.HeaderCell>
+                        <Table.Cell style={{ padding: '6px' }}>
+                            {rowData => (
+                                <span>{rowData?.approved_by?.name || "N/A"}</span>
+                            )}
+                        </Table.Cell>
+                    </Table.Column>
+
                     <Table.Column width={250} verticalAlign="middle">
                         <Table.HeaderCell>Applied On</Table.HeaderCell>
 

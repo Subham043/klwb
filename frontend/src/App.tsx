@@ -134,6 +134,7 @@ function App() {
                       <Route path={page_routes.admin.security_question} element={<SecurityQuestionPage />} />
                       <Route path={page_routes.admin.application_date} element={<ApplicationDatePage />} />
                       <Route path={page_routes.admin.application_fee} element={<ApplicationFeePage />} />
+                      <Route path={page_routes.admin.scholarship.all_list} element={<AdminScholarshipListPage />} />
                       <Route path={page_routes.admin.scholarship.processing_list} element={<AdminScholarshipListPage />} />
                       <Route path={page_routes.admin.scholarship.approved_list} element={<AdminScholarshipListPage />} />
                       <Route path={page_routes.admin.scholarship.pending_list} element={<AdminScholarshipListPage />} />

@@ -33,6 +33,8 @@ export const admin_page_routes = {
     non_registered: "/admin/industry-non-registered",
   },
   scholarship: {
+    all_list: "/admin/scholarship/list",
+    all_list_main: "/admin/scholarship/list?year=" + new Date().getFullYear(),
     approved_list: "/admin/scholarship/approved-list",
     approved_list_main: "/admin/scholarship/approved-list?status=approved&year=" + new Date().getFullYear(),
     pending_list: "/admin/scholarship/pending-list",
