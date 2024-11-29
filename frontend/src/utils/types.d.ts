@@ -376,8 +376,10 @@ export type StudentApplicationType = {
   school_id: number;
   present_institute_name: string|null;
   present_institute_address: string|null;
+  institute_confirmation_report: boolean;
   company_id: number;
   industry_name: string|null;
+  industry_confirmation_report: boolean;
   uniq?: string;
   status: number;
   application_state: number;

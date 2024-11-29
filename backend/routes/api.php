@@ -24,6 +24,8 @@ use App\Modules\LocationManagement\Taluqs\Controllers\TaluqPaginateController;
 use App\Modules\Students\Dashboard\StudentDashboardController;
 use App\Modules\Students\Scholarship\Controllers\ApplyScholarshipController;
 use App\Modules\Students\Scholarship\Controllers\ResubmitScholarshipController;
+use App\Modules\Students\Scholarship\Controllers\ScholarshipIndustryConfirmationPdfController;
+use App\Modules\Students\Scholarship\Controllers\ScholarshipInstituteConfirmationPdfController;
 use App\Modules\Students\Scholarship\Controllers\ScholarshipListController;
 use App\Modules\Students\Scholarship\Controllers\ScholarshipPdfController;
 use App\Modules\Students\Scholarship\Controllers\ScholarshipStatusController;
@@ -83,6 +85,8 @@ Route::prefix('v1')->group(function () {
             Route::get('/list', [ScholarshipListController::class, 'index']);
             Route::get('/view/{id}', [ScholarshipViewController::class, 'index']);
             Route::get('/pdf/{id}', [ScholarshipPdfController::class, 'index']);
+            Route::get('/institute-confirmation-pdf/{id}', [ScholarshipInstituteConfirmationPdfController::class, 'index']);
+            Route::get('/industry-confirmation-pdf/{id}', [ScholarshipIndustryConfirmationPdfController::class, 'index']);
         });
         Route::get('/dashboard', [StudentDashboardController::class, 'index']);
     });

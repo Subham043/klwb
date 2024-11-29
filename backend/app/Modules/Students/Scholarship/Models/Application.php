@@ -153,7 +153,7 @@ class Application extends Model implements ScholarshipApplicationTraitInterface
 			'comp_regd_id',     // Foreign key on the `payments` table
 			'company_id',     // Local key on the `applications` table
 			'id'               // Local key on the `industries` table
-		)->orderBy('year', 'desc')->where('status', PaymentStatus::Success->value)->where('payments.year', '=', $this->application_year);
+		)->orderBy('year', 'desc')->where('status', PaymentStatus::Success->value)->where('payments.year', '=', ($this->application_year-1));
 		// ->whereColumn('payments.year', 'applications.application_year');
 	}
 }

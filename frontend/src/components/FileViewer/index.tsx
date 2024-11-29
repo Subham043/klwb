@@ -5,12 +5,13 @@ import ImageViewer from "./ImageViewer";
 type Props = {
 	src?: string;
 	name?: string;
+	notFound?: string
 }
 
 export default function FileViewer(props: Props) {
 	if(!props.src){
 		return (
-			<Text color="red">File not found</Text>
+			<Text color="red">{props.notFound || 'File not found'}</Text>
 		)
 	}
 	if(props.src.includes('.pdf')){

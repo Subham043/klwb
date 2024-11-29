@@ -62,6 +62,8 @@ export const user_api_routes = {
 		list: "/api/v1/scholarship/list",
 		view: (id: string | number) => `/api/v1/scholarship/view/${id}`,
 		pdf: (id: string | number) => `/api/v1/scholarship/pdf/${id}`,
+		institute_confirmation_pdf: (id: string | number) => `/api/v1/scholarship/institute-confirmation-pdf/${id}`,
+		industry_confirmation_pdf: (id: string | number) => `/api/v1/scholarship/industry-confirmation-pdf/${id}`,
 	},
 	dashboard: "/api/v1/dashboard",
 } as const;

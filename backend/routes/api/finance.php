@@ -4,6 +4,8 @@ use App\Http\Enums\Guards;
 use App\Modules\Finance\Dashboard\FinanceDashboardController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipApproveController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipExportController;
+use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipIndustryConfirmationPdfController;
+use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipInstituteConfirmationPdfController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipListController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipPdfController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipRejectController;
@@ -21,6 +23,8 @@ Route::prefix('finance')->group(function () {
 				Route::post('/approve/{id}', [FinanceScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [FinanceScholarshipRejectController::class, 'index']);
 				Route::get('/pdf/{id}', [FinanceScholarshipPdfController::class, 'index']);
+				Route::get('/institute-confirmation-pdf/{id}', [FinanceScholarshipInstituteConfirmationPdfController::class, 'index']);
+    Route::get('/industry-confirmation-pdf/{id}', [FinanceScholarshipIndustryConfirmationPdfController::class, 'index']);
 			});
 			Route::get('/dashboard', [FinanceDashboardController::class, 'index']);
 		});

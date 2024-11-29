@@ -17,7 +17,7 @@ trait ScholarshipApplicationTrait
 			'account',
 			'company' => fn($query) => $query->with(['taluq', 'district']),
 			'institute' => fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]),
-			'industry',
+			'industry'=> fn($query) => $query->with(['auth']),
 			'student'
 		]);
 	}

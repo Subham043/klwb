@@ -6,6 +6,8 @@ use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListCont
 use App\Modules\Govt\Dashboard\GovtDashboardController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipApproveController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipExportController;
+use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipIndustryConfirmationPdfController;
+use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipInstituteConfirmationPdfController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipListController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipNoteController;
 use App\Modules\Govt\Scholarship\Controllers\GovtScholarshipPdfController;
@@ -25,6 +27,8 @@ Route::prefix('govt')->group(function () {
 				Route::post('/reject/{id}', [GovtScholarshipRejectController::class, 'index']);
 				Route::post('/note/{id}', [GovtScholarshipNoteController::class, 'index']);
 				Route::get('/pdf/{id}', [GovtScholarshipPdfController::class, 'index']);
+				Route::get('/institute-confirmation-pdf/{id}', [GovtScholarshipInstituteConfirmationPdfController::class, 'index']);
+    Route::get('/industry-confirmation-pdf/{id}', [GovtScholarshipIndustryConfirmationPdfController::class, 'index']);
 			});
 			Route::prefix('report')->group(function () {
 				Route::prefix('scholarship')->group(function () {

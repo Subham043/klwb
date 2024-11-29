@@ -41,7 +41,7 @@ export default function ScholarshipInfo({ data, refetch }: Props) {
 			<IndustryInfo data={data} />
 			<AadharInfo data={data} />
 			<BankInfo data={data} />
-			<ConfirmationReport />
+			{(user && (user.role == RolesEnum.VERIFICATION_OFFICER || user.role === RolesEnum.FINANCIAL_OFFICER || user.role === RolesEnum.STUDENT)) && <ConfirmationReport data={data} />}
 		</>}
 	</PanelCardContainer>
 </div>

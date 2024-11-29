@@ -116,7 +116,7 @@ export default function FileUploader({
             render={({ field }) => (
               <>
                 <div style={{ textAlign: "center", padding: "10px" }}>
-                  <FileViewer src={src} />
+                  <FileViewer src={src} notFound="Please upload the file. Without this file, you will not be able to approve/reject the scholarship application form" />
                 </div>
                 {allowed && (
                   <Uploader

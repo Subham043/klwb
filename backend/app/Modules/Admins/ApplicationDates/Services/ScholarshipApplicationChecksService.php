@@ -82,7 +82,7 @@ class ScholarshipApplicationChecksService
 	public function canCompanyApprove(Application $application): bool
 	{
 		$companyAccinfo = (new IndustryProfileService)->getAccountInfo();
-		$has_company_files = ($companyAccinfo->reg_doc_link!=null && $companyAccinfo->sign_link!=null && $companyAccinfo->seal_link!=null && $companyAccinfo->gst_link!=null && $companyAccinfo->pan_link!=null);
+		$has_company_files = ($companyAccinfo->reg_doc_link!=null && $companyAccinfo->sign_link!=null && $companyAccinfo->seal_link!=null && $companyAccinfo->gst_link!=null && $companyAccinfo->pan_link!=null && $application->industryPayment);
 		return $application->application_state == ApplicationState::Company->value && $has_company_files && $this->canApprove($application);
 	}
 

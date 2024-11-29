@@ -14,6 +14,8 @@ export const finance_api_routes = {
 		approve: (id: string | number) => `/api/finance/v1/scholarship/approve/${id}`,
 		reject: (id: string | number) => `/api/finance/v1/scholarship/reject/${id}`,
 		note: (id: string | number) => `/api/finance/v1/scholarship/note/${id}`,
+		institute_confirmation_pdf: (id: string | number) => `/api/finance/v1/scholarship/institute-confirmation-pdf/${id}`,
+		industry_confirmation_pdf: (id: string | number) => `/api/finance/v1/scholarship/industry-confirmation-pdf/${id}`,
 	},
 dashboard: "/api/finance/v1/dashboard",
 } as const;
