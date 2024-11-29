@@ -287,5 +287,15 @@ export const admin_api_routes = {
 		excel: "/api/admin/v1/non-contribution/excel",
 		view: (id: string | number) => `/api/admin/v1/non-contribution/view/${id}`,
 	},
+  report: {
+    contribution: {
+      list: "/api/admin/v1/report/contribution/list",
+      excel: "/api/admin/v1/report/contribution/excel",
+    },
+    scholarship: {
+      list: "/api/admin/v1/report/scholarship/list",
+      excel: "/api/admin/v1/report/scholarship/excel",
+    }
+	},
   dashboard: "/api/admin/v1/dashboard",
 } as const;

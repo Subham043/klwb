@@ -133,6 +133,10 @@ use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteS
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffVerificationController;
 use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportController;
+use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportExportController;
+use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportListController;
+use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportExportController;
+use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
@@ -398,7 +402,14 @@ Route::prefix('admin')->group(function () {
 				Route::get('/view/{id}', [NonContributionViewController::class, 'index']);
 			});
             Route::prefix('report')->group(function () {
-				Route::get('/contribution', [ContributionReportController::class, 'index']);
+                Route::prefix('contribution')->group(function () {
+                    Route::get('/excel', [ContributionReportExportController::class, 'index']);
+                    Route::get('/list', [ContributionReportListController::class, 'index']);
+                });
+                Route::prefix('scholarship')->group(function () {
+                    Route::get('/excel', [ScholarshipReportExportController::class, 'index']);
+                    Route::get('/list', [ScholarshipReportListController::class, 'index']);
+                });
 			});
 			Route::get('/dashboard', [AdminDashboardController::class, 'index']);
         });

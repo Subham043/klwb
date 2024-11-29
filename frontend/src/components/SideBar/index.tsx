@@ -21,6 +21,7 @@ import { RolesEnum } from '../../utils/constants/role';
 import AppSelectIcon from '@rsuite/icons/AppSelect';
 import AdminIcon from '@rsuite/icons/Admin';
 import TaskIcon from '@rsuite/icons/Task';
+import LineChartIcon from '@rsuite/icons/LineChart';
 
 const NavMenu = () => {
     const  {user} = useUser();
@@ -232,6 +233,17 @@ const NavMenu = () => {
                     >
                         <Nav.Item as={NavLink} to={page_routes.admin.contribution.pending_list_main} className='sidebar-navlink' eventKey="29-1">Pending</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.contribution.completed_list_main} className='sidebar-navlink' eventKey="29-2">Completed</Nav.Item>
+                    </Nav.Menu>
+                    <Nav.Menu
+                        eventKey="31"
+                        trigger="hover"
+                        title="Report"
+                        icon={<LineChartIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.admin.report.scholarship} className='sidebar-navlink' eventKey="31-1">Scholarship</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.report.contribution} className='sidebar-navlink' eventKey="31-2">Contribution</Nav.Item>
                     </Nav.Menu>
                 </>
             }

@@ -499,6 +499,28 @@ export type NonContributionType = {
   updated_at: string;
 };
 
+export type ContributionReportType = {
+  year: number;
+  male_count: number;
+  female_count: number;
+  total_countributions: number;
+  total_countribution_amount: number;
+};
+
+export type ScholarshipReportType = {
+  application_year: number;
+  sc_count: number;
+  st_count: number;
+  obc_count: number;
+  general_count: number;
+  male_count: number;
+  female_count: number;
+  pending_count: number;
+  rejected_count: number;
+  approved_count: number;
+  total_count: number;
+};
+
 export type AxiosErrorResponseType = {
   message: string;
   errors?: Record<string, string[]>;

@@ -81,7 +81,7 @@ const IndustryPaymentListPage:FC = () => {
                 data={data?.data || []}
             >
                 <Table.Column width={60} align="center" fixed>
-                    <Table.HeaderCell>Yaer</Table.HeaderCell>
+                    <Table.HeaderCell>Year</Table.HeaderCell>
                     <Table.Cell dataKey="year" />
                 </Table.Column>
 

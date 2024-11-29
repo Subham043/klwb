@@ -11,6 +11,7 @@ import PanelCardContainer from "../../components/MainCards/PanelCardContainer";
 type HeaderProps = { 
     title: string; 
     addBtn?: boolean; 
+    searchInput?: boolean; 
     buttonName?: string; 
     excelLink?: string, 
     excelName?: string,
@@ -55,7 +56,7 @@ const PaginatedTableLayout: FC<Props> & {
 };
 
 // Define the Option subcomponent
-const Header = ({ children, title, buttonName = title, excelLink, excelName, addBtn = true, addHandler }: HeaderProps) => {
+const Header = ({ children, title, buttonName = title, excelLink, excelName, addBtn = true, searchInput = true, addHandler }: HeaderProps) => {
     const {excelLoading, exportExcel} = useExcelExport();
     const { search, searchHandler } = useSearchQueryParam();
     const excelHandler = async () => {
@@ -73,13 +74,13 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
                 </Button>}
             </ButtonToolbar>
             <Stack justifyContent="flex-end" alignItems="center" style={{ gap: 10 }}>
-               {children}
-                <InputGroup size="md" inside>
+                {children}
+                {searchInput && <InputGroup size="md" inside>
                     <Input placeholder='Search' defaultValue={search} onChange={searchHandler} />
                     <InputGroup.Button>
                         <SearchIcon />
                     </InputGroup.Button>
-                </InputGroup>
+                </InputGroup>}
             </Stack>
         </Stack>
     </div>

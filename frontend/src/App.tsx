@@ -99,6 +99,8 @@ const AdminContributionListPage = lazy(()=>import("./pages/Admin/ContributionLis
 const PaymentOfficerDashboardPage = lazy(()=>import("./pages/PaymentOfficer/Dashboard"));
 const PaymentOfficerNonContributionListPage = lazy(()=>import("./pages/PaymentOfficer/NonContribution"));
 const PaymentOfficerContributionListPage = lazy(()=>import("./pages/PaymentOfficer/ContributionList"));
+const ScholarshipReportListPage = lazy(()=>import("./pages/Admin/ScholarshipReportList"));
+const ContributionReportListPage = lazy(()=>import("./pages/Admin/ContributionReportList"));
 
 function App() {
 
@@ -143,6 +145,8 @@ function App() {
                       <Route path={page_routes.admin.scholarship.view(":id")} element={<AdminScholarshipViewPage />} />
                       <Route path={page_routes.admin.contribution.pending_list} element={<AdminNonContributionListPage />} />
                       <Route path={page_routes.admin.contribution.completed_list} element={<AdminContributionListPage />} />
+                      <Route path={page_routes.admin.report.scholarship} element={<ScholarshipReportListPage />} />
+                      <Route path={page_routes.admin.report.contribution} element={<ContributionReportListPage />} />
                     </Route>
                 </Route>
 

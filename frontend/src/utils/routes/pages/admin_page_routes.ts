@@ -53,5 +53,9 @@ export const admin_page_routes = {
     completed_list_main: "/admin/contribution/completed-list?year=" + new Date().getFullYear(),
     pending_list: "/admin/contribution/pending-list",
     pending_list_main: "/admin/contribution/pending-list?year=" + new Date().getFullYear(),
+  },
+  report: {
+    contribution: "/admin/report/contribution",
+    scholarship: "/admin/report/scholarship",
   }
 } as const;

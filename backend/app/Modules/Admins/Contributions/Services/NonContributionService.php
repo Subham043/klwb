@@ -35,7 +35,7 @@ class NonContributionService
 				AllowedFilter::callback('has_year', function (Builder $query, $value) {
 					$query->doesntHave('payments')->orWhere(function ($qry) use ($value){
 						$qry->whereHas('payments', function ($q) use ($value) {
-							$q->where('status', '!=', PaymentStatus::Success->value)->where('year', $value);
+							$q->where('year', $value);
 						});
 					});
 				}),
