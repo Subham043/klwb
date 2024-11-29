@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Enums\Guards;
-use App\Modules\PaymentOfficer\Contributions\Controllers\ContributionExportController;
-use App\Modules\PaymentOfficer\Contributions\Controllers\ContributionPaginateController;
-use App\Modules\PaymentOfficer\Contributions\Controllers\ContributionRecieptPdfController;
-use App\Modules\PaymentOfficer\Contributions\Controllers\ContributionViewController;
-use App\Modules\PaymentOfficer\Contributions\Controllers\NonContributionExportController;
-use App\Modules\PaymentOfficer\Contributions\Controllers\NonContributionPaginateController;
-use App\Modules\PaymentOfficer\Contributions\Controllers\NonContributionViewController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\ContributionExportController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\ContributionPaginateController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\ContributionRecieptPdfController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\ContributionViewController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\NonContributionExportController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\NonContributionPaginateController;
+use App\Modules\PaymentOfficer\Contribution\Controllers\NonContributionViewController;
 use App\Modules\PaymentOfficer\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 

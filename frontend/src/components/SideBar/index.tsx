@@ -120,6 +120,24 @@ const NavMenu = () => {
                 </>
             }
             {
+                [RolesEnum.PAYMENT_OFFICER].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
+                    <Nav.Item eventKey="30" as={NavLink} to={page_routes.payment_officer.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
+                        Dashboard
+                    </Nav.Item>
+                    <Nav.Menu
+                        eventKey="31"
+                        trigger="hover"
+                        title="Contribution"
+                        icon={<TaskIcon />}
+                        placement="rightStart"
+                        className='sidebar-navmenu'
+                    >
+                        <Nav.Item as={NavLink} to={page_routes.payment_officer.contribution.pending_list_main} className='sidebar-navlink' eventKey="31-1">Pending</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.payment_officer.contribution.completed_list_main} className='sidebar-navlink' eventKey="31-2">Completed</Nav.Item>
+                    </Nav.Menu>
+                </>
+            }
+            {
                 [RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes((user && user.role) ? user.role : RolesEnum.STUDENT) && <>
                     <Nav.Item eventKey="13" as={NavLink} to={page_routes.admin.dashboard} className='sidebar-navlink' icon={<AppSelectIcon />}>
                         Dashboard

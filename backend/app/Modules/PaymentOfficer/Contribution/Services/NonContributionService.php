@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Services;
+namespace App\Modules\PaymentOfficer\Contribution\Services;
 
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\Admins\RequestIndustry\Enums\Act;

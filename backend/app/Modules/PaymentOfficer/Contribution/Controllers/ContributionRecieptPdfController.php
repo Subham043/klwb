@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Controllers;
+namespace App\Modules\PaymentOfficer\Contribution\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\NumberToWordService;
-use App\Modules\PaymentOfficer\Contributions\Services\ContributionService;
+use App\Modules\PaymentOfficer\Contribution\Services\ContributionService;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class ContributionRecieptPdfController extends Controller

@@ -20,3 +20,4 @@ export const InstituteAuthorisedLayout = ({roles}:{roles?: RolesEnum[]}) => <Aut
 export const IndustryAuthorisedLayout = ({roles}:{roles?: RolesEnum[]}) => <AuthorisedLayout roles={roles || [RolesEnum.INDUSTRY, RolesEnum.INDUSTRY_STAFF]} />
 export const GovtAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.VERIFICATION_OFFICER]} />
 export const FinanceAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.FINANCIAL_OFFICER]} />
+export const PaymentOfficerAuthorisedLayout = () => <AuthorisedLayout roles={[RolesEnum.PAYMENT_OFFICER]} />

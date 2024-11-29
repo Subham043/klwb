@@ -8,6 +8,7 @@ export const IndustryDashboardQueryKey = "industry_dashboard";
 export const GovtDashboardQueryKey = "govt_dashboard";
 export const FinanceDashboardQueryKey = "finance_dashboard";
 export const AdminDashboardQueryKey = "admin_dashboard";
+export const PaymentOfficerDashboardQueryKey = "payment_officer_dashboard";
 
 export const useStudentDashboardQuery: () => UseQueryResult<{ message: string, is_scholarship_open: boolean, is_eligible_to_apply: boolean, can_resubmit: boolean, total_application: number, total_approved_application: number, total_rejected_application: number, total_scholarship_amount: number }, unknown> = () => {
   const axios = useAxios();
@@ -81,6 +82,19 @@ export const useAdminDashboardQuery: () => UseQueryResult<{ total_application: n
     queryFn: async () => {
       const response = await axios.get<{ total_application: number, total_approved_application: number, total_rejected_application: number, total_pending_application: number }>(
         api_routes.admin.dashboard
+      );
+      return response.data;
+    },
+  });
+};
+
+export const usePaymentOfficerDashboardQuery: () => UseQueryResult<{ total_application: number, total_approved_application: number, total_rejected_application: number, total_pending_application: number }, unknown> = () => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [PaymentOfficerDashboardQueryKey],
+    queryFn: async () => {
+      const response = await axios.get<{ total_application: number, total_approved_application: number, total_rejected_application: number, total_pending_application: number }>(
+        api_routes.payment_officer.dashboard
       );
       return response.data;
     },

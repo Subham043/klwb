@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Resources;
+namespace App\Modules\PaymentOfficer\Contribution\Resources;
 
 use App\Modules\Admins\RequestIndustry\Enums\Act;
 use App\Modules\LocationManagement\Cities\Resources\SingleCityCollection;

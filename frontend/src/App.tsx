@@ -16,6 +16,7 @@ const IndustryVerifiedLayout = lazy(()=>import("./layouts/Verified").then(module
 const AdminAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.AdminAuthorisedLayout })));
 const GovtAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.GovtAuthorisedLayout })));
 const FinanceAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.FinanceAuthorisedLayout })));
+const PaymentOfficerAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.PaymentOfficerAuthorisedLayout })));
 const StudentAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.StudentAuthorisedLayout })));
 const InstituteAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.InstituteAuthorisedLayout })));
 const IndustryAuthorisedLayout = lazy(()=>import("./layouts/Authorised").then(module => ({ default: module.IndustryAuthorisedLayout })));
@@ -95,6 +96,9 @@ const AdminScholarshipListPage = lazy(()=>import("./pages/Admin/ScholarshipList"
 const AdminScholarshipViewPage = lazy(()=>import("./pages/Admin/ScholarshipView"));
 const AdminNonContributionListPage = lazy(()=>import("./pages/Admin/NonContribution"));
 const AdminContributionListPage = lazy(()=>import("./pages/Admin/ContributionList"));
+const PaymentOfficerDashboardPage = lazy(()=>import("./pages/PaymentOfficer/Dashboard"));
+const PaymentOfficerNonContributionListPage = lazy(()=>import("./pages/PaymentOfficer/NonContribution"));
+const PaymentOfficerContributionListPage = lazy(()=>import("./pages/PaymentOfficer/ContributionList"));
 
 function App() {
 
@@ -164,6 +168,16 @@ function App() {
                     </Route>
                 </Route>
                 {/* Finance Routes Ends */}
+
+                {/* Payment Officer Routes Starts */}
+                <Route element={<PaymentOfficerAuthorisedLayout />}>
+                    <Route element={<DashboardLayout />}>
+                      <Route path={page_routes.payment_officer.dashboard} element={<PaymentOfficerDashboardPage />} />
+                      <Route path={page_routes.payment_officer.contribution.pending_list} element={<PaymentOfficerNonContributionListPage />} />
+                      <Route path={page_routes.payment_officer.contribution.completed_list} element={<PaymentOfficerContributionListPage />} />
+                    </Route>
+                </Route>
+                {/* Payment Officer Routes Ends */}
 
                 
               </Route>

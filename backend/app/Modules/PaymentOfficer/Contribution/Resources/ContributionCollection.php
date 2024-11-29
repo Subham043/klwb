@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Resources;
+namespace App\Modules\PaymentOfficer\Contribution\Resources;
 
 use App\Http\Services\NumberToWordService;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;

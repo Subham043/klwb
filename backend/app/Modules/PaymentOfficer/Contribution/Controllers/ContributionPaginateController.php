@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Controllers;
+namespace App\Modules\PaymentOfficer\Contribution\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\PaymentOfficer\Contributions\Resources\ContributionCollection;
-use App\Modules\PaymentOfficer\Contributions\Services\ContributionService;
+use App\Modules\PaymentOfficer\Contribution\Resources\ContributionCollection;
+use App\Modules\PaymentOfficer\Contribution\Services\ContributionService;
 use Illuminate\Http\Request;
 
 class ContributionPaginateController extends Controller

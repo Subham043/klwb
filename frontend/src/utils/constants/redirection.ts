@@ -10,7 +10,7 @@ export const loginRedirect = (role: RolesEnum) => {
 		case RolesEnum.FINANCIAL_OFFICER:
 			return page_routes.finance.dashboard;
 		case RolesEnum.PAYMENT_OFFICER:
-			return page_routes.admin.dashboard;
+			return page_routes.payment_officer.dashboard;
 		case RolesEnum.VERIFICATION_OFFICER:
 			return page_routes.govt.dashboard;
 		case RolesEnum.INDUSTRY:

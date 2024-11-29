@@ -7,6 +7,7 @@ import { finance_api_routes } from "./finance_api_routes";
 import { govt_api_routes } from "./govt_api_routes";
 import { industry_api_routes } from "./industry_api_routes";
 import { institute_api_routes } from "./institute_api_routes";
+import { payment_officer_api_routes } from "./payment_officer_api_routes";
 import { user_api_routes } from "./user_api_routes";
 
 export const api_routes = {
@@ -24,6 +25,9 @@ export const api_routes = {
   },
   finance: {
     ...finance_api_routes,
+  },
+  payment_officer: {
+    ...payment_officer_api_routes,
   },
   admin: {
     ...admin_api_routes,

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Controllers;
+namespace App\Modules\PaymentOfficer\Contribution\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\PaymentOfficer\Contributions\Resources\NonContributionCollection;
-use App\Modules\PaymentOfficer\Contributions\Services\NonContributionService;
+use App\Modules\PaymentOfficer\Contribution\Resources\NonContributionCollection;
+use App\Modules\PaymentOfficer\Contribution\Services\NonContributionService;
 use Illuminate\Http\Request;
 
 class NonContributionPaginateController extends Controller

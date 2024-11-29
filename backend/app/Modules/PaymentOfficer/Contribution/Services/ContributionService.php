@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contributions\Services;
+namespace App\Modules\PaymentOfficer\Contribution\Services;
 
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
