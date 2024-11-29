@@ -26,6 +26,7 @@ class AdminApplicationCollection extends ApplicationCollection
 			'inactive' => $this->inactive,
 			'delete_reason' => $this->delete_reason,
 			'approved_by' => $this->approved_by ? UserCollection::make($this->approved_by) : null,
+			'industryPayment' => PaymentCollection::make($this->industryPayment) ?? null,
 		]);
 	}
 }

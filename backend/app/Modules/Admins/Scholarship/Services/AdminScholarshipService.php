@@ -18,7 +18,9 @@ class AdminScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
-			->with('approved_by');
+			->with([
+				'approved_by'
+			]);
 	}
 	protected function query(): QueryBuilder
 	{

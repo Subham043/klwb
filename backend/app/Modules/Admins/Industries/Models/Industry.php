@@ -72,4 +72,9 @@ class Industry extends Model implements AuthTraitInterface
         return $this->hasMany(Payment::class, 'comp_regd_id');
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'comp_regd_id')->latestOfMany('year', 'desc');
+    }
+
 }

@@ -409,6 +409,24 @@ export type StudentApplicationType = {
   delete_reason: string|null;
   inactive: boolean;
   approved_by: AuthType|null;
+  industryPayment: {
+    id: number;
+    comp_regd_id: number;
+    year: number;
+    pay_id: string;
+    price_word: string;
+    price: number;
+    male: number;
+    female: number;
+    total_employees: number;
+    interest: number;
+    status: number;
+    status_text: string;
+    employee_excel: string|null;
+    payed_on: string;
+    created_at: string;
+    updated_at: string;
+  }|null;
 }
 
 export type PaymentType = {

@@ -158,6 +158,14 @@ const AdminScholarshipListPage: FC = () => {
                     </Table.Column>
 
                     <Table.Column width={160} verticalAlign="middle">
+                            <Table.HeaderCell>Industry Payment</Table.HeaderCell>
+
+                            <Table.Cell style={{ padding: "6px" }}>
+                                    {(rowData) => rowData.industryPayment ? <Badge style={{ background: '#4caf50', padding: '7px 9px', }} content={'PAID'} /> : <Badge style={{ background: '#f44336', padding: '7px 9px', }} content={'UNPAID'} />}
+                            </Table.Cell>
+                    </Table.Column>
+
+                    <Table.Column width={160} verticalAlign="middle">
                             <Table.HeaderCell>Active/Inactive</Table.HeaderCell>
 
                             <Table.Cell style={{ padding: "6px" }}>

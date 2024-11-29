@@ -8,6 +8,7 @@ use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Admins\ApplicationDates\Models\ApplicationDate;
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\Admins\Institutes\Models\Institute;
+use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\Students\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -89,12 +90,12 @@ class Application extends Model implements ScholarshipApplicationTraitInterface
 	{
 		return $this->belongsTo(User::class, 'student_id')->withDefault();
 	}
-	
+
 	public function institute()
 	{
 		return $this->belongsTo(Institute::class, 'school_id')->withDefault();
 	}
-	
+
 	public function industry()
 	{
 		return $this->belongsTo(Industry::class, 'company_id')->withDefault();
@@ -124,10 +125,34 @@ class Application extends Model implements ScholarshipApplicationTraitInterface
 	{
 		return $this->hasOne(ApplicationCompany::class, 'application_id')->withDefault();
 	}
-	
+
 	public function account()
 	{
 		return $this->hasOne(ApplicationAccount::class, 'application_id')->withDefault();
 	}
 
+	public function industryPayments()
+	{
+		return $this->hasManyThrough(
+			Payment::class,    // Final model we want to access
+			Industry::class,   // Intermediate model
+			'id',              // Foreign key on the `industries` table (from applications)
+			'comp_regd_id',     // Foreign key on the `payments` table
+			'company_id',     // Local key on the `applications` table
+			'id'               // Local key on the `industries` table
+		);
+	}
+
+	public function industryPayment()
+	{
+		return $this->hasOneThrough	(
+			Payment::class,    // Final model we want to access
+			Industry::class,   // Intermediate model
+			'id',              // Foreign key on the `industries` table (from applications)
+			'comp_regd_id',     // Foreign key on the `payments` table
+			'company_id',     // Local key on the `applications` table
+			'id'               // Local key on the `industries` table
+		)->orderBy('year', 'desc')->where('status', 1)->where('payments.year', '=', $this->application_year);
+		// ->whereColumn('payments.year', 'applications.application_year');
+	}
 }
