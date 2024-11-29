@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/api/industry.php',
             __DIR__.'/../routes/api/institute.php',
             __DIR__.'/../routes/api/finance.php',
+            __DIR__.'/../routes/api/payment_officer.php',
             __DIR__.'/../routes/api.php',
         ],
         apiPrefix: 'api',
