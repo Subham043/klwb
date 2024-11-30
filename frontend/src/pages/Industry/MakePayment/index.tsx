@@ -89,6 +89,10 @@ export default function MakePaymentPage() {
 			toastError("Both male and female employees cannot be 0");
 			return;
 		}
+		if((+maleCount + +femaleCount) < 50){
+			toastError("Minimum of 50 employees in total is required to be eligible for contribution.");
+			return;
+		}
 		setLoading(true);
 		try {
 			const formData = new FormData();
@@ -207,6 +211,9 @@ export default function MakePaymentPage() {
 											<Col className="pb-1 pt-1" xs={24}>
 												<table className={classes.table} border={1}>
 													<thead>
+														<tr className={classes.bg_indigo}>
+															<th colSpan={5}>Minimum of 50 employees in total is required to be eligible for contribution.</th>
+														</tr>
 														<tr>
 															<th>No. of Male</th>
 															<th>No. of Female</th>
