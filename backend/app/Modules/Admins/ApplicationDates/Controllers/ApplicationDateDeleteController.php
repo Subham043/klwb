@@ -10,6 +10,13 @@ class ApplicationDateDeleteController extends Controller
 {
     public function __construct(private ApplicationDateService $applicationDateService){}
 
+    /**
+     * Delete the specified ApplicationDate from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function index($id){
         $applicationDate = $this->applicationDateService->getById($id);
 

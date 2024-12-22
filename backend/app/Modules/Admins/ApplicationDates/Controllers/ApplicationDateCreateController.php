@@ -12,6 +12,12 @@ class ApplicationDateCreateController extends Controller
 {
     public function __construct(private ApplicationDateService $applicationDateService){}
 
+    /**
+     * Store a newly created ApplicationDate in storage.
+     *
+     * @param \App\Modules\Admins\ApplicationDates\Requests\ApplicationDateCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ApplicationDateCreateRequest $request){
         try {
             //code...

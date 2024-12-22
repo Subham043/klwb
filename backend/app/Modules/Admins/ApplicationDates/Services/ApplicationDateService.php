@@ -27,7 +27,7 @@ class ApplicationDateService extends AbstractExcelService
                 ]);
     }
     
-    public function getLatest(): ApplicationDate|null
+    public function getLatest(): ApplicationDate
     {
         return $this->model()->latest()->firstOrFail();
     }

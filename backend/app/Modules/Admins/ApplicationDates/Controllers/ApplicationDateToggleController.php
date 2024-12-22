@@ -11,6 +11,13 @@ class ApplicationDateToggleController extends Controller
 {
     public function __construct(private ApplicationDateService $applicationDateService){}
 
+    /**
+     * Toggle status of an Application Date.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $applicationDate = $this->applicationDateService->getById($id);
         try {
