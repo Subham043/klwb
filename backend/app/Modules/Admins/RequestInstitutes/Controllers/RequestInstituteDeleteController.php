@@ -5,6 +5,7 @@ namespace App\Modules\Admins\RequestInstitutes\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\RequestInstitutes\Resources\RequestInstituteCollection;
 use App\Modules\Admins\RequestInstitutes\Services\RequestInstituteService;
+use Illuminate\Support\Facades\DB;
 
 class RequestInstituteDeleteController extends Controller
 {
@@ -20,7 +21,7 @@ class RequestInstituteDeleteController extends Controller
     
     public function index($id){
         $institute = $this->instituteService->getById($id);
-
+        DB::beginTransaction();
         try {
             //code...
             $this->instituteService->delete(
@@ -28,7 +29,10 @@ class RequestInstituteDeleteController extends Controller
             );
             return response()->json(["message" => "Request Institute deleted successfully.", "data" => RequestInstituteCollection::make($institute)], 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
     }
 

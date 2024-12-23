@@ -20,6 +20,7 @@ class FinanceScholarshipService
 		return Application::commonWith()
 			->commonRelation()
 			->inAdminStage()
+			->applicationIsActive()
 			->isApplicationApproved();
 	}
 	protected function query(): QueryBuilder
@@ -103,23 +104,23 @@ class FinanceScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->applicationIsActive()
 			->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Approve->value)->count();
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Approve->value)->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Reject->value)->count();
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Reject->value)->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Pending->value)->count();
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Pending->value)->applicationIsActive()->count();
 	}
 
 	public function excel(): SimpleExcelWriter

@@ -8,6 +8,19 @@ use App\Modules\Auth\Common\Requests\PasswordPostRequest;
 
 class PasswordUpdateController extends Controller
 {
+    /**
+     * Update the user's password.
+     *
+     * @authenticated
+     *
+     * @response 200 {
+     *    "message": "Password Updated successfully.",
+     * }
+     *
+     * @response 400 {
+     *    "message": "something went wrong. Please try again",
+     * }
+     */
     public function index(PasswordPostRequest $request)
     {
         try {

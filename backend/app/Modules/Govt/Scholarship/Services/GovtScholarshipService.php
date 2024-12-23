@@ -18,6 +18,7 @@ class GovtScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->whereApplicationStageGreaterThan(ApplicationState::Company);
 	}
 	protected function query(): QueryBuilder
@@ -110,7 +111,7 @@ class GovtScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::whereApplicationStageGreaterThan(ApplicationState::Company)
+		return Application::whereApplicationStageGreaterThan(ApplicationState::Company)->applicationIsActive()
 			->count();
 	}
 
@@ -122,21 +123,21 @@ class GovtScholarshipService
 			})->orWhere(function ($q) {
 				$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
 			});
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inGovtStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inGovtStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function excel(): SimpleExcelWriter

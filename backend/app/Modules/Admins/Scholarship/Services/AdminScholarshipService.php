@@ -18,6 +18,7 @@ class AdminScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->with([
 				'approved_by'
 			]);
@@ -109,28 +110,28 @@ class AdminScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::count();
+		return Application::applicationIsActive()->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inAdminStage()->isApplicationApproved();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inAdminStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inAdminStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function excel(): SimpleExcelWriter

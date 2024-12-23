@@ -18,6 +18,7 @@ class InstituteScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->belongsToAuthSchool()
 			->whereApplicationStageGreaterThan(ApplicationState::None);
 	}
@@ -74,6 +75,7 @@ class InstituteScholarshipService
 	{
 		return Application::belongsToAuthSchool()
 			->whereApplicationStageGreaterThan(ApplicationState::None)
+			->applicationIsActive()
 			->count();
 	}
 
@@ -85,21 +87,21 @@ class InstituteScholarshipService
 			})->orWhere(function ($q) {
 				$q->whereApplicationStageGreaterThan(ApplicationState::School);
 			});
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::belongsToAuthSchool()->where(function ($qry) {
 			$qry->inSchoolStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::belongsToAuthSchool()->where(function ($qry) {
 			$qry->inSchoolStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 }
 

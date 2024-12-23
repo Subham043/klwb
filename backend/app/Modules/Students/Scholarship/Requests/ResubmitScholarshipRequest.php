@@ -41,20 +41,26 @@ class ResubmitScholarshipRequest extends ApplyScholarshipRequest
         $rules = [
 
             'adharcard_no' => ['required','numeric', 'digits:12', 'different:f_adhar', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date, $application) {
-                $basic_detail = ApplicationBasicDetail::with('application')->where('adharcard_no', $value)->whereHas('application')->latest()->first();
+                $basic_detail = ApplicationBasicDetail::with('application')->where('adharcard_no', $value)->whereHas('application', function($qry){
+                    $qry->applicationIsActive();
+                })->latest()->first();
                 if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year && $basic_detail->application->id != $application->id) {
                     $fail('This adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
 
             'f_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:m_adhar', function ($attribute, $value, $fail) use($application_date, $application) {
-                $basic_detail = ApplicationBasicDetail::with('application')->where('f_adhar', $value)->whereHas('application')->latest()->first();
+                $basic_detail = ApplicationBasicDetail::with('application')->where('f_adhar', $value)->whereHas('application', function($qry){
+                    $qry->applicationIsActive();
+                })->latest()->first();
                 if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year && $basic_detail->application->id != $application->id) {
                     $fail('The father\'s adhar card number has already been used to apply for scholarship in this year.');
                 }
             }],
             'm_adhar' => ['nullable', Rule::requiredIf(empty($this->not_applicable) || (!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Father->value)), Rule::prohibitedIf((!empty($this->not_applicable) && $this->not_applicable == NotApplicable::Mother->value)),'numeric', 'digits:12', 'different:adharcard_no', 'different:f_adhar', function ($attribute, $value, $fail) use($application_date, $application) {
-                $basic_detail = ApplicationBasicDetail::with('application')->where('m_adhar', $value)->whereHas('application')->latest()->first();
+                $basic_detail = ApplicationBasicDetail::with('application')->where('m_adhar', $value)->whereHas('application', function($qry){
+                    $qry->applicationIsActive();
+                })->latest()->first();
                 if (!empty($basic_detail) && !empty($basic_detail->application) && $basic_detail->application->application_year == $application_date->application_year && $basic_detail->application->id != $application->id) {
                     $fail('The mother\'s adhar card number has already been used to apply for scholarship in this year.');
                 }

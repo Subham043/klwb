@@ -5,6 +5,7 @@ namespace App\Modules\Admins\Fees\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\Fees\Resources\ExtendedFeeCollection;
 use App\Modules\Admins\Fees\Services\FeeService;
+use Illuminate\Support\Facades\DB;
 
 class FeeDeleteController extends Controller
 {
@@ -18,7 +19,7 @@ class FeeDeleteController extends Controller
      */
     public function index($id){
         $fee = $this->feeService->getById($id);
-
+        DB::beginTransaction();
         try {
             //code...
             $this->feeService->delete(
@@ -26,7 +27,10 @@ class FeeDeleteController extends Controller
             );
             return response()->json(["message" => "Fee deleted successfully.", "data" => ExtendedFeeCollection::make($fee)], 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
     }
 

@@ -7,6 +7,7 @@ use App\Http\Enums\Guards;
 use App\Modules\Admins\Fees\Requests\FeeCreateRequest;
 use App\Modules\Admins\Fees\Resources\ExtendedFeeCollection;
 use App\Modules\Admins\Fees\Services\FeeService;
+use Illuminate\Support\Facades\DB;
 
 class FeeCreateController extends Controller
 {
@@ -19,6 +20,7 @@ class FeeCreateController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(FeeCreateRequest $request){
+        DB::beginTransaction();
         try {
             //code...
             $fee = $this->feeService->create(
@@ -26,7 +28,10 @@ class FeeCreateController extends Controller
             );
             return response()->json(["message" => "Fee created successfully.", "data" => ExtendedFeeCollection::make($fee)], 201);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
 
     }

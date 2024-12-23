@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Admins\Institutes\Requests\InstituteRequest;
 use App\Modules\Admins\Institutes\Resources\InstituteCollection;
 use App\Modules\Admins\Institutes\Services\InstituteService;
+use Illuminate\Support\Facades\DB;
 
 class InstituteCreateController extends Controller
 {
@@ -34,6 +35,7 @@ class InstituteCreateController extends Controller
      * }
      */
     public function index(InstituteRequest $request){
+        DB::beginTransaction();
         try {
             //code...
             $institute = $this->instituteService->create(
@@ -41,7 +43,10 @@ class InstituteCreateController extends Controller
             );
             return response()->json(["message" => "Institute created successfully.", "data" => InstituteCollection::make($institute)], 201);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
 
     }

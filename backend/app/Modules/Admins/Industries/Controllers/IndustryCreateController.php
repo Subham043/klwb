@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Admins\Industries\Requests\IndustryRequest;
 use App\Modules\Admins\Industries\Resources\IndustryCollection;
 use App\Modules\Admins\Industries\Services\IndustryService;
+use Illuminate\Support\Facades\DB;
 
 class IndustryCreateController extends Controller
 {
@@ -19,6 +20,7 @@ class IndustryCreateController extends Controller
      */
 
     public function index(IndustryRequest $request){
+        DB::beginTransaction();
         try {
             //code...
             $industry = $this->industryService->create(
@@ -26,7 +28,10 @@ class IndustryCreateController extends Controller
             );
             return response()->json(["message" => "Industry created successfully.", "data" => IndustryCollection::make($industry)], 201);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
 
     }

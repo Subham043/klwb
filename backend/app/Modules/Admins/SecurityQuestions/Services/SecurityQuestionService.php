@@ -14,7 +14,7 @@ class SecurityQuestionService extends AbstractExcelService
 {
     public function model(): Builder
     {
-        return SecurityQuestion::whenNotAdmin();
+        return SecurityQuestion::isActive();
     }
     public function query(): QueryBuilder
     {

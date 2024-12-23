@@ -38,6 +38,7 @@ class ScholarshipApplicationChecksService
 			return false;
 		}
 		$application = Application::belongsToAuthStudent()
+				->applicationIsActive()
 				->where('application_year', $this->latestApplicationDate->application_year)
 				->where('application_date_id', $this->latestApplicationDate->id)
 				->whereBetween('date', [$this->latestApplicationDate->from_date, $this->latestApplicationDate->to_date->addDay(1)])
@@ -48,9 +49,34 @@ class ScholarshipApplicationChecksService
 			return true;
 	}
 
+	public function isApplicationLatest(Application $application): bool
+	{
+		return $application->date->between($this->latestApplicationDate->from_date->format('Y-m-d'), $this->latestApplicationDate->to_date->addDay(1)->format('Y-m-d'));
+	}
+	
+	public function isApplicationRejected(Application $application): bool
+	{
+		return $application->status == ApplicationStatus::Reject->value;
+	}
+	
+	public function isApplicationPending(Application $application): bool
+	{
+		return $application->status == ApplicationStatus::Pending->value;
+	}
+	
+	public function isApplicationPaymentPending(Application $application): bool
+	{
+		return $application->pay_status == ApplicationStatus::Pending->value;
+	}
+	
+	public function isApplicationApproved(Application $application): bool
+	{
+		return $application->status == ApplicationStatus::Approve->value;
+	}
+	
 	public function canResubmit(Application $application): bool
 	{
-		if ((($application->date->between($this->latestApplicationDate->from_date->format('Y-m-d'), $this->latestApplicationDate->to_date->addDay(1)->format('Y-m-d')))) && $application->status == ApplicationStatus::Reject->value && $this->latestApplicationDate->can_resubmit) {
+		if ($this->isApplicationLatest($application) && $this->isApplicationRejected($application) && $this->latestApplicationDate->can_resubmit) {
 			return true;
 		}
 		return false;
@@ -58,7 +84,7 @@ class ScholarshipApplicationChecksService
 
 	private function canApprove(Application $application): bool
 	{
-		if ((($application->date->between($this->latestApplicationDate->from_date->format('Y-m-d'), $this->latestApplicationDate->to_date->addDay(1)->format('Y-m-d')))) && $application->status == ApplicationStatus::Pending->value && $this->latestApplicationDate->can_approve) {
+		if ($this->isApplicationLatest($application) && $this->isApplicationPending($application) && $this->latestApplicationDate->can_approve) {
 			return true;
 		}
 		return false;
@@ -66,7 +92,7 @@ class ScholarshipApplicationChecksService
 
 	private function canVerify(Application $application): bool
 	{
-		if ((($application->date->between($this->latestApplicationDate->from_date->format('Y-m-d'), $this->latestApplicationDate->to_date->addDay(1)->format('Y-m-d')))) && $application->status == ApplicationStatus::Pending->value && $this->latestApplicationDate->can_verify) {
+		if ($this->isApplicationLatest($application) && $this->isApplicationPending($application) && $this->latestApplicationDate->can_verify) {
 			return true;
 		}
 		return false;
@@ -98,7 +124,7 @@ class ScholarshipApplicationChecksService
 	
 	public function canFinanceVerify(Application $application): bool
 	{
-		if ((($application->date->between($this->latestApplicationDate->from_date->format('Y-m-d'), $this->latestApplicationDate->to_date->addDay(1)->format('Y-m-d')))) && $application->pay_status == ApplicationStatus::Pending->value && $application->status == ApplicationStatus::Approve->value && $application->application_state == ApplicationState::Admin->value && $this->latestApplicationDate->can_verify) {
+		if ($this->isApplicationLatest($application) && $this->isApplicationPaymentPending($application) && $this->isApplicationApproved($application) && $application->application_state == ApplicationState::Admin->value && $this->latestApplicationDate->can_verify) {
 			return true;
 		}
 		return false;
