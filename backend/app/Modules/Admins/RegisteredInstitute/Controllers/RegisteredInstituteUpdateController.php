@@ -12,6 +12,14 @@ class RegisteredInstituteUpdateController extends Controller
 {
     public function __construct(private RegisteredInstituteService $instituteService){}
 
+    /**
+     * Update the specified registered institute.
+     *
+     * @param RegisteredInstituteUpdateRequest $request The request object containing validated data.
+     * @param int $id The ID of the institute to be updated.
+     * @return \Illuminate\Http\JsonResponse A response indicating success or failure of the update operation.
+     */
+
     public function index(RegisteredInstituteUpdateRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         $request->validated();

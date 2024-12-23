@@ -10,6 +10,13 @@ class IndustryEmployeeDeleteController extends Controller
 {
     public function __construct(private IndustryEmployeeService $employeeService){}
 
+    /**
+     * Delete an industry employee
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $employee = $this->employeeService->getById($id);
 

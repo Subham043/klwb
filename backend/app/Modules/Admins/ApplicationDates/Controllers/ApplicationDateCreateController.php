@@ -7,6 +7,7 @@ use App\Http\Enums\Guards;
 use App\Modules\Admins\ApplicationDates\Requests\ApplicationDateCreateRequest;
 use App\Modules\Admins\ApplicationDates\Resources\ApplicationDateCollection;
 use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationDateCreateController extends Controller
 {
@@ -19,6 +20,7 @@ class ApplicationDateCreateController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(ApplicationDateCreateRequest $request){
+        DB::beginTransaction();
         try {
             //code...
             $applicationDate = $this->applicationDateService->create(
@@ -26,7 +28,10 @@ class ApplicationDateCreateController extends Controller
             );
             return response()->json(["message" => "Application Date created successfully.", "data" => ApplicationDateCollection::make($applicationDate)], 201);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
 
     }

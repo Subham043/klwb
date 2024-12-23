@@ -11,6 +11,12 @@ class CityCreateController extends Controller
 {
     public function __construct(private CityService $cityService){}
 
+    /**
+     * Store a newly created City in storage.
+     *
+     * @param  \App\Modules\LocationManagement\Cities\Requests\CityRequest  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(CityRequest $request){
         try {
             //code...

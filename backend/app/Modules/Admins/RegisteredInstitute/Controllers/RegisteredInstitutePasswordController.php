@@ -11,6 +11,13 @@ class RegisteredInstitutePasswordController extends Controller
 {
     public function __construct(private RegisteredInstituteService $instituteService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\RegisteredInstitute\Requests\RegisteredInstitutePasswordRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(RegisteredInstitutePasswordRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         $request->validated();

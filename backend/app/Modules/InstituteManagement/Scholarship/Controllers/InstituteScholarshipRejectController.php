@@ -12,6 +12,13 @@ class InstituteScholarshipRejectController extends Controller
 {
     public function __construct(private InstituteScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Reject a scholarship application.
+     *
+     * @param InstituteRejectScholarshipRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(InstituteRejectScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);

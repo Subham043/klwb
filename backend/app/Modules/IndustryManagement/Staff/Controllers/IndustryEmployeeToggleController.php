@@ -11,6 +11,11 @@ class IndustryEmployeeToggleController extends Controller
 {
     public function __construct(private IndustryEmployeeService $employeeService){}
 
+    /**
+     * Toggle the block status of an industry employee
+     * @param int $id industry employee id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();

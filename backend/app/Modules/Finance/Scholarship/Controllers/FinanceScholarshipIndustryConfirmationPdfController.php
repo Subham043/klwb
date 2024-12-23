@@ -11,6 +11,11 @@ class FinanceScholarshipIndustryConfirmationPdfController extends Controller
 {
     public function __construct(private FinanceScholarshipService $scholarshipService){}
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    
     public function index($id){
         $application = $this->scholarshipService->getById($id);
         if($application->industry->auth && ($application->industry->auth->reg_doc_link!=null && $application->industry->auth->sign_link!=null && $application->industry->auth->seal_link!=null && $application->industry->auth->gst_link!=null && $application->industry->auth->pan_link!=null && $application->industryPayment)){

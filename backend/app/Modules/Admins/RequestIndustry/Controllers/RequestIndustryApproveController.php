@@ -12,6 +12,12 @@ class RequestIndustryApproveController extends Controller
 {
     public function __construct(private RequestIndustryService $reqIndustryService, private IndustryService $industryService){}
 
+    /**
+     * Approve a request industry.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $reqIndustry = $this->reqIndustryService->getById($id);
         DB::beginTransaction();

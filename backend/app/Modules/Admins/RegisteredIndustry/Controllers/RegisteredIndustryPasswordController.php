@@ -11,6 +11,13 @@ class RegisteredIndustryPasswordController extends Controller
 {
     public function __construct(private RegisteredIndustryService $industryService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\RegisteredIndustry\Requests\RegisteredIndustryPasswordRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(RegisteredIndustryPasswordRequest $request, $id){
         $industry = $this->industryService->getById($id);
         $request->validated();

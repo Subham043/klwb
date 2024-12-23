@@ -14,6 +14,19 @@ class InstituteUpdateController extends Controller
 {
     public function __construct(private InstituteService $instituteService, private InstituteAuthService $instituteAuthService){}
 
+    /**
+     * Update the specified Institute.
+     *
+     * @param InstituteRequest $request The request containing validated data for updating the institute.
+     * @param int $id The ID of the institute to be updated.
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating success or failure of the update.
+     *
+     * This method retrieves an institute by ID, begins a database transaction, and attempts to update
+     * the institute's details and address using the provided request data. If the update is successful,
+     * a success message and the updated institute data are returned. If an error occurs, the transaction
+     * is rolled back, and an error message is returned.
+     */
+
     public function index(InstituteRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         DB::beginTransaction();

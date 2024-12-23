@@ -10,6 +10,13 @@ class IndustryEmployeeViewController extends Controller
 {
     public function __construct(private IndustryEmployeeService $employeeService){}
 
+    /**
+     * Fetch an industry employee
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $employee = $this->employeeService->getById($id);
         return response()->json(["message" => "Employee fetched successfully.", "data" => IndustryEmployeeCollection::make($employee)], 200);

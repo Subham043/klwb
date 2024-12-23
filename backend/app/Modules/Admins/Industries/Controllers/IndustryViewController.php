@@ -10,6 +10,12 @@ class IndustryViewController extends Controller
 {
     public function __construct(private IndustryService $industryService){}
 
+    /**
+     * Get an industry by its id.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $industry = $this->industryService->getById($id);
         return response()->json(["message" => "Industry fetched successfully.", "data" => IndustryCollection::make($industry)], 200);

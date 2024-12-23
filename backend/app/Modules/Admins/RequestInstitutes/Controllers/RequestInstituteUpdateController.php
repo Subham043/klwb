@@ -12,6 +12,13 @@ class RequestInstituteUpdateController extends Controller
 {
     public function __construct(private RequestInstituteService $instituteService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\RequestInstitutes\Requests\RequestInstituteRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(RequestInstituteRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         DB::beginTransaction();

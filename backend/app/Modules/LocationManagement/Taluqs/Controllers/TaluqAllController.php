@@ -10,6 +10,11 @@ class TaluqAllController extends Controller
 {
     public function __construct(private TaluqService $taluqService){}
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $taluq = $this->taluqService->all();
         return response()->json(["message" => "Taluq fetched successfully.", "data" => TaluqCollection::collection($taluq)], 200);

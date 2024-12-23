@@ -9,6 +9,11 @@ class IndustryExportController extends Controller
 {
     public function __construct(private IndustryService $industryService){}
 
+    /**
+     * Download an Excel file containing all industries.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function index(){
         return $this->industryService->excel()->toBrowser();
     }

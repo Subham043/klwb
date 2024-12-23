@@ -13,6 +13,13 @@ class InstituteScholarshipApproveController extends Controller
 {
     public function __construct(private InstituteScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Approve a scholarship application.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request, $id){
         $application = $this->scholarshipService->getById($id);
         if($this->applicationChecks->canSchoolApprove($application)){

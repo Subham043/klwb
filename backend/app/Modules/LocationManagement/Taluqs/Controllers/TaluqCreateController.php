@@ -11,6 +11,14 @@ class TaluqCreateController extends Controller
 {
     public function __construct(private TaluqService $taluqService){}
 
+    /**
+     * Handle the creation of a new Taluq.
+     *
+     * @param TaluqRequest $request The request instance containing the validated data for creating a Taluq.
+     * 
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating the success or failure of the creation process.
+     */
+
     public function index(TaluqRequest $request){
         try {
             //code...

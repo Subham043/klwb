@@ -10,6 +10,14 @@ class RequestInstituteDeleteController extends Controller
 {
     public function __construct(private RequestInstituteService $instituteService){}
 
+    /**
+     * Delete a Request Institute
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    
     public function index($id){
         $institute = $this->instituteService->getById($id);
 

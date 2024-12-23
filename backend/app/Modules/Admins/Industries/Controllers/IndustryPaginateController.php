@@ -11,6 +11,12 @@ class IndustryPaginateController extends Controller
 {
     public function __construct(private IndustryService $industryService){}
 
+    /**
+     * Returns a paginated list of industries.
+     *
+     * @param Request $request
+     * @return IndustryCollection
+     */
     public function index(Request $request){
         $data = $this->industryService->paginate($request->total ?? 10);
         return IndustryCollection::collection($data);

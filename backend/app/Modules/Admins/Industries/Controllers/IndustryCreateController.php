@@ -11,6 +11,13 @@ class IndustryCreateController extends Controller
 {
     public function __construct(private IndustryService $industryService){}
 
+    /**
+     * Handles the creation of a new industry.
+     *
+     * @param IndustryRequest $request The request object containing industry data.
+     * @return \Illuminate\Http\JsonResponse JSON response indicating success or failure.
+     */
+
     public function index(IndustryRequest $request){
         try {
             //code...

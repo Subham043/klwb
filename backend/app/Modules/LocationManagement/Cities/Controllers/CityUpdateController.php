@@ -11,6 +11,13 @@ class CityUpdateController extends Controller
 {
     public function __construct(private CityService $cityService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\LocationManagement\Cities\Requests\CityRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(CityRequest $request, $id){
         $city = $this->cityService->getById($id);
         try {

@@ -10,6 +10,13 @@ class ClassesDeleteController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+/**
+ * Remove the specified Classes from storage.
+ *
+ * @param  int  $id  The ID of the Classes to be deleted.
+ * @return \Illuminate\Http\JsonResponse
+ */
+
     public function index($id){
         $classes = $this->classesService->getById($id);
 

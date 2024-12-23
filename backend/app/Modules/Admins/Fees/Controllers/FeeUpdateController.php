@@ -11,6 +11,14 @@ class FeeUpdateController extends Controller
 {
     public function __construct(private FeeService $feeService){}
 
+    /**
+     * Update a fee by its id
+     *
+     * @param FeeUpdateRequest $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(FeeUpdateRequest $request, $id){
         $fee = $this->feeService->getById($id);
         try {

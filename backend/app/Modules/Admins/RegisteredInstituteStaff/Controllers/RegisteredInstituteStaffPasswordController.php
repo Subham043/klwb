@@ -12,6 +12,14 @@ class RegisteredInstituteStaffPasswordController extends Controller
 {
     public function __construct(private RegisteredInstituteStaffService $staffService, private RegisteredInstituteService $instituteService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\RegisteredInstituteStaff\Requests\RegisteredInstituteStaffPasswordRequest  $request
+     * @param  int  $id
+     * @param  int  $staff_id
+     * @return \Illuminate\Http\Response
+     */
     public function index(RegisteredInstituteStaffPasswordRequest $request, $id, $staff_id){
         $school = $this->instituteService->getById($id);
         $staff = $this->staffService->get($school->profile->school_id, $school->profile->id, $staff_id);

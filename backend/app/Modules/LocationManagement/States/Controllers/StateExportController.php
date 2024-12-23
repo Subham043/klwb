@@ -9,6 +9,11 @@ class StateExportController extends Controller
 {
     public function __construct(private StateService $stateService){}
 
+    /**
+     * Download an Excel file containing all states.
+     *
+     * @return \Maatwebsite\Excel\Excel
+     */
     public function index(){
         return $this->stateService->excel()->toBrowser();
     }

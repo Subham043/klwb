@@ -11,6 +11,13 @@ class GraduationUpdateController extends Controller
 {
     public function __construct(private GraduationService $graduationService){}
 
+    /**
+     * Update a graduation.
+     *
+     * @param GraduationRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(GraduationRequest $request, $id){
         $graduation = $this->graduationService->getById($id);
         try {

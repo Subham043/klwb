@@ -10,6 +10,12 @@ class RegisteredIndustryScholarshipExportController extends Controller
 {
     public function __construct(private RegisteredIndustryScholarshipService $scholarshipService){}
 
+    /**
+     * Download excel file containing all applications related to the given industry.
+     *
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function index($id){
         $industry = (new RegisteredIndustryService)->getById($id);
         return $this->scholarshipService->excel($industry->reg_industry_id)->toBrowser();

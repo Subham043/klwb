@@ -11,6 +11,27 @@ class GraduationCreateController extends Controller
 {
     public function __construct(private GraduationService $graduationService){}
 
+/**
+ * Handle the incoming request to create a new graduation.
+ *
+ * @param GraduationRequest $request
+ * @return \Illuminate\Http\JsonResponse
+ *
+ * @OA\Post(
+ *     path="/api/v1/graduations",
+ *     tags={"Graduation"},
+ *     summary="Create a new graduation",
+ *     description="Create a new graduation in the system",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(ref="#/components/schemas/GraduationRequest")
+ *     ),
+ *     @OA\Response(response=201, description="Graduation created successfully"),
+ *     @OA\Response(response=400, description="Something went wrong. Please try again"),
+ *     security={{"bearer": {}}}
+ * )
+ */
+
     public function index(GraduationRequest $request){
         try {
             //code...

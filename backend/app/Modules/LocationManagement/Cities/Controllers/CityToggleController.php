@@ -11,6 +11,13 @@ class CityToggleController extends Controller
 {
     public function __construct(private CityService $cityService){}
 
+    /**
+     * Toggle the status of the city.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $city = $this->cityService->getById($id);
         try {

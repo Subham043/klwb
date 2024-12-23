@@ -13,6 +13,14 @@ class RegisteredIndustryStaffToggleController extends Controller
 {
     public function __construct(private RegisteredIndustryStaffService $staffService){}
 
+    /**
+     * Toggle the status of a staff.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @param int $staff_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id, $staff_id){
         $industry = (new RegisteredIndustryService)->getById($id);
         $staff = $this->staffService->get($industry->reg_industry_id, $industry->id, $staff_id);

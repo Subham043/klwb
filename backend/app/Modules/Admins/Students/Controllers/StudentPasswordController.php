@@ -11,6 +11,14 @@ class StudentPasswordController extends Controller
 {
     public function __construct(private StudentService $studentService){}
 
+    /**
+     * Update the password of the specified student.
+     *
+     * @param  \App\Modules\Admins\Students\Requests\StudentPasswordPostRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function index(StudentPasswordPostRequest $request, $id){
         $student = $this->studentService->getById($id);
         DB::beginTransaction();

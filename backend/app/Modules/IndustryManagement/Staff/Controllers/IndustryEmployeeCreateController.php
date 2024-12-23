@@ -15,6 +15,13 @@ class IndustryEmployeeCreateController extends Controller
 {
     public function __construct(private IndustryEmployeeService $employeeService){}
 
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \App\Modules\IndustryManagement\Staff\Requests\IndustryEmployeeCreatePostRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    ///
     public function index(IndustryEmployeeCreatePostRequest $request){
         DB::beginTransaction();
         try {

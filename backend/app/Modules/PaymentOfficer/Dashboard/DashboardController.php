@@ -9,6 +9,11 @@ class DashboardController extends Controller
 {
 	public function __construct(private AdminScholarshipService $scholarshipService){}
 
+	/**
+	 * Returns the total count of applications, approved applications, rejected applications, and pending applications
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function index()
 	{
 		$response = [

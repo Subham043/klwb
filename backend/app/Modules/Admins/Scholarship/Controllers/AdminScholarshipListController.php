@@ -10,6 +10,11 @@ class AdminScholarshipListController extends Controller
 {
     public function __construct(private AdminScholarshipService $scholarshipService){}
 
+    /**
+     * Show the list of scholarship applications
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(){
         $application = $this->scholarshipService->getList();
         return AdminApplicationCollection::collection($application);

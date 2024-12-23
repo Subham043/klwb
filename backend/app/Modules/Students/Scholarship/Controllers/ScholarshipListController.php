@@ -11,6 +11,11 @@ class ScholarshipListController extends Controller
 
     public function __construct(private ScholarshipService $scholarshipService){}
 
+    /**
+     * Show the list of scholarships applied by the logged in user
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(){
         $application = $this->scholarshipService->getList();
         return ApplicationCollection::collection($application);

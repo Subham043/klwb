@@ -12,6 +12,13 @@ class RequestInstituteApproveController extends Controller
 {
     public function __construct(private RequestInstituteService $reqInstituteService, private InstituteService $instituteService){}
 
+    /**
+     * Approve a request of an institute to be added to the system
+     *
+     * @param int $id The id of the request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $reqInstitute = $this->reqInstituteService->getById($id);
         DB::beginTransaction();

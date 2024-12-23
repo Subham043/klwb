@@ -9,6 +9,11 @@ class IndustryDashboardController extends Controller
 {
 	public function __construct(private IndustryScholarshipService $scholarshipService){}
 
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function index()
 	{
 		$response = [

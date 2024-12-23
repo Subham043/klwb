@@ -12,6 +12,41 @@ class MakePaymentController extends Controller
 
     public function __construct(private PaymentService $paymentService){}
 
+    /**
+     * Create a new payment.
+     *
+     * @OA\Post(
+     *     path="/industry/payment/make",
+     *     summary="Make payment",
+     *     tags={"Industry Management"},
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/PaymentRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Payment fetched successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="Payment fetched successfully"
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="string",
+     *                 example="http://127.0.0.1:8000/api/industry/payment/make"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Something went wrong. Please try again"
+     *     )
+     * )
+     */
     public function index(PaymentRequest $request){
         if($request->male + $request->female < 50){
             return response()->json(["message" => "Minimum 50 employees are required to make payment."], 400);

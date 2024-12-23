@@ -11,6 +11,13 @@ class FeeToggleController extends Controller
 {
     public function __construct(private FeeService $feeService){}
 
+    /**
+     * Toggle the status of the fee.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $fee = $this->feeService->getById($id);
         try {

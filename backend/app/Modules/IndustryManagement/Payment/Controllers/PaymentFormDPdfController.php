@@ -12,6 +12,12 @@ class PaymentFormDPdfController extends Controller
 
     public function __construct(private PaymentService $paymentService){}
 
+    /**
+     * Downloads a PDF of a payment form D.
+     * 
+     * @param int $id The ID of the payment.
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $payment = $this->paymentService->getPaymentCompletedById($id);
         $fileName = str()->uuid();

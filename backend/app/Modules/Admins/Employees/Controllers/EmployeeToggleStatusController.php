@@ -12,6 +12,19 @@ class EmployeeToggleStatusController extends Controller
 {
     public function __construct(private EmployeeService $employeeService){}
 
+    /**
+     * Toggle the blocked status of an employee.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * This method retrieves the employee by the given ID, starts a database transaction,
+     * and toggles the 'is_blocked' status of the employee. It returns a JSON response
+     * indicating whether the employee was blocked or unblocked successfully. In case
+     * of an error, it returns a 400 status JSON response with an error message.
+     */
+
     public function index(ToggleStatusRequest $request, $id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();

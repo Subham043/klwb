@@ -12,6 +12,13 @@ class RegisteredInstituteVerificationController extends Controller
 {
     public function __construct(private RegisteredInstituteService $instituteService){}
 
+    /**
+     * Verify the specified institute.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         if($institute->profile->verified_at){

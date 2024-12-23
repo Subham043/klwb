@@ -12,6 +12,12 @@ class FeeCreateController extends Controller
 {
     public function __construct(private FeeService $feeService){}
 
+    /**
+     * Create a new fee in the database.
+     *
+     * @param FeeCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(FeeCreateRequest $request){
         try {
             //code...

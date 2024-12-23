@@ -10,6 +10,12 @@ class GovtScholarshipListController extends Controller
 {
     public function __construct(private GovtScholarshipService $scholarshipService){}
 
+    /**
+     * Display a listing of the scholarship applications.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+
     public function index(){
         $application = $this->scholarshipService->getList();
         return GovtApplicationCollection::collection($application);

@@ -13,6 +13,15 @@ class ScholarshipStatusController extends Controller
 
     public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Retrieves the latest scholarship application date and application details,
+     * and constructs a response indicating the scholarship application status.
+     * The response includes whether the scholarship is open, the eligibility to apply,
+     * and whether resubmission is possible, along with a message indicating the current status.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function index(){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $application = $this->scholarshipService->getLatest();

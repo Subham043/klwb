@@ -13,6 +13,14 @@ class RegisteredIndustryStaffAccountController extends Controller
 {
     public function __construct(private RegisteredIndustryStaffService $staffService){}
 
+    /**
+     * Update a specific staff account.
+     *
+     * @param RegisteredIndustryStaffAccountRequest $request
+     * @param int $id
+     * @param int $staff_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(RegisteredIndustryStaffAccountRequest $request, $id, $staff_id){
         $industry = (new RegisteredIndustryService)->getById($id);
         $staff = $this->staffService->get($industry->reg_industry_id, $industry->id, $staff_id);

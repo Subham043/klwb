@@ -10,6 +10,11 @@ class StateAllController extends Controller
 {
     public function __construct(private StateService $stateService){}
 
+    /**
+     * Fetch all states.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $state = $this->stateService->all();
         return response()->json(["message" => "State fetched successfully.", "data" => StateCollection::collection($state)], 200);

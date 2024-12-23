@@ -11,6 +11,12 @@ class NonContributionPaginateController extends Controller
 {
     public function __construct(private NonContributionService $contributionService){}
 
+    /**
+     * Show the list of non-contributions.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request){
         $data = $this->contributionService->getList($request->total ?? 10);
         return NonContributionCollection::collection($data);

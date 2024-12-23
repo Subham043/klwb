@@ -11,6 +11,12 @@ class ClassesPaginateController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+    /**
+     * Return a paginated list of Classes.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request){
         $data = $this->classesService->paginate($request->total ?? 10);
         return ClassesCollection::collection($data);

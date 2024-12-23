@@ -10,6 +10,23 @@ class SecurityQuestionDeleteController extends Controller
 {
     public function __construct(private SecurityQuestionService $questionService){}
 
+    /**
+     * Delete a security question
+     * 
+     * @param int $id The id of the security question
+     * 
+     * @response 200 {
+     *   "message": "Security Question deleted successfully.",
+     *   "data": {
+     *     "id": 1,
+     *     "question": "What is your mother's maiden name?"
+     *   }
+     * }
+     * 
+     * @response 400 {
+     *   "message": "Something went wrong. Please try again"
+     * }
+     * */
     public function index($id){
         $question = $this->questionService->getById($id);
 

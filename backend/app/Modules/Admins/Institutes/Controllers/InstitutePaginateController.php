@@ -11,6 +11,12 @@ class InstitutePaginateController extends Controller
 {
     public function __construct(private InstituteService $instituteService){}
 
+    /**
+     * Get a paginated list of Institutes.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request){
         $data = $this->instituteService->paginate($request->total ?? 10);
         return InstituteCollection::collection($data);

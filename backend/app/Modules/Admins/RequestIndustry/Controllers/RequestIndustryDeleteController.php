@@ -10,6 +10,12 @@ class RequestIndustryDeleteController extends Controller
 {
     public function __construct(private RequestIndustryService $industryService){}
 
+    /**
+     * Delete the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $industry = $this->industryService->getById($id);
 

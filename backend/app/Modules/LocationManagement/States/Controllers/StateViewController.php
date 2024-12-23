@@ -10,6 +10,13 @@ class StateViewController extends Controller
 {
     public function __construct(private StateService $stateService){}
 
+    /**
+     * View a state.
+     *
+     * @param int $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $state = $this->stateService->getById($id);
         return response()->json(["message" => "State fetched successfully.", "data" => StateCollection::make($state)], 200);

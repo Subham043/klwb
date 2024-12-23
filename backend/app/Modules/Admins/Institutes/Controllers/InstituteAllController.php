@@ -10,6 +10,11 @@ class InstituteAllController extends Controller
 {
     public function __construct(private InstituteService $instituteService){}
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $institute = $this->instituteService->all();
         return response()->json(["message" => "Institute fetched successfully.", "data" => InstituteCollection::collection($institute)], 200);

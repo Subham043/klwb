@@ -12,6 +12,13 @@ class IndustryToggleController extends Controller
 {
     public function __construct(private IndustryService $industryService){}
 
+    /**
+     * Toggle the status of a industry.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $industry = $this->industryService->getById($id);
         DB::beginTransaction();

@@ -12,6 +12,13 @@ class RegisteredIndustryVerificationController extends Controller
 {
     public function __construct(private RegisteredIndustryService $industryService){}
 
+    /**
+     * Verify the specified industry.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $industry = $this->industryService->getById($id);
         if($industry->verified_at){

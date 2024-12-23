@@ -10,6 +10,12 @@ class FeeDeleteController extends Controller
 {
     public function __construct(private FeeService $feeService){}
 
+    /**
+     * Delete a fee by its id
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $fee = $this->feeService->getById($id);
 

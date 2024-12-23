@@ -13,6 +13,12 @@ class GovtScholarshipViewController extends Controller
 
     public function __construct(private GovtScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Return the view for the government to verify the application
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $application = $this->scholarshipService->getById($id);
