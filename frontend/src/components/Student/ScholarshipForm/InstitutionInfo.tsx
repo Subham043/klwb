@@ -1,6 +1,5 @@
 import { Col, Form, Grid, Row } from "rsuite";
 import TextInput from "../../FormInput/TextInput";
-import SelectInput from "../../FormInput/SelectInput";
 import classes from "./index.module.css";
 import {
   Control,
@@ -10,13 +9,13 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
-import { useGraduationCommonSelectQuery } from "../../../hooks/data/graduation";
-import { useCourseCommonSelectQuery } from "../../../hooks/data/course";
-import { useClassCommonSelectQuery } from "../../../hooks/data/class";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import DistrictSelect from "./Select/DistrictSelect";
 import TaluqSelect from "./Select/TaluqSelect";
 import InstituteSelect from "./Select/InstituteSelect";
+import GraduationSelect from "./Select/GraduationSelect";
+import CourseSelect from "./Select/CourseSelect";
+import ClassSelect from "./Select/ClassSelect";
 
 type PropType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,28 +35,6 @@ export default function InstitutionInfo({
   const ins_taluq_id = watch("ins_taluq_id");
   const graduation_id = watch("graduation_id");
   const course_id = watch("course_id");
-
-  const {
-    data: graduations,
-    isFetching: isGraduationFetching,
-    isLoading: isGraduationLoading,
-  } = useGraduationCommonSelectQuery(true);
-  const {
-    data: courses,
-    isFetching: isCourseFetching,
-    isLoading: isCourseLoading,
-  } = useCourseCommonSelectQuery(
-    graduation_id !== 0 && graduation_id !== undefined,
-    graduation_id === 0 ? undefined : graduation_id
-  );
-  const {
-    data: clases,
-    isFetching: isClassFetching,
-    isLoading: isClassLoading,
-  } = useClassCommonSelectQuery(
-    course_id !== 0 && course_id !== undefined,
-    course_id === 0 ? undefined : course_id
-  );
 
   return (
     <div className="mb-1">
@@ -191,82 +168,110 @@ export default function InstitutionInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
-              <SelectInput
-                name="graduation_id"
-                label="Graduation"
-                resetHandler={() => {
-                  setValue("course_id", 0);
-                  setValue("class_id", 0);
-                }}
-                data={
-                  graduations
-                    ? graduations.map((item) => ({
-                      label: item.name,
-                      value: item.id,
-                    }))
-                    : []
-                }
-                loading={isGraduationFetching || isGraduationLoading}
+          <Col className="pb-1" xs={8}>
+              <Form.ControlLabel>Graduation</Form.ControlLabel>
+              <Controller
+                name={"graduation"}
                 control={control}
-                error={errors.graduation_id?.message}
+                render={({ field }) => (
+                  <>
+                    <GraduationSelect
+                      value={field.value}
+                      setValue={(value) => {
+                        field.onChange({
+                          value: value.value,
+                          label: value.label,
+                        });
+                        setValue("graduation_id", value.value);
+                        setValue("course_id", undefined);
+                        setValue("course", { value: 0, label: "" });
+                        setValue("class_id", undefined);
+                        setValue("class", { value: 0, label: "" });
+                      }}
+                    />
+                  </>
+                )}
               />
+              <Form.ErrorMessage
+                show={
+                  !!errors.graduation?.value?.message ||
+                  !!errors.graduation_id?.message
+                }
+                placement="bottomStart"
+              >
+                {errors.graduation?.value?.message || errors.graduation_id?.message}
+              </Form.ErrorMessage>
             </Col>
-            {graduation_id !== 0 &&
-              courses !== undefined &&
-              courses.length !== 0 && (
-                <Col className="pb-1" xs={8}>
-                  <SelectInput
-                    name="course_id"
-                    label="Course"
-                    resetHandler={() => {
-                      setValue("class_id", 0);
-                    }}
-                    data={
-                      courses
-                        ? courses.map((item) => ({
-                          label: item.name,
-                          value: item.id,
-                        }))
-                        : []
-                    }
-                    disabled={
-                      graduation_id === 0 ||
-                      graduation_id === undefined ||
-                      courses === undefined ||
-                      courses.length === 0
-                    }
-                    loading={isCourseFetching || isCourseLoading}
-                    control={control}
-                    error={errors.course_id?.message}
-                  />
-                </Col>
-              )}
-            {course_id !== 0 && clases !== undefined && clases.length !== 0 && (
+            {
+              graduation_id !== 0 &&
               <Col className="pb-1" xs={8}>
-                <SelectInput
-                  name="class_id"
-                  label="Class"
-                  data={
-                    clases
-                      ? clases.map((item) => ({
-                        label: item.name,
-                        value: item.id,
-                      }))
-                      : []
-                  }
-                  disabled={
-                    course_id === 0 ||
-                    course_id === undefined ||
-                    clases === undefined ||
-                    clases.length === 0
-                  }
-                  loading={isClassFetching || isClassLoading}
+                <Controller
+                  name={"course"}
                   control={control}
-                  error={errors.class_id?.message}
+                  render={({ field }) => (
+                    <>
+                      <CourseSelect
+                        value={field.value}
+                        graduation={graduation_id}
+                        isDisabled={graduation_id === 0}
+                        setValue={(value) => {
+                          field.onChange({
+                            value: value.value,
+                            label: value.label,
+                          });
+                          setValue("course_id", value.value);
+                          setValue("class_id", undefined);
+                          setValue("class", { value: 0, label: "" });
+                        }}
+                      />
+                    </>
+                  )}
                 />
+                <Form.ErrorMessage
+                  show={
+                    !!errors.course?.value?.message ||
+                    !!errors.course_id?.message
+                  }
+                  placement="bottomStart"
+                >
+                  {errors.course?.value?.message || errors.course_id?.message}
+                </Form.ErrorMessage>
               </Col>
-            )}
+            }
+            {
+              course_id !== 0 && course_id !== undefined &&
+              <Col className="pb-1" xs={8}>
+                <Controller
+                  name={"class"}
+                  control={control}
+                  render={({ field }) => (
+                    <>
+                      <ClassSelect
+                        value={field.value}
+                        course={course_id}
+                        isDisabled={course_id === 0}
+                        setValue={(value) => {
+                          field.onChange({
+                            value: value.value,
+                            label: value.label,
+                          });
+                          setValue("class_id", value.value);
+                        }}
+                      />
+                    </>
+                  )}
+                />
+                <Form.ErrorMessage
+                  show={
+                    !!errors.class?.value?.message ||
+                    !!errors.class_id?.message
+                  }
+                  placement="bottomStart"
+                >
+                  {errors.class?.value?.message || errors.class_id?.message}
+                </Form.ErrorMessage>
+              </Col>
+            }
           </Row>
         </Grid>
       </ModalCardContainer>

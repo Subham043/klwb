@@ -20,8 +20,11 @@ export type ScholarshipFormSchemaType = {
 	school_id: number;
 	school: { value: number; label: string };
 	graduation_id: number;
+	graduation: { value: number; label: string };
 	course_id?: number;
+	course?: { value: number; label: string };
 	class_id?: number;
+	class?: { value: number; label: string };
 	prv_class: string;
 	prv_marks: number;
 	marks_card_type: string;
@@ -135,8 +138,45 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 								})
 								.required("Present institution is required"),
 		graduation_id: yup.number().typeError("Graduation must contain numbers only").required("Graduation is required").test("notZero", "Graduation is required", (value) => !(value === 0)),
+		graduation: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Graduation must contain numbers only")
+												.required("Graduation is required")
+												.test("notZero", "Graduation is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Graduation must contain characters only")
+												.required("Graduation is required"),
+								})
+								.required("Graduation is required"),
 		course_id: yup.number().typeError("Course must contain numbers only").optional(),
+		course: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Course must contain numbers only")
+												.required("Course is required"),
+										label: yup
+												.string()
+												.typeError("Course must contain characters only")
+												.required("Course is required"),
+								})
+								.optional(),
 		class_id: yup.number().typeError("Class must contain numbers only").optional(),
+		class: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Class must contain numbers only")
+												.required("Class is required"),
+										label: yup
+												.string()
+												.typeError("Class must contain characters only")
+												.required("Class is required"),
+								})
+								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),
 		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().required("Previous Marks is required"),
 		marks_card_type: yup.string().typeError("Marks Card type must contain characters only").required("Marks Card type is required"),
@@ -375,8 +415,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		school_id: 0,
 		school:	{ value: 0, label: ''	},
 		graduation_id: 0,
+		graduation: { value: 0, label: ''	},
 		course_id: undefined,
+		course: { value: 0, label: ''	},
 		class_id: undefined,
+		class: { value: 0, label: ''	},
 		prv_class: '',
 		prv_marks: 0,
 		marks_card_type: '',
@@ -471,8 +514,45 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 								})
 								.required("Present institution is required"),
 		graduation_id: yup.number().typeError("Graduation must contain numbers only").required("Graduation is required").test("notZero", "Graduation is required", (value) => !(value === 0)),
+		graduation: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Graduation must contain numbers only")
+												.required("Graduation is required")
+												.test("notZero", "Graduation is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Graduation must contain characters only")
+												.required("Graduation is required"),
+								})
+								.required("Graduation is required"),
 		course_id: yup.number().typeError("Course must contain numbers only").optional(),
+		course: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Course must contain numbers only")
+												.required("Course is required"),
+										label: yup
+												.string()
+												.typeError("Course must contain characters only")
+												.required("Course is required"),
+								})
+								.optional(),
 		class_id: yup.number().typeError("Class must contain numbers only").optional(),
+		class: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Class must contain numbers only")
+												.required("Class is required"),
+										label: yup
+												.string()
+												.typeError("Class must contain characters only")
+												.required("Class is required"),
+								})
+								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),
 		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().required("Previous Marks is required"),
 		marks_card_type: yup.string().typeError("Marks Card type must contain characters only").required("Marks Card type is required"),
