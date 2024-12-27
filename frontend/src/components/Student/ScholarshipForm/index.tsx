@@ -56,10 +56,13 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			prv_class: data ? data.mark.prv_class : '',
 			prv_marks: data ? data.mark.prv_marks : 0,
 			ins_district_id: data ? data.mark.ins_district_id : 0,
+			ins_district: data && data.mark.district ? { value: data.mark.district.id, label: data.mark.district.name } : { value: 0, label: '' },
 			ins_taluq_id: data ? data.mark.ins_taluq_id : 0,
+			ins_taluq: data && data.mark.taluq ? { value: data.mark.taluq.id, label: data.mark.taluq.name } : { value: 0, label: '' },
 			ins_pin: data ? data.mark.ins_pin.toString() : '',
-			graduation_id: data ? data.mark.graduation_id : 0,
 			school_id: data ? data.school_id : 0,
+			school: data && data.present_institute_name ? { value: data.school_id, label: data.present_institute_name } : { value: 0, label: '' },
+			graduation_id: data ? data.mark.graduation_id : 0,
 			course_id: data ? data.mark.course_id : 0,
 			class_id: data ? data.mark.class_id : 0,
 			marks_card_type: (data && data.mark.prv_markcard2) ? "0" : "1",
@@ -78,9 +81,12 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			m_adhar: data ? data.basic_detail.m_adhar : undefined,
 			not_applicable: data ? (data.basic_detail.not_applicable ? data.basic_detail.not_applicable : undefined) : undefined,
 			district_id: data ? data.company.district_id : 0,
+			district: data && data.company.district ? { value: data.company.district.id, label: data.company.district.name } : { value: 0, label: '' },
 			taluq_id: data ? data.company.taluq_id : 0,
+			taluq: data && data.company.taluq ? { value: data.company.taluq.id, label: data.company.taluq.name } : { value: 0, label: '' },
 			pincode: data ? data.company.pincode : '',
 			company_id: data ? data.company_id : 0,
+			company: data && data.industry_name ? { value: data.company_id, label: data.industry_name } : { value: 0, label: '' },
 		}
 	});
 

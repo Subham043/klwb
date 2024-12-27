@@ -15,7 +15,7 @@ type PropType = {
   key?: string;
 };
 
-const SelectCityStatus = (props: PropType) => {
+const SelectCity = (props: PropType) => {
   const { key } = props;
   const [searchParams, setSearchParams] = useSearchParams();
   const selectHandler = (value: OptionType) => {
@@ -73,4 +73,4 @@ const SelectCityStatus = (props: PropType) => {
   );
 };
 
-export default SelectCityStatus;
+export default SelectCity;

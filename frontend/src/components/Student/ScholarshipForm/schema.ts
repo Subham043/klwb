@@ -14,8 +14,11 @@ export type ScholarshipFormSchemaType = {
 	category: string;
 	ins_pin: string;
 	ins_district_id: number;
+	ins_district: { value: number; label: string };
 	ins_taluq_id: number;
+	ins_taluq: { value: number; label: string };
 	school_id: number;
+	school: { value: number; label: string };
 	graduation_id: number;
 	course_id?: number;
 	class_id?: number;
@@ -37,8 +40,11 @@ export type ScholarshipFormSchemaType = {
 	msalary: number;
 	pincode: string;
 	district_id: number;
+	district: { value: number; label: string };
 	taluq_id: number;
+	taluq: { value: number; label: string };
 	company_id: number;
+	company: { value: number; label: string };
 	salaryslip?: FileType[] | undefined;
 	adharcard_no: number;
 	adharcard_file?: FileType[] | undefined;
@@ -87,8 +93,47 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		category: yup.string().typeError("Cast Category must contain characters only").required("Cast Category is required"),
 		ins_pin: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		ins_district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
+		ins_district: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("District must contain numbers only")
+												.required("District is required")
+												.test("notZero", "District is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("District must contain characters only")
+												.required("District is required"),
+								})
+								.required("District is required"),
 		ins_taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required").test("notZero", "Taluq is required", (value) => !(value === 0)),
+		ins_taluq: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Taluq must contain numbers only")
+												.required("Taluq is required")
+												.test("notZero", "Taluq is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Taluq must contain characters only")
+												.required("Taluq is required"),
+								})
+								.required("Taluq is required"),
 		school_id: yup.number().typeError("Present institution must contain numbers only").required("Present institution is required").test("notZero", "Present institution is required", (value) => !(value === 0)),
+		school: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Present institution must contain numbers only")
+												.required("Present institution is required")
+												.test("notZero", "Present institution is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Present institution must contain characters only")
+												.required("Present institution is required"),
+								})
+								.required("Present institution is required"),
 		graduation_id: yup.number().typeError("Graduation must contain numbers only").required("Graduation is required").test("notZero", "Graduation is required", (value) => !(value === 0)),
 		course_id: yup.number().typeError("Course must contain numbers only").optional(),
 		class_id: yup.number().typeError("Class must contain numbers only").optional(),
@@ -161,8 +206,47 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(30001, "Monthly Salary should be less than or equal to 30,000").required("Monthly Salary is required"),
 		pincode: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
+		district: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("District must contain numbers only")
+												.required("District is required")
+												.test("notZero", "District is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("District must contain characters only")
+												.required("District is required"),
+								})
+								.required("District is required"),
 		taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required").test("notZero", "Taluq is required", (value) => !(value === 0)),
+		taluq: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Taluq must contain numbers only")
+												.required("Taluq is required")
+												.test("notZero", "Taluq is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Taluq must contain characters only")
+												.required("Taluq is required"),
+								})
+								.required("Taluq is required"),
 		company_id: yup.number().typeError("Parent Industry name must contain numbers only").required("Parent Industry name is required").test("notZero", "Parent Industry name is required", (value) => !(value === 0)),
+		company: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Parent Industry must contain numbers only")
+												.required("Parent Industry is required")
+												.test("notZero", "Parent Industry is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Parent Industry must contain characters only")
+												.required("Parent Industry is required"),
+								})
+								.required("Parent Industry is required"),
 		salaryslip: yup
 			.mixed<FileType[]>()
 			.test("fileRequired", "Salary Slip is required", (value) => {
@@ -285,8 +369,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		category: '',
 		ins_pin: '',
 		ins_district_id: 0,
+		ins_district:	{ value: 0, label: ''	},
 		ins_taluq_id: 0,
+		ins_taluq:	{ value: 0, label: ''	},
 		school_id: 0,
+		school:	{ value: 0, label: ''	},
 		graduation_id: 0,
 		course_id: undefined,
 		class_id: undefined,
@@ -308,8 +395,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		msalary: 0,
 		pincode: '',
 		district_id: 0,
+		district:	{ value: 0, label: '' },
 		taluq_id: 0,
+		taluq:	{ value: 0, label: '' },
 		company_id: 0,
+		company:	{ value: 0, label: '' },
 		salaryslip: undefined,
 		adharcard_no: 0,
 		adharcard_file: undefined,
@@ -339,8 +429,47 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		category: yup.string().typeError("Cast Category must contain characters only").required("Cast Category is required"),
 		ins_pin: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		ins_district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
+		ins_district: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("District must contain numbers only")
+												.required("District is required")
+												.test("notZero", "District is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("District must contain characters only")
+												.required("District is required"),
+								})
+								.required("District is required"),
 		ins_taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required").test("notZero", "Taluq is required", (value) => !(value === 0)),
+		ins_taluq: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Taluq must contain numbers only")
+												.required("Taluq is required")
+												.test("notZero", "Taluq is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Taluq must contain characters only")
+												.required("Taluq is required"),
+								})
+								.required("Taluq is required"),
 		school_id: yup.number().typeError("Present institution must contain numbers only").required("Present institution is required").test("notZero", "Present institution is required", (value) => !(value === 0)),
+		school: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Present institution must contain numbers only")
+												.required("Present institution is required")
+												.test("notZero", "Present institution is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Present institution must contain characters only")
+												.required("Present institution is required"),
+								})
+								.required("Present institution is required"),
 		graduation_id: yup.number().typeError("Graduation must contain numbers only").required("Graduation is required").test("notZero", "Graduation is required", (value) => !(value === 0)),
 		course_id: yup.number().typeError("Course must contain numbers only").optional(),
 		class_id: yup.number().typeError("Class must contain numbers only").optional(),
@@ -362,8 +491,47 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(30001, "Monthly Salary should be less than or equal to 30,000").required("Monthly Salary is required"),
 		pincode: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
+		district: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("District must contain numbers only")
+												.required("District is required")
+												.test("notZero", "District is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("District must contain characters only")
+												.required("District is required"),
+								})
+								.required("District is required"),
 		taluq_id: yup.number().typeError("Taluq must contain numbers only").required("Taluq is required").test("notZero", "Taluq is required", (value) => !(value === 0)),
+		taluq: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Taluq must contain numbers only")
+												.required("Taluq is required")
+												.test("notZero", "Taluq is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Taluq must contain characters only")
+												.required("Taluq is required"),
+								})
+								.required("Taluq is required"),
 		company_id: yup.number().typeError("Parent Industry name must contain numbers only").required("Parent Industry name is required").test("notZero", "Parent Industry name is required", (value) => !(value === 0)),
+		company: yup
+								.object({
+										value: yup
+												.number()
+												.typeError("Parent Industry must contain numbers only")
+												.required("Parent Industry is required")
+												.test("notZero", "Parent Industry is required", (value) => !(value === 0)),
+										label: yup
+												.string()
+												.typeError("Parent Industry must contain characters only")
+												.required("Parent Industry is required"),
+								})
+								.required("Parent Industry is required"),
 		salaryslip: yup.mixed<FileType[]>().optional(),
 		not_applicable: yup.string().typeError("Not Applicable must contain characters only").optional(),
 		adharcard_no: yup.number().typeError("Aadhar Card Number must contain numbers only").required("Aadhar Card Number is required"),
