@@ -27,7 +27,7 @@ trait ScholarshipApplicationTrait
 		return $query->whereHas('basic_detail')
 		->whereHas('mark', fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee'), 'course', 'class', 'taluq', 'district'])->whereHas('graduation'))
 		->whereHas('account')
-		->whereHas('company')
+		->whereHas('company', fn($query) => $query->with(['taluq', 'district']))
 		->whereHas('institute', fn($query) => $query->with(['auth' => fn($q) => $q->with('address')]))
 		->whereHas('industry')
 		->whereHas('student');

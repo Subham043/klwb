@@ -48,10 +48,10 @@ class AdminScholarshipService
 					$query->where('application_marks.class_id', $value);
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->where('application_marks.ins_district_id', $value);
+					$query->where('application_companies.district_id', $value);
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->where('application_marks.ins_taluq_id', $value);
+					$query->where('application_companies.taluq_id', $value);
 				}),
 			]);
 	}
