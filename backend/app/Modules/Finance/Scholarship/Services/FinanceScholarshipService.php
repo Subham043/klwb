@@ -27,9 +27,8 @@ class FinanceScholarshipService
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('payment_status', function (Builder $query, $value) {
 					if ($value == 'processed') {
@@ -76,6 +75,9 @@ class FinanceScholarshipService
 					$query->whereHas('company', function ($qry) use ($value) {
 						$qry->where('taluq_id', $value);
 					});
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}

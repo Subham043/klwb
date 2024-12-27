@@ -23,7 +23,7 @@ export const useApplicationFeesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<ApplicationFeeType>>(
         api_routes.admin.application_fee.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[graduation_id]=${searchParams.get("graduation_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

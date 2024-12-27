@@ -25,9 +25,8 @@ class IndustryScholarshipService
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					if ($value == 'approved') {
@@ -45,6 +44,9 @@ class IndustryScholarshipService
 					if ($value == 'pending') {
 						$query->isApplicationPending()->inCompanyStage();
 					}
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}

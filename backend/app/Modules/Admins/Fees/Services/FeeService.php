@@ -37,7 +37,7 @@ class FeeService extends AbstractExcelService
                             $query->where('year', $value);
                         }
                     }),
-                    AllowedFilter::callback('graduation_id', function (Builder $query, $value) {
+                    AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
                         if(!empty($value)){
                             $query->where('graduation_id', $value);
                         }

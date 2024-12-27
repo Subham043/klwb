@@ -55,7 +55,7 @@ class IndustryService extends AbstractExcelService
     {
         $model = $this->query();
         $i=0;
-        $writer = SimpleExcelWriter::streamDownload('registered_industries.xlsx');
+        $writer = SimpleExcelWriter::streamDownload('industries.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {
             $writer->addRow([
                 'Id' => $data->id,

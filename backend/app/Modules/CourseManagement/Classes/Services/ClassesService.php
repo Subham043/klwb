@@ -66,7 +66,7 @@ class ClassesService extends AbstractExcelService
                 'Course' => $data->course->name,
                 'Course ID' => $data->course->id,
                 'Graduataion' => $data->course->graduation->name,
-                'Graduataion ID' => $data->graduation->id,
+                'Graduataion ID' => $data->course->graduation->id,
                 'Active' => $data->is_active ? 'Yes' : 'No',
                 'Created At' => $data->created_at->format('Y-m-d H:i:s'),
             ]);

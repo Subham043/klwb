@@ -261,7 +261,7 @@ class ScholarshipService
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 			]);
