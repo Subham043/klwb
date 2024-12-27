@@ -189,6 +189,7 @@ function IndustryRegisterPage() {
   } = useForm<SchemaType>({ resolver: yupResolver(schema) });
 
   const city_id = watch("city_id");
+  const taluq_id = watch("taluq_id");
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
@@ -276,6 +277,7 @@ function IndustryRegisterPage() {
                     setValue={(value) => {
                       setValue("city_id", value.value);
                       setValue("taluq_id", 0);
+                      setValue("reg_industry_id", 0);
                     }}
                   />
                   <Form.ErrorMessage
@@ -290,6 +292,7 @@ function IndustryRegisterPage() {
                   <TaluqSelect
                     setValue={(value) => {
                       setValue("taluq_id", value.value);
+                      setValue("reg_industry_id", 0);
                     }}
                     city_id={city_id}
                     isDisabled={city_id === 0 || city_id === undefined}
@@ -309,6 +312,8 @@ function IndustryRegisterPage() {
                     setValue={(value) => {
                       setValue("reg_industry_id", value.value);
                     }}
+                    taluq_id={taluq_id}
+                    isDisabled={taluq_id === 0 || taluq_id === undefined}
                   />
                   <Form.ErrorMessage
                     show={!!errors.reg_industry_id?.message}

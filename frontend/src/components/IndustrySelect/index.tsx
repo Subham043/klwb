@@ -14,9 +14,10 @@ type Props = {
   value?: OptionType;
   setValue: (value: OptionType) => void;
   isDisabled?: boolean;
+  taluq_id?: number;
 };
 
-export default function IndustrySelect({ value, setValue, isDisabled }: Props) {
+export default function IndustrySelect({ value, setValue, isDisabled, taluq_id }: Props) {
   const loadOptions = useCallback(
     async (
       search: string,
@@ -27,7 +28,9 @@ export default function IndustrySelect({ value, setValue, isDisabled }: Props) {
         api_routes.user.industry.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}`
+          }&total=10&filter[search]=${search}${
+            taluq_id ? `&filter[has_taluq]=${taluq_id}` : ""
+          }`
       );
       return {
         options: response.data.data.map((industry) => ({
@@ -40,7 +43,7 @@ export default function IndustrySelect({ value, setValue, isDisabled }: Props) {
         },
       };
     },
-    []
+    [taluq_id]
   );
 
   return (
@@ -54,6 +57,8 @@ export default function IndustrySelect({ value, setValue, isDisabled }: Props) {
           page: 1,
         }}
         debounceTimeout={500}
+        key={`taluq__${taluq_id ? taluq_id : ''}`}
+        cacheUniqs={[taluq_id]}
       />
     </div>
   );
