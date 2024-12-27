@@ -137,6 +137,8 @@ use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportExpor
 use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportListController;
 use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportExportController;
 use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryRejectController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteRejectController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
@@ -304,7 +306,8 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [RequestInstitutePaginateController::class, 'index']);
                 Route::post('/update/{id}', [RequestInstituteUpdateController::class, 'index']);
                 Route::post('/approve/{id}', [RequestInstituteApproveController::class, 'index']);
-                Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
+                Route::post('/reject/{id}', [RequestInstituteRejectController::class, 'index']);
+                // Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestInstituteViewController::class, 'index']);
             });
             Route::prefix('registered-institutes')->group(function () {
@@ -350,7 +353,8 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [RequestIndustryPaginateController::class, 'index']);
                 Route::post('/update/{id}', [RequestIndustryUpdateController::class, 'index']);
                 Route::post('/approve/{id}', [RequestIndustryApproveController::class, 'index']);
-                Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
+                Route::post('/reject/{id}', [RequestIndustryRejectController::class, 'index']);
+                // Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestIndustryViewController::class, 'index']);
             });
             Route::prefix('registered-industries')->group(function () {

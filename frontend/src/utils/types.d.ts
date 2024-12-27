@@ -151,7 +151,7 @@ export type RequestInstituteType = {
   register_doc: string;
   taluq_id: number;
   taluq: TaluqType;
-  is_active: boolean;
+  status: number;
   created_at: string;
   updated_at: string;
 };
@@ -244,7 +244,7 @@ export type RequestIndustryType = {
     id: number;
     name: string;
   };
-  is_active: boolean;
+  status: number;
   created_at: string;
   updated_at: string;
 };

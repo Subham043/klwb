@@ -22,9 +22,13 @@ const SelectCity = (props: PropType) => {
     if(value){
       searchParams.set("city_id" + (key || ""), value.value.toString());
       searchParams.set("city_name" + (key || ""), value.label.toString());
+      searchParams.delete("taluq_id" + (key || ""));
+      searchParams.delete("taluq_name" + (key || ""));
     }else{
       searchParams.delete("city_id" + (key || ""));
       searchParams.delete("city_name" + (key || ""));
+      searchParams.delete("taluq_id" + (key || ""));
+      searchParams.delete("taluq_name" + (key || ""));
     }
     setSearchParams(searchParams);
   };

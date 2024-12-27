@@ -22,9 +22,17 @@ const SelectGraduationStatus = (props: PropType) => {
     if(value){
       searchParams.set("graduation_id" + (key || ""), value.value.toString());
       searchParams.set("graduation_name" + (key || ""), value.label.toString());
+      searchParams.delete("course_id" + (key || ""));
+      searchParams.delete("course_name" + (key || ""));
+      searchParams.delete("class_id" + (key || ""));
+      searchParams.delete("class_name" + (key || ""));
     }else{
       searchParams.delete("graduation_id" + (key || ""));
       searchParams.delete("graduation_name" + (key || ""));
+      searchParams.delete("course_id" + (key || ""));
+      searchParams.delete("course_name" + (key || ""));
+      searchParams.delete("class_id" + (key || ""));
+      searchParams.delete("class_name" + (key || ""));
     }
     setSearchParams(searchParams);
   };

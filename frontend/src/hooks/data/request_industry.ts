@@ -19,11 +19,11 @@ export const useRequestIndustriesQuery: () => UseQueryResult<
   const { search } = useSearchQueryParam();
   const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [RequestIndustriesQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("taluq_id") || ""],
+    queryKey: [RequestIndustriesQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("taluq_id") || "", searchParams.get("status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<RequestIndustryType>>(
         api_routes.admin.request_industry.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[status]=${searchParams.get("status") || ""}`
       );
       return response.data;
     },

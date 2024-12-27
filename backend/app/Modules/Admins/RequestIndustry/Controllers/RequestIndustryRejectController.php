@@ -5,12 +5,12 @@ namespace App\Modules\Admins\RequestIndustry\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\RequestIndustry\Resources\RequestIndustryCollection;
 use App\Modules\Admins\RequestIndustry\Services\RequestIndustryService;
-use App\Modules\Admins\Industries\Services\IndustryService;
+use App\Modules\Admins\RequestIndustry\Requests\RequestIndustryRejectRequest;
 use Illuminate\Support\Facades\DB;
 
-class RequestIndustryApproveController extends Controller
+class RequestIndustryRejectController extends Controller
 {
-    public function __construct(private RequestIndustryService $reqIndustryService, private IndustryService $industryService){}
+    public function __construct(private RequestIndustryService $reqIndustryService){}
 
     /**
      * Approve a request industry.
@@ -18,17 +18,13 @@ class RequestIndustryApproveController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($id){
+    public function index(RequestIndustryRejectRequest $request, $id){
         $reqIndustry = $this->reqIndustryService->getPendingById($id);
         DB::beginTransaction();
         try {
             //code...
-            $this->industryService->create([
-                'name' => $reqIndustry->company,
-                'act' => $reqIndustry->act,
-            ]);
             $this->reqIndustryService->update(
-                ['status'=>1],
+                ['status'=>2, 'reject_reason' => $request->reason],
                 $reqIndustry
             );
             return response()->json(["message" => "Industry approved successfully.", "data" => RequestIndustryCollection::make($reqIndustry)], 200);

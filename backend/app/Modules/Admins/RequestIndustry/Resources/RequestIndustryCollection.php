@@ -32,7 +32,8 @@ class RequestIndustryCollection extends JsonResource
             'taluq' => SingleTaluqCollection::make($this->whenLoaded('taluq')),
             'city_id' => $this->city_id,
             'city' => SingleCityCollection::make($this->whenLoaded('city')),
-            'is_active' => $this->is_active,
+            'status' => $this->status,
+            'reject_reason' => $this->reject_reason,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

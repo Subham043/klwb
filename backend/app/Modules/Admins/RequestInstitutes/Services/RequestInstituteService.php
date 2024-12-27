@@ -23,7 +23,7 @@ class RequestInstituteService extends AbstractExcelService
                     }
                 ]);
             }
-        ])->where('is_active', true);
+        ]);
     }
     public function query(): QueryBuilder
     {
@@ -40,6 +40,17 @@ class RequestInstituteService extends AbstractExcelService
                     AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
                         $query->where('taluq_id', $value);
                     }),
+                    AllowedFilter::callback('status', function (Builder $query, $value) {
+                        if ($value == 'approved') {
+                            $query->where('status', 1);
+                        }
+                        if ($value == 'rejected') {
+                            $query->where('status', 2);
+                        }
+                        if ($value == 'pending') {
+                            $query->where('status', 0);
+                        }
+                    }),
                 ]);
     }
 
@@ -49,6 +60,11 @@ class RequestInstituteService extends AbstractExcelService
         return $this->update([
             'register_doc' => $register_doc,
         ], $requestInstitute);
+    }
+
+    public function getPendingById(Int $id): RequestInstitute
+    {
+        return $this->model()->where('status', 0)->findOrFail($id);
     }
 
     public function excel() : SimpleExcelWriter

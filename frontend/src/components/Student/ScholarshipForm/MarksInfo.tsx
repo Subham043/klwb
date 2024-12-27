@@ -79,9 +79,9 @@ export default function MarksInfo({
               <div>
                 <FileInput
                   name="prv_markcard"
-                  accept="image/png, image/jpeg, image/jpg"
+                  accept="image/png, image/jpeg, image/jpg, application/pdf"
                   label="Attach Your Marks Card Copy"
-                  helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                  helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                   control={control}
                   error={errors.prv_markcard?.message}
                 />
@@ -95,9 +95,9 @@ export default function MarksInfo({
                 <div>
                   <FileInput
                     name="prv_markcard2"
-                    accept="image/png, image/jpeg, image/jpg"
+                    accept="image/png, image/jpeg, image/jpg, application/pdf"
                     label="Attach Your Marks Card Copy"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.prv_markcard2?.message}
                   />

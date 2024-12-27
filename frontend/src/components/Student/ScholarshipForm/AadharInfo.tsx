@@ -66,9 +66,9 @@ export default function AadharInfo({
               <div>
                 <FileInput
                   name="adharcard_file"
-                  accept="image/png, image/jpeg, image/jpg"
+                  accept="image/png, image/jpeg, image/jpg, application/pdf"
                   label="Attach Your Aadhar Card"
-                  helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                  helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                   control={control}
                   error={errors.adharcard_file?.message}
                 />
@@ -109,9 +109,9 @@ export default function AadharInfo({
                 <div>
                   <FileInput
                     name="deathcertificate"
-                    accept="image/png, image/jpeg, image/jpg"
+                    accept="image/png, image/jpeg, image/jpg, application/pdf"
                     label="Attach Your Father's Death Certificate"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.deathcertificate?.message}
                   />
@@ -123,9 +123,9 @@ export default function AadharInfo({
                 <div>
                   <FileInput
                     name="f_adharfile"
-                    accept="image/png, image/jpeg, image/jpg"
+                    accept="image/png, image/jpeg, image/jpg, application/pdf"
                     label="Attach Your Father's Aadhar Card"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.f_adharfile?.message}
                   />
@@ -167,9 +167,9 @@ export default function AadharInfo({
                 <div>
                   <FileInput
                     name="deathcertificate"
-                    accept="image/png, image/jpeg, image/jpg"
+                    accept="image/png, image/jpeg, image/jpg, application/pdf"
                     label="Attach Your Mother's Death Certificate"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.deathcertificate?.message}
                   />
@@ -181,9 +181,9 @@ export default function AadharInfo({
                 <div>
                   <FileInput
                     name="m_adharfile"
-                    accept="image/png, image/jpeg, image/jpg"
+                    accept="image/png, image/jpeg, image/jpg, application/pdf"
                     label="Attach Your Mother's Aadhar Card"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.m_adharfile?.message}
                   />

@@ -5,11 +5,12 @@ import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import RequestInstituteInfo from "../../../components/Admin/RequestInstituteInfo";
 import VisibleIcon from '@rsuite/icons/Visible';
 import { api_routes } from "../../../utils/routes/api";
-import Status from "../../../components/Status";
 import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
 import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
+import StatusBadge from "../../../components/Student/StatusBadge";
+import SelectStatus from "../../../components/Institute/SelectStatus";
 
 
 const RequestInstitute:FC = () => {
@@ -20,6 +21,7 @@ const RequestInstitute:FC = () => {
         <PaginatedTableLayout.Header title="Institute Request List" addBtn={false} excelLink={api_routes.admin.request_institute.excel} excelName="request_institute.xlsx">
             <SelectCityStatus />
             <SelectTaluqStatus />
+            <SelectStatus />
         </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
@@ -62,12 +64,12 @@ const RequestInstitute:FC = () => {
                     <Table.Cell dataKey="taluq.name" />
                 </Table.Column>
 
-                <Table.Column width={60} align="center" verticalAlign="middle">
+                <Table.Column width={120} align="center" verticalAlign="middle">
                     <Table.HeaderCell>Status</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
-                            <Status status={rowData.is_active} />
+                            <StatusBadge status={rowData.status} />
                         )}
                     </Table.Cell>
                 </Table.Column>

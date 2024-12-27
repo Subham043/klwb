@@ -150,6 +150,8 @@ export const admin_api_routes = {
       `/api/admin/v1/request-institutes/update/${id}`,
     approve: (id: string | number) =>
       `/api/admin/v1/request-institutes/approve/${id}`,
+    reject: (id: string | number) =>
+      `/api/admin/v1/request-institutes/reject/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/request-institutes/delete/${id}`,
     view: (id: string | number) =>
@@ -219,6 +221,8 @@ export const admin_api_routes = {
       `/api/admin/v1/request-industries/update/${id}`,
     approve: (id: string | number) =>
       `/api/admin/v1/request-industries/approve/${id}`,
+    reject: (id: string | number) =>
+      `/api/admin/v1/request-industries/reject/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/request-industries/delete/${id}`,
     view: (id: string | number) =>

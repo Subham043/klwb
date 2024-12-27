@@ -98,9 +98,9 @@ export default function BankInfo({
             <Col className="pb-1" xs={12}>
               <FileInput
                 name="passbook"
-                accept="image/png, image/jpeg, image/jpg"
+                accept="image/png, image/jpeg, image/jpg, application/pdf"
                 label="Upload Passbook Front Page"
-                helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.passbook?.message}
               />
