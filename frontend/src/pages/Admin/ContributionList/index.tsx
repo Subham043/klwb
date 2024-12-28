@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { ButtonToolbar, IconButton, Table, Tooltip, Whisper } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
@@ -12,6 +12,47 @@ import PaymentStatusBadge from "../../../components/PaymentStatusBadge";
 import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
 import SelectDateRangePicker from "../../../components/SelectDateRangePicker";
+import { useAxios } from "../../../hooks/useAxios";
+import { useToast } from "../../../hooks/useToast";
+import ReloadIcon from '@rsuite/icons/Reload';
+import { DrawerProps } from "../../../utils/types";
+import EditBtn from "../../../components/Buttons/EditBtn";
+import ContributionForm from "../../../components/Admin/ContributionForm";
+
+const Reverify = ({reg_industry_id, id, refetch}:{reg_industry_id: number, id: number, refetch: () => void}) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const axios = useAxios();
+    const {toastError} = useToast();
+  
+    const reVerifyHandler = async () => {
+        setLoading(true);
+        try {
+            await axios.get(api_routes.admin.registered_industry.contribution.re_verify(reg_industry_id, id));
+            refetch();
+        } catch (error) {
+            toastError("Failed to re-verify payment. Please try again later.")
+        }finally {
+            setLoading(false);
+        }
+    }
+    return (
+        <Whisper
+            placement="bottomEnd"
+            controlId="control-id-click"
+            trigger="hover"
+            speaker={<Tooltip>Re-Verify</Tooltip>}
+        >
+            <IconButton
+                appearance="primary"
+                color="violet"
+                size="sm"
+                icon={<ReloadIcon />}
+                loading={loading}
+                onClick={reVerifyHandler}
+            />
+        </Whisper>
+    )
+  }
 
 const Receipt = ({id}:{id: number}) => {
     const {pdfLoading, exportPdf} = usePdfExport();
@@ -67,6 +108,7 @@ const Excel = ({link}:{link: string}) => {
 
 const ContributionListPage:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useContributionsQuery();
+    const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="Contribution Comleted">
         <PaginatedTableLayout.Header title="Contribution Comleted" addBtn={false} excelLink={api_routes.admin.contribution.excel} excelName="contribution.xlsx">
@@ -164,8 +206,21 @@ const ContributionListPage:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
+                <Table.Column width={90} fixed="right">
+                    <Table.HeaderCell>Action</Table.HeaderCell>
+    
+                    <Table.Cell style={{ padding: "6px" }}>
+                    {(rowData) => (
+                        <ButtonToolbar>
+                            <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                            <Reverify reg_industry_id={rowData.comp_regd_id} id={rowData.id} refetch={refetch} />
+                        </ButtonToolbar>
+                    )}
+                    </Table.Cell>
+                </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>
+        <ContributionForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
     </PaginatedTableLayout>
 }
 

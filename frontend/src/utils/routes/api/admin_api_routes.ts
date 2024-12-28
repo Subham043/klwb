@@ -268,6 +268,7 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-industries/contribution/${id}/excel`,
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-industries/contribution/${id}/paginate`,
+      re_verify: (reg_industry_id: string | number, id: string | number) => `/api/admin/v1/registered-industries/contribution/${reg_industry_id}/verify/${id}`,
     },
   },
   non_registered_industry: {
@@ -291,6 +292,7 @@ export const admin_api_routes = {
 		excel: "/api/admin/v1/contribution/excel",
 		view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
 		reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
+		update: (id: string | number) => `/api/admin/v1/contribution/update/${id}`,
 	},
   non_contribution: {
 		list: "/api/admin/v1/non-contribution/list",

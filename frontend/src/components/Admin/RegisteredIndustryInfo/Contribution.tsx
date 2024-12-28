@@ -23,10 +23,52 @@ import { useRegisteredIndustriesContributionQuery } from "../../../hooks/data/re
 import ChangeListIcon from '@rsuite/icons/ChangeList';
 import { usePdfExport } from "../../../hooks/usePdfExport";
 import PaymentStatusBadge from "../../PaymentStatusBadge";
+import ReloadIcon from '@rsuite/icons/Reload';
+import { useState } from "react";
+import { useAxios } from "../../../hooks/useAxios";
+import { useToast } from "../../../hooks/useToast";
+import { DrawerProps } from "../../../utils/types";
+import ContributionForm from "../ContributionForm";
+import EditBtn from "../../Buttons/EditBtn";
 
 export type Props = {
   id: number;
 };
+
+const Reverify = ({reg_industry_id, id, refetch}:{reg_industry_id: number, id: number, refetch: () => void}) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const axios = useAxios();
+  const {toastError} = useToast();
+
+  const reVerifyHandler = async () => {
+      setLoading(true);
+      try {
+          await axios.get(api_routes.admin.registered_industry.contribution.re_verify(reg_industry_id, id));
+          refetch();
+      } catch (error) {
+          toastError("Failed to re-verify payment. Please try again later.")
+      }finally {
+          setLoading(false);
+      }
+  }
+  return (
+      <Whisper
+          placement="bottomEnd"
+          controlId="control-id-click"
+          trigger="hover"
+          speaker={<Tooltip>Re-Verify</Tooltip>}
+      >
+          <IconButton
+              appearance="primary"
+              color="violet"
+              size="sm"
+              icon={<ReloadIcon />}
+              loading={loading}
+              onClick={reVerifyHandler}
+          />
+      </Whisper>
+  )
+}
 
 const Receipt = ({ id }: { id: number }) => {
   const { pdfLoading, exportPdf } = usePdfExport();
@@ -80,6 +122,7 @@ const Excel = ({ link }: { link: string }) => {
 }
 
 export default function Contribution({ id }: Props) {
+  const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
   const { search, searchHandler } = useSearchQueryParam("_contribution");
   const { page, pageHandler, limit, limitHandler } =
     usePaginationQueryParam("_contribution");
@@ -217,19 +260,18 @@ export default function Contribution({ id }: Props) {
               </Table.Cell>
             </Table.Column>
 
-            {/* <Table.Column width={70} fixed="right">
+            <Table.Column width={90} fixed="right">
               <Table.HeaderCell>Action</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>
                 {(rowData) => (
                   <ButtonToolbar>
-                    <ViewLink
-                      to={page_routes.admin.contribution.view(rowData.id)}
-                    />
+                    {rowData.status === 1 && <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />}
+                    <Reverify reg_industry_id={rowData.comp_regd_id} id={rowData.id} refetch={refetchData} />
                   </ButtonToolbar>
                 )}
               </Table.Cell>
-            </Table.Column> */}
+            </Table.Column>
           </Table>
           <div className="mt-1">
             <Pagination
@@ -251,6 +293,7 @@ export default function Contribution({ id }: Props) {
             />
           </div>
         </ModalCardContainer>
+        <ContributionForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetchData} />
       </ErrorBoundaryLayout>
     </div>
   );

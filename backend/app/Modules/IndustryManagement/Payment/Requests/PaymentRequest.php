@@ -40,12 +40,12 @@ class PaymentRequest extends InputRequest
                     $fail('You have already paid for the selected year.');
                 }
             }],
-            'male' => ['required', 'numeric', function ($attribute, $value, $fail) use($years) {
+            'male' => ['required', 'numeric', function ($attribute, $value, $fail) {
                 if ($value==0 && $this->female==0) {
                     $fail('Male or Female count should be greater than 0.');
                 }
             }],
-            'female' => ['required', 'numeric', function ($attribute, $value, $fail) use($years) {
+            'female' => ['required', 'numeric', function ($attribute, $value, $fail) {
                 if ($value==0 && $this->male==0) {
                     $fail('Male or Female count should be greater than 0.');
                 }

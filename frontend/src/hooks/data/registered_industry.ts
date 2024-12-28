@@ -83,7 +83,7 @@ export const useRegisteredIndustriesScholarshipQuery: (id: number) => UseQueryRe
 };
 
 export const useRegisteredIndustriesContributionQuery: (id: number) => UseQueryResult<
-  PaginationType<StudentApplicationType>,
+  PaginationType<ContributionType>,
   unknown
 > = (id) => {
   const axios = useAxios();

@@ -57,6 +57,11 @@ class RegisteredIndustryContributionService
 			->appends(request()->query());
 	}
 
+	public function getById(string $reg_industry_id, string $id): Payment
+	{
+		return $this->model($reg_industry_id)->findOrFail($id);
+	}
+
 	public function excel(string $reg_industry_id): SimpleExcelWriter
 	{
 		$model = $this->query($reg_industry_id);
