@@ -27,7 +27,7 @@ class PaymentRequest extends InputRequest
      */
     public function rules()
     {
-        $years = Payment::with('industry')->whereHas('industry', function ($query) {
+        $years = Payment::select('year')->with('industry')->whereHas('industry', function ($query) {
 			$query->where('id', auth()->guard(Guards::Industry->value())->user()->reg_industry_id);
 		})
 		->where('comp_regd_id', auth()->guard(Guards::Industry->value())->user()->reg_industry_id)

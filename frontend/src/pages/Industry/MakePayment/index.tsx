@@ -64,20 +64,20 @@ export default function MakePaymentPage() {
 			return 0;
 		}
 		const curDay = moment().date();
-		const curMonth = moment().month();
+		const curMonth = moment().month() + 1;
 		const curYear = moment().year();
-		const betweenYear = curYear - selectedYear;
-		if ((betweenYear === 1 && curDay <= 20 && curMonth <= 2) || betweenYear == 0) {
-			return 0;
-		} else if (
-			(betweenYear === 1 && curDay > 20 && curMonth <= 2) ||
-			(betweenYear <= 1 && curMonth === 3) ||
-			(betweenYear <= 1 && curMonth == 4 && curDay <= 15)
-		) {
-			return (amount * 12) / 100;
-		} else {
-			return (amount * 18) / 100;
+		const diff = curYear - selectedYear;
+		const month_diff = moment((curYear-1) + "-" + curMonth + "-" + curDay).diff(moment(selectedYear + "-01-01"), "months", true);
+		if (diff == 0 || diff == 1) {
+			if (curMonth == 1 && curDay >= 1 && curDay <= 15) {
+				return 0;
+			}else if ((curMonth == 1 && curDay >= 16) || (curMonth <= 3 && curDay <= 31)) {
+				return (amount * 12) / 100;
+			}else {
+				return (((amount * 18) / 100) / 12) * Math.ceil(month_diff);
+			}
 		}
+		return (((amount * 18) / 100) / 12) * Math.ceil(month_diff);
 	}, [amount, selectedYear]);
 
 	const totalAmount = useMemo(() => {

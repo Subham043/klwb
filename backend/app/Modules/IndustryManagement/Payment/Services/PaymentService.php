@@ -28,7 +28,7 @@ class PaymentService
 	protected function query(): QueryBuilder
 	{
 		return QueryBuilder::for($this->model())
-			->defaultSort('-id')
+			->defaultSort('-year')
 			->allowedSorts('id', 'year')
 			->allowedFilters([
 				'year',
