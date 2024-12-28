@@ -1,0 +1,40 @@
+.reciept_header{
+	text-align: center;
+	background: #f9f9f9;
+	padding: 15px 10px;
+}
+.reciept_main_heading{
+	font-size: 18px;
+	font-weight: 700;
+	font-style: italic;
+	margin: 0;
+	margin-bottom: 10px;
+}
+.reciept_sub_heading{
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 6px;
+	color: #053f71;
+}
+.reciept_right_content{
+	text-align: right;
+	margin: 15px 0;
+}
+.reciept_left_content{
+	text-align: left;
+	margin: 15px 0;
+	font-weight: 500;
+	font-size: 15px;
+	margin-bottom: 8px;
+}
+
+.reciept_left_content p u{
+	text-decoration: underline;
+	font-weight: 400;
+}
+
+.reciept_left_content p b{
+	font-size: 18px;
+	font-weight: 800;
+	margin-top: 15px;
+}

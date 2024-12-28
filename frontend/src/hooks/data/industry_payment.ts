@@ -7,6 +7,7 @@ import { usePaginationQueryParam } from "../usePaginationQueryParam";
 import { useSearchParams } from "react-router-dom";
 
 export const IndustryPaymentQueryKey = "payment";
+export const IndustryPaymentStatusQueryKey = "payment_status";
 export const IndustryPaymentsQueryKey = "payments";
 export const IndustryPaymentPadiYearQueryKey = "payment_select";
 
@@ -56,6 +57,23 @@ export const useIndustryPaymentQuery: (
     queryFn: async () => {
       const response = await axios.get<{ data: PaymentType }>(
         api_routes.industry.payment.view(id)
+      );
+      return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useIndustryPaymentStatusQuery: (
+  id: number,
+  enabled: boolean
+) => UseQueryResult<PaymentType, unknown> = (id, enabled) => {
+  const axios = useAxios();
+  return useQuery({
+    queryKey: [IndustryPaymentStatusQueryKey, id],
+    queryFn: async () => {
+      const response = await axios.get<{ data: PaymentType }>(
+        api_routes.industry.payment.status(id)
       );
       return response.data.data;
     },

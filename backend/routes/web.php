@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\FileController;
-use App\Http\Services\AESEncDecService;
 use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentController;
+use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentVerifyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,19 +12,8 @@ Route::get('/', function () {
 
 Route::prefix('sbi')->group(function () {
     Route::get('/make-payment/{id}', [SBIPaymentController::class, 'index'])->name('sbi_make_payment');
-    Route::post('/payment/success/{id}', function () {
-        return response()->json([
-            'message' => "Suceess.",
-        ]);
-    })->name('sbi_success_callback');
-    Route::post('/payment/fail/{id}', function () {
-        $encData = (new AESEncDecService)->decrypt(request('encData'),config('services.sbi.key'));
-        dd($encData);
-        return response()->json([
-            'request' => request(),
-            'message' => "Failure.",
-        ]);
-    })->name('sbi_failure_callback');
+    Route::post('/payment/success/{id}', [SBIPaymentVerifyController::class, 'success'])->name('sbi_success_callback');
+    Route::post('/payment/fail/{id}', [SBIPaymentVerifyController::class, 'fail'])->name('sbi_failure_callback');
 });
 
 

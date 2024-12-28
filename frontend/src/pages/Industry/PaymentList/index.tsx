@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { ButtonToolbar, IconButton, Table, Tooltip, Whisper } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
@@ -11,6 +11,44 @@ import IndustryPaymentStatusBadge from "../../../components/IndustryPaymentStatu
 import { api_routes } from "../../../utils/routes/api";
 import ChangeListIcon from '@rsuite/icons/ChangeList';
 import { usePdfExport } from "../../../hooks/usePdfExport";
+import ReloadIcon from '@rsuite/icons/Reload';
+import { useAxios } from "../../../hooks/useAxios";
+import { useToast } from "../../../hooks/useToast";
+
+const Reverify = ({id, refetch}:{id: number, refetch: () => void}) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const axios = useAxios();
+    const {toastError} = useToast();
+
+    const reVerifyHandler = async () => {
+        setLoading(true);
+        try {
+            await axios.get(api_routes.industry.payment.re_verify(id || ""));
+            refetch();
+        } catch (error) {
+            toastError("Failed to re-verify payment. Please try again later.")
+        }finally {
+            setLoading(false);
+        }
+    }
+    return (
+        <Whisper
+            placement="bottomEnd"
+            controlId="control-id-click"
+            trigger="hover"
+            speaker={<Tooltip>Re-Verify</Tooltip>}
+        >
+            <IconButton
+                appearance="primary"
+                color="violet"
+                size="sm"
+                icon={<ReloadIcon />}
+                loading={loading}
+                onClick={reVerifyHandler}
+            />
+        </Whisper>
+    )
+}
 
 const Receipt = ({id}:{id: number}) => {
     const {pdfLoading, exportPdf} = usePdfExport();
@@ -161,6 +199,7 @@ const IndustryPaymentListPage:FC = () => {
                         {rowData => (
                             <ButtonToolbar>
                                 {rowData.status === 1 && <ViewLink to={page_routes.industry.payment.view(rowData.id)} />}
+                                <Reverify id={rowData.id} refetch={refetch} />
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

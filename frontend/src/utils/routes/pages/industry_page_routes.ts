@@ -18,5 +18,7 @@ export const industry_page_routes = {
     pay: "/industry/payment/pay",
     view: (id: number | string) =>
       "/industry/payment/view/" + id,
+    status: (id: number | string) =>
+      "/industry/payment/status/" + id,
   }
 } as const;
