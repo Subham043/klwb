@@ -50,8 +50,6 @@ class PaymentRequest extends InputRequest
                     $fail('Male or Female count should be greater than 0.');
                 }
             }],
-            'price' => ['required', 'numeric', 'gt:0'],
-            'interest' => ['required', 'numeric'],
             'employee_excel' => 'required|file|extensions:xlsx',
         ];
     }
