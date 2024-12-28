@@ -77,6 +77,8 @@ use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryToggleCo
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryVerificationController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
+use App\Modules\Admins\RegisteredIndustryContribution\Controllers\RegisteredIndustryContributionExportController;
+use App\Modules\Admins\RegisteredIndustryContribution\Controllers\RegisteredIndustryContributionPaginateController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipExportController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipPaginateController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffAccountController;
@@ -377,6 +379,10 @@ Route::prefix('admin')->group(function () {
                 Route::prefix('scholarship/{id}')->group(function () {
                     Route::get('/excel', [RegisteredIndustryScholarshipExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredIndustryScholarshipPaginateController::class, 'index']);
+                });
+                Route::prefix('contribution/{reg_industry_id}')->group(function () {
+                    Route::get('/excel', [RegisteredIndustryContributionExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredIndustryContributionPaginateController::class, 'index']);
                 });
             });
             Route::prefix('non-registered-industries')->group(function () {

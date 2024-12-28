@@ -263,6 +263,12 @@ export const admin_api_routes = {
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-industries/scholarship/${id}/paginate`,
     },
+    contribution: {
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-industries/contribution/${id}/excel`,
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-industries/contribution/${id}/paginate`,
+    },
   },
   non_registered_industry: {
     excel: "/api/admin/v1/non-registered-industries/excel",
