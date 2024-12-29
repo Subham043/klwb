@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import { Button, ButtonToolbar, IconButton, Table, Tooltip, Whisper } from "rsuite"
+import { Button, ButtonToolbar, Checkbox, IconButton, Table, Tooltip, Whisper } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
 import { page_routes } from "../../../utils/routes/pages";
@@ -17,6 +17,8 @@ import { useAxios } from "../../../hooks/useAxios";
 import { isAxiosError } from "axios";
 import { AxiosErrorResponseType } from "../../../utils/types";
 import FinanceScholarshipRejectForm from "../../../components/Finance/RejectModal";
+import { useSearchParams } from "react-router-dom";
+import ConfirmAlert from "../../../components/ConfirmAlert";
 
 
 const FinanceScholarshipListPage: FC = () => {
@@ -29,6 +31,28 @@ const FinanceScholarshipListPage: FC = () => {
     });
     const { toastError, toastSuccess } = useToast();
     const axios = useAxios();
+    const [searchParams] = useSearchParams();
+    const [checkedValue, setCheckedValue] = useState<number[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    
+    const onMultipleApproveHandler = async () => {
+        setLoading(true);
+        try {
+            await axios.post(
+            api_routes.finance.scholarship.approve_multiple,
+            {
+                id: checkedValue,
+            }
+            );
+            toastSuccess("Approved Successfully");
+            setCheckedValue([]);
+            refetch();
+        } catch (error) {
+            toastError("Error Approving. Please try again later");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const onApproveHandler = async (id: number) => {
         setApproveLoading(true);
@@ -52,6 +76,12 @@ const FinanceScholarshipListPage: FC = () => {
     return <>
         <PaginatedTableLayout title="Scholarship List">
             <PaginatedTableLayout.Header title="Scholarship List" addBtn={false} excelLink={api_routes.finance.scholarship.excel} excelName="applications.xlsx">
+                {(searchParams.get("payment_status")==="pending" || searchParams.get("payment_status")==="rejected") && (checkedValue.length>0) && 
+                <ConfirmAlert confirmHandler={onMultipleApproveHandler} message="Are you sure you want to approve selected applications?">
+                    <Button appearance="primary" color="violet" type="button" active loading={loading} disabled={loading}>
+                        Approve
+                    </Button>
+                </ConfirmAlert>}
                 <Button appearance="primary" type="button" active onClick={() => setOpenDrawer(true)}>
                     Filter
                 </Button>
@@ -62,6 +92,16 @@ const FinanceScholarshipListPage: FC = () => {
                     {...table}
                     data={data?.data || []}
                 >
+                    {(searchParams.get("payment_status")==="pending" || searchParams.get("payment_status")==="rejected") && <Table.Column width={50} verticalAlign="middle" align="center" fixed>
+                        <Table.HeaderCell>Select</Table.HeaderCell>
+
+                        <Table.Cell style={{ padding: '6px' }}>
+                            {rowData => (
+                                <Checkbox value={rowData.id} disabled={rowData.pay_status === 1} checked={checkedValue.includes(rowData.id)} onChange={_value => checkedValue.includes(rowData.id) ? setCheckedValue(checkedValue.filter(id => id !== rowData.id)) : setCheckedValue([...checkedValue, rowData.id])} />
+                            )}
+                        </Table.Cell>
+                    </Table.Column>}
+
                     <Table.Column width={60} align="center" fixed>
                         <Table.HeaderCell>Id</Table.HeaderCell>
                         <Table.Cell dataKey="id" />

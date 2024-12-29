@@ -280,6 +280,7 @@ export const admin_api_routes = {
   scholarship: {
 		list: "/api/admin/v1/scholarship/list",
 		excel: "/api/admin/v1/scholarship/excel",
+		approve_multiple: "/api/admin/v1/scholarship/approve-multiple",
 		view: (id: string | number) => `/api/admin/v1/scholarship/view/${id}`,
 		pdf: (id: string | number) => `/api/admin/v1/scholarship/pdf/${id}`,
 		approve: (id: string | number) => `/api/admin/v1/scholarship/approve/${id}`,
