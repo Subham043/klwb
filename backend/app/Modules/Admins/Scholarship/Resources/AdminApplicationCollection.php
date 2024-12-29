@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Scholarship\Resources;
 
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Resources\ApplicationCollection;
 use App\Modules\Students\Users\Resources\UserCollection;
 
@@ -15,6 +16,7 @@ class AdminApplicationCollection extends ApplicationCollection
 	 */
 	public function toArray($request)
 	{
+		$applicationCheck = (new ScholarshipApplicationChecksService)->canAdminVerify($this->resource);
 		$parentArray = parent::toArray($request);
 		return array_merge($parentArray, [
 			'pay_status' => $this->pay_status,
@@ -27,6 +29,7 @@ class AdminApplicationCollection extends ApplicationCollection
 			'delete_reason' => $this->delete_reason,
 			'approved_by' => $this->approved_by ? UserCollection::make($this->approved_by) : null,
 			'industryPayment' => PaymentCollection::make($this->industryPayment) ?? null,
+			'can_approve' => $applicationCheck,
 		]);
 	}
 }

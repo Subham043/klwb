@@ -144,6 +144,7 @@ use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListCont
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryRejectController;
 use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteRejectController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveMultipleController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipNoteController;
@@ -396,6 +397,7 @@ Route::prefix('admin')->group(function () {
             Route::prefix('scholarship')->group(function () {
 				Route::get('/list', [AdminScholarshipListController::class, 'index']);
 				Route::get('/excel', [AdminScholarshipExportController::class, 'index']);
+				Route::post('/approve-multiple', [AdminScholarshipApproveMultipleController::class, 'index']);
 				Route::get('/view/{id}', [AdminScholarshipViewController::class, 'index']);
 				Route::post('/approve/{id}', [AdminScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [AdminScholarshipRejectController::class, 'index']);

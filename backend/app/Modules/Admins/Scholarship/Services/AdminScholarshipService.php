@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Support\Collection;
 
 class AdminScholarshipService
 {
@@ -101,6 +102,14 @@ class AdminScholarshipService
 			->where('id', $id)
 			->latest()
 			->firstOrFail();
+	}
+	
+	public function getMultipleByIds(array $ids): Collection
+	{
+		return $this->model()
+			->whereIn('id', $ids)
+			->latest()
+			->get();
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator

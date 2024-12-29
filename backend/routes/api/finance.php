@@ -3,6 +3,7 @@
 use App\Http\Enums\Guards;
 use App\Modules\Finance\Dashboard\FinanceDashboardController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipApproveController;
+use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipApproveMultipleController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipExportController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipIndustryConfirmationPdfController;
 use App\Modules\Finance\Scholarship\Controllers\FinanceScholarshipInstituteConfirmationPdfController;
@@ -19,6 +20,7 @@ Route::prefix('finance')->group(function () {
 			Route::prefix('scholarship')->group(function () {
 				Route::get('/list', [FinanceScholarshipListController::class, 'index']);
 				Route::get('/excel', [FinanceScholarshipExportController::class, 'index']);
+				Route::post('/approve-multiple', [FinanceScholarshipApproveMultipleController::class, 'index']);
 				Route::get('/view/{id}', [FinanceScholarshipViewController::class, 'index']);
 				Route::post('/approve/{id}', [FinanceScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [FinanceScholarshipRejectController::class, 'index']);

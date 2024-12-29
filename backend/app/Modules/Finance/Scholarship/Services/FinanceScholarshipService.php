@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
@@ -95,6 +96,14 @@ class FinanceScholarshipService
 			->where('id', $id)
 			->latest()
 			->firstOrFail();
+	}
+	
+	public function getMultipleByIds(array $ids): Collection
+	{
+		return $this->model()
+			->whereIn('id', $ids)
+			->latest()
+			->get();
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator
