@@ -19,9 +19,11 @@ import moment from "moment";
 import TextInput from "../../../components/FormInput/TextInput";
 import FileInput from "../../../components/FormInput/FileInput";
 
-const diff = moment().year() - (moment().isAfter(moment().year() + "-12-14") ? 2016 : 2017);
+const isAfter31stDec = moment().isAfter(moment().year() + "-12-31", "day");
 
-const years = Array.from({ length: diff }, (_, i) => ({ label: (moment().year() - (moment().isAfter(moment().year() + "-12-14")? i : (i + 1))).toString(), value: (moment().year() - (moment().isAfter(moment().year() + "-12-14")? i : (i + 1))).toString() }));
+const diff = moment().year() - (isAfter31stDec ? 2016 : 2017);
+
+const years = Array.from({ length: diff }, (_, i) => ({ label: (moment().year() - (isAfter31stDec ? i : (i + 1))).toString(), value: (moment().year() - (isAfter31stDec ? i : (i + 1))).toString() }));
 
 export default function MakePaymentPage() {
 	const [loading, setLoading] = useState<boolean>(false);

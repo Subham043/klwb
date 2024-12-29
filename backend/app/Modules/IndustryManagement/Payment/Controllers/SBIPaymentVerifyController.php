@@ -3,10 +3,13 @@
 namespace App\Modules\IndustryManagement\Payment\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Http\Services\AESEncDecService;
 use App\Modules\IndustryManagement\Payment\Resources\PaymentCollection;
 use App\Modules\IndustryManagement\Payment\Services\PaymentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class SBIPaymentVerifyController extends Controller
 {
@@ -44,10 +47,16 @@ class SBIPaymentVerifyController extends Controller
                     ]);
                 }
             }
-            return redirect(config('app.client_url').'/industry/payment/status/'.$id);
+            if(Auth::guard(Guards::Industry->value())->check()==false && $payment->industry->auth){
+                Auth::guard(Guards::Industry->value())->login($payment->industry->auth);
+            }
+            return view('payment_status', ['redirect_url' => config('app.client_url').'/industry/payment/status/'.$id]);
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect(config('app.client_url').'/industry/payment/status/'.$id);
+            if(Auth::guard(Guards::Industry->value())->check()==false && $payment->industry->auth){
+                Auth::guard(Guards::Industry->value())->login($payment->industry->auth);
+            }
+            return view('payment_status', ['redirect_url' => config('app.client_url').'/industry/payment/status/'.$id]);
         }
     }
     
@@ -75,10 +84,15 @@ class SBIPaymentVerifyController extends Controller
                     ]);
                 }
             }
-            return redirect(config('app.client_url').'/industry/payment/status/'.$id);
+            if(Auth::guard(Guards::Industry->value())->check()==false && $payment->industry->auth){
+                Auth::guard(Guards::Industry->value())->login($payment->industry->auth);
+            }
+            return view('payment_status', ['redirect_url' => config('app.client_url').'/industry/payment/status/'.$id]);
         } catch (\Throwable $th) {
-            //throw $th;
-            return redirect(config('app.client_url').'/industry/payment/status/'.$id);
+            if(Auth::guard(Guards::Industry->value())->check()==false && $payment->industry->auth){
+                Auth::guard(Guards::Industry->value())->login($payment->industry->auth);
+            }
+            return view('payment_status', ['redirect_url' => config('app.client_url').'/industry/payment/status/'.$id]);
         }
     }
     
