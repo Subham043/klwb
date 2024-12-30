@@ -254,13 +254,14 @@ class ScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->belongsToAuthStudent();
 	}
 	protected function query(): QueryBuilder
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 			]);
@@ -283,28 +284,28 @@ class ScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::belongsToAuthStudent()->count();
+		return Application::belongsToAuthStudent()->applicationIsActive()->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
 		return Application::belongsToAuthStudent()->where(function ($qry) {
 			$qry->isApplicationApproved();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::belongsToAuthStudent()->where(function ($qry) {
 			$qry->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalScholarshipAmount(): int
 	{
 		return Application::belongsToAuthStudent()->with([
 			'mark' => fn($query) => $query->with(['graduation' => fn($q) => $q->with('scholarship_fee')]),
-		])->whereApplicationStageGreaterThan(ApplicationState::Govt)->whereNotApplicationStatus(ApplicationStatus::Reject)->get()->sum('mark.graduation.scholarship_fee.amount');
+		])->applicationIsActive()->whereApplicationStageGreaterThan(ApplicationState::Govt)->whereNotApplicationStatus(ApplicationStatus::Reject)->get()->sum('mark.graduation.scholarship_fee.amount');
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator

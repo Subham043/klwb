@@ -14,7 +14,7 @@ class StateService extends AbstractExcelService
 {
     public function model(): Builder
     {
-        return State::whenNotAdmin();
+        return State::isActive();
     }
     public function query(): QueryBuilder
     {

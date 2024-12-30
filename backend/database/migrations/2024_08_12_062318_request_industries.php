@@ -23,7 +23,8 @@ return new class extends Migration
             $table->text('register_doc')->nullable();
             $table->foreignId('city_id')->nullable()->index();
             $table->foreignId('taluq_id')->nullable()->index();
-            $table->boolean('is_active')->default(1);
+            $table->tinyInteger('status')->default(0);
+            $table->text('reject_reason')->nullable();
             $table->timestamps();
         });
     }

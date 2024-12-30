@@ -11,6 +11,32 @@ class StateToggleController extends Controller
 {
     public function __construct(private StateService $stateService){}
 
+    /**
+     * Toggle the status of a state
+     * 
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * 
+     * @response 200 {
+     *   "message": "State unblocked successfully.",
+     *   "data": {
+     *     "id": 1,
+     *     "name": "Andhra Pradesh"
+     *   }
+     * }
+     * 
+     * @response 200 {
+     *   "message": "State blocked successfully.",
+     *   "data": {
+     *     "id": 1,
+     *     "name": "Andhra Pradesh"
+     *   }
+     * }
+     * 
+     * @response 400 {
+     *   "message": "Something went wrong. Please try again"
+     * }
+     */
     public function index(ToggleStatusRequest $request, $id){
         $state = $this->stateService->getById($id);
         try {

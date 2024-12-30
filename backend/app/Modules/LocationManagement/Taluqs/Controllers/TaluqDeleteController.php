@@ -10,6 +10,13 @@ class TaluqDeleteController extends Controller
 {
     public function __construct(private TaluqService $taluqService){}
 
+    /**
+     * Delete a Taluq by id
+     * 
+     * @param int $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $taluq = $this->taluqService->getById($id);
 

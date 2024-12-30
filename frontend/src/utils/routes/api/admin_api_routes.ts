@@ -150,6 +150,8 @@ export const admin_api_routes = {
       `/api/admin/v1/request-institutes/update/${id}`,
     approve: (id: string | number) =>
       `/api/admin/v1/request-institutes/approve/${id}`,
+    reject: (id: string | number) =>
+      `/api/admin/v1/request-institutes/reject/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/request-institutes/delete/${id}`,
     view: (id: string | number) =>
@@ -219,6 +221,8 @@ export const admin_api_routes = {
       `/api/admin/v1/request-industries/update/${id}`,
     approve: (id: string | number) =>
       `/api/admin/v1/request-industries/approve/${id}`,
+    reject: (id: string | number) =>
+      `/api/admin/v1/request-industries/reject/${id}`,
     delete: (id: string | number) =>
       `/api/admin/v1/request-industries/delete/${id}`,
     view: (id: string | number) =>
@@ -259,6 +263,13 @@ export const admin_api_routes = {
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-industries/scholarship/${id}/paginate`,
     },
+    contribution: {
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-industries/contribution/${id}/excel`,
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-industries/contribution/${id}/paginate`,
+      re_verify: (reg_industry_id: string | number, id: string | number) => `/api/admin/v1/registered-industries/contribution/${reg_industry_id}/verify/${id}`,
+    },
   },
   non_registered_industry: {
     excel: "/api/admin/v1/non-registered-industries/excel",
@@ -269,6 +280,7 @@ export const admin_api_routes = {
   scholarship: {
 		list: "/api/admin/v1/scholarship/list",
 		excel: "/api/admin/v1/scholarship/excel",
+		approve_multiple: "/api/admin/v1/scholarship/approve-multiple",
 		view: (id: string | number) => `/api/admin/v1/scholarship/view/${id}`,
 		pdf: (id: string | number) => `/api/admin/v1/scholarship/pdf/${id}`,
 		approve: (id: string | number) => `/api/admin/v1/scholarship/approve/${id}`,
@@ -281,6 +293,7 @@ export const admin_api_routes = {
 		excel: "/api/admin/v1/contribution/excel",
 		view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
 		reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
+		update: (id: string | number) => `/api/admin/v1/contribution/update/${id}`,
 	},
   non_contribution: {
 		list: "/api/admin/v1/non-contribution/list",

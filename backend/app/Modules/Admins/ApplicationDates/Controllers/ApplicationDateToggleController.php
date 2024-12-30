@@ -6,13 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ToggleStatusRequest;
 use App\Modules\Admins\ApplicationDates\Resources\ApplicationDateCollection;
 use App\Modules\Admins\ApplicationDates\Services\ApplicationDateService;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationDateToggleController extends Controller
 {
     public function __construct(private ApplicationDateService $applicationDateService){}
 
+    /**
+     * Toggle status of an Application Date.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $applicationDate = $this->applicationDateService->getById($id);
+        DB::beginTransaction();
         try {
             //code...
             $this->applicationDateService->toggleStatus($applicationDate);
@@ -21,7 +30,10 @@ class ApplicationDateToggleController extends Controller
             }
             return response()->json(["message" => "Application Date blocked successfully.", "data" => ApplicationDateCollection::make($applicationDate)], 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(["message" => "Something went wrong. Please try again"], 400);
+        } finally {
+            DB::commit();
         }
 
     }

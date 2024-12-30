@@ -12,6 +12,13 @@ class RegisteredInstituteAuthController extends Controller
 {
     public function __construct(private RegisteredInstituteService $instituteService){}
 
+    /**
+     * Update the institute auth details.
+     *
+     * @param RegisteredInstituteAuthRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(RegisteredInstituteAuthRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         $request->validated();

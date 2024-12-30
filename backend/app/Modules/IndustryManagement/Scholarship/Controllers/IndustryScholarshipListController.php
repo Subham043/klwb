@@ -10,6 +10,12 @@ class IndustryScholarshipListController extends Controller
 {
     public function __construct(private IndustryScholarshipService $scholarshipService){}
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
     public function index(){
         $application = $this->scholarshipService->getList();
         return ApplicationCollection::collection($application);

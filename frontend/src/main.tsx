@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { CustomProvider } from 'rsuite';
@@ -17,7 +16,7 @@ import './index.css'
 const queryClient = new QueryClient(QueryClientOptions);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <CustomProvider>
       <UserProvider>
       <QueryClientProvider client={queryClient}>
@@ -29,6 +28,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </QueryClientProvider>
       </UserProvider>
       <Toaster />
-    </CustomProvider>
-  </React.StrictMode>,
+    </CustomProvider>,
+  // </React.StrictMode>,
 )

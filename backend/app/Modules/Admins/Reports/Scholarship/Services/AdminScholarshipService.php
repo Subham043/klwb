@@ -29,6 +29,7 @@ class AdminScholarshipService
 			SUM(CASE WHEN application_basic_details.gender = 'female' THEN 1 ELSE 0 END) as female_count")
 		->join('application_basic_details', 'application_basic_details.application_id', '=', 'applications.id')
 		->join('application_marks', 'application_marks.application_id', '=', 'applications.id')
+		->join('application_companies', 'application_companies.application_id', '=', 'applications.id')
 		->groupBy(DB::raw('applications.application_year'));
 	}
 	protected function query(): QueryBuilder
@@ -37,7 +38,6 @@ class AdminScholarshipService
 			->defaultSort('-application_year')
 			->allowedSorts('application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
 					$query->where('application_marks.graduation_id', $value);
 				}),
@@ -48,10 +48,13 @@ class AdminScholarshipService
 					$query->where('application_marks.class_id', $value);
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->where('application_marks.ins_district_id', $value);
+					$query->where('application_companies.district_id', $value);
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->where('application_marks.ins_taluq_id', $value);
+					$query->where('application_companies.taluq_id', $value);
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('applications.application_year', $value);
 				}),
 			]);
 	}
@@ -66,7 +69,7 @@ class AdminScholarshipService
 	{
 		$model = $this->query();
 		$i = 0;
-		$writer = SimpleExcelWriter::streamDownload('applications_report.xlsx');
+		$writer = SimpleExcelWriter::streamDownload('scholarship_report.xlsx');
 		foreach ($model->lazy(1000)->collect() as $data) {
 			$writer->addRow([
 				'Application Year' => $data->year,

@@ -24,7 +24,7 @@ class StudentService extends AbstractAuthenticableExcelService
                 ->allowedSorts('id', 'name')
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
-                    AllowedFilter::callback('account_status', function (Builder $query, $value) {
+                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
                         if(!empty($value)){
                             if(strtolower($value)=="blocked"){
                                 $query->where('is_blocked', true);
@@ -61,7 +61,7 @@ class StudentService extends AbstractAuthenticableExcelService
     {
         $model = $this->query();
         $i=0;
-        $writer = SimpleExcelWriter::streamDownload('employees.xlsx');
+        $writer = SimpleExcelWriter::streamDownload('students.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {
             $writer->addRow([
                 'Id' => $data->id,

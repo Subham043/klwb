@@ -11,6 +11,14 @@ class CourseUpdateController extends Controller
 {
     public function __construct(private CourseService $courseService){}
 
+    /**
+     * Update the specified course in storage.
+     *
+     * @param  \App\Modules\CourseManagement\Courses\Requests\CourseRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function index(CourseRequest $request, $id){
         $course = $this->courseService->getById($id);
         try {

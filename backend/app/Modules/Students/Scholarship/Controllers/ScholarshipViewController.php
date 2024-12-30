@@ -12,6 +12,17 @@ class ScholarshipViewController extends Controller
 {
     public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+/**
+ * Retrieve the latest application date and application details for a given scholarship ID.
+ *
+ * This method checks if the scholarship application can be resubmitted
+ * and constructs a JSON response with the application date, application details,
+ * and resubmission eligibility status.
+ *
+ * @param int $id The ID of the scholarship application to retrieve.
+ * @return \Illuminate\Http\JsonResponse JSON response containing application date, application details, and resubmission eligibility.
+ */
+
     public function index($id){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $application = $this->scholarshipService->getById($id);

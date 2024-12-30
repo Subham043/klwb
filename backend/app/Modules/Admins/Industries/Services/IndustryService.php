@@ -15,7 +15,7 @@ class IndustryService extends AbstractExcelService
 {
     public function model(): Builder
     {
-        return Industry::whenNotAdmin();
+        return Industry::isActive();
     }
     public function query(): QueryBuilder
     {
@@ -28,7 +28,7 @@ class IndustryService extends AbstractExcelService
                         $query->where('taluq_id', $value);
                     }),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value)){
+                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
                             if(strtolower($value)=="active"){
                                 $query->where('is_active', true);
                             }else{
@@ -55,7 +55,7 @@ class IndustryService extends AbstractExcelService
     {
         $model = $this->query();
         $i=0;
-        $writer = SimpleExcelWriter::streamDownload('registered_industries.xlsx');
+        $writer = SimpleExcelWriter::streamDownload('industries.xlsx');
         foreach ($model->lazy(1000)->collect() as $data) {
             $writer->addRow([
                 'Id' => $data->id,

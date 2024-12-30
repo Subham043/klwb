@@ -7,13 +7,14 @@ import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
 import SelectDateRangePicker from "../../../components/SelectDateRangePicker";
 import { useContributionReportQuery } from "../../../hooks/data/report";
+import { api_routes } from "../../../utils/routes/api";
 
 
 const ContributionReportListPage:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useContributionReportQuery();
 
     return <PaginatedTableLayout title="Contribution Report">
-        <PaginatedTableLayout.Header title="Contribution Report" addBtn={false} searchInput={false}>
+        <PaginatedTableLayout.Header title="Contribution Report" addBtn={false} searchInput={false} excelLink={api_routes.admin.report.contribution.excel} excelName="contribution_report.xlsx">
             <SelectDateRangePicker />
             <SelectCityStatus />
             <SelectTaluqStatus />

@@ -12,6 +12,13 @@ class StudentUpdateController extends Controller
 {
     public function __construct(private StudentService $studentService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  StudentUpdatePostRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(StudentUpdatePostRequest $request, $id){
         $student = $this->studentService->getById($id);
         DB::beginTransaction();

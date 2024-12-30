@@ -22,7 +22,7 @@ class InstituteService extends AbstractExcelService
                     }
                 ]);
             }
-        ])->whenNotAdmin();
+        ])->isActive();
     }
     public function query(): QueryBuilder
     {
@@ -40,7 +40,7 @@ class InstituteService extends AbstractExcelService
                         $query->where('taluq_id', $value);
                     }),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value)){
+                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
                             if(strtolower($value)=="active"){
                                 $query->where('is_active', true);
                             }else{

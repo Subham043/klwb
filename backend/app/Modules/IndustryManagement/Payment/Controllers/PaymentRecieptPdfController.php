@@ -12,6 +12,12 @@ class PaymentRecieptPdfController extends Controller
 
     public function __construct(private PaymentService $paymentService){}
 
+    /**
+     * Downloads a PDF receipt for a payment.
+     * 
+     * @param int $id The ID of the payment.
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $payment = $this->paymentService->getPaymentCompletedById($id);
         $fileName = str()->uuid();

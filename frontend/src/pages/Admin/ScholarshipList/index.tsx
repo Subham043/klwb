@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import { Badge, Button, ButtonToolbar, Table } from "rsuite"
+import { Badge, Button, ButtonToolbar, Checkbox, Table } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
 import { page_routes } from "../../../utils/routes/pages";
@@ -13,16 +13,49 @@ import ApplicationStateBadge from "../../../components/Student/ApplicationStateB
 import PaymentStatusBadge from "../../../components/PaymentStatusBadge";
 import { useSearchParams } from "react-router-dom";
 import BlockBtn from "../../../components/Buttons/BlockBtn";
+import ConfirmAlert from "../../../components/ConfirmAlert";
+import { useAxios } from "../../../hooks/useAxios";
+import { useToast } from "../../../hooks/useToast";
 
 
 const AdminScholarshipListPage: FC = () => {
     const { data, isLoading, isFetching, isRefetching, refetch, error } = useAdminScholarshipListQuery();
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [searchParams] = useSearchParams();
+    const [checkedValue, setCheckedValue] = useState<number[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const { toastError, toastSuccess } = useToast();
+    const axios = useAxios();
+
+    const onMultipleApproveHandler = async () => {
+        setLoading(true);
+        try {
+          await axios.post(
+            api_routes.admin.scholarship.approve_multiple,
+            {
+                id: checkedValue,
+            }
+          );
+          toastSuccess("Approved Successfully");
+          setCheckedValue([]);
+          refetch();
+        } catch (error) {
+            toastError("Error Approving. Please try again later");
+        } finally {
+          setLoading(false);
+        }
+      };
+    
 
     return <>
         <PaginatedTableLayout title="Scholarship List">
             <PaginatedTableLayout.Header title="Scholarship List" addBtn={false} excelLink={api_routes.admin.scholarship.excel} excelName="applications.xlsx">
+                {searchParams.get("status")==="pending" && (checkedValue.length>0) && 
+                <ConfirmAlert confirmHandler={onMultipleApproveHandler} message="Are you sure you want to approve selected applications?">
+                    <Button appearance="primary" color="violet" type="button" active loading={loading} disabled={loading}>
+                        Approve
+                    </Button>
+                </ConfirmAlert>}
                 <Button appearance="primary" type="button" active onClick={() => setOpenDrawer(true)}>
                     Filter
                 </Button>
@@ -33,6 +66,16 @@ const AdminScholarshipListPage: FC = () => {
                     {...table}
                     data={data?.data || []}
                 >
+                    {searchParams.get("status")==="pending" && <Table.Column width={50} verticalAlign="middle" align="center" fixed>
+                        <Table.HeaderCell>Select</Table.HeaderCell>
+
+                        <Table.Cell style={{ padding: '6px' }}>
+                            {rowData => (
+                                <Checkbox value={rowData.id} disabled={!rowData.can_approve} checked={checkedValue.includes(rowData.id)} onChange={_value => checkedValue.includes(rowData.id) ? setCheckedValue(checkedValue.filter(id => id !== rowData.id)) : setCheckedValue([...checkedValue, rowData.id])} />
+                            )}
+                        </Table.Cell>
+                    </Table.Column>}
+
                     <Table.Column width={60} align="center" fixed>
                         <Table.HeaderCell>Id</Table.HeaderCell>
                         <Table.Cell dataKey="id" />
@@ -104,12 +147,12 @@ const AdminScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>District</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.district.name" />
+                        <Table.Cell dataKey="company.district.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Taluq</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.taluq.name" />
+                        <Table.Cell dataKey="company.taluq.name" />
                     </Table.Column>
 
                     <Table.Column width={160} verticalAlign="middle">

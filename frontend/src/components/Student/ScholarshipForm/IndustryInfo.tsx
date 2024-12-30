@@ -1,20 +1,21 @@
-import { Col, Grid, Row } from "rsuite";
+import { Col, Form, Grid, Row } from "rsuite";
 import TextInput from "../../FormInput/TextInput";
 import SelectInput from "../../FormInput/SelectInput";
 import classes from "./index.module.css";
 import {
   Control,
+  Controller,
   FieldErrors,
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
 import { ScholarshipFormSchemaType } from "./schema";
-import { useCityCommonSelectQuery } from "../../../hooks/data/city";
-import { useTaluqCommonSelectQuery } from "../../../hooks/data/taluq";
 import FileInput from "../../FormInput/FileInput";
-import { useIndustryUserCommonSelectQuery } from "../../../hooks/data/industry";
 import FileViewer from "../../FileViewer";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
+import DistrictSelect from "./Select/DistrictSelect";
+import TaluqSelect from "./Select/TaluqSelect";
+import IndustrySelect from "./Select/IndustrySelect";
 
 type PropType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,28 +37,6 @@ export default function IndustryInfo({
 }: PropType) {
   const district_id = watch("district_id");
   const taluq_id = watch("taluq_id");
-
-  const {
-    data: cities,
-    isFetching: isCityFetching,
-    isLoading: isCityLoading,
-  } = useCityCommonSelectQuery(true);
-  const {
-    data: taluqs,
-    isFetching: isTaluqFetching,
-    isLoading: isTaluqLoading,
-  } = useTaluqCommonSelectQuery(
-    district_id !== 0 && district_id !== undefined,
-    district_id === 0 ? undefined : district_id
-  );
-  const {
-    data: industries,
-    isFetching: isIndustryFetching,
-    isLoading: isIndustryLoading,
-  } = useIndustryUserCommonSelectQuery(
-    taluq_id !== 0 && taluq_id !== undefined,
-    taluq_id === 0 ? undefined : taluq_id
-  );
 
   return (
     <div className="mb-1">
@@ -112,82 +91,110 @@ export default function IndustryInfo({
           </Row>
           <Row gutter={30}>
             <Col className="pb-1" xs={12}>
-              <SelectInput
-                name="district_id"
-                label="District"
-                resetHandler={() => {
-                  setValue("taluq_id", 0);
-                  setValue("company_id", 0);
-                }}
-                data={
-                  cities
-                    ? cities.map((item) => ({
-                        label: item.name,
-                        value: item.id,
-                      }))
-                    : []
-                }
-                loading={isCityFetching || isCityLoading}
+              <Form.ControlLabel>District</Form.ControlLabel>
+              <Controller
+                name={"district"}
                 control={control}
-                error={errors.district_id?.message}
+                render={({ field }) => (
+                  <>
+                    <DistrictSelect
+                      value={field.value}
+                      setValue={(value) => {
+                        field.onChange({
+                          value: value.value,
+                          label: value.label,
+                        });
+                        setValue("district_id", value.value);
+                        setValue("taluq_id", 0);
+                        setValue("taluq", { value: 0, label: "" });
+                        setValue("company_id", 0);
+                        setValue("company", { value: 0, label: "" });
+                      }}
+                    />
+                  </>
+                )}
               />
+              <Form.ErrorMessage
+                show={
+                  !!errors.district?.value?.message ||
+                  !!errors.district_id?.message
+                }
+                placement="bottomStart"
+              >
+                {errors.district?.value?.message || errors.district_id?.message}
+              </Form.ErrorMessage>
             </Col>
             <Col className="pb-1" xs={12}>
-              <SelectInput
-                name="taluq_id"
-                label="Taluq"
-                resetHandler={() => {
-                  setValue("company_id", 0);
-                }}
-                data={
-                  taluqs
-                    ? taluqs.map((item) => ({
-                        label: item.name,
-                        value: item.id,
-                      }))
-                    : []
-                }
-                disabled={
-                  district_id === 0 ||
-                  district_id === undefined ||
-                  taluqs === undefined ||
-                  taluqs.length === 0
-                }
-                loading={isTaluqFetching || isTaluqLoading}
+              <Form.ControlLabel>Taluq</Form.ControlLabel>
+              <Controller
+                name={"taluq"}
                 control={control}
-                error={errors.taluq_id?.message}
+                render={({ field }) => (
+                  <>
+                    <TaluqSelect
+                      value={field.value}
+                      district={district_id}
+                      isDisabled={district_id === 0}
+                      setValue={(value) => {
+                        field.onChange({
+                          value: value.value,
+                          label: value.label,
+                        });
+                        setValue("taluq_id", value.value);
+                        setValue("company_id", 0);
+                        setValue("company", { value: 0, label: "" });
+                      }}
+                    />
+                  </>
+                )}
               />
+              <Form.ErrorMessage
+                show={
+                  !!errors.taluq?.value?.message ||
+                  !!errors.taluq_id?.message
+                }
+                placement="bottomStart"
+              >
+                {errors.taluq?.value?.message || errors.taluq_id?.message}
+              </Form.ErrorMessage>
             </Col>
           </Row>
           <Row gutter={30}>
             <Col className="pb-1" xs={12}>
-              <div className="institute-select-register">
-                <SelectInput
-                  name="company_id"
-                  label="Parent Industry Name"
-                  data={
-                    industries
-                      ? industries.map((item) => ({
-                          label: item.name,
-                          value: item.id,
-                        }))
-                      : []
-                  }
-                  disabled={
-                    taluq_id === 0 ||
-                    taluq_id === undefined ||
-                    industries === undefined ||
-                    industries.length === 0
-                  }
-                  loading={isIndustryFetching || isIndustryLoading}
-                  control={control}
-                  error={errors.company_id?.message}
-                />
-                <p>
-                  <b>Note: </b>Select your parent industry correctly b'coz they
-                  will approve / reject your application
-                </p>
-              </div>
+              <Form.ControlLabel>Parent Industry Name</Form.ControlLabel>
+              <Controller
+                name={"company"}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <IndustrySelect
+                      value={field.value}
+                      taluq={taluq_id}
+                      isDisabled={taluq_id === 0}
+                      setValue={(value) => {
+                        field.onChange({
+                          value: value.value,
+                          label: value.label,
+                        });
+                        setValue("company_id", value.value);
+                      }}
+                    />
+                    <p>
+                      <b>Note: </b>Select your parent industry correctly b'coz they
+                      will approve / reject your application
+                    </p>
+                  </>
+                )}
+              />
+              <Form.ErrorMessage
+                show={
+                  !!errors.company?.value?.message ||
+                  !!errors.company_id?.message
+                }
+                placement="bottomStart"
+              >
+                {errors.company?.value?.message || errors.company_id?.message}
+              </Form.ErrorMessage>
             </Col>
             <Col className="pb-1" xs={12}>
               <TextInput
@@ -202,9 +209,9 @@ export default function IndustryInfo({
             <Col className="pb-1" xs={12}>
               <FileInput
                 name="salaryslip"
-                accept="image/png, image/jpeg, image/jpg"
+                accept="image/png, image/jpeg, image/jpg, application/pdf"
                 label="Attach Your Parent Employee Certification / Salary-Slip of Last Month"
-                helpText=" Last month salary slips are only accepted. Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                helpText=" Last month salary slips are only accepted. Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.salaryslip?.message}
               />

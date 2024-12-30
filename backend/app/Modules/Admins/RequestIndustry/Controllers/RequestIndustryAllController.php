@@ -10,6 +10,11 @@ class RequestIndustryAllController extends Controller
 {
     public function __construct(private RequestIndustryService $industryService){}
 
+    /**
+     * Fetch all request industries.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $institute = $this->industryService->all();
         return response()->json(["message" => "Request Industry fetched successfully.", "data" => RequestIndustryCollection::collection($institute)], 200);

@@ -18,15 +18,15 @@ class GovtScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->whereApplicationStageGreaterThan(ApplicationState::Company);
 	}
 	protected function query(): QueryBuilder
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					if ($value == 'approved') {
@@ -74,14 +74,17 @@ class GovtScholarshipService
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_district_id', $value);
+					$query->whereHas('company', function ($qry) use ($value) {
+						$qry->where('district_id', $value);
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_taluq_id', $value);
+					$query->whereHas('company', function ($qry) use ($value) {
+						$qry->where('taluq_id', $value);
 					});
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}
@@ -110,7 +113,7 @@ class GovtScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::whereApplicationStageGreaterThan(ApplicationState::Company)
+		return Application::whereApplicationStageGreaterThan(ApplicationState::Company)->applicationIsActive()
 			->count();
 	}
 
@@ -122,21 +125,21 @@ class GovtScholarshipService
 			})->orWhere(function ($q) {
 				$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
 			});
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inGovtStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inGovtStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function excel(): SimpleExcelWriter
@@ -158,8 +161,8 @@ class GovtScholarshipService
 				'Graduation' => $data->mark->graduation->name,
 				'Course' => $data->mark->course->name,
 				'Class' => $data->mark->class->name,
-				'District' => $data->mark->district->name,
-				'Taluq' => $data->mark->taluq->name,
+				'District' => $data->company->district->name,
+				'Taluq' => $data->company->taluq->name,
 				'Amount' => $data->mark->graduation->scholarship_fee->amount ?? 0,
 				'Application Year' => $data->application_year,
 				'Applied Date' => $data->date->format('Y-m-d'),

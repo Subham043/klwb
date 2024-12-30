@@ -12,6 +12,14 @@ class RegisteredInstituteStaffPaginateController extends Controller
 {
     public function __construct(private RegisteredInstituteStaffService $staffService, private RegisteredInstituteService $instituteService){}
 
+/**
+ * Display a paginated list of registered institute staff.
+ *
+ * @param Request $request The current HTTP request, containing optional query parameters.
+ * @param int $id The ID of the institute.
+ * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection A collection of staff data.
+ */
+
     public function index(Request $request, $id){
         $school = $this->instituteService->getById($id);
         $data = $this->staffService->paginate($school->profile->school_id, $school->profile->id, $request->total ?? 10);

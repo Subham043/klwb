@@ -15,6 +15,13 @@ class InstituteEmployeeCreateController extends Controller
 {
     public function __construct(private InstituteEmployeeService $employeeService){}
 
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \App\Modules\InstituteManagement\Staff\Requests\InstituteEmployeeCreatePostRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    
     public function index(InstituteEmployeeCreatePostRequest $request){
         DB::beginTransaction();
         try {

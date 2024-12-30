@@ -11,6 +11,13 @@ class ClassesToggleController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+    /**
+     * Toggle the status of a classes.
+     * 
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(ToggleStatusRequest $request, $id){
         $classes = $this->classesService->getById($id);
         try {

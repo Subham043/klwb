@@ -11,6 +11,12 @@ class ClassesCreateController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+    /**
+     * Store a newly created Classes in storage.
+     *
+     * @param  \App\Modules\CourseManagement\Classes\Requests\ClassesRequest  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(ClassesRequest $request){
         try {
             //code...

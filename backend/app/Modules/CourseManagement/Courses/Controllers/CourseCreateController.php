@@ -11,6 +11,12 @@ class CourseCreateController extends Controller
 {
     public function __construct(private CourseService $courseService){}
 
+    /**
+     * Create a new course in storage.
+     *
+     * @param  \App\Modules\CourseManagement\Courses\Requests\CourseRequest  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(CourseRequest $request){
         try {
             //code...

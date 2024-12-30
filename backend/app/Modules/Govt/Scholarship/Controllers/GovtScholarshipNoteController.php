@@ -11,6 +11,13 @@ class GovtScholarshipNoteController extends Controller
 {
     public function __construct(private GovtScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Update the govt note of an application.
+     *
+     * @param GovtNoteScholarshipRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(GovtNoteScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);

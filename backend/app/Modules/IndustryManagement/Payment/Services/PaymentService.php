@@ -7,6 +7,7 @@ use App\Http\Services\FileService;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\IndustryManagement\Payment\Requests\PaymentRequest;
+use Carbon\Carbon;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,7 +28,7 @@ class PaymentService
 	protected function query(): QueryBuilder
 	{
 		return QueryBuilder::for($this->model())
-			->defaultSort('-id')
+			->defaultSort('-year')
 			->allowedSorts('id', 'year')
 			->allowedFilters([
 				'year',
@@ -89,15 +90,42 @@ class PaymentService
 	public function makePayment(PaymentRequest $request)
 	{
 		$file = (new FileService)->save_file('employee_excel', (new Payment)->employee_excel_path);
+		$current_year = Carbon::now()->format('Y');
+		$current_month = Carbon::now()->format('m');
+		$current_day = Carbon::now()->format('d');
+		$diff = $current_year - $request->year;
+		$selected_date = Carbon::createFromDate($request->year, 1, 1);
+		$diff_date = Carbon::createFromDate(($current_year - 1), $current_month, $current_day);
+		$month_diff = $selected_date->diffInMonths($diff_date);
+		$amount = ($request->male + $request->female) * 60;
+		$interest_amount = 0;
+		$total_amount = 0;
+		if ($diff == 0 || $diff == 1) {
+			if ($current_month == 1 && $current_day >= 1 && $current_day <= 15) {
+				$total_amount	= $amount + $interest_amount;
+			} elseif (($current_month == 1 && $current_day >= 16) || ($current_month <= 3 && $current_day <= 31)) {
+				$interest_amount = ($amount * 12) / 100;
+				$total_amount	= $amount + $interest_amount;
+			} else {
+				$interest_amount = ((($amount * 18) / 100) / 12) * ceil($month_diff);
+				$total_amount	= $amount + $interest_amount;
+			}
+		}else{
+			$interest_amount = ((($amount * 18) / 100) / 12) * ceil($month_diff);
+			$total_amount	= $amount + $interest_amount;
+		}
 		return Payment::updateOrCreate([
 			'year' => $request->year,
-			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id
-		],[
+			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
+			'status' => 0
+		], [
 			...$request->validated(),
 			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
-			'pay_id' => 'KLWB-'.date('Ydmhis').rand(1,10000),
+			'pay_id' => 'KLWB-' . date('Ydmhis') . rand(1, 10000),
 			'employee_excel' => $file,
-			'payed_on' => now()
+			'payed_on' => now(),
+			'interest' => $interest_amount,
+			'price' => $total_amount,
 		]);
 	}
 

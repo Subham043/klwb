@@ -12,6 +12,13 @@ class StudentToggleVerificationController extends Controller
 {
     public function __construct(private StudentService $studentService){}
 
+    /**
+     * Verify the specified student.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $student = $this->studentService->getById($id);
         if($student->verified_at){

@@ -169,6 +169,10 @@ h2{
     font-size: 0.875rem;
 }
 
+.rs-panel{
+    overflow: visible;
+}
+
 .rs-form-control-wrapper, .rs-form-vertical .rs-form-group .rs-input-group, .rs-form-control-wrapper>.rs-input, .rs-form-control-wrapper>.rs-input-number{
     width: 100%;
 }

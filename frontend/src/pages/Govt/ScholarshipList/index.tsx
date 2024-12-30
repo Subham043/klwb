@@ -99,12 +99,12 @@ const GovtScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>District</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.district.name" />
+                        <Table.Cell dataKey="company.district.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Taluq</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.taluq.name" />
+                        <Table.Cell dataKey="company.taluq.name" />
                     </Table.Column>
 
                     <Table.Column width={160} verticalAlign="middle">

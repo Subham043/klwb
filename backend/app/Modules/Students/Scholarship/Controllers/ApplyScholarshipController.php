@@ -13,6 +13,12 @@ class ApplyScholarshipController extends Controller
 
     public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Apply for scholarship.
+     *
+     * @param ApplyScholarshipRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ApplyScholarshipRequest $request){
         if (!$this->applicationChecks->areScholarshipApplicationOpen()) {
             return response()->json(["message" => "You can not apply for scholarship as application is not open yet."], 400);

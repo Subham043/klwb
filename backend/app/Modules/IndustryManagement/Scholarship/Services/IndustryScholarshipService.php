@@ -17,6 +17,7 @@ class IndustryScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->belongsToAuthCompany()
 			->whereApplicationStageGreaterThan(ApplicationState::School);
 	}
@@ -24,9 +25,8 @@ class IndustryScholarshipService
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					if ($value == 'approved') {
@@ -44,6 +44,9 @@ class IndustryScholarshipService
 					if ($value == 'pending') {
 						$query->isApplicationPending()->inCompanyStage();
 					}
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}
@@ -74,6 +77,7 @@ class IndustryScholarshipService
 	{
 		return Application::belongsToAuthCompany()
 			->whereApplicationStageGreaterThan(ApplicationState::School)
+			->applicationIsActive()
 			->count();
 	}
 
@@ -85,21 +89,21 @@ class IndustryScholarshipService
 			})->orWhere(function ($q) {
 				$q->whereApplicationStageGreaterThan(ApplicationState::Company);
 			});
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::belongsToAuthCompany()->where(function ($qry) {
 			$qry->inCompanyStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::belongsToAuthCompany()->where(function ($qry) {
 			$qry->inCompanyStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 }
 

@@ -13,6 +13,14 @@ class RegisteredIndustryStaffPasswordController extends Controller
 {
     public function __construct(private RegisteredIndustryStaffService $staffService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\RegisteredIndustryStaff\Requests\RegisteredIndustryStaffPasswordRequest  $request
+     * @param  int  $id
+     * @param  int  $staff_id
+     * @return \Illuminate\Http\Response
+     */
     public function index(RegisteredIndustryStaffPasswordRequest $request, $id, $staff_id){
         $industry = (new RegisteredIndustryService)->getById($id);
         $staff = $this->staffService->get($industry->reg_industry_id, $industry->id, $staff_id);

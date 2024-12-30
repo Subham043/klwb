@@ -11,6 +11,12 @@ class StateCreateController extends Controller
 {
     public function __construct(private StateService $stateService){}
 
+    /**
+     * Create a new state
+     *
+     * @param StateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(StateRequest $request){
         try {
             //code...

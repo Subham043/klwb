@@ -11,6 +11,14 @@ class TaluqUpdateController extends Controller
 {
     public function __construct(private TaluqService $taluqService){}
 
+    /**
+     * Update a Taluq by id
+     * 
+     * @param \App\Modules\LocationManagement\Taluqs\Requests\TaluqRequest $request
+     * @param int $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(TaluqRequest $request, $id){
         $taluq = $this->taluqService->getById($id);
         try {

@@ -10,6 +10,13 @@ class ScholarshipInstituteConfirmationPdfController extends Controller
 {
     public function __construct(private ScholarshipService $scholarshipService){}
 
+    /**
+     * Downloads a PDF of the given scholarship application, but only if the
+     * institute has provided all the necessary documents.
+     *
+     * @param int $id the ID of the application
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $application = $this->scholarshipService->getById($id);
         if($application->institute->auth && ($application->institute->auth->reg_certification_link!=null && $application->institute->auth->principal_signature_link!=null && $application->institute->auth->seal_link!=null)){

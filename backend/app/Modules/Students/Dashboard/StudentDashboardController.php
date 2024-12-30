@@ -10,6 +10,19 @@ class StudentDashboardController extends Controller
 {
 	public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+	/**
+	 * Get the dashboard information of the student.
+	 * 
+	 * The response will contain the following information:
+	 * - is_scholarship_open: a boolean indicating whether the scholarship is currently open or not.
+	 * - is_eligible_to_apply: a boolean indicating whether the student is eligible to apply for the scholarship or not.
+	 * - can_resubmit: a boolean indicating whether the student can resubmit the application or not.
+	 * - message: a string containing a message to be displayed to the student. The message will be "Scholarship applications are open." if the scholarship is open.
+	 * - total_application: the total number of applications for the current year.
+	 * - total_approved_application: the total number of approved applications for the current year.
+	 * - total_rejected_application: the total number of rejected applications for the current year.
+	 * - total_scholarship_amount: the total amount of scholarship that has been given out for the current year.
+	 */
 	public function index()
 	{
 		$applicationDate = $this->applicationChecks->getLatestApplicationDate();

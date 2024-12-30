@@ -17,6 +17,7 @@ class RegisteredIndustryScholarshipService
     {
         return Application::commonWith()
 		->commonRelation()
+        ->applicationIsActive()
         ->where('company_id', $reg_industry_id);
     }
     protected function query(string $reg_industry_id): QueryBuilder

@@ -15,7 +15,7 @@ class ApplicationDateService extends AbstractExcelService
 
     public function model(): Builder
     {
-        return ApplicationDate::whenNotAdmin();
+        return ApplicationDate::isActive();
     }
     public function query(): QueryBuilder
     {
@@ -27,7 +27,7 @@ class ApplicationDateService extends AbstractExcelService
                 ]);
     }
     
-    public function getLatest(): ApplicationDate|null
+    public function getLatest(): ApplicationDate
     {
         return $this->model()->latest()->firstOrFail();
     }

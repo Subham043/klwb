@@ -12,6 +12,14 @@ class InstituteToggleController extends Controller
 {
     public function __construct(private InstituteService $instituteService){}
 
+    /**
+     * Toggle the activation status of an institute.
+     *
+     * @param ToggleStatusRequest $request The request object containing validation data.
+     * @param int $id The ID of the institute to toggle the status.
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating success or failure of the toggle operation.
+     */
+
     public function index(ToggleStatusRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         DB::beginTransaction();

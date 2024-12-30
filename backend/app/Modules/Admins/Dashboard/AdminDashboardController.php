@@ -9,6 +9,11 @@ class AdminDashboardController extends Controller
 {
 	public function __construct(private AdminScholarshipService $scholarshipService){}
 
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function index()
 	{
 		$response = [

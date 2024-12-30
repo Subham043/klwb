@@ -11,6 +11,13 @@ class TaluqToggleController extends Controller
 {
     public function __construct(private TaluqService $taluqService){}
 
+    /**
+     * Toggle the status of the Taluq with the given id.
+     *
+     * @param  \App\Http\Requests\ToggleStatusRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $taluq = $this->taluqService->getById($id);
         try {

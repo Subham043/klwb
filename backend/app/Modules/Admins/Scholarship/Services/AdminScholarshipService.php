@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Support\Collection;
 
 class AdminScholarshipService
 {
@@ -18,6 +19,7 @@ class AdminScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->with([
 				'approved_by'
 			]);
@@ -26,9 +28,8 @@ class AdminScholarshipService
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					if ($value == 'approved') {
@@ -73,14 +74,17 @@ class AdminScholarshipService
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_district_id', $value);
+					$query->whereHas('company', function ($qry) use ($value) {
+						$qry->where('district_id', $value);
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_taluq_id', $value);
+					$query->whereHas('company', function ($qry) use ($value) {
+						$qry->where('taluq_id', $value);
 					});
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}
@@ -99,6 +103,14 @@ class AdminScholarshipService
 			->latest()
 			->firstOrFail();
 	}
+	
+	public function getMultipleByIds(array $ids): Collection
+	{
+		return $this->model()
+			->whereIn('id', $ids)
+			->latest()
+			->get();
+	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator
 	{
@@ -109,28 +121,28 @@ class AdminScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::count();
+		return Application::applicationIsActive()->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inAdminStage()->isApplicationApproved();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inAdminStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::where(function ($qry) {
 			$qry->inAdminStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function excel(): SimpleExcelWriter
@@ -152,8 +164,8 @@ class AdminScholarshipService
 				'Graduation' => $data->mark->graduation->name,
 				'Course' => $data->mark->course->name,
 				'Class' => $data->mark->class->name,
-				'District' => $data->mark->district->name,
-				'Taluq' => $data->mark->taluq->name,
+				'District' => $data->company->district->name,
+				'Taluq' => $data->company->taluq->name,
 				'Amount' => $data->mark->graduation->scholarship_fee->amount ?? 0,
 				'Application Year' => $data->application_year,
 				'Applied Date' => $data->date->format('Y-m-d'),

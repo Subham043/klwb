@@ -14,7 +14,7 @@ class FeeService extends AbstractExcelService
 {
     public function model(): Builder
     {
-        return Fee::with('graduation')->whenNotAdmin();
+        return Fee::with('graduation')->isActive();
     }
     public function query(): QueryBuilder
     {
@@ -24,7 +24,7 @@ class FeeService extends AbstractExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value)){
+                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
                             if(strtolower($value)=="active"){
                                 $query->where('is_active', true);
                             }else{
@@ -37,7 +37,7 @@ class FeeService extends AbstractExcelService
                             $query->where('year', $value);
                         }
                     }),
-                    AllowedFilter::callback('graduation_id', function (Builder $query, $value) {
+                    AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
                         if(!empty($value)){
                             $query->where('graduation_id', $value);
                         }

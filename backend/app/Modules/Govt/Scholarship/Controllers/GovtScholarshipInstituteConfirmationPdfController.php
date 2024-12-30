@@ -10,6 +10,17 @@ class GovtScholarshipInstituteConfirmationPdfController extends Controller
 {
     public function __construct(private GovtScholarshipService $scholarshipService){}
 
+
+    /**
+     * Generates and downloads a PDF confirmation for the scholarship application
+     * associated with the given ID, if the institute's authorization and required
+     * documents are present.
+     *
+     * @param int $id The ID of the scholarship application.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse The response that forces the PDF download.
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException If the application or required documents are not found.
+     */
+
     public function index($id){
         $application = $this->scholarshipService->getById($id);
         if($application->institute->auth && ($application->institute->auth->reg_certification_link!=null && $application->institute->auth->principal_signature_link!=null && $application->institute->auth->seal_link!=null)){

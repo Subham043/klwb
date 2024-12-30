@@ -11,6 +11,24 @@ class SecurityQuestionCreateController extends Controller
 {
     public function __construct(private SecurityQuestionService $questionService){}
 
+    /**
+     * Create a new security question.
+     *
+     * @bodyParam question string required The security question.
+     * 
+     * @response 201 {
+     *   "message": "Security Question created successfully.",
+     *   "data": {
+     *     "id": 1,
+     *     "question": "What is your mother's maiden name?",
+     *     "is_active": true
+     *   }
+     * }
+     * 
+     * @response 400 {
+     *   "message": "Something went wrong. Please try again"
+     * }
+     */
     public function index(SecurityQuestionRequest $request){
         try {
             //code...

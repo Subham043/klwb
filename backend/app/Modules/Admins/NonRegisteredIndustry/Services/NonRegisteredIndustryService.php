@@ -16,7 +16,7 @@ class NonRegisteredIndustryService extends AbstractExcelService
     public function model(): Builder
     {
         return Industry::doesntHave('auth')
-        ->whenNotAdmin();
+        ->isActive();
     }
     public function query(): QueryBuilder
     {
@@ -26,7 +26,7 @@ class NonRegisteredIndustryService extends AbstractExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value)){
+                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
                             if(strtolower($value)=="active"){
                                 $query->where('is_active', true);
                             }else{

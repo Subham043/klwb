@@ -10,6 +10,13 @@ class ClassesViewController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+/**
+ * Display the specified Classes resource.
+ *
+ * @param int $id The ID of the Classes resource to retrieve.
+ * @return \Illuminate\Http\Response A JSON response containing the resource data.
+ */
+
     public function index($id){
         $classes = $this->classesService->getById($id);
         return response()->json(["message" => "Classes fetched successfully.", "data" => ClassesCollection::make($classes)], 200);

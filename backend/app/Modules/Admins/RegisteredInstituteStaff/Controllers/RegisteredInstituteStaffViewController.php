@@ -11,6 +11,14 @@ class RegisteredInstituteStaffViewController extends Controller
 {
     public function __construct(private RegisteredInstituteStaffService $staffService, private RegisteredInstituteService $instituteService){}
 
+/**
+ * Display the specified staff resource.
+ *
+ * @param int $id The ID of the institute
+ * @param int $staff_id The ID of the staff member
+ * @return \Illuminate\Http\JsonResponse JSON response containing the staff data
+ */
+
     public function index($id, $staff_id){
         $school = $this->instituteService->getById($id);
         $staff = $this->staffService->get($school->profile->school_id, $school->profile->id, $staff_id);

@@ -5,5 +5,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 interface AuthTraitInterface
 {
-	public function scopeWhenNotAdmin(Builder $query): Builder;
+	public function scopeIsActive(Builder $query): Builder;
+	public function scopeApplicationIsActive(Builder $query): Builder;
 }

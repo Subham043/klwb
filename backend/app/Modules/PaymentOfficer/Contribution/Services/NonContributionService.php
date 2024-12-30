@@ -18,7 +18,7 @@ class NonContributionService
 
 	protected function model(): Builder
 	{
-		return Industry::whenNotAdmin()->where(function ($query) {
+		return Industry::isActive()->where(function ($query) {
 			$query->doesntHave('payments')->orWhere(function ($qry){
 				$qry->whereHas('payments', function ($q) {
 					$q->where('status', '!=', PaymentStatus::Success->value);

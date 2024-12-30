@@ -34,6 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'sbi/*',
             'https://www.sbiepay.sbi/secure/AggregatorHostedListener',
+            'https://test.sbiepay.sbi',
         ]);
     })
     ->withSchedule(function (Schedule $schedule) {

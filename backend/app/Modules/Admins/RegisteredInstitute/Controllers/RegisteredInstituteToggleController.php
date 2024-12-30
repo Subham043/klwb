@@ -12,6 +12,13 @@ class RegisteredInstituteToggleController extends Controller
 {
     public function __construct(private RegisteredInstituteService $instituteService){}
 
+    /**
+     * Toggle the status of a registered institute.
+     *
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $institute = $this->instituteService->getById($id);
         DB::beginTransaction();

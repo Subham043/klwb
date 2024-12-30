@@ -12,6 +12,34 @@ class ResubmitScholarshipController extends Controller
 {
     public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \App\Modules\Students\Scholarship\Requests\ResubmitScholarshipRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Post(
+     *     path="/student/scholarship/resubmit",
+     *     tags={"Student Scholarship"},
+     *     summary="Resubmit Scholarship Application",
+     *     description="Resubmit Scholarship Application",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ResubmitScholarshipRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Successful response",
+     *         @OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request",
+     *         @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *     )
+     * )
+     */
     public function index(ResubmitScholarshipRequest $request){
         $application = $this->scholarshipService->getLatest();
         if($this->applicationChecks->isEligibleForScholarship() && !$this->applicationChecks->canResubmit($application)){

@@ -11,6 +11,32 @@ class SecurityQuestionToggleController extends Controller
 {
     public function __construct(private SecurityQuestionService $questionService){}
 
+    /**
+     * Toggle the status of a security question
+     * 
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * 
+     * @response 200 {
+     *   "message": "Security Question unblocked successfully.",
+     *   "data": {
+     *     "id": 1,
+     *     "question": "What is your mother's maiden name?"
+     *   }
+     * }
+     * 
+     * @response 200 {
+     *   "message": "Security Question blocked successfully.",
+     *   "data": {
+     *     "id": 1,
+     *     "question": "What is your mother's maiden name?"
+     *   }
+     * }
+     * 
+     * @response 400 {
+     *   "message": "Something went wrong. Please try again"
+     * }
+     */
     public function index(ToggleStatusRequest $request, $id){
         $question = $this->questionService->getById($id);
         try {

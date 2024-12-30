@@ -22,9 +22,13 @@ const SelectCourseStatus = (props: PropType) => {
     if(value){
       searchParams.set("course_id" + (key || ""), value.value.toString());
       searchParams.set("course_name" + (key || ""), value.label.toString());
+      searchParams.delete("class_id" + (key || ""));
+      searchParams.delete("class_name" + (key || ""));
     }else{
       searchParams.delete("course_id" + (key || ""));
       searchParams.delete("course_name" + (key || ""));
+      searchParams.delete("class_id" + (key || ""));
+      searchParams.delete("class_name" + (key || ""));
     }
     setSearchParams(searchParams);
   };

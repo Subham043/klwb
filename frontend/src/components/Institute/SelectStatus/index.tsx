@@ -1,7 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import { SelectPicker } from "rsuite";
-import { useUser } from "../../../hooks/useUser";
-import { RolesEnum } from "../../../utils/constants/role";
 
 type PropType = {
   key?: string;
@@ -16,7 +14,6 @@ const data = [
 
 const SelectStatus = (props: PropType) => {
   const { key } = props;
-  const {user} = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectHandler = (value: string) => {
     searchParams.set("status" + (key || ""), value);
@@ -24,7 +21,7 @@ const SelectStatus = (props: PropType) => {
   };
   return (
     <SelectPicker
-      data={(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN || user.role === RolesEnum.PAYMENT_OFFICER)) ? [...data, { label: "PAYMENT PROCESSED", value: "payment_processed" }] : data}
+      data={data}
       name="status"
       value={searchParams.get("status" + (key || "")) || ""}
       onChange={(value) => selectHandler(value || "")}

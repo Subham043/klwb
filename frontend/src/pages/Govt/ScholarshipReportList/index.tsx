@@ -16,7 +16,7 @@ const GovtScholarshipReportListPage:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useGovtScholarshipReportListQuery();
 
     return <PaginatedTableLayout title="Scholarship Report">
-        <PaginatedTableLayout.Header title="Scholarship Report" addBtn={false} searchInput={false} excelLink={api_routes.admin.report.scholarship.excel} excelName="scholarship_report.xlsx">
+        <PaginatedTableLayout.Header title="Scholarship Report" addBtn={false} searchInput={false} excelLink={api_routes.govt.report.scholarship.excel} excelName="scholarship_report.xlsx">
             <SelectCityStatus />
             <SelectTaluqStatus />
             <SelectGraduationStatus />

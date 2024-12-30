@@ -14,7 +14,7 @@ class CourseService extends AbstractExcelService
 {
     public function model(): Builder
     {
-        return Course::with('graduation')->whenNotAdmin();
+        return Course::with('graduation')->isActive();
     }
     public function query(): QueryBuilder
     {
@@ -27,7 +27,7 @@ class CourseService extends AbstractExcelService
                         $query->where('graduation_id', $value);
                     }),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value)){
+                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
                             if(strtolower($value)=="active"){
                                 $query->where('is_active', true);
                             }else{

@@ -12,6 +12,14 @@ class AdminScholarshipToggleStatusController extends Controller
 {
     public function __construct(private AdminScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Toggle the status of an application.
+     * 
+     * @param ToggleStatusRequest $request
+     * @param int $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(ToggleStatusRequest $request, $id){
         $application = $this->scholarshipService->getById($id);
         DB::beginTransaction();

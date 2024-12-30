@@ -10,6 +10,13 @@ class InstituteEmployeeViewController extends Controller
 {
     public function __construct(private InstituteEmployeeService $employeeService){}
 
+    /**
+     * Fetch an institute employee
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $employee = $this->employeeService->getById($id);
         return response()->json(["message" => "Employee fetched successfully.", "data" => InstituteEmployeeCollection::make($employee)], 200);

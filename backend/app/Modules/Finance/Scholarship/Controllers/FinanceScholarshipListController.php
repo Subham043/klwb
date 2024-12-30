@@ -10,6 +10,11 @@ class FinanceScholarshipListController extends Controller
 {
     public function __construct(private FinanceScholarshipService $scholarshipService){}
 
+    /**
+     * Returns a list of applications.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(){
         $application = $this->scholarshipService->getList();
         return FinanceApplicationCollection::collection($application);

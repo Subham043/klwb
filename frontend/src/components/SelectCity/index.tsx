@@ -15,16 +15,20 @@ type PropType = {
   key?: string;
 };
 
-const SelectCityStatus = (props: PropType) => {
+const SelectCity = (props: PropType) => {
   const { key } = props;
   const [searchParams, setSearchParams] = useSearchParams();
   const selectHandler = (value: OptionType) => {
     if(value){
       searchParams.set("city_id" + (key || ""), value.value.toString());
       searchParams.set("city_name" + (key || ""), value.label.toString());
+      searchParams.delete("taluq_id" + (key || ""));
+      searchParams.delete("taluq_name" + (key || ""));
     }else{
       searchParams.delete("city_id" + (key || ""));
       searchParams.delete("city_name" + (key || ""));
+      searchParams.delete("taluq_id" + (key || ""));
+      searchParams.delete("taluq_name" + (key || ""));
     }
     setSearchParams(searchParams);
   };
@@ -73,4 +77,4 @@ const SelectCityStatus = (props: PropType) => {
   );
 };
 
-export default SelectCityStatus;
+export default SelectCity;

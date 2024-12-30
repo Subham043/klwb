@@ -12,6 +12,13 @@ class AdminScholarshipRejectController extends Controller
 {
     public function __construct(private AdminScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Reject a scholarship application.
+     *
+     * @param AdminRejectScholarshipRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(AdminRejectScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);

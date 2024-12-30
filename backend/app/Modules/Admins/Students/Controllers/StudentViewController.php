@@ -10,6 +10,13 @@ class StudentViewController extends Controller
 {
     public function __construct(private StudentService $studentService){}
 
+    /**
+     * Display the specified student resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function index($id){
         $student = $this->studentService->getById($id);
         return response()->json(["message" => "Student fetched successfully.", "data" => StudentCollection::make($student)], 200);

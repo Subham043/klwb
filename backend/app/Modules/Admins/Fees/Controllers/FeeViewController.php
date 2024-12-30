@@ -10,6 +10,12 @@ class FeeViewController extends Controller
 {
     public function __construct(private FeeService $feeService){}
 
+    /**
+     * Fetch a fee by its id
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $fee = $this->feeService->getById($id);
         return response()->json(["message" => "Fee fetched successfully.", "data" => ExtendedFeeCollection::make($fee)], 200);

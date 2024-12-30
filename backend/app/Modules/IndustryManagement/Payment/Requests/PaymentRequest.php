@@ -27,7 +27,7 @@ class PaymentRequest extends InputRequest
      */
     public function rules()
     {
-        $years = Payment::with('industry')->whereHas('industry', function ($query) {
+        $years = Payment::select('year')->with('industry')->whereHas('industry', function ($query) {
 			$query->where('id', auth()->guard(Guards::Industry->value())->user()->reg_industry_id);
 		})
 		->where('comp_regd_id', auth()->guard(Guards::Industry->value())->user()->reg_industry_id)
@@ -40,18 +40,16 @@ class PaymentRequest extends InputRequest
                     $fail('You have already paid for the selected year.');
                 }
             }],
-            'male' => ['required', 'numeric', function ($attribute, $value, $fail) use($years) {
+            'male' => ['required', 'numeric', function ($attribute, $value, $fail) {
                 if ($value==0 && $this->female==0) {
                     $fail('Male or Female count should be greater than 0.');
                 }
             }],
-            'female' => ['required', 'numeric', function ($attribute, $value, $fail) use($years) {
+            'female' => ['required', 'numeric', function ($attribute, $value, $fail) {
                 if ($value==0 && $this->male==0) {
                     $fail('Male or Female count should be greater than 0.');
                 }
             }],
-            'price' => ['required', 'numeric', 'gt:0'],
-            'interest' => ['required', 'numeric'],
             'employee_excel' => 'required|file|extensions:xlsx',
         ];
     }

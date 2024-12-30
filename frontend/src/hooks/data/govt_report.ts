@@ -19,7 +19,7 @@ export const useGovtScholarshipReportListQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<ScholarshipReportType>>(
         api_routes.govt.report.scholarship.list +
-          `?page=${page}&total=${limit}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[has_course]=${searchParams.get("course_id") || ""}&filter[has_class]=${searchParams.get("class_id") || ""}&filter[application_year]=${searchParams.get("year") || ""}`
+          `?page=${page}&total=${limit}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[has_course]=${searchParams.get("course_id") || ""}&filter[has_class]=${searchParams.get("class_id") || ""}&filter[year]=${searchParams.get("year") || ""}`
       );
       return response.data;
     },

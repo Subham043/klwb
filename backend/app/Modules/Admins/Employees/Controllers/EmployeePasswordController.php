@@ -11,6 +11,13 @@ class EmployeePasswordController extends Controller
 {
     public function __construct(private EmployeeService $employeeService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\Employees\Requests\EmployeePasswordPostRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(EmployeePasswordPostRequest $request, $id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();

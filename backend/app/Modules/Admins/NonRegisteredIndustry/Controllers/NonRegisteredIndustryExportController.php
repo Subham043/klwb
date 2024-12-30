@@ -9,6 +9,11 @@ class NonRegisteredIndustryExportController extends Controller
 {
     public function __construct(private NonRegisteredIndustryService $industryService){}
 
+    /**
+     * Downloads an Excel file containing all non-registered industries.
+     *
+     * @return \Spatie\SimpleExcel\SimpleExcelWriter
+     */
     public function index(){
         return $this->industryService->excel()->toBrowser();
     }

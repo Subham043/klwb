@@ -4,6 +4,7 @@ import {
   RegisteredIndustryStaffType,
   PaginationType,
   StudentApplicationType,
+  ContributionType,
 } from "../../utils/types";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
@@ -15,6 +16,7 @@ export const RegisteredIndustryQueryKey = "registered_industry";
 export const RegisteredIndustriesQueryKey = "registered_industries";
 export const RegisteredIndustriesStaffQueryKey = "registered_industries_staff";
 export const RegisteredIndustriesScholarshipQueryKey = "registered_industries_scholarship";
+export const RegisteredIndustriesContributionQueryKey = "registered_industries_contribution";
 
 export const useRegisteredIndustriesQuery: () => UseQueryResult<
   PaginationType<RegisteredIndustryType>,
@@ -25,13 +27,13 @@ export const useRegisteredIndustriesQuery: () => UseQueryResult<
   const { search } = useSearchQueryParam();
   const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [RegisteredIndustriesQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("taluq_id") || "", searchParams.get("verification_status") || "", searchParams.get("account_status") || ""],
+    queryKey: [RegisteredIndustriesQueryKey, page, limit, search, searchParams.get("city_id") || "", searchParams.get("taluq_id") || "", searchParams.get("verification_status") || "", searchParams.get("active_status") || ""],
     queryFn: async () => {
       const response = await axios.get<
         PaginationType<RegisteredIndustryType>
       >(
         api_routes.admin.registered_industry.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[account_status]=${searchParams.get("account_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },
@@ -73,6 +75,27 @@ export const useRegisteredIndustriesScholarshipQuery: (id: number) => UseQueryRe
         PaginationType<StudentApplicationType>
       >(
         api_routes.admin.registered_industry.scholarship.paginate(id) +
+          `?page=${page}&total=${limit}&filter[search]=${search}`
+      );
+      return response.data;
+    },
+  });
+};
+
+export const useRegisteredIndustriesContributionQuery: (id: number) => UseQueryResult<
+  PaginationType<ContributionType>,
+  unknown
+> = (id) => {
+  const axios = useAxios();
+  const { page, limit } = usePaginationQueryParam("_contribution");
+  const { search } = useSearchQueryParam("_contribution");
+  return useQuery({
+    queryKey: [RegisteredIndustriesContributionQueryKey, id, page, limit, search],
+    queryFn: async () => {
+      const response = await axios.get<
+        PaginationType<ContributionType>
+      >(
+        api_routes.admin.registered_industry.contribution.paginate(id) +
           `?page=${page}&total=${limit}&filter[search]=${search}`
       );
       return response.data;

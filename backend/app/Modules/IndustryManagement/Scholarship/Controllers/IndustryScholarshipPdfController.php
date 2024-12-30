@@ -11,6 +11,12 @@ class IndustryScholarshipPdfController extends Controller
 
     public function __construct(private IndustryScholarshipService $scholarshipService){}
 
+    /**
+     * Downloads a PDF of a given scholarship application
+     * 
+     * @param int $id the ID of the application
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $application = $this->scholarshipService->getById($id);
         $fileName = str()->uuid();

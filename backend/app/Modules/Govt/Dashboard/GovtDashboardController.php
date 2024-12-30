@@ -9,6 +9,11 @@ class GovtDashboardController extends Controller
 {
 	public function __construct(private GovtScholarshipService $scholarshipService){}
 
+	/**
+	 * Return the total number of applications, approved applications, rejected applications, and pending applications
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function index()
 	{
 		$response = [

@@ -3,6 +3,7 @@
 namespace App\Modules\Students\Scholarship\Models;
 
 use App\Http\Interfaces\ScholarshipApplicationTraitInterface;
+use App\Http\Traits\AuthTrait;
 use App\Http\Traits\ScholarshipApplicationTrait;
 use App\Modules\Admins\Employees\Models\Employee;
 use App\Modules\Admins\ApplicationDates\Models\ApplicationDate;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model implements ScholarshipApplicationTraitInterface
 {
-	use HasFactory, ScholarshipApplicationTrait;
+	use HasFactory, ScholarshipApplicationTrait, AuthTrait;
 
 	protected $table = 'applications';
 

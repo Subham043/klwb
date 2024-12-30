@@ -10,6 +10,13 @@ class CourseDeleteController extends Controller
 {
     public function __construct(private CourseService $courseService){}
 
+    /**
+     * Delete a course by its ID.
+     *
+     * @param int $id The ID of the course to delete.
+     * @return \Illuminate\Http\JsonResponse The response indicating the outcome of the delete operation.
+     */
+
     public function index($id){
         $course = $this->courseService->getById($id);
 

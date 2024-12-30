@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
@@ -20,15 +21,15 @@ class FinanceScholarshipService
 		return Application::commonWith()
 			->commonRelation()
 			->inAdminStage()
+			->applicationIsActive()
 			->isApplicationApproved();
 	}
 	protected function query(): QueryBuilder
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('payment_status', function (Builder $query, $value) {
 					if ($value == 'processed') {
@@ -67,14 +68,17 @@ class FinanceScholarshipService
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_district_id', $value);
+					$query->whereHas('company', function ($qry) use ($value) {
+						$qry->where('district_id', $value);
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_taluq_id', $value);
+					$query->whereHas('company', function ($qry) use ($value) {
+						$qry->where('taluq_id', $value);
 					});
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}
@@ -93,6 +97,14 @@ class FinanceScholarshipService
 			->latest()
 			->firstOrFail();
 	}
+	
+	public function getMultipleByIds(array $ids): Collection
+	{
+		return $this->model()
+			->whereIn('id', $ids)
+			->latest()
+			->get();
+	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator
 	{
@@ -103,23 +115,23 @@ class FinanceScholarshipService
 
 	public function getTotalApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->applicationIsActive()
 			->count();
 	}
 
 	public function getTotalApprovedApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Approve->value)->count();
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Approve->value)->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Reject->value)->count();
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Reject->value)->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
-		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Pending->value)->count();
+		return Application::whereApplicationStage(ApplicationState::Admin)->isApplicationApproved()->where('pay_status', ApplicationStatus::Pending->value)->applicationIsActive()->count();
 	}
 
 	public function excel(): SimpleExcelWriter
@@ -141,8 +153,8 @@ class FinanceScholarshipService
 				'Graduation' => $data->mark->graduation->name,
 				'Course' => $data->mark->course->name,
 				'Class' => $data->mark->class->name,
-				'District' => $data->mark->district->name,
-				'Taluq' => $data->mark->taluq->name,
+				'District' => $data->company->district->name,
+				'Taluq' => $data->company->taluq->name,
 				'Amount' => $data->mark->graduation->scholarship_fee->amount ?? 0,
 				'Application Year' => $data->application_year,
 				'Applied Date' => $data->date->format('Y-m-d'),

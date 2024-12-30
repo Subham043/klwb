@@ -18,6 +18,7 @@ class InstituteScholarshipService
 	{
 		return Application::commonWith()
 			->commonRelation()
+			->applicationIsActive()
 			->belongsToAuthSchool()
 			->whereApplicationStageGreaterThan(ApplicationState::None);
 	}
@@ -25,9 +26,8 @@ class InstituteScholarshipService
 	{
 		return QueryBuilder::for($this->model())
 			->defaultSort('-id')
-			->allowedSorts('id', 'year')
+			->allowedSorts('id', 'application_year')
 			->allowedFilters([
-				'application_year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					if ($value == 'approved') {
@@ -45,6 +45,9 @@ class InstituteScholarshipService
 					if ($value == 'pending') {
 						$query->isApplicationPending()->inSchoolStage();
 					}
+				}),
+				AllowedFilter::callback('year', function (Builder $query, $value) {
+					$query->where('application_year', $value);
 				}),
 			]);
 	}
@@ -74,6 +77,7 @@ class InstituteScholarshipService
 	{
 		return Application::belongsToAuthSchool()
 			->whereApplicationStageGreaterThan(ApplicationState::None)
+			->applicationIsActive()
 			->count();
 	}
 
@@ -85,21 +89,21 @@ class InstituteScholarshipService
 			})->orWhere(function ($q) {
 				$q->whereApplicationStageGreaterThan(ApplicationState::School);
 			});
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalRejectedApplicationCount(): int
 	{
 		return Application::belongsToAuthSchool()->where(function ($qry) {
 			$qry->inSchoolStage()->isApplicationRejected();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 
 	public function getTotalPendingApplicationCount(): int
 	{
 		return Application::belongsToAuthSchool()->where(function ($qry) {
 			$qry->inSchoolStage()->isApplicationPending();
-		})->count();
+		})->applicationIsActive()->count();
 	}
 }
 

@@ -14,14 +14,14 @@ const SelectAccountStatus = (props: PropType) => {
   const { key } = props;
   const [searchParams, setSearchParams] = useSearchParams();
   const selectHandler = (value: string) => {
-    searchParams.set("account_status" + (key || ""), value);
+    searchParams.set("active_status" + (key || ""), value);
     setSearchParams(searchParams);
   };
   return (
     <SelectPicker
       data={data}
-      name="account_status"
-      value={searchParams.get("account_status" + (key || "")) || ""}
+      name="active_status"
+      value={searchParams.get("active_status" + (key || "")) || ""}
       onChange={(value) => selectHandler(value || "")}
       placeholder={"Select Account Status"}
       style={{ minWidth: "150px" }}

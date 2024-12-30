@@ -10,6 +10,12 @@ class StateDeleteController extends Controller
 {
     public function __construct(private StateService $stateService){}
 
+    /**
+     * Delete a state.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $state = $this->stateService->getById($id);
 

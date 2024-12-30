@@ -11,6 +11,7 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewControlle
 use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionPaginateController;
 use App\Modules\Admins\Contributions\Controllers\ContributionRecieptPdfController;
+use App\Modules\Admins\Contributions\Controllers\ContributionUpdateController;
 use App\Modules\Admins\Contributions\Controllers\ContributionViewController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionPaginateController;
@@ -77,6 +78,9 @@ use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryToggleCo
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryVerificationController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
+use App\Modules\Admins\RegisteredIndustryContribution\Controllers\RegisteredIndustryContributionExportController;
+use App\Modules\Admins\RegisteredIndustryContribution\Controllers\RegisteredIndustryContributionPaginateController;
+use App\Modules\Admins\RegisteredIndustryContribution\Controllers\RegisteredIndustryContributionVerifyController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipExportController;
 use App\Modules\Admins\RegisteredIndustryScholarship\Controllers\RegisteredIndustryScholarshipPaginateController;
 use App\Modules\Admins\RegisteredIndustryStaff\Controllers\RegisteredIndustryStaffAccountController;
@@ -137,7 +141,10 @@ use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportExpor
 use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportListController;
 use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportExportController;
 use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListController;
+use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryRejectController;
+use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteRejectController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveMultipleController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipNoteController;
@@ -304,7 +311,8 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [RequestInstitutePaginateController::class, 'index']);
                 Route::post('/update/{id}', [RequestInstituteUpdateController::class, 'index']);
                 Route::post('/approve/{id}', [RequestInstituteApproveController::class, 'index']);
-                Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
+                Route::post('/reject/{id}', [RequestInstituteRejectController::class, 'index']);
+                // Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestInstituteViewController::class, 'index']);
             });
             Route::prefix('registered-institutes')->group(function () {
@@ -350,7 +358,8 @@ Route::prefix('admin')->group(function () {
                 Route::get('/paginate', [RequestIndustryPaginateController::class, 'index']);
                 Route::post('/update/{id}', [RequestIndustryUpdateController::class, 'index']);
                 Route::post('/approve/{id}', [RequestIndustryApproveController::class, 'index']);
-                Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
+                Route::post('/reject/{id}', [RequestIndustryRejectController::class, 'index']);
+                // Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestIndustryViewController::class, 'index']);
             });
             Route::prefix('registered-industries')->group(function () {
@@ -374,6 +383,11 @@ Route::prefix('admin')->group(function () {
                     Route::get('/excel', [RegisteredIndustryScholarshipExportController::class, 'index']);
                     Route::get('/paginate', [RegisteredIndustryScholarshipPaginateController::class, 'index']);
                 });
+                Route::prefix('contribution/{reg_industry_id}')->group(function () {
+                    Route::get('/excel', [RegisteredIndustryContributionExportController::class, 'index']);
+                    Route::get('/paginate', [RegisteredIndustryContributionPaginateController::class, 'index']);
+                    Route::get('/verify/{id}', [RegisteredIndustryContributionVerifyController::class, 'index']);
+                });
             });
             Route::prefix('non-registered-industries')->group(function () {
                 Route::get('/excel', [NonRegisteredIndustryExportController::class, 'index']);
@@ -383,6 +397,7 @@ Route::prefix('admin')->group(function () {
             Route::prefix('scholarship')->group(function () {
 				Route::get('/list', [AdminScholarshipListController::class, 'index']);
 				Route::get('/excel', [AdminScholarshipExportController::class, 'index']);
+				Route::post('/approve-multiple', [AdminScholarshipApproveMultipleController::class, 'index']);
 				Route::get('/view/{id}', [AdminScholarshipViewController::class, 'index']);
 				Route::post('/approve/{id}', [AdminScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [AdminScholarshipRejectController::class, 'index']);
@@ -395,6 +410,7 @@ Route::prefix('admin')->group(function () {
 				Route::get('/excel', [ContributionExportController::class, 'index']);
 				Route::get('/view/{id}', [ContributionViewController::class, 'index']);
 				Route::get('/reciept/{id}', [ContributionRecieptPdfController::class, 'index']);
+				Route::post('/update/{id}', [ContributionUpdateController::class, 'index']);
 			});
             Route::prefix('non-contribution')->group(function () {
 				Route::get('/list', [NonContributionPaginateController::class, 'index']);

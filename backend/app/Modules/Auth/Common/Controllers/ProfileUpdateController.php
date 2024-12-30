@@ -10,6 +10,28 @@ use App\Modules\Auth\Common\Requests\ProfilePostRequest;
 class ProfileUpdateController extends Controller
 {
 
+    /**
+     * @OA\Post(
+     *     path="/api/auth/profile/update",
+     *     summary="Update Profile",
+     *     description="Update Profile",
+     *     tags={"Profile"},
+     *     security={{"bearer_token":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/ProfilePostRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Profile Updated successfully.",
+     *         @OA\JsonContent(ref="#/components/schemas/ProfileCollection")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="something went wrong. Please try again.",
+     *     )
+     * )
+     */
     public function index(ProfilePostRequest $request){
 
         $email_status = false;

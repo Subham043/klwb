@@ -18,11 +18,11 @@ export const useStudentsQuery: () => UseQueryResult<
   const { search } = useSearchQueryParam();
   const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [StudentsQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("verification_status") || "", searchParams.get("account_status") || ""],
+    queryKey: [StudentsQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("verification_status") || "", searchParams.get("active_status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<AuthType>>(
         api_routes.admin.student.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[account_status]=${searchParams.get("account_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

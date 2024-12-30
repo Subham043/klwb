@@ -12,6 +12,28 @@ class StudentToggleStatusController extends Controller
 {
     public function __construct(private StudentService $studentService){}
 
+/**
+ * Toggle the blocked status of a student.
+ *
+ * @param ToggleStatusRequest $request
+ * @param int $id
+ * @return \Illuminate\Http\JsonResponse
+ *
+ * @response 200 {
+ *   "message": "Student blocked successfully.",
+ *   "data": { ... }
+ * }
+ * 
+ * @response 200 {
+ *   "message": "Student unblocked successfully.",
+ *   "data": { ... }
+ * }
+ *
+ * @response 400 {
+ *   "message": "Something went wrong. Please try again"
+ * }
+ */
+
     public function index(ToggleStatusRequest $request, $id){
         $student = $this->studentService->getById($id);
         DB::beginTransaction();

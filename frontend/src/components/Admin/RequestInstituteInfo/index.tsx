@@ -1,6 +1,5 @@
 import { Button, Col, Grid, Modal, Row } from "rsuite";
 import { useRequestInstituteQuery } from "../../../hooks/data/request_institute";
-import { useDeleteQuery } from "../../../hooks/useDeleteQuery";
 import { useToast } from "../../../hooks/useToast";
 import { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
@@ -9,6 +8,8 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import FileViewer from "../../FileViewer";
 import DetailInfo from "../../DetailInfo";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
+import StatusBadge from "../../Student/StatusBadge";
+import RequestRejectForm from "../RequestRejectModal";
 
 export default function RequestInstituteInfo({
   modal,
@@ -30,16 +31,10 @@ export default function RequestInstituteInfo({
     modal.id ? modal.id : 0,
     modal.status && modal.id !== undefined && modal.id > 0
   );
-  const { deleteHandler, deleteLoading } = useDeleteQuery();
   const { toastError, toastSuccess } = useToast();
   const [approveLoading, setApproveLoading] = useState<boolean>(false);
+  const [rejectModal, setRejectModal] = useState<boolean>(false);
   const axios = useAxios();
-
-  const onRejectHandler = async (id: number) => {
-    await deleteHandler(api_routes.admin.request_institute.delete(id));
-    modalHandler({ status: false });
-    refetch();
-  };
 
   const onApproveHandler = async (id: number) => {
     setApproveLoading(true);
@@ -56,87 +51,105 @@ export default function RequestInstituteInfo({
   };
 
   return (
-    <Modal
-      overflow={false}
-      size={"sm"}
-      open={modal.status}
-      onClose={() => modalHandler({ status: false })}
-      className="info-modal"
-    >
-      <ErrorBoundaryLayout
-        loading={isFetching || isLoading || isRefetching}
-        error={error}
-        refetch={refetchData}
+    <>
+      <Modal
+        overflow={false}
+        size={"sm"}
+        open={modal.status}
+        onClose={() => modalHandler({ status: false })}
+        className="info-modal"
       >
-        <>
-          <ModalCardContainer header="Institute Request">
-            <Grid fluid>
-              <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="Name" value={data?.name} />
-                </Col>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="Email" value={data?.email} />
-                </Col>
-              </Row>
-              <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="Mobile" value={data?.mobile} />
-                </Col>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="Pincode" value={data?.pincode} />
-                </Col>
-              </Row>
-              <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="District" value={data?.taluq.city.name} />
-                </Col>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="Taluq" value={data?.taluq.name} />
-                </Col>
-              </Row>
-              <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo title="Address" value={data?.address} />
-                </Col>
-                <Col className="pb-1" xs={12}>
-                  <DetailInfo
-                    title="Register Doc"
-                    value={<FileViewer src={data?.register_doc} />}
-                  />
-                </Col>
-              </Row>
-            </Grid>
-          </ModalCardContainer>
-        </>
-        {data !== undefined && (
-          <Modal.Footer className="mb-1 info-modal-footer">
-            <Button
-              onClick={() => onApproveHandler(data!.id)}
-              loading={approveLoading}
-              disabled={approveLoading}
-              appearance="primary"
-            >
-              Approve
-            </Button>
-            <Button
-              onClick={() => onRejectHandler(data!.id)}
-              loading={deleteLoading}
-              disabled={deleteLoading}
-              appearance="primary"
-              color="red"
-            >
-              Reject
-            </Button>
-            <Button
-              onClick={() => modalHandler({ status: false })}
-              appearance="subtle"
-            >
-              Cancel
-            </Button>
-          </Modal.Footer>
-        )}
-      </ErrorBoundaryLayout>
-    </Modal>
+        <ErrorBoundaryLayout
+          loading={isFetching || isLoading || isRefetching}
+          error={error}
+          refetch={refetchData}
+        >
+          <>
+            <ModalCardContainer header="Institute Request">
+              <Grid fluid>
+                <Row gutter={30}>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="Name" value={data?.name} />
+                  </Col>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="Email" value={data?.email} />
+                  </Col>
+                </Row>
+                <Row gutter={30}>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="Mobile" value={data?.mobile} />
+                  </Col>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="Pincode" value={data?.pincode} />
+                  </Col>
+                </Row>
+                <Row gutter={30}>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="District" value={data?.taluq.city.name} />
+                  </Col>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="Taluq" value={data?.taluq.name} />
+                  </Col>
+                </Row>
+                <Row gutter={30}>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo title="Address" value={data?.address} />
+                  </Col>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo
+                      title="Status"
+                      value={<StatusBadge status={data?.status || 0} />}
+                    />
+                  </Col>
+                </Row>
+                <Row gutter={30}>
+                  <Col className="pb-1" xs={12}>
+                    <DetailInfo
+                      title="Register Doc"
+                      value={<FileViewer src={data?.register_doc} />}
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </ModalCardContainer>
+          </>
+          {data !== undefined && data.status === 0 ? (
+            <Modal.Footer className="mb-1 info-modal-footer">
+              <Button
+                onClick={() => onApproveHandler(data!.id)}
+                loading={approveLoading}
+                disabled={approveLoading}
+                appearance="primary"
+              >
+                Approve
+              </Button>
+              <Button
+                onClick={() => setRejectModal(true)}
+                appearance="primary"
+                color="red"
+              >
+                Reject
+              </Button>
+              <Button
+                onClick={() => modalHandler({ status: false })}
+                appearance="subtle"
+              >
+                Cancel
+              </Button>
+            </Modal.Footer>
+          ) : (
+            <Modal.Footer className="mb-1 info-modal-footer">
+              <Button
+                onClick={() => modalHandler({ status: false })}
+                appearance="subtle"
+              >
+                Close
+              </Button>
+            </Modal.Footer>
+          )}
+        </ErrorBoundaryLayout>
+      </Modal>
+      <RequestRejectForm modal={rejectModal} setModal={setRejectModal} refetch={() => {refetch(); setRejectModal(false); modalHandler({ status: false });}} link={api_routes.admin.request_institute.reject(data?.id || 0)} />
+    </>
   );
 }

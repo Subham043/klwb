@@ -11,6 +11,12 @@ class IndustryEmployeePaginateController extends Controller
 {
     public function __construct(private IndustryEmployeeService $employeeService){}
 
+    /**
+     * Returns a paginated collection of industry employees.
+     *
+     * @param Request $request
+     * @return IndustryEmployeeCollection
+     */
     public function index(Request $request){
         $data = $this->employeeService->paginate($request->total ?? 10);
         return IndustryEmployeeCollection::collection($data);

@@ -10,6 +10,12 @@ class StudentDeleteController extends Controller
 {
     public function __construct(private StudentService $studentService){}
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $student = $this->studentService->getById($id);
 

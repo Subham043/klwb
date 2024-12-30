@@ -12,6 +12,7 @@ import PanelCardContainer from "../../MainCards/PanelCardContainer";
 import { useUser } from "../../../hooks/useUser";
 import { RolesEnum } from "../../../utils/constants/role";
 import NoteInfo from "./NoteInfo";
+import Contribution from "../../Admin/RegisteredIndustryInfo/Contribution";
 
 type Props = {
 	data: StudentApplicationType | null;
@@ -42,6 +43,7 @@ export default function ScholarshipInfo({ data, refetch }: Props) {
 			<AadharInfo data={data} />
 			<BankInfo data={data} />
 			{(user && (user.role == RolesEnum.VERIFICATION_OFFICER || user.role === RolesEnum.FINANCIAL_OFFICER || user.role === RolesEnum.STUDENT)) && <ConfirmationReport data={data} />}
+			{(user && data.company_id && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <Contribution id={data.company_id} />}
 		</>}
 	</PanelCardContainer>
 </div>

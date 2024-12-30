@@ -17,7 +17,7 @@ class NonContributionService
 
 	protected function model(): Builder
 	{
-		return Industry::whenNotAdmin()->where(function ($query) {
+		return Industry::isActive()->where(function ($query) {
 			$query->doesntHave('payments')->orWhere(function ($qry){
 				$qry->whereHas('payments', function ($q) {
 					$q->where('status', '!=', PaymentStatus::Success->value);
@@ -32,7 +32,7 @@ class NonContributionService
 			->allowedSorts('id')
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
-				AllowedFilter::callback('has_year', function (Builder $query, $value) {
+				AllowedFilter::callback('year', function (Builder $query, $value) {
 					$query->doesntHave('payments')->orWhere(function ($qry) use ($value){
 						$qry->whereHas('payments', function ($q) use ($value) {
 							$q->where('year', $value);

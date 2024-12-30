@@ -12,6 +12,14 @@ class EmployeeUpdateController extends Controller
 {
     public function __construct(private EmployeeService $employeeService){}
 
+    /**
+     * Update an employee
+     *
+     * @param EmployeeUpdatePostRequest $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(EmployeeUpdatePostRequest $request, $id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();

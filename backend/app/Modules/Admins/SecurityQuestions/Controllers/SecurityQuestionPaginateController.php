@@ -11,6 +11,13 @@ class SecurityQuestionPaginateController extends Controller
 {
     public function __construct(private SecurityQuestionService $questionService){}
 
+    /**
+     * Display a listing of the resource.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    
     public function index(Request $request){
         $data = $this->questionService->paginate($request->total ?? 10);
         return SecurityQuestionCollection::collection($data);

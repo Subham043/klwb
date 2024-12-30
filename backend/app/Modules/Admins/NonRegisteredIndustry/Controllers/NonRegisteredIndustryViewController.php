@@ -10,6 +10,12 @@ class NonRegisteredIndustryViewController extends Controller
 {
     public function __construct(private NonRegisteredIndustryService $industryService){}
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index($id){
         $industry = $this->industryService->getById($id);
         return response()->json(["message" => "Industry Non Registered fetched successfully.", "data" => NonRegisteredIndustryCollection::make($industry)], 200);

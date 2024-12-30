@@ -10,6 +10,12 @@ class ClassesAllController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+    /**
+     * Retrieve all classes and return them in a JSON response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function index(){
         $classes = $this->classesService->all();
         return response()->json(["message" => "Classes fetched successfully.", "data" => ClassesCollection::collection($classes)], 200);

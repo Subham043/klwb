@@ -45,6 +45,8 @@ export const industry_api_routes = {
 		paid_years: "/api/industry/v1/payments/paid-years",
 		make_payment: "/api/industry/v1/payments/make-payment",
 		view: (id: string | number) => `/api/industry/v1/payments/view/${id}`,
+		status: (id: string | number) => `/api/industry/v1/payments/status/${id}`,
+		re_verify: (id: string | number) => `/api/industry/v1/payments/re-verify/${id}`,
 		reciept: (id: string | number) => `/api/industry/v1/payments/reciept/${id}`,
 		form_d: (id: string | number) => `/api/industry/v1/payments/form-d/${id}`,
 	},

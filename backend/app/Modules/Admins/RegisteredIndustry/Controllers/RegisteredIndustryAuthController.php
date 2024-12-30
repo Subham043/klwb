@@ -12,6 +12,13 @@ class RegisteredIndustryAuthController extends Controller
 {
     public function __construct(private RegisteredIndustryService $industryService){}
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Modules\Admins\RegisteredIndustry\Requests\RegisteredIndustryAuthRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(RegisteredIndustryAuthRequest $request, $id){
         $industry = $this->industryService->getById($id);
         $request->validated();

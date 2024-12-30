@@ -13,6 +13,12 @@ class FinanceScholarshipViewController extends Controller
 
     public function __construct(private FinanceScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Get the latest application date and the application by the given id for the finance department to view
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $application = $this->scholarshipService->getById($id);

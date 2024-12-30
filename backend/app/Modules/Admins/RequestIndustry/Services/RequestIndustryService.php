@@ -18,7 +18,7 @@ class RequestIndustryService extends AbstractExcelService
         return RequestIndustry::with([
             'taluq',
             'city',
-        ])->where('is_active', true);
+        ]);
     }
     public function query(): QueryBuilder
     {
@@ -32,7 +32,18 @@ class RequestIndustryService extends AbstractExcelService
                     }),
                     AllowedFilter::callback('has_city', function (Builder $query, $value) {
                         $query->where('city_id', $value);
-                    })
+                    }),
+                    AllowedFilter::callback('status', function (Builder $query, $value) {
+                        if ($value == 'approved') {
+                            $query->where('status', 1);
+                        }
+                        if ($value == 'rejected') {
+                            $query->where('status', 2);
+                        }
+                        if ($value == 'pending') {
+                            $query->where('status', 0);
+                        }
+                    }),
                 ]);
     }
 
@@ -42,6 +53,11 @@ class RequestIndustryService extends AbstractExcelService
         return $this->update([
             'register_doc' => $register_doc,
         ], $requestIndustry);
+    }
+
+    public function getPendingById(Int $id): RequestIndustry
+    {
+        return $this->model()->where('status', 0)->findOrFail($id);
     }
 
     public function excel() : SimpleExcelWriter

@@ -14,7 +14,7 @@ class GraduationService extends AbstractExcelService
 {
     public function model(): Builder
     {
-        return Graduation::whenNotAdmin();
+        return Graduation::isActive();
     }
     public function query(): QueryBuilder
     {

@@ -25,7 +25,8 @@ class RequestInstituteCollection extends JsonResource
             'register_doc' => $this->register_doc_link,
             'taluq_id' => $this->taluq_id,
             'taluq' => TaluqCollection::make($this->whenLoaded('taluq')),
-            'is_active' => $this->is_active,
+            'status' => $this->status,
+            'reject_reason' => $this->reject_reason,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

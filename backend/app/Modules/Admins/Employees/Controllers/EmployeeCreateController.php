@@ -15,6 +15,13 @@ class EmployeeCreateController extends Controller
 
     public function __construct(private EmployeeService $employeeService){}
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
     public function index(EmployeeCreatePostRequest $request){
         DB::beginTransaction();
         try {

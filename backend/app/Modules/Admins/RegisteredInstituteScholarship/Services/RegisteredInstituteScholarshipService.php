@@ -17,6 +17,7 @@ class RegisteredInstituteScholarshipService
     {
         return Application::commonWith()
 		->commonRelation()
+        ->applicationIsActive()
 		->where('school_id', $reg_institute_id);
     }
     protected function query(string $reg_institute_id): QueryBuilder

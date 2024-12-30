@@ -45,6 +45,7 @@ return [
         'id' => env('SBI_MERCHANT_ID'),
         'key' => env('SBI_MERCHANT_KEY'),
         'payment_url' => env('SBI_PAYMENT_URL'),
+        'verify_url' => env('SBI_VERIFY_URL'),
     ],
 
 ];

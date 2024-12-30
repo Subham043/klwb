@@ -12,8 +12,15 @@ class RequestInstituteApproveController extends Controller
 {
     public function __construct(private RequestInstituteService $reqInstituteService, private InstituteService $instituteService){}
 
+    /**
+     * Approve a request of an institute to be added to the system
+     *
+     * @param int $id The id of the request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
-        $reqInstitute = $this->reqInstituteService->getById($id);
+        $reqInstitute = $this->reqInstituteService->getPendingById($id);
         DB::beginTransaction();
         try {
             //code...
@@ -22,7 +29,7 @@ class RequestInstituteApproveController extends Controller
                 'taluq_id' => $reqInstitute->taluq_id,
             ]);
             $this->reqInstituteService->update(
-                ['is_active'=>false],
+                ['status'=>1],
                 $reqInstitute
             );
             return response()->json(["message" => "Institute approved successfully.", "data" => RequestInstituteCollection::make($reqInstitute)], 200);

@@ -12,6 +12,12 @@ class RequestIndustryCreateController extends Controller
 {
     public function __construct(private RequestIndustryService $industryService){}
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(RequestIndustryRequest $request){
         DB::beginTransaction();
         try {

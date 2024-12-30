@@ -2,8 +2,6 @@
 
 namespace App\Modules\Admins\RequestIndustry\Models;
 
-use App\Http\Interfaces\AuthTraitInterface;
-use App\Http\Traits\AuthTrait;
 use App\Modules\LocationManagement\Cities\Models\City;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 
-class RequestIndustry extends Model implements AuthTraitInterface
+class RequestIndustry extends Model
 {
-    use HasFactory, AuthTrait;
+    use HasFactory;
 
     protected $table = 'request_industries';
 
@@ -33,7 +31,8 @@ class RequestIndustry extends Model implements AuthTraitInterface
         'register_doc',
         'city_id',
         'taluq_id',
-        'is_active',
+        'reject_reason',
+        'status',
     ];
 
     protected $attributes = [
@@ -45,11 +44,11 @@ class RequestIndustry extends Model implements AuthTraitInterface
         'act' => null,
         'address' => null,
         'register_doc' => null,
-        'is_active' => true,
+        'reject_reason' => null,
+        'status' => 0,
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

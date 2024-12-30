@@ -15,6 +15,22 @@ class StudentCreateController extends Controller
 
     public function __construct(private StudentService $studentService){}
 
+    /**
+     * Handle the incoming request to create a new student.
+     *
+     * This method initiates a database transaction to create a new student
+     * record using the validated data from the request. It also assigns the
+     * "Student" role to the newly created student and dispatches a
+     * StudentCreated event. If the operation is successful, it returns a JSON
+     * response with a success message and the created student data. If an
+     * error occurs, it rolls back the transaction and returns an error message.
+     *
+     * @param StudentCreatePostRequest $request The request object containing
+     * the validated data for creating a student.
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating the
+     * success or failure of the operation.
+     */
+
     public function index(StudentCreatePostRequest $request){
         DB::beginTransaction();
         try {

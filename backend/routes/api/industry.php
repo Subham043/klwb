@@ -25,7 +25,9 @@ use App\Modules\IndustryManagement\Payment\Controllers\PaymentFormDPdfController
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentListController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentPaidYearController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentRecieptPdfController;
+use App\Modules\IndustryManagement\Payment\Controllers\PaymentStatusController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentViewController;
+use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentVerifyController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipApproveController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipListController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipPdfController;
@@ -86,6 +88,8 @@ Route::prefix('industry')->group(function () {
                 Route::get('/paid-years', [PaymentPaidYearController::class, 'index']);
                 Route::post('/make-payment', [MakePaymentController::class, 'index']);
                 Route::get('/view/{id}', [PaymentViewController::class, 'index']);
+                Route::get('/status/{id}', [PaymentStatusController::class, 'index']);
+                Route::get('/re-verify/{id}', [SBIPaymentVerifyController::class, 'doubleVerify']);
                 Route::get('/reciept/{id}', [PaymentRecieptPdfController::class, 'index']);
                 Route::get('/form-d/{id}', [PaymentFormDPdfController::class, 'index']);
             });

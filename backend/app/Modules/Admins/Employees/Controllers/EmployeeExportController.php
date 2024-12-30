@@ -9,6 +9,11 @@ class EmployeeExportController extends Controller
 {
     public function __construct(private EmployeeService $employeeService){}
 
+    /**
+     * Download all employees as excel file
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function index(){
         return $this->employeeService->excel()->toBrowser();
     }

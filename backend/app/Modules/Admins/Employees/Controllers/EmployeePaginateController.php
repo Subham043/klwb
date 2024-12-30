@@ -11,6 +11,12 @@ class EmployeePaginateController extends Controller
 {
     public function __construct(private EmployeeService $employeeService){}
 
+    /**
+     * Returns a paginated collection of employees.
+     *
+     * @param Request $request
+     * @return EmployeeCollection
+     */
     public function index(Request $request){
         $data = $this->employeeService->paginate($request->total ?? 10);
         return EmployeeCollection::collection($data);

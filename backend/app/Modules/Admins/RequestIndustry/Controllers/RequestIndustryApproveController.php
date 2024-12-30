@@ -12,8 +12,14 @@ class RequestIndustryApproveController extends Controller
 {
     public function __construct(private RequestIndustryService $reqIndustryService, private IndustryService $industryService){}
 
+    /**
+     * Approve a request industry.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
-        $reqIndustry = $this->reqIndustryService->getById($id);
+        $reqIndustry = $this->reqIndustryService->getPendingById($id);
         DB::beginTransaction();
         try {
             //code...
@@ -22,7 +28,7 @@ class RequestIndustryApproveController extends Controller
                 'act' => $reqIndustry->act,
             ]);
             $this->reqIndustryService->update(
-                ['is_active'=>false],
+                ['status'=>1],
                 $reqIndustry
             );
             return response()->json(["message" => "Industry approved successfully.", "data" => RequestIndustryCollection::make($reqIndustry)], 200);

@@ -12,6 +12,14 @@ class RequestIndustryUpdateController extends Controller
 {
     public function __construct(private RequestIndustryService $industryService){}
 
+    /**
+     * Update the specified Request Industry resource in storage.
+     *
+     * @param  \App\Modules\Admins\RequestIndustry\Requests\RequestIndustryRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function index(RequestIndustryRequest $request, $id){
         $industry = $this->industryService->getById($id);
         DB::beginTransaction();

@@ -11,6 +11,13 @@ class AdminScholarshipNoteController extends Controller
 {
     public function __construct(private AdminScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
 
+    /**
+     * Update the admin note of an application.
+     *
+     * @param AdminNoteScholarshipRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(AdminNoteScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);

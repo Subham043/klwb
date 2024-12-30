@@ -10,6 +10,12 @@ class ContributionViewController extends Controller
 {
     public function __construct(private ContributionService $contributionService){}
 
+    /**
+     * Display the specified contribution.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id){
         $contribution = $this->contributionService->getById($id);
         return response()->json(["message" => "Contribution fetched successfully.", "data" => ContributionCollection::make($contribution)], 200);

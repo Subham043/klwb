@@ -12,6 +12,15 @@ class IndustryEmployeeUpdateController extends Controller
 {
     public function __construct(private IndustryEmployeeService $employeeService){}
 
+/**
+ * Update an industry employee's information.
+ *
+ * @param IndustryEmployeeUpdatePostRequest $request The request containing the employee data to update.
+ * @param int $id The ID of the industry employee to update.
+ *
+ * @return \Illuminate\Http\JsonResponse A JSON response indicating the success or failure of the update operation.
+ */
+
     public function index(IndustryEmployeeUpdatePostRequest $request, $id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();

@@ -9,6 +9,11 @@ class InstituteDashboardController extends Controller
 {
 	public function __construct(private InstituteScholarshipService $scholarshipService){}
 
+	/**
+	 * Returns the total count of applications, approved applications, rejected applications, and pending applications
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function index()
 	{
 		$response = [

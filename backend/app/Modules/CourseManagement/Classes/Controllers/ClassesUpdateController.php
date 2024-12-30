@@ -11,6 +11,13 @@ class ClassesUpdateController extends Controller
 {
     public function __construct(private ClassesService $classesService){}
 
+    /**
+     * Update the specified Classes in storage.
+     *
+     * @param  \App\Modules\CourseManagement\Classes\Requests\ClassesRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(ClassesRequest $request, $id){
         $classes = $this->classesService->getById($id);
         try {

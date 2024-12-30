@@ -12,6 +12,15 @@ class InstituteEmployeeUpdateController extends Controller
 {
     public function __construct(private InstituteEmployeeService $employeeService){}
 
+/**
+ * Update an institute employee's information.
+ *
+ * @param InstituteEmployeeUpdatePostRequest $request The request containing the employee update data.
+ * @param int $id The ID of the employee to update.
+ *
+ * @return \Illuminate\Http\JsonResponse A JSON response indicating the success or failure of the operation.
+ */
+
     public function index(InstituteEmployeeUpdatePostRequest $request, $id){
         $employee = $this->employeeService->getById($id);
         DB::beginTransaction();

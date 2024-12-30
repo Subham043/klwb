@@ -15,6 +15,7 @@ import EditBtn from "../../Buttons/EditBtn";
 import BlockBtn from "../../Buttons/BlockBtn";
 import PasswordBtn from "../../Buttons/PasswordBtn";
 import VerifyBtn from "../../Buttons/VerifyBtn";
+import Contribution from "./Contribution";
 
 type Props = {
   id: number;
@@ -34,147 +35,150 @@ export default function IndustryInfo({ id }: Props) {
   const [industryAuthModal, setIndustryAuthModal] = useState<boolean>(false);
 
   return (
-    <ErrorBoundaryLayout
-      loading={isFetching || isLoading || isRefetching}
-      error={error}
-      refetch={refetchData}
-    >
-      <div className="mb-1">
-        <ModalCardContainer
-          header={
-            <Stack justifyContent="space-between">
-              <Heading level={6} style={{ color: "white" }}>
-                Industry Information
-              </Heading>
-              <ButtonToolbar>
-                <EditBtn clickHandler={() => setIndustryUpdateModal(true)} />
-              </ButtonToolbar>
-            </Stack>
-          }
-        >
-          <Grid fluid>
-            <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Name" value={data?.industry.name} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Reg. ID" value={data?.industry.reg_id} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Act" value={data?.industry.act_label} />
-              </Col>
-            </Row>
-            <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Address" value={data?.address} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="District" value={data?.city.name} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Taluq" value={data?.taluq.name} />
-              </Col>
-            </Row>
-            <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo
-                  title="Industry Reg. File"
-                  value={<FileViewer src={data?.reg_doc} />}
-                />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo
-                  title="Director Signature"
-                  value={<FileViewer src={data?.sign} />}
-                />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo
-                  title="Industry Seal"
-                  value={<FileViewer src={data?.seal} />}
-                />
-              </Col>
-            </Row>
-          </Grid>
-        </ModalCardContainer>
-      </div>
-      <div className="mb-1">
-        <ModalCardContainer
-          header={
-            <Stack justifyContent="space-between">
-              <Heading level={6} style={{ color: "white" }}>
-                Login Information
-              </Heading>
-              <ButtonToolbar>
-                <EditBtn clickHandler={() => setIndustryAuthModal(true)} />
-                {data && <PasswordBtn route={api_routes.admin.registered_industry.update_password(Number(id) || 0)} />}
-                {data && <VerifyBtn route={api_routes.admin.registered_industry.verify(Number(id) || 0)} refetch={refetchData} isVerified={data.verified === VerificationEnum.VERIFIED} />}
-                {data && <BlockBtn route={api_routes.admin.registered_industry.toggle(Number(id) || 0)} refetch={refetchData} isBlocked={data.is_blocked!} />}
-              </ButtonToolbar>
-            </Stack>
-          }
-        >
-          <Grid fluid>
-            <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Director Name" value={data?.name} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Email" value={data?.email} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo title="Phone" value={data?.phone} />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo
-                  title="Verification"
-                  value={
-                    <Status
-                      status={data?.verified === VerificationEnum.VERIFIED}
-                      wrongLabel={VerificationEnum.VERIFICATION_PENDING}
-                      correctLabel={VerificationEnum.VERIFIED}
-                    />
-                  }
-                />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo
-                  title="Status"
-                  value={
-                    <Status 
-                      status={!data?.is_blocked} 
-                      wrongLabel="BLOCKED"
-                      correctLabel="ACTIVE"
-                    />
-                  }
-                />
-              </Col>
-              <Col className="pb-1" xs={8}>
-                <DetailInfo
-                  title="Registered On"
-                  value={<Moment datetime={data?.created_at || ""} />}
-                />
-              </Col>
-            </Row>
-          </Grid>
-        </ModalCardContainer>
-      </div>
-      <IndustryInfoUpdate
-        modal={industryUpdateModal}
-        setModal={setIndustryUpdateModal}
-        data={data}
-        refetch={refetchData}
-        error={error}
+    <>
+      <ErrorBoundaryLayout
         loading={isFetching || isLoading || isRefetching}
-      />
-      <IndustryAuthUpdate
-        modal={industryAuthModal}
-        setModal={setIndustryAuthModal}
-        data={data}
-        refetch={refetchData}
         error={error}
-        loading={isFetching || isLoading || isRefetching}
-      />
-    </ErrorBoundaryLayout>
+        refetch={refetchData}
+      >
+        <div className="mb-1">
+          <ModalCardContainer
+            header={
+              <Stack justifyContent="space-between">
+                <Heading level={6} style={{ color: "white" }}>
+                  Industry Information
+                </Heading>
+                <ButtonToolbar>
+                  <EditBtn clickHandler={() => setIndustryUpdateModal(true)} />
+                </ButtonToolbar>
+              </Stack>
+            }
+          >
+            <Grid fluid>
+              <Row gutter={30}>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Name" value={data?.industry.name} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Reg. ID" value={data?.industry.reg_id} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Act" value={data?.industry.act_label} />
+                </Col>
+              </Row>
+              <Row gutter={30}>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Address" value={data?.address} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="District" value={data?.city.name} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Taluq" value={data?.taluq.name} />
+                </Col>
+              </Row>
+              <Row gutter={30}>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo
+                    title="Industry Reg. File"
+                    value={<FileViewer src={data?.reg_doc} />}
+                  />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo
+                    title="Director Signature"
+                    value={<FileViewer src={data?.sign} />}
+                  />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo
+                    title="Industry Seal"
+                    value={<FileViewer src={data?.seal} />}
+                  />
+                </Col>
+              </Row>
+            </Grid>
+          </ModalCardContainer>
+        </div>
+        <div className="mb-1">
+          <ModalCardContainer
+            header={
+              <Stack justifyContent="space-between">
+                <Heading level={6} style={{ color: "white" }}>
+                  Login Information
+                </Heading>
+                <ButtonToolbar>
+                  <EditBtn clickHandler={() => setIndustryAuthModal(true)} />
+                  {data && <PasswordBtn route={api_routes.admin.registered_industry.update_password(Number(id) || 0)} />}
+                  {data && <VerifyBtn route={api_routes.admin.registered_industry.verify(Number(id) || 0)} refetch={refetchData} isVerified={data.verified === VerificationEnum.VERIFIED} />}
+                  {data && <BlockBtn route={api_routes.admin.registered_industry.toggle(Number(id) || 0)} refetch={refetchData} isBlocked={data.is_blocked!} />}
+                </ButtonToolbar>
+              </Stack>
+            }
+          >
+            <Grid fluid>
+              <Row gutter={30}>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Director Name" value={data?.name} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Email" value={data?.email} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Phone" value={data?.phone} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo
+                    title="Verification"
+                    value={
+                      <Status
+                        status={data?.verified === VerificationEnum.VERIFIED}
+                        wrongLabel={VerificationEnum.VERIFICATION_PENDING}
+                        correctLabel={VerificationEnum.VERIFIED}
+                      />
+                    }
+                  />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo
+                    title="Status"
+                    value={
+                      <Status 
+                        status={!data?.is_blocked} 
+                        wrongLabel="BLOCKED"
+                        correctLabel="ACTIVE"
+                      />
+                    }
+                  />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo
+                    title="Registered On"
+                    value={<Moment datetime={data?.created_at || ""} />}
+                  />
+                </Col>
+              </Row>
+            </Grid>
+          </ModalCardContainer>
+        </div>
+        <IndustryInfoUpdate
+          modal={industryUpdateModal}
+          setModal={setIndustryUpdateModal}
+          data={data}
+          refetch={refetchData}
+          error={error}
+          loading={isFetching || isLoading || isRefetching}
+        />
+        <IndustryAuthUpdate
+          modal={industryAuthModal}
+          setModal={setIndustryAuthModal}
+          data={data}
+          refetch={refetchData}
+          error={error}
+          loading={isFetching || isLoading || isRefetching}
+        />
+      </ErrorBoundaryLayout>
+      {data && <Contribution id={data?.reg_industry_id || 0} />}
+    </>
   );
 }

@@ -12,6 +12,13 @@ class RegisteredIndustryStaffPaginateController extends Controller
 {
     public function __construct(private RegisteredIndustryStaffService $staffService){}
 
+    /**
+     * Return a paginated list of staff under a given industry.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request, $id){
         $industry = (new RegisteredIndustryService)->getById($id);
         $data = $this->staffService->paginate($industry->reg_industry_id, $industry->id, $request->total ?? 10);
