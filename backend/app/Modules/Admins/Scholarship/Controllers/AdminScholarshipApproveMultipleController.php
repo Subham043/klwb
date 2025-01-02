@@ -4,6 +4,7 @@ namespace App\Modules\Admins\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
+use App\Modules\Admins\Scholarship\Events\AdminScholarshipApproved;
 use App\Modules\Admins\Scholarship\Requests\AdminApproveMultipleScholarshipRequest;
 use App\Modules\Admins\Scholarship\Services\AdminScholarshipService;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
@@ -31,6 +32,7 @@ class AdminScholarshipApproveMultipleController extends Controller
                     'status' => ApplicationStatus::Approve->value,
                     'application_state' => ApplicationState::Admin->value,
                 ]);
+                // AdminScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null);
             }
         }
         return response()->json(['message' => 'Applications approved successfully.'], 200);

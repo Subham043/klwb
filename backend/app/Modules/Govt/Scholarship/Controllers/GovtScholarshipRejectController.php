@@ -5,6 +5,7 @@ namespace App\Modules\Govt\Scholarship\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Enums\Guards;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
+use App\Modules\Govt\Scholarship\Events\GovtScholarshipRejected;
 use App\Modules\Govt\Scholarship\Requests\GovtRejectScholarshipRequest;
 use App\Modules\Govt\Scholarship\Services\GovtScholarshipService;
 use App\Modules\Students\Scholarship\Enums\ApplicationStatus;
@@ -36,6 +37,7 @@ class GovtScholarshipRejectController extends Controller
                 'reject_reason' => $request->reason,
                 'govt_approve_by' => auth()->guard(Guards::Admin->value())->user()->id
             ]);
+            GovtScholarshipRejected::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $request->reason);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }
         return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);

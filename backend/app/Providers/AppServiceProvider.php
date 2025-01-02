@@ -18,6 +18,24 @@ use App\Http\Listeners\SendOtpNotification as StudentsSendOtpNotification;
 use App\Http\Listeners\SendResetPasswordResendOtpNotification as StudentsSendResetPasswordResendOtpNotification;
 use App\Http\Events\UserRegistered as StudentsUserRegistered;
 use App\Http\Listeners\SendRegistrartionNotification as StudentsSendRegistrartionNotification;
+use App\Modules\Admins\Scholarship\Events\AdminScholarshipApproved;
+use App\Modules\Admins\Scholarship\Events\AdminScholarshipRejected;
+use App\Modules\Admins\Scholarship\Listeners\SendAdminScholarshipApprovedNotification;
+use App\Modules\Admins\Scholarship\Listeners\SendAdminScholarshipRejectedNotification;
+use App\Modules\Finance\Scholarship\Events\FinanceScholarshipApproved;
+use App\Modules\Finance\Scholarship\Events\FinanceScholarshipRejected;
+use App\Modules\Finance\Scholarship\Listeners\SendFinanceScholarshipApprovedNotification;
+use App\Modules\Finance\Scholarship\Listeners\SendFinanceScholarshipRejectedNotification;
+use App\Modules\Govt\Scholarship\Events\GovtScholarshipRejected;
+use App\Modules\Govt\Scholarship\Listeners\SendGovtScholarshipRejectedNotification;
+use App\Modules\IndustryManagement\Scholarship\Events\IndustryScholarshipApproved;
+use App\Modules\IndustryManagement\Scholarship\Events\IndustryScholarshipRejected;
+use App\Modules\IndustryManagement\Scholarship\Listeners\SendIndustryScholarshipApprovedNotification;
+use App\Modules\IndustryManagement\Scholarship\Listeners\SendIndustryScholarshipRejectedNotification;
+use App\Modules\InstituteManagement\Scholarship\Events\InstituteScholarshipApproved;
+use App\Modules\InstituteManagement\Scholarship\Events\InstituteScholarshipRejected;
+use App\Modules\InstituteManagement\Scholarship\Listeners\SendInstituteScholarshipApprovedNotification;
+use App\Modules\InstituteManagement\Scholarship\Listeners\SendInstituteScholarshipRejectedNotification;
 use App\Modules\InstituteManagement\Staff\Events\InstituteEmployeeCreated;
 use App\Modules\InstituteManagement\Staff\Listeners\SendInstituteEmployeeInviteNotification;
 use Illuminate\Support\ServiceProvider;
@@ -80,6 +98,42 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(
             StudentsUserRegistered::class,
             StudentsSendRegistrartionNotification::class,
+        );
+        Event::listen(
+            GovtScholarshipRejected::class,
+            SendGovtScholarshipRejectedNotification::class,
+        );
+        Event::listen(
+            FinanceScholarshipRejected::class,
+            SendFinanceScholarshipRejectedNotification::class,
+        );
+        Event::listen(
+            InstituteScholarshipRejected::class,
+            SendInstituteScholarshipRejectedNotification::class,
+        );
+        Event::listen(
+            InstituteScholarshipApproved::class,
+            SendInstituteScholarshipApprovedNotification::class,
+        );
+        Event::listen(
+            IndustryScholarshipRejected::class,
+            SendIndustryScholarshipRejectedNotification::class,
+        );
+        Event::listen(
+            IndustryScholarshipApproved::class,
+            SendIndustryScholarshipApprovedNotification::class,
+        );
+        Event::listen(
+            AdminScholarshipRejected::class,
+            SendAdminScholarshipRejectedNotification::class,
+        );
+        Event::listen(
+            AdminScholarshipApproved::class,
+            SendAdminScholarshipApprovedNotification::class,
+        );
+        Event::listen(
+            FinanceScholarshipApproved::class,
+            SendFinanceScholarshipApprovedNotification::class,
         );
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super-Admin') ? true : null;

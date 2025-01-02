@@ -3,6 +3,7 @@
 namespace App\Modules\Finance\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Finance\Scholarship\Events\FinanceScholarshipApproved;
 use App\Modules\Finance\Scholarship\Requests\FinanceApproveMultipleScholarshipRequest;
 use App\Modules\Finance\Scholarship\Services\FinanceScholarshipService;
 use App\Modules\Students\Scholarship\Enums\ApplicationStatus;
@@ -26,6 +27,7 @@ class FinanceScholarshipApproveMultipleController extends Controller
             $application->update([
                 'pay_status' => ApplicationStatus::Approve->value,
             ]);
+            // FinanceScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null);
         }
         return response()->json(['message' => 'Applications approved successfully.'], 200);
     }

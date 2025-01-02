@@ -4,6 +4,7 @@ namespace App\Modules\IndustryManagement\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
+use App\Modules\IndustryManagement\Scholarship\Events\IndustryScholarshipApproved;
 use App\Modules\IndustryManagement\Scholarship\Requests\IndustryApproveScholarshipRequest;
 use App\Modules\IndustryManagement\Scholarship\Services\IndustryScholarshipService;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
@@ -30,6 +31,7 @@ class IndustryScholarshipApproveController extends Controller
 		        'application_state' => ApplicationState::Govt->value,
                 ...$request->validated()
             ]);
+            IndustryScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null);
             return response()->json(['message' => 'Application approved successfully.'], 200);
         }
         return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);

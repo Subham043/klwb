@@ -29,7 +29,7 @@ class ApplicationDateService extends AbstractExcelService
     
     public function getLatest(): ApplicationDate
     {
-        return $this->model()->latest()->firstOrFail();
+        return $this->model()->latest('id')->firstOrFail();
     }
 
     public function toggleStatus(ApplicationDate $data): ApplicationDate

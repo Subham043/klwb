@@ -4,6 +4,7 @@ namespace App\Modules\InstituteManagement\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
+use App\Modules\InstituteManagement\Scholarship\Events\InstituteScholarshipRejected;
 use App\Modules\InstituteManagement\Scholarship\Requests\InstituteRejectScholarshipRequest;
 use App\Modules\InstituteManagement\Scholarship\Services\InstituteScholarshipService;
 use App\Modules\Students\Scholarship\Enums\ApplicationStatus;
@@ -28,6 +29,7 @@ class InstituteScholarshipRejectController extends Controller
                 'status' => ApplicationStatus::Reject->value,
                 'reject_reason' => $request->reason,
             ]);
+            InstituteScholarshipRejected::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $request->reason);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }
         return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);
