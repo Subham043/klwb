@@ -28,6 +28,8 @@ use App\Modules\Finance\Scholarship\Listeners\SendFinanceScholarshipApprovedNoti
 use App\Modules\Finance\Scholarship\Listeners\SendFinanceScholarshipRejectedNotification;
 use App\Modules\Govt\Scholarship\Events\GovtScholarshipRejected;
 use App\Modules\Govt\Scholarship\Listeners\SendGovtScholarshipRejectedNotification;
+use App\Modules\IndustryManagement\Payment\Events\IndustryPaymentCompleted;
+use App\Modules\IndustryManagement\Payment\Listeners\SendIndustryPaymentCompletedNotification;
 use App\Modules\IndustryManagement\Scholarship\Events\IndustryScholarshipApproved;
 use App\Modules\IndustryManagement\Scholarship\Events\IndustryScholarshipRejected;
 use App\Modules\IndustryManagement\Scholarship\Listeners\SendIndustryScholarshipApprovedNotification;
@@ -134,6 +136,10 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(
             FinanceScholarshipApproved::class,
             SendFinanceScholarshipApprovedNotification::class,
+        );
+        Event::listen(
+            IndustryPaymentCompleted::class,
+            SendIndustryPaymentCompletedNotification::class,
         );
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super-Admin') ? true : null;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\InstituteManagement\Scholarship\Events;
+namespace App\Modules\IndustryManagement\Payment\Events;
 
-use App\Modules\Students\Scholarship\Models\Application;
+use App\Modules\IndustryManagement\Payment\Models\Payment;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InstituteScholarshipApproved
+class IndustryPaymentCompleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -15,10 +15,7 @@ class InstituteScholarshipApproved
      * Create a new event instance.
      */
     public function __construct(
-        public string|null $email,
-        public string|null $phone,
-        public string|null $name,
-        public Application $application,
+        public Payment $payment,
     ) {
     }
 }

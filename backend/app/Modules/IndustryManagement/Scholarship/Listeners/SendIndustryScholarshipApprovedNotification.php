@@ -30,7 +30,7 @@ class SendIndustryScholarshipApprovedNotification implements ShouldQueue
     {
         // Access the order using $event->order...
         if($event->email){
-            Mail::to($event->email)->send(new SendIndustryScholarshipApprovedMail($event->name));
+            Mail::to($event->email)->send(new SendIndustryScholarshipApprovedMail($event->name, $event->application, $event->industryPayment));
         }
 
         // if($event->phone){

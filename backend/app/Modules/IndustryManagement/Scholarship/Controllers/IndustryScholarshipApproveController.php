@@ -31,7 +31,7 @@ class IndustryScholarshipApproveController extends Controller
 		        'application_state' => ApplicationState::Govt->value,
                 ...$request->validated()
             ]);
-            IndustryScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null);
+            IndustryScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $application, $application->industryPayment);
             return response()->json(['message' => 'Application approved successfully.'], 200);
         }
         return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);

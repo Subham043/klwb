@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Official\Authentication\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Events\ForgotPassword;
 use App\Http\Services\RateLimitService;
-use App\Modules\Auth\Common\Requests\ForgotPasswordViaEmailPostRequest;
+use App\Modules\Auth\Official\Authentication\Requests\ForgotPasswordViaEmailPostRequest;
 use App\Modules\Auth\Official\Authentication\Services\AuthService;
 use Illuminate\Support\Facades\URL;
 

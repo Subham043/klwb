@@ -5,8 +5,8 @@ namespace App\Modules\Auth\Industry\Authentication\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Services\RateLimitService;
 use App\Http\Events\ForgotPassword;
-use App\Modules\Auth\Common\Requests\ForgotPasswordViaPhonePostRequest;
-use App\Modules\IndustryManagement\Authentication\Services\AuthService;
+use App\Modules\Auth\Industry\Authentication\Requests\ForgotPasswordViaPhonePostRequest;
+use App\Modules\Auth\Industry\Authentication\Services\AuthService;
 use Illuminate\Support\Facades\URL;
 
 class ForgotPasswordViaPhoneController extends Controller

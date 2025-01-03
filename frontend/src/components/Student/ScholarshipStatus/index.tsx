@@ -94,6 +94,13 @@ function CurrentStatus({ status, application_state, name, current_state }: { sta
 			</Approved>
 		);
 	}
+	if (application_state === 3 && status === 2) {
+		return (
+			<Rejected>
+				<div className={classes.tab_name}>{name}</div>
+			</Rejected>
+		);
+	}
 	return (
 		<Pending>
 			<div className={classes.tab_name}>{name}</div>

@@ -29,7 +29,7 @@ class InstituteScholarshipApproveController extends Controller
                 'status' => ApplicationStatus::Pending->value,
 		        'application_state' => ApplicationState::Company->value,
             ]);
-            InstituteScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null);
+            InstituteScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $application);
             return response()->json(['message' => 'Application approved successfully.'], 200);
         }
         return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);

@@ -5,6 +5,7 @@ namespace App\Modules\IndustryManagement\Payment\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Enums\Guards;
 use App\Http\Services\AESEncDecService;
+use App\Modules\IndustryManagement\Payment\Events\IndustryPaymentCompleted;
 use App\Modules\IndustryManagement\Payment\Resources\PaymentCollection;
 use App\Modules\IndustryManagement\Payment\Services\PaymentService;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class SBIPaymentVerifyController extends Controller
                         'transaction_status' => $encData,
                         'atrn' => $str[1],
                     ]);
+                    IndustryPaymentCompleted::dispatch($payment);
                 }
             }elseif (!empty($request->pushRespData)){
                 $resdata = (new AESEncDecService)->decrypt($request->pushRespData,config('services.sbi.key'));
@@ -45,6 +47,7 @@ class SBIPaymentVerifyController extends Controller
                         'transaction_status' => $resdata,
                         'atrn' => $strs[1],
                     ]);
+                    IndustryPaymentCompleted::dispatch($payment);
                 }
             }
             if(Auth::guard(Guards::Industry->value())->check()==false && $payment->industry->auth){
@@ -126,6 +129,7 @@ class SBIPaymentVerifyController extends Controller
                 'transaction_status' => $response,
                 'atrn' => $str[1],
             ]);
+            IndustryPaymentCompleted::dispatch($payment);
         }
         return response()->json(["message" => "Payment fetched successfully.", "data" => PaymentCollection::make($payment)], 200);
     }
