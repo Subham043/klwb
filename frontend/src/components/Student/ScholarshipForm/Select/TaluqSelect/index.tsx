@@ -40,6 +40,7 @@ export default function TaluqSelect({ value, setValue, isDisabled, district }: P
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
           page: response.data.meta.current_page + 1,
+          district_id: additional?.district_id
         },
       };
     },

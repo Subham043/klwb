@@ -63,7 +63,7 @@ const SelectTaluqStatus = (props: PropType) => {
   },[searchParams.get("city_id")])
 
   return (
-    <div style={{ position: "relative", zIndex: 12000000000, minWidth: "200px"}}>
+    <div style={{ position: "relative", zIndex: 12, minWidth: "200px"}}>
       <AsyncPaginate
           placeholder="Select Taluq"
           value={(searchParams.get("taluq_id")) ? {

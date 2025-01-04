@@ -41,6 +41,7 @@ export default function CourseSelect({ value, setValue, isDisabled, graduation }
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
           page: response.data.meta.current_page + 1,
+          graduation_id: additional?.graduation_id
         },
       };
     },

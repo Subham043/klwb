@@ -41,6 +41,7 @@ export default function ClassSelect({ value, setValue, isDisabled, course }: Pro
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
           page: response.data.meta.current_page + 1,
+          course_id: additional?.course_id
         },
       };
     },

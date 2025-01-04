@@ -1,15 +1,13 @@
 import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "../../../hooks/useToast";
 import { isAxiosError } from "axios";
-import { useTaluqSelectQuery } from "../../../hooks/data/taluq";
 import { useAxios } from "../../../hooks/useAxios";
 import TextInput from "../../FormInput/TextInput";
 import SelectInput from "../../FormInput/SelectInput";
-import { useCitySelectQuery } from "../../../hooks/data/city";
 import { api_routes } from "../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import {
@@ -17,6 +15,8 @@ import {
   RegisteredIndustryType,
 } from "../../../utils/types";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
+import DistrictSelect from "../Select/DistrictSelect";
+import TaluqSelect from "../Select/TaluqSelect";
 
 type Props = {
   modal: boolean;
@@ -32,7 +32,9 @@ type SchemaType = {
   act: string;
   address: string;
   city_id: number;
+  city: { value: number; label: string };
   taluq_id: number;
+  taluq: { value: number; label: string };
 };
 
 const schema: yup.ObjectSchema<SchemaType> = yup
@@ -50,11 +52,37 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .typeError("District must contain numbers only")
       .required("District is required")
       .test("notZero", "District is required", (value) => !(value === 0)),
+    city: yup
+      .object({
+        value: yup
+          .number()
+          .typeError("City must contain numbers only")
+          .required("City is required")
+          .test("notZero", "City is required", (value) => !(value === 0)),
+        label: yup
+          .string()
+          .typeError("City must contain characters only")
+          .required("City is required"),
+      })
+      .required("City is required"),
     taluq_id: yup
       .number()
       .typeError("Taluq must contain numbers only")
       .required("Taluq is required")
       .test("notZero", "Taluq is required", (value) => !(value === 0)),
+    taluq: yup
+      .object({
+        value: yup
+          .number()
+          .typeError("Taluq must contain numbers only")
+          .required("Taluq is required")
+          .test("notZero", "Taluq is required", (value) => !(value === 0)),
+        label: yup
+          .string()
+          .typeError("Taluq must contain characters only")
+          .required("Taluq is required"),
+      })
+      .required("Taluq is required"),
     address: yup
       .string()
       .typeError("Address must contain characters only")
@@ -89,25 +117,13 @@ const IndustryInfoUpdate = ({
       act: data && data.industry.act ? data.industry.act.toString() : "",
       address: data ? data.address : "",
       taluq_id: data ? data.taluq.id : 0,
+      taluq: data && data.taluq ? { value: data.taluq.id, label: data.taluq.name } : { value: 0, label: "" },
       city_id: data ? data.city.id : 0,
+      city: data && data.city ? { value: data.city.id, label: data.city.name } : { value: 0, label: "" },
     },
   });
 
   const city_id = watch("city_id");
-
-  const {
-    data: cities,
-    isFetching: isCityFetching,
-    isLoading: isCityLoading,
-  } = useCitySelectQuery(modal);
-  const {
-    data: taluqs,
-    isFetching: isTaluqFetching,
-    isLoading: isTaluqLoading,
-  } = useTaluqSelectQuery(
-    modal && city_id !== 0,
-    city_id === 0 ? undefined : city_id
-  );
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
@@ -180,42 +196,68 @@ const IndustryInfoUpdate = ({
                 </Row>
                 <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
-                    <SelectInput
-                      name="city_id"
-                      label="District"
-                      resetHandler={() => {
-                        setValue("taluq_id", 0);
-                      }}
-                      data={
-                        cities
-                          ? cities.map((item) => ({
-                              label: item.name,
-                              value: item.id,
-                            }))
-                          : []
-                      }
-                      loading={isCityFetching || isCityLoading}
+                    <Form.ControlLabel>District</Form.ControlLabel>
+                    <Controller
+                      name={"city"}
                       control={control}
-                      error={errors.city_id?.message}
+                      render={({ field }) => (
+                        <>
+                          <DistrictSelect
+                            value={field.value}
+                            setValue={(value) => {
+                              field.onChange({
+                                value: value.value,
+                                label: value.label,
+                              });
+                              setValue("city_id", value.value);
+                              setValue("taluq_id", 0);
+                              setValue("taluq", { value: 0, label: "" });
+                            }}
+                          />
+                        </>
+                      )}
                     />
+                    <Form.ErrorMessage
+                      show={
+                        !!errors.city?.value?.message ||
+                        !!errors.city_id?.message
+                      }
+                      placement="bottomStart"
+                    >
+                      {errors.city?.value?.message || errors.city_id?.message}
+                    </Form.ErrorMessage>
                   </Col>
                   <Col className="pb-1" xs={12}>
-                    <SelectInput
-                      name="taluq_id"
-                      label="Taluq"
-                      data={
-                        taluqs
-                          ? taluqs.map((item) => ({
-                              label: item.name,
-                              value: item.id,
-                            }))
-                          : []
-                      }
-                      disabled={city_id === 0}
-                      loading={isTaluqFetching || isTaluqLoading}
+                    <Form.ControlLabel>Taluq</Form.ControlLabel>
+                    <Controller
+                      name={"taluq"}
                       control={control}
-                      error={errors.taluq_id?.message}
+                      render={({ field }) => (
+                        <>
+                          <TaluqSelect
+                            value={field.value}
+                            district={city_id}
+                            isDisabled={city_id === 0}
+                            setValue={(value) => {
+                              field.onChange({
+                                value: value.value,
+                                label: value.label,
+                              });
+                              setValue("taluq_id", value.value);
+                            }}
+                          />
+                        </>
+                      )}
                     />
+                    <Form.ErrorMessage
+                      show={
+                        !!errors.taluq?.value?.message ||
+                        !!errors.taluq_id?.message
+                      }
+                      placement="bottomStart"
+                    >
+                      {errors.taluq?.value?.message || errors.taluq_id?.message}
+                    </Form.ErrorMessage>
                   </Col>
                 </Row>
                 <Row gutter={30}>

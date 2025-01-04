@@ -40,6 +40,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq }: P
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
           page: response.data.meta.current_page + 1,
+          taluq_id: additional?.taluq_id
         },
       };
     },

@@ -1,9 +1,9 @@
 import { AsyncPaginate } from "react-select-async-paginate";
 import type { GroupBase, OptionsOrGroups } from "react-select";
 import { useCallback } from "react";
-import { api_routes } from "../../../../../utils/routes/api";
-import { InstituteType, PaginationType } from "../../../../../utils/types";
-import api from "../../../../../utils/config/axios";
+import api from "../../../../utils/config/axios";
+import { CityType, PaginationType } from "../../../../utils/types";
+import { api_routes } from "../../../../utils/routes/api";
 
 type OptionType = {
   value: number;
@@ -13,34 +13,30 @@ type OptionType = {
 type Props = {
   value?: OptionType;
   setValue: (value: OptionType) => void;
-  taluq?: number;
   isDisabled?: boolean;
 };
 
-export default function InstituteSelect({ value, setValue, isDisabled, taluq }: Props) {
+export default function DistrictSelect({ value, setValue, isDisabled }: Props) {
   const loadOptions = useCallback(
     async (
       search: string,
       _loadedOptions: OptionsOrGroups<OptionType, GroupBase<OptionType>>,
-      additional: { page: number, taluq_id?: number } | undefined
+      additional: { page: number } | undefined
     ) => {
-      const response = await api.get<PaginationType<InstituteType>>(
-        api_routes.user.institute.all +
+      const response = await api.get<PaginationType<CityType>>(
+        api_routes.admin.city.paginate +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}${
-            additional && additional.taluq_id ? `&filter[has_taluq]=${additional.taluq_id}` : ""
-          }`
+          }&total=10&filter[search]=${search}`
       );
       return {
-        options: response.data.data.map((institute) => ({
-          value: institute.id,
-          label: institute.name,
+        options: response.data.data.map((city) => ({
+          value: city.id,
+          label: city.name,
         })),
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
           page: response.data.meta.current_page + 1,
-          taluq_id: additional?.taluq_id
         },
       };
     },
@@ -48,18 +44,18 @@ export default function InstituteSelect({ value, setValue, isDisabled, taluq }: 
   );
 
   return (
-				<div style={{ position: "relative", zIndex: 13}} key={taluq}>
+				<div style={{ position: "relative", zIndex: 15}}>
 					<AsyncPaginate
 							value={value}
 							loadOptions={loadOptions}
 							isDisabled={isDisabled}
-							onChange={(value) => {setValue(value as OptionType);}}
+							onChange={(value) => {
+                setValue(value as OptionType);
+              }}
 							additional={{
 									page: 1,
-                  taluq_id: taluq
 							}}
 							debounceTimeout={500}
-              key={taluq}
 					/>
 				</div>
   );
