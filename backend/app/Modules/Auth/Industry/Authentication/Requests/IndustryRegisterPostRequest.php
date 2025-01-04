@@ -49,7 +49,8 @@ class IndustryRegisterPostRequest extends InputRequest
             'taluq_id' => 'required|numeric|exists:taluqs,id',
             'reg_industry_id' => 'required|numeric|exists:registered_industries,id|unique:industry_auths',
             'address' => 'required|string|max:500',
-            'act' => ['required', new Enum (Act::class)],
+            'category' => 'required|string|max:500',
+            'act' => ['required', new Enum(Act::class)],
             'captcha' => 'required|captcha'
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Modules\PaymentOfficer\Contribution\Services;
 
+use App\Modules\Admins\RequestIndustry\Enums\Act;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -83,6 +84,8 @@ class ContributionService
 			$writer->addRow([
 				'Id' => $data->id,
 				'Industry' => $data->industry->name ?? '',
+				'Act' => Act::getValue($data->industry->act) ?? '',
+				'Category' => $data->industry->category ?? '',
 				'District' => $data->industry->city->name ?? '',
 				'Taluq' => $data->industry->taluq->name ?? '',
 				'Year' => $data->year,
@@ -115,7 +118,8 @@ class CommonFilter implements Filter
 				->orWhere('price', 'LIKE', '%' . $value . '%')
 				->orWhereHas('industry', function ($q) use ($value) {
 					$q->where('name', 'LIKE', '%' . $value . '%')
-						->orWhere('act', 'LIKE', '%' . $value . '%');
+						->orWhere('act', 'LIKE', '%' . $value . '%')
+						->orWhere('category', 'LIKE', '%' . $value . '%');
 				});
 		});
 	}

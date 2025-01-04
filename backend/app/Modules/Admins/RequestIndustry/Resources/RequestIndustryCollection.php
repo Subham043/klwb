@@ -26,6 +26,7 @@ class RequestIndustryCollection extends JsonResource
             'pan_no' => $this->pan_no,
             'act' => $this->act,
             'act_label' => Act::getValue($this->act),
+            'category' => $this->category,
             'address' => $this->address,
             'register_doc' => $this->register_doc_link,
             'taluq_id' => $this->taluq_id,

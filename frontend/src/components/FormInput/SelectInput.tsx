@@ -9,6 +9,7 @@ type PropType = {
   data: ItemDataType<any>[]
 		label: string
 		name: string
+		virtualized?: boolean
 		loading?: boolean
 		disabled?: boolean
 		error: string | undefined
@@ -19,7 +20,7 @@ type PropType = {
 
 
 const SelectInput = (props: PropType) => {
-	const { control, error, label, name, data, loading, disabled, searchHandler, searchPlaceholder, resetHandler} = props;
+	const { control, error, label, name, data, loading, virtualized = true, disabled, searchHandler, searchPlaceholder, resetHandler} = props;
 	return (
 					<Form.Group>
 									<Controller
@@ -28,7 +29,7 @@ const SelectInput = (props: PropType) => {
 													render={({ field }) => (
 																	<>
 																					<Form.ControlLabel>{label}</Form.ControlLabel>
-																					<SelectPicker data={data} name={field.name} value={field.value} onChange={field.onChange} onSelect={() => resetHandler && resetHandler()} loading={loading} disabled={disabled} onSearch={(val) => searchHandler && searchHandler(val)} placeholder={searchPlaceholder} virtualized className='w-100' />
+																					<SelectPicker data={data} name={field.name} value={field.value} onChange={field.onChange} onSelect={() => resetHandler && resetHandler()} loading={loading} disabled={disabled} onSearch={(val) => searchHandler && searchHandler(val)} placeholder={searchPlaceholder} virtualized={virtualized} className='w-100' />
 																					<Form.ErrorMessage show={!!error} placement="bottomStart">
 																									{error}
 																					</Form.ErrorMessage>

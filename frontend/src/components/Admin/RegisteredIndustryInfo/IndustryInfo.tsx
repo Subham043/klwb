@@ -68,13 +68,18 @@ export default function IndustryInfo({ id }: Props) {
               </Row>
               <Row gutter={30}>
                 <Col className="pb-1" xs={8}>
-                  <DetailInfo title="Address" value={data?.address} />
+                  <DetailInfo title="Category" value={data?.industry.category} />
                 </Col>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo title="District" value={data?.city.name} />
                 </Col>
                 <Col className="pb-1" xs={8}>
                   <DetailInfo title="Taluq" value={data?.taluq.name} />
+                </Col>
+              </Row>
+              <Row gutter={30}>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Address" value={data?.address} />
                 </Col>
               </Row>
               <Row gutter={30}>

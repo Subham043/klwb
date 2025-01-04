@@ -74,6 +74,7 @@ class RequestIndustryService extends AbstractExcelService
                 'GST' => $data->gst_no,
                 'PAN' => $data->pan_no,
                 'Act' => $data->act,
+                'Category' => $data->category,
                 'Address' => $data->address,
                 'Taluq' => $data->taluq->name,
                 'Taluq ID' => $data->taluq->id,
@@ -102,6 +103,7 @@ class CommonFilter implements Filter
             ->orWhere('gst_no', 'LIKE', '%' . $value . '%')
             ->orWhere('pan_no', 'LIKE', '%' . $value . '%')
             ->orWhere('act', 'LIKE', '%' . $value . '%')
+            ->orWhere('category', 'LIKE', '%' . $value . '%')
             ->orWhere('address', 'LIKE', '%' . $value . '%')
             ->orWhere('mobile', 'LIKE', '%' . $value . '%')
             ->orWhereHas('taluq', function($q) use($value){

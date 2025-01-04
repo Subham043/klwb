@@ -1,6 +1,6 @@
 import classes from "../IndustryRequestPage/index.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -21,6 +21,7 @@ import { page_routes } from "../../../utils/routes/pages";
 import DistrictSelect from "../../../components/DistrictSelect";
 import TaluqSelect from "../../../components/TaluqSelect";
 import IndustrySelect from "../../../components/IndustrySelect";
+import { company_act, Contract_Labour_Act, Factory_Act, Shops_and_Commercial_Act, Society_Registration_Act } from "../../../utils/constants/company_act";
 
 type SchemaType = {
   email: string;
@@ -30,6 +31,7 @@ type SchemaType = {
   confirm_password: string;
   address: string;
   act: string;
+  category: string;
   city_id: number;
   taluq_id: number;
   reg_industry_id: number;
@@ -72,6 +74,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Act must contain characters only")
       .required("Act is required"),
+    category: yup
+          .string()
+          .typeError("Category must contain characters only")
+          .required("Category is required"),
     city_id: yup
       .number()
       .typeError("District must contain numbers only")
@@ -190,6 +196,20 @@ function IndustryRegisterPage() {
 
   const city_id = watch("city_id");
   const taluq_id = watch("taluq_id");
+  const act = watch("act");
+  
+    const categories = useMemo(() => {
+      if (act === "1") {
+        return Shops_and_Commercial_Act;
+      } else if (act === "2") {
+        return Factory_Act;
+      } else if (act === "3") {
+        return Society_Registration_Act;
+      } else if (act === "4") {
+        return Contract_Labour_Act;
+      }
+      return [];
+    }, [act]);
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
@@ -204,6 +224,7 @@ function IndustryRegisterPage() {
         getValues().confirm_password.toString()
       );
       formData.append("act", getValues().act);
+      formData.append("category", getValues().category);
       formData.append("address", getValues().address);
       formData.append("city_id", getValues().city_id.toString());
       formData.append("taluq_id", getValues().taluq_id.toString());
@@ -233,6 +254,7 @@ function IndustryRegisterPage() {
         password: "",
         confirm_password: "",
         act: "",
+        category: "",
         address: "",
         city_id: 0,
         taluq_id: 0,
@@ -336,16 +358,25 @@ function IndustryRegisterPage() {
                   <SelectInput
                     name="act"
                     label="Act"
-                    data={[
-                      { label: "Shops and Commercial Act", value: "1" },
-                      { label: "Factory Act", value: "2" },
-                      { label: "Other", value: "3" },
-                    ]}
+                    data={company_act}
                     control={control}
                     error={errors.act?.message}
+                    resetHandler={() => setValue("category", "")}
                   />
                 </Col>
                 <Col xs={12}>
+                  <SelectInput
+                    name="category"
+                    label="Category"
+                    virtualized={false}
+                    data={categories}
+                    control={control}
+                    error={errors.category?.message}
+                  />
+                </Col>
+              </Row>
+              <Row className="show-grid mb-1">
+                <Col xs={8}>
                   <TextInput
                     name="name"
                     label="Director Name"
@@ -353,9 +384,7 @@ function IndustryRegisterPage() {
                     error={errors.name?.message}
                   />
                 </Col>
-              </Row>
-              <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={8}>
                   <TextInput
                     name="email"
                     type="email"
@@ -365,7 +394,7 @@ function IndustryRegisterPage() {
                     error={errors.email?.message}
                   />
                 </Col>
-                <Col xs={12}>
+                <Col xs={8}>
                   <TextInput
                     name="phone"
                     label="Phone"

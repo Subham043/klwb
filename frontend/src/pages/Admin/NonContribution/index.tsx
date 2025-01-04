@@ -27,7 +27,7 @@ const NonContribution:FC = () => {
                     <Table.Cell dataKey="id" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column width={560}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.Cell dataKey="name" />
                 </Table.Column>
@@ -35,6 +35,11 @@ const NonContribution:FC = () => {
                 <Table.Column width={260}>
                     <Table.HeaderCell>Act</Table.HeaderCell>
                     <Table.Cell dataKey="act_label" />
+                </Table.Column>
+
+                <Table.Column width={260}>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
+                    <Table.Cell dataKey="category" />
                 </Table.Column>
 
                 <Table.Column width={260}>

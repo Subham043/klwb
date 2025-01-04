@@ -26,6 +26,7 @@ class RequestIndustryApproveController extends Controller
             $this->industryService->create([
                 'name' => $reqIndustry->company,
                 'act' => $reqIndustry->act,
+                'category' => $reqIndustry->category,
             ]);
             $this->reqIndustryService->update(
                 ['status'=>1],

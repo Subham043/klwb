@@ -67,7 +67,8 @@ class NonContributionService
 				'Id' => $data->id,
 				'Reg ID.' => $data->reg_id,
 				'Name' => $data->name,
-				'Act' => Act::getValue($data->act),
+				'Act' => Act::getValue($data->act) ?? '',
+				'Category' => $data->category ?? '',
 				'Pincode' => $data->pincode,
 				'Active' => $data->is_active ? 'Yes' : 'No',
 				'Created At' => $data->created_at->format('Y-m-d H:i:s'),
@@ -89,6 +90,7 @@ class CommonFilter implements Filter
 		$query->where(function ($q) use ($value) {
 			$q->where('name', 'LIKE', '%' . $value . '%')
 			->orWhere('act', 'LIKE', '%' . $value . '%')
+			->orWhere('category', 'LIKE', '%' . $value . '%')
 			->orWhere('pincode', 'LIKE', '%' . $value . '%')
 			->orWhere('reg_id', 'LIKE', '%' . $value . '%');
 		});

@@ -4,6 +4,7 @@ namespace App\Modules\IndustryManagement\Payment\Services;
 
 use App\Http\Enums\Guards;
 use App\Http\Services\FileService;
+use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\IndustryManagement\Payment\Requests\PaymentRequest;
@@ -114,6 +115,11 @@ class PaymentService
 			$interest_amount = ((($amount * 18) / 100) / 12) * ceil($month_diff);
 			$total_amount	= $amount + $interest_amount;
 		}
+		Industry::where('id', auth()->guard(Guards::Industry->value())->user()->reg_industry_id)
+			->update([
+				'category' => $request->category,
+				'act' => $request->act,
+			]);
 		return Payment::updateOrCreate([
 			'year' => $request->year,
 			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
@@ -168,6 +174,7 @@ class CommonFilter implements Filter
 				->orWhere('price', 'LIKE', '%' . $value . '%')
 				->orWhereHas('industry', function ($q) use ($value) {
 					$q->where('name', 'LIKE', '%' . $value . '%')
+						->orWhere('category', 'LIKE', '%' . $value . '%')
 						->orWhere('act', 'LIKE', '%' . $value . '%');
 				});
 		});

@@ -217,6 +217,7 @@ export type IndustryType = {
   name: string;
   act: number;
   act_label: string;
+  category: string|null;
   pincode: string;
   is_active: boolean;
   created_at: string;
@@ -281,6 +282,7 @@ export type NonRegisteredIndustryType = {
   name: string;
   act: number;
   act_label: string;
+  category: string|null;
   pincode: string;
   is_active: boolean;
   created_at: string;
@@ -474,6 +476,7 @@ export type ContributionType = {
     name: string;
     act: number;
     act_label: string;
+    category: string|null;
     pincode: string;
     is_active: boolean;
     created_at: string;
@@ -495,6 +498,7 @@ export type NonContributionType = {
   name: string;
   act: number;
   act_label: string;
+  category: string|null;
   pincode: string;
   is_active: boolean;
   created_at: string;

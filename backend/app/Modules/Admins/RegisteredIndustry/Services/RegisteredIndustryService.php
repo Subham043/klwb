@@ -94,6 +94,7 @@ class RegisteredIndustryService
         $industry->industry->update([
             'name' => $request->name,
             'act' => $request->act,
+            'category' => $request->category,
             'state_id' => $city->state->id,
             'taluq_id' => $request->taluq_id,
             'city_id' => $request->city_id,
@@ -146,7 +147,8 @@ class RegisteredIndustryService
                 'Director Name' => $data->name,
                 'Mobile' => $data->phone,
                 'Email' => $data->email,
-                'Act' => Act::getValue($data->industry->act),
+                'Act' => Act::getValue($data->industry->act) ?? '',
+                'Category' => $data->industry->category ?? '',
                 'Taluq' => $data->taluq->name,
                 'Taluq ID' => $data->taluq->id,
                 'District' => $data->city->name,
@@ -179,7 +181,8 @@ class CommonFilter implements Filter
                 $qry->where('name', 'LIKE', '%' . $value . '%')
                 ->orWhere('reg_id', 'LIKE', '%' . $value . '%')
                 ->orWhere('pincode', 'LIKE', '%' . $value . '%')
-                ->orWhere('act', 'LIKE', '%' . $value . '%');
+                ->orWhere('act', 'LIKE', '%' . $value . '%')
+                ->orWhere('category', 'LIKE', '%' . $value . '%');
             })
             ->orWhereHas('city', function($qry) use($value){
                 $qry->where('name', 'LIKE', '%' . $value . '%');

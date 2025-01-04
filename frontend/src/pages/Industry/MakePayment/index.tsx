@@ -18,6 +18,7 @@ import SelectInput from "../../../components/FormInput/SelectInput";
 import moment from "moment";
 import TextInput from "../../../components/FormInput/TextInput";
 import FileInput from "../../../components/FormInput/FileInput";
+import { company_act, Contract_Labour_Act, Factory_Act, Shops_and_Commercial_Act, Society_Registration_Act } from "../../../utils/constants/company_act";
 
 const isAfter31stDec = moment().isAfter(moment().year() + "-12-31", "day");
 
@@ -31,20 +32,6 @@ export default function MakePaymentPage() {
 	const axios = useAxios();
 
 	const {
-		control,
-		handleSubmit,
-		reset,
-		watch,
-		getValues,
-		setError,
-		formState: { errors },
-	} = useForm<PaymentFormSchemaType>({
-		resolver: yupResolver(paymentFormSchema),
-		shouldFocusError: true,
-		values: paymentFormInitialValues
-	});
-
-	const {
 		data: account_info,
 		isLoading: isAccountLoading,
 		isFetching: isAccountFetching,
@@ -53,11 +40,44 @@ export default function MakePaymentPage() {
 		error: accountError,
 	} = useIndustryAccountQuery(true);
 
+	const {
+		control,
+		handleSubmit,
+		reset,
+		watch,
+		getValues,
+		setError,
+		setValue,
+		formState: { errors },
+	} = useForm<PaymentFormSchemaType>({
+		resolver: yupResolver(paymentFormSchema),
+		shouldFocusError: true,
+		values: {
+			...paymentFormInitialValues,
+			act: account_info ? account_info.industry.act.toString() : "",
+			category: account_info ? (account_info.industry.category || "") : "",
+		}
+	});
+
 	const { data, isFetching, isLoading, isRefetching, refetch } = useIndustryPaymentPaidYearQuery(true);
 
 	const selectedYear = watch("year");
 	const maleCount = watch("male");
 	const femaleCount = watch("female");
+	const act = watch("act");
+	
+	const categories = useMemo(() => {
+			if (act === "1") {
+					return Shops_and_Commercial_Act;
+			} else if (act === "2") {
+					return Factory_Act;
+			} else if (act === "3") {
+					return Society_Registration_Act;
+			} else if (act === "4") {
+					return Contract_Labour_Act;
+			}
+			return [];
+	}, [act]);
 
 	const amount = useMemo(() => (+maleCount + +femaleCount) * 60, [maleCount, femaleCount]);
 
@@ -86,18 +106,37 @@ export default function MakePaymentPage() {
 		return +amount + +interest;
 	}, [amount, interest]);
 
+	const requiredNoOfEmployees = useMemo(() => {
+		if (act === "1") {
+			return 50;
+		} else if (act === "2") {
+				return 10;
+		} else if (act === "3") {
+				return 50;
+		} else if (act === "4") {
+				return 20;
+		}
+		return undefined;
+	},[act]);
+
 	const onSubmit = handleSubmit(async () => {
 		if(maleCount === 0 && femaleCount === 0){
 			toastError("Both male and female employees cannot be 0");
 			return;
 		}
-		if((+maleCount + +femaleCount) < 50){
-			toastError("Minimum of 50 employees in total is required to be eligible for contribution.");
+		if(requiredNoOfEmployees===undefined){
+			toastError("Please select Act");
+			return;
+		}
+		if((+maleCount + +femaleCount) < requiredNoOfEmployees){
+			toastError("Minimum of "+requiredNoOfEmployees+" employees in total is required to be eligible for contribution.");
 			return;
 		}
 		setLoading(true);
 		try {
 			const formData = new FormData();
+			formData.append("act", getValues().act.toString());
+			formData.append("category", getValues().category.toString());
 			formData.append("year", getValues().year.toString());
 			formData.append("male", getValues().male.toString());
 			formData.append("female", getValues().female.toString());
@@ -108,9 +147,13 @@ export default function MakePaymentPage() {
 			}
 			const resp = await axios.post<{data: string}>(api_routes.industry.payment.make_payment, formData);
 			window.open(resp.data.data, "_self");
-			reset(paymentFormInitialValues);
 			await refetch();
 			await accountRefetch();
+			reset({
+				...paymentFormInitialValues,
+				act: account_info ? account_info.industry.act.toString() : "",
+				category: account_info ? (account_info.industry.category || "") : "",
+			});
 		} catch (error) {
 			if (isAxiosError<AxiosErrorResponseType>(error)) {
 				if (error?.response?.data?.errors) {
@@ -156,13 +199,31 @@ export default function MakePaymentPage() {
 								>
 									<Grid fluid>
 										<Row gutter={30}>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" xs={24}>
 												<Form.ControlLabel>Company Name</Form.ControlLabel>
 												<Form.Control name="company_name" value={account_info?.industry.name} disabled={true} />
 											</Col>
+										</Row>
+										<Row gutter={30}>
 											<Col className="pb-1" xs={8}>
-												<Form.ControlLabel>Company Category</Form.ControlLabel>
-												<Form.Control name="company_category" value={account_info?.industry.act_label} disabled={true} />
+													<SelectInput
+															name="act"
+															label="Act"
+															data={company_act}
+															control={control}
+															error={errors.act?.message}
+															resetHandler={() => setValue("category", "")}
+													/>
+											</Col>
+											<Col className="pb-1" xs={8}>
+													<SelectInput
+															name="category"
+															label="Category"
+															virtualized={false}
+															data={categories}
+															control={control}
+															error={errors.category?.message}
+													/>
 											</Col>
 											<Col className="pb-1" xs={8}>
 												<SelectInput
@@ -213,9 +274,9 @@ export default function MakePaymentPage() {
 											<Col className="pb-1 pt-1" xs={24}>
 												<table className={classes.table} border={1}>
 													<thead>
-														<tr className={classes.bg_indigo}>
-															<th colSpan={5}>Minimum of 50 employees in total is required to be eligible for contribution.</th>
-														</tr>
+														{requiredNoOfEmployees !== undefined && (<tr className={classes.bg_indigo}>
+															<th colSpan={5}>Minimum of {requiredNoOfEmployees} employees in total is required to be eligible for contribution.</th>
+														</tr>)}
 														<tr>
 															<th>No. of Male</th>
 															<th>No. of Female</th>

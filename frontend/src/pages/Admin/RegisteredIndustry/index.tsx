@@ -64,6 +64,11 @@ const RegisteredIndustry:FC = () => {
                     <Table.Cell dataKey="industry.act_label" />
                 </Table.Column>
 
+                <Table.Column width={260}>
+                    <Table.HeaderCell>Category</Table.HeaderCell>
+                    <Table.Cell dataKey="industry.category" />
+                </Table.Column>
+
                 <Table.Column  width={160}>
                     <Table.HeaderCell>District</Table.HeaderCell>
                     <Table.Cell dataKey="city.name" />

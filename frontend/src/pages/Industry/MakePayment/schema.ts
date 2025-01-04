@@ -8,6 +8,8 @@ export type PaymentFormSchemaType = {
 	employee_excel?: FileType[] | undefined;
 	term1: boolean;
 	term2: boolean;
+	act: string;
+	category: string;
 };
 
 export const paymentFormSchema: yup.ObjectSchema<PaymentFormSchemaType> = yup
@@ -15,6 +17,14 @@ export const paymentFormSchema: yup.ObjectSchema<PaymentFormSchemaType> = yup
 		year: yup.number().typeError("Year must contain numbers only").required("Year is required").test("notZero", "Year is required", (value) => !(value === 0)),
 		male: yup.number().typeError("Male Employees must contain numbers only").required("Male Employees is required"),
 		female: yup.number().typeError("Female Employees must contain numbers only").required("Female Employees is required"),
+		act: yup
+								.string()
+								.typeError("Act must contain characters only")
+								.required("Act is required"),
+		category: yup
+				.string()
+				.typeError("Category must contain characters only")
+				.required("Category is required"),
 		term1: yup.boolean().required("Please accept terms and conditions").test("notFalse", "Please accept terms and conditions", (value) => !(value === false)),
 		term2: yup.boolean().required("Please accept terms and conditions").test("notFalse", "Please accept terms and conditions", (value) => !(value === false)),
 		employee_excel: yup
@@ -41,6 +51,8 @@ export const paymentFormSchema: yup.ObjectSchema<PaymentFormSchemaType> = yup
 		year: 0,
 		male: 0,
 		female: 0,
+		act: "",
+		category: "",
 		employee_excel: undefined,
 		term1: false,
 		term2: false

@@ -1,5 +1,5 @@
 import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,10 +13,12 @@ import SelectInput from "../../FormInput/SelectInput";
 import { api_routes } from "../../../utils/routes/api";
 import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
+import { company_act, Contract_Labour_Act, Factory_Act, Shops_and_Commercial_Act, Society_Registration_Act } from "../../../utils/constants/company_act";
 
 type SchemaType = {
   name: string;
   act: string;
+  category: string;
 };
 
 const schema: yup.ObjectSchema<SchemaType> = yup
@@ -29,6 +31,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Act must contain characters only")
       .required("Act is required"),
+    category: yup
+      .string()
+      .typeError("Category must contain characters only")
+      .required("Category is required"),
   })
   .required();
 
@@ -62,6 +68,8 @@ export default function IndustryForm({
     getValues,
     reset,
     setError,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<SchemaType>({
     resolver: yupResolver(schema),
@@ -70,12 +78,29 @@ export default function IndustryForm({
         ? {
             name: data ? data.name : "",
             act: data && data.act ? data.act.toString() : "",
+            category: data && data.category ? data.category : "",
           }
         : {
             name: "",
             act: "",
+            category: "",
           },
   });
+
+  const act = watch("act");
+
+  const categories = useMemo(() => {
+    if (act === "1") {
+      return Shops_and_Commercial_Act;
+    } else if (act === "2") {
+      return Factory_Act;
+    } else if (act === "3") {
+      return Society_Registration_Act;
+    } else if (act === "4") {
+      return Contract_Labour_Act;
+    }
+    return [];
+  }, [act]);
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
@@ -91,6 +116,7 @@ export default function IndustryForm({
         reset({
           name: "",
           act: "",
+          category: "",
         });
       }
       drawerHandler({ status: false, type: "Create" });
@@ -132,7 +158,7 @@ export default function IndustryForm({
           <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" xs={24}>
                   <TextInput
                     name="name"
                     label="Industry Name"
@@ -140,17 +166,26 @@ export default function IndustryForm({
                     error={errors.name?.message}
                   />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" xs={12}>
                   <SelectInput
                     name="act"
                     label="Act"
-                    data={[
-                      { label: "Shops and Commercial Act", value: "1" },
-                      { label: "Factory Act", value: "2" },
-                      { label: "Other", value: "3" },
-                    ]}
+                    data={company_act}
                     control={control}
                     error={errors.act?.message}
+                    resetHandler={() => setValue("category", "")}
+                  />
+                </Col>
+                <Col className="pb-1" xs={12}>
+                  <SelectInput
+                    name="category"
+                    label="Category"
+                    virtualized={false}
+                    data={categories}
+                    control={control}
+                    error={errors.category?.message}
                   />
                 </Col>
               </Row>

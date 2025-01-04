@@ -37,6 +37,7 @@ class AccountInfoPostRequest extends InputRequest
             'address' => 'required|string|max:500',
             'pincode' => 'required|string|max:250',
             'act' => ['required', new Enum(Act::class)],
+            'category' => 'required|string|max:500',
         ];
     }
 

@@ -1,5 +1,5 @@
 import { Button, Col, Form, Grid, Modal, Row } from "rsuite";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,6 +17,7 @@ import {
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import DistrictSelect from "../Select/DistrictSelect";
 import TaluqSelect from "../Select/TaluqSelect";
+import { company_act, Contract_Labour_Act, Factory_Act, Shops_and_Commercial_Act, Society_Registration_Act } from "../../../utils/constants/company_act";
 
 type Props = {
   modal: boolean;
@@ -30,6 +31,7 @@ type Props = {
 type SchemaType = {
   name: string;
   act: string;
+  category: string;
   address: string;
   city_id: number;
   city: { value: number; label: string };
@@ -47,6 +49,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Act must contain characters only")
       .required("Act is required"),
+    category: yup
+          .string()
+          .typeError("Category must contain characters only")
+          .required("Category is required"),
     city_id: yup
       .number()
       .typeError("District must contain numbers only")
@@ -115,6 +121,7 @@ const IndustryInfoUpdate = ({
     values: {
       name: data ? data.industry.name : "",
       act: data && data.industry.act ? data.industry.act.toString() : "",
+      category: data && data.industry.category ? data.industry.category : "",
       address: data ? data.address : "",
       taluq_id: data ? data.taluq.id : 0,
       taluq: data && data.taluq ? { value: data.taluq.id, label: data.taluq.name } : { value: 0, label: "" },
@@ -124,6 +131,20 @@ const IndustryInfoUpdate = ({
   });
 
   const city_id = watch("city_id");
+  const act = watch("act");
+  
+    const categories = useMemo(() => {
+      if (act === "1") {
+        return Shops_and_Commercial_Act;
+      } else if (act === "2") {
+        return Factory_Act;
+      } else if (act === "3") {
+        return Society_Registration_Act;
+      } else if (act === "4") {
+        return Contract_Labour_Act;
+      }
+      return [];
+    }, [act]);
 
   const onSubmit = handleSubmit(async () => {
     setLoading(true);
@@ -172,7 +193,7 @@ const IndustryInfoUpdate = ({
             <ModalCardContainer header="Industry Information Update">
               <Grid fluid>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" xs={24}>
                     <TextInput
                       name="name"
                       label="Industry Name"
@@ -180,17 +201,26 @@ const IndustryInfoUpdate = ({
                       error={errors.name?.message}
                     />
                   </Col>
+                </Row>
+                <Row gutter={30}>
                   <Col className="pb-1" xs={12}>
                     <SelectInput
                       name="act"
                       label="Act"
-                      data={[
-                        { label: "Shops and Commercial Act", value: "1" },
-                        { label: "Factory Act", value: "2" },
-                        { label: "Other", value: "3" },
-                      ]}
+                      data={company_act}
                       control={control}
                       error={errors.act?.message}
+                      resetHandler={() => setValue("category", "")}
+                    />
+                  </Col>
+                  <Col className="pb-1" xs={12}>
+                    <SelectInput
+                      name="category"
+                      label="Category"
+                      virtualized={false}
+                      data={categories}
+                      control={control}
+                      error={errors.category?.message}
                     />
                   </Col>
                 </Row>

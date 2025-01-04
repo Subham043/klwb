@@ -57,12 +57,23 @@ class MakePaymentController extends Controller
         ->where('status', 1)
         ->where('year', $request->year)
         ->first();
+
         if($data){
             return response()->json(["message" => "You have already paid for the selected year."], 400);
         }
-        if($request->male + $request->female < 50){
+
+        $total_employees = (int)$request->male + (int)$request->female;
+
+        if($request->act =='1' && ($total_employees < 50)){
             return response()->json(["message" => "Minimum 50 employees are required to make payment."], 400);
+        }elseif($request->act =='2' && ($total_employees < 10)){
+            return response()->json(["message" => "Minimum 10 employees are required to make payment."], 400);
+        }elseif($request->act =='3' && ($total_employees < 50)){
+            return response()->json(["message" => "Minimum 50 employees are required to make payment."], 400);
+        }elseif($request->act =='4' && ($total_employees < 20)){
+            return response()->json(["message" => "Minimum 20 employees are required to make payment."], 400);
         }
+
         DB::beginTransaction();
         try {
             //code...

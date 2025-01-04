@@ -44,6 +44,7 @@ class IndustryRegisterController extends Controller
             $this->industryAuthService->syncRoles(["Industry"], $industry);
             $industry->industry->update([
                 'act' => $request->act,
+                'category' => $request->category,
                 'state_id' => $city->state_id,
                 'city_id' => $request->city_id,
                 'taluq_id' => $request->taluq_id,

@@ -138,6 +138,14 @@ export default function IndustryDashboardAccountInfo() {
                   <DetailInfo title="Taluq" value={account_info?.taluq.name} />
                 </Col>
                 <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Act" value={account_info?.industry.act_label} />
+                </Col>
+                <Col className="pb-1" xs={8}>
+                  <DetailInfo title="Category" value={account_info?.industry.category} />
+                </Col>
+              </Row>
+              <Row gutter={30}>
+                <Col className="pb-1" xs={8}>
                   <DetailInfo title="Address" value={account_info?.address} />
                 </Col>
               </Row>

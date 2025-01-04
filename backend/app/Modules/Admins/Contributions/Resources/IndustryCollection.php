@@ -23,6 +23,7 @@ class IndustryCollection extends JsonResource
             'name' => $this->name,
             'act' => $this->act,
             'act_label' => Act::getValue($this->act),
+            'category' => $this->category,
             'pincode' => $this->pincode,
             'is_active' => $this->is_active,
             'city' => SingleCityCollection::make($this->whenLoaded('city')),

@@ -27,6 +27,7 @@ class Industry extends Model implements AuthTraitInterface
         'reg_id',
         'name',
         'act',
+        'category',
         'pincode',
         'state_id',
         'city_id',
@@ -37,6 +38,7 @@ class Industry extends Model implements AuthTraitInterface
     protected $attributes = [
         'reg_id' => null,
         'act' => null,
+        'category' => null,
         'pincode' => null,
         'is_active' => true,
     ];

@@ -6,7 +6,8 @@ use App\Http\Enums\Guards;
 use App\Http\Requests\InputRequest;
 use App\Modules\IndustryManagement\Payment\Models\Payment;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use App\Modules\Admins\RequestIndustry\Enums\Act;
+use Illuminate\Validation\Rules\Enum;
 
 class PaymentRequest extends InputRequest
 {
@@ -50,6 +51,8 @@ class PaymentRequest extends InputRequest
                     $fail('Male or Female count should be greater than 0.');
                 }
             }],
+            'category' => 'required|string|max:500',
+            'act' => ['required', new Enum(Act::class)],
             'employee_excel' => 'required|file|extensions:xlsx',
         ];
     }

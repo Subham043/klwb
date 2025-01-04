@@ -31,6 +31,7 @@ class IndustryRequest extends InputRequest
         return [
             'name' => 'required|string|max:500',
             'act' => ['required', new Enum(Act::class)],
+            'category' => 'required|string|max:500',
         ];
     }
 

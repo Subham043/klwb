@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('gst_no')->nullable();
             $table->string('pan_no')->nullable();
             $table->tinyInteger('act')->nullable();
+            $table->string('category', 500)->nullable();
             $table->text('address')->nullable();
             $table->text('register_doc')->nullable();
             $table->foreignId('city_id')->nullable()->index();

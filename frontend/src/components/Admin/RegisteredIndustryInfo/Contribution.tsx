@@ -186,6 +186,16 @@ export default function Contribution({ id }: Props) {
               <Table.Cell dataKey="industry.name" />
             </Table.Column>
 
+            <Table.Column  width={260}>
+                <Table.HeaderCell>Company Act</Table.HeaderCell>
+                <Table.Cell dataKey="industry.act_label" />
+            </Table.Column>
+
+            <Table.Column  width={260}>
+                <Table.HeaderCell>Company Category</Table.HeaderCell>
+                <Table.Cell dataKey="industry.category" />
+            </Table.Column>
+
             <Table.Column width={260}>
               <Table.HeaderCell>District</Table.HeaderCell>
               <Table.Cell dataKey="industry.city.name" />

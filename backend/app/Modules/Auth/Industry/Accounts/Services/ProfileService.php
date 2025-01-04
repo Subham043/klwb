@@ -30,6 +30,7 @@ class ProfileService extends AuthService
 		$industry->industry->update([
 			'pincode' => $request->pincode,
 			'act' => $request->act,
+			'category' => $request->category,
 		]);
 		$industry->refresh();
 		return $industry;

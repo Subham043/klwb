@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('reg_id')->nullable();
             $table->text('name');
             $table->tinyInteger('act')->nullable();
+            $table->string('category', 500)->nullable();
             $table->foreignId('state_id')->nullable()->index();
             $table->foreignId('city_id')->nullable()->index();
             $table->foreignId('taluq_id')->nullable()->index();
