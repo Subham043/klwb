@@ -8,10 +8,12 @@ use App\Modules\InstituteManagement\Institutes\Models\School;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Institute extends Model implements AuthTraitInterface
 {
-    use HasFactory, AuthTrait;
+    use HasFactory, AuthTrait, LogsActivity;
 
     protected $table = 'registered_institutes';
 
@@ -46,6 +48,8 @@ class Institute extends Model implements AuthTraitInterface
         'updated_at' => 'datetime',
     ];
 
+    protected $recordEvents = ['updated', 'deleted'];
+
     public function taluq()
     {
         return $this->belongsTo(Taluq::class, 'taluq_id')->withDefault();
@@ -54,6 +58,20 @@ class Institute extends Model implements AuthTraitInterface
     public function auth()
     {
         return $this->hasOne(School::class, 'reg_institute_id')->withDefault();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('institute_'.$this->id)
+        ->setDescriptionForEvent(
+                function(string $eventName){
+                    return "Institute with id ".$this->id." was {$eventName} by ".request()->user()->current_role;
+                }
+            )
+        ->logFillable()
+        ->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
 }

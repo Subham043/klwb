@@ -13,10 +13,12 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Database\Factories\UserFactory;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait, LogsActivity;
 
     protected $table = 'users';
 
@@ -54,6 +56,8 @@ class User extends Authenticatable implements MustVerifyEmail, RoleTraitInterfac
 
     protected $appends = ['current_role'];
 
+    protected $recordEvents = ['updated', 'deleted'];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -90,6 +94,23 @@ class User extends Authenticatable implements MustVerifyEmail, RoleTraitInterfac
     public function hasVerifiedEmail(): bool
     {
         return !is_null($this->verified_at);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('student_'.$this->id)
+        ->setDescriptionForEvent(
+                function(string $eventName){
+                    // $desc = $this->name."<".$this->email."> has been {$eventName}";
+                    // $desc .= auth()->user() ? " by ".auth()->user()->name."<".auth()->user()->email.">" : "";
+                    return "Student with id ".$this->id." was {$eventName} by ".request()->user()->current_role;
+                }
+            )
+        // ->logOnly(['name', 'email', 'phone', 'is_blocked']);
+        ->logFillable()
+        ->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
 }

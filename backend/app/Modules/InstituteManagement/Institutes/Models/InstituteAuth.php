@@ -11,10 +11,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class InstituteAuth extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait, LogsActivity;
 
     protected $table = 'school_auths';
 
@@ -53,6 +55,8 @@ class InstituteAuth extends Authenticatable implements MustVerifyEmail, RoleTrai
 
     protected $appends = ['current_role'];
 
+    protected $recordEvents = ['updated', 'deleted'];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -84,6 +88,20 @@ class InstituteAuth extends Authenticatable implements MustVerifyEmail, RoleTrai
     public function school()
     {
         return $this->belongsTo(School::class, 'school_id')->withDefault();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('institute_'.$this->school->reg_institute_id)
+        ->setDescriptionForEvent(
+                function(string $eventName){
+                    return "Institute with id ".$this->school->reg_institute_id." was {$eventName} by ".request()->user()->current_role;
+                }
+            )
+        ->logFillable()
+        ->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
 }

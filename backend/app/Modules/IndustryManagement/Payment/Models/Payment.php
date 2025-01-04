@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Payment extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $table = 'payments';
 
@@ -63,6 +65,8 @@ class Payment extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected $recordEvents = ['updated', 'deleted'];
     
     public $employee_excel_path = 'regfile';
 
@@ -85,6 +89,20 @@ class Payment extends Model
     public function industry()
     {
         return $this->belongsTo(Industry::class, 'comp_regd_id')->withDefault();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('payment_'.$this->id)
+        ->setDescriptionForEvent(
+                function(string $eventName){
+                    return "Payment with id ".$this->id." was {$eventName} by ".request()->user()->current_role;
+                }
+            )
+        ->logFillable()
+        ->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
 }

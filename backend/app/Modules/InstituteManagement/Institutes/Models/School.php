@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class School extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $table = 'schools';
 
@@ -40,6 +42,8 @@ class School extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected $recordEvents = ['updated', 'deleted'];
 
     public $reg_certification_path = 'regfile';
     public $principal_signature_path = 'signature';
@@ -102,6 +106,20 @@ class School extends Model
     public function profile()
     {
         return $this->hasOne(InstituteAuth::class, 'school_id')->withDefault();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('institute_'.$this->reg_institute_id)
+        ->setDescriptionForEvent(
+                function(string $eventName){
+                    return "Institute with id ".$this->reg_institute_id." was {$eventName} by ".request()->user()->current_role;
+                }
+            )
+        ->logFillable()
+        ->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
 }

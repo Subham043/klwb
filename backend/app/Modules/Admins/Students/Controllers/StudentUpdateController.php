@@ -28,7 +28,7 @@ class StudentUpdateController extends Controller
                 [...$request->validated()],
                 $student
             );
-            $this->studentService->syncRoles([$request->role], $student);
+            // $this->studentService->syncRoles([$request->role], $student);
             return response()->json(["message" => "Student updated successfully.", "data" => StudentCollection::make($student)], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

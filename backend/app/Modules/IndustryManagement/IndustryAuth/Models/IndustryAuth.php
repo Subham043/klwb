@@ -16,10 +16,12 @@ use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait, LogsActivity;
 
     protected $table = 'industry_auths';
 
@@ -75,6 +77,8 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     ];
 
     protected $appends = ['current_role', 'reg_doc_link', 'sign_link', 'seal_link', 'gst_link', 'pan_link'];
+
+    protected $recordEvents = ['updated', 'deleted'];
 
     public $reg_doc_path = 'reg-doc';
     public $sign_path = 'sign-doc';
@@ -194,6 +198,20 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
     public function industry()
     {
         return $this->belongsTo(Industry::class, 'reg_industry_id')->withDefault();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('industry_'.$this->reg_industry_id)
+        ->setDescriptionForEvent(
+                function(string $eventName){
+                    return "Industry with id ".$this->reg_industry_id." was {$eventName} by ".request()->user()->current_role;
+                }
+            )
+        ->logFillable()
+        ->logOnlyDirty();
+        // Chain fluent methods for configuration options
     }
 
 }
