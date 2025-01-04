@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react"
-import { Button, ButtonToolbar, Divider, Input, InputGroup, Message, Pagination, Stack } from "rsuite"
+import { Button, ButtonToolbar, Divider, Input, InputGroup, Message, Pagination, Stack, useMediaQuery } from "rsuite"
 import SearchIcon from '@rsuite/icons/Search';
 import { usePaginationQueryParam } from "../../hooks/usePaginationQueryParam";
 import { useSearchQueryParam } from "../../hooks/useSearchQueryParam";
@@ -62,9 +62,10 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
     const excelHandler = async () => {
         (excelLink && excelName) ? await exportExcel(excelLink, excelName) : null;
     }
+    const [isMobile] = useMediaQuery('(max-width: 700px)');
 
     return <div className="mb-1">
-        <Stack justifyContent="space-between">
+        <Stack direction={isMobile ? 'column' : 'row'} justifyContent="space-between" spacing={10}>
             <ButtonToolbar>
                 {addBtn && <Button appearance="primary" type="button" active onClick={addHandler ? addHandler : undefined}>
                     Add {buttonName}
@@ -73,7 +74,7 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
                     Export Excel
                 </Button>}
             </ButtonToolbar>
-            <Stack justifyContent="flex-end" alignItems="center" style={{ gap: 10 }}>
+            <Stack direction={isMobile ? 'column' : 'row'} justifyContent="flex-end" alignItems="center" style={{ gap: 10, width: isMobile ? '100%' : 'auto' }}>
                 {children}
                 {searchInput && <InputGroup size="md" inside>
                     <Input placeholder='Search' defaultValue={search} onChange={searchHandler} />

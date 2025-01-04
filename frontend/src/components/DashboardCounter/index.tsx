@@ -10,7 +10,7 @@ export default function DashboardCounter({ data }: Props) {
 			<Row gutter={30}>
 				{
 					data.map((item, index) => (
-						<Col xs={6} key={index}>
+						<Col xs={24} md={6} key={index}>
 							<CounterCard {...item} />
 						</Col>
 					))

@@ -54,6 +54,10 @@ a, a:hover {
     height: fit-content;
 }
 
+.banner-slider img{
+    max-height: 550px;
+}
+
 .container{
     max-width: 1200px;
     width: 100%;
@@ -280,5 +284,12 @@ h2{
     }
     .col-order-3{
         order:3;
+    }
+    .sm-flex-col{
+        flex-direction: column;
+    }
+
+    .rs-sidebar:has(.rs-sidenav-collapse-out){
+        display: none;
     }
 }

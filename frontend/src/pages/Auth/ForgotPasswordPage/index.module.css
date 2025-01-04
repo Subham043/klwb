@@ -3,3 +3,12 @@
     max-width: 450px;
     background-color: #fff;
 }
+
+@media screen and (max-width: 600px){
+    
+    .form_col{
+        width: 100%;
+        max-width: 100%;
+    }
+    
+}

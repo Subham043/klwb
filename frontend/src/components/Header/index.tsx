@@ -9,7 +9,7 @@ function Header({children}:ChildrenType) {
     <>
         <MainHeader className={classes.topHeader}>
             <div className="container">
-                <div className="row justify-around align-center">
+                <div className="row justify-around align-center sm-flex-col">
                     <div className="col-auto text-center">
                         <h2 className={classes.subHeading}>ಕರ್ನಾಟಕ ಸರ್ಕಾರ</h2>
                         <h1 className={classes.heading}>ಕರ್ನಾಟಕ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ಮಂಡಳಿ</h1>

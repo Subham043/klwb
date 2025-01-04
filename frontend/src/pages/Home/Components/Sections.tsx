@@ -1,8 +1,6 @@
 import { FC } from 'react';
 import classes from '../index.module.css'
-import { Link } from 'react-router-dom';
 import { AboutIcon, DeathIcon, MaternityIcon, MedicalIcon, SchemeIcon } from './SvgIcon';
-import { page_routes } from '../../../utils/routes/pages';
 import { LanguagesEnum } from '../../../utils/constants/language';
 
 const aboutContent = {
@@ -63,14 +61,14 @@ const reportContent = {
 
 const applicationFormats = {
 	english: [
-		{name:'Maternity Application', Icon: MaternityIcon, link: page_routes.student.auth.login, button: 'Download'},
-		{name:'Medical Application', Icon: MedicalIcon, link: page_routes.institute.auth.login, button: 'Download'},
-		{name:'Death Application', Icon: DeathIcon, link: page_routes.industry.auth.login, button: 'Download'},
+		{name:'Maternity Application', link: '/maternity-application.pdf', Icon: MaternityIcon, button: 'Download'},
+		{name:'Medical Application', link: '/medical-application.pdf', Icon: MedicalIcon, button: 'Download'},
+		{name:'Death Application', link: '/death-application.pdf', Icon: DeathIcon, button: 'Download'},
 	],
 	kannada: [
-		{name:'ಹೆರಿಗೆ ಅರ್ಜಿ', Icon: MaternityIcon, link: page_routes.student.auth.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
-		{name:'ವೈದ್ಯಕೀಯ ಅಪ್ಲಿಕೇಶನ್', Icon: MedicalIcon, link: page_routes.institute.auth.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
-		{name:'ಸಾವಿನ ಅಪ್ಲಿಕೇಶನ್', Icon: DeathIcon, link: page_routes.industry.auth.login, button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
+		{name:'ಹೆರಿಗೆ ಅರ್ಜಿ', Icon: MaternityIcon, link: '/maternity-application.pdf', button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
+		{name:'ವೈದ್ಯಕೀಯ ಅಪ್ಲಿಕೇಶನ್', Icon: MedicalIcon, link: '/medical-application.pdf', button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
+		{name:'ಸಾವಿನ ಅಪ್ಲಿಕೇಶನ್', Icon: DeathIcon, link: '/death-application.pdf', button: 'ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'},
 	],
 }
 
@@ -93,7 +91,7 @@ export const ReportSection: FC<{language:LanguagesEnum}> = ({language}) => {
 							<div key={index} className={`${classes.loginDiv} ${classes.applicationDiv}`}>
 								<format.Icon />
 								<h3>{format.name}</h3>
-								<Link to={format.link} target='_blank'>{format.button}</Link>
+								<a href={format.link} download={true} target='_blank'>{format.button}</a>
 							</div>
 						))
 					}

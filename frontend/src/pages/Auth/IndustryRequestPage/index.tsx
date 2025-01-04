@@ -166,7 +166,7 @@ function IndustryRequestPage() {
           <div className={classes.formFields}>
             <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <TextInput
                     name="email"
                     type="email"
@@ -176,7 +176,7 @@ function IndustryRequestPage() {
                     error={errors.email?.message}
                   />
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <TextInput
                     name="mobile"
                     label="Mobile"
@@ -186,7 +186,7 @@ function IndustryRequestPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <Form.ControlLabel>District</Form.ControlLabel>
                   <DistrictSelect
                     setValue={(value) => {
@@ -201,7 +201,7 @@ function IndustryRequestPage() {
                     {errors.city_id?.message}
                   </Form.ErrorMessage>
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <Form.ControlLabel>Taluq</Form.ControlLabel>
                   <TaluqSelect
                     setValue={(value) => {

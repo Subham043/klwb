@@ -42,12 +42,14 @@
 }
 
 .ministerName{
-				color: #ffa500;
+				color: #222;
+				/* color: #ffa500; */
 				font-size: 1rem;
 }
 
 .ministerPosition{
-				color: #717171;
+				/* color: #717171; */
+				color: #ffa500;
 }
 
 .linkMenu{

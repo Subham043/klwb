@@ -273,7 +273,7 @@ function InstituteRegisterPage() {
           <div className={classes.formFields}>
             <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <Form.ControlLabel>District</Form.ControlLabel>
                   <DistrictSelect
                     setValue={(value) => {
@@ -289,7 +289,7 @@ function InstituteRegisterPage() {
                     {errors.city_id?.message}
                   </Form.ErrorMessage>
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <Form.ControlLabel>Taluq</Form.ControlLabel>
                   <TaluqSelect
                     setValue={(value) => {
@@ -334,7 +334,7 @@ function InstituteRegisterPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <TextInput
                     name="email"
                     type="email"
@@ -344,7 +344,7 @@ function InstituteRegisterPage() {
                     error={errors.email?.message}
                   />
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <TextInput
                     name="phone"
                     label="Phone"
@@ -354,7 +354,7 @@ function InstituteRegisterPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <PasswordInput
                     name="password"
                     label="Password"
@@ -362,7 +362,7 @@ function InstituteRegisterPage() {
                     error={errors.password?.message}
                   />
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <PasswordInput
                     name="confirm_password"
                     label="Confirm Password"
@@ -372,7 +372,7 @@ function InstituteRegisterPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <TextInput
                     name="name"
                     label="Principal Name"
@@ -380,7 +380,7 @@ function InstituteRegisterPage() {
                     error={errors.name?.message}
                   />
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <TextInput
                     name="pincode"
                     label="Pincode"
@@ -398,7 +398,7 @@ function InstituteRegisterPage() {
                 error={errors.address?.message}
               />
               <Row className="show-grid mb-1">
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <FileInput
                     name="reg_certification"
                     accept="image/png, image/jpeg, image/jpg"
@@ -408,7 +408,7 @@ function InstituteRegisterPage() {
                     error={errors.reg_certification?.message}
                   />
                 </Col>
-                <Col xs={12}>
+                <Col xs={24} md={12}>
                   <FileInput
                     name="principal_signature"
                     accept="image/png, image/jpeg, image/jpg"

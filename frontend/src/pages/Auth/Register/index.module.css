@@ -68,3 +68,18 @@
 .formFields{
     padding: 20px;
 }
+
+@media screen and (max-width: 600px){
+    .info_col{
+        width: 100%;
+        max-width: 100%;
+        order:2;
+    }
+    
+    .form_col{
+        width: 100%;
+        max-width: 100%;
+        order:1;
+    }
+    
+}

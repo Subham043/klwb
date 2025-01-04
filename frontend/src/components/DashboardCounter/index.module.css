@@ -40,3 +40,9 @@
 	color: #fff;
 	text-align: right;
 }
+
+@media	(max-width: 600px) {
+	.trend_box, .trend_box_red, .trend_box_green, .trend_box_blue, .trend_box_purple{
+		margin-bottom: 10px;
+	}
+}
