@@ -30,6 +30,7 @@ class ContributionCollection extends JsonResource
             'status' => $this->status,
             'status_text' => PaymentStatus::getValue($this->status),
             'payed_on' => $this->payed_on,
+            'is_edited' => $this->is_edited,
             'employee_excel' => $this->employee_excel_link,
             'industry' => $this->industry ? IndustryCollection::make($this->industry) : null,
             'created_at' => $this->created_at,

@@ -32,7 +32,7 @@ class SendIndustryPaymentCompletedNotification implements ShouldQueue
         if($event->payment->industry->auth && $event->payment->industry->auth->email){
             Mail::to($event->payment->industry->auth->email)->send(new SendIndustryPaymentCompletedMail($event->payment));
         }
-        Mail::to('subham.backup043@gmail.com')->send(new SendAdminPaymentCompletedMail($event->payment));
+        Mail::to('noreply-klwb@karnataka.gov.in')->send(new SendAdminPaymentCompletedMail($event->payment));
 
     }
 }

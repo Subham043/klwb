@@ -178,7 +178,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 								})
 								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),
-		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().required("Previous Marks is required"),
+		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().moreThan(50, "Previous Marks should be greater than 50%").required("Previous Marks is required"),
 		marks_card_type: yup.string().typeError("Marks Card type must contain characters only").required("Marks Card type is required"),
 		prv_markcard: yup
 			.mixed<FileType[]>()
@@ -243,7 +243,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		who_working: yup.string().typeError("Who's Working type must contain characters only").required("Who's Working type is required"),
 		parent_guardian_name: yup.string().typeError("Parent/Guardian Name type must contain characters only").max(250).required("Parent/Guardian Name type is required"),
 		relationship: yup.string().typeError("Relationship type must contain characters only").max(250).required("Relationship type is required"),
-		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(30001, "Monthly Salary should be less than or equal to 30,000").required("Monthly Salary is required"),
+		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(35001, "Monthly Salary should be less than or equal to 30,000").required("Monthly Salary is required"),
 		pincode: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
 		district: yup

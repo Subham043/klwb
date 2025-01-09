@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { AuthType, PaginationType } from "../../utils/types";
+import { ActivityLogType, AuthType, PaginationType } from "../../utils/types";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
 import { useSearchQueryParam } from "../useSearchQueryParam";
@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 
 export const StudentQueryKey = "student";
 export const StudentsQueryKey = "students";
+export const StudentsActivityLogsQueryKey = "students_activity_log";
 
 export const useStudentsQuery: () => UseQueryResult<
   PaginationType<AuthType>,
@@ -41,6 +42,27 @@ export const useStudentQuery: (
         api_routes.admin.student.view(id)
       );
       return response.data.data;
+    },
+    enabled,
+  });
+};
+
+export const useStudentsActivityLogsQuery: (props:{id: number, enabled?: boolean}) => UseQueryResult<
+  PaginationType<ActivityLogType>,
+  unknown
+> = ({id, enabled=false}) => {
+  const axios = useAxios();
+  const { page, limit } = usePaginationQueryParam("_activity_logs");
+  return useQuery({
+    queryKey: [StudentsActivityLogsQueryKey, id, page, limit],
+    queryFn: async () => {
+      const response = await axios.get<
+        PaginationType<ActivityLogType>
+      >(
+        api_routes.admin.student.activity_log.paginate(id) +
+          `?page=${page}&total=${limit}`
+      );
+      return response.data;
     },
     enabled,
   });

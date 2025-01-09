@@ -36,6 +36,7 @@ class Payment extends Model
         'interest_paid',
         'employee_excel',
         'payed_on',
+        'is_edited',
     ];
 
     protected $attributes = [
@@ -51,6 +52,7 @@ class Payment extends Model
         'interest' => null,
         'transaction_status' => null,
         'atrn' => null,
+        'is_edited' => false,
     ];
 
     protected $casts = [
@@ -61,6 +63,7 @@ class Payment extends Model
         'interest' => 'float',
         'status' => 'int',
         'resolved' => 'int',
+        'is_edited' => 'boolean',
         'payed_on' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -100,8 +103,14 @@ class Payment extends Model
                     return "Payment with id ".$this->id." was {$eventName} by ".request()->user()->current_role;
                 }
             )
-        ->logFillable()
-        ->logOnlyDirty();
+        ->logOnly([
+            'price',
+            'male',
+            'female',
+            'interest',
+        ])
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

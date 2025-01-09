@@ -5,6 +5,7 @@ import {
   PaginationType,
   StudentApplicationType,
   ContributionType,
+  ActivityLogType,
 } from "../../utils/types";
 import { useAxios } from "../useAxios";
 import { api_routes } from "../../utils/routes/api";
@@ -17,6 +18,7 @@ export const RegisteredIndustriesQueryKey = "registered_industries";
 export const RegisteredIndustriesStaffQueryKey = "registered_industries_staff";
 export const RegisteredIndustriesScholarshipQueryKey = "registered_industries_scholarship";
 export const RegisteredIndustriesContributionQueryKey = "registered_industries_contribution";
+export const RegisteredIndustriesActivityLogsQueryKey = "registered_industries_activity_log";
 
 export const useRegisteredIndustriesQuery: () => UseQueryResult<
   PaginationType<RegisteredIndustryType>,
@@ -97,6 +99,26 @@ export const useRegisteredIndustriesContributionQuery: (id: number) => UseQueryR
       >(
         api_routes.admin.registered_industry.contribution.paginate(id) +
           `?page=${page}&total=${limit}&filter[search]=${search}`
+      );
+      return response.data;
+    },
+  });
+};
+
+export const useRegisteredIndustriesActivityLogsQuery: (id: number) => UseQueryResult<
+  PaginationType<ActivityLogType>,
+  unknown
+> = (id) => {
+  const axios = useAxios();
+  const { page, limit } = usePaginationQueryParam("_activity_logs");
+  return useQuery({
+    queryKey: [RegisteredIndustriesActivityLogsQueryKey, id, page, limit],
+    queryFn: async () => {
+      const response = await axios.get<
+        PaginationType<ActivityLogType>
+      >(
+        api_routes.admin.registered_industry.activity_log.paginate(id) +
+          `?page=${page}&total=${limit}`
       );
       return response.data;
     },

@@ -67,7 +67,9 @@ class InstituteAddress extends Model
                 }
             )
         ->logFillable()
-        ->logOnlyDirty();
+        ->logExcept(['state_id', 'school_id', 'city_id', 'taluq_id'])
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

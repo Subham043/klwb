@@ -109,7 +109,9 @@ class User extends Authenticatable implements MustVerifyEmail, RoleTraitInterfac
             )
         // ->logOnly(['name', 'email', 'phone', 'is_blocked']);
         ->logFillable()
-        ->logOnlyDirty();
+        ->logExcept(['otp', 'password'])
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

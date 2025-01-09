@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   ButtonToolbar,
   IconButton,
@@ -234,6 +235,17 @@ export default function Contribution({ id }: Props) {
                   <PaymentStatusBadge pay_status={rowData.status} />
                 )}
               </Table.Cell>
+            </Table.Column>
+
+            <Table.Column width={60} verticalAlign="middle">
+                <Table.HeaderCell>Edited</Table.HeaderCell>
+
+                <Table.Cell style={{ padding: '6px' }}>
+                    {rowData => (
+                        rowData.is_edited ? <Badge style={{ background: '#4caf50', padding: '7px 9px', }} content={'YES'} /> :
+                        <Badge style={{ background: '#f44336', padding: '7px 9px', }} content={'NO'} />
+                    )}
+                </Table.Cell>
             </Table.Column>
 
             <Table.Column width={80} verticalAlign="middle">

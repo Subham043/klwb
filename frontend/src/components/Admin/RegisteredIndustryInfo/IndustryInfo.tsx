@@ -16,6 +16,7 @@ import BlockBtn from "../../Buttons/BlockBtn";
 import PasswordBtn from "../../Buttons/PasswordBtn";
 import VerifyBtn from "../../Buttons/VerifyBtn";
 import Contribution from "./Contribution";
+import ActivityLog from "./ActivityLog";
 
 type Props = {
   id: number;
@@ -184,6 +185,7 @@ export default function IndustryInfo({ id }: Props) {
         />
       </ErrorBoundaryLayout>
       {data && <Contribution id={data?.reg_industry_id || 0} />}
+      {data && <ActivityLog id={data?.reg_industry_id || 0} />}
     </>
   );
 }

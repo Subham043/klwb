@@ -93,7 +93,8 @@ class Industry extends Model implements AuthTraitInterface
                 }
             )
         ->logFillable()
-        ->logOnlyDirty();
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

@@ -468,6 +468,7 @@ export type ContributionType = {
   status_text: string;
   employee_excel: string|null;
   payed_on: string;
+  is_edited: boolean;
   created_at: string;
   updated_at: string;
   industry: {
@@ -525,6 +526,20 @@ export type ScholarshipReportType = {
   rejected_count: number;
   approved_count: number;
   total_count: number;
+};
+
+export type ActivityLogType = {
+  causer: EmployeeType|null;
+  causer_id: number;
+  id: number;
+  subject_id: number;
+  description: string;
+  event: string;
+  log_name: string;
+  properties: {
+    attributes: Record<string, string>;
+    old: Record<string, string>;
+  };
 };
 
 export type AxiosErrorResponseType = {

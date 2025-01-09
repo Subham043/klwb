@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import { ButtonToolbar, Table } from "rsuite"
+import { ButtonToolbar, IconButton, Table } from "rsuite"
 import { useStudentsQuery } from "../../../hooks/data/student";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { DrawerProps } from "../../../utils/types";
@@ -16,11 +16,14 @@ import VerifyBtn from "../../../components/Buttons/VerifyBtn";
 import SelectYear from "../../../components/Institute/SelectYear";
 import SelectVerificationStatus from "../../../components/SelectVerificationStatus";
 import SelectAccountStatus from "../../../components/SelectAccountStatus";
+import StudentActivityLog from "../../../components/Admin/StudentActivityLog";
+import EventDetailIcon from '@rsuite/icons/EventDetail';
 
 
 const Student:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error } = useStudentsQuery();
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
+    const [modal, setModal] = useState<{ status: boolean; data: number|null }>({ status: false, data: null });
 
     return <PaginatedTableLayout title="Students">
         <PaginatedTableLayout.Header title="Students"  addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.student.excel} excelName="staffs.xlsx">
@@ -102,6 +105,7 @@ const Student:FC = () => {
                         {rowData => (
                             <ButtonToolbar>
                                 <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
+                                <IconButton appearance="primary" color="cyan" size="sm" icon={<EventDetailIcon />} onClick={() => setModal({ status: true, data: rowData.id })} />
                                 <PasswordBtn route={api_routes.admin.student.password(rowData.id)} />
                                 <VerifyBtn route={api_routes.admin.student.verify(rowData.id)} refetch={refetch} isVerified={rowData.verified === VerificationEnum.VERIFIED} />
                                 <BlockBtn route={api_routes.admin.student.status(rowData.id)} refetch={refetch} isBlocked={rowData.is_blocked} />
@@ -112,6 +116,7 @@ const Student:FC = () => {
             </Table>
         </PaginatedTableLayout.Content>
         <StudentForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
+        <StudentActivityLog modal={modal} modalHandler={setModal} />
     </PaginatedTableLayout>
 }
 

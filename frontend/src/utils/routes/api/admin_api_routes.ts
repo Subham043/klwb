@@ -60,6 +60,11 @@ export const admin_api_routes = {
     verify: (id: string | number) => `/api/admin/v1/students/verify/${id}`,
     delete: (id: string | number) => `/api/admin/v1/students/delete/${id}`,
     view: (id: string | number) => `/api/admin/v1/students/view/${id}`,
+    activity_log: {
+      paginate: (id: string | number) =>
+        `/api/admin/v1/students/activity-log/${id}/paginate`,
+      view: (reg_institute_id: string | number, id: string | number) => `/api/admin/v1/students/activity-log/${reg_institute_id}/view/${id}`,
+    },
   },
   state: {
     excel: "/api/admin/v1/states/excel",
@@ -192,6 +197,11 @@ export const admin_api_routes = {
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-institutes/scholarship/${id}/paginate`,
     },
+    activity_log: {
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-institutes/activity-log/${id}/paginate`,
+      view: (reg_institute_id: string | number, id: string | number) => `/api/admin/v1/registered-institutes/activity-log/${reg_institute_id}/view/${id}`,
+    },
   },
   non_registered_institute: {
     excel: "/api/admin/v1/non-registered-institutes/excel",
@@ -270,6 +280,11 @@ export const admin_api_routes = {
         `/api/admin/v1/registered-industries/contribution/${id}/paginate`,
       re_verify: (reg_industry_id: string | number, id: string | number) => `/api/admin/v1/registered-industries/contribution/${reg_industry_id}/verify/${id}`,
     },
+    activity_log: {
+      paginate: (id: string | number) =>
+        `/api/admin/v1/registered-industries/activity-log/${id}/paginate`,
+      view: (reg_industry_id: string | number, id: string | number) => `/api/admin/v1/registered-industries/activity-log/${reg_industry_id}/view/${id}`,
+    },
   },
   non_registered_industry: {
     excel: "/api/admin/v1/non-registered-industries/excel",
@@ -292,6 +307,7 @@ export const admin_api_routes = {
 		list: "/api/admin/v1/contribution/list",
 		excel: "/api/admin/v1/contribution/excel",
 		view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
+		activity_log: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}`,
 		reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
 		update: (id: string | number) => `/api/admin/v1/contribution/update/${id}`,
 	},

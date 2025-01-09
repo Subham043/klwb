@@ -15,6 +15,7 @@ import BlockBtn from "../../Buttons/BlockBtn";
 import EditBtn from "../../Buttons/EditBtn";
 import PasswordBtn from "../../Buttons/PasswordBtn";
 import VerifyBtn from "../../Buttons/VerifyBtn";
+import ActivityLog from "./ActivityLog";
 
 type Props = {
   id: number;
@@ -211,6 +212,7 @@ export default function InstituteInfo({ id }: Props) {
         error={error}
         loading={isFetching || isLoading || isRefetching}
       />
+      {data && <ActivityLog id={data?.institute.id || 0} />}
     </ErrorBoundaryLayout>
   );
 }

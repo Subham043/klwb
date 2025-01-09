@@ -118,7 +118,8 @@ class School extends Model
                 }
             )
         ->logFillable()
-        ->logOnlyDirty();
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

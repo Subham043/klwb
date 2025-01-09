@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('atrn', 250)->nullable();
             $table->string('interest_paid', 250)->nullable()->default('0');
             $table->text('employee_excel')->nullable();
+            $table->boolean('is_edited')->default(0);
             $table->timestamps();
         });
     }

@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import { ButtonToolbar, IconButton, Table, Tooltip, Whisper } from "rsuite"
+import { Badge, ButtonToolbar, IconButton, Table, Tooltip, Whisper } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
 import { useContributionsQuery } from "../../../hooks/data/contribution";
@@ -18,6 +18,8 @@ import ReloadIcon from '@rsuite/icons/Reload';
 import { DrawerProps } from "../../../utils/types";
 import EditBtn from "../../../components/Buttons/EditBtn";
 import ContributionForm from "../../../components/Admin/ContributionForm";
+import ContributionActivityLog from "../../../components/Admin/ContributionActivityLog";
+import EventDetailIcon from '@rsuite/icons/EventDetail';
 
 const Reverify = ({reg_industry_id, id, refetch}:{reg_industry_id: number, id: number, refetch: () => void}) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -109,6 +111,7 @@ const Excel = ({link}:{link: string}) => {
 const ContributionListPage:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useContributionsQuery();
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
+    const [modal, setModal] = useState<{ status: boolean; data: number|null }>({ status: false, data: null });
 
     return <PaginatedTableLayout title="Contribution Comleted">
         <PaginatedTableLayout.Header title="Contribution Comleted" addBtn={false} excelLink={api_routes.admin.contribution.excel} excelName="contribution.xlsx">
@@ -182,6 +185,17 @@ const ContributionListPage:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
+                
+                <Table.Column width={250} verticalAlign="middle">
+                    <Table.HeaderCell>Edited</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            rowData.is_edited ? <Badge style={{ background: '#4caf50', padding: '7px 9px', }} content={'YES'} /> :
+                            <Badge style={{ background: '#f44336', padding: '7px 9px', }} content={'NO'} />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
 
                 <Table.Column width={80} verticalAlign="middle">
                     <Table.HeaderCell>Reciept</Table.HeaderCell>
@@ -216,7 +230,7 @@ const ContributionListPage:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
-                <Table.Column width={90} fixed="right">
+                <Table.Column width={130} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
     
                     <Table.Cell style={{ padding: "6px" }}>
@@ -224,6 +238,7 @@ const ContributionListPage:FC = () => {
                         <ButtonToolbar>
                             <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />
                             <Reverify reg_industry_id={rowData.comp_regd_id} id={rowData.id} refetch={refetch} />
+                            <IconButton appearance="primary" color="cyan" size="sm" icon={<EventDetailIcon />} onClick={() => setModal({ status: true, data: rowData.id })} />
                         </ButtonToolbar>
                     )}
                     </Table.Cell>
@@ -231,6 +246,7 @@ const ContributionListPage:FC = () => {
             </Table>
         </PaginatedTableLayout.Content>
         <ContributionForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetch} />
+        <ContributionActivityLog modal={modal} modalHandler={setModal} />
     </PaginatedTableLayout>
 }
 

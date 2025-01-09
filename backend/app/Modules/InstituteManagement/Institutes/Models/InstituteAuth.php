@@ -100,7 +100,9 @@ class InstituteAuth extends Authenticatable implements MustVerifyEmail, RoleTrai
                 }
             )
         ->logFillable()
-        ->logOnlyDirty();
+        ->logExcept(['school_id', 'otp', 'password'])
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

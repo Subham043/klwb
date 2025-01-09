@@ -25,7 +25,7 @@ class ContributionUpdateController extends Controller
         try {
             //code...
             $contribution->update(
-                $request->validated(),
+                [...$request->validated(), 'is_edited' => true],
             );
             $contribution->refresh();
             return response()->json(["message" => "Contribution updated successfully.", "data" => ContributionCollection::make($contribution)], 200);

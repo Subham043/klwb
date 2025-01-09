@@ -210,7 +210,9 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
                 }
             )
         ->logFillable()
-        ->logOnlyDirty();
+        ->logExcept(['otp', 'password', 'city_id', 'taluq_id'])
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 
