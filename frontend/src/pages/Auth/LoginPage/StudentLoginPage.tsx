@@ -14,9 +14,9 @@ function StudentLoginPage() {
             <IntroScreen>
                 <p><b>If You Don't Have an Account? <Link to={page_routes.student.auth.register}>Register</Link></b></p>
                 <p>For Student Registration Manual Kindly</p>
-                <p><b><Link to='/'><DetailIcon style={{fontSize:'1.6rem'}} /></Link></b></p>
+                <p><b><a href="/st-eng.pdf" download={true}><DetailIcon style={{fontSize:'1.6rem'}} /></a></b></p>
                 <p>ವಿದ್ಯಾರ್ಥಿ ನೋಂದಣಿಯ ಮಾಹಿತಿಗಾಗಿ</p>
-                <p><b><Link to='/'><DetailIcon style={{fontSize:'1.6rem'}} /></Link></b></p>
+                <p><b><a href="/st-kannada.pdf" download={true}><DetailIcon style={{fontSize:'1.6rem'}} /></a></b></p>
             </IntroScreen>
             <Divider>Note</Divider>
             <p><b>Students applying for Scholarship must look for two points</b></p>

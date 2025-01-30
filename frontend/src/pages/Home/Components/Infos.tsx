@@ -1,18 +1,22 @@
 import { FC } from 'react';
 import classes from '../index.module.css'
 import { LanguagesEnum } from '../../../utils/constants/language';
+import { Link } from 'react-router-dom';
+import { page_routes } from '../../../utils/routes/pages';
+
+const year	= new Date().getFullYear();
 
 const notificationContent = {
 	english: (<>
 		<div className={classes.notificationItem}>
 					<p>
-						Labour Welfare Fund for the calendar year 2020 to be paid compulsory on or before 15-1-2021
+						Labour Welfare Fund for the calendar year {year-1} to be paid compulsory on or before 15-1-{year}
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						For Educational Assistance <a href="http://" target="_blank" rel="noopener noreferrer">CLICK HERE</a>
+						For Educational Assistance <Link to={page_routes.student.auth.login} target="_blank" rel="noopener noreferrer">CLICK HERE</Link>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -24,7 +28,13 @@ const notificationContent = {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						Press Note <a href="http://" target="_blank" rel="noopener noreferrer">CLICK HERE</a>
+						Press Note <a href="/press-note.pdf" download={true}>CLICK HERE</a>
+					</p>
+					<div className={classes.marqueeNotificationDivider}></div>
+				</div>
+				<div className={classes.notificationItem}>
+					<p>
+						Department of Parliamentary Affairs and Legislation Secretariat Notification <a href="/noti2.pdf" download={true}>CLICK HERE</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -38,13 +48,13 @@ const notificationContent = {
 	kannada: (<>
 		<div className={classes.notificationItem}>
 					<p>
-						ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿಗೆ 2020ನೇ ಕ್ಯಾಲೆಂಡರ್ ವರ್ಷದ ವಂತಿಕೆಯನ್ನು 15-1-2021 ರೊಳಗೆ ಪಾವತಿಸುವುದು ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ
+						ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿಗೆ {year-1}ನೇ ಕ್ಯಾಲೆಂಡರ್ ವರ್ಷದ ವಂತಿಕೆಯನ್ನು 15-1-{year} ರೊಳಗೆ ಪಾವತಿಸುವುದು ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						ಶೈಕ್ಷಣಿಕ ಪ್ರೋತ್ಸಾಹ ಧನಸಹಾಯಕ್ಕಾಗಿ ಅರ್ಜಿಸಲ್ಲಿಸಲು <a href="http://" target="_blank" rel="noopener noreferrer">ಕ್ಲಿಕ್ ಮಾಡಿ</a>
+						ಶೈಕ್ಷಣಿಕ ಪ್ರೋತ್ಸಾಹ ಧನಸಹಾಯಕ್ಕಾಗಿ ಅರ್ಜಿಸಲ್ಲಿಸಲು <Link to={page_routes.student.auth.login} target="_blank" rel="noopener noreferrer">ಕ್ಲಿಕ್ ಮಾಡಿ</Link>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -57,7 +67,13 @@ const notificationContent = {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						Press Note <a href="http://" target="_blank" rel="noopener noreferrer">ಕ್ಲಿಕ್ ಮಾಡಿ</a>
+						Press Note <a href="/press-note.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
+					</p>
+					<div className={classes.marqueeNotificationDivider}></div>
+				</div>
+				<div className={classes.notificationItem}>
+					<p>
+					ಕರ್ನಾಟಕ ವಿಶೇಷ ರಾಜ್ಯಪತ್ರದಲ್ಲಿ ವಂತಿಕೆ ಹೆಚ್ಚಿಸಿದ ಕುರಿತು <a href="/noti2.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -85,7 +101,7 @@ const helpdeskContent = {
 	english: (<>
 		<div className={classes.notificationItem}>
 					<p>
-						For any technical issues kindly mail us on: <a href="mailto:">welfarecommissionerblr@gmail.com</a>
+						For any technical issues kindly mail us on: <a href="mailto:welfarecommissionerblr@gmail.com">welfarecommissionerblr@gmail.com</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -123,7 +139,7 @@ const helpdeskContent = {
 	kannada: (<>
 		<div className={classes.notificationItem}>
 					<p>
-						ತಾಂತ್ರಿಕ ಸಮಸ್ಯೆಗಳ ಪರಿಹಾರಕ್ಕಾಗಿ ಅಭ್ಯರ್ಥಿ ಸಹಾಯ ಕೇಂದ್ರವನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು: <a href="mailto:">welfarecommissionerblr@gmail.com</a>
+						ತಾಂತ್ರಿಕ ಸಮಸ್ಯೆಗಳ ಪರಿಹಾರಕ್ಕಾಗಿ ಅಭ್ಯರ್ಥಿ ಸಹಾಯ ಕೇಂದ್ರವನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು: <a href="mailto:welfarecommissionerblr@gmail.com">welfarecommissionerblr@gmail.com</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
