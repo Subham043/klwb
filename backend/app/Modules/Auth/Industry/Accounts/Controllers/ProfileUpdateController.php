@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\Industry\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Events\ResendOtp;
 use App\Http\Services\RateLimitService;
 use App\Modules\Auth\Common\Resources\ProfileCollection;
 use App\Modules\Auth\Industry\Accounts\Requests\ProfilePostRequest;
@@ -29,6 +30,9 @@ class ProfileUpdateController extends Controller
                     'verified_at' => ($email_status || $phone_status) ? null : $user->verified_at
                 ]
             );
+            if($email_status || $phone_status){
+                ResendOtp::dispatch($user);
+            }
             (new RateLimitService($request))->clearRateLimit();
             return response()->json([
                 'profile' => ProfileCollection::make($request->user()),

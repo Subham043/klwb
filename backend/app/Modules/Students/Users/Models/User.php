@@ -104,7 +104,7 @@ class User extends Authenticatable implements MustVerifyEmail, RoleTraitInterfac
                 function(string $eventName){
                     // $desc = $this->name."<".$this->email."> has been {$eventName}";
                     // $desc .= auth()->user() ? " by ".auth()->user()->name."<".auth()->user()->email.">" : "";
-                    return "Student with id ".$this->id." was {$eventName} by ".request()->user()->current_role;
+                    return "Student with id ".$this->id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Student";
                 }
             )
         // ->logOnly(['name', 'email', 'phone', 'is_blocked']);

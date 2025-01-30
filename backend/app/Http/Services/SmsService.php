@@ -19,50 +19,49 @@ class SmsService
         // curl_exec($ch);
         // curl_close($ch);
 
-        $curl = curl_init();
+        $url = "https://sms.versatilesmshub.com/api/smsservices.php";
 
-        curl_setopt_array($curl, [
-        CURLOPT_URL => config('services.sms.url'),
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => json_encode([
-            'api' => config('services.sms.token'),
-            'senderid' => 'KLWBAP',
-            'campaignid' => '2',
-            'channel' => 'Trans',
-            'templateid' => '1707173280722532150',
-            'dcs' => '0',
-            'shorturl' => 'NO',
-            'data' => [
+        $data = [
+            "api" => "fb77325e6d73aeabf26ac71b328a21bc",
+            "senderid" => "KLWBAP",
+            "campaignid" => "2",
+            "channel" => "Trans",
+            "templateid" => "1707173280722532150",
+            "dcs" => "0",
+            "shorturl" => "NO",
+            "data" => [
                 [
-                        'international' => 'NO',
-                        'countrycode' => '91',
-                        'number' => $phone,
-                        'message' => 'Your one time password for Karnataka labour welfare board scholarship registration is '.$otp.'.Do not share with anyone. KLWBAP',
-                        'url' => ''
+                    "international" => "NO",
+                    "countrycode" => "91",
+                    "number" => $phone,
+                    "message" => "Your one time password for Karnataka labour welfare board scholarship registration is ".$otp.".Do not share with anyone. KLWBAP",
+                    "url" => ""
                 ]
             ]
-        ]),
-        CURLOPT_HTTPHEADER => [
-            "Accept: /",
+        ];
+
+        $payload = json_encode($data);
+
+        $ch = curl_init($url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json"
-        ],
         ]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Makes it insecure
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+        $response = curl_exec($ch);
+        $err = curl_error($ch);
 
-        curl_close($curl);
-
-        // if ($err) {
-        //     echo "cURL Error #:" . $err;
+        // if (curl_errno($ch)) {
+        //     echo "cURL Error: " . curl_error($ch);
         // } else {
-        //     echo $response;
+        //     echo "Response: " . $response;
         // }
+
+        curl_close($ch);
     }
 
     public function sendInstituteRejectedSms(string|null $phone, string|null $name, string $reason)

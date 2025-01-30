@@ -22,7 +22,7 @@ class AuthCollection extends JsonResource
 			'verified' => $this->verified_at ? "VERIFIED" : "VERIFICATION PENDING",
 			'verified_at' => $this->verified_at,
 			'is_blocked' => $this->is_blocked,
-			'role' => $this->currentRole,
+			'role' => $this->current_role,
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,
 		];

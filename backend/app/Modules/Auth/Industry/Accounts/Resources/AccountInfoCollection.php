@@ -25,7 +25,7 @@ class AccountInfoCollection extends JsonResource
 			'verified' => $this->verified_at ? "VERIFIED" : "VERIFICATION PENDING",
 			'verified_at' => $this->verified_at,
 			'is_blocked' => $this->is_blocked,
-			'role' => $this->currentRole,
+			'role' => $this->current_role,
 			'gst_no' => $this->gst_no,
 			'pan_no' => $this->pan_no,
 			'address' => $this->address,

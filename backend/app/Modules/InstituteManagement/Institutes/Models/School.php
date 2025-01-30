@@ -114,7 +114,7 @@ class School extends Model
         ->useLogName('institute_'.$this->reg_institute_id)
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    return "Institute with id ".$this->reg_institute_id." was {$eventName} by ".request()->user()->current_role;
+                    return "Institute with id ".$this->reg_institute_id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Institute";
                 }
             )
         ->logFillable()

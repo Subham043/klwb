@@ -94,7 +94,7 @@ export default function MakePaymentPage() {
 			if (curMonth == 1 && curDay >= 1 && curDay <= 15) {
 				return 0;
 			}else if ((curMonth == 1 && curDay >= 16) || (curMonth <= 3 && curDay <= 31)) {
-				return (amount * 12) / 100;
+				return (((amount * 12) / 100) / 12) * Math.ceil(month_diff);
 			}else {
 				return (((amount * 18) / 100) / 12) * Math.ceil(month_diff);
 			}

@@ -30,7 +30,12 @@ class ResendRegisteredUserOtpController extends Controller
 		$request->user()->update([
 			'otp' => rand(1111, 9999)
 		]);
-		ResendOtp::dispatch($request->user());
+		try {
+			//code...
+			ResendOtp::dispatch($request->user());
+		} catch (\Throwable $th) {
+			throw $th;
+		}
 		return response()->json([
 			'message' => 'Otp sent successfully.',
 		], 200);

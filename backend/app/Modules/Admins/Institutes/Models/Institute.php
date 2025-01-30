@@ -66,7 +66,7 @@ class Institute extends Model implements AuthTraitInterface
         ->useLogName('institute_'.$this->id)
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    return "Institute with id ".$this->id." was {$eventName} by ".request()->user()->current_role;
+                    return "Institute with id ".$this->id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Institute";
                 }
             )
         ->logFillable()

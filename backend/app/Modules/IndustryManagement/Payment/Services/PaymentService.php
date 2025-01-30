@@ -105,7 +105,7 @@ class PaymentService
 			if ($current_month == 1 && $current_day >= 1 && $current_day <= 15) {
 				$total_amount	= $amount + $interest_amount;
 			} elseif (($current_month == 1 && $current_day >= 16) || ($current_month <= 3 && $current_day <= 31)) {
-				$interest_amount = ($amount * 12) / 100;
+				$interest_amount = ((($amount * 12) / 100) / 12) * ceil($month_diff);
 				$total_amount	= $amount + $interest_amount;
 			} else {
 				$interest_amount = ((($amount * 18) / 100) / 12) * ceil($month_diff);

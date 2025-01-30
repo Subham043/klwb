@@ -206,7 +206,7 @@ class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTrait
         ->useLogName('industry_'.$this->reg_industry_id)
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    return "Industry with id ".$this->reg_industry_id." was {$eventName} by ".request()->user()->current_role;
+                    return "Industry with id ".$this->reg_industry_id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Industry";
                 }
             )
         ->logFillable()

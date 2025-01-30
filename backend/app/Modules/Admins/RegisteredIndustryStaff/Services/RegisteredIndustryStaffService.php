@@ -80,7 +80,7 @@ class RegisteredIndustryStaffService
                 'Name' => $data->name,
                 'Email' => $data->email,
                 'Phone' => $data->phone,
-                'Role' => $data->currentRole,
+                'Role' => $data->current_role,
                 'Blocked' => $data->is_blocked ? 'Yes' : 'No',
                 'Created At' => $data->created_at->format('Y-m-d H:i:s'),
             ]);
