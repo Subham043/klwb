@@ -100,7 +100,7 @@ class Payment extends Model
         ->useLogName('payment_'.$this->id)
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    return "Payment with id ".$this->id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Admin";
+                    return "Payment with id ".$this->id." was {$eventName} by ".request()->user() ? (request()->user()->current_role ?? "Admin") : "Admin";
                 }
             )
         ->logOnly([

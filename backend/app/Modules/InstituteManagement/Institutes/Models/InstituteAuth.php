@@ -96,7 +96,7 @@ class InstituteAuth extends Authenticatable implements MustVerifyEmail, RoleTrai
         ->useLogName('institute_'.$this->school->reg_institute_id)
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    return "Institute with id ".$this->school->reg_institute_id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Institute";
+                    return "Institute with id ".$this->school->reg_institute_id." was {$eventName} by ".request()->user() ? (request()->user()->current_role ?? "Institute") : "Institute";
                 }
             )
         ->logFillable()

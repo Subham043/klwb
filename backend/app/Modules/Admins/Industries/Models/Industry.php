@@ -89,7 +89,7 @@ class Industry extends Model implements AuthTraitInterface
         ->useLogName('industry_'.$this->id)
         ->setDescriptionForEvent(
                 function(string $eventName){
-                    return "Industry with id ".$this->id." was {$eventName} by ".request()->user() ? request()->user()->current_role : "Industry";
+                    return "Industry with id ".$this->id." was {$eventName} by ".request()->user() ? (request()->user()->current_role ?? "Industry") : "Industry";
                 }
             )
         ->logFillable()
