@@ -46,7 +46,7 @@ class PaymentService
 	public function getLatest(): Payment
 	{
 		return $this->model()
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 
@@ -54,7 +54,7 @@ class PaymentService
 	{
 		return $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 
@@ -63,7 +63,7 @@ class PaymentService
 		return Payment::with('industry')
 			->where('id', $id)
 			->where('status', 0)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 
@@ -72,7 +72,7 @@ class PaymentService
 		return $this->model()
 			->where('id', $id)
 			->where('status', 1)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 

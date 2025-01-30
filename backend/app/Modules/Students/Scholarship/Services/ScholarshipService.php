@@ -270,7 +270,7 @@ class ScholarshipService
 	public function getLatest(): Application|null
 	{
 		return $this->model()
-			->latest()
+			->latest('id')
 			->first();
 	}
 
@@ -278,7 +278,7 @@ class ScholarshipService
 	{
 		return $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 

@@ -46,7 +46,7 @@ class NonContributionService
 	{
 		return $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 

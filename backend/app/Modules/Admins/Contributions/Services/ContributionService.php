@@ -62,7 +62,7 @@ class ContributionService
 	{
 		return $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 
@@ -71,7 +71,7 @@ class ContributionService
 		return $this->model()
 			->where('id', $id)
 			->where('status', 1)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 

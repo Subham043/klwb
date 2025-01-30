@@ -54,7 +54,7 @@ class IndustryScholarshipService
 	public function getLatest(): Application|null
 	{
 		return $this->model()
-			->latest()
+			->latest('id')
 			->first();
 	}
 
@@ -62,7 +62,7 @@ class IndustryScholarshipService
 	{
 		return $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 

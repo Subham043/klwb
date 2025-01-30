@@ -2,6 +2,9 @@
 
 namespace App\Modules\Admins\Scholarship\Services;
 
+use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
+use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
+use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Models\Application;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -21,7 +24,7 @@ class AdminScholarshipService
 			->commonRelation()
 			->applicationIsActive()
 			->with([
-				'approved_by'
+				'approved_by' => fn($query) => $query->with(['roles']),
 			]);
 	}
 	protected function query(): QueryBuilder
@@ -92,32 +95,75 @@ class AdminScholarshipService
 	public function getLatest(): Application|null
 	{
 		return $this->model()
-			->latest()
+			->latest('id')
 			->first();
 	}
 
 	public function getById(string $id): Application|null
 	{
-		return $this->model()
+		$application = $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
+			$applicationChecks = new ScholarshipApplicationChecksService();
+			$application->can_approve = $applicationChecks->canAdminVerify($application);
+			$payments_container = [];
+			$payments = $this->getIndustryCompletedPayments([$application->company_id], $application->application_year);
+			foreach($payments as $payment){
+							array_push($payments_container, $payment);
+			}
+			$application->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $application->company_id)->where('year', $application->application_year)->first() ?? null;
+		return $application;
 	}
 	
 	public function getMultipleByIds(array $ids): Collection
 	{
 		return $this->model()
 			->whereIn('id', $ids)
-			->latest()
+			->latest('id')
 			->get();
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator
 	{
-		return $this->query()->paginate($total)
+		$data = $this->query()->paginate($total)
 			->appends(request()->query());
+			return $this->wrapApplicationList($data);
 	}
 
+	public function wrapApplicationList(LengthAwarePaginator $data): LengthAwarePaginator
+	{
+			$industry_ids = [];
+			$applicationChecks = new ScholarshipApplicationChecksService();
+			$applications = $data->through(function($application) use ($applicationChecks, &$industry_ids){
+				array_push($industry_ids, ["application_year" => $application->application_year, "company_id" => $application->company_id]);
+				$application->can_approve = $applicationChecks->canAdminVerify($application);	
+				return $application;
+			});
+			$grouped = collect($industry_ids)
+			->groupBy('application_year')
+			->map(function (Collection $items) {
+							return $items->pluck('company_id')->all();
+			})
+			->toArray();
+			$payments_container = [];
+			foreach($grouped as $key => $value){
+							$payments = $this->getIndustryCompletedPayments($value, $key);
+							foreach($payments as $payment){
+											array_push($payments_container, $payment);
+							}
+			}
+			$applications = $applications->through(function($application) use ($payments_container){
+							$application->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $application->company_id)->where('year', $application->application_year)->first() ?? null;
+							return $application;
+			});
+		return $applications;
+	}
+
+	private function getIndustryCompletedPayments($comp_regd_id, $year): Collection
+	{
+		return Payment::whereIn('comp_regd_id', array_unique($comp_regd_id))->where('status', PaymentStatus::Success->value)->where('payments.year', '=', $year)->orderBy('year', 'desc')->get();
+	}
 
 	public function getTotalApplicationCount(): int
 	{

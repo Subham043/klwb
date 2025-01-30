@@ -86,7 +86,7 @@ class FinanceScholarshipService
 	public function getLatest(): Application|null
 	{
 		return $this->model()
-			->latest()
+			->latest('id')
 			->first();
 	}
 
@@ -94,7 +94,7 @@ class FinanceScholarshipService
 	{
 		return $this->model()
 			->where('id', $id)
-			->latest()
+			->latest('id')
 			->firstOrFail();
 	}
 	
@@ -102,7 +102,7 @@ class FinanceScholarshipService
 	{
 		return $this->model()
 			->whereIn('id', $ids)
-			->latest()
+			->latest('id')
 			->get();
 	}
 
