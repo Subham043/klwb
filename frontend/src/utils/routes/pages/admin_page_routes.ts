@@ -1,5 +1,7 @@
 import { official_auth_page_routes } from "./official_auth_pages_routes";
 
+const year = new Date().getFullYear()-1;
+
 export const admin_page_routes = {
   auth: {
     ...official_auth_page_routes,
@@ -34,25 +36,25 @@ export const admin_page_routes = {
   },
   scholarship: {
     all_list: "/admin/scholarship/list",
-    all_list_main: "/admin/scholarship/list?year=" + new Date().getFullYear(),
+    all_list_main: "/admin/scholarship/list?year=" + year,
     approved_list: "/admin/scholarship/approved-list",
-    approved_list_main: "/admin/scholarship/approved-list?status=approved&year=" + new Date().getFullYear(),
+    approved_list_main: "/admin/scholarship/approved-list?status=approved&year=" + year,
     pending_list: "/admin/scholarship/pending-list",
-    pending_list_main: "/admin/scholarship/pending-list?status=pending&year=" + new Date().getFullYear(),
+    pending_list_main: "/admin/scholarship/pending-list?status=pending&year=" + year,
     rejected_list: "/admin/scholarship/rejected-list",
-    rejected_list_main: "/admin/scholarship/rejected-list?status=rejected&year=" + new Date().getFullYear(),
+    rejected_list_main: "/admin/scholarship/rejected-list?status=rejected&year=" + year,
     processing_list: "/admin/scholarship/processing-list",
-    processing_list_main: "/admin/scholarship/processing-list?status=processing&year=" + new Date().getFullYear(),
+    processing_list_main: "/admin/scholarship/processing-list?status=processing&year=" + year,
     payment_processed_list: "/admin/scholarship/payment-processed-list",
-    payment_processed_list_main: "/admin/scholarship/payment-processed-list?status=payment_processed&year=" + new Date().getFullYear(),
+    payment_processed_list_main: "/admin/scholarship/payment-processed-list?status=payment_processed&year=" + year,
     view: (id: number | string) =>
       "/admin/scholarship/view/" + id,
   },
   contribution: {
     completed_list: "/admin/contribution/completed-list",
-    completed_list_main: "/admin/contribution/completed-list?year=" + new Date().getFullYear(),
+    completed_list_main: "/admin/contribution/completed-list?year=" + year,
     pending_list: "/admin/contribution/pending-list",
-    pending_list_main: "/admin/contribution/pending-list?year=" + new Date().getFullYear(),
+    pending_list_main: "/admin/contribution/pending-list?year=" + year,
   },
   report: {
     contribution: "/admin/report/contribution",

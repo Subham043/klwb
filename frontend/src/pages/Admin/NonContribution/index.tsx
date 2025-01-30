@@ -27,7 +27,7 @@ const NonContribution:FC = () => {
                     <Table.Cell dataKey="id" />
                 </Table.Column>
 
-                <Table.Column width={560}>
+                <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.Cell dataKey="name" />
                 </Table.Column>
