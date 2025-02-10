@@ -33,7 +33,7 @@ class ProfileVerifyPostRequest extends InputRequest
                     $fail('Invalid OTP.');
                 }
             }],
-            'captcha' => 'required|captcha'
+            // 'captcha' => 'required|captcha'
         ];
     }
 

@@ -1,4 +1,5 @@
 {
   "editor.tabSize": 1,
-  "editor.insertSpaces": false
+  "editor.insertSpaces": false,
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

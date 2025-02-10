@@ -23,7 +23,7 @@ class RequestInstituteRequest extends InputRequest
             'address' => 'required|string|max:500',
             'register_doc' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
-            'captcha' => 'required|captcha'
+            // 'captcha' => 'required|captcha'
         ];
     }
 
