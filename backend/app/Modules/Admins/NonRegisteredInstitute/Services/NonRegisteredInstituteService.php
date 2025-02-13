@@ -54,6 +54,11 @@ class NonRegisteredInstituteService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function excel(): SimpleExcelWriter
     {
         set_time_limit(0); // Removes the time limit

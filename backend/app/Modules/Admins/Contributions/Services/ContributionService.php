@@ -53,6 +53,11 @@ class ContributionService
 			]);
 	}
 
+	public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
 	public function getLatestByYear(): Payment
 	{
 		return $this->model()->orderBy('year', 'desc')
@@ -85,7 +90,7 @@ class ContributionService
 	public function excel(): SimpleExcelWriter
 	{
 		set_time_limit(0); // Removes the time limit
-
+		
 		$page = 1;
 		$perPage = 1000; // Number of items per page
 		$writer = SimpleExcelWriter::streamDownload('contributions.xlsx');

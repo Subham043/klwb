@@ -3,7 +3,9 @@
 namespace App\Modules\IndustryManagement\Staff\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\Employees\Exports\EmployeeExport;
 use App\Modules\IndustryManagement\Staff\Services\IndustryEmployeeService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndustryEmployeeExportController extends Controller
 {
@@ -16,6 +18,8 @@ class IndustryEmployeeExportController extends Controller
      */
 
     public function index(){
-        return $this->employeeService->excel()->toBrowser();
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 300);
+        return Excel::download(new EmployeeExport($this->employeeService->getExcelQuery()), 'staffs.xlsx');
     }
 }

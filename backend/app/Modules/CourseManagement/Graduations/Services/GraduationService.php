@@ -27,6 +27,11 @@ class GraduationService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Graduation $data): Graduation
     {
         $this->update(['is_active'=>!$data->is_active], $data);

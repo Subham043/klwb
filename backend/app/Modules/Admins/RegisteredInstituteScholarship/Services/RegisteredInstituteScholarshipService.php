@@ -31,6 +31,11 @@ class RegisteredInstituteScholarshipService
                 ]);
     }
 
+    public function getExcelQuery(string $reg_institute_id): QueryBuilder
+	{
+		return $this->query($reg_institute_id);
+	}
+
     public function all(string $reg_institute_id): Collection
     {
         return $this->query($reg_institute_id)

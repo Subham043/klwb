@@ -3,7 +3,9 @@
 namespace App\Modules\LocationManagement\Taluqs\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\LocationManagement\Exports\TaluqExport;
 use App\Modules\LocationManagement\Taluqs\Services\TaluqService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TaluqExportController extends Controller
 {
@@ -16,6 +18,8 @@ class TaluqExportController extends Controller
      */
 
     public function index(){
-        return $this->taluqService->excel()->toBrowser();
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 300);
+        return Excel::download(new TaluqExport($this->taluqService->getExcelQuery()), 'taluqs.xlsx');
     }
 }

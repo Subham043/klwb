@@ -34,6 +34,11 @@ class IndustryEmployeeService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(IndustryAuth $industry): IndustryAuth
     {
         $industry->update(['is_blocked'=>!$industry->is_blocked]);

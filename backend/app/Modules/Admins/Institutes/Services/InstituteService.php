@@ -52,6 +52,11 @@ class InstituteService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Institute $data): Institute
     {
         $status = true;

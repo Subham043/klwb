@@ -43,6 +43,11 @@ class NonContributionService
 			]);
 	}
 
+	public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
 	public function getById(string $id): Industry
 	{
 		return $this->model()

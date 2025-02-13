@@ -27,6 +27,11 @@ class StateService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(State $data): State
     {
         $this->update(['is_active'=>!$data->is_active], $data);

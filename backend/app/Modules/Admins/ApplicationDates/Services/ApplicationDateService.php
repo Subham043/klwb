@@ -28,6 +28,11 @@ class ApplicationDateService extends AbstractExcelService
             ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function getLatest(): ApplicationDate
     {
         return $this->model()->latest('id')->firstOrFail();

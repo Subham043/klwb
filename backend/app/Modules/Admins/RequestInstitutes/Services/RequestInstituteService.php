@@ -55,6 +55,11 @@ class RequestInstituteService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function saveRegisterDoc(RequestInstitute $requestInstitute): RequestInstitute
     {
         $register_doc = (new FileService)->save_file('register_doc', (new RequestInstitute)->register_doc_path);

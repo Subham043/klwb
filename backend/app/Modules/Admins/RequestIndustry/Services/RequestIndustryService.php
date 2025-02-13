@@ -48,6 +48,11 @@ class RequestIndustryService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function saveRegisterDoc(RequestIndustry $requestIndustry): RequestIndustry
     {
         $register_doc = (new FileService)->save_file('register_doc', (new RequestIndustry)->register_doc_path);

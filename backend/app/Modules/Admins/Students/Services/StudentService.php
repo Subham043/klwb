@@ -51,6 +51,11 @@ class StudentService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(User $user): User
     {
         $this->update(['is_blocked'=>!$user->is_blocked], $user);

@@ -66,6 +66,11 @@ class RegisteredIndustryService
             ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function all(): Collection
     {
         return $this->query()

@@ -39,6 +39,11 @@ class CourseService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Course $data): Course
     {
         $this->update(['is_active'=>!$data->is_active], $data);

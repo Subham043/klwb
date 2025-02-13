@@ -44,6 +44,11 @@ class NonContributionService
 			]);
 	}
 
+	public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
 	public function getById(string $id): Payment
 	{
 		return $this->model()

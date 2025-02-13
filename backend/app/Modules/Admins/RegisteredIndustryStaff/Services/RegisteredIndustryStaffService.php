@@ -39,6 +39,11 @@ class RegisteredIndustryStaffService
                 ]);
     }
 
+    public function getExcelQuery(string $reg_industry_id, string $created_by): QueryBuilder
+	{
+		return $this->query($reg_industry_id, $created_by);
+	}
+
     public function all(string $reg_industry_id, string $created_by): Collection
     {
         return $this->query($reg_industry_id, $created_by)

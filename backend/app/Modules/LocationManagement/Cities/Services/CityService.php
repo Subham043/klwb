@@ -39,6 +39,11 @@ class CityService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(City $data): City
     {
         $this->update(['is_active'=>!$data->is_active], $data);

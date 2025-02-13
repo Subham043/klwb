@@ -27,6 +27,11 @@ class SecurityQuestionService extends AbstractExcelService
             ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(SecurityQuestion $data): SecurityQuestion
     {
         $this->update(['is_active'=>!$data->is_active], $data);

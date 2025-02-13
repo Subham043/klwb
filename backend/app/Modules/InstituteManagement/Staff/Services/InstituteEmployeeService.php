@@ -34,6 +34,11 @@ class InstituteEmployeeService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(InstituteAuth $institute): InstituteAuth
     {
         $institute->update(['is_blocked'=>!$institute->is_blocked]);

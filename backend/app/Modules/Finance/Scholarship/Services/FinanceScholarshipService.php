@@ -86,6 +86,11 @@ class FinanceScholarshipService
 			]);
 	}
 
+	public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
 	public function getLatest(): Application|null
 	{
 		return $this->model()

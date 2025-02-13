@@ -4,6 +4,8 @@ namespace App\Modules\Admins\Contributions\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\Contributions\Services\NonContributionService;
+use App\Modules\Admins\Industries\Exports\IndustryExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NonContributionExportController extends Controller
 {
@@ -15,6 +17,8 @@ class NonContributionExportController extends Controller
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function index(){
-        return $this->contributionService->excel()->toBrowser();
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 300);
+        return Excel::download(new IndustryExport($this->contributionService->getExcelQuery()), 'non-contributions.xlsx');
     }
 }

@@ -48,6 +48,11 @@ class ClassesService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Classes $data): Classes
     {
         $this->update(['is_active'=>!$data->is_active], $data);

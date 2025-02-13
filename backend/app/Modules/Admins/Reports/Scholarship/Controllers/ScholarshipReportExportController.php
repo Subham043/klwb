@@ -3,7 +3,9 @@
 namespace App\Modules\Admins\Reports\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\Reports\Scholarship\Exports\ScholarshipExport;
 use App\Modules\Admins\Reports\Scholarship\Services\AdminScholarshipService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ScholarshipReportExportController extends Controller
 {
@@ -15,6 +17,8 @@ class ScholarshipReportExportController extends Controller
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function index(){
-        return $this->scholarshipService->excel()->toBrowser();
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 300);
+        return Excel::download(new ScholarshipExport($this->scholarshipService->getExcelQuery()), 'scholarship_report.xlsx');
     }
 }

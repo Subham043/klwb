@@ -60,6 +60,11 @@ class AdminScholarshipService
 			]);
 	}
 
+	public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
 	public function getList(Int $total = 10): LengthAwarePaginator
 	{
 		return $this->query()->paginate($total)

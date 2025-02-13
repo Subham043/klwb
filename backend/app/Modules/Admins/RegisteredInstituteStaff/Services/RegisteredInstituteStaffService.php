@@ -39,6 +39,11 @@ class RegisteredInstituteStaffService
                 ]);
     }
 
+    public function getExcelQuery(string $school_id, string $created_by): QueryBuilder
+	{
+		return $this->query($school_id, $created_by);
+	}
+
     public function all(string $school_id, string $created_by): Collection
     {
         return $this->query($school_id, $created_by)

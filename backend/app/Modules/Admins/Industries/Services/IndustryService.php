@@ -40,6 +40,11 @@ class IndustryService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Industry $data): Industry
     {
         $status = true;

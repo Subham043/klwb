@@ -31,6 +31,11 @@ class RegisteredIndustryScholarshipService
                 ]);
     }
 
+    public function getExcelQuery(string $reg_industry_id): QueryBuilder
+	{
+		return $this->query($reg_industry_id);
+	}
+
     public function all(string $reg_industry_id): Collection
     {
         return $this->query($reg_industry_id)

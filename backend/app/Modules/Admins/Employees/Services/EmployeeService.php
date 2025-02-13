@@ -31,6 +31,11 @@ class EmployeeService extends AbstractAuthenticableExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Employee $employee): Employee
     {
         $this->update(['is_blocked'=>!$employee->is_blocked], $employee);

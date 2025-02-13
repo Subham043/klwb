@@ -46,6 +46,11 @@ class FeeService extends AbstractExcelService
                 ]);
     }
 
+    public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
     public function toggleStatus(Fee $data): Fee
     {
         $this->update(['is_active'=>!$data->is_active], $data);

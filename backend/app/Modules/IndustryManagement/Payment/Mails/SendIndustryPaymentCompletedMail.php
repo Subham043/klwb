@@ -46,9 +46,9 @@ class SendIndustryPaymentCompletedMail extends Mailable
             'isPhpEnabled' => true, 
             'isRemoteEnabled' => true, 
         ])->setPaper('a4', 'potrait')->loadView('pdf.industry_reciept', $data);
-        $pdf->save(storage_path('app\\public\\attachments\\'.$fileName.'.pdf'));
+        $pdf->save(storage_path('app/public/attachments/'.$fileName.'.pdf'));
 
-        $mailObj->attach(storage_path('app\\public\\attachments\\'.$fileName.'.pdf'));
+        $mailObj->attach(storage_path('app/public/attachments/'.$fileName.'.pdf'));
 
         return $mailObj;
     }

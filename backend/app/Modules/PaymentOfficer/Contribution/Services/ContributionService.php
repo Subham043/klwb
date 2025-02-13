@@ -47,6 +47,11 @@ class ContributionService
 			]);
 	}
 
+	public function getExcelQuery(): QueryBuilder
+	{
+		return $this->query();
+	}
+
 	public function getLatestByYear(): Payment
 	{
 		return $this->model()->orderBy('year', 'desc')
