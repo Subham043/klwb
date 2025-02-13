@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class ContributionService
 {
@@ -55,22 +56,41 @@ class ContributionService
 
 	public function excel(): SimpleExcelWriter
 	{
-		$model = $this->query();
-		$i = 0;
+		set_time_limit(0); // Removes the time limit
+
+		$page = 1;
+		$perPage = 1000; // Number of items per page
 		$writer = SimpleExcelWriter::streamDownload('contributions_report.xlsx');
-		foreach ($model->lazy(1000)->collect() as $data) {
-			$writer->addRow([
-				'Year' => $data->year,
-				'Male Count' => $data->male_count,
-				'Female Count' => $data->female_count,
-				'Total Contribution Count' => $data->total_countributions,
-				'Total Contribution Amount' => $data->total_countribution_amount,
-			]);
-			if ($i == 1000) {
-				flush();
-			}
-			$i++;
-		}
+
+		do {
+						// Set the current page for pagination
+						Paginator::currentPageResolver(function () use ($page) {
+										return $page;
+						});
+
+						// Retrieve the paginated data
+						$paginator = $this->getList($perPage);
+						$items = $paginator->items();
+
+						// Write each item to the Excel file
+						foreach ($items as $data) {
+										$writer->addRow([
+														'Year' => $data->year,
+														'Male Count' => $data->male_count,
+														'Female Count' => $data->female_count,
+														'Total Contribution Count' => $data->total_countributions,
+														'Total Contribution Amount' => $data->total_countribution_amount,
+										]);
+						}
+
+						// Move to the next page
+						$page++;
+						flush();
+		} while ($page <= $paginator->lastPage());
+
+		// Close the writer and return the download response
+		$writer->close();
+
 		return $writer;
 	}
 }

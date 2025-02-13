@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Pagination\Paginator;
 
 class ContributionService
 {
@@ -83,32 +84,51 @@ class ContributionService
 
 	public function excel(): SimpleExcelWriter
 	{
-		$model = $this->query();
-		$i = 0;
+		set_time_limit(0); // Removes the time limit
+
+		$page = 1;
+		$perPage = 1000; // Number of items per page
 		$writer = SimpleExcelWriter::streamDownload('contributions.xlsx');
-		foreach ($model->lazy(1000)->collect() as $data) {
-			$writer->addRow([
-				'Id' => $data->id,
-				'Industry' => $data->industry->name ?? '',
-				'Act' => Act::getValue($data->industry->act) ?? '',
-				'Category' => $data->industry->category ?? '',
-				'District' => $data->industry->city->name ?? '',
-				'Taluq' => $data->industry->taluq->name ?? '',
-				'Year' => $data->year,
-				'Pay ID' => $data->pay_id,
-				'Price' => $data->price,
-				'Male Count' => $data->male,
-				'Female Count' => $data->female,
-				'Total Count' => $data->female + $data->male,
-				'Interest' => $data->interest,
-				'Status' => PaymentStatus::getValue($data->status),
-				'Payed On' => $data->payed_on->format('Y-m-d'),
-			]);
-			if ($i == 1000) {
-				flush();
-			}
-			$i++;
-		}
+
+		do {
+						// Set the current page for pagination
+						Paginator::currentPageResolver(function () use ($page) {
+										return $page;
+						});
+
+						// Retrieve the paginated data
+						$paginator = $this->getList($perPage);
+						$items = $paginator->items();
+
+						// Write each item to the Excel file
+						foreach ($items as $data) {
+										$writer->addRow([
+														'Id' => $data->id,
+														'Industry' => $data->industry->name ?? '',
+														'Act' => Act::getValue($data->industry->act) ?? '',
+														'Category' => $data->industry->category ?? '',
+														'District' => $data->industry->city->name ?? '',
+														'Taluq' => $data->industry->taluq->name ?? '',
+														'Year' => $data->year,
+														'Pay ID' => $data->pay_id,
+														'Price' => $data->price,
+														'Male Count' => $data->male,
+														'Female Count' => $data->female,
+														'Total Count' => $data->female + $data->male,
+														'Interest' => $data->interest,
+														'Status' => PaymentStatus::getValue($data->status),
+														'Payed On' => $data->payed_on->format('Y-m-d'),
+										]);
+						}
+
+						// Move to the next page
+						$page++;
+						flush();
+		} while ($page <= $paginator->lastPage());
+
+		// Close the writer and return the download response
+		$writer->close();
+
 		return $writer;
 	}
 }

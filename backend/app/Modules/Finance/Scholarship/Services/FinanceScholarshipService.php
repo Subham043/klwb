@@ -9,6 +9,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
@@ -136,36 +137,56 @@ class FinanceScholarshipService
 
 	public function excel(): SimpleExcelWriter
 	{
-		$model = $this->query();
-		$i = 0;
+		set_time_limit(0); // Removes the time limit
+
+		$page = 1;
+		$perPage = 1000; // Number of items per page
 		$writer = SimpleExcelWriter::streamDownload('applications.xlsx');
-		foreach ($model->lazy(1000)->collect() as $data) {
-			$writer->addRow([
-				'Id' => $data->id,
-				'Name' => $data->basic_detail->name,
-				'Mobile' => $data->student->phone,
-				'Email' => $data->student->email,
-				'Aadhar No' => $data->basic_detail->adharcard_no,
-				'Father Aadhar No' => $data->basic_detail->f_adhar,
-				'Mother Aadhar No' => $data->basic_detail->m_adhar,
-				'Institute' => $data->institute->name ?? null,
-				'Industry' => $data->industry->name ?? null,
-				'Graduation' => $data->mark->graduation->name,
-				'Course' => $data->mark->course->name,
-				'Class' => $data->mark->class->name,
-				'District' => $data->company->district->name,
-				'Taluq' => $data->company->taluq->name,
-				'Amount' => $data->mark->graduation->scholarship_fee->amount ?? 0,
-				'Application Year' => $data->application_year,
-				'Applied Date' => $data->date->format('Y-m-d'),
-			]);
-			if ($i == 1000) {
-				flush();
-			}
-			$i++;
-		}
+
+		do {
+						// Set the current page for pagination
+						Paginator::currentPageResolver(function () use ($page) {
+										return $page;
+						});
+
+						// Retrieve the paginated data
+						$paginator = $this->getList($perPage);
+						$items = $paginator->items();
+
+						// Write each item to the Excel file
+						foreach ($items as $data) {
+										$writer->addRow([
+														'Id' => $data->id,
+														'Name' => $data->basic_detail->name,
+														'Mobile' => $data->student->phone,
+														'Email' => $data->student->email,
+														'Aadhar No' => $data->basic_detail->adharcard_no,
+														'Father Aadhar No' => $data->basic_detail->f_adhar,
+														'Mother Aadhar No' => $data->basic_detail->m_adhar,
+														'Institute' => $data->institute->name ?? null,
+														'Industry' => $data->industry->name ?? null,
+														'Graduation' => $data->mark->graduation->name,
+														'Course' => $data->mark->course->name,
+														'Class' => $data->mark->class->name,
+														'District' => $data->company->district->name,
+														'Taluq' => $data->company->taluq->name,
+														'Amount' => $data->mark->graduation->scholarship_fee->amount ?? 0,
+														'Application Year' => $data->application_year,
+														'Applied Date' => $data->date->format('Y-m-d'),
+										]);
+						}
+
+						// Move to the next page
+						$page++;
+						flush();
+		} while ($page <= $paginator->lastPage());
+
+		// Close the writer and return the download response
+		$writer->close();
+
 		return $writer;
 	}
+
 }
 
 

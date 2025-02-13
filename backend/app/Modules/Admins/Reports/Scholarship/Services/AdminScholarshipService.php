@@ -6,6 +6,7 @@ use App\Modules\Students\Scholarship\Models\Application;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
@@ -67,28 +68,48 @@ class AdminScholarshipService
 
 	public function excel(): SimpleExcelWriter
 	{
-		$model = $this->query();
-		$i = 0;
+		set_time_limit(0); // Removes the time limit
+
+		$page = 1;
+		$perPage = 1000; // Number of items per page
 		$writer = SimpleExcelWriter::streamDownload('scholarship_report.xlsx');
-		foreach ($model->lazy(1000)->collect() as $data) {
-			$writer->addRow([
-				'Application Year' => $data->year,
-				'SC Count' => $data->sc_count,
-				'ST Count' => $data->st_count,
-				'OBC Count' => $data->obc_count,
-				'General Count' => $data->general_count,
-				'Male Count' => $data->male_count,
-				'Female Count' => $data->female_count,
-				'Pending Application Count' => $data->pending_count,
-				'Rejected Application Count' => $data->rejected_count,
-				'Approved Application Count' => $data->approved_count,
-				'Total Application Count' => $data->total_count,
-			]);
-			if ($i == 1000) {
-				flush();
-			}
-			$i++;
-		}
+
+		do {
+						// Set the current page for pagination
+						Paginator::currentPageResolver(function () use ($page) {
+										return $page;
+						});
+
+						// Retrieve the paginated data
+						$paginator = $this->getList($perPage);
+						$items = $paginator->items();
+
+						// Write each item to the Excel file
+						foreach ($items as $data) {
+										$writer->addRow([
+														'Application Year' => $data->year,
+														'SC Count' => $data->sc_count,
+														'ST Count' => $data->st_count,
+														'OBC Count' => $data->obc_count,
+														'General Count' => $data->general_count,
+														'Male Count' => $data->male_count,
+														'Female Count' => $data->female_count,
+														'Pending Application Count' => $data->pending_count,
+														'Rejected Application Count' => $data->rejected_count,
+														'Approved Application Count' => $data->approved_count,
+														'Total Application Count' => $data->total_count,
+										]);
+						}
+
+						// Move to the next page
+						$page++;
+						flush();
+		} while ($page <= $paginator->lastPage());
+
+		// Close the writer and return the download response
+		$writer->close();
+
 		return $writer;
 	}
+
 }

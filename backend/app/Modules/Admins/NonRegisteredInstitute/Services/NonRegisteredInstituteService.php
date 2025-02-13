@@ -7,6 +7,7 @@ use App\Modules\Admins\Institutes\Models\Institute;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\Paginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
@@ -53,32 +54,51 @@ class NonRegisteredInstituteService extends AbstractExcelService
                 ]);
     }
 
-    public function excel() : SimpleExcelWriter
+    public function excel(): SimpleExcelWriter
     {
-        $model = $this->query();
-        $i=0;
+        set_time_limit(0); // Removes the time limit
+
+        $page = 1;
+        $perPage = 1000; // Number of items per page
         $writer = SimpleExcelWriter::streamDownload('non_registered_institutes.xlsx');
-        foreach ($model->lazy(1000)->collect() as $data) {
-            $writer->addRow([
-                'Id' => $data->id,
-                'Reg No.' => $data->reg_no,
-                'Name' => $data->name,
-                'Management Type' => $data->management_type,
-                'Category' => $data->category,
-                'Type' => $data->type,
-                'Urban/Rural' => $data->urban_rural,
-                'Taluq' => $data->taluq->name,
-                'Taluq ID' => $data->taluq->id,
-                'District' => $data->taluq->city->name,
-                'District ID' => $data->taluq->city->id,
-                'Active' => $data->is_active ? 'Yes' : 'No',
-                'Created At' => $data->created_at->format('Y-m-d H:i:s'),
-            ]);
-            if($i==1000){
-                flush();
+
+        do {
+            // Set the current page for pagination
+            Paginator::currentPageResolver(function () use ($page) {
+                return $page;
+            });
+
+            // Retrieve the paginated data
+            $paginator = $this->paginate($perPage);
+            $items = $paginator->items();
+
+            // Write each item to the Excel file
+            foreach ($items as $data) {
+                $writer->addRow([
+                    'Id' => $data->id,
+                    'Reg No.' => $data->reg_no ?? '',
+                    'Name' => $data->name ?? '',
+                    'Management Type' => $data->management_type ?? '',
+                    'Category' => $data->category ?? '',
+                    'Type' => $data->type ?? '',
+                    'Urban/Rural' => $data->urban_rural ?? '',
+                    'Taluq' => $data->taluq->name ?? '',
+                    'Taluq ID' => $data->taluq->id ?? '',
+                    'District' => $data->taluq->city->name ?? '',
+                    'District ID' => $data->taluq->city->id ?? '',
+                    'Active' => $data->is_active ? 'Yes' : 'No',
+                    'Created At' => $data->created_at->format('Y-m-d H:i:s') ?? '',
+                ]);
             }
-            $i++;
-        }
+
+            // Move to the next page
+            $page++;
+            flush();
+        } while ($page <= $paginator->lastPage());
+
+        // Close the writer and return the download response
+        $writer->close();
+
         return $writer;
     }
 

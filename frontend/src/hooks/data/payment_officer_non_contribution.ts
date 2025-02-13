@@ -22,7 +22,7 @@ export const usePaymentOfficerNonContributionsQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<NonContributionType>>(
         api_routes.payment_officer.non_contribution.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_year]=${searchParams.get("year") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}`
       );
       return response.data;
     },

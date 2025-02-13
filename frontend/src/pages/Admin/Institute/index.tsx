@@ -20,7 +20,7 @@ const Institute:FC = () => {
     const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
 
     return <PaginatedTableLayout title="All Institutes">
-        <PaginatedTableLayout.Header title="All Institutes" buttonName="Institute" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.registered_institute.excel} excelName="registered_institute.xlsx">
+        <PaginatedTableLayout.Header title="All Institutes" buttonName="Institute" addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.institute.excel} excelName="institutes.xlsx">
             <SelectCityStatus />
             <SelectTaluqStatus />
             <SelectActiveStatus />

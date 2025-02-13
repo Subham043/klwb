@@ -8,6 +8,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
@@ -43,53 +44,72 @@ class RegisteredInstituteScholarshipService
                 ->appends(request()->query());
     }
 
-    public function excel(string $reg_institute_id) : SimpleExcelWriter
+    public function excel(string $reg_institute_id): SimpleExcelWriter
     {
-        $model = $this->model($reg_institute_id);
-        $i=0;
+        set_time_limit(0); // Removes the time limit
+
+        $page = 1;
+        $perPage = 1000; // Number of items per page
         $writer = SimpleExcelWriter::streamDownload('institute_scholarships.xlsx');
-        foreach ($model->lazy(1000)->collect() as $data) {
-            $writer->addRow([
-                'Id' => $data->id,
-                'Name' => $data->basic_detail->name,
-                'Father\'s Name' => $data->basic_detail->father_name,
-                'Mohter\'s Name' => $data->basic_detail->mother_name,
-                'Phone' => $data->basic_detail->parent_phone,
-                'Gender' => $data->basic_detail->gender,
-                'Category' => $data->basic_detail->category,
-                'Cast No.' => $data->basic_detail->cast_no,
-                'Adhar Card Number' => $data->basic_detail->adharcard_no,
-                'Father\'s Adhar Card Number' => $data->basic_detail->f_adhar,
-                'Mother\'s Adhar Card Number' => $data->basic_detail->m_adhar,
-                'Institute' => $data->institute->name,
-                'Industry' => $data->industry->name,
-                'Graduation' => $data->mark->graduation->name,
-                'Course' => $data->mark->course->name,
-                'Class' => $data->mark->class->name,
-                'Previous Class' => $data->mark->prv_class,
-                'Previous Marks' => $data->mark->prv_marks,
-                'Scholarship Fee' => $data->mark->graduation->scholarship_fee->amount ?? 0,
-                'Whos\'s Working' => $data->company->who_working_text,
-                'Parent \ Guardian Name' => $data->company->name,
-                'Relationship' => $data->company->relationship,
-                'Monthly Salary' => $data->company->msalary,
-                'Pincode' => $data->company->pincode,
-                'District' => $data->company->district->name,
-                'Taluq' => $data->company->taluq->name,
-                'Bank Name' => $data->account->name,
-                'Branch Name' => $data->account->branch,
-                'IFSC Code' => $data->account->ifsc,
-                'Account Number' => $data->account->acc_no,
-                'Account Holder Name' => $data->account->holder,
-                'Account Type' => $data->account->account_type,
-                'Application Year' => $data->application_year,
-                'Submitted On' => $data->date->format('Y-m-d H:i:s'),
-            ]);
-            if($i==1000){
-                flush();
+
+        do {
+            // Set the current page for pagination
+            Paginator::currentPageResolver(function () use ($page) {
+                return $page;
+            });
+
+            // Retrieve the paginated data
+            $paginator = $this->paginate($reg_institute_id, $perPage);
+            $items = $paginator->items();
+
+            // Write each item to the Excel file
+            foreach ($items as $data) {
+                $writer->addRow([
+                    'Id' => $data->id,
+                    'Name' => $data->basic_detail->name,
+                    'Father\'s Name' => $data->basic_detail->father_name,
+                    'Mohter\'s Name' => $data->basic_detail->mother_name,
+                    'Phone' => $data->basic_detail->parent_phone,
+                    'Gender' => $data->basic_detail->gender,
+                    'Category' => $data->basic_detail->category,
+                    'Cast No.' => $data->basic_detail->cast_no,
+                    'Adhar Card Number' => $data->basic_detail->adharcard_no,
+                    'Father\'s Adhar Card Number' => $data->basic_detail->f_adhar,
+                    'Mother\'s Adhar Card Number' => $data->basic_detail->m_adhar,
+                    'Institute' => $data->institute->name,
+                    'Industry' => $data->industry->name,
+                    'Graduation' => $data->mark->graduation->name,
+                    'Course' => $data->mark->course->name,
+                    'Class' => $data->mark->class->name,
+                    'Previous Class' => $data->mark->prv_class,
+                    'Previous Marks' => $data->mark->prv_marks,
+                    'Scholarship Fee' => $data->mark->graduation->scholarship_fee->amount ?? 0,
+                    'Whos\'s Working' => $data->company->who_working_text,
+                    'Parent \ Guardian Name' => $data->company->name,
+                    'Relationship' => $data->company->relationship,
+                    'Monthly Salary' => $data->company->msalary,
+                    'Pincode' => $data->company->pincode,
+                    'District' => $data->company->district->name,
+                    'Taluq' => $data->company->taluq->name,
+                    'Bank Name' => $data->account->name,
+                    'Branch Name' => $data->account->branch,
+                    'IFSC Code' => $data->account->ifsc,
+                    'Account Number' => $data->account->acc_no,
+                    'Account Holder Name' => $data->account->holder,
+                    'Account Type' => $data->account->account_type,
+                    'Application Year' => $data->application_year,
+                    'Submitted On' => $data->date->format('Y-m-d H:i:s'),
+                ]);
             }
-            $i++;
-        }
+
+            // Move to the next page
+            $page++;
+            flush();
+        } while ($page <= $paginator->lastPage());
+
+        // Close the writer and return the download response
+        $writer->close();
+
         return $writer;
     }
 
