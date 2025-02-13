@@ -24,7 +24,8 @@ class ScholarshipStatusController extends Controller
 
     public function index(){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
-        $application = $this->scholarshipService->getLatest();
+        $applicationMain = $this->scholarshipService->getLatest();
+        $application = $this->scholarshipService->industryPaymentWrapper($applicationMain);
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? ApplicationCollection::make($application) : null,

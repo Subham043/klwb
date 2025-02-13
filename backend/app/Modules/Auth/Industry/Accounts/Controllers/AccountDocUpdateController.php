@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\Industry\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\Auth\Industry\Accounts\Requests\AccountDocPatchRequest;
 use App\Modules\Auth\Industry\Accounts\Resources\AccountInfoCollection;
 use App\Modules\Auth\Industry\Accounts\Services\ProfileService;
@@ -29,6 +30,7 @@ class AccountDocUpdateController extends Controller
         if($request->hasFile('pan')){
             $this->industryAuthFileService->savePan($account_info);
         }
+        (new RateLimitService($request))->clearRateLimit();
         return response()->json(["message" => "Account Info updated successfully.", "data" => AccountInfoCollection::make($account_info)], 200);
     }
 }

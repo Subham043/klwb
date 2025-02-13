@@ -21,7 +21,8 @@ class FinanceScholarshipViewController extends Controller
      */
     public function index($id){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
-        $application = $this->scholarshipService->getById($id);
+        $applicationMain = $this->scholarshipService->getById($id);
+        $application = $this->scholarshipService->industryPaymentWrapper($applicationMain);
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? FinanceApplicationCollection::make($application) : null,

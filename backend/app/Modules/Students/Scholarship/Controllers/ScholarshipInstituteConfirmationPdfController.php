@@ -3,6 +3,7 @@
 namespace App\Modules\Students\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Services\ScholarshipService;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -19,7 +20,7 @@ class ScholarshipInstituteConfirmationPdfController extends Controller
      */
     public function index($id){
         $application = $this->scholarshipService->getById($id);
-        if($application->institute->auth && ($application->institute->auth->reg_certification_link!=null && $application->institute->auth->principal_signature_link!=null && $application->institute->auth->seal_link!=null)){
+        if($application->application_state > ApplicationState::School->value && $application->institute->auth && ($application->institute->auth->reg_certification_link!=null && $application->institute->auth->principal_signature_link!=null && $application->institute->auth->seal_link!=null)){
             $fileName = str()->uuid();
             $data = [
                 'application' => $application

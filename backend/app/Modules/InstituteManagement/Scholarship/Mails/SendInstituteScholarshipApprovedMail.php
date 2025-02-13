@@ -2,6 +2,7 @@
 
 namespace App\Modules\InstituteManagement\Scholarship\Mails;
 
+use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Models\Application;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -38,7 +39,7 @@ class SendInstituteScholarshipApprovedMail extends Mailable
             'msg' => 'Your Karnataka Labour Welfare Board Scholarship has been succesfully moved to Industry for verification, we will notify the status via sms',
         ]);
         
-        if($this->application->institute->auth && ($this->application->institute->auth->reg_certification_link!=null && $this->application->institute->auth->principal_signature_link!=null && $this->application->institute->auth->seal_link!=null)){
+        if($this->application->application_state > ApplicationState::School->value && $this->application->institute->auth && ($this->application->institute->auth->reg_certification_link!=null && $this->application->institute->auth->principal_signature_link!=null && $this->application->institute->auth->seal_link!=null)){
             $fileName = str()->uuid();
             $data = [
                 'application' => $this->application

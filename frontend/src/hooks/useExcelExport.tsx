@@ -48,8 +48,6 @@ export const useExcelExport:ExcelExportHookType = () => {
                     filter.push(`filter[${key}]=${value}`);
                 }
             })
-            console.log(filter.join('&'));
-            console.log(env.API_ENDPOINT + `${excel_url}?${filter.join('&')}`);
             window.open(env.API_ENDPOINT + `${excel_url}?${filter.join('&')}`, '_blank');
             toastSuccess('Excel Exported Successfully');
         } catch (error) {

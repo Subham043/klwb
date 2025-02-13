@@ -102,19 +102,25 @@ class AdminScholarshipService
 
 	public function getById(string $id): Application|null
 	{
-		$application = $this->model()
+		return $this->model()
 			->where('id', $id)
 			->latest('id')
 			->firstOrFail();
-			$applicationChecks = new ScholarshipApplicationChecksService();
-			$application->can_approve = $applicationChecks->canAdminVerify($application);
-			$payments_container = [];
-			$payments = $this->getIndustryCompletedPayments([$application->company_id], $application->application_year);
+	}
+
+	public function industryPaymentWrapper(Application|null $application): Application
+	{
+		$newApp = clone $application;
+		if(!$newApp) return $newApp;
+		$applicationChecks = new ScholarshipApplicationChecksService();
+		$newApp->can_approve = $applicationChecks->canAdminVerify($newApp);
+		$payments_container = [];
+			$payments = $this->getIndustryCompletedPayments([$newApp->company_id], $newApp->application_year);
 			foreach($payments as $payment){
 							array_push($payments_container, $payment);
 			}
-			$application->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $application->company_id)->where('year', $application->application_year)->first() ?? null;
-		return $application;
+			$newApp->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $newApp->company_id)->where('year', $newApp->application_year)->first() ?? null;
+		return $newApp;
 	}
 	
 	public function getMultipleByIds(array $ids): Collection

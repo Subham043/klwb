@@ -24,14 +24,15 @@ class IndustryScholarshipApproveController extends Controller
      */
     public function index(IndustryApproveScholarshipRequest $request, $id){
         $application = $this->scholarshipService->getById($id);
-        if($this->applicationChecks->canCompanyApprove($application)){
+        $wrappedApplication = $this->scholarshipService->industryPaymentWrapper($application);
+        if($this->applicationChecks->canCompanyApprove($wrappedApplication)){
             $application->update([
                 'company_approve' => now(),
                 'status' => ApplicationStatus::Pending->value,
 		        'application_state' => ApplicationState::Govt->value,
                 ...$request->validated()
             ]);
-            IndustryScholarshipApproved::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $application, $application->industryPayment);
+            IndustryScholarshipApproved::dispatch($wrappedApplication->student->email ?? null, $wrappedApplication->student->phone ?? null, $wrappedApplication->student->name ?? null, $wrappedApplication, $wrappedApplication->industryPaymentInfo);
             return response()->json(['message' => 'Application approved successfully.'], 200);
         }
         return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);

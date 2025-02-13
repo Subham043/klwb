@@ -3,6 +3,7 @@
 namespace App\Modules\Auth\Institute\Accounts\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\RateLimitService;
 use App\Modules\Auth\Institute\Accounts\Requests\AccountDocPatchRequest;
 use App\Modules\Auth\Institute\Accounts\Resources\AccountInfoCollection;
 use App\Modules\Auth\Institute\Accounts\Services\ProfileService;
@@ -25,6 +26,7 @@ class AccountDocUpdateController extends Controller
         if($request->hasFile('seal')){
             $this->instituteAuthFileService->saveSeal($account_info);
         }
+        (new RateLimitService($request))->clearRateLimit();
         return response()->json(["message" => "Account Info updated successfully.", "data" => AccountInfoCollection::make($account_info)], 200);
     }
 }

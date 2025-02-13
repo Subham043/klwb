@@ -2,6 +2,8 @@
 
 namespace App\Modules\Govt\Scholarship\Services;
 
+use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
+use App\Modules\IndustryManagement\Payment\Models\Payment;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use App\Modules\Students\Scholarship\Models\Application;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -11,6 +13,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Support\Collection;
 
 class GovtScholarshipService
 {
@@ -103,6 +106,24 @@ class GovtScholarshipService
 			->where('id', $id)
 			->latest('id')
 			->firstOrFail();
+	}
+
+	public function industryPaymentWrapper(Application|null $application): Application
+	{
+		$newApp = clone $application;
+		if(!$newApp) return $newApp;
+		$payments_container = [];
+			$payments = $this->getIndustryCompletedPayments([$newApp->company_id], $newApp->application_year);
+			foreach($payments as $payment){
+							array_push($payments_container, $payment);
+			}
+			$newApp->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $newApp->company_id)->where('year', $newApp->application_year)->first() ?? null;
+		return $newApp;
+	}
+
+	private function getIndustryCompletedPayments($comp_regd_id, $year): Collection
+	{
+		return Payment::whereIn('comp_regd_id', array_unique($comp_regd_id))->where('status', PaymentStatus::Success->value)->where('payments.year', '=', $year)->orderBy('year', 'desc')->get();
 	}
 
 	public function getList(Int $total = 10): LengthAwarePaginator

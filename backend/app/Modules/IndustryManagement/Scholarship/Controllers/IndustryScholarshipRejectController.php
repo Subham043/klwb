@@ -27,7 +27,8 @@ class IndustryScholarshipRejectController extends Controller
     public function index(IndustryRejectScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);
-        if($this->applicationChecks->canCompanyApprove($application)){
+        $wrappedApplication = $this->scholarshipService->industryPaymentWrapper($application);
+        if($this->applicationChecks->canCompanyApprove($wrappedApplication)){
             $application->update([
                 'company_approve' => now(),
                 'status' => ApplicationStatus::Reject->value,
