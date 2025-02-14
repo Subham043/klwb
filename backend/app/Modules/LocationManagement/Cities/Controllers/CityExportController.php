@@ -4,7 +4,7 @@ namespace App\Modules\LocationManagement\Cities\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\LocationManagement\Cities\Services\CityService;
-use App\Modules\LocationManagement\Exports\CityExport;
+use App\Modules\LocationManagement\Cities\Exports\CityExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CityExportController extends Controller

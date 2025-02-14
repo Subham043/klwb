@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import classes from "./index.module.css";
 import { Document, Page, pdfjs } from 'react-pdf';
 import { ButtonGroup, IconButton, Loader, Message, Modal, Pagination, Stack } from "rsuite";
@@ -6,6 +6,7 @@ import TextImageIcon from '@rsuite/icons/TextImage';
 import PlusIcon from '@rsuite/icons/Plus';
 import MinusIcon from '@rsuite/icons/Minus';
 import ReloadIcon from '@rsuite/icons/Reload';
+import FileDownloadIcon from '@rsuite/icons/FileDownload';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -24,6 +25,10 @@ export default function PdfViewer({ src, name }: { src: string | undefined; name
     setNumPages(numPages);
   }
 
+  const credentials = useMemo(() => {
+    return { withCredentials: true };
+  }, []);
+
   return (
     <>
       <IconButton appearance="primary" color="green" icon={<TextImageIcon />} onClick={() => setOpen(true)}>
@@ -37,8 +42,9 @@ export default function PdfViewer({ src, name }: { src: string | undefined; name
           <div className="pdf-reader-custom">
             <Document 
               file={src}
-              onLoadSuccess={onDocumentLoadSuccess} 
-              loading={<Loader center size="md" content="loading" />} 
+              onLoadSuccess={onDocumentLoadSuccess}
+              options={credentials}
+              loading={<Loader center size="sm" content="loading" />} 
               error={
                 <Message type="error" bordered showIcon>
                   <strong>Error!</strong> Failed to load PDF. Please try again later.
@@ -53,6 +59,7 @@ export default function PdfViewer({ src, name }: { src: string | undefined; name
           <div className="mt-1">
             <Stack direction="row" spacing={6} justifyContent="space-between" alignItems="center">
               <ButtonGroup>
+                <IconButton icon={<FileDownloadIcon />} as={"a"} href={src} target="_blank" download />
                 <IconButton icon={<ReloadIcon />} onClick={() => setRoatate(rotate + 90)} />
                 <IconButton icon={<MinusIcon />} disabled={scale <= 1} onClick={() => setScale(scale - 0.1)} />
                 <IconButton icon={<PlusIcon />} onClick={() => setScale(scale + 0.1)} />

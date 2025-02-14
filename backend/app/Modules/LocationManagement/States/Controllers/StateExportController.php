@@ -3,7 +3,7 @@
 namespace App\Modules\LocationManagement\States\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\LocationManagement\Exports\StateExport;
+use App\Modules\LocationManagement\States\Exports\StateExport;
 use App\Modules\LocationManagement\States\Services\StateService;
 use Maatwebsite\Excel\Facades\Excel;
 

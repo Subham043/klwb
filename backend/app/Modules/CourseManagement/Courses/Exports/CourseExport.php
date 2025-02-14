@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\CourseManagement\Exports;
+namespace App\Modules\CourseManagement\Courses\Exports;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;

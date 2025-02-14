@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Admins\Reports\Scholarship\Exports;
+namespace App\Modules\Admins\Reports\Contributions\Exports;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
-class ScholarshipExport implements FromQuery, WithHeadings, WithMapping
+class ContributionExport implements FromQuery, WithHeadings, WithMapping
 {
 
 	private QueryBuilder $query;

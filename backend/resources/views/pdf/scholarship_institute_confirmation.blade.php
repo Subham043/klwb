@@ -61,24 +61,24 @@
 																	<ol>
 																					<li>
 																									<div>
-																													<p>ಕುಮಾರ/ಕುಮಾರಿ <span class="dotted-line"> {{$application->basic_detail->name}} </span> ಇವರು ಕಳೆಧ ಸಾಲಿನಲ್ಲಿ
-																													ನಡೆದ <span class="dotted-line"> {{$application->mark->prv_class}} </span> ತರಗತಿಯ ಪರೀಕ್ಷೆಯಲ್ಲಿ ಶೇಕಡಾ <span class="dotted-line"> {{$application->mark->prv_marks}}% </span>  ಅಂಕಗಳನ್ನು
+																													<p>ಕುಮಾರ/ಕುಮಾರಿ <span class="dotted-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->basic_detail->name}} </span> ಇವರು ಕಳೆಧ ಸಾಲಿನಲ್ಲಿ
+																													ನಡೆದ <span class="dotted-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->mark->prv_class}} </span> ತರಗತಿಯ ಪರೀಕ್ಷೆಯಲ್ಲಿ ಶೇಕಡಾ <span class="dotted-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->mark->prv_marks}}% </span>  ಅಂಕಗಳನ್ನು
 																													ಪಡೆದ್ದು   ತೇರ್ಗಡೆಯಾಗಿರುತಾರೆ.</p>
 																									</div>
 																					</li>
 																					<li>
 																									<div>
-																													<p>{{date('Y', strtotime('-1 years')).'-'.date('Y')}}ನೇ ಶೈಕ್ಷಣಿಕ ಸಾಲಿನಲ್ಲಿ <span class="dotted-line"> {{$application->mark->graduation->name ?? ''}} {{$application->mark->course->name ?? ''}} {{$application->mark->class->name ?? ''}} </span> ತರಗತಿಯಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡುತ್ತಿದ್ದಾರೆಂದು ದೃಡೀಕರಿಸಲಾಗಿದೆ.</p>
+																													<p>{{date('Y', strtotime('-1 years')).'-'.date('Y')}}ನೇ ಶೈಕ್ಷಣಿಕ ಸಾಲಿನಲ್ಲಿ <span class="dotted-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->mark->graduation->name ?? ''}} {{$application->mark->course->name ?? ''}} {{$application->mark->class->name ?? ''}} </span> ತರಗತಿಯಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡುತ್ತಿದ್ದಾರೆಂದು ದೃಡೀಕರಿಸಲಾಗಿದೆ.</p>
 																									</div>
 																					</li>
 																	</ol>
 													</div>
 													<div class="col s12 m5 foo-address left">
 																	
-																	<p>ಜಿಲ್ಲೆ: <span class="dashed-line"> {{$application->mark->district->name ?? ''}} </span></p> 
-																	<p>ಸ್ಥಳ: <span class="dashed-line"> {{$application->mark->taluq->name ?? ''}} </span></p>
-																	<p>ದಿನಾಂಕ: <span class="dashed-line"> {{$application->school_approve->format('d M, Y') ?? ''}} </span></p>
-																	<p>ದೂರವಾಣಿ ಸಂಖ್ಯೆ (STD CODE ಸಹಿತ): <span class="dashed-line"> {{$application->institute->auth->phone ?? ''}} </span></p>
+																	<p>ಜಿಲ್ಲೆ: <span class="dashed-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->mark->district->name ?? ''}} </span></p> 
+																	<p>ಸ್ಥಳ: <span class="dashed-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->mark->taluq->name ?? ''}} </span></p>
+																	<p>ದಿನಾಂಕ: <span class="dashed-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->school_approve->format('d M, Y') ?? ''}} </span></p>
+																	<p>ದೂರವಾಣಿ ಸಂಖ್ಯೆ (STD CODE ಸಹಿತ): <span class="dashed-line" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;"> {{$application->institute->auth->phone ?? ''}} </span></p>
 													</div>
 													<div class="col s12 m5 push-m2 foo-address left">
 																	<img src="{{storage_path('app/public/'.$application->institute->auth->principal_signature ?? '')}}" width="80px" class="mr30" alt="">

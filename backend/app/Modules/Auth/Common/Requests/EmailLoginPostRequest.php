@@ -29,7 +29,7 @@ class EmailLoginPostRequest extends InputRequest
         return [
             'email' => 'required|string|email',
             'password' => 'required|string',
-            // 'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha'
         ];
     }
 

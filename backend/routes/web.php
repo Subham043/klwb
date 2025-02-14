@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\FileController;
-use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentController;
 use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentVerifyController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,10 +19,11 @@ Route::prefix('sbi')->group(function () {
 
 Route::get('/public/files', [FileController::class, 'index'])->name('storage.files');
 
-Route::get('/private/file', function () {
-    return response()->json([
-        'message' => "Link has expired.",
-    ], 404);
+Route::get('/private/file', function (Request $request) {
+    if($request->wantsJson()) {
+        return response()->json([
+            'message' => "Link has expired.",
+        ], 404);
+    }
+    abort(404, "Link has expired.");
 })->name('login');
-
-Route::get('/excel', [ContributionExportController::class, 'index']);

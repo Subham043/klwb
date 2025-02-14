@@ -27,7 +27,7 @@ class ForgotPasswordViaEmailPostRequest extends InputRequest
     {
         return [
             'email' => ['required','string','email:rfc,dns','max:255','exists:industry_auths,email'],
-            // 'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha'
         ];
     }
 

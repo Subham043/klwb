@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\LocationManagement\Exports;
+namespace App\Modules\LocationManagement\Taluqs\Exports;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;

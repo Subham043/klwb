@@ -51,7 +51,7 @@ class IndustryRegisterPostRequest extends InputRequest
             'address' => 'required|string|max:500',
             'category' => 'required|string|max:500',
             'act' => ['required', new Enum(Act::class)],
-            // 'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha'
         ];
     }
 

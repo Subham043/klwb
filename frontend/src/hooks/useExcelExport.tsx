@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useToast } from './useToast';
 import { env } from '../utils/config/env';
 import { useSearchParams } from 'react-router-dom';
+import { useAxios } from './useAxios';
 
 /*
   * Toast Hook Type
@@ -20,8 +21,9 @@ export const useExcelExport:ExcelExportHookType = () => {
     const {toastError, toastSuccess} = useToast();
     const [excelLoading, setExcelLoading] = useState<boolean>(false);
     const [searchParams] = useSearchParams();
+    const axios = useAxios();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const exportExcel = async (excel_url: string, _excel_file_name: string) => {
+    const exportExcel = async (excel_url: string, excel_file_name: string) => {
         setExcelLoading(true);
         try {
             const filter: string[] = [];
@@ -48,7 +50,19 @@ export const useExcelExport:ExcelExportHookType = () => {
                     filter.push(`filter[${key}]=${value}`);
                 }
             })
-            window.open(env.API_ENDPOINT + `${excel_url}?${filter.join('&')}`, '_blank');
+            // window.open(env.API_ENDPOINT + `${excel_url}?${filter.join('&')}`, '_blank');
+            const response = await axios.get(`${excel_url}?${filter.join('&')}`, 
+                {
+                    responseType: 'blob',
+                }
+            );
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', excel_file_name);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
             toastSuccess('Excel Exported Successfully');
         } catch (error) {
             toastError('Something went wrong. Please try again later.');

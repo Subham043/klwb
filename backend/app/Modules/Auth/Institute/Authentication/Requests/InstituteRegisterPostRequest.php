@@ -48,7 +48,7 @@ class InstituteRegisterPostRequest extends InputRequest
             'reg_institute_id' => 'required|numeric|exists:registered_institutes,id|unique:schools',
             'pincode' => 'required|string|max:500',
             'address' => 'required|string|max:500',
-            // 'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha'
         ];
     }
 

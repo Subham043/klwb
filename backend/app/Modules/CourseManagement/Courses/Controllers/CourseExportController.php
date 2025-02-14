@@ -4,7 +4,7 @@ namespace App\Modules\CourseManagement\Courses\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\CourseManagement\Courses\Services\CourseService;
-use App\Modules\CourseManagement\Exports\CourseExport;
+use App\Modules\CourseManagement\Courses\Exports\CourseExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CourseExportController extends Controller

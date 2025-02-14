@@ -40,7 +40,7 @@ class StudentRegisterPostRequest extends InputRequest
                         ->symbols()
             ],
             'confirm_password' => ['required_with:password','same:password'],
-            // 'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha'
         ];
     }
 

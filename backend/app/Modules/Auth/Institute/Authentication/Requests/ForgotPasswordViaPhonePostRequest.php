@@ -27,7 +27,7 @@ class ForgotPasswordViaPhonePostRequest extends InputRequest
     {
         return [
             'phone' => ['required','numeric','digits:10','exists:school_auths,phone'],
-            // 'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha'
         ];
     }
 

@@ -2968,8 +2968,8 @@ table.dataTable thead td {
 .form-receipt p {
   font-size: 15px;
   font-weight: 600;
-  line-height: 26px;
-  letter-spacing: 1px;
+  /* line-height: 26px; */
+  /* letter-spacing: 1px; */
 }
 
 .table-pp tr {
@@ -3553,7 +3553,8 @@ padding-left: 13px;
   <style>
     @page { margin:0; }
     body{
-      font-family: '"Noto Serif Kannada", "Open Sans", sans-serif' !important;
+      /* font-family: '"Noto Serif Kannada", system-ui' !important; */
+      font-family: "'Noto Serif Kannada', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" !important;
       margin: 0;
       padding: 0;
       margin: auto

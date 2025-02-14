@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { CustomProvider } from 'rsuite';
+import { CustomProvider, Loader, Message } from 'rsuite';
 import { Toaster } from 'react-hot-toast';
 import { PhotoProvider } from "react-photo-view";
 import { QueryClientOptions } from "./utils/constants/query_client";
@@ -21,7 +21,15 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <UserProvider>
       <QueryClientProvider client={queryClient}>
         <AccountProvider>
-          <PhotoProvider>
+          <PhotoProvider 
+            maskOpacity={0.5}
+            brokenElement={
+              <Message type="error" bordered showIcon>
+                <strong>Error!</strong> Failed to load Image. Please try again later.
+              </Message>
+            }
+            loadingElement={<Loader center size="md" color='blue' content="loading" />}
+          >
             <App />
           </PhotoProvider>
         </AccountProvider>

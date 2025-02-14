@@ -26,7 +26,7 @@ const Student:FC = () => {
     const [modal, setModal] = useState<{ status: boolean; data: number|null }>({ status: false, data: null });
 
     return <PaginatedTableLayout title="Students">
-        <PaginatedTableLayout.Header title="Students"  addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.student.excel} excelName="staffs.xlsx">
+        <PaginatedTableLayout.Header title="Students"  addHandler={() => setOpenDrawer({status:true, type:'Create'})} excelLink={api_routes.admin.student.excel} excelName="students.xlsx">
             <SelectAccountStatus />
             <SelectVerificationStatus />
             <SelectYear />

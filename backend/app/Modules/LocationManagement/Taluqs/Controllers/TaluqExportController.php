@@ -3,7 +3,7 @@
 namespace App\Modules\LocationManagement\Taluqs\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\LocationManagement\Exports\TaluqExport;
+use App\Modules\LocationManagement\Taluqs\Exports\TaluqExport;
 use App\Modules\LocationManagement\Taluqs\Services\TaluqService;
 use Maatwebsite\Excel\Facades\Excel;
 
