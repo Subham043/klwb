@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useToast } from './useToast';
-import { env } from '../utils/config/env';
 import { useSearchParams } from 'react-router-dom';
 import { useAxios } from './useAxios';
 

@@ -27,7 +27,7 @@ class ResetPasswordPostRequest  extends InputRequest
     public function rules()
     {
         return [
-            'captcha' => 'required|captcha',
+            // 'captcha' => 'required|captcha',
             'otp' => ['required','numeric', 'digits:4'],
             'password_confirmation' => 'string|min:8|required_with:password|same:password',
             'password' => ['required',

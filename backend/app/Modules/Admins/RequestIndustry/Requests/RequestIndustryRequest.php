@@ -23,7 +23,7 @@ class RequestIndustryRequest extends InputRequest
             'register_doc' => 'required|file|extensions:jpg,jpeg,png|min:1|max:515',
             'city_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
-            'captcha' => 'required|captcha'
+            // 'captcha' => 'required|captcha'
         ];
     }
 
