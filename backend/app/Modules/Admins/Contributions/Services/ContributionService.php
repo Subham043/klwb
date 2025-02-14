@@ -22,9 +22,7 @@ class ContributionService
 			'industry' => function ($query) {
 				$query->with(['city', 'taluq']);
 			}
-		])->whereHas('industry', function ($query) {
-			$query->whereHas('city')->whereHas('taluq');
-		})->where('status', PaymentStatus::Success->value);
+		])->whereHas('industry')->where('status', PaymentStatus::Success->value);
 	}
 	protected function query(): QueryBuilder
 	{

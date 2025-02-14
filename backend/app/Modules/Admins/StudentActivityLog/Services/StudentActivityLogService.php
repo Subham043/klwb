@@ -17,8 +17,10 @@ class StudentActivityLogService
 				$q->with('roles');
 			}
 		])
-		->whereHas('causer.roles', function ($q) {
-			$q->whereIn('name', ['Super-Admin', 'Admin', 'Student']);
+		->whereHas('causer', function ($qr) {
+			$qr->whereHas('roles', function ($q) {
+				$q->whereIn('name', ['Super-Admin', 'Admin', 'Student']);
+			});
 		})
 		->where('log_name', 'student_'.$user_id);
 	}

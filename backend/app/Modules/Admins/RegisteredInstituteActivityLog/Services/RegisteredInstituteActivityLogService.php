@@ -17,8 +17,10 @@ class RegisteredInstituteActivityLogService
 				$q->with('roles');
 			}
 		])
-		->whereHas('causer.roles', function ($q) {
-			$q->whereIn('name', ['Super-Admin', 'Admin', 'Institute']);
+		->whereHas('causer', function ($qr) {
+			$qr->whereHas('roles', function ($q) {
+				$q->whereIn('name', ['Super-Admin', 'Admin', 'Institute']);
+			});
 		})
 		->where('log_name', 'institute_'.$reg_institute_id);
 	}

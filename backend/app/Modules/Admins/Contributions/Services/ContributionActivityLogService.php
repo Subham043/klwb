@@ -15,10 +15,12 @@ class ContributionActivityLogService
 		return Activity::with([
 			'causer' => function ($q) {
 				$q->with('roles');
-			}
+			},
 		])
-		->whereHas('causer.roles', function ($q) {
-			$q->whereIn('name', ['Super-Admin', 'Admin']);
+		->whereHas('causer', function ($qr) {
+			$qr->whereHas('roles', function ($q) {
+				$q->whereIn('name', ['Super-Admin', 'Admin']);
+			});
 		})
 		->where('log_name', 'payment_'.$payment_id);
 	}

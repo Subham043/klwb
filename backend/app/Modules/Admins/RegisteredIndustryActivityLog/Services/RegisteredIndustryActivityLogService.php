@@ -18,8 +18,10 @@ class RegisteredIndustryActivityLogService
 				$q->with('roles');
 			}
 		])
-		->whereHas('causer.roles', function ($q) {
-			$q->whereIn('name', ['Super-Admin', 'Admin', 'Industry']);
+		->whereHas('causer', function ($qr) {
+			$qr->whereHas('roles', function ($q) {
+				$q->whereIn('name', ['Super-Admin', 'Admin', 'Industry']);
+			});
 		})
 		->where('log_name', 'industry_'.$reg_industry_id);
 	}

@@ -22,9 +22,7 @@ class RegisteredIndustryContributionService
 			'industry' => function ($query) {
 				$query->with(['city', 'taluq']);
 			}
-		])->whereHas('industry', function ($query) {
-			$query->whereHas('city')->whereHas('taluq');
-		})->where('comp_regd_id', $reg_industry_id);
+		])->whereHas('industry')->where('comp_regd_id', $reg_industry_id);
 	}
 	protected function query(string $reg_industry_id): QueryBuilder
 	{

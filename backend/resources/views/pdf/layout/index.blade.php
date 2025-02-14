@@ -1087,7 +1087,7 @@ form .file-field .btn {
   right: 15px;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 .app-detail-items .app-item-body .editButton i {
@@ -1520,7 +1520,7 @@ table td {
 
 table th {
   font-size: .85em;
-  letter-spacing: .1em;
+  /* letter-spacing: .1em; */
   text-transform: uppercase;
   text-align: center;
 }
@@ -1622,7 +1622,7 @@ table td {
 
 table th {
   font-size: .85em;
-  letter-spacing: .1em;
+  /* letter-spacing: .1em; */
   text-transform: uppercase;
   text-align: center;
 }
@@ -2980,7 +2980,7 @@ table.dataTable thead td {
   font-size: 14px;
   text-align: left;
   font-weight: 600;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   padding: 0px !important;
   height: auto;
   border: 1px solid #cecccc;
@@ -2988,7 +2988,7 @@ table.dataTable thead td {
 
 .table-pp th {
   font-size: 12px;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   text-transform: uppercase;
   text-align: left;
   border: 1px solid gainsboro;
