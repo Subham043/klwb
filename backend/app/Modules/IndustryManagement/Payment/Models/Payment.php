@@ -71,7 +71,7 @@ class Payment extends Model
 
     protected $recordEvents = ['updated', 'deleted'];
     
-    public $employee_excel_path = 'regfile';
+    public $employee_excel_path = 'employee-excel';
 
     protected $appends = ['employee_excel_link'];
 

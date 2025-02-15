@@ -47,7 +47,7 @@ class RequestInstitute extends Model
         'updated_at' => 'datetime',
     ];
 
-    public $register_doc_path = 'regfile';
+    public $register_doc_path = 'reg-file';
 
     protected $appends = ['register_doc_link'];
 
