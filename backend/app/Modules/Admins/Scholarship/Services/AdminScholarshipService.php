@@ -25,7 +25,7 @@ class AdminScholarshipService
 			->commonRelation()
 			->applicationIsActive()
 			->with([
-				'approved_by' => fn($query) => $query->with(['roles']),
+				'approved_by',
 			]);
 	}
 	protected function query(): QueryBuilder
