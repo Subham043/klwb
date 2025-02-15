@@ -9,8 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet">
   <!-- bar -->
   <style>
 			/*!
@@ -3553,8 +3555,7 @@ padding-left: 13px;
   <style>
     @page { margin:0; }
     body{
-      /* font-family: '"Noto Serif Kannada", system-ui' !important; */
-      font-family: "'Noto Serif Kannada', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" !important;
+      font-family: "Noto Serif Kannada", sans-serif;
       margin: 0;
       padding: 0;
       margin: auto
@@ -3604,6 +3605,10 @@ padding-left: 13px;
     }
     td span{
       font-size: 12px !important;
+    }
+
+    .sans_serif{
+      font-family: sans-serif !important;
     }
 
 
