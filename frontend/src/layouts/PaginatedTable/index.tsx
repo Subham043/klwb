@@ -90,6 +90,7 @@ const Header = ({ children, title, buttonName = title, excelLink, excelName, add
 // Define the Option subcomponent
 const Content = ({ children, total, error, refetch }: ContentProps) => {
     const { page, pageHandler, limit, limitHandler } = usePaginationQueryParam();
+    const isMobile = useMediaQuery(`(max-width: 700px)`);
     return <>
         {
             error ? 
@@ -106,11 +107,11 @@ const Content = ({ children, total, error, refetch }: ContentProps) => {
             <Pagination
                 prev
                 next
-                first
-                last
+                first={isMobile ? false : true}
+                last={isMobile ? false : true}
                 ellipsis
                 boundaryLinks
-                maxButtons={5}
+                maxButtons={isMobile ? 3 : 5}
                 size="sm"
                 layout={['total', '-', 'limit', '|', 'pager', 'skip']}
                 total={total}

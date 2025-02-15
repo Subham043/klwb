@@ -55,27 +55,27 @@ export default function InstituteInfo({ id }: Props) {
         >
           <Grid fluid>
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Name" value={data?.institute.name} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Principal Name" value={data?.principal} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Email" value={data?.email} />
               </Col>
             </Row>
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Phone" value={data?.phone} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Management Type"
                   value={data?.institute.management_type}
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Institute Category"
                   value={data?.institute.category}
@@ -83,47 +83,47 @@ export default function InstituteInfo({ id }: Props) {
               </Col>
             </Row>
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Institute Type"
                   value={data?.institute.type}
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Region Type"
                   value={data?.institute.urban_rural}
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Pincode" value={data?.address.pincode} />
               </Col>
             </Row>
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Address" value={data?.address.address} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="District" value={data?.address.city.name} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Taluq" value={data?.address.taluq.name} />
               </Col>
             </Row>
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Institute Reg. File"
                   value={<FileViewer src={data?.reg_certification} />}
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Principal Signature"
                   value={<FileViewer src={data?.principal_signature} />}
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Seal"
                   value={<FileViewer src={data?.seal} />}
@@ -151,16 +151,16 @@ export default function InstituteInfo({ id }: Props) {
         >
           <Grid fluid>
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Name" value={data?.profile.name} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Email" value={data?.profile.email} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo title="Phone" value={data?.profile.phone} />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Verification"
                   value={
@@ -174,7 +174,7 @@ export default function InstituteInfo({ id }: Props) {
                   }
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Status"
                   value={
@@ -186,7 +186,7 @@ export default function InstituteInfo({ id }: Props) {
                   }
                 />
               </Col>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Registered On"
                   value={<Moment datetime={data?.profile.created_at || ""} />}

@@ -12,8 +12,8 @@ type DashboardMessageCardProps = {
 
 export default function DashboardMessageCard({ message, link, type, color, button_title }: DashboardMessageCardProps) {
 		return (
-			<Message type={type} bordered showIcon className="mt-1" style={{ gap: 10 }}>
-						<Stack justifyContent="space-between" className='w-100'>
+			<Message type={type} bordered showIcon className="mt-1 align-self-start-md" style={{ gap: 10 }}>
+						<Stack justifyContent="space-between" className='w-100 wrap-sm'>
 										<div><strong>{message}</strong></div>
 										<Button as={Link} to={link} size="sm" appearance="primary" color={color}>{button_title}</Button>
 						</Stack>

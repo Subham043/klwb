@@ -36,7 +36,7 @@ export default function BankInfo({
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <SelectInput
                 name="type"
                 label="Account Belongs To"
@@ -48,7 +48,7 @@ export default function BankInfo({
                 error={errors.type?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="holder"
                 label="Account Holder Name"
@@ -58,7 +58,7 @@ export default function BankInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="bank_name"
                 label="Bank's Name"
@@ -66,7 +66,7 @@ export default function BankInfo({
                 error={errors.bank_name?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="branch"
                 label="Branch Name"
@@ -76,7 +76,7 @@ export default function BankInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="ifsc"
                 label="IFSC code"
@@ -85,7 +85,7 @@ export default function BankInfo({
                 error={errors.ifsc?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="acc_no"
                 label="Account Number"
@@ -95,7 +95,7 @@ export default function BankInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <FileInput
                 name="passbook"
                 accept="image/png, image/jpeg, image/jpg, application/pdf"

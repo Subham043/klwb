@@ -293,7 +293,7 @@ function IndustryRegisterPage() {
           <div className={classes.formFields}>
             <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <Form.ControlLabel>District</Form.ControlLabel>
                   <DistrictSelect
                     setValue={(value) => {
@@ -309,7 +309,7 @@ function IndustryRegisterPage() {
                     {errors.city_id?.message}
                   </Form.ErrorMessage>
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <Form.ControlLabel>Taluq</Form.ControlLabel>
                   <TaluqSelect
                     setValue={(value) => {
@@ -354,7 +354,7 @@ function IndustryRegisterPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <SelectInput
                     name="act"
                     label="Act"
@@ -364,7 +364,7 @@ function IndustryRegisterPage() {
                     resetHandler={() => setValue("category", "")}
                   />
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <SelectInput
                     name="category"
                     label="Category"
@@ -376,7 +376,7 @@ function IndustryRegisterPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={8}>
+                <Col md={8} sm={24} xs={24}>
                   <TextInput
                     name="name"
                     label="Director Name"
@@ -384,7 +384,7 @@ function IndustryRegisterPage() {
                     error={errors.name?.message}
                   />
                 </Col>
-                <Col xs={24} md={8}>
+                <Col md={8} sm={24} xs={24}>
                   <TextInput
                     name="email"
                     type="email"
@@ -394,7 +394,7 @@ function IndustryRegisterPage() {
                     error={errors.email?.message}
                   />
                 </Col>
-                <Col xs={24} md={8}>
+                <Col md={8} sm={24} xs={24}>
                   <TextInput
                     name="phone"
                     label="Phone"
@@ -404,7 +404,7 @@ function IndustryRegisterPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <PasswordInput
                     name="password"
                     label="Password"
@@ -412,7 +412,7 @@ function IndustryRegisterPage() {
                     error={errors.password?.message}
                   />
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <PasswordInput
                     name="confirm_password"
                     label="Confirm Password"
@@ -430,7 +430,7 @@ function IndustryRegisterPage() {
                 error={errors.address?.message}
               />
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <FileInput
                     name="reg_doc"
                     accept="image/png, image/jpeg, image/jpg"
@@ -440,7 +440,7 @@ function IndustryRegisterPage() {
                     error={errors.reg_doc?.message}
                   />
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <FileInput
                     name="sign"
                     accept="image/png, image/jpeg, image/jpg"

@@ -121,7 +121,7 @@ const StaffForm = ({
             <ModalCardContainer header="Staff Credential Update">
               <Grid fluid>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="name"
                       label="Name"
@@ -129,7 +129,7 @@ const StaffForm = ({
                       error={errors.name?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="email"
                       type="email"
@@ -138,7 +138,7 @@ const StaffForm = ({
                       error={errors.email?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="phone"
                       label="Phone"

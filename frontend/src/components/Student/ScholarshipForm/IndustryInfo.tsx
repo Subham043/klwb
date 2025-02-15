@@ -50,7 +50,7 @@ export default function IndustryInfo({
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <SelectInput
                 name="who_working"
                 label="Who's Working"
@@ -62,7 +62,7 @@ export default function IndustryInfo({
                 error={errors.who_working?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="parent_guardian_name"
                 label="Parent/Guardian Name"
@@ -72,7 +72,7 @@ export default function IndustryInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="relationship"
                 label="Relation between Student & Parent"
@@ -80,7 +80,7 @@ export default function IndustryInfo({
                 error={errors.relationship?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="msalary"
                 label="Monthly Salary"
@@ -90,7 +90,7 @@ export default function IndustryInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <Form.ControlLabel>District</Form.ControlLabel>
               <Controller
                 name={"district"}
@@ -124,7 +124,7 @@ export default function IndustryInfo({
                 {errors.district?.value?.message || errors.district_id?.message}
               </Form.ErrorMessage>
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <Form.ControlLabel>Taluq</Form.ControlLabel>
               <Controller
                 name={"taluq"}
@@ -160,7 +160,7 @@ export default function IndustryInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <Form.ControlLabel>Parent Industry Name</Form.ControlLabel>
               <Controller
                 name={"company"}
@@ -196,7 +196,7 @@ export default function IndustryInfo({
                 {errors.company?.value?.message || errors.company_id?.message}
               </Form.ErrorMessage>
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="pincode"
                 label="Pincode"
@@ -206,7 +206,7 @@ export default function IndustryInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <FileInput
                 name="salaryslip"
                 accept="image/png, image/jpeg, image/jpg, application/pdf"
@@ -219,7 +219,7 @@ export default function IndustryInfo({
                 <FileViewer src={salaryslip} />
               )}
             </Col>
-            <Col className="pb-1" xs={12}></Col>
+            <Col className="pb-1" md={12} sm={24} xs={24}></Col>
           </Row>
         </Grid>
       </ModalCardContainer>

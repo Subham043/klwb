@@ -3,6 +3,11 @@
 	margin-bottom: 0.3rem;
 	font-weight: 800;
 }
+.table_container{
+	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+}
 .main_sub_heading{
 	color: #00437d;
 	font-weight: 500;
@@ -54,4 +59,12 @@
 }
 .text_red{
 	color: red;
+}
+
+@media screen and (max-width: 600px){
+	.table_container{
+		width: 100%;
+		max-width: 100%;
+		overflow-x: auto;
+	}
 }

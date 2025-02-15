@@ -203,7 +203,7 @@ const IndustryInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <SelectInput
                       name="act"
                       label="Act"
@@ -213,7 +213,7 @@ const IndustryInfoUpdate = ({
                       resetHandler={() => setValue("category", "")}
                     />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <SelectInput
                       name="category"
                       label="Category"
@@ -225,7 +225,7 @@ const IndustryInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <Form.ControlLabel>District</Form.ControlLabel>
                     <Controller
                       name={"city"}
@@ -257,7 +257,7 @@ const IndustryInfoUpdate = ({
                       {errors.city?.value?.message || errors.city_id?.message}
                     </Form.ErrorMessage>
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <Form.ControlLabel>Taluq</Form.ControlLabel>
                     <Controller
                       name={"taluq"}

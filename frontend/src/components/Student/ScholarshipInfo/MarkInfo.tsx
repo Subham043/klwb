@@ -23,13 +23,13 @@ function MarkInfo({ data }: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Class Name" value={data?.mark.prv_class} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Marks" value={data?.mark.prv_marks} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Marks Card Type"
                 value={data?.mark.prv_markcard2 ? "Semester Wise" : "Yearly"}
@@ -38,7 +38,7 @@ function MarkInfo({ data }: Props) {
           </Row>
           <Row gutter={30}>
             {data?.mark.prv_markcard && (
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Marks Card Copy"
                   value={<FileViewer src={data?.mark.prv_markcard} />}
@@ -46,7 +46,7 @@ function MarkInfo({ data }: Props) {
               </Col>
             )}
             {data?.mark.prv_markcard2 && (
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="2nd Marks Card Copy"
                   value={<FileViewer src={data?.mark.prv_markcard2} />}

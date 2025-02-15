@@ -21,13 +21,13 @@ function IndustryInfo({ data }: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Parent / Guardian Name"
                 value={data?.company.parent_guardian_name}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Who is Working"
                 value={
@@ -37,7 +37,7 @@ function IndustryInfo({ data }: Props) {
                 }
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Relationship between student & parent"
                 value={data?.company.relationship}
@@ -45,31 +45,31 @@ function IndustryInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Monthly Salary"
                 value={data?.company.msalary}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Industry Name" value={data?.industry_name} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Pin Code" value={data?.company.pincode} />
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Taluk" value={data?.company.taluq?.name} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="District"
                 value={data?.company.district?.name}
               />
             </Col>
             {data?.company.salaryslip && (
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Salary Slip"
                   value={<FileViewer src={data?.company.salaryslip} />}

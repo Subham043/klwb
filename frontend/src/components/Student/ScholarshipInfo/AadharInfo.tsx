@@ -21,13 +21,13 @@ function AadharInfo({ data }: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Aadhar"
                 value={data?.basic_detail.adharcard_no}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Father's Aadhar"
                 value={
@@ -38,7 +38,7 @@ function AadharInfo({ data }: Props) {
                 }
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Mother's Aadhar"
                 value={
@@ -52,7 +52,7 @@ function AadharInfo({ data }: Props) {
           </Row>
           <Row gutter={30}>
             {data?.basic_detail.adharcard_file && (
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Aadhar File"
                   value={<FileViewer src={data?.basic_detail.adharcard_file} />}
@@ -62,7 +62,7 @@ function AadharInfo({ data }: Props) {
             {data?.basic_detail.not_applicable &&
             data?.basic_detail.not_applicable === "father"
               ? data?.basic_detail.deathcertificate && (
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <DetailInfo
                       title="Father's Death Certificate"
                       value={
@@ -72,7 +72,7 @@ function AadharInfo({ data }: Props) {
                   </Col>
                 )
               : data?.basic_detail.f_adharfile && (
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <DetailInfo
                       title="Father's Aadhar File"
                       value={
@@ -84,7 +84,7 @@ function AadharInfo({ data }: Props) {
             {data?.basic_detail.not_applicable &&
             data?.basic_detail.not_applicable === "mother"
               ? data?.basic_detail.deathcertificate && (
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <DetailInfo
                       title="Mother's Death Certificate"
                       value={
@@ -94,7 +94,7 @@ function AadharInfo({ data }: Props) {
                   </Col>
                 )
               : data?.basic_detail.m_adharfile && (
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <DetailInfo
                       title="Mother's Aadhar File"
                       value={

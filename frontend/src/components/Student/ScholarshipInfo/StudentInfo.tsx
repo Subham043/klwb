@@ -21,13 +21,13 @@ function StudentInfo({ data }: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Application Number" value={data?.id} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Name" value={data?.basic_detail.name} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Father Name"
                 value={data?.basic_detail.father_name}
@@ -35,16 +35,16 @@ function StudentInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Mobile Number"
                 value={data?.basic_detail.parent_phone}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Gender" value={data?.basic_detail.gender} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Amount"
                 value={data?.scholarship_fee?.amount || 0}
@@ -52,13 +52,13 @@ function StudentInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Graduation"
                 value={data?.mark.graduation?.name}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Present Class / Course"
                 value={`${data?.mark?.class?.name}${
@@ -68,7 +68,7 @@ function StudentInfo({ data }: Props) {
                 }`}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Present School Name"
                 value={data?.present_institute_name}
@@ -76,19 +76,19 @@ function StudentInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Institute District"
                 value={data?.mark.district?.name}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Institute Taluq"
                 value={data?.mark.taluq?.name}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Application Year"
                 value={data?.application_year}
@@ -96,19 +96,19 @@ function StudentInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Applied On"
                 value={<Moment datetime={data?.date} />}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Present School Address"
                 value={data?.present_institute_address}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Student Present Address"
                 value={data?.basic_detail.address}

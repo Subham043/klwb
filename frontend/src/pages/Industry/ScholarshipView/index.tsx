@@ -37,7 +37,7 @@ export default function IndustryScholarshipViewPage() {
             <PanelCardContainer
               class_name="mb-1"
               header={
-                <Stack justifyContent="space-between">
+                <Stack justifyContent="space-between" className="wrap-sm justify-center-md">
                   <Heading level={6} className="text-brand">
                     Scholarship Application Status
                   </Heading>

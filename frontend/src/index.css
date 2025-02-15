@@ -285,6 +285,9 @@ h2{
     .col-order-3{
         order:3;
     }
+    .col-order-2{
+        order:2;
+    }
     .sm-flex-col{
         flex-direction: column;
     }
@@ -292,4 +295,37 @@ h2{
     .rs-sidebar:has(.rs-sidenav-collapse-out){
         display: none;
     }
+
+    .rs-pagination-group-md, .rs-pagination-group-sm{
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .wrap-sm{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .align-self-start-md{
+        align-self: self-start;
+    }
+    
+    .rs-panel-title{
+        justify-content: center !important;
+        flex-direction: column;
+    }
+
+    .rs-panel-body, .rs-panel-header{
+        padding: 10px;
+    }
+
+    .rs-stack{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* .rs-container{
+        max-width: 100% !important;
+        overflow: hidden !important;
+    } */
 }

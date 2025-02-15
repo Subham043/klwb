@@ -23,7 +23,7 @@ function CasteInfo({ data }: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Scheduled Caste / Scheduled Tribes"
                 value={
@@ -33,14 +33,14 @@ function CasteInfo({ data }: Props) {
                 }
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Category"
                 value={data?.basic_detail.category}
               />
             </Col>
             {data?.basic_detail.is_scst.toString() === "true" && (
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Caste Certificate Number"
                   value={data?.basic_detail.cast_no}
@@ -51,7 +51,7 @@ function CasteInfo({ data }: Props) {
           {data?.basic_detail.cast_certificate &&
             data?.basic_detail.is_scst.toString() === "true" && (
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Caste Certificate"
                     value={

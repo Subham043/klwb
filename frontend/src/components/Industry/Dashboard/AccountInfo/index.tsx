@@ -86,19 +86,19 @@ export default function IndustryDashboardAccountInfo() {
           >
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Industry Name"
                     value={account_info?.industry.name}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Industry Reg. No."
                     value={account_info?.industry.reg_id}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Director Name"
                     value={account_info?.name}
@@ -106,13 +106,13 @@ export default function IndustryDashboardAccountInfo() {
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Email" value={account_info?.email} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Phone" value={account_info?.phone} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Pincode"
                     value={account_info?.industry.pincode}
@@ -120,13 +120,13 @@ export default function IndustryDashboardAccountInfo() {
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="GST No." value={account_info?.gst_no} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="PAN No." value={account_info?.pan_no} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="District"
                     value={account_info?.city.name}
@@ -134,18 +134,18 @@ export default function IndustryDashboardAccountInfo() {
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Taluq" value={account_info?.taluq.name} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Act" value={account_info?.industry.act_label} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Category" value={account_info?.industry.category} />
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Address" value={account_info?.address} />
                 </Col>
               </Row>
@@ -154,7 +154,7 @@ export default function IndustryDashboardAccountInfo() {
         </div>
         <div className="mt-1">
           <Row gutter={30}>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="Industry Registration File">
                 <FileUploader
                   src={account_info?.reg_doc}
@@ -167,7 +167,7 @@ export default function IndustryDashboardAccountInfo() {
                 />
               </Uploader>
             </Col>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="Director Signature">
                 <FileUploader
                   src={account_info?.sign}
@@ -180,7 +180,7 @@ export default function IndustryDashboardAccountInfo() {
                 />
               </Uploader>
             </Col>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="Industry Seal">
                 <FileUploader
                   src={account_info?.seal}
@@ -197,7 +197,7 @@ export default function IndustryDashboardAccountInfo() {
         </div>
         <div className="mt-1">
           <Row gutter={30}>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="GSTIN Certificate">
                 <FileUploader
                   src={account_info?.gst}
@@ -210,7 +210,7 @@ export default function IndustryDashboardAccountInfo() {
                 />
               </Uploader>
             </Col>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="PAN Card">
                 <FileUploader
                   src={account_info?.pan}

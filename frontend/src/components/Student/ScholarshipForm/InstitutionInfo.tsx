@@ -52,7 +52,7 @@ export default function InstitutionInfo({
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <Form.ControlLabel>District</Form.ControlLabel>
               <Controller
                 name={"ins_district"}
@@ -86,7 +86,7 @@ export default function InstitutionInfo({
                 {errors.ins_district?.value?.message || errors.ins_district_id?.message}
               </Form.ErrorMessage>
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <Form.ControlLabel>Taluq</Form.ControlLabel>
               <Controller
                 name={"ins_taluq"}
@@ -122,7 +122,7 @@ export default function InstitutionInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <Form.ControlLabel>Present Institution</Form.ControlLabel>
               <Controller
                 name={"school"}
@@ -158,7 +158,7 @@ export default function InstitutionInfo({
                 {errors.school?.value?.message || errors.school_id?.message}
               </Form.ErrorMessage>
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="ins_pin"
                 label="Pincode"
@@ -168,7 +168,7 @@ export default function InstitutionInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-          <Col className="pb-1" xs={8}>
+          <Col className="pb-1" md={8} sm={24} xs={24}>
               <Form.ControlLabel>Graduation</Form.ControlLabel>
               <Controller
                 name={"graduation"}
@@ -204,7 +204,7 @@ export default function InstitutionInfo({
             </Col>
             {
               graduation_id !== 0 &&
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <Controller
                   name={"course"}
                   control={control}
@@ -240,7 +240,7 @@ export default function InstitutionInfo({
             }
             {
               course_id !== 0 && course_id !== undefined &&
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <Controller
                   name={"class"}
                   control={control}

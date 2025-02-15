@@ -172,7 +172,7 @@ function InstituteRequestPage() {
           <div className={classes.formFields}>
             <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <TextInput
                     name="email"
                     type="email"
@@ -182,7 +182,7 @@ function InstituteRequestPage() {
                     error={errors.email?.message}
                   />
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <TextInput
                     name="mobile"
                     label="Mobile"
@@ -192,7 +192,7 @@ function InstituteRequestPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <Form.ControlLabel>District</Form.ControlLabel>
                   <DistrictSelect
                     setValue={(value) => {
@@ -207,7 +207,7 @@ function InstituteRequestPage() {
                     {errors.city_id?.message}
                   </Form.ErrorMessage>
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <Form.ControlLabel>Taluq</Form.ControlLabel>
                   <TaluqSelect
                     setValue={(value) => {
@@ -225,7 +225,7 @@ function InstituteRequestPage() {
                 </Col>
               </Row>
               <Row className="show-grid mb-1">
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <TextInput
                     name="name"
                     label="Institute Name"
@@ -233,7 +233,7 @@ function InstituteRequestPage() {
                     error={errors.name?.message}
                   />
                 </Col>
-                <Col xs={24} md={12}>
+                <Col md={12} sm={24} xs={24}>
                   <TextInput
                     name="pincode"
                     label="Pincode"

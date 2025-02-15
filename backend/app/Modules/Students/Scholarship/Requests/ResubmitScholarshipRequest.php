@@ -9,12 +9,17 @@ use App\Modules\Students\Scholarship\Models\ApplicationBasicDetail;
 use App\Modules\Students\Scholarship\Services\ScholarshipService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Modules\Students\Scholarship\Requests\ApplyScholarshipRequest;
 
 
 class ResubmitScholarshipRequest extends ApplyScholarshipRequest
 {
 
-    public function __construct(private ScholarshipService $scholarshipService, private ScholarshipApplicationChecksService $applicationChecks){}
+    public function __construct(private ScholarshipApplicationChecksService $applicationChecks, private ScholarshipService $scholarshipService)
+    {
+        parent::__construct($applicationChecks);
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *

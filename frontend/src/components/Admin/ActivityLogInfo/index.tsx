@@ -32,26 +32,26 @@ export default function ActivityLogInfo({
           <ModalCardContainer header="Activity Log">
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <DetailInfo title="ID" value={modal.data?.id} />
                 </Col>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <DetailInfo title="Event" value={modal.data?.event} />
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <DetailInfo title="Name" value={modal.data?.causer?.name} />
                 </Col>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <DetailInfo title="Email" value={modal.data?.causer?.email} />
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <DetailInfo title="Phone" value={modal.data?.causer?.phone} />
                 </Col>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <DetailInfo title="Role" value={modal.data?.causer?.role} />
                 </Col>
               </Row>

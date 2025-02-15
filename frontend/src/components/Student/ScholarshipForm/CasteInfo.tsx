@@ -53,7 +53,7 @@ export default function CastInfo({
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <SelectInput
                 name="is_scst"
                 label="Scheduled Castes / Scheduled Tribes?"
@@ -68,7 +68,7 @@ export default function CastInfo({
                 error={errors.is_scst?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               {is_scst === "1" && (
                 <SelectInput
                   name="category"
@@ -97,7 +97,7 @@ export default function CastInfo({
           </Row>
           {is_scst === "1" && (
             <Row gutter={30}>
-              <Col className="pb-1" xs={12}>
+              <Col className="pb-1" md={12} sm={24} xs={24}>
                 <div>
                   <FileInput
                     name="cast_certificate"
@@ -112,7 +112,7 @@ export default function CastInfo({
                   )}
                 </div>
               </Col>
-              <Col className="pb-1" xs={12}>
+              <Col className="pb-1" md={12} sm={24} xs={24}>
                 <TextInput
                   name="cast_no"
                   label="Caste certificate number"

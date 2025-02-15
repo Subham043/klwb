@@ -57,46 +57,46 @@ export default function IndustryInfo({ id }: Props) {
           >
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Name" value={data?.industry.name} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Reg. ID" value={data?.industry.reg_id} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Act" value={data?.industry.act_label} />
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Category" value={data?.industry.category} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="District" value={data?.city.name} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Taluq" value={data?.taluq.name} />
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Address" value={data?.address} />
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Industry Reg. File"
                     value={<FileViewer src={data?.reg_doc} />}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Director Signature"
                     value={<FileViewer src={data?.sign} />}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Industry Seal"
                     value={<FileViewer src={data?.seal} />}
@@ -124,16 +124,16 @@ export default function IndustryInfo({ id }: Props) {
           >
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Director Name" value={data?.name} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Email" value={data?.email} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Phone" value={data?.phone} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Verification"
                     value={
@@ -145,7 +145,7 @@ export default function IndustryInfo({ id }: Props) {
                     }
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Status"
                     value={
@@ -157,7 +157,7 @@ export default function IndustryInfo({ id }: Props) {
                     }
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Registered On"
                     value={<Moment datetime={data?.created_at || ""} />}

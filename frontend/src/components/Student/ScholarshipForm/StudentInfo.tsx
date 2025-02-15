@@ -25,7 +25,7 @@ export default function StudentInfo({ control, errors }: PropType) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <TextInput
                 name="name"
                 label="Name"
@@ -34,7 +34,7 @@ export default function StudentInfo({ control, errors }: PropType) {
                 error={errors.name?.message}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <TextInput
                 name="parent_phone"
                 label="Mobile Number"
@@ -42,7 +42,7 @@ export default function StudentInfo({ control, errors }: PropType) {
                 error={errors.parent_phone?.message}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <SelectInput
                 name="gender"
                 label="Gender"
@@ -57,7 +57,7 @@ export default function StudentInfo({ control, errors }: PropType) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="father_name"
                 label="Father's Name"
@@ -65,7 +65,7 @@ export default function StudentInfo({ control, errors }: PropType) {
                 error={errors.father_name?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="mother_name"
                 label="Mother's Name"

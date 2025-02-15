@@ -45,7 +45,7 @@ export default function MarksInfo({
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <TextInput
                 name="prv_class"
                 label="Previous Standard"
@@ -53,7 +53,7 @@ export default function MarksInfo({
                 error={errors.prv_class?.message}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <TextInput
                 name="prv_marks"
                 label="Previous Marks"
@@ -61,7 +61,7 @@ export default function MarksInfo({
                 error={errors.prv_marks?.message}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <SelectInput
                 name="marks_card_type"
                 label="Marks Card Type"
@@ -75,7 +75,7 @@ export default function MarksInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <div>
                 <FileInput
                   name="prv_markcard"
@@ -90,7 +90,7 @@ export default function MarksInfo({
                 )}
               </div>
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               {marks_card_type === "0" && (
                 <div>
                   <FileInput

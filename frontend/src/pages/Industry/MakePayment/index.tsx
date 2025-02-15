@@ -199,13 +199,13 @@ export default function MakePaymentPage() {
 								>
 									<Grid fluid>
 										<Row gutter={30}>
-											<Col className="pb-1" xs={24}>
+											<Col className="pb-1"  sm={24} xs={24}>
 												<Form.ControlLabel>Company Name</Form.ControlLabel>
 												<Form.Control name="company_name" value={account_info?.industry.name} disabled={true} />
 											</Col>
 										</Row>
 										<Row gutter={30}>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" md={8} sm={24} xs={24}>
 													<SelectInput
 															name="act"
 															label="Act"
@@ -215,7 +215,7 @@ export default function MakePaymentPage() {
 															resetHandler={() => setValue("category", "")}
 													/>
 											</Col>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" md={8} sm={24} xs={24}>
 													<SelectInput
 															name="category"
 															label="Category"
@@ -225,7 +225,7 @@ export default function MakePaymentPage() {
 															error={errors.category?.message}
 													/>
 											</Col>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" md={8} sm={24} xs={24}>
 												<SelectInput
 													name="year"
 													label="Year"
@@ -237,7 +237,7 @@ export default function MakePaymentPage() {
 											</Col>
 										</Row>
 										<Row gutter={30}>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" md={8} sm={24} xs={24}>
 												<TextInput
 													name="male"
 													label="No. of Male Employees"
@@ -246,7 +246,7 @@ export default function MakePaymentPage() {
 													error={errors.male?.message}
 												/>
 											</Col>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" md={8} sm={24} xs={24}>
 												<TextInput
 													name="female"
 													label="No. of Female Employees"
@@ -255,7 +255,7 @@ export default function MakePaymentPage() {
 													error={errors.female?.message}
 												/>
 											</Col>
-											<Col className="pb-1" xs={8}>
+											<Col className="pb-1" md={8} sm={24} xs={24}>
 												<div>
 													<FileInput
 														name="employee_excel"
@@ -271,7 +271,8 @@ export default function MakePaymentPage() {
 									</Grid>
 									<Grid fluid>
 										<Row gutter={30}>
-											<Col className="pb-1 pt-1" xs={24}>
+											<Col className="pb-1 pt-1"  sm={24} xs={24}>
+											<div className={classes.table_container}>
 												<table className={classes.table} border={1}>
 													<thead>
 														{requiredNoOfEmployees !== undefined && (<tr className={classes.bg_indigo}>
@@ -305,15 +306,16 @@ export default function MakePaymentPage() {
 														</tr>
 													</tbody>
 												</table>
+											</div>
 											</Col>
 										</Row>
 									</Grid>
 									<Grid fluid>
 										<Row gutter={30}>
-											<Col xs={24}>
+											<Col  sm={24} xs={24}>
 												<Form.ControlLabel><b>Note:</b></Form.ControlLabel>
 											</Col>
-											<Col xs={24}>
+											<Col  sm={24} xs={24}>
 												<div>
 													<Controller
 														name="term1"

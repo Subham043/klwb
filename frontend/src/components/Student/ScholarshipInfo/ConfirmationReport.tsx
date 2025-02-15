@@ -62,13 +62,13 @@ function ConfirmationReport(props: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Institute Confirmation Report"
                 value={props.data.institute_confirmation_report ? <InstituteConfirmationReportDownload id={props.data.id} user={user} /> : '---------N/A--------'}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Industry Confirmation Report"
                 value={props.data.industry_confirmation_report ? <IndustryConfirmationReportDownload id={props.data.id} user={user} /> : '---------N/A--------'}

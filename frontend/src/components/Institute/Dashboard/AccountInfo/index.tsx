@@ -86,19 +86,19 @@ export default function InstituteDashboardAccountInfo() {
           >
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Institute Name"
                     value={account_info?.institute.name}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Institute Reg. No."
                     value={account_info?.reg_no}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Prinicpal Name"
                     value={account_info?.principal}
@@ -106,13 +106,13 @@ export default function InstituteDashboardAccountInfo() {
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Email" value={account_info?.email} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Phone" value={account_info?.phone} />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Pincode"
                     value={account_info?.address.pincode}
@@ -120,19 +120,19 @@ export default function InstituteDashboardAccountInfo() {
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="District"
                     value={account_info?.address.city.name}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Taluq"
                     value={account_info?.address.taluq.name}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Address"
                     value={account_info?.address.address}
@@ -144,7 +144,7 @@ export default function InstituteDashboardAccountInfo() {
         </div>
         <div className="mt-1">
           <Row gutter={30}>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="Registration Certificate">
                 <FileUploader
                   src={account_info?.reg_certification}
@@ -157,7 +157,7 @@ export default function InstituteDashboardAccountInfo() {
                 />
               </Uploader>
             </Col>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title=" Principal Signature">
                 <FileUploader
                   src={account_info?.principal_signature}
@@ -170,7 +170,7 @@ export default function InstituteDashboardAccountInfo() {
                 />
               </Uploader>
             </Col>
-            <Col xs={8}>
+            <Col md={8} sm={24} xs={24}>
               <Uploader title="Institute Seal">
                 <FileUploader
                   src={account_info?.seal}

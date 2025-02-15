@@ -13,7 +13,7 @@ const Navbar:FC<{language:LanguagesEnum}> = ({language}) => {
             <Header className={classes.mainHeader}>
                 <div className="container">
                     <div className="row justify-around align-center">
-                        <div className="col-auto text-center">
+                        <div className="col-auto text-center col-order-2">
                             <img src={'/head1.jpeg'} alt="" className={classes.ministerLogo} />
                             <h1 className={classes.ministerName}>{language===LanguagesEnum.KANNADA ? 'ಶ್ರೀ ಸಂತೋಷ ಲಾಡ್' : 'Shri Santosh S Lad'}</h1>
                             <h2 className={classes.ministerPosition}>

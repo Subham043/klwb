@@ -168,7 +168,7 @@ export default function IndustryForm({
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <SelectInput
                     name="act"
                     label="Act"
@@ -178,7 +178,7 @@ export default function IndustryForm({
                     resetHandler={() => setValue("category", "")}
                   />
                 </Col>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <SelectInput
                     name="category"
                     label="Category"

@@ -155,7 +155,7 @@ const AccountInfoUpdate = ({
             <ModalCardContainer header="Industry Information Update">
               <Grid fluid>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="gst_no"
                       label="GST No."
@@ -163,7 +163,7 @@ const AccountInfoUpdate = ({
                       error={errors.gst_no?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="pan_no"
                       label="PAN No."
@@ -173,7 +173,7 @@ const AccountInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <SelectInput
                       name="act"
                       label="Act"
@@ -183,7 +183,7 @@ const AccountInfoUpdate = ({
                       resetHandler={() => setValue("category", "")}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <SelectInput
                       name="category"
                       label="Category"
@@ -193,7 +193,7 @@ const AccountInfoUpdate = ({
                       error={errors.category?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="pincode"
                       label="Pincode"

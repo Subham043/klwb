@@ -133,3 +133,9 @@ div.tab_name {
 .navigation_tabs li.tab_inactive + li:after {
 	background-color: #00437d;
 }
+
+@media screen and (max-width: 600px) {
+	.navigation_tabs{
+		display: flex;
+	}
+}

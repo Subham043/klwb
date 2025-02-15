@@ -126,7 +126,7 @@ const AccountInfoUpdate = ({
             <ModalCardContainer header="Institute Information Update">
               <Grid fluid>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="principal"
                       label="Principal Name"
@@ -134,7 +134,7 @@ const AccountInfoUpdate = ({
                       error={errors.principal?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="email"
                       type="email"
@@ -143,7 +143,7 @@ const AccountInfoUpdate = ({
                       error={errors.email?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="phone"
                       label="Phone"

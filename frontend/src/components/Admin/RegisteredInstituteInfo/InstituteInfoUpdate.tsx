@@ -216,7 +216,7 @@ const InstituteInfoUpdate = ({
             <ModalCardContainer header="Institute Information Update">
               <Grid fluid>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="name"
                       label="Institute Name"
@@ -224,7 +224,7 @@ const InstituteInfoUpdate = ({
                       error={errors.name?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="principal"
                       label="Principal Name"
@@ -234,7 +234,7 @@ const InstituteInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="email"
                       type="email"
@@ -243,7 +243,7 @@ const InstituteInfoUpdate = ({
                       error={errors.email?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="phone"
                       label="Phone"
@@ -253,7 +253,7 @@ const InstituteInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="management_type"
                       label="Management Type"
@@ -261,7 +261,7 @@ const InstituteInfoUpdate = ({
                       error={errors.management_type?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="category"
                       label="Institute Category"
@@ -271,7 +271,7 @@ const InstituteInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <TextInput
                       name="type"
                       label="Institute Type"
@@ -279,7 +279,7 @@ const InstituteInfoUpdate = ({
                       error={errors.type?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <SelectInput
                       name="urban_rural"
                       label="Urban/Rural"
@@ -293,7 +293,7 @@ const InstituteInfoUpdate = ({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <TextInput
                       name="pincode"
                       label="Pincode"
@@ -301,7 +301,7 @@ const InstituteInfoUpdate = ({
                       error={errors.pincode?.message}
                     />
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <Form.ControlLabel>District</Form.ControlLabel>
                     <Controller
                       name={"city"}
@@ -333,7 +333,7 @@ const InstituteInfoUpdate = ({
                       {errors.city?.value?.message || errors.city_id?.message}
                     </Form.ErrorMessage>
                   </Col>
-                  <Col className="pb-1" xs={8}>
+                  <Col className="pb-1" md={8} sm={24} xs={24}>
                     <Form.ControlLabel>Taluq</Form.ControlLabel>
                     <Controller
                       name={"taluq"}

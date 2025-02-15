@@ -21,13 +21,13 @@ function BankInfo({ data }: Props) {
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Bank name" value={data?.account.bank_name} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Branch name" value={data?.account.branch} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Account Type"
                 value={
@@ -37,22 +37,22 @@ function BankInfo({ data }: Props) {
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Account Holder Name"
                 value={data?.account.holder}
               />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Account Number" value={data?.account.acc_no} />
             </Col>
-            <Col className="pb-1" xs={8}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="IFSC Code No" value={data?.account.ifsc} />
             </Col>
           </Row>
           {data?.account.passbook && (
             <Row gutter={30}>
-              <Col className="pb-1" xs={8}>
+              <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Passbook Front Page Copy"
                   value={<FileViewer src={data?.account.passbook} />}

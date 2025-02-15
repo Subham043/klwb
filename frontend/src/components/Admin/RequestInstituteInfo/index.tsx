@@ -68,34 +68,34 @@ export default function RequestInstituteInfo({
             <ModalCardContainer header="Institute Request">
               <Grid fluid>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Name" value={data?.name} />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Email" value={data?.email} />
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Mobile" value={data?.mobile} />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Pincode" value={data?.pincode} />
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="District" value={data?.taluq.city.name} />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Taluq" value={data?.taluq.name} />
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Address" value={data?.address} />
                   </Col>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo
                       title="Status"
                       value={<StatusBadge status={data?.status || 0} />}
@@ -103,7 +103,7 @@ export default function RequestInstituteInfo({
                   </Col>
                 </Row>
                 <Row gutter={30}>
-                  <Col className="pb-1" xs={12}>
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo
                       title="Register Doc"
                       value={<FileViewer src={data?.register_doc} />}

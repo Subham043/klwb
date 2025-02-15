@@ -54,7 +54,7 @@ export default function AadharInfo({
       >
         <Grid fluid>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <TextInput
                 name="adharcard_no"
                 label="Aadhar Card Number"
@@ -62,7 +62,7 @@ export default function AadharInfo({
                 error={errors.adharcard_no?.message}
               />
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <div>
                 <FileInput
                   name="adharcard_file"
@@ -79,7 +79,7 @@ export default function AadharInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <div className="scholarship-no-mb">
                 <TextInput
                   name="f_adhar"
@@ -104,7 +104,7 @@ export default function AadharInfo({
                 </Checkbox>
               </div>
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               {not_applicable !== undefined && not_applicable === "father" ? (
                 <div>
                   <FileInput
@@ -137,7 +137,7 @@ export default function AadharInfo({
             </Col>
           </Row>
           <Row gutter={30}>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               <div className="scholarship-no-mb">
                 <TextInput
                   name="m_adhar"
@@ -162,7 +162,7 @@ export default function AadharInfo({
                 </Checkbox>
               </div>
             </Col>
-            <Col className="pb-1" xs={12}>
+            <Col className="pb-1" md={12} sm={24} xs={24}>
               {not_applicable !== undefined && not_applicable === "mother" ? (
                 <div>
                   <FileInput

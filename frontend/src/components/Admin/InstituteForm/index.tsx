@@ -216,7 +216,7 @@ export default function InstituteForm({
           <Form onSubmit={() => onSubmit()} style={{ width: "100%" }}>
             <Grid fluid>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <TextInput
                     name="name"
                     label="Institute Name"
@@ -224,7 +224,7 @@ export default function InstituteForm({
                     error={errors.name?.message}
                   />
                 </Col>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <TextInput
                     name="management_type"
                     label="Management Type"
@@ -234,7 +234,7 @@ export default function InstituteForm({
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <TextInput
                     name="category"
                     label="Institute Category"
@@ -242,7 +242,7 @@ export default function InstituteForm({
                     error={errors.category?.message}
                   />
                 </Col>
-                <Col className="pb-1" xs={12}>
+                <Col className="pb-1" md={12} sm={24} xs={24}>
                   <TextInput
                     name="type"
                     label="Institute Type"
@@ -252,7 +252,7 @@ export default function InstituteForm({
                 </Col>
               </Row>
               <Row gutter={30}>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <SelectInput
                     name="urban_rural"
                     label="Urban/Rural"
@@ -264,7 +264,7 @@ export default function InstituteForm({
                     error={errors.urban_rural?.message}
                   />
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <Form.ControlLabel>District</Form.ControlLabel>
                   <Controller
                     name={"city"}
@@ -296,7 +296,7 @@ export default function InstituteForm({
                     {errors.city?.value?.message || errors.city_id?.message}
                   </Form.ErrorMessage>
                 </Col>
-                <Col className="pb-1" xs={8}>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
                   <Form.ControlLabel>Taluq</Form.ControlLabel>
                   <Controller
                     name={"taluq"}
