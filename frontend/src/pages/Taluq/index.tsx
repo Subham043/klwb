@@ -31,22 +31,22 @@ const Taluq:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.Cell dataKey="id" />
+                    <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.Cell dataKey="name" />
+                    <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell dataKey="city.name" />
+                    <Table.Cell fullText dataKey="city.name" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>State</Table.HeaderCell>
-                    <Table.Cell dataKey="city.state.name" />
+                    <Table.Cell fullText dataKey="city.state.name" />
                 </Table.Column>
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
@@ -62,7 +62,7 @@ const Taluq:FC = () => {
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Created At</Table.HeaderCell>
 
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.created_at} />
                         )}

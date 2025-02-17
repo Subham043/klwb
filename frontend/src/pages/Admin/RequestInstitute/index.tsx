@@ -31,37 +31,37 @@ const RequestInstitute:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.Cell dataKey="id" />
+                    <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
                 <Table.Column  width={260}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.Cell dataKey="name" />
+                    <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Email</Table.HeaderCell>
-                    <Table.Cell dataKey="email" />
+                    <Table.Cell fullText dataKey="email" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Mobile</Table.HeaderCell>
-                    <Table.Cell dataKey="mobile" />
+                    <Table.Cell fullText dataKey="mobile" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Pincode</Table.HeaderCell>
-                    <Table.Cell dataKey="pincode" />
+                    <Table.Cell fullText dataKey="pincode" />
                 </Table.Column>
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell dataKey="taluq.city.name" />
+                    <Table.Cell fullText dataKey="taluq.city.name" />
                 </Table.Column>
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>Taluq</Table.HeaderCell>
-                    <Table.Cell dataKey="taluq.name" />
+                    <Table.Cell fullText dataKey="taluq.name" />
                 </Table.Column>
 
                 <Table.Column width={120} align="center" verticalAlign="middle">
@@ -74,10 +74,15 @@ const RequestInstitute:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
+                <Table.Column  width={160}>
+                    <Table.HeaderCell>Reject Reason</Table.HeaderCell>
+                    <Table.Cell fullText dataKey="reject_reason" />
+                </Table.Column>
+
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Requested At</Table.HeaderCell>
 
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.created_at} />
                         )}

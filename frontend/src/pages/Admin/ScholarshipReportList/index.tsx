@@ -32,56 +32,56 @@ const ScholarshipReportListPage:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Year</Table.HeaderCell>
-                    <Table.Cell dataKey="application_year" />
+                    <Table.Cell fullText dataKey="application_year" />
                 </Table.Column>
 
                 <Table.Column  width={200}>
                     <Table.HeaderCell>SC</Table.HeaderCell>
-                    <Table.Cell dataKey="sc_count" />
+                    <Table.Cell fullText dataKey="sc_count" />
                 </Table.Column>
 
                 <Table.Column  width={200}>
                     <Table.HeaderCell>ST</Table.HeaderCell>
-                    <Table.Cell dataKey="st_count" />
+                    <Table.Cell fullText dataKey="st_count" />
                 </Table.Column>
 
                 <Table.Column  width={200}>
                     <Table.HeaderCell>OBC</Table.HeaderCell>
-                    <Table.Cell dataKey="obc_count" />
+                    <Table.Cell fullText dataKey="obc_count" />
                 </Table.Column>
 
                 <Table.Column width={200}>
                     <Table.HeaderCell>General</Table.HeaderCell>
-                    <Table.Cell dataKey="general_count" />
+                    <Table.Cell fullText dataKey="general_count" />
                 </Table.Column>
 
                 <Table.Column width={200}>
                     <Table.HeaderCell>Male</Table.HeaderCell>
-                    <Table.Cell dataKey="male_count" />
+                    <Table.Cell fullText dataKey="male_count" />
                 </Table.Column>
 
                 <Table.Column width={200}>
                     <Table.HeaderCell>Female Count</Table.HeaderCell>
-                    <Table.Cell dataKey="female_count" />
+                    <Table.Cell fullText dataKey="female_count" />
                 </Table.Column>
 
                 <Table.Column width={200}>
                     <Table.HeaderCell>Pending Applications</Table.HeaderCell>
-                    <Table.Cell dataKey="pending_count" />
+                    <Table.Cell fullText dataKey="pending_count" />
                 </Table.Column>
 
                 <Table.Column width={200}>
                     <Table.HeaderCell>Rejected Applications</Table.HeaderCell>
-                    <Table.Cell dataKey="rejected_count" />
+                    <Table.Cell fullText dataKey="rejected_count" />
                 </Table.Column>
 
                 <Table.Column width={200}>
                     <Table.HeaderCell>Approved Applications</Table.HeaderCell>
-                    <Table.Cell dataKey="approved_count" />
+                    <Table.Cell fullText dataKey="approved_count" />
                 </Table.Column>
                 <Table.Column width={200} fixed="right">
                     <Table.HeaderCell>Total Applications</Table.HeaderCell>
-                    <Table.Cell dataKey="total_count" />
+                    <Table.Cell fullText dataKey="total_count" />
                 </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>

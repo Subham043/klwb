@@ -61,10 +61,10 @@ function StudentInfo({ data }: Props) {
             <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="Present Class / Course"
-                value={`${data?.mark?.class?.name}${
+                value={`${data?.mark?.class?.name ?? 'N/A'}${
                   data?.mark?.course?.name
-                    ? " / " + data?.mark?.course?.name
-                    : null
+                    ? (" / " + data?.mark?.course?.name)
+                    : ''
                 }`}
               />
             </Col>

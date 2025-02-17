@@ -179,52 +179,57 @@ export default function Contribution({ id }: Props) {
           >
             <Table.Column width={60} align="center" fixed>
               <Table.HeaderCell>Year</Table.HeaderCell>
-              <Table.Cell dataKey="year" />
+              <Table.Cell fullText dataKey="year" />
             </Table.Column>
 
             <Table.Column width={260}>
               <Table.HeaderCell>Company Name</Table.HeaderCell>
-              <Table.Cell dataKey="industry.name" />
+              <Table.Cell fullText dataKey="industry.name" />
             </Table.Column>
 
             <Table.Column  width={260}>
                 <Table.HeaderCell>Company Act</Table.HeaderCell>
-                <Table.Cell dataKey="industry.act_label" />
+                <Table.Cell fullText dataKey="industry.act_label" />
             </Table.Column>
 
             <Table.Column  width={260}>
                 <Table.HeaderCell>Company Category</Table.HeaderCell>
-                <Table.Cell dataKey="industry.category" />
+                <Table.Cell fullText dataKey="industry.category" />
             </Table.Column>
 
             <Table.Column width={260}>
               <Table.HeaderCell>District</Table.HeaderCell>
-              <Table.Cell dataKey="industry.city.name" />
+              <Table.Cell fullText dataKey="industry.city.name" />
             </Table.Column>
 
             <Table.Column width={260}>
               <Table.HeaderCell>Taluq</Table.HeaderCell>
-              <Table.Cell dataKey="industry.taluq.name" />
+              <Table.Cell fullText dataKey="industry.taluq.name" />
             </Table.Column>
 
             <Table.Column width={260}>
               <Table.HeaderCell>Male Count</Table.HeaderCell>
-              <Table.Cell dataKey="male" />
+              <Table.Cell fullText dataKey="male" />
             </Table.Column>
 
             <Table.Column width={260}>
               <Table.HeaderCell>Female Count</Table.HeaderCell>
-              <Table.Cell dataKey="female" />
+              <Table.Cell fullText dataKey="female" />
             </Table.Column>
 
             <Table.Column width={260}>
               <Table.HeaderCell>Total Count</Table.HeaderCell>
-              <Table.Cell dataKey="total_employees" />
+              <Table.Cell fullText dataKey="total_employees" />
             </Table.Column>
 
             <Table.Column width={160}>
               <Table.HeaderCell>Amount</Table.HeaderCell>
-              <Table.Cell dataKey="price" />
+              <Table.Cell fullText dataKey="price" />
+            </Table.Column>
+
+            <Table.Column  width={160}>
+                <Table.HeaderCell>Payment ID</Table.HeaderCell>
+                <Table.Cell fullText dataKey="pay_id" />
             </Table.Column>
 
             <Table.Column width={250} verticalAlign="middle">
@@ -275,7 +280,7 @@ export default function Contribution({ id }: Props) {
             <Table.Column width={250} verticalAlign="middle">
               <Table.HeaderCell>Paid On</Table.HeaderCell>
 
-              <Table.Cell style={{ padding: '6px' }}>
+              <Table.Cell fullText style={{ padding: '6px' }}>
                 {rowData => (
                   <Moment datetime={rowData.payed_on} />
                 )}

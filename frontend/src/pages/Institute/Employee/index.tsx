@@ -25,27 +25,27 @@ const InstituteEmployeePage:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.Cell dataKey="id" />
+                    <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.Cell dataKey="name" />
+                    <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Email</Table.HeaderCell>
-                    <Table.Cell dataKey="email" />
+                    <Table.Cell fullText dataKey="email" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Phone</Table.HeaderCell>
-                    <Table.Cell dataKey="phone" />
+                    <Table.Cell fullText dataKey="phone" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Role</Table.HeaderCell>
-                    <Table.Cell dataKey="role" />
+                    <Table.Cell fullText dataKey="role" />
                 </Table.Column>
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
@@ -61,7 +61,7 @@ const InstituteEmployeePage:FC = () => {
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Created At</Table.HeaderCell>
 
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.created_at} />
                         )}

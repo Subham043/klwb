@@ -98,7 +98,12 @@ export default function RequestInstituteInfo({
                   <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo
                       title="Status"
-                      value={<StatusBadge status={data?.status || 0} />}
+                      value={
+                        <>
+                          <StatusBadge status={data?.status || 0} />
+                          {(data?.reject_reason && data?.status===2) && <span><br/><code>Reason: </code> {data?.reject_reason}</span>}
+                        </>
+                      }
                     />
                   </Col>
                 </Row>

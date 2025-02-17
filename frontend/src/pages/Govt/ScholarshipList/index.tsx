@@ -30,52 +30,52 @@ const GovtScholarshipListPage: FC = () => {
                 >
                     <Table.Column width={60} align="center" fixed>
                         <Table.HeaderCell>Id</Table.HeaderCell>
-                        <Table.Cell dataKey="id" />
+                        <Table.Cell fullText dataKey="id" />
                     </Table.Column>
 
                     <Table.Column width={260}>
                         <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.Cell dataKey="basic_detail.name" />
+                        <Table.Cell fullText dataKey="basic_detail.name" />
                     </Table.Column>
 
                     <Table.Column width={260}>
                         <Table.HeaderCell>Phone</Table.HeaderCell>
-                        <Table.Cell dataKey="basic_detail.parent_phone" />
+                        <Table.Cell fullText dataKey="basic_detail.parent_phone" />
                     </Table.Column>
 
                     <Table.Column width={260}>
                         <Table.HeaderCell>Institute</Table.HeaderCell>
-                        <Table.Cell dataKey="present_institute_name" />
+                        <Table.Cell fullText dataKey="present_institute_name" />
                     </Table.Column>
 
                     <Table.Column width={260}>
                         <Table.HeaderCell>Industry</Table.HeaderCell>
-                        <Table.Cell dataKey="industry_name" />
+                        <Table.Cell fullText dataKey="industry_name" />
                     </Table.Column>
 
                     <Table.Column width={260}>
                         <Table.HeaderCell>Graduation</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.graduation.name" />
+                        <Table.Cell fullText dataKey="mark.graduation.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Course</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.course.name" />
+                        <Table.Cell fullText dataKey="mark.course.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Class</Table.HeaderCell>
-                        <Table.Cell dataKey="mark.class.name" />
+                        <Table.Cell fullText dataKey="mark.class.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Aadhar Card No.</Table.HeaderCell>
-                        <Table.Cell dataKey="basic_detail.adharcard_no" />
+                        <Table.Cell fullText dataKey="basic_detail.adharcard_no" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Father's Aadhar</Table.HeaderCell>
-                        <Table.Cell>
+                        <Table.Cell fullText>
                             {rowData => (
                                 <span>{rowData?.basic_detail.not_applicable &&
                                     rowData?.basic_detail.not_applicable === "father"
@@ -87,7 +87,7 @@ const GovtScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Mother's Aadhar</Table.HeaderCell>
-                        <Table.Cell>
+                        <Table.Cell fullText>
                             {rowData => (
                                 <span>{rowData?.basic_detail.not_applicable &&
                                     rowData?.basic_detail.not_applicable === "mother"
@@ -99,18 +99,18 @@ const GovtScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>District</Table.HeaderCell>
-                        <Table.Cell dataKey="company.district.name" />
+                        <Table.Cell fullText dataKey="company.district.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Taluq</Table.HeaderCell>
-                        <Table.Cell dataKey="company.taluq.name" />
+                        <Table.Cell fullText dataKey="company.taluq.name" />
                     </Table.Column>
 
                     <Table.Column width={160} verticalAlign="middle">
                         <Table.HeaderCell>Amount</Table.HeaderCell>
 
-                        <Table.Cell style={{ padding: '6px' }}>
+                        <Table.Cell fullText style={{ padding: '6px' }}>
                             {rowData => (
                                 <span>{rowData?.scholarship_fee?.amount || 0}</span>
                             )}
@@ -119,7 +119,7 @@ const GovtScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Year</Table.HeaderCell>
-                        <Table.Cell dataKey="application_year" />
+                        <Table.Cell fullText dataKey="application_year" />
                     </Table.Column>
 
                     <Table.Column width={270} verticalAlign="middle">
@@ -135,7 +135,7 @@ const GovtScholarshipListPage: FC = () => {
                     <Table.Column width={250} verticalAlign="middle">
                         <Table.HeaderCell>Applied On</Table.HeaderCell>
 
-                        <Table.Cell style={{ padding: '6px' }}>
+                        <Table.Cell fullText style={{ padding: '6px' }}>
                             {rowData => (
                                 <Moment datetime={rowData.date} />
                             )}

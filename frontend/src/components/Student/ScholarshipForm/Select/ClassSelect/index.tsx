@@ -7,8 +7,8 @@ import api from "../../../../../utils/config/axios";
 import { Form } from "rsuite";
 
 type OptionType = {
-  value: number;
-  label: string;
+  value?: number;
+  label?: string;
 };
 
 type Props = {
@@ -52,7 +52,7 @@ export default function ClassSelect({ value, setValue, isDisabled, course }: Pro
 				<div style={{ position: "relative", zIndex: 10}} key={course}>
           <Form.ControlLabel>Class</Form.ControlLabel>
           <AsyncPaginate
-              value={value}
+              value={value && value.value ? value : undefined}
               loadOptions={loadOptions}
               isDisabled={isDisabled}
               onChange={(value) => {setValue(value as OptionType);}}

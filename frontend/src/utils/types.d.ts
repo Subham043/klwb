@@ -152,6 +152,7 @@ export type RequestInstituteType = {
   taluq_id: number;
   taluq: TaluqType;
   status: number;
+  reject_reason?: string;
   created_at: string;
   updated_at: string;
 };
@@ -246,6 +247,7 @@ export type RequestIndustryType = {
     name: string;
   };
   status: number;
+  reject_reason?: string;
   created_at: string;
   updated_at: string;
 };

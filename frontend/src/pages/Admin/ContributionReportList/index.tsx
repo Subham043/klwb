@@ -28,27 +28,27 @@ const ContributionReportListPage:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Year</Table.HeaderCell>
-                    <Table.Cell dataKey="year" />
+                    <Table.Cell fullText dataKey="year" />
                 </Table.Column>
 
                 <Table.Column align="center" flexGrow={1}>
                     <Table.HeaderCell>Total No. of Male Employees</Table.HeaderCell>
-                    <Table.Cell dataKey="male_count" />
+                    <Table.Cell fullText dataKey="male_count" />
                 </Table.Column>
 
                 <Table.Column align="center" flexGrow={1}>
                     <Table.HeaderCell>Total No. of Female Employees</Table.HeaderCell>
-                    <Table.Cell dataKey="female_count" />
+                    <Table.Cell fullText dataKey="female_count" />
                 </Table.Column>
 
                 <Table.Column align="center" flexGrow={1}>
                     <Table.HeaderCell>Total No. of Contributions</Table.HeaderCell>
-                    <Table.Cell dataKey="total_countributions" />
+                    <Table.Cell fullText dataKey="total_countributions" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Total Amount of Contributions</Table.HeaderCell>
-                    <Table.Cell dataKey="total_countribution_amount" />
+                    <Table.Cell fullText dataKey="total_countribution_amount" />
                 </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>

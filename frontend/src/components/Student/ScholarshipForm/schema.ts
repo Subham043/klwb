@@ -22,9 +22,9 @@ export type ScholarshipFormSchemaType = {
 	graduation_id: number;
 	graduation: { value: number; label: string };
 	course_id?: number;
-	course?: { value: number; label: string };
+	course?: { value?: number; label?: string };
 	class_id?: number;
-	class?: { value: number; label: string };
+	class?: { value?: number; label?: string };
 	prv_class: string;
 	prv_marks: number;
 	marks_card_type: string;
@@ -157,11 +157,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 										value: yup
 												.number()
 												.typeError("Course must contain numbers only")
-												.required("Course is required"),
+												.optional(),
 										label: yup
 												.string()
 												.typeError("Course must contain characters only")
-												.required("Course is required"),
+												.optional(),
 								})
 								.optional(),
 		class_id: yup.number().typeError("Class must contain numbers only").optional(),
@@ -170,11 +170,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 										value: yup
 												.number()
 												.typeError("Class must contain numbers only")
-												.required("Class is required"),
+												.optional(),
 										label: yup
 												.string()
 												.typeError("Class must contain characters only")
-												.required("Class is required"),
+												.optional(),
 								})
 								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),
@@ -417,9 +417,9 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		graduation_id: 0,
 		graduation: { value: 0, label: ''	},
 		course_id: undefined,
-		course: { value: 0, label: ''	},
+		course: { value: undefined, label: undefined	},
 		class_id: undefined,
-		class: { value: 0, label: ''	},
+		class: { value: undefined, label: undefined	},
 		prv_class: '',
 		prv_marks: 0,
 		marks_card_type: '',
@@ -533,11 +533,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 										value: yup
 												.number()
 												.typeError("Course must contain numbers only")
-												.required("Course is required"),
+												.optional(),
 										label: yup
 												.string()
 												.typeError("Course must contain characters only")
-												.required("Course is required"),
+												.optional(),
 								})
 								.optional(),
 		class_id: yup.number().typeError("Class must contain numbers only").optional(),
@@ -546,11 +546,11 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 										value: yup
 												.number()
 												.typeError("Class must contain numbers only")
-												.required("Class is required"),
+												.optional(),
 										label: yup
 												.string()
 												.typeError("Class must contain characters only")
-												.required("Class is required"),
+												.optional(),
 								})
 								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),

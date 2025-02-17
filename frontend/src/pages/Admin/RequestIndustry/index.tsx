@@ -31,47 +31,47 @@ const RequestIndustry:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.Cell dataKey="id" />
+                    <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
                 <Table.Column  width={260}>
                     <Table.HeaderCell>Company</Table.HeaderCell>
-                    <Table.Cell dataKey="company" />
+                    <Table.Cell fullText dataKey="company" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Email</Table.HeaderCell>
-                    <Table.Cell dataKey="email" />
+                    <Table.Cell fullText dataKey="email" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Mobile</Table.HeaderCell>
-                    <Table.Cell dataKey="mobile" />
+                    <Table.Cell fullText dataKey="mobile" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>GST</Table.HeaderCell>
-                    <Table.Cell dataKey="gst_no" />
+                    <Table.Cell fullText dataKey="gst_no" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>PAN</Table.HeaderCell>
-                    <Table.Cell dataKey="pan_no" />
+                    <Table.Cell fullText dataKey="pan_no" />
                 </Table.Column>
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>ACT</Table.HeaderCell>
-                    <Table.Cell dataKey="act" />
+                    <Table.Cell fullText dataKey="act" />
                 </Table.Column>
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell dataKey="city.name" />
+                    <Table.Cell fullText dataKey="city.name" />
                 </Table.Column>
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>Taluq</Table.HeaderCell>
-                    <Table.Cell dataKey="taluq.name" />
+                    <Table.Cell fullText dataKey="taluq.name" />
                 </Table.Column>
 
                 <Table.Column width={120} align="center" verticalAlign="middle">
@@ -84,10 +84,15 @@ const RequestIndustry:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
+                <Table.Column  width={160}>
+                    <Table.HeaderCell>Reject Reason</Table.HeaderCell>
+                    <Table.Cell fullText dataKey="reject_reason" />
+                </Table.Column>
+
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Requested At</Table.HeaderCell>
 
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.created_at} />
                         )}

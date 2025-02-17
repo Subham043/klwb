@@ -31,7 +31,7 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     reference_industry: yup
       .string()
       .typeError("Reference Number must contain characters only")
-      .matches(/^KLWB-\d{14}$/ , 'Please enter a valid reference number in the format "KLWB-YYYYMMDDXXXXX"')
+      .matches(/^KLWB-\d{8}\d*$/ , 'Please enter a valid reference number in the format "KLWB-YYYYMMDDXXXXX"')
       .when("mode_industry", {
         is: "1",
         then: (schema) =>

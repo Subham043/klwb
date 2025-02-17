@@ -33,22 +33,22 @@ const ApplicationFee:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.Cell dataKey="id" />
+                    <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Amount</Table.HeaderCell>
-                    <Table.Cell dataKey="amount" />
+                    <Table.Cell fullText dataKey="amount" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Year</Table.HeaderCell>
-                    <Table.Cell dataKey="year" />
+                    <Table.Cell fullText dataKey="year" />
                 </Table.Column>
 
                 <Table.Column flexGrow={1}>
                     <Table.HeaderCell>Graduation</Table.HeaderCell>
-                    <Table.Cell dataKey="graduation.name" />
+                    <Table.Cell fullText dataKey="graduation.name" />
                 </Table.Column>
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
@@ -64,7 +64,7 @@ const ApplicationFee:FC = () => {
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Created At</Table.HeaderCell>
 
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.created_at} />
                         )}

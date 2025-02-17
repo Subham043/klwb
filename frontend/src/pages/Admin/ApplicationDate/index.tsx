@@ -27,17 +27,17 @@ const ApplicationDate:FC = () => {
             >
                 <Table.Column width={60} align="center" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.Cell dataKey="id" />
+                    <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
                 <Table.Column width={250}>
                     <Table.HeaderCell>Application Year</Table.HeaderCell>
-                    <Table.Cell dataKey="application_year" />
+                    <Table.Cell fullText dataKey="application_year" />
                 </Table.Column>
 
                 <Table.Column width={250} align="center">
                     <Table.HeaderCell>From Date</Table.HeaderCell>
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.from_date} format="DD MMM, YYYY" />
                         )}
@@ -46,7 +46,7 @@ const ApplicationDate:FC = () => {
 
                 <Table.Column width={250} align="center">
                     <Table.HeaderCell>To Date</Table.HeaderCell>
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.to_date} format="DD MMM, YYYY" />
                         )}
@@ -106,7 +106,7 @@ const ApplicationDate:FC = () => {
                 <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Created At</Table.HeaderCell>
 
-                    <Table.Cell style={{ padding: '6px' }}>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
                             <Moment datetime={rowData.created_at} />
                         )}

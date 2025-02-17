@@ -61,18 +61,18 @@ export default function ContributionActivityLog({ modal, modalHandler }: Props) 
 
               <Table.Column  flexGrow={1}>
                   <Table.HeaderCell>Description</Table.HeaderCell>
-                  <Table.Cell dataKey="description" />
+                  <Table.Cell fullText dataKey="description" />
               </Table.Column>
 
               <Table.Column  width={200}>
                   <Table.HeaderCell>Changed By</Table.HeaderCell>
-                  <Table.Cell dataKey="causer.name" />
+                  <Table.Cell fullText dataKey="causer.name" />
               </Table.Column>
 
               <Table.Column width={250} verticalAlign="middle">
                 <Table.HeaderCell>Updated On</Table.HeaderCell>
 
-                <Table.Cell style={{ padding: '6px' }}>
+                <Table.Cell fullText style={{ padding: '6px' }}>
                   {rowData => (
                     <Moment datetime={rowData.created_at} />
                   )}

@@ -184,9 +184,9 @@ export default function InstitutionInfo({
                         });
                         setValue("graduation_id", value.value);
                         setValue("course_id", undefined);
-                        setValue("course", { value: 0, label: "" });
+                        setValue("course", { value: undefined, label: undefined });
                         setValue("class_id", undefined);
-                        setValue("class", { value: 0, label: "" });
+                        setValue("class", { value: undefined, label: undefined });
                       }}
                     />
                   </>
@@ -216,12 +216,12 @@ export default function InstitutionInfo({
                         isDisabled={graduation_id === 0}
                         setValue={(value) => {
                           field.onChange({
-                            value: value.value,
-                            label: value.label,
+                            value: value.value ? value.value : undefined,
+                            label: value.label ? value.label : undefined,
                           });
-                          setValue("course_id", value.value);
+                          setValue("course_id", value.value ? value.value : undefined);
                           setValue("class_id", undefined);
-                          setValue("class", { value: 0, label: "" });
+                          setValue("class", { value: undefined, label: undefined });
                         }}
                       />
                     </>
@@ -252,10 +252,10 @@ export default function InstitutionInfo({
                         isDisabled={course_id === 0}
                         setValue={(value) => {
                           field.onChange({
-                            value: value.value,
-                            label: value.label,
+                            value: value.value ? value.value : undefined,
+                            label: value.label ? value.label : undefined,
                           });
-                          setValue("class_id", value.value);
+                          setValue("class_id", value.value ? value.value : undefined);
                         }}
                       />
                     </>
