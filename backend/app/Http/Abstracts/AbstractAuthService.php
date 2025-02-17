@@ -23,7 +23,7 @@ abstract class AbstractAuthService implements AuthServiceInterface
 
 	public function generate_token($user): string
 	{
-		return $user->createToken($user->email)->plainTextToken;
+		return $user->createToken($user->email ?? ((string) $user->id))->plainTextToken;
 	}
 
 	public function profile(string $guard): User

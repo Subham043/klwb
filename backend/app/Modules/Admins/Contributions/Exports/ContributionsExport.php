@@ -34,11 +34,12 @@ class ContributionsExport implements FromQuery, WithHeadings, WithMapping
 			$data->industry->taluq->name ?? '',
 			$data->year,
 			$data->pay_id,
-			$data->price,
 			$data->male,
 			$data->female,
 			$data->female + $data->male,
+			($data->female + $data->male) * 60,
 			$data->interest,
+			$data->price,
 			PaymentStatus::getValue($data->status),
 			optional($data->payed_on)->format('Y-m-d'),
 		];
@@ -55,11 +56,12 @@ class ContributionsExport implements FromQuery, WithHeadings, WithMapping
 			'Taluq',
 			'Year',
 			'Pay ID',
-			'Price',
 			'Male Count',
 			'Female Count',
 			'Total Count',
+			'Price',
 			'Interest',
+			'Total Amount',
 			'Status',
 			'Payed On'
 		];

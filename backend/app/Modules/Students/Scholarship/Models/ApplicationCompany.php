@@ -64,7 +64,7 @@ class ApplicationCompany extends Model
 	protected function salaryslipLink(): Attribute
 	{
 		return new Attribute(
-			get: fn() => ($this->salaryslip && Storage::exists($this->salaryslip)) ? Storage::temporaryUrl($this->salaryslip, now()->addMinutes(20)) : null,
+			get: fn() => ($this->salaryslip) ? (Storage::exists($this->salaryslip) ? Storage::temporaryUrl($this->salaryslip, now()->addMinutes(20)) : (Storage::exists(str()->replace('salaryslip', 'student-passbook', $this->salaryslip)) ? Storage::temporaryUrl(str()->replace('salaryslip', 'student-passbook', $this->salaryslip), now()->addMinutes(20)) : null)) : null,
 		);
 	}
 

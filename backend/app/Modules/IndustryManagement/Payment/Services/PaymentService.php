@@ -133,7 +133,7 @@ class PaymentService
 		], [
 			...$request->validated(),
 			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
-			'pay_id' => 'KLWB-' . date('Ydmhis') . rand(1, 10000),
+			'pay_id' => 'KLWB-' . date('Ydmhis') . random_int(10000000, 99999999),
 			'employee_excel' => $file,
 			'payed_on' => now(),
 			'interest' => $interest_amount,

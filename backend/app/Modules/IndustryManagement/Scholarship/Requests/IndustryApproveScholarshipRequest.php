@@ -29,7 +29,7 @@ class IndustryApproveScholarshipRequest extends InputRequest
     {
         return [
             'mode_industry' => ['required', 'boolean'],
-            'reference_industry' => ['nullable', Rule::requiredIf($this->mode_industry==true), Rule::prohibitedIf($this->mode_industry==false), 'string', 'max:250', 'regex:/^KLWB-\d{14}$/'],
+            'reference_industry' => ['nullable', Rule::requiredIf($this->mode_industry==true), Rule::prohibitedIf($this->mode_industry==false), 'string', 'max:250', 'regex:/^KLWB-\d{8}\d*$/'],
             'dd_industry' => ['nullable', Rule::requiredIf($this->mode_industry==false), Rule::prohibitedIf($this->mode_industry==true), 'string', 'max:250'],
             'amount_industry' => ['nullable', Rule::requiredIf($this->mode_industry==false), Rule::prohibitedIf($this->mode_industry==true), 'numeric'],
             'date_offline_industry' => ['nullable', Rule::requiredIf($this->mode_industry==false), Rule::prohibitedIf($this->mode_industry==true), 'date'],

@@ -30,11 +30,12 @@ class PaymentExport implements FromQuery, WithHeadings, WithMapping
 			$data->industry->name ?? '',
 			$data->year,
 			$data->pay_id,
-			$data->price,
 			$data->male,
 			$data->female,
 			$data->female + $data->male,
+			($data->female + $data->male) * 60,
 			$data->interest,
+			$data->price,
 			PaymentStatus::getValue($data->status),
 			optional($data->payed_on)->format('Y-m-d'),
 		];
@@ -47,11 +48,12 @@ class PaymentExport implements FromQuery, WithHeadings, WithMapping
 			'Industry',
 			'Year',
 			'Pay ID',
-			'Price',
 			'Male Count',
 			'Female Count',
 			'Total Count',
+			'Price',
 			'Interest',
+			'Total Amount',
 			'Status',
 			'Payed On'
 		];
