@@ -25,7 +25,7 @@ class ScholarshipStatusController extends Controller
     public function index(){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $applicationMain = $this->scholarshipService->getLatest();
-        $application = $this->scholarshipService->industryPaymentWrapper($applicationMain);
+        $application = $applicationMain ? $this->scholarshipService->industryPaymentWrapper($applicationMain) : $applicationMain;
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? ApplicationCollection::make($application) : null,
@@ -42,7 +42,7 @@ class ScholarshipStatusController extends Controller
         $response['is_eligible_to_apply'] = $this->applicationChecks->isEligibleForScholarship();
         if(!$response['is_eligible_to_apply']){
             $response['message'] = "You have already applied scholarship for the year ".$applicationDate->application_year;
-            $response['can_resubmit'] = $this->applicationChecks->canResubmit($application);
+            $response['can_resubmit'] = $application ? $this->applicationChecks->canResubmit($application) : false;
         }
         return response()->json($response, 200);
     }
