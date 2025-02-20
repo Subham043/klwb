@@ -39,7 +39,7 @@ const FileInput = (props: PropType) => {
                 field.onChange(undefined);
               }}
             >
-              <Button className="w-100">Select files...</Button>
+              <Button className="w-100" color="cyan" appearance="primary">Select file</Button>
             </Uploader>
             {helpText && (
               <Form.HelpText>

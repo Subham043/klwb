@@ -95,7 +95,7 @@
 																																																				<span style="font-size: 14px; line-height: 25.2px; color: #666666;"><b>Female Employees:</b> {{ $payment->female ?? '' }}</span>
 																																																</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
-																																																				<span style="font-size: 14px; line-height: 25.2px; color: #666666;"><b>Interest:</b> {{ $payment->interest ?? '' }}</span>
+																																																				<span style="font-size: 14px; line-height: 25.2px; color: #666666;"><b>Interest:</b> {{ $payment->interest ?? '0' }}</span>
 																																																</p>
 																																																<p style="font-size: 14px; line-height: 140%;">
 																																																				<span style="font-size: 14px; line-height: 25.2px; color: #666666;"><b>Amount:</b> {{ $payment->price ?? '' }}</span>

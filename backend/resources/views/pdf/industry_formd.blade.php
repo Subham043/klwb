@@ -60,7 +60,7 @@
 																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">Wether the Contribution is sent by Payment in favour of the Welfare Commissioner, Banglore</td>
 																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">
 																																										<span><b  class="sans_serif">Amount</b> : {{$payment->price}}</span><br>
-																																										<span><b  class="sans_serif">Interest</b> : {{$payment->interest}}</span><br>
+																																										<span><b  class="sans_serif">Interest</b> : {{$payment->interest ?? '0'}}</span><br>
 																																										<span><b  class="sans_serif">Payment ID</b>   : {{$payment->pay_id}}</span><br>
 																																										<span><b  class="sans_serif">Date :</b> {{$payment->payed_on ? $payment->payed_on->format("d M Y") : ''}}</span>
 																																						</td>

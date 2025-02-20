@@ -345,9 +345,9 @@ function IndustryRegisterPage() {
                   </Form.ErrorMessage>
                   <p>
                     <b>
-                      Incase Industry not in above list -{" "}
+                      To add new industry name -{" "}
                       <Link to={page_routes.industry.auth.request}>
-                        Request Industry
+                        Add Here
                       </Link>
                     </b>
                   </p>
@@ -435,7 +435,7 @@ function IndustryRegisterPage() {
                     name="reg_doc"
                     accept="image/png, image/jpeg, image/jpg"
                     label="Upload Industry Reg. Doc"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Kindly upload valid industry registration document. Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.reg_doc?.message}
                   />
@@ -454,7 +454,7 @@ function IndustryRegisterPage() {
               <FileInput
                 name="seal"
                 accept="image/png, image/jpeg, image/jpg"
-                label="Upload Seal"
+                label="Upload Industry Seal"
                 helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.seal?.message}

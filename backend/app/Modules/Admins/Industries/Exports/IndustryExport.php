@@ -26,11 +26,11 @@ class IndustryExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			$data->id,
-			$data->reg_id,
+			// $data->reg_id,
 			$data->name,
 			Act::getValue($data->act) ?? '',
 			$data->category ?? '',
-			$data->pincode,
+			(string) $data->pincode,
 			$data->is_active ? 'Yes' : 'No',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];
@@ -40,7 +40,7 @@ class IndustryExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			'Id',
-			'Reg ID.',
+			// 'Reg ID.',
 			'Name',
 			'Act',
 			'Category',

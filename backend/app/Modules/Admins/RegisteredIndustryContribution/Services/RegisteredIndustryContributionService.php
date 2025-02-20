@@ -20,8 +20,12 @@ class RegisteredIndustryContributionService
 	{
 		return Payment::with([
 			'industry' => function ($query) {
-				$query->with(['city', 'taluq']);
-			}
+				$query->with([
+					'auth' => function ($query) {
+						$query->with(['city', 'taluq']);
+					}
+				]);
+			},
 		])->whereHas('industry')->where('comp_regd_id', $reg_industry_id);
 	}
 	protected function query(string $reg_industry_id): QueryBuilder
@@ -34,12 +38,12 @@ class RegisteredIndustryContributionService
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
 					$query->whereHas('industry', function ($qry) use ($value) {
-						$qry->where('taluq_id', $value);
+						$qry->whereHas('auth', function ($q) use ($value) { $q->where('taluq_id', $value); });
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
 					$query->whereHas('industry', function ($qry) use ($value) {
-						$qry->where('city_id', $value);
+						$qry->whereHas('auth', function ($q) use ($value) { $q->where('city_id', $value); });
 					});
 				}),
 				AllowedFilter::callback('from_date', function (Builder $query, $value) {
@@ -92,15 +96,15 @@ class RegisteredIndustryContributionService
 														'Industry' => $data->industry->name ?? '',
 														'Act' => Act::getValue($data->industry->act) ?? '',
 														'Category' => $data->industry->category ?? '',
-														'District' => $data->industry->city->name ?? '',
-														'Taluq' => $data->industry->taluq->name ?? '',
+														'District' => $data->industry->auth->city->name ?? '',
+														'Taluq' => $data->industry->auth->taluq->name ?? '',
 														'Year' => $data->year,
 														'Pay ID' => $data->pay_id,
 														'Price' => $data->price,
 														'Male Count' => $data->male,
 														'Female Count' => $data->female,
 														'Total Count' => $data->female + $data->male,
-														'Interest' => $data->interest,
+														'Interest' => $data->interest ?? '0',
 														'Status' => PaymentStatus::getValue($data->status),
 														'Payed On' => $data->payed_on->format('Y-m-d'),
 										]);

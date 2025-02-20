@@ -219,7 +219,7 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 					<IndustryInfo control={control} errors={errors} watch={watch} setValue={setValue} type={type} salaryslip={data?.company.salaryslip} />
 					<ButtonToolbar style={{ width: '100%', justifyContent: 'flex-start', gap: '5px' }}>
 						<Button appearance="primary" size='lg' type="submit" loading={loading} disabled={loading}>Submit</Button>
-						<Button appearance="primary" color="orange" size='lg' type="button" onClick={() => reset(scholarshipFormInitialValues)}>Reset</Button>
+						{/* <Button appearance="primary" color="orange" size='lg' type="button" onClick={() => reset(scholarshipFormInitialValues)}>Reset</Button> */}
 						<Link to={page_routes.student.dashboard}><Button appearance="primary" size='lg' color="red" type='button'>Cancel</Button></Link>
 					</ButtonToolbar>
 				</Form.Group>

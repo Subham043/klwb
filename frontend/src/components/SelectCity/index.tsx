@@ -42,7 +42,7 @@ const SelectCity = (props: PropType) => {
         api_routes.user.city.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}`
+          }&total=10&sort=name&filter[search]=${search}`
       );
       return {
         options: response.data.data.map((city) => ({

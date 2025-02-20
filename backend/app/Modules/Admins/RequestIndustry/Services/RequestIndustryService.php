@@ -19,7 +19,7 @@ class RequestIndustryService extends AbstractExcelService
         return RequestIndustry::with([
             'taluq',
             'city',
-        ]);
+        ])->where('status', '!=', 1);
     }
     public function query(): QueryBuilder
     {
@@ -35,9 +35,9 @@ class RequestIndustryService extends AbstractExcelService
                         $query->where('city_id', $value);
                     }),
                     AllowedFilter::callback('status', function (Builder $query, $value) {
-                        if ($value == 'approved') {
-                            $query->where('status', 1);
-                        }
+                        // if ($value == 'approved') {
+                        //     $query->where('status', 1);
+                        // }
                         if ($value == 'rejected') {
                             $query->where('status', 2);
                         }

@@ -79,29 +79,24 @@ export default function RequestIndustryInfo({
                   <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Mobile" value={data?.mobile} />
                   </Col>
-                  <Col className="pb-1" md={12} sm={24} xs={24}>
+                  {/* <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Act" value={data?.act_label} />
+                  </Col> */}
+                  <Col className="pb-1" md={12} sm={24} xs={24}>
+                    <DetailInfo title="District" value={data?.city.name} />
                   </Col>
                 </Row>
-                <Row gutter={30}>
+                {/* <Row gutter={30}>
                   <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="GST" value={data?.gst_no} />
                   </Col>
                   <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="PAN" value={data?.pan_no} />
                   </Col>
-                </Row>
+                </Row> */}
                 <Row gutter={30}>
-                  <Col className="pb-1" md={12} sm={24} xs={24}>
-                    <DetailInfo title="District" value={data?.city.name} />
-                  </Col>
                   <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo title="Taluq" value={data?.taluq.name} />
-                  </Col>
-                </Row>
-                <Row gutter={30}>
-                  <Col className="pb-1" md={12} sm={24} xs={24}>
-                    <DetailInfo title="Address" value={data?.address} />
                   </Col>
                   <Col className="pb-1" md={12} sm={24} xs={24}>
                     <DetailInfo
@@ -113,6 +108,11 @@ export default function RequestIndustryInfo({
                         </>
                       }
                     />
+                  </Col>
+                </Row>
+                <Row gutter={30}>
+                  <Col className="pb-1" md={24} sm={24} xs={24}>
+                    <DetailInfo title="Address" value={data?.address} />
                   </Col>
                 </Row>
                 <Row gutter={30}>

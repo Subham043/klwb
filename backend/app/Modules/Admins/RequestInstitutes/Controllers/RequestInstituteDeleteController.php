@@ -20,7 +20,7 @@ class RequestInstituteDeleteController extends Controller
      */
     
     public function index($id){
-        $institute = $this->instituteService->getById($id);
+        $institute = $this->instituteService->getPendingById($id);
         DB::beginTransaction();
         try {
             //code...

@@ -274,6 +274,10 @@ h2{
     gap: 5px;
 }
 
+.pdf-reader-modal{
+    margin-right: 20px !important;
+}
+
 @media screen and (max-width: 600px) {
     .container{
         padding: 0;

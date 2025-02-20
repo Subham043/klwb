@@ -24,11 +24,11 @@ class ContributionExport implements FromQuery, WithHeadings, WithMapping
 	public function map($data): array
 	{
 		return [
-			$data->year,
-			$data->male_count,
-			$data->female_count,
-			$data->total_countributions,
-			$data->total_countribution_amount,
+			(string) $data->year,
+			(string) $data->male_count,
+			(string) $data->female_count,
+			(string) $data->total_countributions,
+			(string) $data->total_countribution_amount,
 		];
 	}
 

@@ -55,7 +55,7 @@ export default function ResetWithEmail({login_link, reset_password_redirect=page
         setLoading(true);
         try {
             const response = await axios.post<{ param: string }>(forgot_password_email_api_link, getValues());
-            toastSuccess("This page is valid for next 5 minutes. Please check your email or phone to reset your password.");
+            toastSuccess("This page is valid for next 20 minutes. Please check your email or phone to reset your password.");
             reset({
                 email: "",
                 captcha: "",

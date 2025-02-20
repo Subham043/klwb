@@ -9,11 +9,13 @@ import { ViewLink } from "../../../components/Buttons/ViewBtn";
 import StatusBadge from "../../../components/Institute/StatusBadge";
 import ApplicationFilter from "../../../components/ApplicationFilter";
 import { api_routes } from "../../../utils/routes/api";
+import { useSearchParams } from "react-router-dom";
 
 
 const GovtScholarshipListPage: FC = () => {
     const { data, isLoading, isFetching, isRefetching, refetch, error } = useGovtScholarshipListQuery();
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+    const [searchParams] = useSearchParams();
 
     return <>
         <PaginatedTableLayout title="Scholarship List">
@@ -99,12 +101,12 @@ const GovtScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>District</Table.HeaderCell>
-                        <Table.Cell fullText dataKey="company.district.name" />
+                        <Table.Cell fullText dataKey="mark.district.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Taluq</Table.HeaderCell>
-                        <Table.Cell fullText dataKey="company.taluq.name" />
+                        <Table.Cell fullText dataKey="mark.taluq.name" />
                     </Table.Column>
 
                     <Table.Column width={160} verticalAlign="middle">
@@ -131,6 +133,11 @@ const GovtScholarshipListPage: FC = () => {
                             )}
                         </Table.Cell>
                     </Table.Column>
+
+                    {searchParams.get("status")==="rejected" && <Table.Column width={250} verticalAlign="middle">
+                        <Table.HeaderCell>Reject Reason</Table.HeaderCell>
+                        <Table.Cell fullText dataKey="reject_reason" />
+                    </Table.Column>}
 
                     <Table.Column width={250} verticalAlign="middle">
                         <Table.HeaderCell>Applied On</Table.HeaderCell>

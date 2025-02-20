@@ -36,10 +36,10 @@ const NonRegisteredInstitute:FC = () => {
                     <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                {/* <Table.Column width={260}>
                     <Table.HeaderCell>Reg. No.</Table.HeaderCell>
                     <Table.Cell fullText dataKey="reg_no" />
-                </Table.Column>
+                </Table.Column> */}
 
                 <Table.Column width={260}>
                     <Table.HeaderCell>Management Type</Table.HeaderCell>

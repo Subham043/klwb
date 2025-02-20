@@ -25,10 +25,10 @@ class FeeExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			$data->id,
-			$data->amount,
-			$data->year,
+			(string) $data->amount,
+			(string) $data->year,
 			$data->graduation->name,
-			$data->graduation->id,
+			(string) $data->graduation->id,
 			$data->is_active ? 'Yes' : 'No',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];

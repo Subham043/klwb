@@ -93,7 +93,7 @@ class InstituteService extends AbstractExcelService
             foreach ($items as $data) {
                 $writer->addRow([
                     'Id' => $data->id,
-                    'Reg No.' => $data->reg_no ?? '',
+                    // 'Reg No.' => $data->reg_no ?? '',
                     'Name' => $data->name ?? '',
                     'Management Type' => $data->management_type ?? '',
                     'Category' => $data->category ?? '',

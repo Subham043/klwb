@@ -27,7 +27,7 @@ class EmployeeExport implements FromQuery, WithHeadings, WithMapping
 			$data->id,
 			$data->name,
 			$data->email,
-			$data->phone,
+			(string) $data->phone,
 			$data->current_role,
 			$data->is_blocked ? 'Yes' : 'No',
 			$data->created_at->format('Y-m-d H:i:s'),

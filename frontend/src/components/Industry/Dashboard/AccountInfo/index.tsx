@@ -92,23 +92,23 @@ export default function IndustryDashboardAccountInfo() {
                     value={account_info?.industry.name}
                   />
                 </Col>
-                <Col className="pb-1" md={8} sm={24} xs={24}>
+                {/* <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Industry Reg. No."
                     value={account_info?.industry.reg_id}
                   />
-                </Col>
+                </Col> */}
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo
                     title="Director Name"
                     value={account_info?.name}
                   />
                 </Col>
-              </Row>
-              <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Email" value={account_info?.email} />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Phone" value={account_info?.phone} />
                 </Col>
@@ -118,11 +118,11 @@ export default function IndustryDashboardAccountInfo() {
                     value={account_info?.industry.pincode}
                   />
                 </Col>
-              </Row>
-              <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="GST No." value={account_info?.gst_no} />
                 </Col>
+              </Row>
+              <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="PAN No." value={account_info?.pan_no} />
                 </Col>
@@ -132,10 +132,13 @@ export default function IndustryDashboardAccountInfo() {
                     value={account_info?.city.name}
                   />
                 </Col>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
+                  <DetailInfo title="Taluq" value={account_info?.taluq.name} />
+                </Col>
               </Row>
               <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
-                  <DetailInfo title="Taluq" value={account_info?.taluq.name} />
+                  <DetailInfo title="Address" value={account_info?.address} />
                 </Col>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Act" value={account_info?.industry.act_label} />
@@ -144,11 +147,11 @@ export default function IndustryDashboardAccountInfo() {
                   <DetailInfo title="Category" value={account_info?.industry.category} />
                 </Col>
               </Row>
-              <Row gutter={30}>
+              {/* <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Address" value={account_info?.address} />
                 </Col>
-              </Row>
+              </Row> */}
             </Grid>
           </MainCardContainer>
         </div>

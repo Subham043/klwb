@@ -28,7 +28,7 @@ export default function TaluqSelect({ value, setValue, isDisabled, district }: P
         api_routes.admin.taluq.paginate +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${search}${
             additional && additional.district_id ? `&filter[has_city]=${additional.district_id}` : ""
           }`
       );

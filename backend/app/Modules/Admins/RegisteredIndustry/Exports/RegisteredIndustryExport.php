@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\RegisteredIndustry\Exports;
 
+use App\Modules\Admins\RequestIndustry\Enums\Act;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -25,11 +26,16 @@ class RegisteredIndustryExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			$data->id,
+			$data->industry->name,
 			$data->name,
+			(string) $data->phone,
 			$data->email,
-			$data->phone,
-			$data->current_role,
-			$data->is_blocked ? 'Yes' : 'No',
+			Act::getValue($data->industry->act) ?? '',
+			$data->industry->category ?? '',
+			$data->taluq->name,
+			(string) $data->taluq->id,
+			$data->city->name,
+			(string) $data->city->id,
 			$data->created_at->format('Y-m-d H:i:s'),
 		];
 	}
@@ -39,10 +45,15 @@ class RegisteredIndustryExport implements FromQuery, WithHeadings, WithMapping
 		return [
 			'Id',
 			'Name',
+			'Director Name',
+			'Mobile',
 			'Email',
-			'Phone',
-			'Role',
-			'Blocked',
+			'Act',
+			'Category',
+			'Taluq',
+			'Taluq ID',
+			'District',
+			'District ID',
 			'Created At',
 		];
 	}

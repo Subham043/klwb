@@ -27,7 +27,7 @@ export default function GraduationSelect({ value, setValue, isDisabled }: Props)
         api_routes.admin.graduation.paginate +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}`
+          }&total=10&sort=name&filter[search]=${search}`
       );
       return {
         options: response.data.data.map((graduation) => ({

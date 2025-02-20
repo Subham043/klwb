@@ -325,9 +325,9 @@ function InstituteRegisterPage() {
                   </Form.ErrorMessage>
                   <p>
                     <b>
-                    Incase Institute not in above list -{" "}
+                      To add new institute name -{" "}
                     <Link to={page_routes.institute.auth.request}>
-                      Request Institute
+                      Add Here
                     </Link>
                     </b>
                   </p>
@@ -403,7 +403,7 @@ function InstituteRegisterPage() {
                     name="reg_certification"
                     accept="image/png, image/jpeg, image/jpg"
                     label="Upload Institute Reg. File"
-                    helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                    helpText=" Kindly upload valid institute registration document. Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.reg_certification?.message}
                   />
@@ -422,7 +422,7 @@ function InstituteRegisterPage() {
               <FileInput
                 name="seal"
                 accept="image/png, image/jpeg, image/jpg"
-                label="Upload Seal"
+                label="Upload Institute Seal"
                 helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.seal?.message}

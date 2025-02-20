@@ -42,10 +42,10 @@ const NonContribution:FC = () => {
                     <Table.Cell fullText dataKey="category" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                {/* <Table.Column width={260}>
                     <Table.HeaderCell>Reg No.</Table.HeaderCell>
                     <Table.Cell fullText dataKey="reg_id" />
-                </Table.Column>
+                </Table.Column> */}
 
                 <Table.Column width={60} align="center" verticalAlign="middle">
                     <Table.HeaderCell>Status</Table.HeaderCell>

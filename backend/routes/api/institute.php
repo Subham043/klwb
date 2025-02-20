@@ -20,6 +20,7 @@ use App\Modules\Auth\Institute\Authentication\Controllers\ResetPasswordControlle
 use App\Modules\Auth\Institute\Authentication\Controllers\ResetPasswordResendOtpController;
 use App\Modules\InstituteManagement\Dashboard\InstituteDashboardController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipApproveController;
+use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipExportController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipListController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipPdfController;
 use App\Modules\InstituteManagement\Scholarship\Controllers\InstituteScholarshipRejectController;
@@ -76,6 +77,7 @@ Route::prefix('institute')->group(function () {
         Route::middleware([Guards::Institute->middleware(), 'verified', 'role:Institute|Institute-Staff'])->group(function () {
             Route::prefix('scholarship')->group(function () {
                 Route::get('/list', [InstituteScholarshipListController::class, 'index']);
+                Route::get('/excel', [InstituteScholarshipExportController::class, 'index']);
                 Route::get('/view/{id}', [InstituteScholarshipViewController::class, 'index']);
                 Route::get('/pdf/{id}', [InstituteScholarshipPdfController::class, 'index']);
                 Route::post('/approve/{id}', [InstituteScholarshipApproveController::class, 'index']);

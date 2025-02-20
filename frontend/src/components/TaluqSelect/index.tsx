@@ -33,7 +33,7 @@ export default function TaluqSelect({
       const response = await api.get<PaginationType<TaluqType>>(
         api_routes.user.taluq.all +
           `?page=${additional ? additional.page : 1}${
-            city_id ? `&filter[has_city]=${city_id}` : ""
+            city_id ? `&sort=name&filter[has_city]=${city_id}` : ""
           }&total=10&filter[search]=${search}`
       );
 

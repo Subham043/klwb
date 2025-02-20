@@ -24,7 +24,7 @@ class RequestInstituteService extends AbstractExcelService
                     }
                 ]);
             }
-        ]);
+        ])->where('status', '!=', 1);
     }
     public function query(): QueryBuilder
     {
@@ -42,9 +42,9 @@ class RequestInstituteService extends AbstractExcelService
                         $query->where('taluq_id', $value);
                     }),
                     AllowedFilter::callback('status', function (Builder $query, $value) {
-                        if ($value == 'approved') {
-                            $query->where('status', 1);
-                        }
+                        // if ($value == 'approved') {
+                        //     $query->where('status', 1);
+                        // }
                         if ($value == 'rejected') {
                             $query->where('status', 2);
                         }

@@ -254,7 +254,7 @@ function InstituteRequestPage() {
                 name="register_doc"
                 accept="image/png, image/jpeg, image/jpg"
                 label="Upload Institute Reg. Document"
-                helpText=" Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
+                helpText=" Kindly upload valid institute registration document. Only JPG, JPEG, PNG images are allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.register_doc?.message}
               />

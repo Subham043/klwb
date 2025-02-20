@@ -38,7 +38,7 @@ const SelectClassStatus = (props: PropType) => {
         api_routes.user.class.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${search}${
             searchParams.get("course_id") ? `&filter[has_course]=${searchParams.get("course_id")}` : ""
           }`
       );

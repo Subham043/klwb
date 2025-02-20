@@ -170,7 +170,7 @@ class PaymentService
 														'Male Count' => $data->male,
 														'Female Count' => $data->female,
 														'Total Count' => $data->female + $data->male,
-														'Interest' => $data->interest,
+														'Interest' => $data->interest ?? '0',
 														'Status' => PaymentStatus::getValue($data->status),
 														'Payed On' => $data->payed_on->format('Y-m-d'),
 										]);

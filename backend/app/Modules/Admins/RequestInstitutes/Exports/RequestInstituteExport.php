@@ -27,14 +27,14 @@ class RequestInstituteExport implements FromQuery, WithHeadings, WithMapping
 			$data->id,
 			$data->name,
 			$data->email,
-			$data->mobile,
+			(string) $data->mobile,
 			$data->pincode,
 			$data->address,
 			$data->taluq->name,
-			$data->taluq->id,
+			(string) $data->taluq->id,
 			$data->taluq->city->name,
-			$data->taluq->city->id,
-			$data->is_active ? 'Yes' : 'No',
+			(string) $data->taluq->city->id,
+			$data->reject_reason ?? '',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];
 	}
@@ -52,7 +52,7 @@ class RequestInstituteExport implements FromQuery, WithHeadings, WithMapping
 			'Taluq ID',
 			'District',
 			'District ID',
-			'Active',
+			'Reason',
 			'Created At',
 		];
 	}

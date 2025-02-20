@@ -11,11 +11,38 @@ import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
 import StatusBadge from "../../../components/Student/StatusBadge";
 import SelectStatus from "../../../components/Institute/SelectStatus";
+import { useAxios } from "../../../hooks/useAxios";
+import { useToast } from "../../../hooks/useToast";
+import { isAxiosError } from "axios";
+import { AxiosErrorResponseType } from "../../../utils/types";
+import DeleteBtn from "../../../components/Buttons/DeleteBtn";
 
 
 const RequestIndustry:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useRequestIndustriesQuery();
     const [openModal, setOpenModal] = useState<{status:boolean, id?:number}>({status: false});
+    const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+    const { toastError, toastSuccess } = useToast();
+    const axios = useAxios();
+
+    const onDeleteHandler = async (id: number) => {
+        setDeleteLoading(true);
+        try {
+            await axios.delete(api_routes.admin.request_industry.delete(id), {});
+            toastSuccess("Request Deleted Successfully");
+            refetch();
+        } catch (error) {
+            if (isAxiosError<AxiosErrorResponseType>(error)) {
+                if (error?.response?.data?.message) {
+                    toastError(error.response.data.message);
+                } else {
+                    toastError("Something went wrong");
+                }
+            }
+        } finally {
+            setDeleteLoading(false);
+        }
+    };
 
     return <PaginatedTableLayout title="Industry Request List">
         <PaginatedTableLayout.Header title="Industry Request List" addBtn={false} excelLink={api_routes.admin.request_industry.excel} excelName="request_industry.xlsx">
@@ -49,7 +76,7 @@ const RequestIndustry:FC = () => {
                     <Table.Cell fullText dataKey="mobile" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                {/* <Table.Column width={260}>
                     <Table.HeaderCell>GST</Table.HeaderCell>
                     <Table.Cell fullText dataKey="gst_no" />
                 </Table.Column>
@@ -62,7 +89,7 @@ const RequestIndustry:FC = () => {
                 <Table.Column width={260}>
                     <Table.HeaderCell>ACT</Table.HeaderCell>
                     <Table.Cell fullText dataKey="act" />
-                </Table.Column>
+                </Table.Column> */}
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>District</Table.HeaderCell>
@@ -106,6 +133,7 @@ const RequestIndustry:FC = () => {
                         {rowData => (
                             <ButtonToolbar>
                                 <IconButton appearance="primary" color="orange" icon={<VisibleIcon />} onClick={() => setOpenModal({status:true, id:rowData.id})} />
+                                {rowData.status===0 && <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />}
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

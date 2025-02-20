@@ -29,6 +29,7 @@ use App\Modules\IndustryManagement\Payment\Controllers\PaymentStatusController;
 use App\Modules\IndustryManagement\Payment\Controllers\PaymentViewController;
 use App\Modules\IndustryManagement\Payment\Controllers\SBIPaymentVerifyController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipApproveController;
+use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipExportController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipListController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipPdfController;
 use App\Modules\IndustryManagement\Scholarship\Controllers\IndustryScholarshipRejectController;
@@ -97,6 +98,7 @@ Route::prefix('industry')->group(function () {
         Route::middleware([Guards::Industry->middleware(), 'verified', 'role:Industry|Industry-Staff'])->group(function () {
             Route::prefix('scholarship')->group(function () {
                 Route::get('/list', [IndustryScholarshipListController::class, 'index']);
+                Route::get('/excel', [IndustryScholarshipExportController::class, 'index']);
                 Route::get('/view/{id}', [IndustryScholarshipViewController::class, 'index']);
                 Route::post('/approve/{id}', [IndustryScholarshipApproveController::class, 'index']);
                 Route::post('/reject/{id}', [IndustryScholarshipRejectController::class, 'index']);

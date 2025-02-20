@@ -42,7 +42,7 @@ const SelectCourseStatus = (props: PropType) => {
         api_routes.user.course.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${search}${
             searchParams.get("graduation_id") ? `&filter[has_graduation]=${searchParams.get("graduation_id")}` : ""
           }`
       );

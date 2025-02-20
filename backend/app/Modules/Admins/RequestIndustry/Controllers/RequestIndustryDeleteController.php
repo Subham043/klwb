@@ -18,7 +18,7 @@ class RequestIndustryDeleteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($id){
-        $industry = $this->industryService->getById($id);
+        $industry = $this->industryService->getPendingById($id);
         DB::beginTransaction();
         try {
             //code...

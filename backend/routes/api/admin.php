@@ -323,7 +323,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('/update/{id}', [RequestInstituteUpdateController::class, 'index']);
                 Route::post('/approve/{id}', [RequestInstituteApproveController::class, 'index']);
                 Route::post('/reject/{id}', [RequestInstituteRejectController::class, 'index']);
-                // Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
+                Route::delete('/delete/{id}', [RequestInstituteDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestInstituteViewController::class, 'index']);
             });
             Route::prefix('registered-institutes')->group(function () {
@@ -374,7 +374,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('/update/{id}', [RequestIndustryUpdateController::class, 'index']);
                 Route::post('/approve/{id}', [RequestIndustryApproveController::class, 'index']);
                 Route::post('/reject/{id}', [RequestIndustryRejectController::class, 'index']);
-                // Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
+                Route::delete('/delete/{id}', [RequestIndustryDeleteController::class, 'index']);
                 Route::get('/view/{id}', [RequestIndustryViewController::class, 'index']);
             });
             Route::prefix('registered-industries')->group(function () {

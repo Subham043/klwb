@@ -156,32 +156,46 @@ const ContributionListPage:FC = () => {
                     <Table.Cell fullText dataKey="industry.taluq.name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={100}>
                     <Table.HeaderCell>Male Count</Table.HeaderCell>
                     <Table.Cell fullText dataKey="male" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={100}>
                     <Table.HeaderCell>Female Count</Table.HeaderCell>
                     <Table.Cell fullText dataKey="female" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={100}>
                     <Table.HeaderCell>Total Count</Table.HeaderCell>
                     <Table.Cell fullText dataKey="total_employees" />
                 </Table.Column>
+                
+                <Table.Column width={100} verticalAlign="middle">
+                    <Table.HeaderCell>Price</Table.HeaderCell>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
+                        {rowData => (
+                            <span>{rowData.total_employees * 60}</span>
+                        )}
+                    </Table.Cell>
+                </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={100}>
+                    <Table.HeaderCell>Interest</Table.HeaderCell>
+                    <Table.Cell fullText dataKey="interest" />
+                </Table.Column>
+                
+                <Table.Column  width={100}>
                     <Table.HeaderCell>Amount</Table.HeaderCell>
                     <Table.Cell fullText dataKey="price" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={260}>
                     <Table.HeaderCell>Payment ID</Table.HeaderCell>
                     <Table.Cell fullText dataKey="pay_id" />
                 </Table.Column>
 
-                <Table.Column width={250} verticalAlign="middle">
+                <Table.Column width={200} verticalAlign="middle">
                     <Table.HeaderCell>Status</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
@@ -191,7 +205,7 @@ const ContributionListPage:FC = () => {
                     </Table.Cell>
                 </Table.Column>
                 
-                <Table.Column width={250} verticalAlign="middle">
+                <Table.Column width={100} verticalAlign="middle">
                     <Table.HeaderCell>Edited</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

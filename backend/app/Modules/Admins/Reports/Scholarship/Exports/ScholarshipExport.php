@@ -24,17 +24,17 @@ class ScholarshipExport implements FromQuery, WithHeadings, WithMapping
 	public function map($data): array
 	{
 		return [
-			$data->year,
-			$data->sc_count,
-			$data->st_count,
-			$data->obc_count,
-			$data->general_count,
-			$data->male_count,
-			$data->female_count,
-			$data->pending_count,
-			$data->rejected_count,
-			$data->approved_count,
-			$data->total_count,
+			(string) $data->year,
+			(string) $data->sc_count,
+			(string) $data->st_count,
+			(string) $data->obc_count,
+			(string) $data->general_count,
+			(string) $data->male_count,
+			(string) $data->female_count,
+			(string) $data->pending_count,
+			(string) $data->rejected_count,
+			(string) $data->approved_count,
+			(string) $data->total_count,
 		];
 	}
 

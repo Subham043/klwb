@@ -11,11 +11,38 @@ import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
 import StatusBadge from "../../../components/Student/StatusBadge";
 import SelectStatus from "../../../components/Institute/SelectStatus";
+import { useToast } from "../../../hooks/useToast";
+import { useAxios } from "../../../hooks/useAxios";
+import { isAxiosError } from "axios";
+import { AxiosErrorResponseType } from "../../../utils/types";
+import DeleteBtn from "../../../components/Buttons/DeleteBtn";
 
 
 const RequestInstitute:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useRequestInstitutesQuery();
     const [openModal, setOpenModal] = useState<{status:boolean, id?:number}>({status: false});
+    const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+    const { toastError, toastSuccess } = useToast();
+    const axios = useAxios();
+
+    const onDeleteHandler = async (id: number) => {
+        setDeleteLoading(true);
+        try {
+            await axios.delete(api_routes.admin.request_institute.delete(id), {});
+            toastSuccess("Request Deleted Successfully");
+            refetch();
+        } catch (error) {
+            if (isAxiosError<AxiosErrorResponseType>(error)) {
+                if (error?.response?.data?.message) {
+                    toastError(error.response.data.message);
+                } else {
+                    toastError("Something went wrong");
+                }
+            }
+        } finally {
+            setDeleteLoading(false);
+        }
+    };
 
     return <PaginatedTableLayout title="Institute Request List">
         <PaginatedTableLayout.Header title="Institute Request List" addBtn={false} excelLink={api_routes.admin.request_institute.excel} excelName="request_institute.xlsx">
@@ -89,13 +116,14 @@ const RequestInstitute:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={90} fixed="right">
+                <Table.Column width={100} fixed="right">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <ButtonToolbar>
                                 <IconButton appearance="primary" color="orange" icon={<VisibleIcon />} onClick={() => setOpenModal({status:true, id:rowData.id})} />
+                                {rowData.status===0 && <DeleteBtn clickHandler={() => onDeleteHandler(rowData.id)} deleteLoading={deleteLoading} />}
                             </ButtonToolbar>
                         )}
                     </Table.Cell>

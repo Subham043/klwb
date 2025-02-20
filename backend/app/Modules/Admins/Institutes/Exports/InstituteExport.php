@@ -25,7 +25,7 @@ class InstituteExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			$data->id,
-			$data->reg_no ?? '',
+			// $data->reg_no ?? '',
 			$data->name ?? '',
 			$data->management_type ?? '',
 			$data->category ?? '',
@@ -44,7 +44,7 @@ class InstituteExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			'Id',
-			'Reg No.',
+			// 'Reg No.',
 			'Name',
 			'Management Type',
 			'Category',

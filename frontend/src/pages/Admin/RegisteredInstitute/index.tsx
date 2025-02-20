@@ -59,10 +59,10 @@ const RegisteredInstitute:FC = () => {
                     <Table.Cell fullText dataKey="phone" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                {/* <Table.Column width={260}>
                     <Table.HeaderCell>Management Type</Table.HeaderCell>
                     <Table.Cell fullText dataKey="institute.management_type" />
-                </Table.Column>
+                </Table.Column> */}
 
                 <Table.Column  width={160}>
                     <Table.HeaderCell>District</Table.HeaderCell>

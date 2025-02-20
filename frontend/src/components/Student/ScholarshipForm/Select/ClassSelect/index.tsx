@@ -29,7 +29,7 @@ export default function ClassSelect({ value, setValue, isDisabled, course }: Pro
         api_routes.user.class.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${search}${
             additional && additional.course_id ? `&filter[has_course]=${additional.course_id}` : ""
           }`
       );

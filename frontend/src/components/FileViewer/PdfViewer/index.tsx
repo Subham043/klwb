@@ -34,7 +34,7 @@ export default function PdfViewer({ src, name }: { src: string | undefined; name
       <IconButton appearance="primary" color="green" icon={<TextImageIcon />} onClick={() => setOpen(true)}>
         View PDF
       </IconButton>
-      <Modal size="md" open={open} onClose={handleClose}>
+      <Modal size="sm" className="pdf-reader-modal" open={open} onClose={handleClose}>
         <Modal.Header>
           <Modal.Title>{name || 'PDF Viewer'}</Modal.Title>
         </Modal.Header>
@@ -61,8 +61,8 @@ export default function PdfViewer({ src, name }: { src: string | undefined; name
               <ButtonGroup>
                 <IconButton icon={<FileDownloadIcon />} as={"a"} href={src} target="_blank" download />
                 <IconButton icon={<ReloadIcon />} onClick={() => setRoatate(rotate + 90)} />
-                <IconButton icon={<MinusIcon />} disabled={scale <= 1} onClick={() => setScale(scale - 0.1)} />
-                <IconButton icon={<PlusIcon />} onClick={() => setScale(scale + 0.1)} />
+                <IconButton icon={<MinusIcon />} disabled={scale <= 1} onClick={() => setScale(scale - 0.5)} />
+                <IconButton icon={<PlusIcon />} onClick={() => setScale(scale + 0.5)} />
               </ButtonGroup>
               <Pagination
                 prev

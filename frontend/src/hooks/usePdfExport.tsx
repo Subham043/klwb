@@ -19,7 +19,7 @@ export const usePdfExport:PdfExportHookType = () => {
     const {toastError, toastSuccess} = useToast();
     const axios = useAxios();
     const [pdfLoading, setPdfLoading] = useState<boolean>(false);
-    const exportPdf = async (pdf_url: string, pdf_file_name: string) => {
+    const exportPdf = async (pdf_url: string, _pdf_file_name: string) => {
         setPdfLoading(true);
         try {
             const response = await axios.get(`${pdf_url}`, 
@@ -27,13 +27,15 @@ export const usePdfExport:PdfExportHookType = () => {
                     responseType: 'blob',
                 }
             );
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', pdf_file_name);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            window.open(url, '_blank');
+            window.URL.revokeObjectURL(url);
+            // const link = document.createElement('a');
+            // link.href = url;
+            // link.setAttribute('download', pdf_file_name);
+            // document.body.appendChild(link);
+            // link.click();
+            // link.remove();
             toastSuccess('Pdf Exported Successfully');
         } catch (error) {
             toastError('Something went wrong. Please try again later.');

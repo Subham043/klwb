@@ -19,9 +19,9 @@ class ForgotPasswordViaEmailController extends Controller
         $uuid = str()->uuid();
         $this->authService->setPasswordResetLink(['industry_auth_id' => $user->id, 'uuid' => $uuid]);
         $signedUrl = URL::temporarySignedRoute(
-            'institute-reset-password', now()->addMinutes((int)config('auth.reset_password_link_timeout')), ['token' => $uuid], absolute: false
+            'industry-reset-password', now()->addMinutes((int)config('auth.reset_password_link_timeout')), ['token' => $uuid], absolute: false
         );
-        $param = str_replace('/api/institute/v1/auth/reset-password/', '', $signedUrl);
+        $param = str_replace('/api/industry/v1/auth/reset-password/', '', $signedUrl);
         ForgotPassword::dispatch($user, $param);
         (new RateLimitService($request))->clearRateLimit();
         return response()->json([

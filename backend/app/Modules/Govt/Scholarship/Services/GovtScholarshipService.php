@@ -78,13 +78,19 @@ class GovtScholarshipService
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->whereHas('company', function ($qry) use ($value) {
-						$qry->where('district_id', $value);
+					// $query->whereHas('company', function ($qry) use ($value) {
+					// 	$qry->where('district_id', $value);
+					// });
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('ins_district_id', $value);
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->whereHas('company', function ($qry) use ($value) {
-						$qry->where('taluq_id', $value);
+					// $query->whereHas('company', function ($qry) use ($value) {
+					// 	$qry->where('taluq_id', $value);
+					// });
+					$query->whereHas('mark', function ($qry) use ($value) {
+						$qry->where('ins_taluq_id', $value);
 					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
@@ -208,14 +214,14 @@ class GovtScholarshipService
 														'Class' => $data->mark->class->name,
 														'Previous Class' => $data->mark->prv_class,
 														'Previous Marks' => $data->mark->prv_marks,
-														'Scholarship Fee' => $data->mark->graduation->scholarship_fee->amount ?? 0,
+														'Scholarship Fee' => $data->mark->graduation->scholarship_fee->amount ?? '0',
 														'Whos\'s Working' => $data->company->who_working_text,
 														'Parent \ Guardian Name' => $data->company->name,
 														'Relationship' => $data->company->relationship,
 														'Monthly Salary' => $data->company->msalary,
 														'Pincode' => $data->company->pincode,
-														'District' => $data->company->district->name,
-														'Taluq' => $data->company->taluq->name,
+														'District' => $data->mark->district->name,
+														'Taluq' => $data->mark->taluq->name,
 														'Bank Name' => $data->account->name,
 														'Branch Name' => $data->account->branch,
 														'IFSC Code' => $data->account->ifsc,

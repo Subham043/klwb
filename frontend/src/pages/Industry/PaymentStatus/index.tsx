@@ -170,6 +170,20 @@ export default function PaymentStatusPage() {
                     <Table.Cell fullText dataKey="total_employees" />
                 </Table.Column>
 
+                <Table.Column width={260} verticalAlign="middle">
+                    <Table.HeaderCell>Price</Table.HeaderCell>
+                    <Table.Cell fullText style={{ padding: '6px' }}>
+                        {rowData => (
+                            <span>{rowData.total_employees * 60}</span>
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+
+                <Table.Column  width={160}>
+                    <Table.HeaderCell>Interest</Table.HeaderCell>
+                    <Table.Cell fullText dataKey="interest" />
+                </Table.Column>
+
                 <Table.Column  width={160}>
                     <Table.HeaderCell>Amount</Table.HeaderCell>
                     <Table.Cell fullText dataKey="price" />

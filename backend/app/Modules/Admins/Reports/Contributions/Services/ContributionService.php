@@ -40,10 +40,10 @@ class ContributionService
 					$query->where('registered_industries.taluq_id', $value);
 				}),
 				AllowedFilter::callback('from_date', function (Builder $query, $value) {
-					$query->where('payments.payed_on', '>=', $value);
+					$query->whereDate('payments.payed_on', '>=', $value);
 				}),
 				AllowedFilter::callback('to_date', function (Builder $query, $value) {
-					$query->where('payments.payed_on', '<=', $value);
+					$query->whereDate('payments.payed_on', '<=', $value);
 				}),
 			]);
 	}

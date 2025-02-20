@@ -34,7 +34,7 @@ class PaymentExport implements FromQuery, WithHeadings, WithMapping
 			$data->female,
 			$data->female + $data->male,
 			($data->female + $data->male) * 60,
-			$data->interest,
+			$data->interest ?? '0',
 			$data->price,
 			PaymentStatus::getValue($data->status),
 			optional($data->payed_on)->format('Y-m-d'),

@@ -25,11 +25,15 @@ class RegisteredInstituteExport implements FromQuery, WithHeadings, WithMapping
 	{
 		return [
 			$data->id,
-			$data->name,
-			$data->email,
-			$data->phone,
-			$data->current_role,
-			$data->is_blocked ? 'Yes' : 'No',
+		 $data->institute->name ?? '',
+		 $data->principal ?? '',
+		 (string) $data->phone ?? '',
+		 $data->email ?? '',
+		 $data->institute->management_type ?? '',
+		 $data->address->taluq->name ?? '',
+		 (string) $data->address->taluq->id ?? '',
+		 $data->address->city->name ?? '',
+		 (string) $data->address->city->id ?? '',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];
 	}
@@ -39,10 +43,14 @@ class RegisteredInstituteExport implements FromQuery, WithHeadings, WithMapping
 		return [
 			'Id',
 			'Name',
+			'Principal Name',
+			'Mobile',
 			'Email',
-			'Phone',
-			'Role',
-			'Blocked',
+			'Management Type',
+			'Taluq',
+			'Taluq ID',
+			'District',
+			'District ID',
 			'Created At',
 		];
 	}

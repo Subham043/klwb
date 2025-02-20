@@ -147,12 +147,12 @@ const AdminScholarshipListPage: FC = () => {
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>District</Table.HeaderCell>
-                        <Table.Cell fullText dataKey="company.district.name" />
+                        <Table.Cell fullText dataKey="mark.district.name" />
                     </Table.Column>
 
                     <Table.Column width={160}>
                         <Table.HeaderCell>Taluq</Table.HeaderCell>
-                        <Table.Cell fullText dataKey="company.taluq.name" />
+                        <Table.Cell fullText dataKey="mark.taluq.name" />
                     </Table.Column>
 
                     <Table.Column width={160} verticalAlign="middle">
@@ -200,6 +200,11 @@ const AdminScholarshipListPage: FC = () => {
                             </Table.Cell>
                     </Table.Column>
 
+                    {searchParams.get("status")==="rejected" && <Table.Column width={250} verticalAlign="middle">
+                        <Table.HeaderCell>Reject Reason</Table.HeaderCell>
+                        <Table.Cell fullText dataKey="reject_reason" />
+                    </Table.Column>}
+
                     <Table.Column width={160} verticalAlign="middle">
                             <Table.HeaderCell>Industry Payment</Table.HeaderCell>
 
@@ -242,7 +247,7 @@ const AdminScholarshipListPage: FC = () => {
                             {rowData => (
                                 <ButtonToolbar>
                                     <ViewLink to={page_routes.admin.scholarship.view(rowData.id)} />
-                                    <BlockBtn route={api_routes.admin.scholarship.toggle(rowData.id)} refetch={refetch} isBlocked={rowData.inactive} />
+                                    {!searchParams.get("status") && <BlockBtn route={api_routes.admin.scholarship.toggle(rowData.id)} refetch={refetch} isBlocked={rowData.inactive} />}
                                 </ButtonToolbar>
                             )}
                         </Table.Cell>

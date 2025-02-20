@@ -261,7 +261,7 @@ export default function MakePaymentPage() {
 														name="employee_excel"
 														accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 														label="Attach Your Employee Detail Excel Sheet"
-														helpText=" Only excel files are allowed"
+														helpText=" Only XLSX files are allowed"
 														control={control}
 														error={errors.employee_excel?.message}
 													/>

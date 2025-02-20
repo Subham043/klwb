@@ -60,16 +60,19 @@ export default function IndustryInfo({ id }: Props) {
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Name" value={data?.industry.name} />
                 </Col>
-                <Col className="pb-1" md={8} sm={24} xs={24}>
+                {/* <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Reg. ID" value={data?.industry.reg_id} />
-                </Col>
+                </Col> */}
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Act" value={data?.industry.act_label} />
+                </Col>
+                <Col className="pb-1" md={8} sm={24} xs={24}>
+                  <DetailInfo title="Category" value={data?.industry.category} />
                 </Col>
               </Row>
               <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
-                  <DetailInfo title="Category" value={data?.industry.category} />
+                  <DetailInfo title="Address" value={data?.address} />
                 </Col>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="District" value={data?.city.name} />
@@ -78,11 +81,11 @@ export default function IndustryInfo({ id }: Props) {
                   <DetailInfo title="Taluq" value={data?.taluq.name} />
                 </Col>
               </Row>
-              <Row gutter={30}>
+              {/* <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo title="Address" value={data?.address} />
                 </Col>
-              </Row>
+              </Row> */}
               <Row gutter={30}>
                 <Col className="pb-1" md={8} sm={24} xs={24}>
                   <DetailInfo

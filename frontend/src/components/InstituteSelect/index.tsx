@@ -33,7 +33,7 @@ export default function InstituteSelect({
       const response = await api.get<PaginationType<InstituteType>>(
         api_routes.user.institute.all +
           `?page=${additional ? additional.page : 1}${
-            taluq_id ? `&filter[has_taluq]=${taluq_id}` : ""
+            taluq_id ? `&sort=name&filter[has_taluq]=${taluq_id}` : ""
           }&total=10&filter[search]=${search}`
       );
 

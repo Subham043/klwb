@@ -26,7 +26,7 @@ class PaymentCollection extends JsonResource
             'male' => $this->male,
             'female' => $this->female,
             'total_employees' => $this->female + $this->male,
-            'interest' => $this->interest,
+            'interest' => $this->interest ?? 0,
             'status' => $this->status,
             'status_text' => PaymentStatus::getValue($this->status),
             'payed_on' => $this->payed_on,

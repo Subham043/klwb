@@ -26,8 +26,8 @@ class IndustryCollection extends JsonResource
             'category' => $this->category,
             'pincode' => $this->pincode,
             'is_active' => $this->is_active,
-            'city' => SingleCityCollection::make($this->whenLoaded('city')),
-            'taluq' => SingleTaluqCollection::make($this->whenLoaded('taluq')),
+            'city' => $this->auth && $this->auth->city ? SingleCityCollection::make($this->auth->city) : null,
+            'taluq' => $this->auth && $this->auth->taluq ? SingleTaluqCollection::make($this->auth->taluq) : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
