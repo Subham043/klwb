@@ -25,23 +25,29 @@ class FeeService extends AbstractExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
-                            if(strtolower($value)=="active"){
-                                $query->where('is_active', true);
-                            }else{
-                                $query->where('is_active', false);
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
+                                if(strtolower($value)=="active"){
+                                    $query->where('is_active', true);
+                                }else{
+                                    $query->where('is_active', false);
+                                }
                             }
-                        }
+                        });
                     }),
                     AllowedFilter::callback('year', function (Builder $query, $value) {
-                        if(!empty($value)){
-                            $query->where('year', $value);
-                        }
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value)){
+                                $query->where('year', $value);
+                            }
+                        });
                     }),
                     AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
-                        if(!empty($value)){
-                            $query->where('graduation_id', $value);
-                        }
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value)){
+                                $query->where('graduation_id', $value);
+                            }
+                        });
                     }),
                 ]);
     }

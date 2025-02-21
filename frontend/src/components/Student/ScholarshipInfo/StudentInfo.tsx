@@ -37,18 +37,18 @@ function StudentInfo({ data }: Props) {
           <Row gutter={30}>
             <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
+                title="Mother Name"
+                value={data?.basic_detail.mother_name}
+              />
+            </Col>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
+              <DetailInfo
                 title="Mobile Number"
                 value={data?.basic_detail.parent_phone}
               />
             </Col>
             <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Gender" value={data?.basic_detail.gender} />
-            </Col>
-            <Col className="pb-1" md={8} sm={24} xs={24}>
-              <DetailInfo
-                title="Amount"
-                value={data?.scholarship_fee?.amount || 0}
-              />
             </Col>
           </Row>
           <Row gutter={30}>
@@ -98,12 +98,6 @@ function StudentInfo({ data }: Props) {
           <Row gutter={30}>
             <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
-                title="Applied On"
-                value={<Moment datetime={data?.date} />}
-              />
-            </Col>
-            <Col className="pb-1" md={8} sm={24} xs={24}>
-              <DetailInfo
                 title="Present School Address"
                 value={data?.present_institute_address}
               />
@@ -112,6 +106,20 @@ function StudentInfo({ data }: Props) {
               <DetailInfo
                 title="Student Present Address"
                 value={data?.basic_detail.address}
+              />
+            </Col>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
+              <DetailInfo
+                title="Amount"
+                value={data?.scholarship_fee?.amount || 0}
+              />
+            </Col>
+          </Row>
+          <Row gutter={30}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
+              <DetailInfo
+                title="Applied On"
+                value={<Moment datetime={data?.date} />}
               />
             </Col>
           </Row>

@@ -16,7 +16,7 @@ class ContributionReportListController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(){
-        $contribution = $this->contributionService->getList();
+        $contribution = $this->contributionService->getList(request()->query('total') ?? 10);
         return ContributionReportCollection::collection($contribution);
     }
 }

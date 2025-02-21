@@ -16,7 +16,7 @@ class AdminScholarshipListController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $data = $this->scholarshipService->getList();
+        $data = $this->scholarshipService->getList(request()->query('total') ?? 10);
         return AdminApplicationCollection::collection($data);
     }
 }

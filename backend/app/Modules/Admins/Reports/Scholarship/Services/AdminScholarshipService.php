@@ -40,22 +40,34 @@ class AdminScholarshipService
 			->allowedSorts('application_year')
 			->allowedFilters([
 				AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
-					$query->where('application_marks.graduation_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_marks.graduation_id', $value);
+					});
 				}),
 				AllowedFilter::callback('has_course', function (Builder $query, $value) {
-					$query->where('application_marks.course_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_marks.course_id', $value);
+					});
 				}),
 				AllowedFilter::callback('has_class', function (Builder $query, $value) {
-					$query->where('application_marks.class_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_marks.class_id', $value);
+					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->where('application_companies.district_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_companies.district_id', $value);
+					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->where('application_companies.taluq_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_companies.taluq_id', $value);
+					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
-					$query->where('applications.application_year', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('applications.application_year', $value);
+					});
 				}),
 			]);
 	}

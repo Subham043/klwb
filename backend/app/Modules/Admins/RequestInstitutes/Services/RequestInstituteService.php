@@ -34,23 +34,29 @@ class RequestInstituteService extends AbstractExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('has_city', function (Builder $query, $value) {
-                        $query->whereHas('taluq', function ($qry) use ($value) {
-                            $qry->where('city_id', $value);
+                        $query->where(function ($query) use ($value) {
+                            $query->whereHas('taluq', function ($qry) use ($value) {
+                                $qry->where('city_id', $value);
+                            });
                         });
                     }),
                     AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-                        $query->where('taluq_id', $value);
+                        $query->where(function ($query) use ($value) {
+                            $query->where('taluq_id', $value);
+                        });
                     }),
                     AllowedFilter::callback('status', function (Builder $query, $value) {
-                        // if ($value == 'approved') {
-                        //     $query->where('status', 1);
-                        // }
-                        if ($value == 'rejected') {
-                            $query->where('status', 2);
-                        }
-                        if ($value == 'pending') {
-                            $query->where('status', 0);
-                        }
+                        $query->where(function ($query) use ($value) {
+                            // if ($value == 'approved') {
+                            //     $query->where('status', 1);
+                            // }
+                            if ($value == 'rejected') {
+                                $query->where('status', 2);
+                            }
+                            if ($value == 'pending') {
+                                $query->where('status', 0);
+                            }
+                        });
                     }),
                 ]);
     }

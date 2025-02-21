@@ -30,24 +30,28 @@ class InstituteScholarshipService
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
-					if ($value == 'approved') {
-						$query->where(function ($qry) {
-							$qry->where(function ($q) {
-								$q->isApplicationApproved()->inSchoolStage();
-							})->orWhere(function ($q) {
-								$q->whereApplicationStageGreaterThan(ApplicationState::School);
+					$query->where(function ($query) use ($value) {
+						if ($value == 'approved') {
+							$query->where(function ($qry) {
+								$qry->where(function ($q) {
+									$q->isApplicationApproved()->inSchoolStage();
+								})->orWhere(function ($q) {
+									$q->whereApplicationStageGreaterThan(ApplicationState::School);
+								});
 							});
-						});
-					}
-					if ($value == 'rejected') {
-						$query->isApplicationRejected()->inSchoolStage();
-					}
-					if ($value == 'pending') {
-						$query->isApplicationPending()->inSchoolStage();
-					}
+						}
+						if ($value == 'rejected') {
+							$query->isApplicationRejected()->inSchoolStage();
+						}
+						if ($value == 'pending') {
+							$query->isApplicationPending()->inSchoolStage();
+						}
+					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
-					$query->where('application_year', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_year', $value);
+					});
 				}),
 			]);
 	}

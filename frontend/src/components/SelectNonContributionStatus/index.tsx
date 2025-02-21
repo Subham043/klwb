@@ -8,12 +8,11 @@ type PropType = {
 };
 
 const data = [
-  { label: "PENDING", value: "pending" },
-  { label: "APPROVED", value: "approved" },
-  { label: "REJECTED", value: "rejected" },
+  { label: "REGISTERED", value: "registered" },
+  { label: "NON-REGISTERED", value: "non_registered" },
 ];
 
-const SelectStatus = (props: PropType) => {
+const SelectNonContributionStatus = (props: PropType) => {
   const { key, disabledFields=[] } = props;
   const [searchParams, setSearchParams] = useSearchParams();
   const selectHandler = (value: string) => {
@@ -33,4 +32,4 @@ const SelectStatus = (props: PropType) => {
   );
 };
 
-export default SelectStatus;
+export default SelectNonContributionStatus;

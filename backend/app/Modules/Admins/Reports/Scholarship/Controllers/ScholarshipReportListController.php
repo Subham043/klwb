@@ -16,7 +16,7 @@ class ScholarshipReportListController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(){
-        $application = $this->scholarshipService->getList();
+        $application = $this->scholarshipService->getList(request()->query('total') ?? 10);
         return ScholarshipReportCollection::collection($application);
     }
 }

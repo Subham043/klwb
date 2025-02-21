@@ -16,7 +16,7 @@ class PaymentListController extends Controller
      * @return \App\Modules\IndustryManagement\Payment\Resources\PaymentCollection
      */
     public function index(){
-        $application = $this->paymentService->getList();
+        $application = $this->paymentService->getList(request()->query('total') ?? 10);
         return PaymentCollection::collection($application);
     }
 }

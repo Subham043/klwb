@@ -25,16 +25,20 @@ class CityService extends AbstractExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('has_state', function (Builder $query, $value) {
-                        $query->where('state_id', $value);
+                        $query->where(function ($query) use ($value) {
+                            $query->where('state_id', $value);
+                        });
                     }),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
-                            if(strtolower($value)=="active"){
-                                $query->where('is_active', true);
-                            }else{
-                                $query->where('is_active', false);
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
+                                if(strtolower($value)=="active"){
+                                    $query->where('is_active', true);
+                                }else{
+                                    $query->where('is_active', false);
+                                }
                             }
-                        }
+                        });
                     }),
                 ]);
     }

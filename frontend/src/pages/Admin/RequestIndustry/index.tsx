@@ -48,7 +48,7 @@ const RequestIndustry:FC = () => {
         <PaginatedTableLayout.Header title="Industry Request List" addBtn={false} excelLink={api_routes.admin.request_industry.excel} excelName="request_industry.xlsx">
             <SelectCityStatus />
             <SelectTaluqStatus />
-            <SelectStatus />
+            <SelectStatus disabledFields={["approved"]} />
         </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table

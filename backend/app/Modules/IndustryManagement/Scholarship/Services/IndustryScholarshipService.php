@@ -32,24 +32,28 @@ class IndustryScholarshipService
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
-					if ($value == 'approved') {
-						$query->where(function ($qry) {
-							$qry->where(function ($q) {
-								$q->isApplicationApproved()->inCompanyStage();
-							})->orWhere(function ($q) {
-								$q->whereApplicationStageGreaterThan(ApplicationState::Company);
+					$query->where(function ($query) use ($value) {
+						if ($value == 'approved') {
+							$query->where(function ($qry) {
+								$qry->where(function ($q) {
+									$q->isApplicationApproved()->inCompanyStage();
+								})->orWhere(function ($q) {
+									$q->whereApplicationStageGreaterThan(ApplicationState::Company);
+								});
 							});
-						});
-					}
-					if ($value == 'rejected') {
-						$query->isApplicationRejected()->inCompanyStage();
-					}
-					if ($value == 'pending') {
-						$query->isApplicationPending()->inCompanyStage();
-					}
+						}
+						if ($value == 'rejected') {
+							$query->isApplicationRejected()->inCompanyStage();
+						}
+						if ($value == 'pending') {
+							$query->isApplicationPending()->inCompanyStage();
+						}
+					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
-					$query->where('application_year', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_year', $value);
+					});
 				}),
 			]);
 	}

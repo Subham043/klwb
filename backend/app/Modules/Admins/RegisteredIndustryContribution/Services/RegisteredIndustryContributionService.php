@@ -37,20 +37,28 @@ class RegisteredIndustryContributionService
 				'year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->whereHas('industry', function ($qry) use ($value) {
-						$qry->whereHas('auth', function ($q) use ($value) { $q->where('taluq_id', $value); });
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('industry', function ($qry) use ($value) {
+							$qry->whereHas('auth', function ($q) use ($value) { $q->where('taluq_id', $value); });
+						});
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->whereHas('industry', function ($qry) use ($value) {
-						$qry->whereHas('auth', function ($q) use ($value) { $q->where('city_id', $value); });
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('industry', function ($qry) use ($value) {
+							$qry->whereHas('auth', function ($q) use ($value) { $q->where('city_id', $value); });
+						});
 					});
 				}),
 				AllowedFilter::callback('from_date', function (Builder $query, $value) {
-					$query->where('payed_on', '>=', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('payed_on', '>=', $value);
+					});
 				}),
 				AllowedFilter::callback('to_date', function (Builder $query, $value) {
-					$query->where('payed_on', '<=', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('payed_on', '<=', $value);
+					});
 				}),
 			]);
 	}

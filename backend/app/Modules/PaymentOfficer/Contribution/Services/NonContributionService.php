@@ -35,10 +35,22 @@ class NonContributionService
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
-					$query->doesntHave('payments')->orWhere(function ($qry) use ($value){
-						$qry->whereHas('payments', function ($q) use ($value) {
-							$q->where('year', $value);
-						});
+					$query->where(function ($query) use ($value) {
+						$query->doesntHave('payments')
+							->orWhere(function ($qry) use ($value) {
+								$qry->whereHas('payments', function ($q) use ($value) {
+									$q->where('year', $value);
+								});
+							});
+					});
+				}),
+				AllowedFilter::callback('status', function (Builder $query, $value) {
+					$query->where(function ($query) use ($value) {
+						if ($value == "registered") {
+							$query->whereHas('auth');
+						} elseif ($value == "non_registered") {
+							$query->doesntHave('auth');
+						}
 					});
 				}),
 			]);

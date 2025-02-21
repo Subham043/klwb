@@ -34,16 +34,24 @@ class ContributionService
 			->allowedFilters([
 				'year',
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->where('registered_industries.city_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('registered_industries.city_id', $value);
+					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->where('registered_industries.taluq_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('registered_industries.taluq_id', $value);
+					});
 				}),
 				AllowedFilter::callback('from_date', function (Builder $query, $value) {
-					$query->whereDate('payments.payed_on', '>=', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereDate('payments.payed_on', '>=', $value);
+					});
 				}),
 				AllowedFilter::callback('to_date', function (Builder $query, $value) {
-					$query->whereDate('payments.payed_on', '<=', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereDate('payments.payed_on', '<=', $value);
+					});
 				}),
 			]);
 	}

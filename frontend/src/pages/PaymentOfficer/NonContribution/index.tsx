@@ -7,6 +7,7 @@ import Moment from "../../../components/Moment";
 import { table } from "../../../utils/constants/table";
 import SelectYear from "../../../components/Institute/SelectYear";
 import { usePaymentOfficerNonContributionsQuery } from "../../../hooks/data/payment_officer_non_contribution";
+import SelectNonContributionStatus from "../../../components/SelectNonContributionStatus";
 
 
 const NonContribution:FC = () => {
@@ -14,6 +15,7 @@ const NonContribution:FC = () => {
 
     return <PaginatedTableLayout title="Contribution Pending">
         <PaginatedTableLayout.Header title="Contribution Pending" addBtn={false} excelLink={api_routes.payment_officer.non_contribution.excel} excelName="non_contribution.xlsx">
+            <SelectNonContributionStatus />
             <SelectYear />
         </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>

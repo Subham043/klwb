@@ -26,27 +26,33 @@ class StudentService extends AbstractAuthenticableExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value)){
-                            if(strtolower($value)=="blocked"){
-                                $query->where('is_blocked', true);
-                            }else{
-                                $query->where('is_blocked', false);
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value)){
+                                if(strtolower($value)=="blocked"){
+                                    $query->where('is_blocked', true);
+                                }else{
+                                    $query->where('is_blocked', false);
+                                }
                             }
-                        }
+                        });
                     }),
                     AllowedFilter::callback('verification_status', function (Builder $query, $value) {
-                        if(!empty($value)){
-                            if(strtolower($value)=="verified"){
-                                $query->whereNotNull('verified_at');
-                            }else{
-                                $query->whereNull('verified_at');
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value)){
+                                if(strtolower($value)=="verified"){
+                                    $query->whereNotNull('verified_at');
+                                }else{
+                                    $query->whereNull('verified_at');
+                                }
                             }
-                        }
+                        });
                     }),
                     AllowedFilter::callback('year', function (Builder $query, $value) {
-                        if(!empty($value)){
-                            $query->whereYear('created_at', $value);
-                        }
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value)){
+                                $query->whereYear('created_at', $value);
+                            }
+                        });
                     }),
                 ]);
     }

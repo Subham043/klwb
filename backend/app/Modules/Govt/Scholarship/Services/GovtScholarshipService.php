@@ -33,68 +33,86 @@ class GovtScholarshipService
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('status', function (Builder $query, $value) {
-					if ($value == 'approved') {
-						$query->where(function ($qry) {
-							$qry->where(function ($q) {
-								$q->isApplicationApproved()->inGovtStage();
-							})->orWhere(function ($q) {
-								$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
+					$query->where(function ($query) use ($value) {
+						if ($value == 'approved') {
+							$query->where(function ($qry) {
+								$qry->where(function ($q) {
+									$q->isApplicationApproved()->inGovtStage();
+								})->orWhere(function ($q) {
+									$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
+								});
 							});
-						});
-					}
-					if ($value == 'rejected') {
-						$query->isApplicationRejected()->inGovtStage();
-					}
-					if ($value == 'pending') {
-						$query->isApplicationPending()->inGovtStage();
-					}
-					if ($value == 'payment_processed') {
-						$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
-					}
+						}
+						if ($value == 'rejected') {
+							$query->isApplicationRejected()->inGovtStage();
+						}
+						if ($value == 'pending') {
+							$query->isApplicationPending()->inGovtStage();
+						}
+						if ($value == 'payment_processed') {
+							$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
+						}
+					});
 				}),
 				AllowedFilter::callback('has_gender', function (Builder $query, $value) {
-					$query->whereHas('basic_detail', function ($qry) use ($value) {
-						$qry->where('gender', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('basic_detail', function ($qry) use ($value) {
+							$qry->where('gender', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('has_category', function (Builder $query, $value) {
-					$query->whereHas('basic_detail', function ($qry) use ($value) {
-						$qry->where('category', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('basic_detail', function ($qry) use ($value) {
+							$qry->where('category', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('has_graduation', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('graduation_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('mark', function ($qry) use ($value) {
+							$qry->where('graduation_id', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('has_course', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('course_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('mark', function ($qry) use ($value) {
+							$qry->where('course_id', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('has_class', function (Builder $query, $value) {
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('class_id', $value);
+					$query->where(function ($query) use ($value) {
+						$query->whereHas('mark', function ($qry) use ($value) {
+							$qry->where('class_id', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					// $query->whereHas('company', function ($qry) use ($value) {
-					// 	$qry->where('district_id', $value);
-					// });
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_district_id', $value);
+					$query->where(function ($query) use ($value) {
+						// $query->whereHas('company', function ($qry) use ($value) {
+						// 	$qry->where('district_id', $value);
+						// });
+						$query->whereHas('mark', function ($qry) use ($value) {
+							$qry->where('ins_district_id', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					// $query->whereHas('company', function ($qry) use ($value) {
-					// 	$qry->where('taluq_id', $value);
-					// });
-					$query->whereHas('mark', function ($qry) use ($value) {
-						$qry->where('ins_taluq_id', $value);
+					$query->where(function ($query) use ($value) {
+						// $query->whereHas('company', function ($qry) use ($value) {
+						// 	$qry->where('taluq_id', $value);
+						// });
+						$query->whereHas('mark', function ($qry) use ($value) {
+							$qry->where('ins_taluq_id', $value);
+						});
 					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
-					$query->where('application_year', $value);
+					$query->where(function ($query) use ($value) {
+						$query->where('application_year', $value);
+					});
 				}),
 			]);
 	}

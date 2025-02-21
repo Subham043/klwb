@@ -18,11 +18,11 @@ export const useNonContributionsQuery: () => UseQueryResult<
   const { search } = useSearchQueryParam();
   const [searchParams] = useSearchParams();
   return useQuery({
-    queryKey: [NonContributionsQueryKey, page, limit, search, searchParams.get("year") || ""],
+    queryKey: [NonContributionsQueryKey, page, limit, search, searchParams.get("year") || "", searchParams.get("status") || ""],
     queryFn: async () => {
       const response = await axios.get<PaginationType<NonContributionType>>(
         api_routes.admin.non_contribution.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
       );
       return response.data;
     },

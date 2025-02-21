@@ -19,11 +19,12 @@ class NonContributionService
 	protected function model(): Builder
 	{
 		return Industry::isActive()->where(function ($query) {
-			$query->doesntHave('payments')->orWhere(function ($qry){
-				$qry->whereHas('payments', function ($q) {
-					$q->where('status', '!=', PaymentStatus::Success->value);
+			$query->doesntHave('payments')
+				->orWhere(function ($qry) {
+					$qry->whereHas('payments', function ($q) {
+						$q->where('status', '!=', PaymentStatus::Success->value);
+					});
 				});
-			});
 		});
 	}
 	protected function query(): QueryBuilder
@@ -34,10 +35,22 @@ class NonContributionService
 			->allowedFilters([
 				AllowedFilter::custom('search', new CommonFilter, null, false),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
-					$query->doesntHave('payments')->orWhere(function ($qry) use ($value){
-						$qry->whereHas('payments', function ($q) use ($value) {
-							$q->where('year', $value);
-						});
+					$query->where(function ($query) use ($value) {
+						$query->doesntHave('payments')
+							->orWhere(function ($qry) use ($value) {
+								$qry->whereHas('payments', function ($q) use ($value) {
+									$q->where('year', $value);
+								});
+							});
+					});
+				}),
+				AllowedFilter::callback('status', function (Builder $query, $value) {
+					$query->where(function ($query) use ($value) {
+						if ($value == "registered") {
+							$query->whereHas('auth');
+						} elseif ($value == "non_registered") {
+							$query->doesntHave('auth');
+						}
 					});
 				}),
 			]);
@@ -71,32 +84,32 @@ class NonContributionService
 		$writer = SimpleExcelWriter::streamDownload('non-contributions.xlsx');
 
 		do {
-						// Set the current page for pagination
-						Paginator::currentPageResolver(function () use ($page) {
-										return $page;
-						});
+			// Set the current page for pagination
+			Paginator::currentPageResolver(function () use ($page) {
+				return $page;
+			});
 
-						// Retrieve the paginated data
-						$paginator = $this->getList($perPage);
-						$items = $paginator->items();
+			// Retrieve the paginated data
+			$paginator = $this->getList($perPage);
+			$items = $paginator->items();
 
-						// Write each item to the Excel file
-						foreach ($items as $data) {
-										$writer->addRow([
-														'Id' => $data->id,
-														'Reg ID.' => $data->reg_id,
-														'Name' => $data->name,
-														'Act' => Act::getValue($data->act) ?? '',
-														'Category' => $data->category ?? '',
-														'Pincode' => $data->pincode,
-														'Active' => $data->is_active ? 'Yes' : 'No',
-														'Created At' => $data->created_at->format('Y-m-d H:i:s'),
-										]);
-						}
+			// Write each item to the Excel file
+			foreach ($items as $data) {
+				$writer->addRow([
+					'Id' => $data->id,
+					'Reg ID.' => $data->reg_id,
+					'Name' => $data->name,
+					'Act' => Act::getValue($data->act) ?? '',
+					'Category' => $data->category ?? '',
+					'Pincode' => $data->pincode,
+					'Active' => $data->is_active ? 'Yes' : 'No',
+					'Created At' => $data->created_at->format('Y-m-d H:i:s'),
+				]);
+			}
 
-						// Move to the next page
-						$page++;
-						flush();
+			// Move to the next page
+			$page++;
+			flush();
 		} while ($page <= $paginator->lastPage());
 
 		// Close the writer and return the download response
@@ -113,10 +126,10 @@ class CommonFilter implements Filter
 	{
 		$query->where(function ($q) use ($value) {
 			$q->where('name', 'LIKE', '%' . $value . '%')
-			->orWhere('act', 'LIKE', '%' . $value . '%')
-			->orWhere('category', 'LIKE', '%' . $value . '%')
-			->orWhere('pincode', 'LIKE', '%' . $value . '%')
-			->orWhere('reg_id', 'LIKE', '%' . $value . '%');
+				->orWhere('act', 'LIKE', '%' . $value . '%')
+				->orWhere('category', 'LIKE', '%' . $value . '%')
+				->orWhere('pincode', 'LIKE', '%' . $value . '%')
+				->orWhere('reg_id', 'LIKE', '%' . $value . '%');
 		});
 	}
 }

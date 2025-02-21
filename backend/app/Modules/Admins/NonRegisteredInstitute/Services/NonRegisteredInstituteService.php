@@ -35,21 +35,27 @@ class NonRegisteredInstituteService extends AbstractExcelService
                 ->allowedFilters([
                     AllowedFilter::custom('search', new CommonFilter, null, false),
                     AllowedFilter::callback('has_city', function (Builder $query, $value) {
-                        $query->whereHas('taluq', function ($qry) use ($value) {
-                            $qry->where('city_id', $value);
+                        $query->where(function ($query) use ($value) {
+                            $query->whereHas('taluq', function ($qry) use ($value) {
+                                $qry->where('city_id', $value);
+                            });
                         });
                     }),
                     AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-                        $query->where('taluq_id', $value);
+                        $query->where(function ($query) use ($value) {
+                            $query->where('taluq_id', $value);
+                        });
                     }),
                     AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
-                            if(strtolower($value)=="active"){
-                                $query->where('is_active', true);
-                            }else{
-                                $query->where('is_active', false);
+                        $query->where(function ($query) use ($value) {
+                            if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
+                                if(strtolower($value)=="active"){
+                                    $query->where('is_active', true);
+                                }else{
+                                    $query->where('is_active', false);
+                                }
                             }
-                        }
+                        });
                     }),
                 ]);
     }

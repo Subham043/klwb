@@ -48,7 +48,7 @@ const RequestInstitute:FC = () => {
         <PaginatedTableLayout.Header title="Institute Request List" addBtn={false} excelLink={api_routes.admin.request_institute.excel} excelName="request_institute.xlsx">
             <SelectCityStatus />
             <SelectTaluqStatus />
-            <SelectStatus />
+            <SelectStatus disabledFields={["approved"]} />
         </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
