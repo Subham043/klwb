@@ -12,9 +12,11 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 {
 
 	private QueryBuilder $query;
-	public function __construct(QueryBuilder $query)
+	private int $max_application_state;
+	public function __construct(QueryBuilder $query, int $max_application_state = 0)
 	{
 		$this->query = $query;
+		$this->max_application_state = $max_application_state;
 	}
 	public function query()
 	{
@@ -57,6 +59,7 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			$data->account->holder,
 			$data->account->account_type,
 			(string) $data->application_year,
+			$this->getStatusMessage($data->status, $data->application_state),
 			$data->status==2 && $data->reject_reason ? $data->reject_reason : '',
 			$data->date->format('Y-m-d H:i:s'),
 		];
@@ -98,8 +101,33 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			'Account Holder Name',
 			'Account Type',
 			'Application Year',
+			'Status',
 			'Reject Reason',
 			'Submitted On',
 		];
+	}
+
+	private function getStatusMessage($status, $application_state) {
+		$statusMap = [
+			0 => 'PENDING',
+			1 => 'APPROVED',
+			2 => 'REJECTED',
+		];
+
+		$applicationStateMap = [
+			0 => 'STUDENT',
+			1 => 'INSTITUTE',
+			2 => 'INDUSTRY',
+			3 => 'LABOUR BOARD',
+			4 => 'ADMIN',
+		];
+
+		if($this->max_application_state == 0){
+			return $statusMap[$status] . ($statusMap[$status] === 'PENDING' ? ' FROM ' : ' BY ') . $applicationStateMap[$application_state];
+		}
+		if($application_state > $this->max_application_state){
+			return 'APPROVED';
+		}
+		return $statusMap[$status];
 	}
 }
