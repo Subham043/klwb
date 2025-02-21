@@ -1,7 +1,9 @@
 import {
+  Button,
   ButtonToolbar,
   IconButton,
   Pagination,
+  Stack,
   Table,
 } from "rsuite";
 import { usePaginationQueryParam } from "../../../hooks/usePaginationQueryParam";
@@ -10,10 +12,12 @@ import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import { table } from "../../../utils/constants/table";
 import Moment from "../../Moment";
 import { useRegisteredInstitutesActivityLogsQuery } from "../../../hooks/data/registered_institute";
-import VisibleIcon from '@rsuite/icons/Visible';
+import VisibleIcon from "@rsuite/icons/Visible";
 import ActivityLogInfo from "../ActivityLogInfo";
 import { useState } from "react";
 import { ActivityLogType } from "../../../utils/types";
+import { useExcelExport } from "../../../hooks/useExcelExport";
+import { api_routes } from "../../../utils/routes/api";
 
 export type Props = {
   id: number;
@@ -30,14 +34,43 @@ export default function ActivityLog({ id }: Props) {
     error,
     refetch: refetchData,
   } = useRegisteredInstitutesActivityLogsQuery(Number(id) || 0);
-  const [modal, setModal] = useState<{ status: boolean; data: ActivityLogType|null }>({ status: false, data: null });
+  const [modal, setModal] = useState<{
+    status: boolean;
+    data: ActivityLogType | null;
+  }>({ status: false, data: null });
+  const { excelLoading, exportExcel } = useExcelExport();
+
+  const excelHandler = async () => {
+    await exportExcel(
+      api_routes.admin.registered_institute.activity_log.excel(Number(id)),
+      "activity_logs.xlsx"
+    );
+  };
 
   return (
     <div className="mb-1">
       <ErrorBoundaryLayout error={error} refetch={refetchData}>
         <ModalCardContainer header="Activity Log Information">
+          <div className="mb-1">
+            <Stack justifyContent="space-between">
+              <ButtonToolbar>
+                <Button
+                  appearance="default"
+                  active
+                  loading={excelLoading}
+                  onClick={excelHandler}
+                >
+                  Export Excel
+                </Button>
+              </ButtonToolbar>
+            </Stack>
+          </div>
           <Table
-            loading={isActivityLogLoading || isActivityLogFetching || isActivityLogRefetching}
+            loading={
+              isActivityLogLoading ||
+              isActivityLogFetching ||
+              isActivityLogRefetching
+            }
             {...table}
             data={activity_logss?.data || []}
           >
@@ -46,23 +79,21 @@ export default function ActivityLog({ id }: Props) {
               <Table.Cell fullText dataKey="id" />
             </Table.Column>
 
-            <Table.Column  flexGrow={1}>
-                <Table.HeaderCell>Description</Table.HeaderCell>
-                <Table.Cell fullText dataKey="description" />
+            <Table.Column flexGrow={1}>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.Cell fullText dataKey="description" />
             </Table.Column>
 
-            <Table.Column  width={200}>
-                <Table.HeaderCell>Changed By</Table.HeaderCell>
-                <Table.Cell fullText dataKey="causer.name" />
+            <Table.Column width={200}>
+              <Table.HeaderCell>Changed By</Table.HeaderCell>
+              <Table.Cell fullText dataKey="causer.name" />
             </Table.Column>
 
             <Table.Column width={250} verticalAlign="middle">
               <Table.HeaderCell>Updated On</Table.HeaderCell>
 
-              <Table.Cell fullText style={{ padding: '6px' }}>
-                {rowData => (
-                  <Moment datetime={rowData.created_at} />
-                )}
+              <Table.Cell fullText style={{ padding: "6px" }}>
+                {(rowData) => <Moment datetime={rowData.created_at} />}
               </Table.Cell>
             </Table.Column>
 
@@ -72,7 +103,18 @@ export default function ActivityLog({ id }: Props) {
               <Table.Cell style={{ padding: "6px" }}>
                 {(rowData) => (
                   <ButtonToolbar>
-                    <IconButton appearance="primary" color="orange" size="sm" icon={<VisibleIcon />} onClick={() => setModal({ status: true, data: rowData as ActivityLogType })} />
+                    <IconButton
+                      appearance="primary"
+                      color="orange"
+                      size="sm"
+                      icon={<VisibleIcon />}
+                      onClick={() =>
+                        setModal({
+                          status: true,
+                          data: rowData as ActivityLogType,
+                        })
+                      }
+                    />
                   </ButtonToolbar>
                 )}
               </Table.Cell>

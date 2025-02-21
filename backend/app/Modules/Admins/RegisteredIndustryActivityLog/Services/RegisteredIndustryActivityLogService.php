@@ -32,6 +32,11 @@ class RegisteredIndustryActivityLogService
 			->allowedSorts('id');
 	}
 
+	public function getExcelQuery(string $reg_industry_id): QueryBuilder
+	{
+		return $this->query($reg_industry_id);
+	}
+
 	public function getList(Int $total = 10, string $reg_industry_id): LengthAwarePaginator
 	{
 		return $this->query($reg_industry_id)->paginate($total)

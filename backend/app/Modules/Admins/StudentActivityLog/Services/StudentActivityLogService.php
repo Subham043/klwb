@@ -31,6 +31,11 @@ class StudentActivityLogService
 			->allowedSorts('id');
 	}
 
+	public function getExcelQuery(string $user_id): QueryBuilder
+	{
+		return $this->query($user_id);
+	}
+
 	public function getList(Int $total = 10, string $user_id): LengthAwarePaginator
 	{
 		return $this->query($user_id)->paginate($total)

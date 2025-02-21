@@ -1,7 +1,9 @@
 import {
+  Button,
   ButtonToolbar,
   IconButton,
   Pagination,
+  Stack,
   Table,
 } from "rsuite";
 import { usePaginationQueryParam } from "../../../hooks/usePaginationQueryParam";
@@ -14,6 +16,8 @@ import VisibleIcon from '@rsuite/icons/Visible';
 import ActivityLogInfo from "../ActivityLogInfo";
 import { useState } from "react";
 import { ActivityLogType } from "../../../utils/types";
+import { useExcelExport } from "../../../hooks/useExcelExport";
+import { api_routes } from "../../../utils/routes/api";
 
 export type Props = {
   id: number;
@@ -30,12 +34,34 @@ export default function ActivityLog({ id }: Props) {
     error,
     refetch: refetchData,
   } = useRegisteredIndustriesActivityLogsQuery(Number(id) || 0);
-  const [modal, setModal] = useState<{ status: boolean; data: ActivityLogType|null }>({ status: false, data: null });
+  const [modal, setModal] = useState<{ status: boolean; data: ActivityLogType | null }>({ status: false, data: null });
+  const { excelLoading, exportExcel } = useExcelExport();
+  
+  const excelHandler = async () => {
+    await exportExcel(
+      api_routes.admin.registered_industry.activity_log.excel(Number(id)),
+      "activity_logs.xlsx"
+    );
+  };
 
   return (
     <div className="mb-1">
       <ErrorBoundaryLayout error={error} refetch={refetchData}>
         <ModalCardContainer header="Activity Log Information">
+          <div className="mb-1">
+            <Stack justifyContent="space-between">
+              <ButtonToolbar>
+                <Button
+                  appearance="default"
+                  active
+                  loading={excelLoading}
+                  onClick={excelHandler}
+                >
+                  Export Excel
+                </Button>
+              </ButtonToolbar>
+            </Stack>
+          </div>
           <Table
             loading={isActivityLogLoading || isActivityLogFetching || isActivityLogRefetching}
             {...table}
@@ -46,14 +72,14 @@ export default function ActivityLog({ id }: Props) {
               <Table.Cell fullText dataKey="id" />
             </Table.Column>
 
-            <Table.Column  flexGrow={1}>
-                <Table.HeaderCell>Description</Table.HeaderCell>
-                <Table.Cell fullText dataKey="description" />
+            <Table.Column flexGrow={1}>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.Cell fullText dataKey="description" />
             </Table.Column>
 
-            <Table.Column  width={200}>
-                <Table.HeaderCell>Changed By</Table.HeaderCell>
-                <Table.Cell fullText dataKey="causer.name" />
+            <Table.Column width={200}>
+              <Table.HeaderCell>Changed By</Table.HeaderCell>
+              <Table.Cell fullText dataKey="causer.name" />
             </Table.Column>
 
             <Table.Column width={250} verticalAlign="middle">

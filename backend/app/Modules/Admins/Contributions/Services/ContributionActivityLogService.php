@@ -31,6 +31,11 @@ class ContributionActivityLogService
 			->allowedSorts('id');
 	}
 
+	public function getExcelQuery(string $payment_id): QueryBuilder
+	{
+		return $this->query($payment_id);
+	}
+
 	public function getList(Int $total = 10, string $payment_id): LengthAwarePaginator
 	{
 		return $this->query($payment_id)->paginate($total)

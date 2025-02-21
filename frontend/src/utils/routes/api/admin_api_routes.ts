@@ -63,6 +63,8 @@ export const admin_api_routes = {
     activity_log: {
       paginate: (id: string | number) =>
         `/api/admin/v1/students/activity-log/${id}/paginate`,
+      excel: (id: string | number) =>
+        `/api/admin/v1/students/activity-log/${id}/excel`,
       view: (reg_institute_id: string | number, id: string | number) => `/api/admin/v1/students/activity-log/${reg_institute_id}/view/${id}`,
     },
   },
@@ -200,6 +202,8 @@ export const admin_api_routes = {
     activity_log: {
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-institutes/activity-log/${id}/paginate`,
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-institutes/activity-log/${id}/excel`,
       view: (reg_institute_id: string | number, id: string | number) => `/api/admin/v1/registered-institutes/activity-log/${reg_institute_id}/view/${id}`,
     },
   },
@@ -283,6 +287,8 @@ export const admin_api_routes = {
     activity_log: {
       paginate: (id: string | number) =>
         `/api/admin/v1/registered-industries/activity-log/${id}/paginate`,
+      excel: (id: string | number) =>
+        `/api/admin/v1/registered-industries/activity-log/${id}/excel`,
       view: (reg_industry_id: string | number, id: string | number) => `/api/admin/v1/registered-industries/activity-log/${reg_industry_id}/view/${id}`,
     },
   },
@@ -308,6 +314,7 @@ export const admin_api_routes = {
 		excel: "/api/admin/v1/contribution/excel",
 		view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
 		activity_log: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}`,
+		activity_log_excel: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}/excel`,
 		reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
 		update: (id: string | number) => `/api/admin/v1/contribution/update/${id}`,
 	},

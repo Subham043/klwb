@@ -8,6 +8,7 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDatePaginateContr
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateToggleController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateUpdateController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewController;
+use App\Modules\Admins\Contributions\Controllers\ContributionActivityLogExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionActivityLogPaginateController;
 use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionPaginateController;
@@ -79,6 +80,7 @@ use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryToggleCo
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryUpdateController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryVerificationController;
 use App\Modules\Admins\RegisteredIndustry\Controllers\RegisteredIndustryViewController;
+use App\Modules\Admins\RegisteredIndustryActivityLog\Controllers\RegisteredIndustryActivityLogExportController;
 use App\Modules\Admins\RegisteredIndustryActivityLog\Controllers\RegisteredIndustryActivityLogPaginateController;
 use App\Modules\Admins\RegisteredIndustryActivityLog\Controllers\RegisteredIndustryActivityLogViewController;
 use App\Modules\Admins\RegisteredIndustryContribution\Controllers\RegisteredIndustryContributionExportController;
@@ -118,6 +120,7 @@ use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteToggle
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteUpdateController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteVerificationController;
 use App\Modules\Admins\RegisteredInstitute\Controllers\RegisteredInstituteViewController;
+use App\Modules\Admins\RegisteredInstituteActivityLog\Controllers\RegisteredInstituteActivityLogExportController;
 use App\Modules\Admins\RegisteredInstituteActivityLog\Controllers\RegisteredInstituteActivityLogPaginateController;
 use App\Modules\Admins\RegisteredInstituteActivityLog\Controllers\RegisteredInstituteActivityLogViewController;
 use App\Modules\Admins\RegisteredInstituteScholarship\Controllers\RegisteredInstituteScholarshipPaginateController;
@@ -158,6 +161,7 @@ use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipRejectController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipToggleStatusController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipViewController;
 use App\Modules\Admins\SecurityQuestions\Controllers\SecurityQuestionToggleController;
+use App\Modules\Admins\StudentActivityLog\Controllers\StudentActivityLogExportController;
 use App\Modules\Admins\StudentActivityLog\Controllers\StudentActivityLogPaginateController;
 use App\Modules\Admins\StudentActivityLog\Controllers\StudentActivityLogViewController;
 use App\Modules\Admins\Students\Controllers\StudentCreateController;
@@ -213,6 +217,7 @@ Route::prefix('admin')->group(function () {
                 Route::get('/view/{id}', [StudentViewController::class, 'index']);
                 Route::prefix('activity-log/{user_id}')->group(function () {
                     Route::get('/paginate', [StudentActivityLogPaginateController::class, 'index']);
+                    Route::get('/excel', [StudentActivityLogExportController::class, 'index']);
                     Route::get('/view/{id}', [StudentActivityLogViewController::class, 'index']);
                 });
             });
@@ -349,6 +354,7 @@ Route::prefix('admin')->group(function () {
                 });
                 Route::prefix('activity-log/{reg_institute_id}')->group(function () {
                     Route::get('/paginate', [RegisteredInstituteActivityLogPaginateController::class, 'index']);
+                    Route::get('/excel', [RegisteredInstituteActivityLogExportController::class, 'index']);
                     Route::get('/view/{id}', [RegisteredInstituteActivityLogViewController::class, 'index']);
                 });
             });
@@ -405,6 +411,7 @@ Route::prefix('admin')->group(function () {
                 });
                 Route::prefix('activity-log/{reg_industry_id}')->group(function () {
                     Route::get('/paginate', [RegisteredIndustryActivityLogPaginateController::class, 'index']);
+                    Route::get('/excel', [RegisteredIndustryActivityLogExportController::class, 'index']);
                     Route::get('/view/{id}', [RegisteredIndustryActivityLogViewController::class, 'index']);
                 });
             });
@@ -431,6 +438,7 @@ Route::prefix('admin')->group(function () {
 				Route::get('/reciept/{id}', [ContributionRecieptPdfController::class, 'index']);
 				Route::post('/update/{id}', [ContributionUpdateController::class, 'index']);
 				Route::get('/activity-log/{id}', [ContributionActivityLogPaginateController::class, 'index']);
+				Route::get('/activity-log/{id}/excel', [ContributionActivityLogExportController::class, 'index']);
 			});
             Route::prefix('non-contribution')->group(function () {
 				Route::get('/list', [NonContributionPaginateController::class, 'index']);

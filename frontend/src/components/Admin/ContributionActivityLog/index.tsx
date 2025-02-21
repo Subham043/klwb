@@ -4,6 +4,7 @@ import {
   IconButton,
   Modal,
   Pagination,
+  Stack,
   Table,
 } from "rsuite";
 import { usePaginationQueryParam } from "../../../hooks/usePaginationQueryParam";
@@ -11,21 +12,26 @@ import ErrorBoundaryLayout from "../../../layouts/ErrorBoundaryLayout";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
 import { table } from "../../../utils/constants/table";
 import Moment from "../../Moment";
-import VisibleIcon from '@rsuite/icons/Visible';
+import VisibleIcon from "@rsuite/icons/Visible";
 import ActivityLogInfo from "../ActivityLogInfo";
 import { useState } from "react";
 import { ActivityLogType } from "../../../utils/types";
 import { useContributionsActivityLogsQuery } from "../../../hooks/data/contribution";
+import { useExcelExport } from "../../../hooks/useExcelExport";
+import { api_routes } from "../../../utils/routes/api";
 
 export type Props = {
   modal: {
     status: boolean;
-    data: number|null;
-  }
-  modalHandler: (value: { status: boolean; data: number|null }) => void;
+    data: number | null;
+  };
+  modalHandler: (value: { status: boolean; data: number | null }) => void;
 };
 
-export default function ContributionActivityLog({ modal, modalHandler }: Props) {
+export default function ContributionActivityLog({
+  modal,
+  modalHandler,
+}: Props) {
   const { page, pageHandler, limit, limitHandler } =
     usePaginationQueryParam("_activity_logs");
   const {
@@ -35,8 +41,23 @@ export default function ContributionActivityLog({ modal, modalHandler }: Props) 
     isRefetching: isActivityLogRefetching,
     error,
     refetch: refetchData,
-  } = useContributionsActivityLogsQuery({id: modal.data || 0, enabled: modal.status});
-  const [modal2, setModal2] = useState<{ status: boolean; data: ActivityLogType|null }>({ status: false, data: null });
+  } = useContributionsActivityLogsQuery({
+    id: modal.data || 0,
+    enabled: modal.status,
+  });
+  const [modal2, setModal2] = useState<{
+    status: boolean;
+    data: ActivityLogType | null;
+  }>({ status: false, data: null });
+
+  const { excelLoading, exportExcel } = useExcelExport();
+
+  const excelHandler = async () => {
+    await exportExcel(
+      api_routes.admin.contribution.activity_log_excel(Number(modal.data || 0)),
+      "activity_logs.xlsx"
+    );
+  };
 
   return (
     <div className="mb-1">
@@ -49,8 +70,26 @@ export default function ContributionActivityLog({ modal, modalHandler }: Props) 
       >
         <ErrorBoundaryLayout error={error} refetch={refetchData}>
           <ModalCardContainer header="Activity Log Information">
+            <div className="mb-1">
+              <Stack justifyContent="space-between">
+                <ButtonToolbar>
+                  <Button
+                    appearance="default"
+                    active
+                    loading={excelLoading}
+                    onClick={excelHandler}
+                  >
+                    Export Excel
+                  </Button>
+                </ButtonToolbar>
+              </Stack>
+            </div>
             <Table
-              loading={isActivityLogLoading || isActivityLogFetching || isActivityLogRefetching}
+              loading={
+                isActivityLogLoading ||
+                isActivityLogFetching ||
+                isActivityLogRefetching
+              }
               {...table}
               data={activity_logss?.data || []}
             >
@@ -59,23 +98,21 @@ export default function ContributionActivityLog({ modal, modalHandler }: Props) 
                 <Table.Cell dataKey="id" />
               </Table.Column>
 
-              <Table.Column  flexGrow={1}>
-                  <Table.HeaderCell>Description</Table.HeaderCell>
-                  <Table.Cell fullText dataKey="description" />
+              <Table.Column flexGrow={1}>
+                <Table.HeaderCell>Description</Table.HeaderCell>
+                <Table.Cell fullText dataKey="description" />
               </Table.Column>
 
-              <Table.Column  width={200}>
-                  <Table.HeaderCell>Changed By</Table.HeaderCell>
-                  <Table.Cell fullText dataKey="causer.name" />
+              <Table.Column width={200}>
+                <Table.HeaderCell>Changed By</Table.HeaderCell>
+                <Table.Cell fullText dataKey="causer.name" />
               </Table.Column>
 
               <Table.Column width={250} verticalAlign="middle">
                 <Table.HeaderCell>Updated On</Table.HeaderCell>
 
-                <Table.Cell fullText style={{ padding: '6px' }}>
-                  {rowData => (
-                    <Moment datetime={rowData.created_at} />
-                  )}
+                <Table.Cell fullText style={{ padding: "6px" }}>
+                  {(rowData) => <Moment datetime={rowData.created_at} />}
                 </Table.Cell>
               </Table.Column>
 
@@ -85,7 +122,18 @@ export default function ContributionActivityLog({ modal, modalHandler }: Props) 
                 <Table.Cell style={{ padding: "6px" }}>
                   {(rowData) => (
                     <ButtonToolbar>
-                      <IconButton appearance="primary" color="orange" size="sm" icon={<VisibleIcon />} onClick={() => setModal2({ status: true, data: rowData as ActivityLogType })} />
+                      <IconButton
+                        appearance="primary"
+                        color="orange"
+                        size="sm"
+                        icon={<VisibleIcon />}
+                        onClick={() =>
+                          setModal2({
+                            status: true,
+                            data: rowData as ActivityLogType,
+                          })
+                        }
+                      />
                     </ButtonToolbar>
                   )}
                 </Table.Cell>
