@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\RequestInstitutes\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\RequestInstitutes\Events\RequestInstituteRejected;
 use App\Modules\Admins\RequestInstitutes\Requests\RequestInstituteRejectRequest;
 use App\Modules\Admins\RequestInstitutes\Resources\RequestInstituteCollection;
 use App\Modules\Admins\RequestInstitutes\Services\RequestInstituteService;
@@ -29,6 +30,7 @@ class RequestInstituteRejectController extends Controller
                 ['status'=>2, 'reject_reason' => $request->reason],
                 $reqInstitute
             );
+            RequestInstituteRejected::dispatch($reqInstitute->email ?? null, $reqInstitute->name ?? null, $request->reason);
             return response()->json(["message" => "Institute rejected successfully.", "data" => RequestInstituteCollection::make($reqInstitute)], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

@@ -205,7 +205,7 @@
 																																																																												align="center">
 
 																																																																												<img align="center" border="0"
-																																																																																src="https://klwbapps.karnataka.gov.in/assets/image/logo.png"
+																																																																																src="https://klwbapps.karnataka.gov.in/assets/logo-BYtNzEB6.png"
 																																																																																alt="Image" title="Image"
 																																																																																style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 29%;max-width: 108.2px;"
 																																																																																width="108.2" />

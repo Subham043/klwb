@@ -3,6 +3,7 @@
 namespace App\Modules\Admins\RequestIndustry\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\RequestIndustry\Events\RequestIndustryRejected;
 use App\Modules\Admins\RequestIndustry\Resources\RequestIndustryCollection;
 use App\Modules\Admins\RequestIndustry\Services\RequestIndustryService;
 use App\Modules\Admins\RequestIndustry\Requests\RequestIndustryRejectRequest;
@@ -27,6 +28,7 @@ class RequestIndustryRejectController extends Controller
                 ['status'=>2, 'reject_reason' => $request->reason],
                 $reqIndustry
             );
+            RequestIndustryRejected::dispatch($reqIndustry->email ?? null, $reqIndustry->company ?? null, $request->reason);
             return response()->json(["message" => "Industry approved successfully.", "data" => RequestIndustryCollection::make($reqIndustry)], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

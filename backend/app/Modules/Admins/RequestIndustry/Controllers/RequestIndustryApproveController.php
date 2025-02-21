@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Admins\RequestIndustry\Resources\RequestIndustryCollection;
 use App\Modules\Admins\RequestIndustry\Services\RequestIndustryService;
 use App\Modules\Admins\Industries\Services\IndustryService;
+use App\Modules\Admins\RequestIndustry\Events\RequestIndustryApproved;
 use Illuminate\Support\Facades\DB;
 
 class RequestIndustryApproveController extends Controller
@@ -34,6 +35,7 @@ class RequestIndustryApproveController extends Controller
                 ['status'=>1],
                 $reqIndustry
             );
+            RequestIndustryApproved::dispatch($reqIndustry->email ?? null, $reqIndustry->company ?? null);
             return response()->json(["message" => "Industry approved successfully.", "data" => RequestIndustryCollection::make($reqIndustry)], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

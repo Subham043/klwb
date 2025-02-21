@@ -4,6 +4,7 @@ namespace App\Modules\Admins\RequestInstitutes\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\Institutes\Services\InstituteService;
+use App\Modules\Admins\RequestInstitutes\Events\RequestInstituteApproved;
 use App\Modules\Admins\RequestInstitutes\Resources\RequestInstituteCollection;
 use App\Modules\Admins\RequestInstitutes\Services\RequestInstituteService;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,7 @@ class RequestInstituteApproveController extends Controller
                 ['status'=>1],
                 $reqInstitute
             );
+            RequestInstituteApproved::dispatch($reqInstitute->email ?? null, $reqInstitute->name ?? null);
             return response()->json(["message" => "Institute approved successfully.", "data" => RequestInstituteCollection::make($reqInstitute)], 200);
         } catch (\Throwable $th) {
             DB::rollBack();

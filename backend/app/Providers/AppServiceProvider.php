@@ -18,6 +18,14 @@ use App\Http\Listeners\SendOtpNotification as StudentsSendOtpNotification;
 use App\Http\Listeners\SendResetPasswordResendOtpNotification as StudentsSendResetPasswordResendOtpNotification;
 use App\Http\Events\UserRegistered as StudentsUserRegistered;
 use App\Http\Listeners\SendRegistrartionNotification as StudentsSendRegistrartionNotification;
+use App\Modules\Admins\RequestIndustry\Events\RequestIndustryApproved;
+use App\Modules\Admins\RequestIndustry\Events\RequestIndustryRejected;
+use App\Modules\Admins\RequestIndustry\Listeners\SendRequestIndustryApprovedNotification;
+use App\Modules\Admins\RequestIndustry\Listeners\SendRequestIndustryRejectedNotification;
+use App\Modules\Admins\RequestInstitutes\Events\RequestInstituteApproved;
+use App\Modules\Admins\RequestInstitutes\Events\RequestInstituteRejected;
+use App\Modules\Admins\RequestInstitutes\Listeners\SendRequestInstituteApprovedNotification;
+use App\Modules\Admins\RequestInstitutes\Listeners\SendRequestInstituteRejectedNotification;
 use App\Modules\Admins\Scholarship\Events\AdminScholarshipApproved;
 use App\Modules\Admins\Scholarship\Events\AdminScholarshipRejected;
 use App\Modules\Admins\Scholarship\Listeners\SendAdminScholarshipApprovedNotification;
@@ -140,6 +148,22 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(
             IndustryPaymentCompleted::class,
             SendIndustryPaymentCompletedNotification::class,
+        );
+        Event::listen(
+            RequestIndustryRejected::class,
+            SendRequestIndustryRejectedNotification::class,
+        );
+        Event::listen(
+            RequestIndustryApproved::class,
+            SendRequestIndustryApprovedNotification::class,
+        );
+        Event::listen(
+            RequestInstituteRejected::class,
+            SendRequestInstituteRejectedNotification::class,
+        );
+        Event::listen(
+            RequestInstituteApproved::class,
+            SendRequestInstituteApprovedNotification::class,
         );
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super-Admin') ? true : null;
