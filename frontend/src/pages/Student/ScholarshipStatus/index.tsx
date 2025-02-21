@@ -37,7 +37,7 @@ export default function StudentScholarshipStatusPage() {
 				</PanelCardContainer>
 				<ScholarshipInfo data={data ? data.application : null} />
 			</div>}
-			{(data && data.application===null) && <DashboardMessageCard message="You have not applied for any scholarship till date." link={page_routes.student.scholarship.apply} type="error" color="red" button_title="APPLY" />}
+			{(data && data.application===null) && <DashboardMessageCard message={"You have not applied for any scholarship till date." + `${(data.is_eligible_to_apply && data.is_scholarship_open) ? "" : " Currently scholarship application is closed, please wait for the next scholarship opening."}`} type="error" color="red" link={(data.is_eligible_to_apply && data.is_scholarship_open) ? page_routes.student.scholarship.apply : undefined} button_title={(data.is_eligible_to_apply && data.is_scholarship_open) ? "APPLY" : undefined} />}
 		</ErrorBoundaryLayout>
 </div>
 }

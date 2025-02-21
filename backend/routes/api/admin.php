@@ -154,6 +154,8 @@ use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteRejectContr
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveMultipleController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipIndustryUpdateController;
+use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipInstituteUpdateController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipListController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipNoteController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipPdfController;
@@ -425,6 +427,8 @@ Route::prefix('admin')->group(function () {
 				Route::get('/excel', [AdminScholarshipExportController::class, 'index']);
 				Route::post('/approve-multiple', [AdminScholarshipApproveMultipleController::class, 'index']);
 				Route::get('/view/{id}', [AdminScholarshipViewController::class, 'index']);
+				Route::post('/institute-update/{id}', [AdminScholarshipInstituteUpdateController::class, 'index']);
+				Route::post('/industry-update/{id}', [AdminScholarshipIndustryUpdateController::class, 'index']);
 				Route::post('/approve/{id}', [AdminScholarshipApproveController::class, 'index']);
 				Route::post('/reject/{id}', [AdminScholarshipRejectController::class, 'index']);
 				Route::post('/toggle-status/{id}', [AdminScholarshipToggleStatusController::class, 'index']);

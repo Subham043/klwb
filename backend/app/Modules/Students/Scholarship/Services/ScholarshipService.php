@@ -126,7 +126,7 @@ class ScholarshipService
 			'name' => $request->bank_name,
 			'branch' => $request->branch,
 			'ifsc' => $request->ifsc,
-			'acc_no' => $request->acc_no,
+			'acc_no' => (string) $request->acc_no,
 			'holder' => $request->holder,
 		];
 		if ($request->hasFile('passbook')) {
@@ -169,7 +169,7 @@ class ScholarshipService
 			'name' => $request->bank_name,
 			'branch' => $request->branch,
 			'ifsc' => $request->ifsc,
-			'acc_no' => $request->acc_no,
+			'acc_no' => (string) $request->acc_no,
 			'holder' => $request->holder,
 		];
 		if ($request->hasFile('passbook')) {

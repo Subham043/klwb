@@ -108,7 +108,7 @@ class ApplyScholarshipRequest extends InputRequest
             'bank_name' => ['required', 'string', 'max:250'],
             'branch' => ['required', 'string', 'max:250'],
             'ifsc' => ['required', 'string', 'max:250'],
-            'acc_no' => ['required','numeric'],
+            'acc_no' => ['required','string', 'regex:/^\d+$/'],
             'holder' => ['required', 'string', 'max:250'],
             'passbook' => 'required|file|extensions:jpg,jpeg,png,pdf|min:1|max:515',
             
@@ -167,6 +167,13 @@ class ApplyScholarshipRequest extends InputRequest
             'taluq_id' => 'Taluq',
             'company_id' => 'Parent Industry',
             'salaryslip' => 'Salary slip',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'acc_no.regex' => 'Please enter valid account number',
         ];
     }
 

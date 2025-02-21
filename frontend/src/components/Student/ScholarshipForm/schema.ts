@@ -34,7 +34,7 @@ export type ScholarshipFormSchemaType = {
 	bank_name: string;
 	branch: string;
 	ifsc: string;
-	acc_no: number;
+	acc_no: string;
 	holder: string;
 	passbook?: FileType[] | undefined;
 	who_working: string;
@@ -221,7 +221,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		bank_name: yup.string().typeError("Bank Name must contain characters only").max(250).required("Bank Name is required"),
 		branch: yup.string().typeError("Branch Name must contain characters only").max(250).required("Branch Name is required"),
 		ifsc: yup.string().typeError("IFSC code must contain characters only").max(250).required("IFSC code is required"),
-		acc_no: yup.number().typeError("Account Number must contain numbers only").positive().required("Account Number is required"),
+		acc_no: yup.string().typeError("Account Number must contain numbers only").required("Account Number is required"),
 		holder: yup.string().typeError("Account Holder Name must contain characters only").max(250).required("Account Holder Name is required"),
 		passbook: yup
 			.mixed<FileType[]>()
@@ -243,7 +243,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		who_working: yup.string().typeError("Who's Working type must contain characters only").required("Who's Working type is required"),
 		parent_guardian_name: yup.string().typeError("Parent/Guardian Name type must contain characters only").max(250).required("Parent/Guardian Name type is required"),
 		relationship: yup.string().typeError("Relationship type must contain characters only").max(250).required("Relationship type is required"),
-		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(35001, "Monthly Salary should be less than or equal to 30,000").required("Monthly Salary is required"),
+		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(35001, "Monthly Salary should be less than or equal to 35,000").required("Monthly Salary is required"),
 		pincode: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
 		district: yup
@@ -429,7 +429,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		bank_name: '',
 		branch: '',
 		ifsc: '',
-		acc_no: 0,
+		acc_no: '',
 		holder: '',
 		passbook: undefined,
 		who_working: '',
@@ -562,13 +562,13 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 		bank_name: yup.string().typeError("Bank Name must contain characters only").max(250).required("Bank Name is required"),
 		branch: yup.string().typeError("Branch Name must contain characters only").max(250).required("Branch Name is required"),
 		ifsc: yup.string().typeError("IFSC code must contain characters only").max(250).required("IFSC code is required"),
-		acc_no: yup.number().typeError("Account Number must contain numbers only").positive().required("Account Number is required"),
+		acc_no: yup.string().typeError("Account Number must contain numbers only").required("Account Number is required"),
 		holder: yup.string().typeError("Account Holder Name must contain characters only").max(250).required("Account Holder Name is required"),
 		passbook: yup.mixed<FileType[]>().optional(),
 		who_working: yup.string().typeError("Who's Working type must contain characters only").required("Who's Working type is required"),
 		parent_guardian_name: yup.string().typeError("Parent/Guardian Name type must contain characters only").max(250).required("Parent/Guardian Name type is required"),
 		relationship: yup.string().typeError("Relationship type must contain characters only").max(250).required("Relationship type is required"),
-		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(35001, "Monthly Salary should be less than or equal to 30,000").required("Monthly Salary is required"),
+		msalary: yup.number().typeError("Monthly Salary must contain numbers only").positive().lessThan(35001, "Monthly Salary should be less than or equal to 35,000").required("Monthly Salary is required"),
 		pincode: yup.string().typeError("Pincode must contain characters only").required("Pincode is required"),
 		district_id: yup.number().typeError("District must contain numbers only").required("District is required").test("notZero", "District is required", (value) => !(value === 0)),
 		district: yup

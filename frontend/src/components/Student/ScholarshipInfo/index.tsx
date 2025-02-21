@@ -36,10 +36,10 @@ export default function ScholarshipInfo({ data, refetch }: Props) {
 		<Divider />
 		{data && <>
 			{(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN || user.role === RolesEnum.VERIFICATION_OFFICER)) && <NoteInfo data={data} refetch={refetch} />}
-			<StudentInfo data={data} />
+			<StudentInfo data={data} refetch={refetch} />
 			<MarkInfo data={data} />
 			<CasteInfo data={data} />
-			<IndustryInfo data={data} />
+			<IndustryInfo data={data} refetch={refetch} />
 			<AadharInfo data={data} />
 			<BankInfo data={data} />
 			{(user && (user.role == RolesEnum.VERIFICATION_OFFICER || user.role === RolesEnum.FINANCIAL_OFFICER || user.role === RolesEnum.STUDENT)) && <ConfirmationReport data={data} />}

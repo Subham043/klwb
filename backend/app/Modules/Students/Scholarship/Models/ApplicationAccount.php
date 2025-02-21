@@ -33,7 +33,6 @@ class ApplicationAccount extends Model
     protected $attributes = [];
 
     protected $casts = [
-        'acc_no' => 'int',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

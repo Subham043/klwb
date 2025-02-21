@@ -126,7 +126,9 @@ div.tab_name {
 	border-color: #ff0000;
 	background-color: #ff0000;
 	color: #fff;
-	content: "\1F5D9";
+	content: "\00D7";
+	font-size: 1.7rem;
+	/* content: "\1F5D9"; */
 } 
 
 

@@ -1,21 +1,32 @@
-import { Col, Grid, Row } from "rsuite";
+import { ButtonToolbar, Col, Grid, Row } from "rsuite";
 import { StudentApplicationType } from "../../../utils/types";
 import classes from "./index.module.css";
 import FileViewer from "../../FileViewer";
 import DetailInfo from "../../DetailInfo";
 import ModalCardContainer from "../../MainCards/ModalCardContainer";
+import { useState } from "react";
+import IndustryInfoUpdate from "./IndustryInfoUpdate";
+import EditBtn from "../../Buttons/EditBtn";
+import { useUser } from "../../../hooks/useUser";
+import { RolesEnum } from "../../../utils/constants/role";
 
 type Props = {
   data: StudentApplicationType;
+  refetch?: () => void;
 };
 
-function IndustryInfo({ data }: Props) {
+function IndustryInfo({ data, refetch }: Props) {
+  const {user} = useUser();
+  const [industryUpdateModal, setIndustryUpdateModal] = useState<boolean>(false);
   return (
     <div className="mb-1">
       <ModalCardContainer
         header={
-          <div className="text-center">
+          <div className={(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) ? "industry-info-update-scholarship-admin" : "text-center"}>
             <h5 className={classes.inner_main_heading}>Industry Detail</h5>
+            {(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <ButtonToolbar>
+              <EditBtn clickHandler={() => setIndustryUpdateModal(true)} />
+            </ButtonToolbar>}
           </div>
         }
       >
@@ -79,6 +90,12 @@ function IndustryInfo({ data }: Props) {
           </Row>
         </Grid>
       </ModalCardContainer>
+      {(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <IndustryInfoUpdate
+        modal={industryUpdateModal}
+        setModal={setIndustryUpdateModal}
+        data={data}
+        refetch={refetch}
+      />}
     </div>
   );
 }

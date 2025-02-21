@@ -34,6 +34,12 @@ a, a:hover {
     display: inline-block;
 }
 
+.industry-info-update-scholarship-admin{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .text-brand{
     color: #00437d;
 }

@@ -295,7 +295,7 @@ export type StudentApplicationAccountType = {
   bank_name: string;
   branch: string;
   ifsc: string;
-  acc_no: number;
+  acc_no: string;
   holder: string;
   type: string;
   passbook: string|null;

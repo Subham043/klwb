@@ -73,7 +73,7 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			bank_name: data ? data.account.bank_name : '',
 			branch: data ? data.account.branch : '',
 			ifsc: data ? data.account.ifsc : '',
-			acc_no: data ? data.account.acc_no : 0,
+			acc_no: data ? data.account.acc_no : '',
 			holder: data ? data.account.holder : '',
 			who_working: data ? data.company.who_working.toString() : '',
 			parent_guardian_name: data ? data.company.parent_guardian_name : '',
