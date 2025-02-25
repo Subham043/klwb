@@ -30,7 +30,7 @@ class IndustryExport implements FromQuery, WithHeadings, WithMapping
 			$data->name,
 			Act::getValue($data->act) ?? '',
 			$data->category ?? '',
-			(string) $data->pincode,
+			(string) $data->pincode.' ',
 			$data->is_active ? 'Yes' : 'No',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];

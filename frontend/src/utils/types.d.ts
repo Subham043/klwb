@@ -433,6 +433,7 @@ export type StudentApplicationType = {
     created_at: string;
     updated_at: string;
   }|null;
+  student : AuthType | null;
 }
 
 export type PaymentType = {
@@ -466,6 +467,7 @@ export type ContributionType = {
   female: number;
   total_employees: number;
   interest: number;
+  resolved: number;
   status: number;
   status_text: string;
   employee_excel: string|null;
@@ -500,6 +502,8 @@ export type NonContributionType = {
   reg_id: string;
   name: string;
   act: number;
+  non_contributions_payments_pending_count: number;
+  non_contributions_payments_failed_count: number;
   act_label: string;
   category: string|null;
   pincode: string;

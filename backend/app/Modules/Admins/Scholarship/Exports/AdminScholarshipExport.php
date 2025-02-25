@@ -34,9 +34,9 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			$data->basic_detail->gender,
 			$data->basic_detail->category,
 			$data->basic_detail->cast_no,
-			(string) $data->basic_detail->adharcard_no ?? '',
-			(string) $data->basic_detail->f_adhar ?? '',
-			(string) $data->basic_detail->m_adhar ?? '',
+			(string) $data->basic_detail->adharcard_no.' ' ?? '',
+			(string) $data->basic_detail->f_adhar.' ' ?? '',
+			(string) $data->basic_detail->m_adhar.' ' ?? '',
 			$data->institute->name,
 			$data->industry->name,
 			$data->mark->graduation->name,
@@ -48,19 +48,19 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			$data->company->who_working_text,
 			$data->company->name,
 			$data->company->relationship,
-			(string) $data->company->msalary,
+			(string) $data->company->msalary.' ',
 			$data->company->pincode,
 			$data->mark->district->name,
 			$data->mark->taluq->name,
 			$data->account->name,
 			$data->account->branch,
 			(string) $data->account->ifsc,
-			(string) $data->account->acc_no,
+			(string) $data->account->acc_no.' ',
 			$data->account->holder,
 			$data->account->account_type,
-			(string) $data->application_year,
+			(string) $data->application_year.' ',
 			$this->getStatusMessage($data->status, $data->application_state),
-			$data->status==2 && $data->reject_reason ? $data->reject_reason : '',
+			$data->status == 2 && $data->reject_reason ? $data->reject_reason : '',
 			$data->date->format('Y-m-d H:i:s'),
 		];
 	}
@@ -107,7 +107,8 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 		];
 	}
 
-	private function getStatusMessage($status, $application_state) {
+	private function getStatusMessage($status, $application_state)
+	{
 		$statusMap = [
 			0 => 'PENDING',
 			1 => 'APPROVED',
@@ -122,10 +123,10 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			4 => 'ADMIN',
 		];
 
-		if($this->max_application_state == 0){
+		if ($this->max_application_state == 0) {
 			return $statusMap[$status] . ($statusMap[$status] === 'PENDING' ? ' FROM ' : ' BY ') . $applicationStateMap[$application_state];
 		}
-		if($application_state > $this->max_application_state){
+		if ($application_state > $this->max_application_state) {
 			return 'APPROVED';
 		}
 		return $statusMap[$status];

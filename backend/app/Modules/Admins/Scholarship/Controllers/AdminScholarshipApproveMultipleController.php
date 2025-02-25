@@ -26,7 +26,7 @@ class AdminScholarshipApproveMultipleController extends Controller
         $ids = $request->id;
         $applications = $this->scholarshipService->getMultipleByIds($ids);
         foreach($applications as $application){
-            if($this->applicationChecks->canAdminVerify($application)){
+            if($this->applicationChecks->canAdminApproveReject($application) && $application->status != ApplicationStatus::Approve->value){
                 $application->update([
                     'admin_approve' => now(),
                     'status' => ApplicationStatus::Approve->value,

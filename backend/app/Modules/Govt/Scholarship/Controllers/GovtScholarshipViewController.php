@@ -28,7 +28,7 @@ class GovtScholarshipViewController extends Controller
             'application' => $application ? GovtApplicationCollection::make($application) : null,
             'can_approve' => false,
         ];
-        $response['can_approve'] = $this->applicationChecks->canGovtVerify($application);
+        $response['can_approve'] = $this->applicationChecks->canGovtApproveReject($application);
         return response()->json($response, 200);
     }
 }

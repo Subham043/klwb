@@ -1,5 +1,5 @@
-import { FC } from "react"
-import { Table } from "rsuite"
+import { FC, useState } from "react"
+import { ButtonToolbar, IconButton, Table } from "rsuite"
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import { api_routes } from "../../../utils/routes/api";
 import Status from "../../../components/Status";
@@ -8,15 +8,20 @@ import { table } from "../../../utils/constants/table";
 import { useNonContributionsQuery } from "../../../hooks/data/non_contribution";
 import SelectYear from "../../../components/Institute/SelectYear";
 import SelectNonContributionStatus from "../../../components/SelectNonContributionStatus";
+import NonContributionPayment from "../../../components/Admin/NonContributionPayment";
+import EventDetailIcon from '@rsuite/icons/EventDetail';
+import { useSearchParams } from "react-router-dom";
 
 
 const NonContribution:FC = () => {
     const {data, isLoading, isFetching, isRefetching, refetch, error} = useNonContributionsQuery();
+    const [modal, setModal] = useState<{ status: boolean; data: number|null }>({ status: false, data: null });
+    const [searchParams] = useSearchParams();
 
     return <PaginatedTableLayout title="Contribution Pending">
         <PaginatedTableLayout.Header title="Contribution Pending" addBtn={false} excelLink={api_routes.admin.non_contribution.excel} excelName="non_contribution.xlsx">
             <SelectNonContributionStatus />
-            <SelectYear />
+            <SelectYear canClear={false} />
         </PaginatedTableLayout.Header>
         <PaginatedTableLayout.Content total={(data?.meta.total || 0)} error={error} refetch={refetch}>
             <Table
@@ -49,6 +54,16 @@ const NonContribution:FC = () => {
                     <Table.Cell fullText dataKey="reg_id" />
                 </Table.Column> */}
 
+                <Table.Column width={120} align="center" verticalAlign="middle">
+                    <Table.HeaderCell>Payment Attempted</Table.HeaderCell>
+
+                    <Table.Cell fullText style={{ padding: '6px' }}>
+                        {rowData => (
+                            <Status status={(rowData.non_contributions_payments_pending_count > 0 || rowData.non_contributions_payments_failed_count > 0)} correctLabel="Yes" wrongLabel="No" />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+                
                 <Table.Column width={60} align="center" verticalAlign="middle">
                     <Table.HeaderCell>Status</Table.HeaderCell>
 
@@ -68,8 +83,20 @@ const NonContribution:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
+                <Table.Column width={70} fixed="right">
+                    <Table.HeaderCell>Action</Table.HeaderCell>
+    
+                    <Table.Cell style={{ padding: "6px" }}>
+                    {(rowData) => (
+                        <ButtonToolbar>
+                            {(searchParams.get('year') !== null && (rowData.non_contributions_payments_pending_count > 0 || rowData.non_contributions_payments_failed_count > 0)) && <IconButton appearance="primary" color="cyan" size="sm" icon={<EventDetailIcon />} onClick={() => setModal({ status: true, data: rowData.id })} />}
+                        </ButtonToolbar>
+                    )}
+                    </Table.Cell>
+                </Table.Column>
             </Table>
         </PaginatedTableLayout.Content>
+        <NonContributionPayment modal={modal} modalHandler={setModal} refetch={refetch} />
     </PaginatedTableLayout>
 }
 

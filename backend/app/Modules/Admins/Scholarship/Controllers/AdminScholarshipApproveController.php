@@ -23,7 +23,7 @@ class AdminScholarshipApproveController extends Controller
      */
     public function index(Request $request, $id){
         $application = $this->scholarshipService->getById($id);
-        if($this->applicationChecks->canAdminVerify($application)){
+        if($this->applicationChecks->canAdminApproveReject($application) && $application->status != ApplicationStatus::Approve->value){
             $application->update([
                 'admin_approve' => now(),
                 'status' => ApplicationStatus::Approve->value,

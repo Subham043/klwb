@@ -28,7 +28,7 @@ class AdminScholarshipViewController extends Controller
             'application' => $application ? AdminApplicationCollection::make($application) : null,
             'can_approve' => false,
         ];
-        $response['can_approve'] = $this->applicationChecks->canAdminVerify($application);
+        $response['can_approve'] = $this->applicationChecks->canAdminApproveReject($application);
         return response()->json($response, 200);
     }
 }

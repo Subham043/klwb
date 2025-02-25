@@ -21,6 +21,8 @@ class NonContributionCollection extends JsonResource
             'name' => $this->name,
             'act' => $this->act,
             'act_label' => Act::getValue($this->act),
+            'non_contributions_payments_pending_count' => $this->non_contributions_payments_pending_count,
+            'non_contributions_payments_failed_count' => $this->non_contributions_payments_failed_count,
             'category' => $this->category,
             'pincode' => $this->pincode,
             'is_active' => $this->is_active,

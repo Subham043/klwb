@@ -5,13 +5,14 @@ import { SelectPicker } from "rsuite";
 type PropType = {
 	key?: string
   className?: string;
+  canClear?: boolean;
 };
 
 const diff = moment().year() - 2017;
 
 const data = Array.from({ length: diff }, (_, i) => ({ label : (moment().year() - i).toString(), value : (moment().year() - i).toString() }));
 
-const SelectYear = (props: PropType) => {
+const SelectYear = ({ canClear=true, ...props }: PropType) => {
   const {
 		key,
   } = props;
@@ -31,6 +32,7 @@ const SelectYear = (props: PropType) => {
       virtualized
       style={{ minWidth: "150px" }}
       className={props.className}
+      cleanable={canClear}
     />
   );
 };

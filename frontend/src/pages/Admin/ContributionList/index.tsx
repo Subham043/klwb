@@ -205,7 +205,18 @@ const ContributionListPage:FC = () => {
                     </Table.Cell>
                 </Table.Column>
                 
-                <Table.Column width={100} verticalAlign="middle">
+                <Table.Column width={130} verticalAlign="middle">
+                    <Table.HeaderCell>Manual Verification</Table.HeaderCell>
+
+                    <Table.Cell style={{ padding: '6px' }}>
+                        {rowData => (
+                            rowData.resolved===1 ? <Badge style={{ background: '#4caf50', padding: '7px 9px', }} content={'YES'} /> :
+                            <Badge style={{ background: '#f44336', padding: '7px 9px', }} content={'NO'} />
+                        )}
+                    </Table.Cell>
+                </Table.Column>
+                
+                <Table.Column width={80} verticalAlign="middle">
                     <Table.HeaderCell>Edited</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

@@ -27,13 +27,13 @@ class RegisteredInstituteExport implements FromQuery, WithHeadings, WithMapping
 			$data->id,
 		 $data->institute->name ?? '',
 		 $data->principal ?? '',
-		 (string) $data->phone ?? '',
+		 (string) $data->phone.' ' ?? '',
 		 $data->email ?? '',
 		 $data->institute->management_type ?? '',
 		 $data->address->taluq->name ?? '',
-		 (string) $data->address->taluq->id ?? '',
+		 (string) $data->address->taluq->id.' ' ?? '',
 		 $data->address->city->name ?? '',
-		 (string) $data->address->city->id ?? '',
+		 (string) $data->address->city->id.' ' ?? '',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];
 	}

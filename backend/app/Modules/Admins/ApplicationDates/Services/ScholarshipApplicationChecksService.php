@@ -116,10 +116,20 @@ class ScholarshipApplicationChecksService
 	{
 		return $application->application_state == ApplicationState::Govt->value && $this->canVerify($application);
 	}
+	
+	public function canGovtApproveReject(Application $application): bool
+	{
+		return $application->application_state == ApplicationState::Govt->value && $this->isApplicationLatest($application) && ($this->isApplicationPending($application) || $this->isApplicationApproved($application) || $this->isApplicationRejected($application)) && $this->latestApplicationDate->can_verify;
+	}
 
 	public function canAdminVerify(Application $application): bool
 	{
 		return $application->application_state == ApplicationState::Admin->value && $this->canVerify($application);
+	}
+
+	public function canAdminApproveReject(Application $application): bool
+	{
+		return $application->application_state == ApplicationState::Admin->value && $this->isApplicationLatest($application) && ($this->isApplicationPending($application) || $this->isApplicationApproved($application) || $this->isApplicationRejected($application)) && $this->latestApplicationDate->can_verify;
 	}
 	
 	public function canFinanceVerify(Application $application): bool

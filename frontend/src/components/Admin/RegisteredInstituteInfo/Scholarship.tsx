@@ -19,8 +19,7 @@ import Moment from "../../Moment";
 import { ViewLink } from "../../Buttons/ViewBtn";
 import { page_routes } from "../../../utils/routes/pages";
 import { useRegisteredInstitutesScholarshipQuery } from "../../../hooks/data/registered_institute";
-import StatusBadge from "../../Student/StatusBadge";
-import ApplicationStateBadge from "../../Student/ApplicationStateBadge";
+import ApplicationStatusBadge from "../../ApplicationStatusBadge";
 
 export type Props = {
   id: number;
@@ -130,23 +129,16 @@ export default function Scholarship({ id }: Props) {
               <Table.Cell fullText dataKey="application_year" />
             </Table.Column>
 
-            <Table.Column width={160} verticalAlign="middle">
-              <Table.HeaderCell>Application State</Table.HeaderCell>
-
-              <Table.Cell style={{ padding: "6px" }}>
-                {(rowData) => (
-                  <ApplicationStateBadge
-                    application_state={rowData?.application_state}
-                  />
-                )}
-              </Table.Cell>
-            </Table.Column>
-
-            <Table.Column width={160} verticalAlign="middle">
+            <Table.Column width={210} verticalAlign="middle">
               <Table.HeaderCell>Status</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>
-                {(rowData) => <StatusBadge status={rowData?.status} />}
+                {(rowData) => (
+                  <ApplicationStatusBadge
+                    status={rowData?.status}
+                    application_state={rowData?.application_state}
+                  />
+                )}
               </Table.Cell>
             </Table.Column>
 

@@ -26,20 +26,20 @@ class ContributionsExport implements FromQuery, WithHeadings, WithMapping
 	public function map($data): array
 	{
 		return [
-			(string) $data->id,
+			(string) $data->id.' ',
 			$data->industry->name ?? '',
 			Act::getValue($data->industry->act) ?? '',
 			$data->industry->category ?? '',
 			$data->industry->auth->city->name ?? '',
 			$data->industry->auth->taluq->name ?? '',
-			(string) $data->year,
+			(string) $data->year.' ',
 			$data->pay_id,
-			(string) $data->male,
-			(string) $data->female,
-			(string) $data->female + $data->male,
-			(string) (($data->female + $data->male) * 60),
-			$data->interest!=NULL ? (string) $data->interest : '0',
-			(string) $data->price,
+			(string) $data->male.' ',
+			(string) $data->female.' ',
+			(string) ($data->female + $data->male).' ',
+			(string) (($data->female + $data->male) * 60).' ',
+			$data->interest!=NULL ? (string) $data->interest.' ' : '0',
+			(string) $data->price.' ',
 			PaymentStatus::getValue($data->status),
 			optional($data->payed_on)->format('Y-m-d'),
 		];

@@ -19,6 +19,10 @@ class NonContributionPaginateController extends Controller
      */
 
     public function index(Request $request){
+        $year = request()->query('filter')['year'] ?? null;
+        if(empty($year)){
+            return response()->json(['message' => 'Please select year'], 422);
+        }
         $data = $this->contributionService->getList($request->total ?? 10);
         return NonContributionCollection::collection($data);
     }

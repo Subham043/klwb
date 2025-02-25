@@ -23,7 +23,7 @@ class AdminScholarshipRejectController extends Controller
     public function index(AdminRejectScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);
-        if($this->applicationChecks->canAdminVerify($application)){
+        if($this->applicationChecks->canAdminApproveReject($application) && $application->status != ApplicationStatus::Reject->value){
             $application->update([
                 'admin_approve' => now(),
                 'status' => ApplicationStatus::Reject->value,
@@ -32,6 +32,6 @@ class AdminScholarshipRejectController extends Controller
             AdminScholarshipRejected::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $request->reason);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }
-        return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);
+        return response()->json(['message' => 'Oops. You do not have the permission to reject.'], 400);
     }
 }

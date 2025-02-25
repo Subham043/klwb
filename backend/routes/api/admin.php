@@ -17,6 +17,8 @@ use App\Modules\Admins\Contributions\Controllers\ContributionUpdateController;
 use App\Modules\Admins\Contributions\Controllers\ContributionViewController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionPaginateController;
+use App\Modules\Admins\Contributions\Controllers\NonContributionPaymentMarkCompleteController;
+use App\Modules\Admins\Contributions\Controllers\NonContributionPaymentPaginateController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionViewController;
 use App\Modules\Admins\Dashboard\AdminDashboardController;
 use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
@@ -448,6 +450,8 @@ Route::prefix('admin')->group(function () {
 				Route::get('/list', [NonContributionPaginateController::class, 'index']);
 				Route::get('/excel', [NonContributionExportController::class, 'index']);
 				Route::get('/view/{id}', [NonContributionViewController::class, 'index']);
+				Route::get('/payment/{comp_regd_id}/list', [NonContributionPaymentPaginateController::class, 'index']);
+				Route::post('/payment/{comp_regd_id}/mark-complete/{id}', [NonContributionPaymentMarkCompleteController::class, 'index']);
 			});
             Route::prefix('report')->group(function () {
                 Route::prefix('contribution')->group(function () {

@@ -324,6 +324,8 @@ export const admin_api_routes = {
 		list: "/api/admin/v1/non-contribution/list",
 		excel: "/api/admin/v1/non-contribution/excel",
 		view: (id: string | number) => `/api/admin/v1/non-contribution/view/${id}`,
+		payment_list: (id: string | number) => `/api/admin/v1/non-contribution/payment/${id}/list`,
+		mark_payment_complete: (id: string | number, id2: string | number) => `/api/admin/v1/non-contribution/payment/${id}/mark-complete/${id2}`,
 	},
   report: {
     contribution: {

@@ -28,14 +28,14 @@ class RegisteredIndustryExport implements FromQuery, WithHeadings, WithMapping
 			$data->id,
 			$data->industry->name,
 			$data->name,
-			(string) $data->phone,
+			(string) $data->phone.' ',
 			$data->email,
 			Act::getValue($data->industry->act) ?? '',
 			$data->industry->category ?? '',
 			$data->taluq->name,
-			(string) $data->taluq->id,
+			(string) $data->taluq->id.' ',
 			$data->city->name,
-			(string) $data->city->id,
+			(string) $data->city->id.' ',
 			$data->created_at->format('Y-m-d H:i:s'),
 		];
 	}

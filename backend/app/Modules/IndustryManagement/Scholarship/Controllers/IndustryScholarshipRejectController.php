@@ -37,6 +37,6 @@ class IndustryScholarshipRejectController extends Controller
             IndustryScholarshipRejected::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $request->reason);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }
-        return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);
+        return response()->json(['message' => 'Oops. You do not have the permission to reject.'], 400);
     }
 }

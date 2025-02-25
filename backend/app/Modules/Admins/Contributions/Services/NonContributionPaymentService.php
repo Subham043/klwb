@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\PaymentOfficer\Contribution\Services;
+namespace App\Modules\Admins\Contributions\Services;
 
 use App\Modules\Admins\RequestIndustry\Enums\Act;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
@@ -9,14 +9,14 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Pagination\Paginator;
 
-class ContributionService
+class NonContributionPaymentService
 {
 
-	protected function model(): Builder
+	protected function model($comp_regd_id): Builder
 	{
 		return Payment::with([
 			'industry' => function ($query) {
@@ -26,81 +26,62 @@ class ContributionService
 					}
 				]);
 			},
-		])->whereHas('industry')->where('status', PaymentStatus::Success->value);
+		])
+		->where('comp_regd_id', $comp_regd_id)
+		->whereHas('industry', function ($query) use ($comp_regd_id) {
+			$query->where('id', $comp_regd_id);
+		})
+		->where('status', '!=', PaymentStatus::Success->value);
 	}
-	protected function query(): QueryBuilder
+	protected function query($comp_regd_id): QueryBuilder
 	{
-		return QueryBuilder::for($this->model())
+		return QueryBuilder::for($this->model($comp_regd_id))
 			->defaultSort('-id')
 			->allowedSorts('id', 'year')
 			->allowedFilters([
 				'year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
-				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-					$query->where(function ($query) use ($value) {
-						$query->whereHas('industry', function ($qry) use ($value) {
-							$qry->whereHas('auth', function ($q) use ($value) { $q->where('taluq_id', $value); });
-						});
-					});
-				}),
-				AllowedFilter::callback('has_city', function (Builder $query, $value) {
-					$query->where(function ($query) use ($value) {
-						$query->whereHas('industry', function ($qry) use ($value) {
-							$qry->whereHas('auth', function ($q) use ($value) { $q->where('city_id', $value); });
-						});
-					});
-				}),
-				AllowedFilter::callback('from_date', function (Builder $query, $value) {
-					$query->where(function ($query) use ($value) {
-						$query->whereDate('payed_on', '>=', $value);
-					});
-				}),
-				AllowedFilter::callback('to_date', function (Builder $query, $value) {
-					$query->where(function ($query) use ($value) {
-						$query->whereDate('payed_on', '<=', $value);
-					});
-				}),
 			]);
 	}
 
-	public function getExcelQuery(): QueryBuilder
+	public function getExcelQuery($comp_regd_id): QueryBuilder
 	{
-		return $this->query();
+		return $this->query($comp_regd_id);
 	}
 
-	public function getLatestByYear(): Payment
+	public function getLatestByYear($comp_regd_id): Payment
 	{
-		return $this->model()->orderBy('year', 'desc')
+		return $this->model($comp_regd_id)->orderBy('year', 'desc')
 			->firstOrFail();
 	}
 
-	public function getById(string $id): Payment
+	public function getById(string $id, $comp_regd_id): Payment
 	{
-		return $this->model()
+		return $this->model($comp_regd_id)
 			->where('id', $id)
 			->latest('id')
 			->firstOrFail();
 	}
 
-	public function getPaymentCompletedById(string $id): Payment
+	public function getPaymentCompletedById(string $id, $comp_regd_id): Payment
 	{
-		return $this->model()
+		return $this->model($comp_regd_id)
 			->where('id', $id)
 			->where('status', 1)
 			->latest('id')
 			->firstOrFail();
 	}
 
-	public function getList(Int $total = 10): LengthAwarePaginator
+	public function getList($comp_regd_id, Int $total = 10): LengthAwarePaginator
 	{
-		return $this->query()->paginate($total)
+		return $this->query($comp_regd_id)->paginate($total)
 			->appends(request()->query());
 	}
 
 	public function excel(): SimpleExcelWriter
 	{
 		set_time_limit(0); // Removes the time limit
-
+		
 		$page = 1;
 		$perPage = 1000; // Number of items per page
 		$writer = SimpleExcelWriter::streamDownload('contributions.xlsx');
@@ -146,7 +127,6 @@ class ContributionService
 
 		return $writer;
 	}
-
 }
 
 

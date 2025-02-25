@@ -142,7 +142,7 @@ class AdminScholarshipService
 		$newApp = clone $application;
 		if(!$newApp) return $newApp;
 		$applicationChecks = new ScholarshipApplicationChecksService();
-		$newApp->can_approve = $applicationChecks->canAdminVerify($newApp);
+		$newApp->can_approve = $applicationChecks->canAdminApproveReject($newApp);
 		$payments_container = [];
 			$payments = $this->getIndustryCompletedPayments([$newApp->company_id], $newApp->application_year);
 			foreach($payments as $payment){
@@ -173,7 +173,7 @@ class AdminScholarshipService
 			$applicationChecks = new ScholarshipApplicationChecksService();
 			$applications = $data->through(function($application) use ($applicationChecks, &$industry_ids){
 				array_push($industry_ids, ["application_year" => $application->application_year, "company_id" => $application->company_id]);
-				$application->can_approve = $applicationChecks->canAdminVerify($application);	
+				$application->can_approve = $applicationChecks->canAdminApproveReject($application);	
 				return $application;
 			});
 			$grouped = collect($industry_ids)

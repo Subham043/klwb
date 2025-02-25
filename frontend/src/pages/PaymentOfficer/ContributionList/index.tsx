@@ -11,6 +11,7 @@ import PaymentStatusBadge from "../../../components/PaymentStatusBadge";
 import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
 import { usePaymentOfficerContributionsQuery } from "../../../hooks/data/payment_officer_contribution";
+import SelectDateRangePicker from "../../../components/SelectDateRangePicker";
 
 const Receipt = ({id}:{id: number}) => {
     const {pdfLoading, exportPdf} = usePdfExport();
@@ -69,6 +70,7 @@ const ContributionListPage:FC = () => {
 
     return <PaginatedTableLayout title="Contribution Comleted">
         <PaginatedTableLayout.Header title="Contribution Comleted" addBtn={false} excelLink={api_routes.payment_officer.contribution.excel} excelName="contribution.xlsx">
+            <SelectDateRangePicker />
             <SelectCityStatus />
             <SelectTaluqStatus />
             <SelectYear />
@@ -109,22 +111,22 @@ const ContributionListPage:FC = () => {
                     <Table.Cell fullText dataKey="industry.taluq.name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={100}>
                     <Table.HeaderCell>Male Count</Table.HeaderCell>
                     <Table.Cell fullText dataKey="male" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={100}>
                     <Table.HeaderCell>Female Count</Table.HeaderCell>
                     <Table.Cell fullText dataKey="female" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={100}>
                     <Table.HeaderCell>Total Count</Table.HeaderCell>
                     <Table.Cell fullText dataKey="total_employees" />
                 </Table.Column>
-
-                <Table.Column width={260} verticalAlign="middle">
+                
+                <Table.Column width={100} verticalAlign="middle">
                     <Table.HeaderCell>Price</Table.HeaderCell>
                     <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
@@ -133,25 +135,25 @@ const ContributionListPage:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={100}>
                     <Table.HeaderCell>Interest</Table.HeaderCell>
                     <Table.Cell fullText dataKey="interest" />
                 </Table.Column>
-
-                <Table.Column  width={160}>
+                
+                <Table.Column  width={100}>
                     <Table.HeaderCell>Amount</Table.HeaderCell>
                     <Table.Cell fullText dataKey="price" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={260}>
                     <Table.HeaderCell>Payment ID</Table.HeaderCell>
                     <Table.Cell fullText dataKey="pay_id" />
                 </Table.Column>
 
-                <Table.Column width={250} verticalAlign="middle">
+                <Table.Column width={200} verticalAlign="middle">
                     <Table.HeaderCell>Status</Table.HeaderCell>
 
-                    <Table.Cell fullText style={{ padding: '6px' }}>
+                    <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (
                             <PaymentStatusBadge pay_status={rowData.status} />
                         )}
@@ -161,7 +163,7 @@ const ContributionListPage:FC = () => {
                 <Table.Column width={80} verticalAlign="middle">
                     <Table.HeaderCell>Reciept</Table.HeaderCell>
 
-                    <Table.Cell fullText style={{ padding: '6px' }}>
+                    <Table.Cell style={{ padding: '6px' }}>
                         {rowData => rowData.status === 1 ? (
                             <Receipt id={rowData.id} />
                         ): (
@@ -173,7 +175,7 @@ const ContributionListPage:FC = () => {
                 <Table.Column width={110} verticalAlign="middle">
                     <Table.HeaderCell>Employee Excel</Table.HeaderCell>
 
-                    <Table.Cell fullText style={{ padding: '6px' }}>
+                    <Table.Cell style={{ padding: '6px' }}>
                         {rowData => (rowData.status === 1 && rowData.employee_excel) ? (
                             <Excel link={rowData.employee_excel} />
                         ): (

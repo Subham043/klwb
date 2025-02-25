@@ -19,12 +19,32 @@ class NonContributionService
 
 	protected function model(): Builder
 	{
-		return Industry::isActive()->where(function ($query) {
-			$query->doesntHave('payments')->orWhere(function ($qry){
-				$qry->whereHas('payments', function ($q) {
-					$q->where('status', '!=', PaymentStatus::Success->value);
+		$year = request()->query('filter')['year'] ?? null;
+		return Industry::isActive()
+		->withCount([
+			'payments as non_contributions_payments_pending_count' => function ($query) use ($year) {
+				$query->where('status', '!=', PaymentStatus::Success->value)->where('status', PaymentStatus::Pending->value);
+				if($year) {
+					$query->where('year', $year);
+				}
+			},
+			'payments as non_contributions_payments_failed_count' => function ($query) use ($year) {
+				$query->where('status', '!=', PaymentStatus::Success->value)->where('status', PaymentStatus::Fail->value);
+				if($year) {
+					$query->where('year', $year);
+				}
+			}
+		])
+		->where(function ($query) use ($year) {
+			$query->doesntHave('payments')
+				->orWhere(function ($qry) use ($year) {
+					$qry->whereHas('payments', function ($q) use ($year) {
+						$q->where('status', '!=', PaymentStatus::Success->value);
+						if($year) {
+							$q->where('year', $year);
+						}
+					});
 				});
-			});
 		});
 	}
 	protected function query(): QueryBuilder

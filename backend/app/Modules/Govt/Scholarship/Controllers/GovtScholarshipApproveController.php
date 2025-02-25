@@ -23,7 +23,7 @@ class GovtScholarshipApproveController extends Controller
      */
     public function index(Request $request, $id){
         $application = $this->scholarshipService->getById($id);
-        if($this->applicationChecks->canGovtVerify($application)){
+        if($this->applicationChecks->canGovtApproveReject($application) && $application->status != ApplicationStatus::Approve->value){
             $application->update([
                 'govt_approve' => now(),
                 'status' => ApplicationStatus::Pending->value,

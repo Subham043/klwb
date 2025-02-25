@@ -30,7 +30,7 @@ class GovtScholarshipRejectController extends Controller
     public function index(GovtRejectScholarshipRequest $request, $id){
         $request->validated();
         $application = $this->scholarshipService->getById($id);
-        if($this->applicationChecks->canGovtVerify($application)){
+        if($this->applicationChecks->canGovtApproveReject($application) && $application->status != ApplicationStatus::Reject->value){
             $application->update([
                 'govt_approve' => now(),
                 'status' => ApplicationStatus::Reject->value,
@@ -40,6 +40,6 @@ class GovtScholarshipRejectController extends Controller
             GovtScholarshipRejected::dispatch($application->student->email ?? null, $application->student->phone ?? null, $application->student->name ?? null, $request->reason);
             return response()->json(['message' => 'Application rejected successfully.'], 200);
         }
-        return response()->json(['message' => 'Oops. You do not have the permission to approve.'], 400);
+        return response()->json(['message' => 'Oops. You do not have the permission to reject.'], 400);
     }
 }

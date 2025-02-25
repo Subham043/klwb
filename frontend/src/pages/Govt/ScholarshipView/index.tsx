@@ -67,17 +67,22 @@ export default function GovtScholarshipViewPage() {
                   <ButtonToolbar>
                     <Button appearance="primary" size="sm" loading={pdfLoading} disabled={pdfLoading} onClick={exportPdfHandler}>Download</Button>
                     {
-                      (data && data.application && data.can_approve) ? <>
-                        <Button appearance="primary" color="green" size="sm" loading={approveLoading} disabled={approveLoading} onClick={() => onApproveHandler(data.application!.id)}>
-                          Approve
-                        </Button>
-                        <Button appearance="primary" color="red" size="sm" onClick={() => setModal(true)}>
-                          Reject
-                        </Button>
-                      </> : 
-                      <StatusBadge status={data.application.status} application_state={data.application.application_state} current_application_state={3} />
+                      (data && data.application && data.can_approve) && <>
+                        {
+                          data.application.status !== 1 &&
+                          <Button appearance="primary" color="green" size="sm" loading={approveLoading} disabled={approveLoading} onClick={() => onApproveHandler(data.application!.id)}>
+                            Approve
+                          </Button>
+                        }
+                        {
+                          data.application.status !== 2 &&
+                          <Button appearance="primary" color="red" size="sm" onClick={() => setModal(true)}>
+                            Reject
+                          </Button>
+                        }
+                      </> 
                     }
-                    
+                    <StatusBadge status={data.application.status} application_state={data.application.application_state} current_application_state={3} />
                   </ButtonToolbar>
                 </Stack>
               }

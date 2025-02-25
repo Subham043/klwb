@@ -27,6 +27,7 @@ class ContributionCollection extends JsonResource
             'interest' => $this->interest ?? 0,
             'price' => $this->price,
             'price_word' => (new NumberToWordService)->convert($this->price),
+            'resolved' => $this->resolved,
             'status' => $this->status,
             'status_text' => PaymentStatus::getValue($this->status),
             'payed_on' => $this->payed_on,
