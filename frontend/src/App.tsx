@@ -102,6 +102,7 @@ const PaymentOfficerNonContributionListPage = lazy(()=>import("./pages/PaymentOf
 const PaymentOfficerContributionListPage = lazy(()=>import("./pages/PaymentOfficer/ContributionList"));
 const ScholarshipReportListPage = lazy(()=>import("./pages/Admin/ScholarshipReportList"));
 const ContributionReportListPage = lazy(()=>import("./pages/Admin/ContributionReportList"));
+const ContributionComparisonReportListPage = lazy(()=>import("./pages/Admin/ContributionComparisonReportList"));
 const GovtScholarshipReportListPage = lazy(()=>import("./pages/Govt/ScholarshipReportList"));
 
 function App() {
@@ -149,6 +150,7 @@ function App() {
                       <Route path={page_routes.admin.contribution.completed_list} element={<AdminContributionListPage />} />
                       <Route path={page_routes.admin.report.scholarship} element={<ScholarshipReportListPage />} />
                       <Route path={page_routes.admin.report.contribution} element={<ContributionReportListPage />} />
+                      <Route path={page_routes.admin.report.contribution_comparison} element={<ContributionComparisonReportListPage />} />
                     </Route>
                 </Route>
 

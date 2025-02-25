@@ -247,6 +247,7 @@ const NavMenu = () => {
                     >
                         <Nav.Item as={NavLink} to={page_routes.admin.report.scholarship} className='sidebar-navlink' eventKey="31-1">Scholarship</Nav.Item>
                         <Nav.Item as={NavLink} to={page_routes.admin.report.contribution} className='sidebar-navlink' eventKey="31-2">Contribution</Nav.Item>
+                        <Nav.Item as={NavLink} to={page_routes.admin.report.contribution_comparison_main} className='sidebar-navlink' eventKey="31-3">Contribution Comparison</Nav.Item>
                     </Nav.Menu>
                 </>
             }

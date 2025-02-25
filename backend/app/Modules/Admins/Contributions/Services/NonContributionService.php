@@ -66,7 +66,7 @@ class NonContributionService
 				AllowedFilter::callback('status', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
 						if ($value == "registered") {
-							$query->whereHas('auth');
+							$query->whereHas('auth', function ($query) { $query->whereNull('created_by'); });
 						} elseif ($value == "non_registered") {
 							$query->doesntHave('auth');
 						}

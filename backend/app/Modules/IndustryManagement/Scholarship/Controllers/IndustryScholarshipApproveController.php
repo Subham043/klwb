@@ -3,6 +3,7 @@
 namespace App\Modules\IndustryManagement\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ScholarshipHelperService;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\IndustryManagement\Scholarship\Events\IndustryScholarshipApproved;
 use App\Modules\IndustryManagement\Scholarship\Requests\IndustryApproveScholarshipRequest;
@@ -24,7 +25,7 @@ class IndustryScholarshipApproveController extends Controller
      */
     public function index(IndustryApproveScholarshipRequest $request, $id){
         $application = $this->scholarshipService->getById($id);
-        $wrappedApplication = $this->scholarshipService->industryPaymentWrapper($application);
+        $wrappedApplication = (new ScholarshipHelperService)->industryPaymentWrapper($application);
         if($this->applicationChecks->canCompanyApprove($wrappedApplication)){
             $application->update([
                 'company_approve' => now(),

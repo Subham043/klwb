@@ -520,6 +520,25 @@ export type ContributionReportType = {
   total_countribution_amount: number;
 };
 
+export type ContributionComparisonReportType = {
+  id: number;
+  reg_id: string;
+  name: string;
+  act: number;
+  act_label: string;
+  category: string|null;
+  pincode: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  price_selected_year: string;
+  price_previous_selected_year: string;
+  selected_year: string;
+  previous_selected_year: string;
+  pay_id_selected_year: string;
+  pay_id_previous_year: string;
+};
+
 export type ScholarshipReportType = {
   application_year: number;
   sc_count: number;

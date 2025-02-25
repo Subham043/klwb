@@ -332,6 +332,10 @@ export const admin_api_routes = {
       list: "/api/admin/v1/report/contribution/list",
       excel: "/api/admin/v1/report/contribution/excel",
     },
+    contribution_comparison: {
+      list: "/api/admin/v1/report/contribution-comparison/list",
+      excel: "/api/admin/v1/report/contribution-comparison/excel",
+    },
     scholarship: {
       list: "/api/admin/v1/report/scholarship/list",
       excel: "/api/admin/v1/report/scholarship/excel",

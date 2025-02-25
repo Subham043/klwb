@@ -58,6 +58,8 @@ export const admin_page_routes = {
   },
   report: {
     contribution: "/admin/report/contribution",
+    contribution_comparison: "/admin/report/contribution-comparison",
+    contribution_comparison_main: "/admin/report/contribution-comparison?year=" + year,
     scholarship: "/admin/report/scholarship",
   }
 } as const;

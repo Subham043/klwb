@@ -4,6 +4,7 @@ namespace App\Modules\Govt\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\NumberToWordService;
+use App\Http\Services\ScholarshipHelperService;
 use App\Modules\Govt\Scholarship\Services\GovtScholarshipService;
 use App\Modules\Students\Scholarship\Enums\ApplicationState;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -19,7 +20,7 @@ class GovtScholarshipIndustryConfirmationPdfController extends Controller
     
     public function index($id){
         $applicationMain = $this->scholarshipService->getById($id);
-        $application = $this->scholarshipService->industryPaymentWrapper($applicationMain);
+        $application = (new ScholarshipHelperService)->industryPaymentWrapper($applicationMain);
         if($application->application_state > ApplicationState::Company->value && $application->industry->auth && ($application->industry->auth->reg_doc_link!=null && $application->industry->auth->sign_link!=null && $application->industry->auth->seal_link!=null && $application->industry->auth->gst_link!=null && $application->industry->auth->pan_link!=null && $application->industryPaymentInfo)){
             $fileName = str()->uuid();
             $data = [

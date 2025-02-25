@@ -3,6 +3,7 @@
 namespace App\Modules\Finance\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ScholarshipHelperService;
 use App\Modules\Admins\ApplicationDates\Resources\ApplicationDateCollection;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Finance\Scholarship\Resources\FinanceApplicationCollection;
@@ -22,7 +23,7 @@ class FinanceScholarshipViewController extends Controller
     public function index($id){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $applicationMain = $this->scholarshipService->getById($id);
-        $application = $this->scholarshipService->industryPaymentWrapper($applicationMain);
+        $application = (new ScholarshipHelperService)->industryPaymentWrapper($applicationMain);
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? FinanceApplicationCollection::make($application) : null,

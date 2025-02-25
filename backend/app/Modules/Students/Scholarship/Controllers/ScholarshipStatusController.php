@@ -3,6 +3,7 @@
 namespace App\Modules\Students\Scholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ScholarshipHelperService;
 use App\Modules\Admins\ApplicationDates\Resources\ApplicationDateCollection;
 use App\Modules\Admins\ApplicationDates\Services\ScholarshipApplicationChecksService;
 use App\Modules\Students\Scholarship\Resources\ApplicationCollection;
@@ -25,7 +26,7 @@ class ScholarshipStatusController extends Controller
     public function index(){
         $applicationDate = $this->applicationChecks->getLatestApplicationDate();
         $applicationMain = $this->scholarshipService->getLatest();
-        $application = $applicationMain ? $this->scholarshipService->industryPaymentWrapper($applicationMain) : $applicationMain;
+        $application = $applicationMain ? (new ScholarshipHelperService)->industryPaymentWrapper($applicationMain) : $applicationMain;
         $response = [
             'application_date' => $applicationDate ? ApplicationDateCollection::make($applicationDate) : null,
             'application' => $application ? ApplicationCollection::make($application) : null,

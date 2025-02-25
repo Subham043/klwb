@@ -146,7 +146,8 @@ use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteS
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffExportController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffPasswordController;
 use App\Modules\Admins\RegisteredInstituteStaff\Controllers\RegisteredInstituteStaffVerificationController;
-use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportController;
+use App\Modules\Admins\Reports\Contributions\Controllers\ContributionComparisonReportExportController;
+use App\Modules\Admins\Reports\Contributions\Controllers\ContributionComparisonReportListController;
 use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportExportController;
 use App\Modules\Admins\Reports\Contributions\Controllers\ContributionReportListController;
 use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportExportController;
@@ -457,6 +458,10 @@ Route::prefix('admin')->group(function () {
                 Route::prefix('contribution')->group(function () {
                     Route::get('/excel', [ContributionReportExportController::class, 'index']);
                     Route::get('/list', [ContributionReportListController::class, 'index']);
+                });
+                Route::prefix('contribution-comparison')->group(function () {
+                    Route::get('/excel', [ContributionComparisonReportExportController::class, 'index']);
+                    Route::get('/list', [ContributionComparisonReportListController::class, 'index']);
                 });
                 Route::prefix('scholarship')->group(function () {
                     Route::get('/excel', [ScholarshipReportExportController::class, 'index']);
