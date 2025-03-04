@@ -69,13 +69,13 @@ export default function GovtScholarshipViewPage() {
                     {
                       (data && data.application && data.can_approve) && <>
                         {
-                          data.application.status !== 1 &&
+                          ((data.application.application_state === 3 && data.application.status !== 1)) &&
                           <Button appearance="primary" color="green" size="sm" loading={approveLoading} disabled={approveLoading} onClick={() => onApproveHandler(data.application!.id)}>
                             Approve
                           </Button>
                         }
                         {
-                          data.application.status !== 2 &&
+                          ((data.application.application_state === 3 && data.application.status !== 2) || (data.application.application_state === 4 && data.application.status === 0)) &&
                           <Button appearance="primary" color="red" size="sm" onClick={() => setModal(true)}>
                             Reject
                           </Button>
