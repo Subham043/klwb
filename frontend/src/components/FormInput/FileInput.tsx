@@ -1,5 +1,6 @@
 import { Button, Form, Uploader } from "rsuite";
 import { Controller, Control } from "react-hook-form";
+import React from "react";
 
 type PropType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -7,7 +8,7 @@ type PropType = {
   label: string;
   name: string;
   error: string | undefined;
-  helpText?: string;
+  helpText?: string|React.ReactNode;
   accept?: string;
 };
 
