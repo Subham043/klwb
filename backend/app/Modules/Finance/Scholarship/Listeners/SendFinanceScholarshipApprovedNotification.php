@@ -29,9 +29,9 @@ class SendFinanceScholarshipApprovedNotification implements ShouldQueue
     public function handle(FinanceScholarshipApproved $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendFinanceScholarshipApprovedMail($event->name));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendFinanceScholarshipApprovedMail($event->name));
+        // }
 
         if($event->phone){
             (new SmsService)->sendFinanceApprovedSms($event->phone);

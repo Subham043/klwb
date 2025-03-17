@@ -29,9 +29,9 @@ class SendIndustryScholarshipRejectedNotification implements ShouldQueue
     public function handle(IndustryScholarshipRejected $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendIndustryScholarshipRejectedMail($event->name, $event->reason));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendIndustryScholarshipRejectedMail($event->name, $event->reason));
+        // }
 
         if($event->phone){
             (new SmsService)->sendIndustryRejectedSms($event->phone, $event->name, $event->reason);

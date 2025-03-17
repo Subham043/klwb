@@ -29,9 +29,9 @@ class SendForgotPasswordNotification implements ShouldQueue
     public function handle(ForgotPassword $event): void
     {
         // Access the order using $event->order...
-        if($event->user->email){
-            Mail::to($event->user->email)->send(new SendResetPasswordMail($event->user, $event->param));
-        }
+        // if($event->user->email){
+        //     Mail::to($event->user->email)->send(new SendResetPasswordMail($event->user, $event->param));
+        // }
 
         if($event->user->phone){
             (new SmsService)->sendOtp($event->user->phone, $event->user->otp);

@@ -29,9 +29,9 @@ class SendIndustryEmployeeInviteNotification implements ShouldQueue
     public function handle(IndustryEmployeeCreated $event): void
     {
         // Access the order using $event->order...
-        if($event->employee->email){
-            Mail::to($event->employee->email)->send(new SendIndustryEmployeeInvitationMail($event->employee, $event->password));
-        }
+        // if($event->employee->email){
+        //     Mail::to($event->employee->email)->send(new SendIndustryEmployeeInvitationMail($event->employee, $event->password));
+        // }
 
         if($event->employee->phone){
             (new SmsService)->sendOtp($event->employee->phone, $event->employee->otp);

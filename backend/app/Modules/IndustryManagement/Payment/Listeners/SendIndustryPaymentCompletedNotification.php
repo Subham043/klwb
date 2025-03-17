@@ -28,11 +28,13 @@ class SendIndustryPaymentCompletedNotification implements ShouldQueue
      */
     public function handle(IndustryPaymentCompleted $event): void
     {
-        // Access the order using $event->order...
-        if($event->payment->industry->auth && $event->payment->industry->auth->email){
-            Mail::to($event->payment->industry->auth->email)->send(new SendIndustryPaymentCompletedMail($event->payment));
-        }
-        Mail::to('noreply-klwb@karnataka.gov.in')->send(new SendAdminPaymentCompletedMail($event->payment));
+        // commented our from before
+        // if($event->payment->industry->auth && $event->payment->industry->auth->email){
+        //     Mail::to($event->payment->industry->auth->email)->send(new SendIndustryPaymentCompletedMail($event->payment));
+        // }
+
+        //not commented from before
+        // Mail::to('noreply-klwb@karnataka.gov.in')->send(new SendAdminPaymentCompletedMail($event->payment));
 
     }
 }

@@ -29,9 +29,9 @@ class SendOtpNotification implements ShouldQueue
     public function handle(ResendOtp $event): void
     {
         // Access the order using $event->order...
-        if($event->user->email){
-            Mail::to($event->user->email)->send(new SendOtpMail($event->user));
-        }
+        // if($event->user->email){
+        //     Mail::to($event->user->email)->send(new SendOtpMail($event->user));
+        // }
 
         if($event->user->phone){
             (new SmsService)->sendOtp($event->user->phone, $event->user->otp);

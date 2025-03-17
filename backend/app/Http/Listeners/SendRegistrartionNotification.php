@@ -29,9 +29,9 @@ class SendRegistrartionNotification implements ShouldQueue
     public function handle(UserRegistered $event): void
     {
         // Access the order using $event->order...
-        if($event->user->email){
-            Mail::to($event->user->email)->send(new SendRegisteredMail($event->user));
-        }
+        // if($event->user->email){
+        //     Mail::to($event->user->email)->send(new SendRegisteredMail($event->user));
+        // }
         if($event->user->phone){
             (new SmsService)->sendOtp($event->user->phone, $event->user->otp);
         }

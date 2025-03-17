@@ -29,9 +29,9 @@ class SendAdminScholarshipRejectedNotification implements ShouldQueue
     public function handle(AdminScholarshipRejected $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendAdminScholarshipRejectedMail($event->name, $event->reason));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendAdminScholarshipRejectedMail($event->name, $event->reason));
+        // }
 
         if($event->phone){
             (new SmsService)->sendAdminRejectedSms($event->phone, $event->name, $event->reason);

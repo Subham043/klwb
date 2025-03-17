@@ -28,8 +28,8 @@ class SendRequestInstituteRejectedNotification implements ShouldQueue
     public function handle(RequestInstituteRejected $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendRequestInstituteRejectedMail($event->name, $event->reason));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendRequestInstituteRejectedMail($event->name, $event->reason));
+        // }
     }
 }

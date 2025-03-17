@@ -28,9 +28,9 @@ class SendRequestIndustryApprovedNotification implements ShouldQueue
     public function handle(RequestIndustryApproved $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendRequestIndustryApprovedMail($event->name));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendRequestIndustryApprovedMail($event->name));
+        // }
 
     }
 }

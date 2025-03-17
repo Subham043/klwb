@@ -28,9 +28,9 @@ class SendRequestInstituteApprovedNotification implements ShouldQueue
     public function handle(RequestInstituteApproved $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendRequestInstituteApprovedMail($event->name));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendRequestInstituteApprovedMail($event->name));
+        // }
 
     }
 }

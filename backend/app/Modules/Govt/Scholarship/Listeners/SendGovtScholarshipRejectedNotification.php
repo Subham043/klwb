@@ -29,9 +29,9 @@ class SendGovtScholarshipRejectedNotification implements ShouldQueue
     public function handle(GovtScholarshipRejected $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendGovtScholarshipRejectedMail($event->name, $event->reason));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendGovtScholarshipRejectedMail($event->name, $event->reason));
+        // }
 
         if($event->phone){
             (new SmsService)->sendGovtRejectedSms($event->phone, $event->name, $event->reason);

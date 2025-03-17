@@ -28,8 +28,8 @@ class SendRequestIndustryRejectedNotification implements ShouldQueue
     public function handle(RequestIndustryRejected $event): void
     {
         // Access the order using $event->order...
-        if($event->email){
-            Mail::to($event->email)->send(new SendRequestIndustryRejectedMail($event->name, $event->reason));
-        }
+        // if($event->email){
+        //     Mail::to($event->email)->send(new SendRequestIndustryRejectedMail($event->name, $event->reason));
+        // }
     }
 }

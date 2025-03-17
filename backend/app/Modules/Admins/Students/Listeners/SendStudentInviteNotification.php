@@ -29,9 +29,9 @@ class SendStudentInviteNotification implements ShouldQueue
     public function handle(StudentCreated $event): void
     {
         // Access the order using $event->order...
-        if($event->student->email){
-            Mail::to($event->student->email)->send(new SendStudentInvitationMail($event->student, $event->password));
-        }
+        // if($event->student->email){
+        //     Mail::to($event->student->email)->send(new SendStudentInvitationMail($event->student, $event->password));
+        // }
 
         if($event->student->phone){
             (new SmsService)->sendOtp($event->student->phone, $event->student->otp);
