@@ -29,16 +29,17 @@ const Institute:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" verticalAlign="middle" fixed>
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column  width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="name" />
+                    <Table.Cell dataKey="name" />
                 </Table.Column>
 
                 {/* <Table.Column width={260}>
@@ -46,32 +47,32 @@ const Institute:FC = () => {
                     <Table.Cell fullText dataKey="reg_no" />
                 </Table.Column> */}
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Management Type</Table.HeaderCell>
                     <Table.Cell fullText dataKey="management_type" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Category</Table.HeaderCell>
                     <Table.Cell fullText dataKey="category" />
                 </Table.Column>
 
-                <Table.Column width={160}>
+                <Table.Column width={160} verticalAlign="middle">
                     <Table.HeaderCell>Type</Table.HeaderCell>
                     <Table.Cell fullText dataKey="type" />
                 </Table.Column>
 
-                <Table.Column width={160}>
+                <Table.Column width={160} verticalAlign="middle">
                     <Table.HeaderCell>Urban/Rural</Table.HeaderCell>
                     <Table.Cell fullText dataKey="urban_rural" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>District</Table.HeaderCell>
                     <Table.Cell fullText dataKey="taluq.city.name" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>Taluq</Table.HeaderCell>
                     <Table.Cell fullText dataKey="taluq.name" />
                 </Table.Column>
@@ -96,7 +97,7 @@ const Institute:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={100} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

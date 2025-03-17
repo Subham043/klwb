@@ -25,19 +25,20 @@ const City:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>State</Table.HeaderCell>
                     <Table.Cell fullText dataKey="state.name" />
                 </Table.Column>
@@ -62,7 +63,7 @@ const City:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={100} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

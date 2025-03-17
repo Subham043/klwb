@@ -54,24 +54,25 @@ const RequestIndustry:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column  width={260}>
+                <Table.Column  width={260} verticalAlign="middle">
                     <Table.HeaderCell>Company</Table.HeaderCell>
                     <Table.Cell fullText dataKey="company" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Email</Table.HeaderCell>
                     <Table.Cell fullText dataKey="email" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Mobile</Table.HeaderCell>
                     <Table.Cell fullText dataKey="mobile" />
                 </Table.Column>
@@ -91,12 +92,12 @@ const RequestIndustry:FC = () => {
                     <Table.Cell fullText dataKey="act" />
                 </Table.Column> */}
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>District</Table.HeaderCell>
                     <Table.Cell fullText dataKey="city.name" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>Taluq</Table.HeaderCell>
                     <Table.Cell fullText dataKey="taluq.name" />
                 </Table.Column>
@@ -111,7 +112,7 @@ const RequestIndustry:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>Reject Reason</Table.HeaderCell>
                     <Table.Cell fullText dataKey="reject_reason" />
                 </Table.Column>
@@ -126,7 +127,7 @@ const RequestIndustry:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={100} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

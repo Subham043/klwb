@@ -30,39 +30,40 @@ const InstituteScholarshipListPage:FC = () => {
                 <Table
                     loading={isLoading||isFetching||isRefetching}
                     {...table}
+                    wordWrap="break-all"
                     data={data?.data || []}
                 >
-                    <Table.Column width={60} align="center" fixed>
+                    <Table.Column width={60} align="center" fixed verticalAlign="middle">
                         <Table.HeaderCell>Id</Table.HeaderCell>
                         <Table.Cell fullText dataKey="id" />
                     </Table.Column>
 
-                    <Table.Column  width={260}>
+                    <Table.Column  width={260} verticalAlign="middle">
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.Cell fullText dataKey="basic_detail.name" />
                     </Table.Column>
 
-                    <Table.Column width={260}>
+                    <Table.Column width={260} verticalAlign="middle">
                         <Table.HeaderCell>Institute</Table.HeaderCell>
                         <Table.Cell fullText dataKey="present_institute_name" />
                     </Table.Column>
 
-                    <Table.Column width={260}>
+                    <Table.Column width={260} verticalAlign="middle">
                         <Table.HeaderCell>Industry</Table.HeaderCell>
                         <Table.Cell fullText dataKey="industry_name" />
                     </Table.Column>
 
-                    <Table.Column width={260}>
+                    <Table.Column width={260} verticalAlign="middle">
                         <Table.HeaderCell>Graduation</Table.HeaderCell>
                         <Table.Cell fullText dataKey="mark.graduation.name" />
                     </Table.Column>
 
-                    <Table.Column  width={160}>
+                    <Table.Column  width={160} verticalAlign="middle">
                         <Table.HeaderCell>Course</Table.HeaderCell>
                         <Table.Cell fullText dataKey="mark.course.name" />
                     </Table.Column>
 
-                    <Table.Column  width={160}>
+                    <Table.Column  width={160} verticalAlign="middle">
                         <Table.HeaderCell>Class</Table.HeaderCell>
                         <Table.Cell fullText dataKey="mark.class.name" />
                     </Table.Column>
@@ -77,7 +78,7 @@ const InstituteScholarshipListPage:FC = () => {
                         </Table.Cell>
                     </Table.Column>
 
-                    <Table.Column  width={160}>
+                    <Table.Column  width={160} verticalAlign="middle">
                         <Table.HeaderCell>Year</Table.HeaderCell>
                         <Table.Cell fullText dataKey="application_year" />
                     </Table.Column>
@@ -102,7 +103,7 @@ const InstituteScholarshipListPage:FC = () => {
                         </Table.Cell>
                     </Table.Column>
 
-                    <Table.Column width={100} fixed="right">
+                    <Table.Column width={100} fixed="right" verticalAlign="middle">
                         <Table.HeaderCell>Action</Table.HeaderCell>
 
                         <Table.Cell style={{ padding: '6px' }}>

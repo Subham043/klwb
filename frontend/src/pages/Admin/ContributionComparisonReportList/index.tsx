@@ -30,54 +30,55 @@ const ContributionComparisonReportListPage: FC = () => {
         <Table
           loading={isLoading || isFetching || isRefetching}
           {...table}
+          wordWrap="break-all"
           data={data?.data || []}
         >
-          <Table.Column width={60} align="center" fixed>
+          <Table.Column width={60} align="center" fixed verticalAlign="middle">
             <Table.HeaderCell>ID</Table.HeaderCell>
             <Table.Cell fullText dataKey="id" />
           </Table.Column>
 
-          <Table.Column width={260}>
+          <Table.Column width={260} verticalAlign="middle">
             <Table.HeaderCell>Company Name</Table.HeaderCell>
             <Table.Cell fullText dataKey="name" />
           </Table.Column>
 
-          <Table.Column width={260}>
+          <Table.Column width={260} verticalAlign="middle">
             <Table.HeaderCell>Act</Table.HeaderCell>
             <Table.Cell fullText dataKey="act_label" />
           </Table.Column>
 
-          <Table.Column width={260}>
+          <Table.Column width={260} verticalAlign="middle">
             <Table.HeaderCell>Category</Table.HeaderCell>
             <Table.Cell fullText dataKey="category" />
           </Table.Column>
 
-          <Table.Column width={120}>
+          <Table.Column width={120} verticalAlign="middle">
             <Table.HeaderCell>Selected Year</Table.HeaderCell>
             <Table.Cell fullText dataKey="selected_year" />
           </Table.Column>
 
-          <Table.Column width={110}>
+          <Table.Column width={110} verticalAlign="middle">
             <Table.HeaderCell>Amount</Table.HeaderCell>
             <Table.Cell fullText dataKey="price_selected_year" />
           </Table.Column>
 
-          <Table.Column width={260}>
+          <Table.Column width={260} verticalAlign="middle">
             <Table.HeaderCell>Pay ID</Table.HeaderCell>
             <Table.Cell fullText dataKey="pay_id_selected_year" />
           </Table.Column>
 
-          <Table.Column width={120}>
+          <Table.Column width={120} verticalAlign="middle">
             <Table.HeaderCell>Previous Year</Table.HeaderCell>
             <Table.Cell fullText dataKey="previous_selected_year" />
           </Table.Column>
 
-          <Table.Column width={110}>
+          <Table.Column width={110} verticalAlign="middle">
             <Table.HeaderCell>Amount</Table.HeaderCell>
             <Table.Cell fullText dataKey="price_previous_selected_year" />
           </Table.Column>
 
-          <Table.Column width={260}>
+          <Table.Column width={260} verticalAlign="middle">
             <Table.HeaderCell>Pay ID</Table.HeaderCell>
             <Table.Cell fullText dataKey="pay_id_previous_year" />
           </Table.Column>

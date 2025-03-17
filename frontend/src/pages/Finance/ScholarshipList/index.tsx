@@ -123,6 +123,7 @@ const FinanceScholarshipListPage: FC = () => {
           <Table
             loading={isLoading || isFetching || isRefetching}
             {...table}
+            wordWrap="break-all"
             data={data?.data || []}
           >
             {(searchParams.get("payment_status") === "pending" ||
@@ -154,7 +155,7 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Column>
             )}
 
-            <Table.Column width={60} align="center" fixed>
+            <Table.Column width={60} align="center" fixed verticalAlign="middle">
               <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.Cell fullText dataKey="id" />
             </Table.Column>
@@ -169,7 +170,7 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={200}>
+            <Table.Column width={200} verticalAlign="middle">
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.Cell fullText dataKey="basic_detail.name" />
             </Table.Column>
@@ -184,12 +185,12 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Aadhar Card No.</Table.HeaderCell>
               <Table.Cell fullText dataKey="basic_detail.adharcard_no" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Father's Aadhar</Table.HeaderCell>
               <Table.Cell fullText>
                 {(rowData) => (
@@ -203,7 +204,7 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Mother's Aadhar</Table.HeaderCell>
               <Table.Cell fullText>
                 {(rowData) => (
@@ -217,32 +218,32 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={200}>
+            <Table.Column width={200} verticalAlign="middle">
               <Table.HeaderCell>Graduation</Table.HeaderCell>
               <Table.Cell fullText dataKey="mark.graduation.name" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Course</Table.HeaderCell>
               <Table.Cell fullText dataKey="mark.course.name" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Class</Table.HeaderCell>
               <Table.Cell fullText dataKey="mark.class.name" />
             </Table.Column>
 
-            <Table.Column width={80}>
+            <Table.Column width={80} verticalAlign="middle">
               <Table.HeaderCell>Year</Table.HeaderCell>
               <Table.Cell fullText dataKey="application_year" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>District</Table.HeaderCell>
               <Table.Cell fullText dataKey="mark.district.name" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Taluq</Table.HeaderCell>
               <Table.Cell fullText dataKey="mark.taluq.name" />
             </Table.Column>
@@ -262,32 +263,32 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Account Holder</Table.HeaderCell>
               <Table.Cell fullText dataKey="account.holder" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Account No.</Table.HeaderCell>
               <Table.Cell fullText dataKey="account.acc_no" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>IFSC Code</Table.HeaderCell>
               <Table.Cell fullText dataKey="account.ifsc" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Bank Name</Table.HeaderCell>
               <Table.Cell fullText dataKey="account.bank_name" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
               <Table.Cell fullText dataKey="account.branch" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Gender</Table.HeaderCell>
               <Table.Cell fullText dataKey="basic_detail.gender" />
             </Table.Column>
@@ -300,7 +301,7 @@ const FinanceScholarshipListPage: FC = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={130} fixed="right">
+            <Table.Column width={130} fixed="right" verticalAlign="middle">
               <Table.HeaderCell>Action</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>

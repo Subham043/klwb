@@ -175,49 +175,50 @@ export default function Contribution({ id }: Props) {
           <Table
             loading={isContributionLoading || isContributionFetching || isContributionRefetching}
             {...table}
+            wordWrap="break-all"
             data={contributions?.data || []}
           >
-            <Table.Column width={60} align="center" fixed>
+            <Table.Column width={60} align="center" fixed verticalAlign="middle">
               <Table.HeaderCell>Year</Table.HeaderCell>
               <Table.Cell fullText dataKey="year" />
             </Table.Column>
 
-            <Table.Column width={260}>
+            <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>Company Name</Table.HeaderCell>
               <Table.Cell fullText dataKey="industry.name" />
             </Table.Column>
 
-            <Table.Column  width={260}>
+            <Table.Column  width={260} verticalAlign="middle">
                 <Table.HeaderCell>Company Act</Table.HeaderCell>
                 <Table.Cell fullText dataKey="industry.act_label" />
             </Table.Column>
 
-            <Table.Column  width={260}>
+            <Table.Column  width={260} verticalAlign="middle">
                 <Table.HeaderCell>Company Category</Table.HeaderCell>
                 <Table.Cell fullText dataKey="industry.category" />
             </Table.Column>
 
-            <Table.Column width={260}>
+            <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>District</Table.HeaderCell>
               <Table.Cell fullText dataKey="industry.city.name" />
             </Table.Column>
 
-            <Table.Column width={260}>
+            <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>Taluq</Table.HeaderCell>
               <Table.Cell fullText dataKey="industry.taluq.name" />
             </Table.Column>
 
-            <Table.Column width={260}>
+            <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>Male Count</Table.HeaderCell>
               <Table.Cell fullText dataKey="male" />
             </Table.Column>
 
-            <Table.Column width={260}>
+            <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>Female Count</Table.HeaderCell>
               <Table.Cell fullText dataKey="female" />
             </Table.Column>
 
-            <Table.Column width={260}>
+            <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>Total Count</Table.HeaderCell>
               <Table.Cell fullText dataKey="total_employees" />
             </Table.Column>
@@ -231,17 +232,17 @@ export default function Contribution({ id }: Props) {
                 </Table.Cell>
             </Table.Column>
 
-            <Table.Column  width={160}>
+            <Table.Column  width={160} verticalAlign="middle">
                 <Table.HeaderCell>Interest</Table.HeaderCell>
                 <Table.Cell fullText dataKey="interest" />
             </Table.Column>
 
-            <Table.Column width={160}>
+            <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Amount</Table.HeaderCell>
               <Table.Cell fullText dataKey="price" />
             </Table.Column>
 
-            <Table.Column  width={160}>
+            <Table.Column  width={160} verticalAlign="middle">
                 <Table.HeaderCell>Payment ID</Table.HeaderCell>
                 <Table.Cell fullText dataKey="pay_id" />
             </Table.Column>
@@ -301,7 +302,7 @@ export default function Contribution({ id }: Props) {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={90} fixed="right">
+            <Table.Column width={90} fixed="right" verticalAlign="middle">
               <Table.HeaderCell>Action</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>

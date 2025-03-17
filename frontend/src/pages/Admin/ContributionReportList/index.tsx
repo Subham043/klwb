@@ -24,29 +24,30 @@ const ContributionReportListPage:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Year</Table.HeaderCell>
                     <Table.Cell fullText dataKey="year" />
                 </Table.Column>
 
-                <Table.Column align="center" flexGrow={1}>
+                <Table.Column align="center" flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Total No. of Male Employees</Table.HeaderCell>
                     <Table.Cell fullText dataKey="male_count" />
                 </Table.Column>
 
-                <Table.Column align="center" flexGrow={1}>
+                <Table.Column align="center" flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Total No. of Female Employees</Table.HeaderCell>
                     <Table.Cell fullText dataKey="female_count" />
                 </Table.Column>
 
-                <Table.Column align="center" flexGrow={1}>
+                <Table.Column align="center" flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Total No. of Contributions</Table.HeaderCell>
                     <Table.Cell fullText dataKey="total_countributions" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Total Amount of Contributions</Table.HeaderCell>
                     <Table.Cell fullText dataKey="total_countribution_amount" />
                 </Table.Column>

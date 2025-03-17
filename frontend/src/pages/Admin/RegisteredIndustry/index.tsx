@@ -32,49 +32,50 @@ const RegisteredIndustry:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column  width={260}>
+                <Table.Column  width={260} verticalAlign="middle">
                     <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.Cell fullText dataKey="industry.name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Director Name</Table.HeaderCell>
                     <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Email</Table.HeaderCell>
                     <Table.Cell fullText dataKey="email" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Phone</Table.HeaderCell>
                     <Table.Cell fullText dataKey="phone" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Act</Table.HeaderCell>
                     <Table.Cell fullText dataKey="industry.act_label" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Category</Table.HeaderCell>
                     <Table.Cell fullText dataKey="industry.category" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>District</Table.HeaderCell>
                     <Table.Cell fullText dataKey="city.name" />
                 </Table.Column>
 
-                <Table.Column  width={160}>
+                <Table.Column  width={160} verticalAlign="middle">
                     <Table.HeaderCell>Taluq</Table.HeaderCell>
                     <Table.Cell fullText dataKey="taluq.name" />
                 </Table.Column>
@@ -115,7 +116,7 @@ const RegisteredIndustry:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={190} fixed="right">
+                <Table.Column width={190} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

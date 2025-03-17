@@ -22,14 +22,15 @@ const SecurityQuestion:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Question</Table.HeaderCell>
                     <Table.Cell fullText dataKey="question" />
                 </Table.Column>
@@ -54,7 +55,7 @@ const SecurityQuestion:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={100} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

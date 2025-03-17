@@ -23,19 +23,20 @@ const ApplicationDate:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column width={250}>
+                <Table.Column width={250} verticalAlign="middle">
                     <Table.HeaderCell>Application Year</Table.HeaderCell>
                     <Table.Cell fullText dataKey="application_year" />
                 </Table.Column>
 
-                <Table.Column width={250} align="center">
+                <Table.Column width={250} align="center" verticalAlign="middle">
                     <Table.HeaderCell>From Date</Table.HeaderCell>
                     <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
@@ -44,7 +45,7 @@ const ApplicationDate:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={250} align="center">
+                <Table.Column width={250} align="center" verticalAlign="middle">
                     <Table.HeaderCell>To Date</Table.HeaderCell>
                     <Table.Cell fullText style={{ padding: '6px' }}>
                         {rowData => (
@@ -113,7 +114,7 @@ const ApplicationDate:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={100} fixed="right">
+                <Table.Column width={100} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

@@ -65,19 +65,20 @@ export default function ActivityLog({ id }: Props) {
           <Table
             loading={isActivityLogLoading || isActivityLogFetching || isActivityLogRefetching}
             {...table}
+            wordWrap="break-all"
             data={activity_logss?.data || []}
           >
-            <Table.Column width={60} align="center" fixed>
+            <Table.Column width={60} align="center" fixed verticalAlign="middle">
               <Table.HeaderCell>ID</Table.HeaderCell>
               <Table.Cell fullText dataKey="id" />
             </Table.Column>
 
-            <Table.Column flexGrow={1}>
+            <Table.Column flexGrow={1} verticalAlign="middle">
               <Table.HeaderCell>Description</Table.HeaderCell>
               <Table.Cell fullText dataKey="description" />
             </Table.Column>
 
-            <Table.Column width={200}>
+            <Table.Column width={200} verticalAlign="middle">
               <Table.HeaderCell>Changed By</Table.HeaderCell>
               <Table.Cell fullText dataKey="causer.name" />
             </Table.Column>
@@ -92,7 +93,7 @@ export default function ActivityLog({ id }: Props) {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column width={60} fixed="right">
+            <Table.Column width={60} fixed="right" verticalAlign="middle">
               <Table.HeaderCell>Action</Table.HeaderCell>
 
               <Table.Cell style={{ padding: "6px" }}>

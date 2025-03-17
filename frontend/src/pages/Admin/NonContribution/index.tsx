@@ -27,24 +27,25 @@ const NonContribution:FC = () => {
             <Table
                 loading={isLoading||isFetching||isRefetching}
                 {...table}
+                wordWrap="break-all"
                 data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed>
+                <Table.Column width={60} align="center" fixed verticalAlign="middle">
                     <Table.HeaderCell>Id</Table.HeaderCell>
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1}>
+                <Table.Column flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.Cell fullText dataKey="name" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Act</Table.HeaderCell>
                     <Table.Cell fullText dataKey="act_label" />
                 </Table.Column>
 
-                <Table.Column width={260}>
+                <Table.Column width={260} verticalAlign="middle">
                     <Table.HeaderCell>Category</Table.HeaderCell>
                     <Table.Cell fullText dataKey="category" />
                 </Table.Column>
@@ -83,7 +84,7 @@ const NonContribution:FC = () => {
                         )}
                     </Table.Cell>
                 </Table.Column>
-                <Table.Column width={70} fixed="right">
+                <Table.Column width={70} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
     
                     <Table.Cell style={{ padding: "6px" }}>
