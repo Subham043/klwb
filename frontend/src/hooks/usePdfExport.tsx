@@ -29,7 +29,7 @@ export const usePdfExport:PdfExportHookType = () => {
             );
             const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             window.open(url, '_blank');
-            window.URL.revokeObjectURL(url);
+            // window.URL.revokeObjectURL(url);
             // const link = document.createElement('a');
             // link.href = url;
             // link.setAttribute('download', pdf_file_name);

@@ -70,7 +70,7 @@ export default function InstituteEmployeeForm({drawer, drawerHandler, refetch}:{
             phone: 0,
             password: "",
             password_confirmation: "",
-            is_blocked: 0
+            is_blocked: 1
         }
      });
 

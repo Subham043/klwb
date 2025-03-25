@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, Col, Grid, Heading, Row, Stack } from "rsuite";
+import { Button, ButtonToolbar, Col, Grid, Heading, Message, Row, Stack } from "rsuite";
 import { useIndustryAccountQuery } from "../../../../hooks/data/profile";
 import ErrorBoundaryLayout from "../../../../layouts/ErrorBoundaryLayout";
 import FileUploader from "../../../FileUploader";
@@ -47,6 +47,8 @@ export default function IndustryDashboardAccountInfo() {
     error: accountError,
   } = useIndustryAccountQuery(true);
 
+  console.log(user);
+
   return (
     <div>
       <ErrorBoundaryLayout
@@ -54,6 +56,11 @@ export default function IndustryDashboardAccountInfo() {
         error={accountError}
         refetch={accountRefetch}
       >
+        {user && user.role === RolesEnum.INDUSTRY_STAFF && <Message type="warning" bordered showIcon className="mt-1 align-self-start-md" style={{ gap: 10 }}>
+            <Stack justifyContent="space-between" className='w-100 wrap-sm'>
+                    <div><strong>You cannot make any changes to your account industry information or make contributions since you are just an employee of the industry. Please ask your industry director to login in order to make the required changes or make contribution.</strong></div>
+            </Stack>
+        </Message>}
         <div className="mt-1">
           <MainCardContainer
             header={

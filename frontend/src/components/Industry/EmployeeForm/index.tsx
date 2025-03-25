@@ -70,7 +70,7 @@ export default function IndustryEmployeeForm({drawer, drawerHandler, refetch}:{d
             phone: 0,
             password: "",
             password_confirmation: "",
-            is_blocked: 0
+            is_blocked: 1
         }
      });
 
