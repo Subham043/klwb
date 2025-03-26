@@ -30,10 +30,10 @@ class InstituteRequest extends InputRequest
     {
         return [
             'name' => 'required|string|max:500',
-            'management_type' => 'required|string|max:500',
-            'category' => 'required|string|max:500',
-            'type' => 'required|string|max:500',
-            'urban_rural' => ['required', new Enum(UrbanRural::class)],
+            'management_type' => 'nullable|string|max:500',
+            'category' => 'nullable|string|max:500',
+            'type' => 'nullable|string|max:500',
+            'urban_rural' => ['nullable', new Enum(UrbanRural::class)],
             'taluq_id' => 'required|numeric|exists:taluqs,id',
         ];
     }

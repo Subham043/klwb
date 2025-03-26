@@ -25,7 +25,11 @@ class IndustryUpdateController extends Controller
         try {
             //code...
             $this->industryService->update(
-                $request->validated(),
+                [
+                    'name' => $request->name, 
+                    'act' => $request->act ? $request->act : null,
+                    'category' => $request->category ? $request->category : null,
+                ],
                 $industry
             );
             return response()->json(["message" => "Industry updated successfully.", "data" => IndustryCollection::make($industry)], 200);

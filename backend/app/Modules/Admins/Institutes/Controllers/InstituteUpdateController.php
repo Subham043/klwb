@@ -33,7 +33,14 @@ class InstituteUpdateController extends Controller
         try {
             //code...
             $this->instituteService->update(
-                $request->validated(),
+                [
+                    'name' => $request->name, 
+                    'taluq_id' => $request->taluq_id, 
+                    'management_type' => $request->management_type ? $request->management_type : null, 
+                    'category' => $request->category ? $request->category : null, 
+                    'type' => $request->type ? $request->type : null, 
+                    'urban_rural' => $request->urban_rural ? $request->urban_rural : null,
+                ],
                 $institute
             );
             $taluq = (new TaluqService)->getById($request->taluq_id);

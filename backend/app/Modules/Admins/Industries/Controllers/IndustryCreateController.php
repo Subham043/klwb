@@ -24,7 +24,12 @@ class IndustryCreateController extends Controller
         try {
             //code...
             $industry = $this->industryService->create(
-                [...$request->validated(), 'is_active' => 1]
+                [
+                    'name' => $request->name, 
+                    'act' => $request->act ? $request->act : null,
+                    'category' => $request->category ? $request->category : null,
+                    'is_active' => 1
+                ]
             );
             return response()->json(["message" => "Industry created successfully.", "data" => IndustryCollection::make($industry)], 201);
         } catch (\Throwable $th) {

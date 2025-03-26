@@ -109,8 +109,8 @@ class RegisteredIndustryService
         $city = (new CityService)->getById($request->city_id);
         $industry->industry->update([
             'name' => $request->name,
-            'act' => $request->act,
-            'category' => $request->category,
+            'act' => $request->act ? $request->act : null,
+            'category' => $request->category ? $request->category : null,
             'state_id' => $city->state->id,
             'taluq_id' => $request->taluq_id,
             'city_id' => $request->city_id,

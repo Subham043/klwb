@@ -30,8 +30,8 @@ class RegisteredIndustryUpdateRequest extends InputRequest
     {
         return [
             'name' => 'required|string|max:500',
-            'act' => ['required', new Enum(Act::class)],
-            'category' => 'required|string|max:500',
+            'act' => ['nullable', new Enum(Act::class)],
+            'category' => 'nullable|string|max:500',
             'city_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
             'address' => 'required|string|max:500',

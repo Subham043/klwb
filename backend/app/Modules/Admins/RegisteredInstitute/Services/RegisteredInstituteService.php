@@ -138,10 +138,10 @@ class RegisteredInstituteService
         $institute->institute->update([
             'taluq_id' => $taluq->id,
             'name' => $request->name,
-            'management_type' => $request->management_type,
-            'category' => $request->category,
-            'type' => $request->type,
-            'urban_rural' => $request->urban_rural,
+            'management_type' => $request->management_type ? $request->management_type : null,
+            'category' => $request->category ? $request->category : null,
+            'type' => $request->type ? $request->type : null,
+            'urban_rural' => $request->urban_rural ? $request->urban_rural : null,
         ]);
         $institute->refresh();
         return $institute;

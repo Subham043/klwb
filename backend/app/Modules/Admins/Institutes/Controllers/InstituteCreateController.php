@@ -39,7 +39,15 @@ class InstituteCreateController extends Controller
         try {
             //code...
             $institute = $this->instituteService->create(
-                [...$request->validated(), 'is_active' => 1]
+                [
+                    'name' => $request->name, 
+                    'taluq_id' => $request->taluq_id, 
+                    'management_type' => $request->management_type ? $request->management_type : null, 
+                    'category' => $request->category ? $request->category : null, 
+                    'type' => $request->type ? $request->type : null, 
+                    'urban_rural' => $request->urban_rural ? $request->urban_rural : null, 
+                    'is_active' => 1
+                ]
             );
             return response()->json(["message" => "Institute created successfully.", "data" => InstituteCollection::make($institute)], 201);
         } catch (\Throwable $th) {
