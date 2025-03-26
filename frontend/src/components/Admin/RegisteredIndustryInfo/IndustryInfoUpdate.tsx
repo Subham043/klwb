@@ -30,8 +30,8 @@ type Props = {
 
 type SchemaType = {
   name: string;
-  act: string;
-  category: string;
+  act?: string;
+  category?: string;
   address: string;
   city_id: number;
   city: { value: number; label: string };
@@ -48,11 +48,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     act: yup
       .string()
       .typeError("Act must contain characters only")
-      .required("Act is required"),
+      .optional(),
     category: yup
           .string()
           .typeError("Category must contain characters only")
-          .required("Category is required"),
+          .optional(),
     city_id: yup
       .number()
       .typeError("District must contain numbers only")

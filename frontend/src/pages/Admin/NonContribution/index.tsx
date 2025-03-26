@@ -35,7 +35,7 @@ const NonContribution:FC = () => {
                     <Table.Cell fullText dataKey="id" />
                 </Table.Column>
 
-                <Table.Column flexGrow={1} verticalAlign="middle">
+                <Table.Column flexGrow={1} minWidth={300} verticalAlign="middle">
                     <Table.HeaderCell>Name</Table.HeaderCell>
                     <Table.Cell fullText dataKey="name" />
                 </Table.Column>
@@ -55,7 +55,7 @@ const NonContribution:FC = () => {
                     <Table.Cell fullText dataKey="reg_id" />
                 </Table.Column> */}
 
-                <Table.Column width={120} align="center" verticalAlign="middle">
+                <Table.Column width={150} align="center" verticalAlign="middle">
                     <Table.HeaderCell>Payment Attempted</Table.HeaderCell>
 
                     <Table.Cell fullText style={{ padding: '6px' }}>

@@ -18,10 +18,10 @@ import TaluqSelect from "../Select/TaluqSelect";
 
 type SchemaType = {
   name: string;
-  management_type: string;
-  category: string;
-  type: string;
-  urban_rural: string;
+  management_type?: string;
+  category?: string;
+  type?: string;
+  urban_rural?: string;
   city_id: number;
   city: { value: number; label: string };
   taluq_id: number;
@@ -37,19 +37,19 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     management_type: yup
       .string()
       .typeError("Management Type must contain characters only")
-      .required("Management Type is required"),
+      .optional(),
     category: yup
       .string()
       .typeError("Institute Category must contain characters only")
-      .required("Category is required"),
+      .optional(),
     type: yup
       .string()
       .typeError("Institute Type must contain characters only")
-      .required("Type is required"),
+      .optional(),
     urban_rural: yup
       .string()
       .typeError("Urban/Rural must contain characters only")
-      .required("Urban/Rural is required"),
+      .optional(),
     city_id: yup
       .number()
       .typeError("District must contain numbers only")
@@ -128,10 +128,10 @@ export default function InstituteForm({
       drawer.type === "Edit"
         ? {
           name: data ? data.name : "",
-          management_type: data ? data.management_type : "",
-          category: data ? data.category : "",
-          type: data ? data.type : "",
-          urban_rural: data ? data.urban_rural : "",
+          management_type: data && data.management_type ? data.management_type : "",
+          category: data && data.category ? data.category : "",
+          type: data && data.type ? data.type : "",
+          urban_rural: data && data.urban_rural ? data.urban_rural : "",
           taluq_id: data ? data.taluq.id : 0,
           taluq: data && data.taluq ? { value: data.taluq.id, label: data.taluq.name } : { value: 0, label: "" },
           city_id: data ? data.taluq.city.id : 0,

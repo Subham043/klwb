@@ -54,7 +54,7 @@ export default function MakePaymentPage() {
 		shouldFocusError: true,
 		values: {
 			...paymentFormInitialValues,
-			act: account_info ? account_info.industry.act.toString() : "",
+			act: account_info && account_info.industry.act ? account_info.industry.act.toString() : "",
 			category: account_info ? (account_info.industry.category || "") : "",
 		}
 	});
@@ -151,7 +151,7 @@ export default function MakePaymentPage() {
 			await accountRefetch();
 			reset({
 				...paymentFormInitialValues,
-				act: account_info ? account_info.industry.act.toString() : "",
+				act: account_info && account_info.industry.act ? account_info.industry.act.toString() : "",
 				category: account_info ? (account_info.industry.category || "") : "",
 			});
 		} catch (error) {

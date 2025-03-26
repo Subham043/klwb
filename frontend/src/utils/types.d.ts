@@ -130,10 +130,10 @@ export type InstituteType = {
   id: number;
   reg_no: string;
   name: string;
-  management_type: string;
-  category: string;
-  type: string;
-  urban_rural: string;
+  management_type: string|null;
+  category: string|null;
+  type: string|null;
+  urban_rural: string|null;
   taluq_id: number;
   taluq: TaluqType;
   is_active: boolean;
@@ -170,10 +170,10 @@ export type RegisteredInstituteType = {
     id: number;
     reg_no: string;
     name: string;
-    management_type: string;
-    category: string;
-    type: string;
-    urban_rural: string;
+    management_type: string|null;
+    category: string|null;
+    type: string|null;
+    urban_rural: string|null;
   };
   address: {
     address: string;
@@ -216,8 +216,8 @@ export type IndustryType = {
   id: number;
   reg_id: string;
   name: string;
-  act: number;
-  act_label: string;
+  act: number|null;
+  act_label: string|null;
   category: string|null;
   pincode: string;
   is_active: boolean;

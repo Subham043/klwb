@@ -32,10 +32,10 @@ type SchemaType = {
   email: string;
   principal: string;
   phone: number;
-  management_type: string;
-  category: string;
-  type: string;
-  urban_rural: string;
+  management_type?: string;
+  category?: string;
+  type?: string;
+  urban_rural?: string;
   pincode: string;
   address: string;
   city_id: number;
@@ -67,19 +67,19 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     management_type: yup
       .string()
       .typeError("Management Type must contain characters only")
-      .required("Management Type is required"),
+      .optional(),
     category: yup
       .string()
       .typeError("Institute Category must contain characters only")
-      .required("Category is required"),
+      .optional(),
     type: yup
       .string()
       .typeError("Institute Type must contain characters only")
-      .required("Type is required"),
+      .optional(),
     urban_rural: yup
       .string()
       .typeError("Urban/Rural must contain characters only")
-      .required("Urban/Rural is required"),
+      .optional(),
     city_id: yup
       .number()
       .typeError("District must contain numbers only")
@@ -156,10 +156,10 @@ const InstituteInfoUpdate = ({
       phone: data ? Number(data.phone) : 0,
       pincode: data ? data.address.pincode : "",
       address: data ? data.address.address : "",
-      management_type: data ? data.institute.management_type : "",
-      category: data ? data.institute.category : "",
-      type: data ? data.institute.type : "",
-      urban_rural: data ? data.institute.urban_rural : "",
+      management_type: data && data.institute.management_type ? data.institute.management_type : "",
+      category: data && data.institute.category ? data.institute.category : "",
+      type: data && data.institute.type ? data.institute.type : "",
+      urban_rural: data && data.institute.urban_rural ? data.institute.urban_rural : "",
       taluq_id: data && data.address && data.address.taluq ? data.address.taluq.id : 0,
       taluq: data && data.address && data.address.taluq ? { value: data.address.taluq.id, label: data.address.taluq.name } : { value: 0, label: "" },
       city_id: data && data.address && data.address.city ? data.address.city.id : 0,

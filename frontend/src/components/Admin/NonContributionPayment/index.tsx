@@ -197,7 +197,7 @@ export default function NonContributionPayment({
                         )}
                     </Table.Cell>
                 </Table.Column>
-                <Table.Column width={120} fixed="right" verticalAlign="middle">
+                <Table.Column width={130} fixed="right" verticalAlign="middle">
                     <Table.HeaderCell>Action</Table.HeaderCell>
     
                     <Table.Cell style={{ padding: "6px" }}>

@@ -17,8 +17,8 @@ import { company_act, Contract_Labour_Act, Factory_Act, Shops_and_Commercial_Act
 
 type SchemaType = {
   name: string;
-  act: string;
-  category: string;
+  act?: string;
+  category?: string;
 };
 
 const schema: yup.ObjectSchema<SchemaType> = yup
@@ -30,11 +30,11 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     act: yup
       .string()
       .typeError("Act must contain characters only")
-      .required("Act is required"),
+      .optional(),
     category: yup
       .string()
       .typeError("Category must contain characters only")
-      .required("Category is required"),
+      .optional(),
   })
   .required();
 
@@ -77,13 +77,13 @@ export default function IndustryForm({
       drawer.type === "Edit"
         ? {
             name: data ? data.name : "",
-            act: data && data.act ? data.act.toString() : "",
-            category: data && data.category ? data.category : "",
+            act: data && data.act ? data.act.toString() : undefined,
+            category: data && data.category ? data.category : undefined,
           }
         : {
             name: "",
-            act: "",
-            category: "",
+            act: undefined,
+            category: undefined,
           },
   });
 
@@ -109,7 +109,11 @@ export default function IndustryForm({
         drawer.type === "Edit"
           ? api_routes.admin.industry.update(drawer.id)
           : api_routes.admin.industry.create,
-        getValues()
+        {
+          name: getValues("name"),
+          act: getValues("act") ? getValues("act") : null,
+          category: getValues("category") ? getValues("category") : null,
+        }
       );
       toastSuccess("Saved Successfully");
       if (drawer.type === "Create") {
