@@ -3,9 +3,11 @@
 namespace App\Modules\Admins\RegisteredIndustryScholarship\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enums\Guards;
 use App\Modules\Admins\RegisteredIndustry\Services\RegisteredIndustryService;
 use App\Modules\Admins\RegisteredIndustryScholarship\Services\RegisteredIndustryScholarshipService;
 use App\Modules\Admins\Scholarship\Exports\AdminScholarshipExport;
+use App\Modules\Roles\Enums\Roles;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegisteredIndustryScholarshipExportController extends Controller
@@ -22,6 +24,7 @@ class RegisteredIndustryScholarshipExportController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 300);
         $industry = (new RegisteredIndustryService)->getById($id);
-        return Excel::download(new AdminScholarshipExport($this->scholarshipService->getExcelQuery($industry->reg_industry_id)), 'applications.xlsx');
+        return (auth()->guard(Guards::Admin->value())->user()->current_role == Roles::SuperAdmin->value() || auth()->guard(Guards::Admin->value())->user()->current_role == Roles::Admin->value()) ? Excel::download(new AdminScholarshipExport($this->scholarshipService->getExcelQuery($industry->reg_industry_id)), 'applications.xlsx') : abort(403);
+        // return Excel::download(new AdminScholarshipExport($this->scholarshipService->getExcelQuery($industry->reg_industry_id)), 'applications.xlsx');
     }
 }

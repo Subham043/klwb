@@ -22,7 +22,7 @@ const notificationContent = {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						Various benefits given to organized workers and their dependents under welfare schemes from 2015-16 to 2019-20 For amenities details <a href="/sch.pdf" download={true}>CLICK HERE</a>
+						Various benefits given to organized workers and their dependents under welfare schemes from 2015-16 to 2019-20 For amenities details <a href="/sch2.pdf" download={true}>CLICK HERE</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -61,7 +61,7 @@ const notificationContent = {
 				<div className={classes.notificationItem}>
 					<p>
 						2015-16 ನೇ ಸಾಲಿನಿಂದ 2019-20 ನೇ ಸಾಲಿನವರೆಗೆ ಕಲ್ಯಾಣ ಯೋಜನೆಗಳಡಿ ಸಂಘಟಿತ ಕಾರ್ಮಿಕರು ಮತ್ತು ಅವರ ಕುಟುಂಬದ ಅವಲಂಬಿತರಿಗೆ ನೀಡಿರುವ ವಿವಿಧ
-ಸೌಲಭ್ಯಗಳ ವಿವರಗಳಿಗೆ <a href="/sch.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
+ಸೌಲಭ್ಯಗಳ ವಿವರಗಳಿಗೆ <a href="/sch2.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
