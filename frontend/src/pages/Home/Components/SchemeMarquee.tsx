@@ -16,7 +16,7 @@ const items = {
 			</span>
 			<span className={classes.marqueeDivider}></span>
 			<span>
-				Funeral Expenses of Rs. 10,000/- for death of the
+				Funeral Expenses of Rs. 20,000/- for death of the
 				beneficiary payable to the deceased’s dependents, to be
 				applied in the prescribed format within six months
 			</span>
@@ -54,7 +54,7 @@ const items = {
 			</span>
 			<span className={classes.marqueeDivider}></span>
 			<span>
-				<b>ಮೃತ ಕಾರ್ಮಿಕನ ಅಂತ್ಯ ಸಂಸ್ಕಾರಕ್ಕೆ ಧನ ಸಹಾಯ:</b> ಈ ಯೋಜನೆಯ ಸೌಲಭ್ಯ ಪಡೆಯಬೇಕಾದರೆ ಮೃತರ ಕುಟುಂಬದ ಅವಲಂಬಿತರು ಕಾರ್ಮಿಕ ಮೃತ ಪಟ್ಟ ಆರು ತಿಂಗಳೊಳಗೆ ನಿಗಧಿತ ಅರ್ಜಿ ನಮೂನೆಯಲ್ಲಿ ಸೂಕ್ತ ದಾಖಲೆಗಳೊಂದಿಗೆ ಸಲ್ಲಿಸಿದಲ್ಲಿ, ರೂ.10,000/- ಧನ ಸಹಾಯ ನೀಡಲಾಗುವುದು.
+				<b>ಮೃತ ಕಾರ್ಮಿಕನ ಅಂತ್ಯ ಸಂಸ್ಕಾರಕ್ಕೆ ಧನ ಸಹಾಯ:</b> ಈ ಯೋಜನೆಯ ಸೌಲಭ್ಯ ಪಡೆಯಬೇಕಾದರೆ ಮೃತರ ಕುಟುಂಬದ ಅವಲಂಬಿತರು ಕಾರ್ಮಿಕ ಮೃತ ಪಟ್ಟ ಆರು ತಿಂಗಳೊಳಗೆ ನಿಗಧಿತ ಅರ್ಜಿ ನಮೂನೆಯಲ್ಲಿ ಸೂಕ್ತ ದಾಖಲೆಗಳೊಂದಿಗೆ ಸಲ್ಲಿಸಿದಲ್ಲಿ, ರೂ.20,000/- ಧನ ಸಹಾಯ ನೀಡಲಾಗುವುದು.
 			</span>
 			<span className={classes.marqueeDivider}></span>
 			<span>

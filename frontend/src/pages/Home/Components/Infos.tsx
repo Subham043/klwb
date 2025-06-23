@@ -22,7 +22,7 @@ const notificationContent = {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						Various benefits given to organized workers and their dependents under welfare schemes from 2015-16 to 2019-20 For amenities details <a href="/sch2.pdf" download={true}>CLICK HERE</a>
+						Various benefits given to organized workers and their dependents under welfare schemes in last 4 years. For details <a href="/4_year_progress.pdf" download={true}>CLICK HERE</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -61,7 +61,7 @@ const notificationContent = {
 				<div className={classes.notificationItem}>
 					<p>
 						2015-16 ನೇ ಸಾಲಿನಿಂದ 2019-20 ನೇ ಸಾಲಿನವರೆಗೆ ಕಲ್ಯಾಣ ಯೋಜನೆಗಳಡಿ ಸಂಘಟಿತ ಕಾರ್ಮಿಕರು ಮತ್ತು ಅವರ ಕುಟುಂಬದ ಅವಲಂಬಿತರಿಗೆ ನೀಡಿರುವ ವಿವಿಧ
-ಸೌಲಭ್ಯಗಳ ವಿವರಗಳಿಗೆ <a href="/sch2.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
+ಸೌಲಭ್ಯಗಳ ವಿವರಗಳಿಗೆ <a href="/4_year_progress.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -101,7 +101,7 @@ const helpdeskContent = {
 	english: (<>
 		<div className={classes.notificationItem}>
 					<p>
-						For any technical issues kindly mail us on: <a href="mailto:welfarecommissionerblr@gmail.com">welfarecommissionerblr@gmail.com</a>
+						For any technical issues kindly mail us on: <a href="mailto:welfarecommissioner123@gmail.com">welfarecommissioner123@gmail.com</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -139,7 +139,7 @@ const helpdeskContent = {
 	kannada: (<>
 		<div className={classes.notificationItem}>
 					<p>
-						ತಾಂತ್ರಿಕ ಸಮಸ್ಯೆಗಳ ಪರಿಹಾರಕ್ಕಾಗಿ ಅಭ್ಯರ್ಥಿ ಸಹಾಯ ಕೇಂದ್ರವನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು: <a href="mailto:welfarecommissionerblr@gmail.com">welfarecommissionerblr@gmail.com</a>
+						ತಾಂತ್ರಿಕ ಸಮಸ್ಯೆಗಳ ಪರಿಹಾರಕ್ಕಾಗಿ ಅಭ್ಯರ್ಥಿ ಸಹಾಯ ಕೇಂದ್ರವನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು: <a href="mailto:welfarecommissioner123@gmail.com">welfarecommissioner123@gmail.com</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>

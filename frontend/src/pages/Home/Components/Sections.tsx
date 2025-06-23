@@ -11,13 +11,13 @@ const aboutContent = {
 					Karnataka Labour Welfare Act, 1965. The employees working in various industries,
 					their dependents and children are eligible for the welfare schemes. </p>
 				<p><b>Note:</b> Every year before 15th of January the employees’, employers’
-					contribute in the ratio of 20 : 40 i.e. Rs. 60 /- for each employee is to be
+					contribute in the ratio of 50 : 100 i.e. Rs. 150 /- for each employee is to be
 					remitted by the employer to the Welfare Fund.</p>
 	</>),
 	kannada: (<>
 		<h4>ನಮ್ಮ ಬಗ್ಗೆ</h4>
 				<p> ಕರ್ನಾಟಕ ರಾಜ್ಯದಲ್ಲಿ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣವನ್ನು ಸಂವರ್ಧನಗೊಳಿಸುವುದಕ್ಕೆ ಹಣಕಾಸು ನೆರವು ಒದಗಿಸಲು ಮತ್ತು ಚಟುವಟಿಕೆಗಳನ್ನು ನಡೆಸುವುದಕ್ಕಾಗಿ ಒಂದು ನಿಧಿಯನ್ನು, ಕರ್ನಾಟಕ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿ ಅಧಿನಿಯಮ, 1965 ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾಗಿದೆ. ಮಂಡಳಿಗೆ ವಂತಿಗೆ ಪಾವತಿಸುವ ವಿವಿಧ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ದುಡಿಯುತ್ತಿರುವ ಸಂಘಟಿತ ಕಾರ್ಮಿಕರು ಮತ್ತು, ಅವರ ಕುಟುಂಬದ ಅವಲಂಬಿತರ ಕ್ಷೇಮಾಭಿವೃದ್ಧಿಗೆ ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ಮಂಡಳಿಯಲ್ಲಿ ಯೋಜನೆಗಳು ಜಾರಿಯಲ್ಲಿರುತ್ತದೆ. </p>
-				<p><b>ಸೂಚನೆ:</b> ಯೋಜನೆಯ ಸೌಲಭ್ಯ ಪಡೆಯಲು ಪ್ರತಿ ವರ್ಷ ಜನವರಿ 15 ರೊಳಗೆ ಕಾರ್ಮಿಕರು, ಮಾಲೀಕರು ರೂ.20:40 ಅನುಪಾತದಲ್ಲಿ ಒಬ್ಬ ಕಾರ್ಮಿಕನಿಗೆ ಒಟ್ಟು ರೂ. 60/- ಗಳಂತೆ ವಂತಿಕೆಯನ್ನು ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿಗೆ ಪಾವತಿಸತಕ್ಕದ್ದು.</p>
+				<p><b>ಸೂಚನೆ:</b> ಯೋಜನೆಯ ಸೌಲಭ್ಯ ಪಡೆಯಲು ಪ್ರತಿ ವರ್ಷ ಜನವರಿ 15 ರೊಳಗೆ ಕಾರ್ಮಿಕರು, ಮಾಲೀಕರು ರೂ.50:100 ಅನುಪಾತದಲ್ಲಿ ಒಬ್ಬ ಕಾರ್ಮಿಕನಿಗೆ ಒಟ್ಟು ರೂ. 150/- ಗಳಂತೆ ವಂತಿಕೆಯನ್ನು ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿಗೆ ಪಾವತಿಸತಕ್ಕದ್ದು.</p>
 	</>),
 }
 
@@ -43,7 +43,7 @@ const reportContent = {
 				<p><b>Medical Assistance:</b> Medical assistance to workers minimum of Rs. 1,000/- to maximum of Rs.25,000/- for treatment of major ailments viz., Heart operation, Kidney transplantation, Cancer treatment, Angioplasty, Eye, Orthopaedic, Uterus operations, Gall bladder problems, Kidney stone removal, Brain haemorrhage, and for medical check-up each case Rs. 500/- to Rs. 1000/-</p>
 				<p><b>Accident Benefit:</b> Accident benefit of Rs. 1,000/- to Rs. 10,000/- will be paid to workers who met with accidents at work place. The application is to be submitted within three months of occurrence of accident with medical records</p>
 				<p><b>Maternity benefit for women:</b> Rs 10,000/- Financial Assistance will be given as maternity Benefit for working women for first 2 Children. The application is to be submitted within 6 months of Delivery.</p>
-				<p><b>Funeral Expenses:</b> Rs. 10,000/- will be given to the deceased’s Workers dependents. The application is to be submitted within 6 months of death of worker.</p>
+				<p><b>Funeral Expenses:</b> Rs. 20,000/- will be given to the deceased’s Workers dependents. The application is to be submitted within 6 months of death of worker.</p>
 				<p><b>Medical Check-up Camps:</b> Rs. 1,00,000/- Financial Assistance for annual medical check-up camps Sponsored by Trade Union/Associations for workers.</p>
 				<p><b>Annual Sports activity:</b> Rs. 1,00,000/- Financial Assistance for annual Sports activity at district-level by registered Trade Unions</p>
 	</>),
