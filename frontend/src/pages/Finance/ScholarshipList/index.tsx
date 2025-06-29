@@ -240,12 +240,12 @@ const FinanceScholarshipListPage: FC = () => {
 
             <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>District</Table.HeaderCell>
-              <Table.Cell fullText dataKey="mark.district.name" />
+              <Table.Cell fullText dataKey="company.district.name" />
             </Table.Column>
 
             <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Taluq</Table.HeaderCell>
-              <Table.Cell fullText dataKey="mark.taluq.name" />
+              <Table.Cell fullText dataKey="company.taluq.name" />
             </Table.Column>
 
             <Table.Column width={250} verticalAlign="middle">

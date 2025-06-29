@@ -86,6 +86,7 @@ export default function IndustryInfo({
                 label="Monthly Salary"
                 control={control}
                 error={errors.msalary?.message}
+                helpText="Salary limit is Rs. 35000/- per month"
               />
             </Col>
           </Row>
@@ -209,9 +210,9 @@ export default function IndustryInfo({
             <Col className="pb-1" md={12} sm={24} xs={24}>
               <FileInput
                 name="salaryslip"
-                accept="image/png, image/jpeg, image/jpg, application/pdf"
+                accept="application/pdf"
                 label="Attach Your Parent Employee Certification / Salary-Slip of Last Month"
-                helpText=" Last month salary slips are only accepted. Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
+                helpText=" Last month salary slips are only accepted. Only PDF is allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.salaryslip?.message}
               />

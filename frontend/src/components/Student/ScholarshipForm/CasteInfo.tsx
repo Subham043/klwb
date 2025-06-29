@@ -101,9 +101,9 @@ export default function CastInfo({
                 <div>
                   <FileInput
                     name="cast_certificate"
-                    accept="image/png, image/jpeg, image/jpg, application/pdf"
+                    accept="application/pdf"
                     label="Attach Cast Certificate"
-                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
+                    helpText=" Only PDF is allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.cast_certificate?.message}
                   />

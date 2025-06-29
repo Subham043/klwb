@@ -16,6 +16,7 @@ import StateSelect from "../../StateSelect";
 
 type SchemaType = {
   name: string;
+  special_name?: string;
   state_id: number;
   state: { value: number; label: string };
 };
@@ -26,6 +27,10 @@ const schema: yup.ObjectSchema<SchemaType> = yup
       .string()
       .typeError("Name must contain characters only")
       .required("Name is required"),
+    special_name: yup
+      .string()
+      .typeError("Special Name must contain characters only")
+      .optional(),
     state_id: yup
       .number()
       .typeError("State must contain characters only")
@@ -85,6 +90,7 @@ export default function CityForm({
       drawer.type === "Edit"
         ? {
             name: data ? data.name : "",
+            special_name: data && data.special_name ? data.special_name : undefined,
             state_id: data ? data.state.id : 0,
             state: data
               ? { value: data.state.id, label: data.state.name }
@@ -92,6 +98,7 @@ export default function CityForm({
           }
         : {
             name: "",
+            special_name: undefined,
             state_id: 0,
             state: { value: 0, label: "" },
           },
@@ -110,6 +117,8 @@ export default function CityForm({
       if (drawer.type === "Create") {
         reset({
           name: "",
+          special_name: undefined,
+          state_id: 0,
         });
       }
       drawerHandler({ status: false, type: "Create" });
@@ -148,6 +157,12 @@ export default function CityForm({
             focus={true}
             control={control}
             error={errors.name?.message}
+          />
+          <TextInput
+            name="special_name"
+            label="Special Name"
+            control={control}
+            error={errors.special_name?.message}
           />
           <Row className="show-grid mb-1">
             <Col xs={24}>

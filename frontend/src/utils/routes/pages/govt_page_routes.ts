@@ -14,6 +14,8 @@ export const govt_page_routes = {
     pending_list_main: "/govt/scholarship/pending-list?status=pending&year=" + year,
     rejected_list: "/govt/scholarship/rejected-list",
     rejected_list_main: "/govt/scholarship/rejected-list?status=rejected&year=" + year,
+    all_list: "/govt/scholarship/all-list",
+    all_list_main: "/govt/scholarship/all-list?status=all&year=" + year,
     view: (id: number | string) =>
       "/govt/scholarship/view/" + id,
   },

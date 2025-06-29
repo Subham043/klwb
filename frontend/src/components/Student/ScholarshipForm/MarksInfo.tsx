@@ -59,6 +59,7 @@ export default function MarksInfo({
                 label="Previous Marks"
                 control={control}
                 error={errors.prv_marks?.message}
+                helpText="Students only with 50% marks are eligible and SC/ST caste 45% marks are eligible (Students failed in subject are not eligible)"
               />
             </Col>
             <Col className="pb-1" md={8} sm={24} xs={24}>
@@ -79,9 +80,9 @@ export default function MarksInfo({
               <div>
                 <FileInput
                   name="prv_markcard"
-                  accept="image/png, image/jpeg, image/jpg, application/pdf"
+                  accept="application/pdf"
                   label="Attach Your Marks Card Copy"
-                  helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
+                  helpText=" Only PDF is allowed (It should be less than 515kb)"
                   control={control}
                   error={errors.prv_markcard?.message}
                 />
@@ -95,9 +96,9 @@ export default function MarksInfo({
                 <div>
                   <FileInput
                     name="prv_markcard2"
-                    accept="image/png, image/jpeg, image/jpg, application/pdf"
+                    accept="application/pdf"
                     label="Attach Your Marks Card Copy"
-                    helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
+                    helpText=" Only PDF is allowed (It should be less than 515kb)"
                     control={control}
                     error={errors.prv_markcard2?.message}
                   />

@@ -172,6 +172,16 @@ const AdminScholarshipListPage: FC = () => {
               <Table.Cell fullText dataKey="industry_name" />
             </Table.Column>
 
+            <Table.Column width={200} verticalAlign="middle">
+              <Table.HeaderCell>Industry Act</Table.HeaderCell>
+              <Table.Cell fullText dataKey="industry_act_label" />
+            </Table.Column>
+
+            <Table.Column width={260} verticalAlign="middle">
+              <Table.HeaderCell>Industry Category</Table.HeaderCell>
+              <Table.Cell fullText dataKey="industry_category" />
+            </Table.Column>
+
             <Table.Column width={260} verticalAlign="middle">
               <Table.HeaderCell>Graduation</Table.HeaderCell>
               <Table.Cell fullText dataKey="mark.graduation.name" />
@@ -222,12 +232,12 @@ const AdminScholarshipListPage: FC = () => {
 
             <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>District</Table.HeaderCell>
-              <Table.Cell fullText dataKey="mark.district.name" />
+              <Table.Cell fullText dataKey="company.district.name" />
             </Table.Column>
 
             <Table.Column width={160} verticalAlign="middle">
               <Table.HeaderCell>Taluq</Table.HeaderCell>
-              <Table.Cell fullText dataKey="mark.taluq.name" />
+              <Table.Cell fullText dataKey="company.taluq.name" />
             </Table.Column>
 
             <Table.Column width={160} verticalAlign="middle">

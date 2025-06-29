@@ -75,6 +75,7 @@ export type StateType = {
 export type CityType = {
   id: number;
   name: string;
+  special_name: string|null;
   state_id: number;
   state: StateType;
   is_active: boolean;
@@ -383,6 +384,9 @@ export type StudentApplicationType = {
   institute_confirmation_report: boolean;
   company_id: number;
   industry_name: string|null;
+  industry_category: string;
+  industry_act: string;
+  industry_act_label: string;
   industry_confirmation_report: boolean;
   uniq?: string;
   status: number;

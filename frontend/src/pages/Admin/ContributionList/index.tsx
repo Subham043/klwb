@@ -240,7 +240,7 @@ const ContributionListPage:FC = () => {
                     </Table.Cell>
                 </Table.Column>
 
-                <Table.Column width={110} verticalAlign="middle">
+                <Table.Column width={120} verticalAlign="middle">
                     <Table.HeaderCell>Employee Excel</Table.HeaderCell>
 
                     <Table.Cell style={{ padding: '6px' }}>

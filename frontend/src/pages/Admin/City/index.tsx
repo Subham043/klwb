@@ -39,6 +39,11 @@ const City:FC = () => {
                 </Table.Column>
 
                 <Table.Column flexGrow={1} verticalAlign="middle">
+                    <Table.HeaderCell>Special Name</Table.HeaderCell>
+                    <Table.Cell fullText dataKey="special_name" />
+                </Table.Column>
+
+                <Table.Column flexGrow={1} verticalAlign="middle">
                     <Table.HeaderCell>State</Table.HeaderCell>
                     <Table.Cell fullText dataKey="state.name" />
                 </Table.Column>

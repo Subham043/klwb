@@ -91,6 +91,7 @@ export default function BankInfo({
                 label="Account Number"
                 control={control}
                 error={errors.acc_no?.message}
+                helpText="Account number of Student or working parent are only supposed to be given"
               />
             </Col>
           </Row>
@@ -98,9 +99,9 @@ export default function BankInfo({
             <Col className="pb-1" md={12} sm={24} xs={24}>
               <FileInput
                 name="passbook"
-                accept="image/png, image/jpeg, image/jpg, application/pdf"
+                accept="application/pdf"
                 label="Upload Passbook Front Page"
-                helpText=" Only JPG, JPEG, PNG, PDF are allowed (It should be less than 515kb)"
+                helpText=" Only PDF is allowed (It should be less than 515kb)"
                 control={control}
                 error={errors.passbook?.message}
               />

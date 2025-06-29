@@ -84,7 +84,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 						if (value === undefined || value.length === 0) {
 							return false;
 						} else {
-							return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+							return ["application/pdf"].includes(
 								value[value.length - 1].blobFile!.type
 							);
 						}
@@ -190,7 +190,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 				if (value === undefined || value.length === 0) {
 					return false;
 				} else {
-					return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+					return ["application/pdf"].includes(
 						value[value.length - 1].blobFile!.type
 					);
 				}
@@ -208,7 +208,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 						if (value === undefined || value.length === 0) {
 							return false;
 						} else {
-							return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+							return ["application/pdf"].includes(
 								value[value.length - 1].blobFile!.type
 							);
 						}
@@ -233,7 +233,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 				if (value === undefined || value.length === 0) {
 					return false;
 				} else {
-					return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+					return ["application/pdf"].includes(
 						value[value.length - 1].blobFile!.type
 					);
 				}
@@ -297,7 +297,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 				if (value === undefined || value.length === 0) {
 					return false;
 				} else {
-					return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+					return ["application/pdf"].includes(
 						value[value.length - 1].blobFile!.type
 					);
 				}
@@ -316,7 +316,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 				if (value === undefined || value.length === 0) {
 					return false;
 				} else {
-					return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+					return ["application/pdf"].includes(
 						value[value.length - 1].blobFile!.type
 					);
 				}
@@ -339,7 +339,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 						if (value === undefined || value.length === 0) {
 							return false;
 						} else {
-							return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+							return ["application/pdf"].includes(
 								value[value.length - 1].blobFile!.type
 							);
 						}
@@ -364,7 +364,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 						if (value === undefined || value.length === 0) {
 							return false;
 						} else {
-							return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+							return ["application/pdf"].includes(
 								value[value.length - 1].blobFile!.type
 							);
 						}
@@ -384,7 +384,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 					if (value === undefined || value.length === 0) {
 						return false;
 					} else {
-						return ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(
+						return ["application/pdf"].includes(
 							value[value.length - 1].blobFile!.type
 						);
 					}

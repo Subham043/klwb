@@ -161,6 +161,7 @@ function App() {
                       <Route path={page_routes.govt.scholarship.approved_list} element={<GovtScholarshipListPage />} />
                       <Route path={page_routes.govt.scholarship.pending_list} element={<GovtScholarshipListPage />} />
                       <Route path={page_routes.govt.scholarship.rejected_list} element={<GovtScholarshipListPage />} />
+                      <Route path={page_routes.govt.scholarship.all_list} element={<GovtScholarshipListPage />} />
                       <Route path={page_routes.govt.scholarship.view(":id")} element={<GovtScholarshipViewPage />} />
                       <Route path={page_routes.govt.report.scholarship} element={<GovtScholarshipReportListPage />} />
                     </Route>

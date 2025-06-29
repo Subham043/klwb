@@ -66,18 +66,26 @@ function IndustryInfo({ data, refetch }: Props) {
               <DetailInfo title="Industry Name" value={data?.industry_name} />
             </Col>
             <Col className="pb-1" md={8} sm={24} xs={24}>
-              <DetailInfo title="Pin Code" value={data?.company.pincode} />
+              <DetailInfo title="Industry Act" value={data?.industry_act_label} />
             </Col>
           </Row>
           <Row gutter={30}>
             <Col className="pb-1" md={8} sm={24} xs={24}>
-              <DetailInfo title="Taluk" value={data?.company.taluq?.name} />
+              <DetailInfo title="Industry Category" value={data?.industry_category} />
+            </Col>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
+              <DetailInfo title="Pin Code" value={data?.company.pincode} />
             </Col>
             <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo
                 title="District"
                 value={data?.company.district?.name}
               />
+            </Col>
+          </Row>
+          <Row gutter={30}>
+            <Col className="pb-1" md={8} sm={24} xs={24}>
+              <DetailInfo title="Taluk" value={data?.company.taluq?.name} />
             </Col>
             {data?.company.salaryslip && (
               <Col className="pb-1" md={8} sm={24} xs={24}>
