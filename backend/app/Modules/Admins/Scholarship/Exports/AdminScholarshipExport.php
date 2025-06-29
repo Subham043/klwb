@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admins\Scholarship\Exports;
 
+use App\Modules\Admins\RequestIndustry\Enums\Act;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -39,6 +40,8 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			(string) $data->basic_detail->m_adhar . ' ' ?? '',
 			$data->institute->name,
 			$data->industry->name,
+			$data->industry->act ? Act::getValue($data->industry->act) : 'N/A',
+			$data->industry->category ?? 'N/A',
 			$data->mark->graduation->name,
 			$data->mark->course->name,
 			$data->mark->class->name,
@@ -50,8 +53,8 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			$data->company->relationship,
 			(string) $data->company->msalary . ' ',
 			$data->company->pincode,
-			$data->mark->district->name,
-			$data->mark->taluq->name,
+			$data->company->district->name,
+			$data->company->taluq->name,
 			$data->account->name,
 			$data->account->branch,
 			(string) $data->account->ifsc,
@@ -81,6 +84,8 @@ class AdminScholarshipExport implements FromQuery, WithHeadings, WithMapping
 			'Mother\'s Adhar Card Number',
 			'Institute',
 			'Industry',
+			'Industry Act',
+			'Industry Category',
 			'Graduation',
 			'Course',
 			'Class',

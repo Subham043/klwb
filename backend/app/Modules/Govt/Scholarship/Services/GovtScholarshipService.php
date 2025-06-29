@@ -49,9 +49,22 @@ class GovtScholarshipService
 						if ($value == 'pending') {
 							$query->isApplicationPending()->inGovtStage();
 						}
-						if ($value == 'payment_processed') {
-							$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
+						if ($value == 'all') {
+							$query->where(function ($qry) {
+								$qry->where(function ($q) {
+									$q->isApplicationApproved()->inGovtStage();
+								})->orWhere(function ($q) {
+									$q->whereApplicationStageGreaterThan(ApplicationState::Govt);
+								});
+							})->orWhere(function ($qry) {
+									$qry->isApplicationRejected()->inGovtStage();
+							})->orWhere(function ($qry) {
+									$qry->isApplicationPending()->inGovtStage();
+							});
 						}
+						// if ($value == 'payment_processed') {
+						// 	$query->isApplicationApproved()->inAdminStage()->isPaymentProcessed();
+						// }
 					});
 				}),
 				AllowedFilter::callback('has_gender', function (Builder $query, $value) {
@@ -91,22 +104,22 @@ class GovtScholarshipService
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
-						// $query->whereHas('company', function ($qry) use ($value) {
-						// 	$qry->where('district_id', $value);
-						// });
-						$query->whereHas('mark', function ($qry) use ($value) {
-							$qry->where('ins_district_id', $value);
+						$query->whereHas('company', function ($qry) use ($value) {
+							$qry->where('district_id', $value);
 						});
+						// $query->whereHas('mark', function ($qry) use ($value) {
+						// 	$qry->where('ins_district_id', $value);
+						// });
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
-						// $query->whereHas('company', function ($qry) use ($value) {
-						// 	$qry->where('taluq_id', $value);
-						// });
-						$query->whereHas('mark', function ($qry) use ($value) {
-							$qry->where('ins_taluq_id', $value);
+						$query->whereHas('company', function ($qry) use ($value) {
+							$qry->where('taluq_id', $value);
 						});
+						// $query->whereHas('mark', function ($qry) use ($value) {
+						// 	$qry->where('ins_taluq_id', $value);
+						// });
 					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
@@ -220,8 +233,8 @@ class GovtScholarshipService
 														'Relationship' => $data->company->relationship,
 														'Monthly Salary' => $data->company->msalary,
 														'Pincode' => $data->company->pincode,
-														'District' => $data->mark->district->name,
-														'Taluq' => $data->mark->taluq->name,
+														'District' => $data->company->district->name,
+														'Taluq' => $data->company->taluq->name,
 														'Bank Name' => $data->account->name,
 														'Branch Name' => $data->account->branch,
 														'IFSC Code' => $data->account->ifsc,

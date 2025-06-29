@@ -91,22 +91,22 @@ class AdminScholarshipService
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
-						// $query->whereHas('company', function ($qry) use ($value) {
-						// 	$qry->where('district_id', $value);
-						// });
-						$query->whereHas('mark', function ($qry) use ($value) {
-							$qry->where('ins_district_id', $value);
+						$query->whereHas('company', function ($qry) use ($value) {
+							$qry->where('district_id', $value);
 						});
+						// $query->whereHas('mark', function ($qry) use ($value) {
+						// 	$qry->where('ins_district_id', $value);
+						// });
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
-						// $query->whereHas('company', function ($qry) use ($value) {
-						// 	$qry->where('taluq_id', $value);
-						// });
-						$query->whereHas('mark', function ($qry) use ($value) {
-							$qry->where('ins_taluq_id', $value);
+						$query->whereHas('company', function ($qry) use ($value) {
+							$qry->where('taluq_id', $value);
 						});
+						// $query->whereHas('mark', function ($qry) use ($value) {
+						// 	$qry->where('ins_taluq_id', $value);
+						// });
 					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
@@ -137,7 +137,7 @@ class AdminScholarshipService
 			->firstOrFail();
 	}
 
-	public function industryPaymentWrapper(Application|null $application): Application
+	public function industryPaymentWrapper(Application|null $application): Application|null
 	{
 		$newApp = clone $application;
 		if(!$newApp) return $newApp;
@@ -272,8 +272,8 @@ class AdminScholarshipService
 														'Relationship' => $data->company->relationship,
 														'Monthly Salary' => $data->company->msalary,
 														'Pincode' => $data->company->pincode,
-														'District' => $data->mark->district->name,
-														'Taluq' => $data->mark->taluq->name,
+														'District' => $data->company->district->name,
+														'Taluq' => $data->company->taluq->name,
 														'Bank Name' => $data->account->name,
 														'Branch Name' => $data->account->branch,
 														'IFSC Code' => $data->account->ifsc,

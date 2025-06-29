@@ -26,6 +26,7 @@ class CityExport implements FromQuery, WithHeadings, WithMapping
 		return [
 			$data->id,
 			$data->name,
+			$data->special_name ?? 'N/A',
 			$data->state->name,
    $data->state->id,
 			$data->is_active ? 'Yes' : 'No',
@@ -38,6 +39,7 @@ class CityExport implements FromQuery, WithHeadings, WithMapping
 		return [
 			'Id',
 			'Name',
+			'Special Name',
 			'State',
    'State Id',
 			'Active',

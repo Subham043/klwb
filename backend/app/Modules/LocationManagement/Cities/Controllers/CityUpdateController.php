@@ -23,7 +23,10 @@ class CityUpdateController extends Controller
         try {
             //code...
             $this->cityService->update(
-                $request->validated(),
+                [
+                    ...$request->validated(),
+                    'special_name' => $request->special_name ?? $request->name, 
+                ],
                 $city
             );
             return response()->json(["message" => "City updated successfully.", "data" => CityCollection::make($city)], 200);

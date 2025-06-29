@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class ScholarshipHelperService
 {
 
-	public function industryPaymentWrapper(Application|null $application): Application
+	public function industryPaymentWrapper(Application|null $application): Application|null
 	{
 		$newApp = clone $application;
 		if (!$newApp) return $newApp;

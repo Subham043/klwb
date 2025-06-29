@@ -84,22 +84,22 @@ class FinanceScholarshipService
 				}),
 				AllowedFilter::callback('has_city', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
-						// $query->whereHas('company', function ($qry) use ($value) {
-						// 	$qry->where('district_id', $value);
-						// });
-						$query->whereHas('mark', function ($qry) use ($value) {
-							$qry->where('ins_district_id', $value);
+						$query->whereHas('company', function ($qry) use ($value) {
+							$qry->where('district_id', $value);
 						});
+						// $query->whereHas('mark', function ($qry) use ($value) {
+						// 	$qry->where('ins_district_id', $value);
+						// });
 					});
 				}),
 				AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
 					$query->where(function ($query) use ($value) {
-						// $query->whereHas('company', function ($qry) use ($value) {
-						// 	$qry->where('taluq_id', $value);
-						// });
-						$query->whereHas('mark', function ($qry) use ($value) {
-							$qry->where('ins_taluq_id', $value);
+						$query->whereHas('company', function ($qry) use ($value) {
+							$qry->where('taluq_id', $value);
 						});
+						// $query->whereHas('mark', function ($qry) use ($value) {
+						// 	$qry->where('ins_taluq_id', $value);
+						// });
 					});
 				}),
 				AllowedFilter::callback('year', function (Builder $query, $value) {
@@ -199,8 +199,8 @@ class FinanceScholarshipService
 														'Graduation' => $data->mark->graduation->name,
 														'Course' => $data->mark->course->name,
 														'Class' => $data->mark->class->name,
-														'District' => $data->mark->district->name,
-														'Taluq' => $data->mark->taluq->name,
+														'District' => $data->company->district->name,
+														'Taluq' => $data->company->taluq->name,
 														'Amount' => $data->mark->graduation->scholarship_fee->amount ?? '0',
 														'Application Year' => $data->application_year,
 														'Applied Date' => $data->date->format('Y-m-d'),

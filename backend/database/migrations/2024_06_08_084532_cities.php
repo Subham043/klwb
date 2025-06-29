@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('special_name')->nullable();
             $table->foreignId('state_id')->nullable()->index();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
@@ -28,3 +29,6 @@ return new class extends Migration
         Schema::dropIfExists('cities');
     }
 };
+
+
+// ALTER TABLE `cities` ADD `special_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL AFTER `name`;

@@ -42,6 +42,7 @@ class ContributionsExport implements FromQuery, WithHeadings, WithMapping
 			(string) $data->price.' ',
 			PaymentStatus::getValue($data->status),
 			optional($data->payed_on)->format('Y-m-d'),
+			$data->industry->auth->city->special_name ?? '',
 		];
 	}
 
@@ -63,7 +64,8 @@ class ContributionsExport implements FromQuery, WithHeadings, WithMapping
 			'Interest',
 			'Total Amount',
 			'Status',
-			'Payed On'
+			'Payed On',
+			'District Special Name',
 		];
 	}
 }

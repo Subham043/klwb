@@ -78,6 +78,7 @@ class CityService extends AbstractExcelService
                 $writer->addRow([
                     'Id' => $data->id,
                     'Name' => $data->name,
+                    'Special Name' => $data->special_name ?? 'N/A',
                     'State' => $data->state->name,
                     'State Id' => $data->state->id,
                     'Active' => $data->is_active ? 'Yes' : 'No',

@@ -22,6 +22,7 @@ class City extends Model implements AuthTraitInterface
      */
     protected $fillable = [
         'name',
+        'special_name',
         'state_id',
         'is_active',
     ];
