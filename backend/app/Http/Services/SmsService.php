@@ -19,16 +19,37 @@ class SmsService
         // curl_exec($ch);
         // curl_close($ch);
 
-        $url = "https://sms.versatilesmshub.com/api/smsservices.php";
+        // $url = "https://sms.versatilesmshub.com/api/smsservices.php";
+        $url = "https://alerts.smsbajar.com/api/smsservices.php";
+
+        // $data = [
+        //     "api" => "fb77325e6d73aeabf26ac71b328a21bc",
+        //     "senderid" => "KLWBAP",
+        //     "campaignid" => "2",
+        //     "channel" => "Trans",
+        //     "templateid" => "1707173280722532150",
+        //     "dcs" => "0",
+        //     "shorturl" => "NO",
+        //     "data" => [
+        //         [
+        //             "international" => "NO",
+        //             "countrycode" => "91",
+        //             "number" => $phone,
+        //             "message" => "Your one time password for Karnataka labour welfare board scholarship registration is ".$otp.".Do not share with anyone. KLWBAP",
+        //             "url" => ""
+        //         ]
+        //     ]
+        // ];
 
         $data = [
-            "api" => "fb77325e6d73aeabf26ac71b328a21bc",
+            "api" => "7b7090071c9fab3e4352e70d6026c31e",
             "senderid" => "KLWBAP",
-            "campaignid" => "2",
+            "campaignid" => "Test",
             "channel" => "Trans",
             "templateid" => "1707173280722532150",
             "dcs" => "0",
             "shorturl" => "NO",
+            "dlr" => "NO",
             "data" => [
                 [
                     "international" => "NO",
@@ -40,16 +61,26 @@ class SmsService
             ]
         ];
 
-        $payload = json_encode($data);
+        // $payload = json_encode($data);
 
         $ch = curl_init($url);
 
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        //     "Content-Type: application/json"
+        // ]);
+
+        // Set cURL options
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json"
+            'Content-Type: application/json',
         ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+        
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Makes it insecure
 
         $response = curl_exec($ch);
