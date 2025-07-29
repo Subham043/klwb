@@ -140,18 +140,18 @@ class AdminScholarshipService
 	public function industryPaymentWrapper(Application|null $application): Application|null
 	{
 		$newApp = clone $application;
-		if(!$newApp) return $newApp;
+		if (!$newApp) return $newApp;
 		$applicationChecks = new ScholarshipApplicationChecksService();
 		$newApp->can_approve = $applicationChecks->canAdminApproveReject($newApp);
 		$payments_container = [];
-			$payments = $this->getIndustryCompletedPayments([$newApp->company_id], $newApp->application_year);
-			foreach($payments as $payment){
-							array_push($payments_container, $payment);
-			}
-			$newApp->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $newApp->company_id)->where('year', $newApp->application_year)->first() ?? null;
+		$payments = $this->getIndustryCompletedPayments([$newApp->company_id], ($newApp->application_year-1));
+		foreach ($payments as $payment) {
+			array_push($payments_container, $payment);
+		}
+		$newApp->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $newApp->company_id)->where('year', ($newApp->application_year-1))->first() ?? null;
 		return $newApp;
 	}
-	
+
 	public function getMultipleByIds(array $ids): Collection
 	{
 		return $this->model()
@@ -164,35 +164,35 @@ class AdminScholarshipService
 	{
 		$data = $this->query()->paginate($total)
 			->appends(request()->query());
-			return $this->wrapApplicationList($data);
+		return $this->wrapApplicationList($data);
 	}
 
 	public function wrapApplicationList(LengthAwarePaginator $data): LengthAwarePaginator
 	{
-			$industry_ids = [];
-			$applicationChecks = new ScholarshipApplicationChecksService();
-			$applications = $data->through(function($application) use ($applicationChecks, &$industry_ids){
-				array_push($industry_ids, ["application_year" => $application->application_year, "company_id" => $application->company_id]);
-				$application->can_approve = $applicationChecks->canAdminApproveReject($application);	
-				return $application;
-			});
-			$grouped = collect($industry_ids)
+		$industry_ids = [];
+		$applicationChecks = new ScholarshipApplicationChecksService();
+		$applications = $data->through(function ($application) use ($applicationChecks, &$industry_ids) {
+			array_push($industry_ids, ["application_year" => $application->application_year, "company_id" => $application->company_id]);
+			$application->can_approve = $applicationChecks->canAdminApproveReject($application);
+			return $application;
+		});
+		$grouped = collect($industry_ids)
 			->groupBy('application_year')
 			->map(function (Collection $items) {
-							return $items->pluck('company_id')->all();
+				return $items->pluck('company_id')->all();
 			})
 			->toArray();
-			$payments_container = [];
-			foreach($grouped as $key => $value){
-							$payments = $this->getIndustryCompletedPayments($value, $key);
-							foreach($payments as $payment){
-											array_push($payments_container, $payment);
-							}
+		$payments_container = [];
+		foreach ($grouped as $key => $value) {
+			$payments = $this->getIndustryCompletedPayments($value, ($key-1));
+			foreach ($payments as $payment) {
+				array_push($payments_container, $payment);
 			}
-			$applications = $applications->through(function($application) use ($payments_container){
-							$application->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $application->company_id)->where('year', $application->application_year)->first() ?? null;
-							return $application;
-			});
+		}
+		$applications = $applications->through(function ($application) use ($payments_container) {
+			$application->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $application->company_id)->where('year', ($application->application_year-1))->first() ?? null;
+			return $application;
+		});
 		return $applications;
 	}
 
@@ -236,58 +236,58 @@ class AdminScholarshipService
 		$writer = SimpleExcelWriter::streamDownload('applications.xlsx');
 
 		do {
-						// Set the current page for pagination
-						Paginator::currentPageResolver(function () use ($page) {
-										return $page;
-						});
+			// Set the current page for pagination
+			Paginator::currentPageResolver(function () use ($page) {
+				return $page;
+			});
 
-						// Retrieve the paginated data
-						$paginator = $this->getList($perPage);
-						$items = $paginator->items();
+			// Retrieve the paginated data
+			$paginator = $this->getList($perPage);
+			$items = $paginator->items();
 
-						// Write each item to the Excel file
-						foreach ($items as $data) {
-										$writer->addRow([
-														'Id' => $data->id,
-														'Name' => $data->basic_detail->name,
-														'Father\'s Name' => $data->basic_detail->father_name,
-														'Mohter\'s Name' => $data->basic_detail->mother_name,
-														'Phone' => $data->basic_detail->parent_phone,
-														'Gender' => $data->basic_detail->gender,
-														'Category' => $data->basic_detail->category,
-														'Cast No.' => $data->basic_detail->cast_no,
-														'Adhar Card Number' => $data->basic_detail->adharcard_no,
-														'Father\'s Adhar Card Number' => $data->basic_detail->f_adhar,
-														'Mother\'s Adhar Card Number' => $data->basic_detail->m_adhar,
-														'Institute' => $data->institute->name,
-														'Industry' => $data->industry->name,
-														'Graduation' => $data->mark->graduation->name,
-														'Course' => $data->mark->course->name,
-														'Class' => $data->mark->class->name,
-														'Previous Class' => $data->mark->prv_class,
-														'Previous Marks' => $data->mark->prv_marks,
-														'Scholarship Fee' => $data->mark->graduation->scholarship_fee->amount ?? '0',
-														'Whos\'s Working' => $data->company->who_working_text,
-														'Parent \ Guardian Name' => $data->company->name,
-														'Relationship' => $data->company->relationship,
-														'Monthly Salary' => $data->company->msalary,
-														'Pincode' => $data->company->pincode,
-														'District' => $data->company->district->name,
-														'Taluq' => $data->company->taluq->name,
-														'Bank Name' => $data->account->name,
-														'Branch Name' => $data->account->branch,
-														'IFSC Code' => $data->account->ifsc,
-														'Account Number' => $data->account->acc_no,
-														'Account Holder Name' => $data->account->holder,
-														'Account Type' => $data->account->account_type,
-														'Application Year' => $data->application_year,
-														'Submitted On' => $data->date->format('Y-m-d H:i:s'),
-										]);
-						}
+			// Write each item to the Excel file
+			foreach ($items as $data) {
+				$writer->addRow([
+					'Id' => $data->id,
+					'Name' => $data->basic_detail->name,
+					'Father\'s Name' => $data->basic_detail->father_name,
+					'Mohter\'s Name' => $data->basic_detail->mother_name,
+					'Phone' => $data->basic_detail->parent_phone,
+					'Gender' => $data->basic_detail->gender,
+					'Category' => $data->basic_detail->category,
+					'Cast No.' => $data->basic_detail->cast_no,
+					'Adhar Card Number' => $data->basic_detail->adharcard_no,
+					'Father\'s Adhar Card Number' => $data->basic_detail->f_adhar,
+					'Mother\'s Adhar Card Number' => $data->basic_detail->m_adhar,
+					'Institute' => $data->institute->name,
+					'Industry' => $data->industry->name,
+					'Graduation' => $data->mark->graduation->name,
+					'Course' => $data->mark->course->name,
+					'Class' => $data->mark->class->name,
+					'Previous Class' => $data->mark->prv_class,
+					'Previous Marks' => $data->mark->prv_marks,
+					'Scholarship Fee' => $data->mark->graduation->scholarship_fee->amount ?? '0',
+					'Whos\'s Working' => $data->company->who_working_text,
+					'Parent \ Guardian Name' => $data->company->name,
+					'Relationship' => $data->company->relationship,
+					'Monthly Salary' => $data->company->msalary,
+					'Pincode' => $data->company->pincode,
+					'District' => $data->company->district->name,
+					'Taluq' => $data->company->taluq->name,
+					'Bank Name' => $data->account->name,
+					'Branch Name' => $data->account->branch,
+					'IFSC Code' => $data->account->ifsc,
+					'Account Number' => $data->account->acc_no,
+					'Account Holder Name' => $data->account->holder,
+					'Account Type' => $data->account->account_type,
+					'Application Year' => $data->application_year,
+					'Submitted On' => $data->date->format('Y-m-d H:i:s'),
+				]);
+			}
 
-						// Move to the next page
-						$page++;
-						flush();
+			// Move to the next page
+			$page++;
+			flush();
 		} while ($page <= $paginator->lastPage());
 
 		// Close the writer and return the download response
@@ -295,7 +295,6 @@ class AdminScholarshipService
 
 		return $writer;
 	}
-
 }
 
 

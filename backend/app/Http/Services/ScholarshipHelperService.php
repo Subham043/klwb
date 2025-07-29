@@ -15,11 +15,11 @@ class ScholarshipHelperService
 		$newApp = clone $application;
 		if (!$newApp) return $newApp;
 		$payments_container = [];
-		$payments = $this->getIndustryCompletedPayments([$newApp->company_id], $newApp->application_year);
+		$payments = $this->getIndustryCompletedPayments([$newApp->company_id], ($newApp->application_year-1));
 		foreach ($payments as $payment) {
 			array_push($payments_container, $payment);
 		}
-		$newApp->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $newApp->company_id)->where('year', $newApp->application_year)->first() ?? null;
+		$newApp->industryPaymentInfo = collect($payments_container)->where('comp_regd_id', $newApp->company_id)->where('year', ($newApp->application_year-1))->first() ?? null;
 		return $newApp;
 	}
 
