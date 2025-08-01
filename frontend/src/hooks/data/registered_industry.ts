@@ -35,7 +35,7 @@ export const useRegisteredIndustriesQuery: () => UseQueryResult<
         PaginationType<RegisteredIndustryType>
       >(
         api_routes.admin.registered_industry.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },
@@ -56,7 +56,7 @@ export const useRegisteredIndustriesStaffQuery: (id: number) => UseQueryResult<
         PaginationType<RegisteredIndustryStaffType>
       >(
         api_routes.admin.registered_industry.staff.paginate(id) +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },
@@ -77,7 +77,7 @@ export const useRegisteredIndustriesScholarshipQuery: (id: number) => UseQueryRe
         PaginationType<StudentApplicationType>
       >(
         api_routes.admin.registered_industry.scholarship.paginate(id) +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },
@@ -98,7 +98,7 @@ export const useRegisteredIndustriesContributionQuery: (id: number) => UseQueryR
         PaginationType<ContributionType>
       >(
         api_routes.admin.registered_industry.contribution.paginate(id) +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

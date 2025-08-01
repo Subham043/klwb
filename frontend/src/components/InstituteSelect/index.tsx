@@ -34,7 +34,7 @@ export default function InstituteSelect({
         api_routes.user.institute.all +
           `?page=${additional ? additional.page : 1}${
             taluq_id ? `&sort=name&filter[has_taluq]=${taluq_id}` : ""
-          }&total=10&filter[search]=${search}`
+          }&total=10&filter[search]=${encodeURIComponent(search)}`
       );
 
       return {

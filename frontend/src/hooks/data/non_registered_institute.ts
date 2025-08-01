@@ -24,7 +24,7 @@ export const useNonRegisteredInstitutesQuery: () => UseQueryResult<
         PaginationType<NonRegisteredInstituteType>
       >(
         api_routes.admin.non_registered_institute.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

@@ -24,7 +24,7 @@ export const useNonRegisteredIndustriesQuery: () => UseQueryResult<
         PaginationType<NonRegisteredIndustryType>
       >(
         api_routes.admin.non_registered_industry.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

@@ -21,7 +21,7 @@ export const useStatesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<StateType>>(
         api_routes.admin.state.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

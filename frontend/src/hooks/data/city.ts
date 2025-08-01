@@ -24,7 +24,7 @@ export const useCitiesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<CityType>>(
         api_routes.admin.city.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

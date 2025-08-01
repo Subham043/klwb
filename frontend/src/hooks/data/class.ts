@@ -24,7 +24,7 @@ export const useClassesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<ClassType>>(
         api_routes.admin.class.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[has_course]=${searchParams.get("course_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[has_graduation]=${searchParams.get("graduation_id") || ""}&filter[has_course]=${searchParams.get("course_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

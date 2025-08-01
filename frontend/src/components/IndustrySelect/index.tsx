@@ -28,7 +28,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq_id }
         api_routes.user.industry.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&sort=name&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${encodeURIComponent(search)}${
             taluq_id ? `&filter[has_taluq]=${taluq_id}` : ""
           }`
       );

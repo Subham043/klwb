@@ -23,7 +23,7 @@ export const useStudentsQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<AuthType>>(
         api_routes.admin.student.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[year]=${searchParams.get("year") || ""}&filter[verification_status]=${searchParams.get("verification_status") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

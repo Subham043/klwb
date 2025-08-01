@@ -178,7 +178,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 								})
 								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),
-		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().moreThan(50, "Previous Marks should be greater than 50%").required("Previous Marks is required"),
+		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().moreThan(44, "Previous Marks should be greater than 45%").required("Previous Marks is required"),
 		marks_card_type: yup.string().typeError("Marks Card type must contain characters only").required("Marks Card type is required"),
 		prv_markcard: yup
 			.mixed<FileType[]>()
@@ -554,7 +554,7 @@ export const scholarshipFormSchema: yup.ObjectSchema<ScholarshipFormSchemaType> 
 								})
 								.optional(),
 		prv_class: yup.string().typeError("Previous Class must contain characters only").max(250).required("Previous Class is required"),
-		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().required("Previous Marks is required"),
+		prv_marks: yup.number().typeError("Previous Marks must contain numbers only").positive().moreThan(44, "Previous Marks should be greater than 45%").required("Previous Marks is required"),
 		marks_card_type: yup.string().typeError("Marks Card type must contain characters only").required("Marks Card type is required"),
 		prv_markcard: yup.mixed<FileType[]>().optional(),
 		prv_markcard2: yup.mixed<FileType[]>().optional(),

@@ -20,7 +20,7 @@ export const useEmployeesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<EmployeeType>>(
         api_routes.admin.employee.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

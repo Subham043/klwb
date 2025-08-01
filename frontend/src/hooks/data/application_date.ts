@@ -21,7 +21,7 @@ export const useApplicationDatesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<ApplicationDateType>>(
         api_routes.admin.application_date.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

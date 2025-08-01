@@ -27,7 +27,7 @@ export default function StateSelect({ value, setValue, isDisabled }: Props) {
         api_routes.admin.state.paginate +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&sort=name&filter[search]=${search}`
+          }&total=10&sort=name&filter[search]=${encodeURIComponent(search)}`
       );
       return {
         options: response.data.data.map((state) => ({

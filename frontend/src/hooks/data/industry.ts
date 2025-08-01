@@ -27,7 +27,7 @@ export const useIndustriesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<IndustryType>>(
         api_routes.admin.industry.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },
@@ -65,7 +65,7 @@ export const useIndustryCommonSelectQuery: (
     queryFn: async () => {
       const response = await axios.get<{ data: IndustryType[] }>(
         api_routes.user.industry.all +
-        (search ? `?filter[search]=${search}` : "")
+        (search ? `?filter[search]=${encodeURIComponent(search)}` : "")
       );
       return response.data.data;
     },

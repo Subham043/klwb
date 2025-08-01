@@ -24,7 +24,7 @@ export const useTaluqsQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<TaluqType>>(
         api_routes.admin.taluq.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[active_status]=${searchParams.get("active_status") || ""}`
       );
       return response.data;
     },

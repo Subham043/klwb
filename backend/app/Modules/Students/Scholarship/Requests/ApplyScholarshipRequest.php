@@ -64,7 +64,7 @@ class ApplyScholarshipRequest extends InputRequest
             'ins_taluq_id' => 'required|numeric|exists:taluqs,id',
             'school_id' => 'required|numeric|exists:registered_institutes,id',
             'prv_class' => ['required', 'string', 'max:250'],
-            'prv_marks' => ['required', 'numeric', 'min:0', 'max:100', 'gt: 50'],
+            'prv_marks' => ['required', 'numeric', 'min:0', 'max:100', 'gte: 45'],
             'marks_card_type' => 'required|boolean',
             'prv_markcard' => 'required|file|extensions:pdf|min:1|max:515',
             'prv_markcard2' =>  ['nullable', Rule::requiredIf($this->marks_card_type==false), Rule::prohibitedIf($this->marks_card_type==true), 'file', 'extensions:pdf', 'min:1', 'max:515'],

@@ -22,7 +22,7 @@ export const useInstituteScholarshipListQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<StudentApplicationType>>(
         api_routes.institute.scholarship.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[year]=${searchParams.get("year") || ""}&filter[status]=${searchParams.get("status") || ""}`
       );
       return response.data;
     },

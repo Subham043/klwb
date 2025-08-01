@@ -21,7 +21,7 @@ export const useNonContributionPaymentsQuery: (props: {industry_id: number, enab
     queryFn: async () => {
       const response = await axios.get<PaginationType<ContributionType>>(
         api_routes.admin.non_contribution.payment_list(industry_id) +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[year]=${searchParams.get("year") || ""}`
       );
       return response.data;
     },

@@ -22,7 +22,7 @@ export const useGraduationsQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<GraduationType>>(
         api_routes.admin.graduation.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

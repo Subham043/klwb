@@ -23,7 +23,7 @@ export const useRequestInstitutesQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<RequestInstituteType>>(
         api_routes.admin.request_institute.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[status]=${searchParams.get("status") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[has_city]=${searchParams.get("city_id") || ""}&filter[has_taluq]=${searchParams.get("taluq_id") || ""}&filter[status]=${searchParams.get("status") || ""}`
       );
       return response.data;
     },

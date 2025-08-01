@@ -1,6 +1,6 @@
 import { official_auth_page_routes } from "./official_auth_pages_routes";
 
-const year = new Date().getFullYear()-1;
+const year = new Date().getFullYear();
 
 export const finance_page_routes = {
   auth: {

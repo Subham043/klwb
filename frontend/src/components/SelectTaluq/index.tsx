@@ -38,7 +38,7 @@ const SelectTaluqStatus = (props: PropType) => {
         api_routes.user.taluq.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&sort=name&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${encodeURIComponent(search)}${
             searchParams.get("city_id") ? `&filter[has_city]=${searchParams.get("city_id")}` : ""
           }`
       );

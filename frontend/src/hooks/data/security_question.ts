@@ -21,7 +21,7 @@ export const useSecurityQuestionsQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<SecurityQuestionType>>(
         api_routes.admin.security_question.paginate +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

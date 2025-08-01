@@ -34,7 +34,7 @@ export default function TaluqSelect({
         api_routes.user.taluq.all +
           `?page=${additional ? additional.page : 1}${
             city_id ? `&sort=name&filter[has_city]=${city_id}` : ""
-          }&total=10&filter[search]=${search}`
+          }&total=10&filter[search]=${encodeURIComponent(search)}`
       );
 
       return {

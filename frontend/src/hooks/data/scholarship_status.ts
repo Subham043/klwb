@@ -34,7 +34,7 @@ export const useScholarshipListQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<StudentApplicationType>>(
         api_routes.user.scholarship.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}`
       );
       return response.data;
     },

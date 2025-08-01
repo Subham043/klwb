@@ -24,7 +24,7 @@ export const useIndustryPaymentsQuery: () => UseQueryResult<
     queryFn: async () => {
       const response = await axios.get<PaginationType<PaymentType>>(
         api_routes.industry.payment.list +
-          `?page=${page}&total=${limit}&filter[search]=${search}&filter[year]=${searchParams.get("year") || ""}`
+          `?page=${page}&total=${limit}&filter[search]=${encodeURIComponent(search)}&filter[year]=${searchParams.get("year") || ""}`
       );
       return response.data;
     },

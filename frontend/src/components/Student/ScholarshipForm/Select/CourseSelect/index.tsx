@@ -29,7 +29,7 @@ export default function CourseSelect({ value, setValue, isDisabled, graduation }
         api_routes.user.course.all +
           `?page=${
             additional ? additional.page : 1
-          }&total=10&sort=name&filter[search]=${search}${
+          }&total=10&sort=name&filter[search]=${encodeURIComponent(search)}${
             additional && additional.graduation_id ? `&filter[has_graduation]=${additional.graduation_id}` : ""
           }`
       );
