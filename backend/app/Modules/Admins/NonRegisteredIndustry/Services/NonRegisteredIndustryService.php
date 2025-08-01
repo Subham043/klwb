@@ -95,7 +95,11 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where(function($q) use($value){
-            $q->where('name', 'LIKE', '%' . $value . '%')
+            $q->where(function ($q) use ($value) {
+                $valueAmp = str_replace('&', '&amp;', $value);
+                $q->where('name', 'LIKE', '%' . $value . '%')
+                    ->orWhere('name', 'LIKE', '%' . $valueAmp . '%');
+            })
             ->orWhere('act', 'LIKE', '%' . $value . '%')
             ->orWhere('category', 'LIKE', '%' . $value . '%')
             ->orWhere('pincode', 'LIKE', '%' . $value . '%')

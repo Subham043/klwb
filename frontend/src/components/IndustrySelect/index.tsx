@@ -4,6 +4,7 @@ import { api_routes } from "../../utils/routes/api";
 import { IndustryType, PaginationType } from "../../utils/types";
 import type { GroupBase, OptionsOrGroups } from "react-select";
 import { useCallback } from "react";
+import { decode } from 'he';
 
 type OptionType = {
   value: number;
@@ -35,7 +36,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq_id }
       return {
         options: response.data.data.map((industry) => ({
           value: industry.id,
-          label: industry.name,
+          label: decode(industry.name),
         })),
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
@@ -49,7 +50,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq_id }
   return (
     <div style={{ position: "relative", zIndex: 11}}>
       <AsyncPaginate
-        value={value}
+        value={value ? {label: decode(value.label), value: value.value} : undefined}
         loadOptions={loadOptions}
         isDisabled={isDisabled}
         onChange={(value) => setValue(value as OptionType)}

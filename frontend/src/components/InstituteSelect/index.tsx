@@ -4,6 +4,7 @@ import { api_routes } from "../../utils/routes/api";
 import { InstituteType, PaginationType } from "../../utils/types";
 import type { GroupBase, OptionsOrGroups } from "react-select";
 import { useCallback } from "react";
+import { decode } from 'he';
 
 type OptionType = {
   value: number;
@@ -40,7 +41,7 @@ export default function InstituteSelect({
       return {
         options: response.data.data.map((institute) => ({
           value: institute.id,
-          label: institute.name,
+          label: decode(institute.name),
         })),
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
@@ -55,7 +56,7 @@ export default function InstituteSelect({
     <div style={{ position: "relative", zIndex: 11}}>
       <AsyncPaginate
         key={`taluq__${taluq_id ? taluq_id : ''}`}
-        value={value}
+        value={value ? {label: decode(value.label), value: value.value} : undefined}
         loadOptions={loadOptions}
         isDisabled={isDisabled}
         onChange={(value) => setValue(value as OptionType)}

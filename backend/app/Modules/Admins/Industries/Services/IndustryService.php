@@ -21,41 +21,41 @@ class IndustryService extends AbstractExcelService
     public function query(): QueryBuilder
     {
         return QueryBuilder::for($this->model())
-                ->defaultSort('-id')
-                ->allowedSorts('id', 'name')
-                ->allowedFilters([
-                    AllowedFilter::custom('search', new CommonFilter, null, false),
-                    AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
-                        $query->where(function ($query) use ($value) {
-                            $query->where('taluq_id', $value);
-                        });
-                    }),
-                    AllowedFilter::callback('active_status', function (Builder $query, $value) {
-                        $query->where(function ($query) use ($value) {
-                            if(!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')){
-                                if(strtolower($value)=="active"){
-                                    $query->where('is_active', true);
-                                }else{
-                                    $query->where('is_active', false);
-                                }
+            ->defaultSort('-id')
+            ->allowedSorts('id', 'name')
+            ->allowedFilters([
+                AllowedFilter::custom('search', new CommonFilter, null, false),
+                AllowedFilter::callback('has_taluq', function (Builder $query, $value) {
+                    $query->where(function ($query) use ($value) {
+                        $query->where('taluq_id', $value);
+                    });
+                }),
+                AllowedFilter::callback('active_status', function (Builder $query, $value) {
+                    $query->where(function ($query) use ($value) {
+                        if (!empty($value) && request()->user() && request()->user()->hasRole('Super-Admin|Admin')) {
+                            if (strtolower($value) == "active") {
+                                $query->where('is_active', true);
+                            } else {
+                                $query->where('is_active', false);
                             }
-                        });
-                    }),
-                ]);
+                        }
+                    });
+                }),
+            ]);
     }
 
     public function getExcelQuery(): QueryBuilder
-	{
-		return $this->query();
-	}
+    {
+        return $this->query();
+    }
 
     public function toggleStatus(Industry $data): Industry
     {
         $status = true;
-        if($data->is_active){
+        if ($data->is_active) {
             $status = false;
         }
-        $this->update(['is_active'=>$status], $data);
+        $this->update(['is_active' => $status], $data);
         $data->auth->update(['is_blocked' => !$status]);
         $data->refresh();
         return $data;
@@ -103,28 +103,31 @@ class IndustryService extends AbstractExcelService
 
         return $writer;
     }
-
 }
 
 class CommonFilter implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
-        $query->where(function($q) use($value){
-            $q->where('name', 'LIKE', '%' . $value . '%')
-            ->orWhere('act', 'LIKE', '%' . $value . '%')
-            ->orWhere('category', 'LIKE', '%' . $value . '%')
-            ->orWhere('pincode', 'LIKE', '%' . $value . '%')
-            ->orWhere('reg_id', 'LIKE', '%' . $value . '%')
-            ->orWhereHas('state', function($q) use($value){
-                $q->where('name', 'LIKE', '%' . $value . '%');
+        $query->where(function ($q) use ($value) {
+            $q->where(function ($q) use ($value) {
+                $valueAmp = str_replace('&', '&amp;', $value);
+                $q->where('name', 'LIKE', '%' . $value . '%')
+                    ->orWhere('name', 'LIKE', '%' . $valueAmp . '%');
             })
-            ->orWhereHas('city', function($q) use($value){
-                $q->where('name', 'LIKE', '%' . $value . '%');
-            })
-            ->orWhereHas('taluq', function($q) use($value){
-                $q->where('name', 'LIKE', '%' . $value . '%');
-            });
+                ->orWhere('act', 'LIKE', '%' . $value . '%')
+                ->orWhere('category', 'LIKE', '%' . $value . '%')
+                ->orWhere('pincode', 'LIKE', '%' . $value . '%')
+                ->orWhere('reg_id', 'LIKE', '%' . $value . '%')
+                ->orWhereHas('state', function ($q) use ($value) {
+                    $q->where('name', 'LIKE', '%' . $value . '%');
+                })
+                ->orWhereHas('city', function ($q) use ($value) {
+                    $q->where('name', 'LIKE', '%' . $value . '%');
+                })
+                ->orWhereHas('taluq', function ($q) use ($value) {
+                    $q->where('name', 'LIKE', '%' . $value . '%');
+                });
         });
     }
 }

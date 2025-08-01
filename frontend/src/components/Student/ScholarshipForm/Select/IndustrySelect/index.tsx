@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { api_routes } from "../../../../../utils/routes/api";
 import { IndustryType, PaginationType } from "../../../../../utils/types";
 import api from "../../../../../utils/config/axios";
+import { decode } from 'he';
 
 type OptionType = {
   value: number;
@@ -35,7 +36,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq }: P
       return {
         options: response.data.data.map((industry) => ({
           value: industry.id,
-          label: industry.name,
+          label: decode(industry.name),
         })),
         hasMore: response.data.meta.current_page < response.data.meta.last_page,
         additional: {
@@ -50,7 +51,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq }: P
   return (
 				<div style={{ position: "relative", zIndex: 13}} key={taluq}>
 					<AsyncPaginate
-							value={value}
+							value={value ? {label: decode(value.label), value: value.value} : undefined}
 							loadOptions={loadOptions}
 							isDisabled={isDisabled}
 							onChange={(value) => {setValue(value as OptionType);}}

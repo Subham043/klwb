@@ -77,9 +77,9 @@ class RegisteredIndustryService
     }
 
     public function getExcelQuery(): QueryBuilder
-	{
-		return $this->query();
-	}
+    {
+        return $this->query();
+    }
 
     public function all(): Collection
     {
@@ -206,7 +206,11 @@ class CommonFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $query->where(function ($q) use ($value) {
-            $q->where('name', 'LIKE', '%' . $value . '%')
+            $q->where(function ($q) use ($value) {
+                $valueAmp = str_replace('&', '&amp;', $value);
+                $q->where('name', 'LIKE', '%' . $value . '%')
+                    ->orWhere('name', 'LIKE', '%' . $valueAmp . '%');
+            })
                 ->orWhere('phone', 'LIKE', '%' . $value . '%')
                 ->orWhere('email', 'LIKE', '%' . $value . '%')
                 ->orWhere('gst_no', 'LIKE', '%' . $value . '%')
