@@ -1,5 +1,7 @@
 <?php
 
+use App\Exceptions\RateLimitException;
+use App\Exceptions\UnauthenticatedException;
 use App\Http\Middleware\HttpHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -56,6 +58,20 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'message' => 'Data not found.'
                 ], 404);
+            }
+        });
+        $exceptions->render(function (RateLimitException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], $e->showStatusCode());
+            }
+        });
+        $exceptions->render(function (UnauthenticatedException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], $e->showStatusCode());
             }
         });
     })->create();

@@ -60,10 +60,26 @@ class RateLimitService
     public function throttleKey(): string
     {
         if(Auth::check()){
-            return Str::transliterate(Str::lower($this->request->user()->email).'|'.$this->request->user()->id.'|'.$this->request->ip());
+            if($this->request->user()->phone){
+                return Str::transliterate($this->request->user()->phone.'|'.$this->request->user()->id.'|'.$this->request->ip());
+            }
+            if($this->request->user()->email){
+                return Str::transliterate(Str::lower($this->request->user()->email).'|'.$this->request->user()->id.'|'.$this->request->ip());
+            }
+            return Str::transliterate($this->request->user()->id.'|'.$this->request->ip());
         }else{
+            if($this->request->phone){
+                return Str::transliterate(
+                    $this->request->phone.'|'.$this->request->ip()
+                );
+            }
+            if($this->request->email){
+                return Str::transliterate(
+                    Str::lower($this->request->email).'|'.$this->request->ip()
+                );
+            }
             return Str::transliterate(
-                $this->request->email ? Str::lower($this->request->email) : ''.'|'.$this->request->ip()
+                ''.'|'.$this->request->ip()
             );
         }
     }
