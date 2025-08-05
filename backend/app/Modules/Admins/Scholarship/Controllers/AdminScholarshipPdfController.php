@@ -25,7 +25,7 @@ class AdminScholarshipPdfController extends Controller
             'application' => $application
         ];
         $pdf = Pdf::setOption([
-            'defaultFont' => '"Noto Serif Kannada", "Open Sans", sans-serif', 
+            'defaultFont' => '"Noto Sans Kannada", "Open Sans", sans-serif', 
             'isPhpEnabled' => true, 
             'isRemoteEnabled' => true, 
         ])->setPaper('a4', 'potrait')->loadView('pdf.scholarship', $data);
