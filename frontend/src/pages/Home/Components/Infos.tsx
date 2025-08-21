@@ -28,7 +28,7 @@ const notificationContent = {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						Press Note <a href="/press-note.pdf" download={true}>CLICK HERE</a>
+						Press Note <a href="/press-note2.pdf" download={true}>CLICK HERE</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
@@ -67,7 +67,7 @@ const notificationContent = {
 				</div>
 				<div className={classes.notificationItem}>
 					<p>
-						Press Note <a href="/press-note.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
+						Press Note <a href="/press-note2.pdf" download={true}>ಕ್ಲಿಕ್ ಮಾಡಿ</a>
 					</p>
 					<div className={classes.marqueeNotificationDivider}></div>
 				</div>
