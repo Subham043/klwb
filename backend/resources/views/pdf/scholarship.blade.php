@@ -19,10 +19,12 @@
 																					<th colspan="2" style="text-align: center;" class="sans_serif">ONLINE SCHOLARSHIP APPLICATION FORM</th>
 																			</tr>
 																			<tr>
-																					<td colspan="2" style="text-align: center"><img class="p-image" width="100px" src="{{ public_path("logo.png") }}" alt=""><br>
-																							Karnataka Labour Welfare Board<br>
+																					<td colspan="2" style="text-align: center">
+																						<img class="p-image" width="100px" src="{{ public_path("logo.png") }}" alt=""><br>
+																						Karnataka Labour Welfare Board<br>
+																						<img style="object-fit: contain; object-position: center; width: 400px;" src="{{ public_path("heading_kan.png") }}" alt="">
 																							{{-- ಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಮಕ್ಕಳಿಂಧ ಪ್ರೋತ್ಸಹ ಧನ ಸಹಾಯಕಾಗಿ ಅರ್ಜಿ --}}
-																							ಸಂಘಟಿತ ಕಾರ್ಮಿಕರ  ಮಕ್ಕಳಿಂದ ಶೈಕ್ಷಣಿಕ ಪ್ರೋತ್ಸಾಹ ಧನ ಸಹಾಯಕ್ಕಾಗಿ ಅರ್ಜಿ
+																							{{-- ಸಂಘಟಿತ ಕಾರ್ಮಿಕರ  ಮಕ್ಕಳಿಂದ ಶೈಕ್ಷಣಿಕ ಪ್ರೋತ್ಸಾಹ ಧನ ಸಹಾಯಕ್ಕಾಗಿ ಅರ್ಜಿ --}}
 
 																					</td>
 																			</tr>
