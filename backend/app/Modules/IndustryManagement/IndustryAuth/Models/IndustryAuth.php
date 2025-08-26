@@ -3,7 +3,9 @@
 namespace App\Modules\IndustryManagement\IndustryAuth\Models;
 
 use App\Http\Enums\Guards;
+use App\Http\Interfaces\AuthTraitInterface;
 use App\Http\Interfaces\RoleTraitInterface;
+use App\Http\Traits\AuthTrait;
 use App\Modules\Admins\Industries\Models\Industry;
 use App\Modules\LocationManagement\Cities\Models\City;
 use App\Modules\LocationManagement\Taluqs\Models\Taluq;
@@ -19,9 +21,9 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTraitInterface
+class IndustryAuth extends Authenticatable implements MustVerifyEmail, RoleTraitInterface, AuthTraitInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, RoleTrait, AuthTrait, LogsActivity;
 
     protected $table = 'industry_auths';
 

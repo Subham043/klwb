@@ -2,7 +2,9 @@
 
 use App\Http\Enums\Guards;
 use App\Modules\Admins\Industries\Controllers\IndustryPaginateController;
+use App\Modules\Admins\Industries\Controllers\IndustryPaginateMainController;
 use App\Modules\Admins\Institutes\Controllers\InstitutePaginateController;
+use App\Modules\Admins\Institutes\Controllers\InstitutePaginateMainController;
 use App\Modules\Auth\Common\Controllers\PasswordUpdateController;
 use App\Modules\Auth\Common\Controllers\ProfileController;
 use App\Modules\Auth\Common\Controllers\ProfileUpdateController;
@@ -62,9 +64,11 @@ Route::prefix('v1')->group(function () {
     });
     Route::prefix('institutes')->group(function () {
         Route::get('/all', [InstitutePaginateController::class, 'index']);
+        Route::get('/registered/all', [InstitutePaginateMainController::class, 'index']);
     });
     Route::prefix('industries')->group(function () {
         Route::get('/all', [IndustryPaginateController::class, 'index']);
+        Route::get('/registered/all', [IndustryPaginateMainController::class, 'index']);
     });
 
     Route::middleware([Guards::Web->middleware(), 'role:Student'])->group(function () {
