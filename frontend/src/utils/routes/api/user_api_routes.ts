@@ -26,9 +26,11 @@ export const user_api_routes = {
 	},
 	institute: {
 		all: "/api/v1/institutes/all",
+		main_all: "/api/v1/institutes/registered/all",
 	},
 	industry: {
 		all: "/api/v1/industries/all",
+		main_all: "/api/v1/industries/registered/all",
 	},
 	auth: {
 		login: {

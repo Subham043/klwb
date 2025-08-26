@@ -26,7 +26,7 @@ export default function InstituteSelect({ value, setValue, isDisabled, taluq }: 
       additional: { page: number, taluq_id?: number } | undefined
     ) => {
       const response = await api.get<PaginationType<InstituteType>>(
-        api_routes.user.institute.all +
+        api_routes.user.institute.main_all +
           `?page=${
             additional ? additional.page : 1
           }&total=10&sort=name&filter[search]=${encodeURIComponent(search)}${

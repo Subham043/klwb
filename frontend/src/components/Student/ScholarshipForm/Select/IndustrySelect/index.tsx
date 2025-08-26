@@ -26,7 +26,7 @@ export default function IndustrySelect({ value, setValue, isDisabled, taluq }: P
       additional: { page: number, taluq_id?: number } | undefined
     ) => {
       const response = await api.get<PaginationType<IndustryType>>(
-        api_routes.user.industry.all +
+        api_routes.user.industry.main_all +
           `?page=${
             additional ? additional.page : 1
           }&total=10&sort=name&filter[search]=${encodeURIComponent(search)}${

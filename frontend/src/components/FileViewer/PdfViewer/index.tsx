@@ -39,7 +39,13 @@ export default function PdfViewer({ src, name }: { src: string | undefined; name
           <Modal.Title>{name || 'PDF Viewer'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="pdf-reader-custom">
+          <div 
+            className="pdf-reader-custom"
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          >
             <Document 
               file={src}
               onLoadSuccess={onDocumentLoadSuccess}
