@@ -43,7 +43,7 @@ export default function ScholarshipInfo({ data, refetch }: Props) {
 			<IndustryInfo data={data} refetch={refetch} />
 			<AadharInfo data={data} />
 			<BankInfo data={data} />
-			{(user && (user.role == RolesEnum.VERIFICATION_OFFICER || user.role === RolesEnum.FINANCIAL_OFFICER || user.role === RolesEnum.STUDENT)) && <ConfirmationReport data={data} />}
+			{(user && (user.role == RolesEnum.VERIFICATION_OFFICER || user.role === RolesEnum.FINANCIAL_OFFICER)) && <ConfirmationReport data={data} />}
 			{(user && data.student && (user.role == RolesEnum.VERIFICATION_OFFICER || user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <StudentLoginInfo data={data} />}
 			{(user && data.company_id && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <Contribution id={data.company_id} />}
 		</>}
