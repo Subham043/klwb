@@ -8,8 +8,14 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDatePaginateContr
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateToggleController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateUpdateController;
 use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewController;
+use App\Modules\Admins\Contributions\Controllers\AttemptedContributionExcelUploadController;
+use App\Modules\Admins\Contributions\Controllers\AttemptedContributionExportController;
+use App\Modules\Admins\Contributions\Controllers\AttemptedContributionPaginateController;
+use App\Modules\Admins\Contributions\Controllers\AttemptedContributionUpdateController;
+use App\Modules\Admins\Contributions\Controllers\AttemptedContributionViewController;
 use App\Modules\Admins\Contributions\Controllers\ContributionActivityLogExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionActivityLogPaginateController;
+use App\Modules\Admins\Contributions\Controllers\ContributionExcelUploadController;
 use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionPaginateController;
 use App\Modules\Admins\Contributions\Controllers\ContributionRecieptPdfController;
@@ -444,8 +450,16 @@ Route::prefix('admin')->group(function () {
 				Route::get('/view/{id}', [ContributionViewController::class, 'index']);
 				Route::get('/reciept/{id}', [ContributionRecieptPdfController::class, 'index']);
 				Route::post('/update/{id}', [ContributionUpdateController::class, 'index']);
+				Route::post('/excel-upload/{id}', [ContributionExcelUploadController::class, 'index']);
 				Route::get('/activity-log/{id}', [ContributionActivityLogPaginateController::class, 'index']);
 				Route::get('/activity-log/{id}/excel', [ContributionActivityLogExportController::class, 'index']);
+			});
+            Route::prefix('attempted-contribution')->group(function () {
+				Route::get('/list', [AttemptedContributionPaginateController::class, 'index']);
+				Route::get('/excel', [AttemptedContributionExportController::class, 'index']);
+				Route::get('/view/{id}', [AttemptedContributionViewController::class, 'index']);
+				Route::post('/update/{id}', [AttemptedContributionUpdateController::class, 'index']);
+				Route::post('/excel-upload/{id}', [AttemptedContributionExcelUploadController::class, 'index']);
 			});
             Route::prefix('non-contribution')->group(function () {
 				Route::get('/list', [NonContributionPaginateController::class, 'index']);

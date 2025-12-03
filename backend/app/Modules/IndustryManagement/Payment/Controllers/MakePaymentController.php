@@ -63,7 +63,7 @@ class MakePaymentController extends Controller
             return response()->json(["message" => "You have already paid for the selected year."], 400);
         }
 
-        if($data && $data->status == 0 && $this->doubleVerify($data)){
+        if($data && $data->status != 1 && $this->doubleVerify($data)){
             return response()->json(["message" => "You have already paid for the selected year."], 400);
         }
 

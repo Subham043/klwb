@@ -42,7 +42,8 @@ class SendIndustryScholarshipApprovedMail extends Mailable
             'msg' => 'Your Karnataka Labour Welfare Board Scholarship has been succesfully moved to Labour Welfare Board for verification, we will notify the status via sms',
         ]);
 
-        if($this->application->application_state > ApplicationState::Company->value && $this->application->industry->auth && ($this->application->industry->auth->reg_doc_link!=null && $this->application->industry->auth->sign_link!=null && $this->application->industry->auth->seal_link!=null && $this->application->industry->auth->gst_link!=null && $this->application->industry->auth->pan_link!=null && $this->industryPayment)){
+        if($this->application->application_state > ApplicationState::Company->value && $this->application->industry->auth && ($this->application->industry->auth->reg_doc_link!=null && $this->application->industry->auth->sign_link!=null && $this->application->industry->auth->seal_link!=null && $this->industryPayment)){
+        // if($this->application->application_state > ApplicationState::Company->value && $this->application->industry->auth && ($this->application->industry->auth->reg_doc_link!=null && $this->application->industry->auth->sign_link!=null && $this->application->industry->auth->seal_link!=null && $this->application->industry->auth->gst_link!=null && $this->application->industry->auth->pan_link!=null && $this->industryPayment)){
             $fileName = str()->uuid();
             $data = [
                 'application' => $this->application,
