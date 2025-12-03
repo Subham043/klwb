@@ -1,6 +1,6 @@
 /*
-	* Admin API routes list
-	*/
+  * Admin API routes list
+  */
 
 import { official_api_routes } from "./official_api_routes";
 
@@ -299,34 +299,42 @@ export const admin_api_routes = {
       `/api/admin/v1/non-registered-industries/view/${id}`,
   },
   scholarship: {
-		list: "/api/admin/v1/scholarship/list",
-		excel: "/api/admin/v1/scholarship/excel",
-		approve_multiple: "/api/admin/v1/scholarship/approve-multiple",
-		view: (id: string | number) => `/api/admin/v1/scholarship/view/${id}`,
-		pdf: (id: string | number) => `/api/admin/v1/scholarship/pdf/${id}`,
-		approve: (id: string | number) => `/api/admin/v1/scholarship/approve/${id}`,
-		institute_update: (id: string | number) => `/api/admin/v1/scholarship/institute-update/${id}`,
-		industry_update: (id: string | number) => `/api/admin/v1/scholarship/industry-update/${id}`,
-		reject: (id: string | number) => `/api/admin/v1/scholarship/reject/${id}`,
-		note: (id: string | number) => `/api/admin/v1/scholarship/note/${id}`,
-		toggle: (id: string | number) => `/api/admin/v1/scholarship/toggle-status/${id}`,
-	},
+    list: "/api/admin/v1/scholarship/list",
+    excel: "/api/admin/v1/scholarship/excel",
+    approve_multiple: "/api/admin/v1/scholarship/approve-multiple",
+    view: (id: string | number) => `/api/admin/v1/scholarship/view/${id}`,
+    pdf: (id: string | number) => `/api/admin/v1/scholarship/pdf/${id}`,
+    approve: (id: string | number) => `/api/admin/v1/scholarship/approve/${id}`,
+    institute_update: (id: string | number) => `/api/admin/v1/scholarship/institute-update/${id}`,
+    industry_update: (id: string | number) => `/api/admin/v1/scholarship/industry-update/${id}`,
+    reject: (id: string | number) => `/api/admin/v1/scholarship/reject/${id}`,
+    note: (id: string | number) => `/api/admin/v1/scholarship/note/${id}`,
+    toggle: (id: string | number) => `/api/admin/v1/scholarship/toggle-status/${id}`,
+  },
   contribution: {
-		list: "/api/admin/v1/contribution/list",
-		excel: "/api/admin/v1/contribution/excel",
-		view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
-		activity_log: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}`,
-		activity_log_excel: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}/excel`,
-		reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
-		update: (id: string | number) => `/api/admin/v1/contribution/update/${id}`,
-	},
+    list: "/api/admin/v1/contribution/list",
+    excel: "/api/admin/v1/contribution/excel",
+    view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
+    activity_log: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}`,
+    activity_log_excel: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}/excel`,
+    reciept: (id: string | number) => `/api/admin/v1/contribution/reciept/${id}`,
+    update: (id: string | number) => `/api/admin/v1/contribution/update/${id}`,
+    excel_upload: (id: string | number) => `/api/admin/v1/contribution/excel-upload/${id}`,
+  },
+  attempted_contribution: {
+    list: "/api/admin/v1/attempted-contribution/list",
+    excel: "/api/admin/v1/attempted-contribution/excel",
+    view: (id: string | number) => `/api/admin/v1/attempted-contribution/view/${id}`,
+    update: (id: string | number) => `/api/admin/v1/attempted-contribution/update/${id}`,
+    excel_upload: (id: string | number) => `/api/admin/v1/attempted-contribution/excel-upload/${id}`,
+  },
   non_contribution: {
-		list: "/api/admin/v1/non-contribution/list",
-		excel: "/api/admin/v1/non-contribution/excel",
-		view: (id: string | number) => `/api/admin/v1/non-contribution/view/${id}`,
-		payment_list: (id: string | number) => `/api/admin/v1/non-contribution/payment/${id}/list`,
-		mark_payment_complete: (id: string | number, id2: string | number) => `/api/admin/v1/non-contribution/payment/${id}/mark-complete/${id2}`,
-	},
+    list: "/api/admin/v1/non-contribution/list",
+    excel: "/api/admin/v1/non-contribution/excel",
+    view: (id: string | number) => `/api/admin/v1/non-contribution/view/${id}`,
+    payment_list: (id: string | number) => `/api/admin/v1/non-contribution/payment/${id}/list`,
+    mark_payment_complete: (id: string | number, id2: string | number) => `/api/admin/v1/non-contribution/payment/${id}/mark-complete/${id2}`,
+  },
   report: {
     contribution: {
       list: "/api/admin/v1/report/contribution/list",
@@ -340,6 +348,6 @@ export const admin_api_routes = {
       list: "/api/admin/v1/report/scholarship/list",
       excel: "/api/admin/v1/report/scholarship/excel",
     }
-	},
+  },
   dashboard: "/api/admin/v1/dashboard",
 } as const;

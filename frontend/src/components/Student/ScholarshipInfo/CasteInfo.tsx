@@ -55,7 +55,10 @@ function CasteInfo({ data }: Props) {
                   <DetailInfo
                     title="Caste Certificate"
                     value={
-                      <FileViewer src={data?.basic_detail.cast_certificate} />
+                      <FileViewer
+                        src={data?.basic_detail.cast_certificate}
+                        name={`Caste Certificate Number: ${data?.basic_detail.cast_no}`}
+                      />
                     }
                   />
                 </Col>

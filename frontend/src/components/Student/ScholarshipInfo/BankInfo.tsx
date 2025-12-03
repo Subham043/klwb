@@ -55,7 +55,12 @@ function BankInfo({ data }: Props) {
               <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Passbook Front Page Copy"
-                  value={<FileViewer src={data?.account.passbook} />}
+                  value={
+                    <FileViewer
+                      src={data?.account.passbook}
+                      name={`Account Number: ${data?.account.acc_no.toString()}`}
+                    />
+                  }
                 />
               </Col>
             </Row>

@@ -55,7 +55,12 @@ function AadharInfo({ data }: Props) {
               <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Aadhar File"
-                  value={<FileViewer src={data?.basic_detail.adharcard_file} />}
+                  value={
+                    <FileViewer
+                      src={data?.basic_detail.adharcard_file}
+                      name={`Aadhar: ${data?.basic_detail.adharcard_no.toString()}`}
+                    />
+                  }
                 />
               </Col>
             )}
@@ -66,7 +71,10 @@ function AadharInfo({ data }: Props) {
                     <DetailInfo
                       title="Father's Death Certificate"
                       value={
-                        <FileViewer src={data?.basic_detail.deathcertificate} />
+                        <FileViewer
+                          src={data?.basic_detail.deathcertificate}
+                          name={`Father's Death Certificate`}
+                        />
                       }
                     />
                   </Col>
@@ -76,7 +84,10 @@ function AadharInfo({ data }: Props) {
                     <DetailInfo
                       title="Father's Aadhar File"
                       value={
-                        <FileViewer src={data?.basic_detail.f_adharfile} />
+                        <FileViewer
+                          src={data?.basic_detail.f_adharfile}
+                          name={`Father's Aadhar: ${data?.basic_detail.f_adhar.toString()}`}
+                        />
                       }
                     />
                   </Col>
@@ -88,7 +99,10 @@ function AadharInfo({ data }: Props) {
                     <DetailInfo
                       title="Mother's Death Certificate"
                       value={
-                        <FileViewer src={data?.basic_detail.deathcertificate} />
+                        <FileViewer
+                          src={data?.basic_detail.deathcertificate}
+                          name={`Mother's Death Certificate`}
+                        />
                       }
                     />
                   </Col>
@@ -98,7 +112,10 @@ function AadharInfo({ data }: Props) {
                     <DetailInfo
                       title="Mother's Aadhar File"
                       value={
-                        <FileViewer src={data?.basic_detail.m_adharfile} />
+                        <FileViewer
+                          src={data?.basic_detail.m_adharfile}
+                          name={`Mother's Aadhar: ${data?.basic_detail.m_adhar.toString()}`}
+                        />
                       }
                     />
                   </Col>

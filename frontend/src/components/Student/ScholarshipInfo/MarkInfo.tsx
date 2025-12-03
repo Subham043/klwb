@@ -41,7 +41,12 @@ function MarkInfo({ data }: Props) {
               <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Marks Card Copy"
-                  value={<FileViewer src={data?.mark.prv_markcard} />}
+                  value={
+                    <FileViewer
+                      src={data?.mark.prv_markcard}
+                      name="Marks Card Copy"
+                    />
+                  }
                 />
               </Col>
             )}
@@ -49,7 +54,12 @@ function MarkInfo({ data }: Props) {
               <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="2nd Marks Card Copy"
-                  value={<FileViewer src={data?.mark.prv_markcard2} />}
+                  value={
+                    <FileViewer
+                      src={data?.mark.prv_markcard2}
+                      name="2nd Marks Card Copy"
+                    />
+                  }
                 />
               </Col>
             )}

@@ -52,14 +52,16 @@ export const admin_page_routes = {
   },
   contribution: {
     completed_list: "/admin/contribution/completed-list",
-    completed_list_main: "/admin/contribution/completed-list?year=" + (year-1),
+    completed_list_main: "/admin/contribution/completed-list?year=" + (year - 1),
+    attempted_list: "/admin/contribution/attempted-list",
+    attempted_list_main: "/admin/contribution/attempted-list?year=" + (year - 1),
     pending_list: "/admin/contribution/pending-list",
-    pending_list_main: "/admin/contribution/pending-list?year=" + (year-1),
+    pending_list_main: "/admin/contribution/pending-list?year=" + (year - 1),
   },
   report: {
     contribution: "/admin/report/contribution",
     contribution_comparison: "/admin/report/contribution-comparison",
-    contribution_comparison_main: "/admin/report/contribution-comparison?year=" + (year-1),
+    contribution_comparison_main: "/admin/report/contribution-comparison?year=" + (year - 1),
     scholarship: "/admin/report/scholarship",
   }
 } as const;

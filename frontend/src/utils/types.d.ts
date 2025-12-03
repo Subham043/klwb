@@ -75,7 +75,7 @@ export type StateType = {
 export type CityType = {
   id: number;
   name: string;
-  special_name: string|null;
+  special_name: string | null;
   state_id: number;
   state: StateType;
   is_active: boolean;
@@ -131,10 +131,10 @@ export type InstituteType = {
   id: number;
   reg_no: string;
   name: string;
-  management_type: string|null;
-  category: string|null;
-  type: string|null;
-  urban_rural: string|null;
+  management_type: string | null;
+  category: string | null;
+  type: string | null;
+  urban_rural: string | null;
   taluq_id: number;
   taluq: TaluqType;
   is_active: boolean;
@@ -171,10 +171,10 @@ export type RegisteredInstituteType = {
     id: number;
     reg_no: string;
     name: string;
-    management_type: string|null;
-    category: string|null;
-    type: string|null;
-    urban_rural: string|null;
+    management_type: string | null;
+    category: string | null;
+    type: string | null;
+    urban_rural: string | null;
   };
   address: {
     address: string;
@@ -217,9 +217,9 @@ export type IndustryType = {
   id: number;
   reg_id: string;
   name: string;
-  act: number|null;
-  act_label: string|null;
-  category: string|null;
+  act: number | null;
+  act_label: string | null;
+  category: string | null;
   pincode: string;
   is_active: boolean;
   created_at: string;
@@ -285,7 +285,7 @@ export type NonRegisteredIndustryType = {
   name: string;
   act: number;
   act_label: string;
-  category: string|null;
+  category: string | null;
   pincode: string;
   is_active: boolean;
   created_at: string;
@@ -299,7 +299,7 @@ export type StudentApplicationAccountType = {
   acc_no: string;
   holder: string;
   type: string;
-  passbook: string|null;
+  passbook: string | null;
 }
 
 export type StudentApplicationMarkType = {
@@ -307,32 +307,32 @@ export type StudentApplicationMarkType = {
   graduation: {
     id: number;
     name: string
-  }|null;
+  } | null;
   course_id?: number;
   course: {
     id: number;
     name: string
-  }|null;
+  } | null;
   class_id?: number;
   class: {
     id: number;
     name: string
-  }|null;
+  } | null;
   ins_pin: number;
   ins_district_id: number;
   district: {
     id: number;
     name: string
-  }|null;
+  } | null;
   ins_taluq_id: number;
   taluq: {
     id: number;
     name: string
-  }|null;
+  } | null;
   prv_class: string;
   prv_marks: number;
-  prv_markcard: string|null;
-  prv_markcard2: string|null;
+  prv_markcard: string | null;
+  prv_markcard2: string | null;
 }
 
 export type StudentApplicationCompanyType = {
@@ -345,13 +345,13 @@ export type StudentApplicationCompanyType = {
   district: {
     id: number;
     name: string
-  }|null;
+  } | null;
   taluq_id: number;
   taluq: {
     id: number;
     name: string
-  }|null;
-  salaryslip: string|null;
+  } | null;
+  salaryslip: string | null;
 }
 
 export type StudentApplicationBasicDetailType = {
@@ -368,22 +368,22 @@ export type StudentApplicationBasicDetailType = {
   adharcard_no: number;
   f_adhar: number;
   m_adhar: number;
-  cast_certificate: string|null;
-  adharcard_file: string|null;
-  f_adharfile: string|null;
-  m_adharfile: string|null;
-  deathcertificate: string|null;
+  cast_certificate: string | null;
+  adharcard_file: string | null;
+  f_adharfile: string | null;
+  m_adharfile: string | null;
+  deathcertificate: string | null;
 }
 
 export type StudentApplicationType = {
   id: number;
   application_year: number;
   school_id: number;
-  present_institute_name: string|null;
-  present_institute_address: string|null;
+  present_institute_name: string | null;
+  present_institute_address: string | null;
   institute_confirmation_report: boolean;
   company_id: number;
-  industry_name: string|null;
+  industry_name: string | null;
   industry_category: string;
   industry_act: string;
   industry_act_label: string;
@@ -410,15 +410,15 @@ export type StudentApplicationType = {
   created_at: string;
   updated_at: string;
   pay_status: number;
-  payf_reason: string|null;
-  govt_note: string|null;
-  admin_note: string|null;
+  payf_reason: string | null;
+  govt_note: string | null;
+  admin_note: string | null;
   resubmitted_status: boolean;
   hold: boolean;
   deleted: boolean;
-  delete_reason: string|null;
+  delete_reason: string | null;
   inactive: boolean;
-  approved_by: AuthType|null;
+  approved_by: AuthType | null;
   industryPayment: {
     id: number;
     comp_regd_id: number;
@@ -432,12 +432,12 @@ export type StudentApplicationType = {
     interest: number;
     status: number;
     status_text: string;
-    employee_excel: string|null;
+    employee_excel: string | null;
     payed_on: string;
     created_at: string;
     updated_at: string;
-  }|null;
-  student : AuthType | null;
+  } | null;
+  student: AuthType | null;
 }
 
 export type PaymentType = {
@@ -453,11 +453,11 @@ export type PaymentType = {
   interest: number;
   status: number;
   status_text: string;
-  employee_excel: string|null;
+  employee_excel: string | null;
   payed_on: string;
   created_at: string;
   updated_at: string;
-  industry: IndustryType|null;
+  industry: IndustryType | null;
 }
 
 export type ContributionType = {
@@ -474,7 +474,7 @@ export type ContributionType = {
   resolved: number;
   status: number;
   status_text: string;
-  employee_excel: string|null;
+  employee_excel: string | null;
   payed_on: string;
   is_edited: boolean;
   created_at: string;
@@ -485,7 +485,7 @@ export type ContributionType = {
     name: string;
     act: number;
     act_label: string;
-    category: string|null;
+    category: string | null;
     pincode: string;
     is_active: boolean;
     created_at: string;
@@ -493,12 +493,12 @@ export type ContributionType = {
     city: {
       id: number;
       name: string
-    }|null;
+    } | null;
     taluq: {
       id: number;
       name: string
-    }|null;
-  }|null;
+    } | null;
+  } | null;
 }
 
 export type NonContributionType = {
@@ -509,7 +509,7 @@ export type NonContributionType = {
   non_contributions_payments_pending_count: number;
   non_contributions_payments_failed_count: number;
   act_label: string;
-  category: string|null;
+  category: string | null;
   pincode: string;
   is_active: boolean;
   created_at: string;
@@ -530,7 +530,7 @@ export type ContributionComparisonReportType = {
   name: string;
   act: number;
   act_label: string;
-  category: string|null;
+  category: string | null;
   pincode: string;
   is_active: boolean;
   created_at: string;
@@ -558,7 +558,7 @@ export type ScholarshipReportType = {
 };
 
 export type ActivityLogType = {
-  causer: EmployeeType|null;
+  causer: EmployeeType | null;
   causer_id: number;
   id: number;
   subject_id: number;
@@ -606,11 +606,20 @@ export type PaginationType<T> = {
 
 export type DrawerProps =
   | {
-      status: boolean;
-      type: "Create";
-    }
+    status: boolean;
+    type: "Create";
+  }
   | {
-      status: boolean;
-      type: "Edit";
-      id: number;
-    };
+    status: boolean;
+    type: "Edit";
+    id: number;
+  };
+
+export type ExcelUploadModalProps =
+  | {
+    status: false;
+  }
+  | {
+    status: true;
+    id: number;
+  };

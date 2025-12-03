@@ -16,17 +16,30 @@ type Props = {
 };
 
 function IndustryInfo({ data, refetch }: Props) {
-  const {user} = useUser();
-  const [industryUpdateModal, setIndustryUpdateModal] = useState<boolean>(false);
+  const { user } = useUser();
+  const [industryUpdateModal, setIndustryUpdateModal] =
+    useState<boolean>(false);
   return (
     <div className="mb-1">
       <ModalCardContainer
         header={
-          <div className={(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) ? "industry-info-update-scholarship-admin" : "text-center"}>
+          <div
+            className={
+              user &&
+              (user.role == RolesEnum.ADMIN ||
+                user.role === RolesEnum.SUPER_ADMIN)
+                ? "industry-info-update-scholarship-admin"
+                : "text-center"
+            }
+          >
             <h5 className={classes.inner_main_heading}>Industry Detail</h5>
-            {(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <ButtonToolbar>
-              <EditBtn clickHandler={() => setIndustryUpdateModal(true)} />
-            </ButtonToolbar>}
+            {user &&
+              (user.role == RolesEnum.ADMIN ||
+                user.role === RolesEnum.SUPER_ADMIN) && (
+                <ButtonToolbar>
+                  <EditBtn clickHandler={() => setIndustryUpdateModal(true)} />
+                </ButtonToolbar>
+              )}
           </div>
         }
       >
@@ -66,12 +79,18 @@ function IndustryInfo({ data, refetch }: Props) {
               <DetailInfo title="Industry Name" value={data?.industry_name} />
             </Col>
             <Col className="pb-1" md={8} sm={24} xs={24}>
-              <DetailInfo title="Industry Act" value={data?.industry_act_label} />
+              <DetailInfo
+                title="Industry Act"
+                value={data?.industry_act_label}
+              />
             </Col>
           </Row>
           <Row gutter={30}>
             <Col className="pb-1" md={8} sm={24} xs={24}>
-              <DetailInfo title="Industry Category" value={data?.industry_category} />
+              <DetailInfo
+                title="Industry Category"
+                value={data?.industry_category}
+              />
             </Col>
             <Col className="pb-1" md={8} sm={24} xs={24}>
               <DetailInfo title="Pin Code" value={data?.company.pincode} />
@@ -91,19 +110,28 @@ function IndustryInfo({ data, refetch }: Props) {
               <Col className="pb-1" md={8} sm={24} xs={24}>
                 <DetailInfo
                   title="Salary Slip"
-                  value={<FileViewer src={data?.company.salaryslip} />}
+                  value={
+                    <FileViewer
+                      src={data?.company.salaryslip}
+                      name="Salary Slip"
+                    />
+                  }
                 />
               </Col>
             )}
           </Row>
         </Grid>
       </ModalCardContainer>
-      {(user && (user.role == RolesEnum.ADMIN || user.role === RolesEnum.SUPER_ADMIN)) && <IndustryInfoUpdate
-        modal={industryUpdateModal}
-        setModal={setIndustryUpdateModal}
-        data={data}
-        refetch={refetch}
-      />}
+      {user &&
+        (user.role == RolesEnum.ADMIN ||
+          user.role === RolesEnum.SUPER_ADMIN) && (
+          <IndustryInfoUpdate
+            modal={industryUpdateModal}
+            setModal={setIndustryUpdateModal}
+            data={data}
+            refetch={refetch}
+          />
+        )}
     </div>
   );
 }

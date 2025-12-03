@@ -184,7 +184,11 @@ export default function ScholarshipForm({ data, type="apply" }: Props) {
 			if(getValues().salaryslip && getValues().salaryslip!==undefined && getValues().salaryslip!.length>0 && getValues().salaryslip![getValues().salaryslip!.length - 1 || 0].blobFile){
 				formData.append("salaryslip", getValues().salaryslip![getValues().salaryslip!.length - 1 || 0].blobFile!);
 			}
-			await axios.post(type=="apply" ? api_routes.user.scholarship.apply : api_routes.user.scholarship.resubmit, formData);
+			await axios.post(type=="apply" ? api_routes.user.scholarship.apply : api_routes.user.scholarship.resubmit, formData, {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			});
 			toastSuccess(type=="apply" ? "Scholarship Applied Successfully" : "Scholarship Resubmitted Successfully");
 			reset(scholarshipFormInitialValues);
 			navigate(page_routes.student.scholarship.status)

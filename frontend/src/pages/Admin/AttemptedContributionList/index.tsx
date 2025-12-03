@@ -9,12 +9,10 @@ import {
 } from "rsuite";
 import PaginatedTableLayout from "../../../layouts/PaginatedTable";
 import Moment from "../../../components/Moment";
-import { useContributionsQuery } from "../../../hooks/data/contribution";
 import SelectYear from "../../../components/Institute/SelectYear";
 import { table } from "../../../utils/constants/table";
 import { api_routes } from "../../../utils/routes/api";
 import ChangeListIcon from "@rsuite/icons/ChangeList";
-import { usePdfExport } from "../../../hooks/usePdfExport";
 import PaymentStatusBadge from "../../../components/PaymentStatusBadge";
 import SelectCityStatus from "../../../components/SelectCity";
 import SelectTaluqStatus from "../../../components/SelectTaluq";
@@ -24,11 +22,10 @@ import { useToast } from "../../../hooks/useToast";
 import ReloadIcon from "@rsuite/icons/Reload";
 import { DrawerProps, ExcelUploadModalProps } from "../../../utils/types";
 import EditBtn from "../../../components/Buttons/EditBtn";
-import ContributionForm from "../../../components/Admin/ContributionForm";
-import ContributionActivityLog from "../../../components/Admin/ContributionActivityLog";
-import EventDetailIcon from "@rsuite/icons/EventDetail";
 import UploadBtn from "../../../components/Buttons/UploadBtn";
-import ContributionExcelUploadForm from "../../../components/Admin/ContributionExcelUploadForm";
+import { useAttemptedContributionsQuery } from "../../../hooks/data/attempted_contribution";
+import AttemptedContributionForm from "../../../components/Admin/AttemptedContributionForm";
+import AttemptedContributionExcelUploadForm from "../../../components/Admin/AttemptedContributionExcelUploadForm";
 
 const Reverify = ({
   reg_industry_id,
@@ -78,36 +75,6 @@ const Reverify = ({
   );
 };
 
-const Receipt = ({ id }: { id: number }) => {
-  const { pdfLoading, exportPdf } = usePdfExport();
-
-  const exportPdfHandler = async () => {
-    await exportPdf(
-      api_routes.admin.contribution.reciept(id || ""),
-      "Reciept.pdf"
-    );
-  };
-  return (
-    <ButtonToolbar>
-      <Whisper
-        placement="bottomEnd"
-        controlId="control-id-click"
-        trigger="hover"
-        speaker={<Tooltip>Download</Tooltip>}
-      >
-        <IconButton
-          appearance="primary"
-          color={"green"}
-          icon={<ChangeListIcon />}
-          loading={pdfLoading}
-          onClick={exportPdfHandler}
-          size="sm"
-        />
-      </Whisper>
-    </ButtonToolbar>
-  );
-};
-
 const Excel = ({ link }: { link: string }) => {
   return (
     <ButtonToolbar>
@@ -131,28 +98,24 @@ const Excel = ({ link }: { link: string }) => {
   );
 };
 
-const ContributionListPage: FC = () => {
+const AttemptedContributionListPage: FC = () => {
   const { data, isLoading, isFetching, isRefetching, refetch, error } =
-    useContributionsQuery();
+    useAttemptedContributionsQuery();
   const [openDrawer, setOpenDrawer] = useState<DrawerProps>({
     status: false,
     type: "Create",
-  });
-  const [modal, setModal] = useState<{ status: boolean; data: number | null }>({
-    status: false,
-    data: null,
   });
   const [excelModal, setExcelModal] = useState<ExcelUploadModalProps>({
     status: false,
   });
 
   return (
-    <PaginatedTableLayout title="Contribution Comleted">
+    <PaginatedTableLayout title="Contribution Attempted">
       <PaginatedTableLayout.Header
-        title="Contribution Comleted"
+        title="Contribution Attempted"
         addBtn={false}
-        excelLink={api_routes.admin.contribution.excel}
-        excelName="contribution.xlsx"
+        excelLink={api_routes.admin.attempted_contribution.excel}
+        excelName="attempted_contribution.xlsx"
       >
         <SelectDateRangePicker />
         <SelectCityStatus />
@@ -285,22 +248,13 @@ const ContributionListPage: FC = () => {
             </Table.Cell>
           </Table.Column>
 
-          <Table.Column width={80} verticalAlign="middle">
-            <Table.HeaderCell>Reciept</Table.HeaderCell>
-
-            <Table.Cell style={{ padding: "6px" }}>
-              {(rowData) =>
-                rowData.status === 1 ? <Receipt id={rowData.id} /> : <></>
-              }
-            </Table.Cell>
-          </Table.Column>
-
           <Table.Column width={120} verticalAlign="middle">
             <Table.HeaderCell>Employee Excel</Table.HeaderCell>
 
             <Table.Cell style={{ padding: "6px" }}>
               {(rowData) =>
-                rowData.status === 1 && rowData.employee_excel ? (
+                (rowData.status === 0 || rowData.status === 2) &&
+                rowData.employee_excel ? (
                   <Excel link={rowData.employee_excel} />
                 ) : (
                   <></>
@@ -316,7 +270,7 @@ const ContributionListPage: FC = () => {
               {(rowData) => <Moment datetime={rowData.payed_on} />}
             </Table.Cell>
           </Table.Column>
-          <Table.Column width={170} fixed="right" verticalAlign="middle">
+          <Table.Column width={130} fixed="right" verticalAlign="middle">
             <Table.HeaderCell>Action</Table.HeaderCell>
 
             <Table.Cell style={{ padding: "6px" }}>
@@ -331,27 +285,21 @@ const ContributionListPage: FC = () => {
                       })
                     }
                   />
-                  {rowData.status === 1 && !rowData.employee_excel && (
-                    <UploadBtn
-                      clickHandler={() =>
-                        setExcelModal({
-                          status: true,
-                          id: rowData.id,
-                        })
-                      }
-                    />
-                  )}
+                  {(rowData.status === 0 || rowData.status === 2) &&
+                    !rowData.employee_excel && (
+                      <UploadBtn
+                        clickHandler={() =>
+                          setExcelModal({
+                            status: true,
+                            id: rowData.id,
+                          })
+                        }
+                      />
+                    )}
                   <Reverify
                     reg_industry_id={rowData.comp_regd_id}
                     id={rowData.id}
                     refetch={refetch}
-                  />
-                  <IconButton
-                    appearance="primary"
-                    color="cyan"
-                    size="sm"
-                    icon={<EventDetailIcon />}
-                    onClick={() => setModal({ status: true, data: rowData.id })}
                   />
                 </ButtonToolbar>
               )}
@@ -359,13 +307,12 @@ const ContributionListPage: FC = () => {
           </Table.Column>
         </Table>
       </PaginatedTableLayout.Content>
-      <ContributionForm
+      <AttemptedContributionForm
         drawer={openDrawer}
         drawerHandler={(value) => setOpenDrawer(value)}
         refetch={refetch}
       />
-      <ContributionActivityLog modal={modal} modalHandler={setModal} />
-      <ContributionExcelUploadForm
+      <AttemptedContributionExcelUploadForm
         modal={excelModal}
         modalHandler={setExcelModal}
         refetch={refetch}
@@ -374,4 +321,4 @@ const ContributionListPage: FC = () => {
   );
 };
 
-export default ContributionListPage;
+export default AttemptedContributionListPage;
