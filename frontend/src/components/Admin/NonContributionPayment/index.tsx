@@ -27,48 +27,73 @@ export type Props = {
     data: number | null;
   };
   modalHandler: (value: { status: boolean; data: number | null }) => void;
-  refetch?: () => void
+  refetch?: () => void;
 };
 
-const Reverify = ({reg_industry_id, id, year, refetch}:{reg_industry_id: number, id: number, year: number, refetch: () => void}) => {
+const Reverify = ({
+  reg_industry_id,
+  id,
+  year,
+  refetch,
+}: {
+  reg_industry_id: number;
+  id: number;
+  year: number;
+  refetch: () => void;
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const axios = useAxios();
-  const {toastError} = useToast();
+  const { toastError } = useToast();
 
   const reVerifyHandler = async () => {
-      setLoading(true);
-      try {
-          await axios.post(api_routes.admin.non_contribution.mark_payment_complete(reg_industry_id, id), {
-              year
-          });
-          refetch();
-      } catch (error) {
-          toastError("Failed to update payment status. Please try again later.")
-      }finally {
-          setLoading(false);
-      }
-  }
+    setLoading(true);
+    try {
+      await axios.post(
+        api_routes.admin.non_contribution.mark_payment_complete(
+          reg_industry_id,
+          id
+        ),
+        {
+          year,
+        }
+      );
+      refetch();
+    } catch (error) {
+      toastError("Failed to update payment status. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-      <Whisper
-          placement="bottomEnd"
-          controlId="control-id-click"
-          trigger="hover"
-          speaker={<Tooltip>Mark Payment Complete</Tooltip>}
-      >
-        <ConfirmAlert confirmHandler={reVerifyHandler}>
-          <Button appearance="primary" color="green" size="sm" loading={loading} disabled={loading}>Mark Complete</Button>
-        </ConfirmAlert>
-      </Whisper>
-  )
-}
+    <Whisper
+      placement="bottomEnd"
+      controlId="control-id-click"
+      trigger="hover"
+      speaker={<Tooltip>Mark Payment Complete</Tooltip>}
+    >
+      <ConfirmAlert confirmHandler={reVerifyHandler}>
+        <Button
+          appearance="primary"
+          color="green"
+          size="sm"
+          loading={loading}
+          disabled={loading}
+        >
+          Mark Complete
+        </Button>
+      </ConfirmAlert>
+    </Whisper>
+  );
+};
 
 export default function NonContributionPayment({
   modal,
   modalHandler,
   refetch,
 }: Props) {
-  const { page, pageHandler, limit, limitHandler } =
-    usePaginationQueryParam("_non_contribution_payment");
+  const { page, pageHandler, limit, limitHandler } = usePaginationQueryParam(
+    "_non_contribution_payment"
+  );
   const {
     data,
     isFetching: isFetching,
@@ -93,121 +118,146 @@ export default function NonContributionPayment({
         <ErrorBoundaryLayout error={error} refetch={refetchData}>
           <ModalCardContainer header="Non Contribution Payment List">
             <Table
-                loading={isLoading||isFetching||isRefetching}
-                {...table}
-                wordWrap="break-all"
-                data={data?.data || []}
+              loading={isLoading || isFetching || isRefetching}
+              {...table}
+              wordWrap="break-all"
+              data={data?.data || []}
             >
-                <Table.Column width={60} align="center" fixed verticalAlign="middle">
-                    <Table.HeaderCell>Year</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="year" />
-                </Table.Column>
+              <Table.Column
+                width={60}
+                align="center"
+                fixed
+                verticalAlign="middle"
+              >
+                <Table.HeaderCell>Year</Table.HeaderCell>
+                <Table.Cell fullText dataKey="year" />
+              </Table.Column>
 
-                <Table.Column  width={260} verticalAlign="middle">
-                    <Table.HeaderCell>Company Name</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="industry.name" />
-                </Table.Column>
+              <Table.Column width={260} verticalAlign="middle">
+                <Table.HeaderCell>Company Name</Table.HeaderCell>
+                <Table.Cell fullText dataKey="industry.name" />
+              </Table.Column>
 
-                <Table.Column  width={260} verticalAlign="middle">
-                    <Table.HeaderCell>Company Act</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="industry.act_label" />
-                </Table.Column>
+              <Table.Column width={260} verticalAlign="middle">
+                <Table.HeaderCell>Company Act</Table.HeaderCell>
+                <Table.Cell fullText dataKey="industry.act_label" />
+              </Table.Column>
 
-                <Table.Column  width={260} verticalAlign="middle">
-                    <Table.HeaderCell>Company Category</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="industry.category" />
-                </Table.Column>
+              <Table.Column width={260} verticalAlign="middle">
+                <Table.HeaderCell>Company Category</Table.HeaderCell>
+                <Table.Cell fullText dataKey="industry.category" />
+              </Table.Column>
 
-                <Table.Column  width={260} verticalAlign="middle">
-                    <Table.HeaderCell>District</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="industry.city.name" />
-                </Table.Column>
+              <Table.Column width={260} verticalAlign="middle">
+                <Table.HeaderCell>District</Table.HeaderCell>
+                <Table.Cell fullText dataKey="industry.city.name" />
+              </Table.Column>
 
-                <Table.Column  width={260} verticalAlign="middle">
-                    <Table.HeaderCell>Taluq</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="industry.taluq.name" />
-                </Table.Column>
+              <Table.Column width={260} verticalAlign="middle">
+                <Table.HeaderCell>Taluq</Table.HeaderCell>
+                <Table.Cell fullText dataKey="industry.taluq.name" />
+              </Table.Column>
 
-                <Table.Column width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Male Count</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="male" />
-                </Table.Column>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Male Count</Table.HeaderCell>
+                <Table.Cell fullText dataKey="male" />
+              </Table.Column>
 
-                <Table.Column width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Female Count</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="female" />
-                </Table.Column>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Female Count</Table.HeaderCell>
+                <Table.Cell fullText dataKey="female" />
+              </Table.Column>
 
-                <Table.Column width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Total Count</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="total_employees" />
-                </Table.Column>
-                
-                <Table.Column width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Price</Table.HeaderCell>
-                    <Table.Cell fullText style={{ padding: '6px' }}>
-                        {rowData => (
-                            <span>{rowData.total_employees * 60}</span>
-                        )}
-                    </Table.Cell>
-                </Table.Column>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Total Count</Table.HeaderCell>
+                <Table.Cell fullText dataKey="total_employees" />
+              </Table.Column>
 
-                <Table.Column  width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Interest</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="interest" />
-                </Table.Column>
-                
-                <Table.Column  width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Amount</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="price" />
-                </Table.Column>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Price</Table.HeaderCell>
+                <Table.Cell fullText style={{ padding: "6px" }}>
+                  {(rowData) => (
+                    <span>
+                      {rowData.total_employees *
+                        (rowData.year < 2025 ? 60 : 150)}
+                    </span>
+                  )}
+                </Table.Cell>
+              </Table.Column>
 
-                <Table.Column  width={260} verticalAlign="middle">
-                    <Table.HeaderCell>Payment ID</Table.HeaderCell>
-                    <Table.Cell fullText dataKey="pay_id" />
-                </Table.Column>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Interest</Table.HeaderCell>
+                <Table.Cell fullText dataKey="interest" />
+              </Table.Column>
 
-                <Table.Column width={200} verticalAlign="middle">
-                    <Table.HeaderCell>Status</Table.HeaderCell>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Amount</Table.HeaderCell>
+                <Table.Cell fullText dataKey="price" />
+              </Table.Column>
 
-                    <Table.Cell style={{ padding: '6px' }}>
-                        {rowData => (
-                            <PaymentStatusBadge pay_status={rowData.status} />
-                        )}
-                    </Table.Cell>
-                </Table.Column>
-                
-                <Table.Column width={100} verticalAlign="middle">
-                    <Table.HeaderCell>Edited</Table.HeaderCell>
+              <Table.Column width={260} verticalAlign="middle">
+                <Table.HeaderCell>Payment ID</Table.HeaderCell>
+                <Table.Cell fullText dataKey="pay_id" />
+              </Table.Column>
 
-                    <Table.Cell style={{ padding: '6px' }}>
-                        {rowData => (
-                            rowData.is_edited ? <Badge style={{ background: '#4caf50', padding: '7px 9px', }} content={'YES'} /> :
-                            <Badge style={{ background: '#f44336', padding: '7px 9px', }} content={'NO'} />
-                        )}
-                    </Table.Cell>
-                </Table.Column>
+              <Table.Column width={200} verticalAlign="middle">
+                <Table.HeaderCell>Status</Table.HeaderCell>
 
-                <Table.Column width={250} verticalAlign="middle">
-                    <Table.HeaderCell>Paid On</Table.HeaderCell>
+                <Table.Cell style={{ padding: "6px" }}>
+                  {(rowData) => (
+                    <PaymentStatusBadge pay_status={rowData.status} />
+                  )}
+                </Table.Cell>
+              </Table.Column>
 
-                    <Table.Cell fullText style={{ padding: '6px' }}>
-                        {rowData => (
-                            <Moment datetime={rowData.payed_on} />
-                        )}
-                    </Table.Cell>
-                </Table.Column>
-                <Table.Column width={160} fixed="right" verticalAlign="middle">
-                    <Table.HeaderCell>Action</Table.HeaderCell>
-    
-                    <Table.Cell style={{ padding: "6px" }}>
-                    {(rowData) => (
-                        <ButtonToolbar>
-                            {rowData.status !== 1 && <Reverify reg_industry_id={rowData.comp_regd_id} id={rowData.id} year={rowData.year} refetch={() => {modalHandler({ status: false, data: null }); refetch && refetch();}} />}
-                        </ButtonToolbar>
-                    )}
-                    </Table.Cell>
-                </Table.Column>
+              <Table.Column width={100} verticalAlign="middle">
+                <Table.HeaderCell>Edited</Table.HeaderCell>
+
+                <Table.Cell style={{ padding: "6px" }}>
+                  {(rowData) =>
+                    rowData.is_edited ? (
+                      <Badge
+                        style={{ background: "#4caf50", padding: "7px 9px" }}
+                        content={"YES"}
+                      />
+                    ) : (
+                      <Badge
+                        style={{ background: "#f44336", padding: "7px 9px" }}
+                        content={"NO"}
+                      />
+                    )
+                  }
+                </Table.Cell>
+              </Table.Column>
+
+              <Table.Column width={250} verticalAlign="middle">
+                <Table.HeaderCell>Paid On</Table.HeaderCell>
+
+                <Table.Cell fullText style={{ padding: "6px" }}>
+                  {(rowData) => <Moment datetime={rowData.payed_on} />}
+                </Table.Cell>
+              </Table.Column>
+              <Table.Column width={160} fixed="right" verticalAlign="middle">
+                <Table.HeaderCell>Action</Table.HeaderCell>
+
+                <Table.Cell style={{ padding: "6px" }}>
+                  {(rowData) => (
+                    <ButtonToolbar>
+                      {rowData.status !== 1 && (
+                        <Reverify
+                          reg_industry_id={rowData.comp_regd_id}
+                          id={rowData.id}
+                          year={rowData.year}
+                          refetch={() => {
+                            modalHandler({ status: false, data: null });
+                            refetch && refetch();
+                          }}
+                        />
+                      )}
+                    </ButtonToolbar>
+                  )}
+                </Table.Cell>
+              </Table.Column>
             </Table>
             <div className="mt-1">
               <Pagination

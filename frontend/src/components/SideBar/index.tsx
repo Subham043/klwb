@@ -574,6 +574,14 @@ const NavMenu = () => {
             </Nav.Item>
             <Nav.Item
               as={NavLink}
+              to={page_routes.admin.scholarship.non_registered_list_main}
+              className="sidebar-navlink"
+              eventKey="26-6"
+            >
+              Non Registered
+            </Nav.Item>
+            <Nav.Item
+              as={NavLink}
               to={page_routes.admin.scholarship.all_list_main}
               className="sidebar-navlink"
               eventKey="26-5"

@@ -55,7 +55,7 @@ export const admin_api_routes = {
     paginate: "/api/admin/v1/students/paginate",
     create: "/api/admin/v1/students/create",
     update: (id: string | number) => `/api/admin/v1/students/update/${id}`,
-    password: (id: string | number) => `/api/admin/v1/students/password/${id}`,
+    password: (id: string | number) => `/api/admin/v1/students/password-update/${id}`,
     status: (id: string | number) => `/api/admin/v1/students/status/${id}`,
     verify: (id: string | number) => `/api/admin/v1/students/verify/${id}`,
     delete: (id: string | number) => `/api/admin/v1/students/delete/${id}`,
@@ -310,6 +310,10 @@ export const admin_api_routes = {
     reject: (id: string | number) => `/api/admin/v1/scholarship/reject/${id}`,
     note: (id: string | number) => `/api/admin/v1/scholarship/note/${id}`,
     toggle: (id: string | number) => `/api/admin/v1/scholarship/toggle-status/${id}`,
+    non_registered: {
+      list: "/api/admin/v1/scholarship/non-registered/list",
+      excel: "/api/admin/v1/scholarship/non-registered/excel",
+    },
   },
   contribution: {
     list: "/api/admin/v1/contribution/list",

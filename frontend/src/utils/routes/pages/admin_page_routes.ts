@@ -37,6 +37,8 @@ export const admin_page_routes = {
   scholarship: {
     all_list: "/admin/scholarship/list",
     all_list_main: "/admin/scholarship/list?year=" + year,
+    non_registered_list: "/admin/scholarship/non-registered-list",
+    non_registered_list_main: "/admin/scholarship/non-registered-list?year=" + year,
     approved_list: "/admin/scholarship/approved-list",
     approved_list_main: "/admin/scholarship/approved-list?status=approved&year=" + year,
     pending_list: "/admin/scholarship/pending-list",

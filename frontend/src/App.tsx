@@ -295,6 +295,9 @@ const FinanceScholarshipViewPage = lazy(
 const AdminScholarshipListPage = lazy(
   () => import("./pages/Admin/ScholarshipList")
 );
+const AdminNonRegisteredScholarshipListPage = lazy(
+  () => import("./pages/Admin/ScholarshipList/NonRegistered")
+);
 const AdminScholarshipViewPage = lazy(
   () => import("./pages/Admin/ScholarshipView")
 );
@@ -431,6 +434,10 @@ function App() {
                     <Route
                       path={page_routes.admin.scholarship.all_list}
                       element={<AdminScholarshipListPage />}
+                    />
+                    <Route
+                      path={page_routes.admin.scholarship.non_registered_list}
+                      element={<AdminNonRegisteredScholarshipListPage />}
                     />
                     <Route
                       path={page_routes.admin.scholarship.processing_list}

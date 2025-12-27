@@ -21,10 +21,10 @@ import { table } from "../../../utils/constants/table";
 import { api_routes } from "../../../utils/routes/api";
 import Moment from "../../Moment";
 import { useRegisteredIndustriesContributionQuery } from "../../../hooks/data/registered_industry";
-import ChangeListIcon from '@rsuite/icons/ChangeList';
+import ChangeListIcon from "@rsuite/icons/ChangeList";
 import { usePdfExport } from "../../../hooks/usePdfExport";
 import PaymentStatusBadge from "../../PaymentStatusBadge";
-import ReloadIcon from '@rsuite/icons/Reload';
+import ReloadIcon from "@rsuite/icons/Reload";
 import { useState } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { useToast } from "../../../hooks/useToast";
@@ -36,47 +36,63 @@ export type Props = {
   id: number;
 };
 
-const Reverify = ({reg_industry_id, id, refetch}:{reg_industry_id: number, id: number, refetch: () => void}) => {
+const Reverify = ({
+  reg_industry_id,
+  id,
+  refetch,
+}: {
+  reg_industry_id: number;
+  id: number;
+  refetch: () => void;
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const axios = useAxios();
-  const {toastError} = useToast();
+  const { toastError } = useToast();
 
   const reVerifyHandler = async () => {
-      setLoading(true);
-      try {
-          await axios.get(api_routes.admin.registered_industry.contribution.re_verify(reg_industry_id, id));
-          refetch();
-      } catch (error) {
-          toastError("Failed to re-verify payment. Please try again later.")
-      }finally {
-          setLoading(false);
-      }
-  }
+    setLoading(true);
+    try {
+      await axios.get(
+        api_routes.admin.registered_industry.contribution.re_verify(
+          reg_industry_id,
+          id
+        )
+      );
+      refetch();
+    } catch (error) {
+      toastError("Failed to re-verify payment. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-      <Whisper
-          placement="bottomEnd"
-          controlId="control-id-click"
-          trigger="hover"
-          speaker={<Tooltip>Re-Verify</Tooltip>}
-      >
-          <IconButton
-              appearance="primary"
-              color="violet"
-              size="sm"
-              icon={<ReloadIcon />}
-              loading={loading}
-              onClick={reVerifyHandler}
-          />
-      </Whisper>
-  )
-}
+    <Whisper
+      placement="bottomEnd"
+      controlId="control-id-click"
+      trigger="hover"
+      speaker={<Tooltip>Re-Verify</Tooltip>}
+    >
+      <IconButton
+        appearance="primary"
+        color="violet"
+        size="sm"
+        icon={<ReloadIcon />}
+        loading={loading}
+        onClick={reVerifyHandler}
+      />
+    </Whisper>
+  );
+};
 
 const Receipt = ({ id }: { id: number }) => {
   const { pdfLoading, exportPdf } = usePdfExport();
 
   const exportPdfHandler = async () => {
-    await exportPdf(api_routes.admin.contribution.reciept(id || ""), "Reciept.pdf")
-  }
+    await exportPdf(
+      api_routes.admin.contribution.reciept(id || ""),
+      "Reciept.pdf"
+    );
+  };
   return (
     <ButtonToolbar>
       <Whisper
@@ -95,11 +111,10 @@ const Receipt = ({ id }: { id: number }) => {
         />
       </Whisper>
     </ButtonToolbar>
-  )
-}
+  );
+};
 
 const Excel = ({ link }: { link: string }) => {
-
   return (
     <ButtonToolbar>
       <Whisper
@@ -119,11 +134,14 @@ const Excel = ({ link }: { link: string }) => {
         />
       </Whisper>
     </ButtonToolbar>
-  )
-}
+  );
+};
 
 export default function Contribution({ id }: Props) {
-  const [openDrawer, setOpenDrawer] = useState<DrawerProps>({status:false, type:'Create'});
+  const [openDrawer, setOpenDrawer] = useState<DrawerProps>({
+    status: false,
+    type: "Create",
+  });
   const { search, searchHandler } = useSearchQueryParam("_contribution");
   const { page, pageHandler, limit, limitHandler } =
     usePaginationQueryParam("_contribution");
@@ -173,12 +191,21 @@ export default function Contribution({ id }: Props) {
             </Stack>
           </div>
           <Table
-            loading={isContributionLoading || isContributionFetching || isContributionRefetching}
+            loading={
+              isContributionLoading ||
+              isContributionFetching ||
+              isContributionRefetching
+            }
             {...table}
             wordWrap="break-all"
             data={contributions?.data || []}
           >
-            <Table.Column width={60} align="center" fixed verticalAlign="middle">
+            <Table.Column
+              width={60}
+              align="center"
+              fixed
+              verticalAlign="middle"
+            >
               <Table.HeaderCell>Year</Table.HeaderCell>
               <Table.Cell fullText dataKey="year" />
             </Table.Column>
@@ -188,14 +215,14 @@ export default function Contribution({ id }: Props) {
               <Table.Cell fullText dataKey="industry.name" />
             </Table.Column>
 
-            <Table.Column  width={260} verticalAlign="middle">
-                <Table.HeaderCell>Company Act</Table.HeaderCell>
-                <Table.Cell fullText dataKey="industry.act_label" />
+            <Table.Column width={260} verticalAlign="middle">
+              <Table.HeaderCell>Company Act</Table.HeaderCell>
+              <Table.Cell fullText dataKey="industry.act_label" />
             </Table.Column>
 
-            <Table.Column  width={260} verticalAlign="middle">
-                <Table.HeaderCell>Company Category</Table.HeaderCell>
-                <Table.Cell fullText dataKey="industry.category" />
+            <Table.Column width={260} verticalAlign="middle">
+              <Table.HeaderCell>Company Category</Table.HeaderCell>
+              <Table.Cell fullText dataKey="industry.category" />
             </Table.Column>
 
             <Table.Column width={260} verticalAlign="middle">
@@ -224,17 +251,19 @@ export default function Contribution({ id }: Props) {
             </Table.Column>
 
             <Table.Column width={260} verticalAlign="middle">
-                <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.Cell fullText style={{ padding: '6px' }}>
-                    {rowData => (
-                        <span>{rowData.total_employees * 60}</span>
-                    )}
-                </Table.Cell>
+              <Table.HeaderCell>Price</Table.HeaderCell>
+              <Table.Cell fullText style={{ padding: "6px" }}>
+                {(rowData) => (
+                  <span>
+                    {rowData.total_employees * (rowData.year < 2025 ? 60 : 150)}
+                  </span>
+                )}
+              </Table.Cell>
             </Table.Column>
 
-            <Table.Column  width={160} verticalAlign="middle">
-                <Table.HeaderCell>Interest</Table.HeaderCell>
-                <Table.Cell fullText dataKey="interest" />
+            <Table.Column width={160} verticalAlign="middle">
+              <Table.HeaderCell>Interest</Table.HeaderCell>
+              <Table.Cell fullText dataKey="interest" />
             </Table.Column>
 
             <Table.Column width={160} verticalAlign="middle">
@@ -242,63 +271,70 @@ export default function Contribution({ id }: Props) {
               <Table.Cell fullText dataKey="price" />
             </Table.Column>
 
-            <Table.Column  width={160} verticalAlign="middle">
-                <Table.HeaderCell>Payment ID</Table.HeaderCell>
-                <Table.Cell fullText dataKey="pay_id" />
+            <Table.Column width={160} verticalAlign="middle">
+              <Table.HeaderCell>Payment ID</Table.HeaderCell>
+              <Table.Cell fullText dataKey="pay_id" />
             </Table.Column>
 
             <Table.Column width={250} verticalAlign="middle">
               <Table.HeaderCell>Status</Table.HeaderCell>
 
-              <Table.Cell style={{ padding: '6px' }}>
-                {rowData => (
+              <Table.Cell style={{ padding: "6px" }}>
+                {(rowData) => (
                   <PaymentStatusBadge pay_status={rowData.status} />
                 )}
               </Table.Cell>
             </Table.Column>
 
             <Table.Column width={60} verticalAlign="middle">
-                <Table.HeaderCell>Edited</Table.HeaderCell>
+              <Table.HeaderCell>Edited</Table.HeaderCell>
 
-                <Table.Cell style={{ padding: '6px' }}>
-                    {rowData => (
-                        rowData.is_edited ? <Badge style={{ background: '#4caf50', padding: '7px 9px', }} content={'YES'} /> :
-                        <Badge style={{ background: '#f44336', padding: '7px 9px', }} content={'NO'} />
-                    )}
-                </Table.Cell>
+              <Table.Cell style={{ padding: "6px" }}>
+                {(rowData) =>
+                  rowData.is_edited ? (
+                    <Badge
+                      style={{ background: "#4caf50", padding: "7px 9px" }}
+                      content={"YES"}
+                    />
+                  ) : (
+                    <Badge
+                      style={{ background: "#f44336", padding: "7px 9px" }}
+                      content={"NO"}
+                    />
+                  )
+                }
+              </Table.Cell>
             </Table.Column>
 
             <Table.Column width={80} verticalAlign="middle">
               <Table.HeaderCell>Reciept</Table.HeaderCell>
 
-              <Table.Cell style={{ padding: '6px' }}>
-                {rowData => rowData.status === 1 ? (
-                  <Receipt id={rowData.id} />
-                ) : (
-                  <></>
-                )}
+              <Table.Cell style={{ padding: "6px" }}>
+                {(rowData) =>
+                  rowData.status === 1 ? <Receipt id={rowData.id} /> : <></>
+                }
               </Table.Cell>
             </Table.Column>
 
             <Table.Column width={110} verticalAlign="middle">
               <Table.HeaderCell>Employee Excel</Table.HeaderCell>
 
-              <Table.Cell style={{ padding: '6px' }}>
-                {rowData => (rowData.status === 1 && rowData.employee_excel) ? (
-                  <Excel link={rowData.employee_excel} />
-                ) : (
-                  <></>
-                )}
+              <Table.Cell style={{ padding: "6px" }}>
+                {(rowData) =>
+                  rowData.status === 1 && rowData.employee_excel ? (
+                    <Excel link={rowData.employee_excel} />
+                  ) : (
+                    <></>
+                  )
+                }
               </Table.Cell>
             </Table.Column>
 
             <Table.Column width={250} verticalAlign="middle">
               <Table.HeaderCell>Paid On</Table.HeaderCell>
 
-              <Table.Cell fullText style={{ padding: '6px' }}>
-                {rowData => (
-                  <Moment datetime={rowData.payed_on} />
-                )}
+              <Table.Cell fullText style={{ padding: "6px" }}>
+                {(rowData) => <Moment datetime={rowData.payed_on} />}
               </Table.Cell>
             </Table.Column>
 
@@ -308,8 +344,22 @@ export default function Contribution({ id }: Props) {
               <Table.Cell style={{ padding: "6px" }}>
                 {(rowData) => (
                   <ButtonToolbar>
-                    {rowData.status === 1 && <EditBtn clickHandler={() => setOpenDrawer({status:true, type:'Edit', id:rowData.id})} />}
-                    <Reverify reg_industry_id={rowData.comp_regd_id} id={rowData.id} refetch={refetchData} />
+                    {rowData.status === 1 && (
+                      <EditBtn
+                        clickHandler={() =>
+                          setOpenDrawer({
+                            status: true,
+                            type: "Edit",
+                            id: rowData.id,
+                          })
+                        }
+                      />
+                    )}
+                    <Reverify
+                      reg_industry_id={rowData.comp_regd_id}
+                      id={rowData.id}
+                      refetch={refetchData}
+                    />
                   </ButtonToolbar>
                 )}
               </Table.Cell>
@@ -335,7 +385,11 @@ export default function Contribution({ id }: Props) {
             />
           </div>
         </ModalCardContainer>
-        <ContributionForm drawer={openDrawer} drawerHandler={(value)=>setOpenDrawer(value)} refetch={refetchData} />
+        <ContributionForm
+          drawer={openDrawer}
+          drawerHandler={(value) => setOpenDrawer(value)}
+          refetch={refetchData}
+        />
       </ErrorBoundaryLayout>
     </div>
   );

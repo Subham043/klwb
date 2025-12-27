@@ -218,7 +218,11 @@ const ContributionListPage: FC = () => {
           <Table.Column width={100} verticalAlign="middle">
             <Table.HeaderCell>Price</Table.HeaderCell>
             <Table.Cell fullText style={{ padding: "6px" }}>
-              {(rowData) => <span>{rowData.total_employees * 60}</span>}
+              {(rowData) => (
+                <span>
+                  {rowData.total_employees * (rowData.year < 2025 ? 60 : 150)}
+                </span>
+              )}
             </Table.Cell>
           </Table.Column>
 
