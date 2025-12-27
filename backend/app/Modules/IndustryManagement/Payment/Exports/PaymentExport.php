@@ -2,7 +2,7 @@
 
 namespace App\Modules\IndustryManagement\Payment\Exports;
 
-use App\Modules\Admins\RequestIndustry\Enums\Act;
+use Carbon\Carbon;
 use App\Modules\IndustryManagement\Payment\Enums\PaymentStatus;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -33,7 +33,7 @@ class PaymentExport implements FromQuery, WithHeadings, WithMapping
 			$data->male,
 			$data->female,
 			$data->female + $data->male,
-			($data->female + $data->male) * 60,
+			($data->female + $data->male) * (Carbon::createFromDate($data->year, 1, 1)->isBefore(Carbon::createFromDate(2025, 1, 1)) ? 60 : 150),
 			$data->interest ?? '0',
 			$data->price,
 			PaymentStatus::getValue($data->status),

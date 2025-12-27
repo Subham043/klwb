@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Spatie\QueryBuilder\QueryBuilder;
+use Carbon\Carbon;
 
 
 class ContributionsExport implements FromQuery, WithHeadings, WithMapping
@@ -37,7 +38,7 @@ class ContributionsExport implements FromQuery, WithHeadings, WithMapping
 			(string) $data->male.' ',
 			(string) $data->female.' ',
 			(string) ($data->female + $data->male).' ',
-			(string) (($data->female + $data->male) * 60).' ',
+			(string) (($data->female + $data->male) * (Carbon::createFromDate($data->year, 1, 1)->isBefore(Carbon::createFromDate(2025, 1, 1)) ? 60 : 150)).' ',
 			$data->interest!=NULL ? (string) $data->interest.' ' : '0',
 			(string) $data->price.' ',
 			PaymentStatus::getValue($data->status),

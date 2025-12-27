@@ -13,6 +13,8 @@ use App\Modules\Students\Scholarship\Enums\Working;
 use App\Modules\Students\Scholarship\Models\ApplicationBasicDetail;
 use App\Modules\CourseManagement\Classes\Models\Classes;
 use App\Modules\CourseManagement\Courses\Models\Course;
+use App\Modules\Admins\Industries\Models\Industry;
+use App\Modules\Admins\Institutes\Models\Institute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rule;
@@ -62,7 +64,17 @@ class ApplyScholarshipRequest extends InputRequest
             'ins_pin' => ['required','numeric', 'digits:6'],
             'ins_district_id' => 'required|numeric|exists:cities,id',
             'ins_taluq_id' => 'required|numeric|exists:taluqs,id',
-            'school_id' => 'required|numeric|exists:registered_institutes,id',
+            'school_id' => [
+                'required', 
+                'numeric', 
+                // 'exists:registered_institutes,id', 
+                function ($attribute, $value, $fail) use($application_date) {
+                    $count = Institute::where('id', $value)->where('is_active', true)->whereHas('auth', fn($query) => $query->whereHas('profile', fn($query) => $query->where('is_blocked', false)))->count() > 0;
+                    if ($count<1) {
+                        $fail('This institute is not active anymore');
+                    }
+                }
+            ],
             'prv_class' => ['required', 'string', 'max:250'],
             'prv_marks' => ['required', 'numeric', 'min:0', 'max:100', 'gte: 45'],
             'marks_card_type' => 'required|boolean',
@@ -119,7 +131,17 @@ class ApplyScholarshipRequest extends InputRequest
             'pincode' => ['required','numeric', 'digits:6'],
             'district_id' => 'required|numeric|exists:cities,id',
             'taluq_id' => 'required|numeric|exists:taluqs,id',
-            'company_id' => 'required|numeric|exists:registered_industries,id',
+            'company_id' => [
+                'required',
+                'numeric',
+                // 'exists:registered_industries,id',
+                function ($attribute, $value, $fail) use($application_date) {
+                    $count = Industry::where('id', $value)->where('is_active', true)->whereHas('auth', fn($query) => $query->where('is_blocked', false))->count() > 0;
+                    if ($count<1) {
+                        $fail('This industry is not active anymore');
+                    }
+                }
+            ],
             'salaryslip' => 'required|file|extensions:pdf|min:1|max:515',
         ];
     }

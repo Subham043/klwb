@@ -10,7 +10,6 @@ use App\Modules\Students\Scholarship\Services\ScholarshipService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Modules\Students\Scholarship\Requests\ApplyScholarshipRequest;
-use Exception;
 
 class ResubmitScholarshipRequest extends ApplyScholarshipRequest
 {

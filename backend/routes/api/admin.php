@@ -160,6 +160,8 @@ use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportExportCo
 use App\Modules\Admins\Reports\Scholarship\Controllers\ScholarshipReportListController;
 use App\Modules\Admins\RequestIndustry\Controllers\RequestIndustryRejectController;
 use App\Modules\Admins\RequestInstitutes\Controllers\RequestInstituteRejectController;
+use App\Modules\Admins\Scholarship\Controllers\AdminNonRegisteredScholarshipExportController;
+use App\Modules\Admins\Scholarship\Controllers\AdminNonRegisteredScholarshipListController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipApproveMultipleController;
 use App\Modules\Admins\Scholarship\Controllers\AdminScholarshipExportController;
@@ -223,7 +225,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('/update/{id}', [StudentUpdateController::class, 'index']);
                 Route::post('/status/{id}', [StudentToggleStatusController::class, 'index']);
                 Route::post('/verify/{id}', [StudentToggleVerificationController::class, 'index']);
-                Route::post('/password/{id}', [StudentPasswordController::class, 'index']);
+                Route::post('/password-update/{id}', [StudentPasswordController::class, 'index']);
                 // Route::delete('/delete/{id}', [StudentDeleteController::class, 'index']);
                 Route::get('/view/{id}', [StudentViewController::class, 'index']);
                 Route::prefix('activity-log/{user_id}')->group(function () {
@@ -443,6 +445,10 @@ Route::prefix('admin')->group(function () {
 				Route::post('/toggle-status/{id}', [AdminScholarshipToggleStatusController::class, 'index']);
 				Route::post('/note/{id}', [AdminScholarshipNoteController::class, 'index']);
 				Route::get('/pdf/{id}', [AdminScholarshipPdfController::class, 'index']);
+                Route::prefix('non-registered')->group(function () {
+                    Route::get('/list', [AdminNonRegisteredScholarshipListController::class, 'index']);
+				    Route::get('/excel', [AdminNonRegisteredScholarshipExportController::class, 'index']);
+                });
 			});
             Route::prefix('contribution')->group(function () {
 				Route::get('/list', [ContributionPaginateController::class, 'index']);
