@@ -83,8 +83,8 @@ Route::prefix('v1')->group(function () {
     });
     Route::middleware([Guards::Web->middleware(), 'verified', 'role:Student'])->group(function () {
         Route::prefix('scholarship')->group(function () {
-            Route::post('/apply', [ApplyScholarshipController::class, 'index']);
-            Route::post('/resubmit', [ResubmitScholarshipController::class, 'index']);
+            Route::post('/apply-v2', [ApplyScholarshipController::class, 'index']);
+            Route::post('/resubmit-v2', [ResubmitScholarshipController::class, 'index']);
             Route::get('/status', [ScholarshipStatusController::class, 'index']);
             Route::get('/list', [ScholarshipListController::class, 'index']);
             Route::get('/view/{id}', [ScholarshipViewController::class, 'index']);

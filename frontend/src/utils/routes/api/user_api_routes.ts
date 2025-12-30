@@ -58,8 +58,8 @@ export const user_api_routes = {
 		resend_otp: "/api/v1/account/resend-otp",
 	},
 	scholarship: {
-		apply: "/api/v1/scholarship/apply",
-		resubmit: "/api/v1/scholarship/resubmit",
+		apply: "/api/v1/scholarship/apply-v2",
+		resubmit: "/api/v1/scholarship/resubmit-v2",
 		status: "/api/v1/scholarship/status",
 		list: "/api/v1/scholarship/list",
 		view: (id: string | number) => `/api/v1/scholarship/view/${id}`,

@@ -4,16 +4,20 @@ import { LanguagesEnum } from "../../../utils/constants/language";
 import { Link } from "react-router-dom";
 import { page_routes } from "../../../utils/routes/pages";
 
-const year = new Date().getFullYear();
+// const year = new Date().getFullYear();
 
 const notificationContent = {
   english: (
     <>
       <div className={classes.notificationItem}>
         <p>
-          Labour Welfare Fund for the calendar year {year - 1} to be paid
-          compulsory on or before 15-1-{year}
+          Labour Welfare Fund for the calendar year 2025 to be paid compulsory
+          on or before 15-1-2026
         </p>
+        {/* <p>
+          Labour Welfare Fund for the calendar year {year} to be paid
+          compulsory on or before 15-1-{year + 1}
+        </p> */}
         <div className={classes.marqueeNotificationDivider}></div>
       </div>
       <div className={classes.notificationItem}>
@@ -68,9 +72,13 @@ const notificationContent = {
     <>
       <div className={classes.notificationItem}>
         <p>
+          ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿಗೆ 2025ನೇ ಕ್ಯಾಲೆಂಡರ್ ವರ್ಷದ ವಂತಿಕೆಯನ್ನು 15-1-2026
+          ರೊಳಗೆ ಪಾವತಿಸುವುದು ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ
+        </p>
+        {/* <p>
           ಕಾರ್ಮಿಕ ಕಲ್ಯಾಣ ನಿಧಿಗೆ {year - 1}ನೇ ಕ್ಯಾಲೆಂಡರ್ ವರ್ಷದ ವಂತಿಕೆಯನ್ನು 15-1-
           {year} ರೊಳಗೆ ಪಾವತಿಸುವುದು ಕಡ್ಡಾಯವಾಗಿರುತ್ತದೆ
-        </p>
+        </p> */}
         <div className={classes.marqueeNotificationDivider}></div>
       </div>
       <div className={classes.notificationItem}>
