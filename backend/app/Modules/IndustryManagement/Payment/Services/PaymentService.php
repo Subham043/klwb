@@ -96,7 +96,7 @@ class PaymentService
 
 	public function makePayment(PaymentRequest $request)
 	{
-		$charge = Carbon::createFromDate($request->year, 1, 1)->isBefore(Carbon::createFromDate(2025, 1, 1)) ? 60 : 150;
+		$charge = (int)$request->year < 2025 ? 60 : 150;
 		$file = (new FileService)->save_file('employee_excel', (new Payment)->employee_excel_path);
 		$current_year = Carbon::now()->format('Y');
 		$current_month = Carbon::now()->format('m');
