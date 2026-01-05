@@ -42,18 +42,18 @@
 																																		</tr>
 																																		<tr>
 																																						<td style="width: 10% !important;padding-left:10px !important;padding-right:10px !important;">4</td>
-																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">Employees Contribution @Rs.20</td>
-																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">{{($payment->male + $payment->female)*20}}</td>
+																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">Employees Contribution @Rs.{{((int)$payment->year < 2025 ? 20 : 50)}}</td>
+																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">{{($payment->male + $payment->female)*((int)$payment->year < 2025 ? 20 : 50)}}</td>
 																																		</tr>
 																																		<tr>
 																																						<td style="width: 10% !important;padding-left:10px !important;padding-right:10px !important;">5</td>
-																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">Employer's Contribution @Rs. 40</td>
-																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">{{($payment->male + $payment->female)*40}}</td>
+																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">Employer's Contribution @Rs. {{((int)$payment->year < 2025 ? 40 : 100)}}</td>
+																																												<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">{{($payment->male + $payment->female)*((int)$payment->year < 2025 ? 40 : 100)}}</td>
 																																		</tr>
 																																		<tr>
 																																						<td style="width: 10% !important;padding-left:10px !important;padding-right:10px !important;">6</td>
 																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">Total No. of the Items 4 & 5</td>
-																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">{{(($payment->male + $payment->female)*20) + (($payment->male + $payment->female)*40)}}</td>
+																																						<td style="width: 45%; padding-left:10px !important;padding-right:10px !important;">{{(($payment->male + $payment->female)*((int)$payment->year < 2025 ? 20 : 50)) + (($payment->male + $payment->female)*((int)$payment->year < 2025 ? 40 : 100))}}</td>
 																																		</tr>
 																																		<tr>
 																																						<td style="width: 10% !important;padding-left:10px !important;padding-right:10px !important;">7</td>
