@@ -21,8 +21,8 @@ class ContributionService
 		->selectRaw("payments.year as year, 
 			COUNT(DISTINCT payments.id) as total_countributions,
 			SUM(payments.price) as total_countribution_amount,
-			SUM(payments.male) as male_count,
-			SUM(payments.female) as female_count")
+			SUM(CAST(payments.male AS SIGNED)) as male_count,
+			SUM(CAST(payments.female AS SIGNED)) as female_count")
 		->join('registered_industries', 'registered_industries.id', '=', 'payments.comp_regd_id')
 		->Join('industry_auths', 'industry_auths.reg_industry_id', '=', 'registered_industries.id')
 		->whereNull('industry_auths.created_by')
