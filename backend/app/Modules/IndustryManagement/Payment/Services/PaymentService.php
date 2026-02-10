@@ -12,10 +12,12 @@ use Carbon\Carbon;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Illuminate\Support\Str;
 
 class PaymentService
 {
@@ -118,7 +120,7 @@ class PaymentService
 				$interest_amount = ((($amount * 18) / 100) / 12) * ceil($month_diff);
 				$total_amount	= $amount + $interest_amount;
 			}
-		}else{
+		} else {
 			$interest_amount = ((($amount * 18) / 100) / 12) * ceil($month_diff);
 			$total_amount	= $amount + $interest_amount;
 		}
@@ -127,19 +129,30 @@ class PaymentService
 				'category' => $request->category,
 				'act' => $request->act,
 			]);
-		return Payment::updateOrCreate([
-			'year' => $request->year,
-			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
-			'status' => 0
-		], [
+		return Payment::create([
 			...$request->validated(),
 			'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
-			'pay_id' => 'KLWB-' . date('Ydmhis') . random_int(10000000, 99999999),
+			'pay_id' => 'KLWB-' . date('Ydmhis') . strtoupper(Str::random(6)),
 			'employee_excel' => $file,
 			'payed_on' => now(),
 			'interest' => $interest_amount,
 			'price' => $total_amount,
+			'year' => $request->year,
+			'status' => 0
 		]);
+		// return Payment::updateOrCreate([
+		// 	'year' => $request->year,
+		// 	'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
+		// 	'status' => 0
+		// ], [
+		// 	...$request->validated(),
+		// 	'comp_regd_id' => auth()->guard(Guards::Industry->value())->user()->reg_industry_id,
+		// 	'pay_id' => 'KLWB-' . date('Ydmhis') . random_int(10000000, 99999999),
+		// 	'employee_excel' => $file,
+		// 	'payed_on' => now(),
+		// 	'interest' => $interest_amount,
+		// 	'price' => $total_amount,
+		// ]);
 	}
 
 	public function excel(): SimpleExcelWriter
@@ -151,35 +164,35 @@ class PaymentService
 		$writer = SimpleExcelWriter::streamDownload('payments.xlsx');
 
 		do {
-						// Set the current page for pagination
-						Paginator::currentPageResolver(function () use ($page) {
-										return $page;
-						});
+			// Set the current page for pagination
+			Paginator::currentPageResolver(function () use ($page) {
+				return $page;
+			});
 
-						// Retrieve the paginated data
-						$paginator = $this->getList($perPage);
-						$items = $paginator->items();
+			// Retrieve the paginated data
+			$paginator = $this->getList($perPage);
+			$items = $paginator->items();
 
-						// Write each item to the Excel file
-						foreach ($items as $data) {
-										$writer->addRow([
-														'Id' => $data->id,
-														'Industry' => $data->industry->name ?? '',
-														'Year' => $data->year,
-														'Pay ID' => $data->pay_id,
-														'Price' => $data->price,
-														'Male Count' => $data->male,
-														'Female Count' => $data->female,
-														'Total Count' => $data->female + $data->male,
-														'Interest' => $data->interest ?? '0',
-														'Status' => PaymentStatus::getValue($data->status),
-														'Payed On' => $data->payed_on->format('Y-m-d'),
-										]);
-						}
+			// Write each item to the Excel file
+			foreach ($items as $data) {
+				$writer->addRow([
+					'Id' => $data->id,
+					'Industry' => $data->industry->name ?? '',
+					'Year' => $data->year,
+					'Pay ID' => $data->pay_id,
+					'Price' => $data->price,
+					'Male Count' => $data->male,
+					'Female Count' => $data->female,
+					'Total Count' => $data->female + $data->male,
+					'Interest' => $data->interest ?? '0',
+					'Status' => PaymentStatus::getValue($data->status),
+					'Payed On' => $data->payed_on->format('Y-m-d'),
+				]);
+			}
 
-						// Move to the next page
-						$page++;
-						flush();
+			// Move to the next page
+			$page++;
+			flush();
 		} while ($page <= $paginator->lastPage());
 
 		// Close the writer and return the download response
