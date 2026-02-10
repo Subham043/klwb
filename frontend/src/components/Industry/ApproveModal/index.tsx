@@ -31,11 +31,13 @@ const schema: yup.ObjectSchema<SchemaType> = yup
     reference_industry: yup
       .string()
       .typeError("Reference Number must contain characters only")
-      .matches(/^KLWB-\d{8}\d*$/ , 'Please enter a valid reference number in the format "KLWB-YYYYMMDDXXXXX"')
+      .matches(
+        /^KLWB-\d{8}\d*[A-Z0-9]*$/,
+        'Please enter a valid reference number in the format "KLWB-YYYYMMDDXXXXX"',
+      )
       .when("mode_industry", {
         is: "1",
-        then: (schema) =>
-          schema.required("Reference Number is required"),
+        then: (schema) => schema.required("Reference Number is required"),
         otherwise: (schema) => schema.notRequired(),
       }),
     dd_industry: yup
@@ -116,7 +118,7 @@ export default function IndustryScholarshipApproveForm({
               dd_industry: getValues().dd_industry,
               amount_industry: getValues().amount_industry,
               date_offline_industry: getValues().date_offline_industry,
-            }
+            },
       );
       toastSuccess("Approveed Successfully");
       reset({
@@ -132,7 +134,7 @@ export default function IndustryScholarshipApproveForm({
       if (isAxiosError<AxiosErrorResponseType>(error)) {
         if (error?.response?.data?.errors) {
           for (const [key, value] of Object.entries(
-            error?.response?.data?.errors
+            error?.response?.data?.errors,
           )) {
             setError(key as keyof SchemaType, {
               type: "server",
@@ -173,7 +175,7 @@ export default function IndustryScholarshipApproveForm({
               name="reference_industry"
               focus={true}
               label="Reference Number"
-              helpText="Reference number is the KLWB payment transaction ID which starts with 'KLWB-' and contains 14 digits. Example: KLWB-20202110102059"
+              helpText="Reference number is the KLWB payment transaction ID which starts with 'KLWB-' and contains characters or digits . Example: KLWB-20202110102059"
               control={control}
               error={errors.reference_industry?.message}
             />
