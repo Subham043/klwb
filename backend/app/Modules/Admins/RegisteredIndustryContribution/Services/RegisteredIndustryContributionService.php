@@ -31,8 +31,8 @@ class RegisteredIndustryContributionService
 	protected function query(string $reg_industry_id): QueryBuilder
 	{
 		return QueryBuilder::for($this->model($reg_industry_id))
-			->defaultSort('-year')
-			->allowedSorts('id', 'year')
+			->defaultSort('-year', '-payed_on')
+			->allowedSorts('id', 'year', 'payed_on')
 			->allowedFilters([
 				'year',
 				AllowedFilter::custom('search', new CommonFilter, null, false),
