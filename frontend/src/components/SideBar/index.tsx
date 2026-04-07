@@ -28,7 +28,7 @@ const NavMenu = () => {
   return (
     <>
       {[RolesEnum.STUDENT].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -70,7 +70,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.INSTITUTE, RolesEnum.INSTITUTE_STAFF].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -94,7 +94,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.INSTITUTE].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -109,7 +109,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.INDUSTRY, RolesEnum.INDUSTRY_STAFF].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -133,7 +133,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.INDUSTRY].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -166,7 +166,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.VERIFICATION_OFFICER].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -231,7 +231,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.FINANCIAL_OFFICER].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -279,7 +279,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.PAYMENT_OFFICER].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -319,7 +319,7 @@ const NavMenu = () => {
         </>
       )}
       {[RolesEnum.SUPER_ADMIN, RolesEnum.ADMIN].includes(
-        user && user.role ? user.role : RolesEnum.STUDENT
+        user && user.role ? user.role : RolesEnum.STUDENT,
       ) && (
         <>
           <Nav.Item
@@ -620,6 +620,14 @@ const NavMenu = () => {
               eventKey="29-3"
             >
               Completed
+            </Nav.Item>
+            <Nav.Item
+              as={NavLink}
+              to={page_routes.admin.track.verify_payment}
+              className="sidebar-navlink"
+              eventKey="29-4"
+            >
+              Verify Payment
             </Nav.Item>
           </Nav.Menu>
           <Nav.Menu

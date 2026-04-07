@@ -65,5 +65,10 @@ export const admin_page_routes = {
     contribution_comparison: "/admin/report/contribution-comparison",
     contribution_comparison_main: "/admin/report/contribution-comparison?year=" + (year - 1),
     scholarship: "/admin/report/scholarship",
+  },
+  track: {
+    verify_payment: "/admin/track/verify-payment",
+    payment_full_contribution_list: "/admin/track/payment-full-contribution-list",
+    payment_full_contribution_activity_log: "/admin/track/payment-full-contribution-activity-log",
   }
 } as const;

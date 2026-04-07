@@ -318,6 +318,8 @@ export const admin_api_routes = {
   contribution: {
     list: "/api/admin/v1/contribution/list",
     excel: "/api/admin/v1/contribution/excel",
+    verify_payment: "/api/admin/v1/contribution/verify-payment",
+    payment_activity_log: `/api/admin/v1/contribution/payment-activity-log`,
     view: (id: string | number) => `/api/admin/v1/contribution/view/${id}`,
     activity_log: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}`,
     activity_log_excel: (id: string | number) => `/api/admin/v1/contribution/activity-log/${id}/excel`,
@@ -331,6 +333,9 @@ export const admin_api_routes = {
     view: (id: string | number) => `/api/admin/v1/attempted-contribution/view/${id}`,
     update: (id: string | number) => `/api/admin/v1/attempted-contribution/update/${id}`,
     excel_upload: (id: string | number) => `/api/admin/v1/attempted-contribution/excel-upload/${id}`,
+  },
+  payment_full_contribution: {
+    list: "/api/admin/v1/payment-full-contribution/list",
   },
   non_contribution: {
     list: "/api/admin/v1/non-contribution/list",

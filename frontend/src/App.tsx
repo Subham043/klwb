@@ -13,226 +13,227 @@ import { RolesEnum } from "./utils/constants/role";
 const AdminAuthLayout = lazy(() =>
   import("./layouts/Auth").then((module) => ({
     default: module.AdminAuthLayout,
-  }))
+  })),
 );
 const IndustryAuthLayout = lazy(() =>
   import("./layouts/Auth").then((module) => ({
     default: module.IndustryAuthLayout,
-  }))
+  })),
 );
 const InstituteAuthLayout = lazy(() =>
   import("./layouts/Auth").then((module) => ({
     default: module.InstituteAuthLayout,
-  }))
+  })),
 );
 const StudentAuthLayout = lazy(() =>
   import("./layouts/Auth").then((module) => ({
     default: module.StudentAuthLayout,
-  }))
+  })),
 );
 const AdminVerifiedLayout = lazy(() =>
   import("./layouts/Verified").then((module) => ({
     default: module.AdminVerifiedLayout,
-  }))
+  })),
 );
 const StudentVerifiedLayout = lazy(() =>
   import("./layouts/Verified").then((module) => ({
     default: module.StudentVerifiedLayout,
-  }))
+  })),
 );
 const InstituteVerifiedLayout = lazy(() =>
   import("./layouts/Verified").then((module) => ({
     default: module.InstituteVerifiedLayout,
-  }))
+  })),
 );
 const IndustryVerifiedLayout = lazy(() =>
   import("./layouts/Verified").then((module) => ({
     default: module.IndustryVerifiedLayout,
-  }))
+  })),
 );
 const AdminAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.AdminAuthorisedLayout,
-  }))
+  })),
 );
 const GovtAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.GovtAuthorisedLayout,
-  }))
+  })),
 );
 const FinanceAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.FinanceAuthorisedLayout,
-  }))
+  })),
 );
 const PaymentOfficerAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.PaymentOfficerAuthorisedLayout,
-  }))
+  })),
 );
 const StudentAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.StudentAuthorisedLayout,
-  }))
+  })),
 );
 const InstituteAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.InstituteAuthorisedLayout,
-  }))
+  })),
 );
 const IndustryAuthorisedLayout = lazy(() =>
   import("./layouts/Authorised").then((module) => ({
     default: module.IndustryAuthorisedLayout,
-  }))
+  })),
 );
 const AdminProtectedLayout = lazy(() =>
   import("./layouts/Protected").then((module) => ({
     default: module.AdminProtectedLayout,
-  }))
+  })),
 );
 const StudentProtectedLayout = lazy(() =>
   import("./layouts/Protected").then((module) => ({
     default: module.StudentProtectedLayout,
-  }))
+  })),
 );
 const InstituteProtectedLayout = lazy(() =>
   import("./layouts/Protected").then((module) => ({
     default: module.InstituteProtectedLayout,
-  }))
+  })),
 );
 const IndustryProtectedLayout = lazy(() =>
   import("./layouts/Protected").then((module) => ({
     default: module.IndustryProtectedLayout,
-  }))
+  })),
 );
 const AdminGuestLayout = lazy(() =>
   import("./layouts/Guest").then((module) => ({
     default: module.AdminGuestLayout,
-  }))
+  })),
 );
 const StudentGuestLayout = lazy(() =>
   import("./layouts/Guest").then((module) => ({
     default: module.StudentGuestLayout,
-  }))
+  })),
 );
 const InstituteGuestLayout = lazy(() =>
   import("./layouts/Guest").then((module) => ({
     default: module.InstituteGuestLayout,
-  }))
+  })),
 );
 const IndustryGuestLayout = lazy(() =>
   import("./layouts/Guest").then((module) => ({
     default: module.IndustryGuestLayout,
-  }))
+  })),
 );
 const DashboardLayout = lazy(() => import("./layouts/Dashboard"));
+const TrackLayout = lazy(() => import("./layouts/TrackLayout"));
 const StudentLoginPage = lazy(
-  () => import("./pages/Auth/LoginPage/StudentLoginPage")
+  () => import("./pages/Auth/LoginPage/StudentLoginPage"),
 );
 const AdminLoginPage = lazy(
-  () => import("./pages/Auth/LoginPage/AdminLoginPage")
+  () => import("./pages/Auth/LoginPage/AdminLoginPage"),
 );
 const IndustryLoginPage = lazy(
-  () => import("./pages/Auth/LoginPage/IndustryLoginPage")
+  () => import("./pages/Auth/LoginPage/IndustryLoginPage"),
 );
 const InstituteLoginPage = lazy(
-  () => import("./pages/Auth/LoginPage/InstituteLoginPage")
+  () => import("./pages/Auth/LoginPage/InstituteLoginPage"),
 );
 const StudentRegisterPage = lazy(
-  () => import("./pages/Auth/Register/StudentRegisterPage")
+  () => import("./pages/Auth/Register/StudentRegisterPage"),
 );
 const InstituteRegisterPage = lazy(
-  () => import("./pages/Auth/Register/InstituteRegisterPage")
+  () => import("./pages/Auth/Register/InstituteRegisterPage"),
 );
 const IndustryRegisterPage = lazy(
-  () => import("./pages/Auth/Register/IndustryRegisterPage")
+  () => import("./pages/Auth/Register/IndustryRegisterPage"),
 );
 const AdminForgotPasswordPage = lazy(() =>
   import("./pages/Auth/ForgotPasswordPage").then((module) => ({
     default: module.AdminForgotPasswordPage,
-  }))
+  })),
 );
 const IndustryForgotPasswordPage = lazy(() =>
   import("./pages/Auth/ForgotPasswordPage").then((module) => ({
     default: module.IndustryForgotPasswordPage,
-  }))
+  })),
 );
 const InstituteForgotPasswordPage = lazy(() =>
   import("./pages/Auth/ForgotPasswordPage").then((module) => ({
     default: module.InstituteForgotPasswordPage,
-  }))
+  })),
 );
 const StudentForgotPasswordPage = lazy(() =>
   import("./pages/Auth/ForgotPasswordPage").then((module) => ({
     default: module.StudentForgotPasswordPage,
-  }))
+  })),
 );
 const AdminResetPasswordPage = lazy(() =>
   import("./pages/Auth/ResetPassword").then((module) => ({
     default: module.AdminResetPasswordPage,
-  }))
+  })),
 );
 const StudentResetPasswordPage = lazy(() =>
   import("./pages/Auth/ResetPassword").then((module) => ({
     default: module.StudentResetPasswordPage,
-  }))
+  })),
 );
 const IndustryResetPasswordPage = lazy(() =>
   import("./pages/Auth/ResetPassword").then((module) => ({
     default: module.IndustryResetPasswordPage,
-  }))
+  })),
 );
 const InstituteResetPasswordPage = lazy(() =>
   import("./pages/Auth/ResetPassword").then((module) => ({
     default: module.InstituteResetPasswordPage,
-  }))
+  })),
 );
 const DashboardPage = lazy(() => import("./pages/Admin/Dashboard"));
 const InstituteDashboardPage = lazy(
-  () => import("./pages/Institute/Dashboard")
+  () => import("./pages/Institute/Dashboard"),
 );
 const InstituteScholarshipListPage = lazy(
-  () => import("./pages/Institute/ScholarshipList")
+  () => import("./pages/Institute/ScholarshipList"),
 );
 const InstituteScholarshipViewPage = lazy(
-  () => import("./pages/Institute/ScholarshipView")
+  () => import("./pages/Institute/ScholarshipView"),
 );
 const InstituteEmployeePage = lazy(() => import("./pages/Institute/Employee"));
 const IndustryDashboardPage = lazy(() => import("./pages/Industry/Dashboard"));
 const IndustryPaymentListPage = lazy(
-  () => import("./pages/Industry/PaymentList")
+  () => import("./pages/Industry/PaymentList"),
 );
 const IndustryPaymentViewPage = lazy(
-  () => import("./pages/Industry/PaymentView")
+  () => import("./pages/Industry/PaymentView"),
 );
 const IndustryPaymentStatusPage = lazy(
-  () => import("./pages/Industry/PaymentStatus")
+  () => import("./pages/Industry/PaymentStatus"),
 );
 const IndustryMakePaymentPage = lazy(
-  () => import("./pages/Industry/MakePayment")
+  () => import("./pages/Industry/MakePayment"),
 );
 const IndustryScholarshipListPage = lazy(
-  () => import("./pages/Industry/ScholarshipList")
+  () => import("./pages/Industry/ScholarshipList"),
 );
 const IndustryScholarshipViewPage = lazy(
-  () => import("./pages/Industry/ScholarshipView")
+  () => import("./pages/Industry/ScholarshipView"),
 );
 const IndustryEmployeePage = lazy(() => import("./pages/Industry/Employee"));
 const StudentDashboardPage = lazy(() => import("./pages/Student/Dashboard"));
 const StudentApplyScholarshipPage = lazy(
-  () => import("./pages/Student/ApplyScholarship")
+  () => import("./pages/Student/ApplyScholarship"),
 );
 const StudentResubmitScholarshipPage = lazy(
-  () => import("./pages/Student/ResubmitScholarship")
+  () => import("./pages/Student/ResubmitScholarship"),
 );
 const StudentScholarshipStatusPage = lazy(
-  () => import("./pages/Student/ScholarshipStatus")
+  () => import("./pages/Student/ScholarshipStatus"),
 );
 const StudentScholarshipListPage = lazy(
-  () => import("./pages/Student/ScholarshipList")
+  () => import("./pages/Student/ScholarshipList"),
 );
 const StudentScholarshipViewPage = lazy(
-  () => import("./pages/Student/ScholarshipView")
+  () => import("./pages/Student/ScholarshipView"),
 );
 const GraduationPage = lazy(() => import("./pages/Admin/Graduation"));
 const CoursePage = lazy(() => import("./pages/Admin/Course"));
@@ -244,92 +245,101 @@ const CityPage = lazy(() => import("./pages/Admin/City"));
 const TaluqPage = lazy(() => import("./pages/Taluq"));
 const InstitutePage = lazy(() => import("./pages/Admin/Institute"));
 const RegisteredInstitutePage = lazy(
-  () => import("./pages/Admin/RegisteredInstitute")
+  () => import("./pages/Admin/RegisteredInstitute"),
 );
 const RegisteredInstituteInfoPage = lazy(
-  () => import("./pages/Admin/RegisteredInstituteInfo")
+  () => import("./pages/Admin/RegisteredInstituteInfo"),
 );
 const NonRegisteredInstitutePage = lazy(
-  () => import("./pages/Admin/NonRegisteredInstitute")
+  () => import("./pages/Admin/NonRegisteredInstitute"),
 );
 const RequestInstitutePage = lazy(
-  () => import("./pages/Admin/RequestInstitute")
+  () => import("./pages/Admin/RequestInstitute"),
 );
 const SecurityQuestionPage = lazy(
-  () => import("./pages/Admin/SecurityQuestion")
+  () => import("./pages/Admin/SecurityQuestion"),
 );
 const ApplicationDatePage = lazy(() => import("./pages/Admin/ApplicationDate"));
 const ApplicationFeePage = lazy(() => import("./pages/Admin/ApplicationFee"));
 const HomePage = lazy(() => import("./pages/Home"));
 const InstituteRequestPage = lazy(
-  () => import("./pages/Auth/InstituteRequestPage")
+  () => import("./pages/Auth/InstituteRequestPage"),
 );
 const RequestIndustryPage = lazy(() => import("./pages/Admin/RequestIndustry"));
 const IndustryRequestPage = lazy(
-  () => import("./pages/Auth/IndustryRequestPage")
+  () => import("./pages/Auth/IndustryRequestPage"),
 );
 const IndustryPage = lazy(() => import("./pages/Admin/Industry"));
 const RegisteredIndustryPage = lazy(
-  () => import("./pages/Admin/RegisteredIndustry")
+  () => import("./pages/Admin/RegisteredIndustry"),
 );
 const RegisteredIndustryInfoPage = lazy(
-  () => import("./pages/Admin/RegisteredIndustryInfo")
+  () => import("./pages/Admin/RegisteredIndustryInfo"),
 );
 const NonRegisteredIndustryPage = lazy(
-  () => import("./pages/Admin/NonRegisteredIndustry")
+  () => import("./pages/Admin/NonRegisteredIndustry"),
 );
 const GovtDashboardPage = lazy(() => import("./pages/Govt/Dashboard"));
 const GovtScholarshipListPage = lazy(
-  () => import("./pages/Govt/ScholarshipList")
+  () => import("./pages/Govt/ScholarshipList"),
 );
 const GovtScholarshipViewPage = lazy(
-  () => import("./pages/Govt/ScholarshipView")
+  () => import("./pages/Govt/ScholarshipView"),
 );
 const FinanceDashboardPage = lazy(() => import("./pages/Finance/Dashboard"));
 const FinanceScholarshipListPage = lazy(
-  () => import("./pages/Finance/ScholarshipList")
+  () => import("./pages/Finance/ScholarshipList"),
 );
 const FinanceScholarshipViewPage = lazy(
-  () => import("./pages/Finance/ScholarshipView")
+  () => import("./pages/Finance/ScholarshipView"),
 );
 const AdminScholarshipListPage = lazy(
-  () => import("./pages/Admin/ScholarshipList")
+  () => import("./pages/Admin/ScholarshipList"),
 );
 const AdminNonRegisteredScholarshipListPage = lazy(
-  () => import("./pages/Admin/ScholarshipList/NonRegistered")
+  () => import("./pages/Admin/ScholarshipList/NonRegistered"),
 );
 const AdminScholarshipViewPage = lazy(
-  () => import("./pages/Admin/ScholarshipView")
+  () => import("./pages/Admin/ScholarshipView"),
 );
 const AdminNonContributionListPage = lazy(
-  () => import("./pages/Admin/NonContribution")
+  () => import("./pages/Admin/NonContribution"),
 );
 const AdminContributionListPage = lazy(
-  () => import("./pages/Admin/ContributionList")
+  () => import("./pages/Admin/ContributionList"),
+);
+const AdminContributionVerifyPayment = lazy(
+  () => import("./pages/Admin/ContributionVerifyPayment"),
+);
+const AdminPaymentFullContributionListPage = lazy(
+  () => import("./pages/Admin/PaymentFullContributionList"),
+);
+const AdminPaymentFullContributionActivityLogPage = lazy(
+  () => import("./pages/Admin/PaymentFullContributionActivityLog"),
 );
 const AdminAttemptedContributionListPage = lazy(
-  () => import("./pages/Admin/AttemptedContributionList")
+  () => import("./pages/Admin/AttemptedContributionList"),
 );
 const PaymentOfficerDashboardPage = lazy(
-  () => import("./pages/PaymentOfficer/Dashboard")
+  () => import("./pages/PaymentOfficer/Dashboard"),
 );
 const PaymentOfficerNonContributionListPage = lazy(
-  () => import("./pages/PaymentOfficer/NonContribution")
+  () => import("./pages/PaymentOfficer/NonContribution"),
 );
 const PaymentOfficerContributionListPage = lazy(
-  () => import("./pages/PaymentOfficer/ContributionList")
+  () => import("./pages/PaymentOfficer/ContributionList"),
 );
 const ScholarshipReportListPage = lazy(
-  () => import("./pages/Admin/ScholarshipReportList")
+  () => import("./pages/Admin/ScholarshipReportList"),
 );
 const ContributionReportListPage = lazy(
-  () => import("./pages/Admin/ContributionReportList")
+  () => import("./pages/Admin/ContributionReportList"),
 );
 const ContributionComparisonReportListPage = lazy(
-  () => import("./pages/Admin/ContributionComparisonReportList")
+  () => import("./pages/Admin/ContributionComparisonReportList"),
 );
 const GovtScholarshipReportListPage = lazy(
-  () => import("./pages/Govt/ScholarshipReportList")
+  () => import("./pages/Govt/ScholarshipReportList"),
 );
 
 function App() {
@@ -477,6 +487,27 @@ function App() {
                       path={page_routes.admin.contribution.completed_list}
                       element={<AdminContributionListPage />}
                     />
+                    <Route element={<TrackLayout />}>
+                      <Route
+                        path={page_routes.admin.track.verify_payment}
+                        element={<AdminContributionVerifyPayment />}
+                      />
+                      <Route
+                        path={
+                          page_routes.admin.track.payment_full_contribution_list
+                        }
+                        element={<AdminPaymentFullContributionListPage />}
+                      />
+                      <Route
+                        path={
+                          page_routes.admin.track
+                            .payment_full_contribution_activity_log
+                        }
+                        element={
+                          <AdminPaymentFullContributionActivityLogPage />
+                        }
+                      />
+                    </Route>
                     <Route
                       path={page_routes.admin.report.scholarship}
                       element={<ScholarshipReportListPage />}
