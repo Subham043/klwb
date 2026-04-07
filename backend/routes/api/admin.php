@@ -11,10 +11,12 @@ use App\Modules\Admins\ApplicationDates\Controllers\ApplicationDateViewControlle
 use App\Modules\Admins\Contributions\Controllers\AttemptedContributionExcelUploadController;
 use App\Modules\Admins\Contributions\Controllers\AttemptedContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\AttemptedContributionPaginateController;
+use App\Modules\Admins\Contributions\Controllers\PaymentFullContributionPaginateController;
 use App\Modules\Admins\Contributions\Controllers\AttemptedContributionUpdateController;
 use App\Modules\Admins\Contributions\Controllers\AttemptedContributionViewController;
 use App\Modules\Admins\Contributions\Controllers\ContributionActivityLogExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionActivityLogPaginateController;
+use App\Modules\Admins\Contributions\Controllers\PaymentFullContributionActivityLogPaginateController;
 use App\Modules\Admins\Contributions\Controllers\ContributionExcelUploadController;
 use App\Modules\Admins\Contributions\Controllers\ContributionExportController;
 use App\Modules\Admins\Contributions\Controllers\ContributionPaginateController;
@@ -26,6 +28,7 @@ use App\Modules\Admins\Contributions\Controllers\NonContributionPaginateControll
 use App\Modules\Admins\Contributions\Controllers\NonContributionPaymentMarkCompleteController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionPaymentPaginateController;
 use App\Modules\Admins\Contributions\Controllers\NonContributionViewController;
+use App\Modules\Admins\Contributions\Controllers\VerifyContributionController;
 use App\Modules\Admins\Dashboard\AdminDashboardController;
 use App\Modules\LocationManagement\Cities\Controllers\CityAllController;
 use App\Modules\LocationManagement\Cities\Controllers\CityCreateController;
@@ -453,12 +456,14 @@ Route::prefix('admin')->group(function () {
             Route::prefix('contribution')->group(function () {
 				Route::get('/list', [ContributionPaginateController::class, 'index']);
 				Route::get('/excel', [ContributionExportController::class, 'index']);
+				Route::get('/payment-activity-log', [PaymentFullContributionActivityLogPaginateController::class, 'index']);
 				Route::get('/view/{id}', [ContributionViewController::class, 'index']);
 				Route::get('/reciept/{id}', [ContributionRecieptPdfController::class, 'index']);
 				Route::post('/update/{id}', [ContributionUpdateController::class, 'index']);
 				Route::post('/excel-upload/{id}', [ContributionExcelUploadController::class, 'index']);
 				Route::get('/activity-log/{id}', [ContributionActivityLogPaginateController::class, 'index']);
 				Route::get('/activity-log/{id}/excel', [ContributionActivityLogExportController::class, 'index']);
+				Route::post('/verify-payment', [VerifyContributionController::class, 'index']);
 			});
             Route::prefix('attempted-contribution')->group(function () {
 				Route::get('/list', [AttemptedContributionPaginateController::class, 'index']);
@@ -466,6 +471,9 @@ Route::prefix('admin')->group(function () {
 				Route::get('/view/{id}', [AttemptedContributionViewController::class, 'index']);
 				Route::post('/update/{id}', [AttemptedContributionUpdateController::class, 'index']);
 				Route::post('/excel-upload/{id}', [AttemptedContributionExcelUploadController::class, 'index']);
+			});
+            Route::prefix('payment-full-contribution')->group(function () {
+				Route::get('/list', [PaymentFullContributionPaginateController::class, 'index']);
 			});
             Route::prefix('non-contribution')->group(function () {
 				Route::get('/list', [NonContributionPaginateController::class, 'index']);
