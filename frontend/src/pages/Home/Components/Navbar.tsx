@@ -56,8 +56,8 @@ const Navbar: FC<{ language: LanguagesEnum }> = ({ language }) => {
               </h1>
               <h2 className={classes.ministerPosition}>
                 {language === LanguagesEnum.KANNADA
-                  ? "ಮಾನ್ಯ ಉಪ ಮುಖ್ಯ ಮಂತ್ರಿ ಕರ್ನಾಟಕ ಸರ್ಕಾರ"
-                  : "Hon'able Deputy Chief Minister Govt. of Karnataka"}
+                  ? "ಮಾನ್ಯ ಮುಖ್ಯ ಮಂತ್ರಿ ಕರ್ನಾಟಕ ಸರ್ಕಾರ"
+                  : "Hon'able Chief Minister Govt. of Karnataka"}
               </h2>
             </div>
           </div>
